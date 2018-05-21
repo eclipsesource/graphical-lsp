@@ -7,6 +7,7 @@ public class SetModelAction implements Action {
 	public static final String KIND = "setModel";
 
 	private SModelRoot newRoot;
+	private String kind = KIND;
 
 	public SetModelAction(SModelRoot newRoot) {
 		this.newRoot = newRoot;
@@ -18,7 +19,7 @@ public class SetModelAction implements Action {
 
 	@Override
 	public String getKind() {
-		return SetModelAction.KIND;
+		return kind;
 	}
 
 	@Override

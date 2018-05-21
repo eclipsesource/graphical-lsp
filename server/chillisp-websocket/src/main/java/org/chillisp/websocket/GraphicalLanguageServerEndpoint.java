@@ -13,15 +13,15 @@ import com.google.gson.JsonSyntaxException;
 
 import at.tortmayr.chillisp.api.ActionMessage;
 import at.tortmayr.chillisp.api.IGraphicalLanguageServer;
-import io.typefox.sprotty.server.json.ActionTypeAdapter;
+import chillisp.websocket.json.ActionTypeAdapter;
 
-public class GraphicalLanguageServerEndpoint extends Endpoint {
+
+public class GraphicalLanguageServerEndpoint extends Endpoint implements Consumer<ActionMessage> {
 	private Session session;
 	private Consumer<Exception> exceptionHandler;
 
 	private IGraphicalLanguageServer.Provider glServerProvider;
 	private Gson gson;
-	private ActionMessageConsumer messageConsumer;
 
 	public GraphicalLanguageServerEndpoint() {
 		initializeGson();
@@ -64,24 +64,21 @@ public class GraphicalLanguageServerEndpoint extends Endpoint {
 
 	}
 
+	@Override
+	public void accept(ActionMessage message) {
+		String json = gson.toJson(message, ActionMessage.class);
+		session.getAsyncRemote().sendText(json);
+
+	}
+
 	protected void fireMessageReceived(ActionMessage message) {
 		IGraphicalLanguageServer glServer = glServerProvider.getGraphicalLanguageServer(message.getClientId());
 		if (glServer != null) {
-			if (!messageConsumer.equals(glServer.getRemoteEndpoint())) {
-				glServer.setRemoteEndpoint(messageConsumer);
+			if (!this.equals(glServer.getRemoteEndpoint())) {
+				glServer.setRemoteEndpoint(this);
 			}
 			glServer.accept(message);
 		}
-	}
-
-	class ActionMessageConsumer implements Consumer<ActionMessage> {
-
-		@Override
-		public void accept(ActionMessage message) {
-			String json = gson.toJson(message, ActionMessage.class);
-			session.getAsyncRemote().sendText(json);
-		}
-
 	}
 
 	class ActionMessageHandler implements MessageHandler.Whole<String> {

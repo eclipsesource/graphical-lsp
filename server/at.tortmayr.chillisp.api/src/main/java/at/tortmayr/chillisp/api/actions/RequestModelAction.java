@@ -8,14 +8,18 @@ public class RequestModelAction implements Action {
 	public static final String KIND = "requestModel";
 
 	private Map<String, String> options;
+	private String kind = KIND;
 
-	public RequestModelAction(Map<String, String> options) {
+	public RequestModelAction() {
+		
+	}
+	public RequestModelAction(Map<String, String> options, String kind) {
 		this.options = options;
 	}
 
 	@Override
 	public String getKind() {
-		return RequestModelAction.KIND;
+		return kind;
 	}
 
 	public Map<String, String> getOptions() {
