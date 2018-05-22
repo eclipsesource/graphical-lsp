@@ -5,7 +5,7 @@
 
 	<groupId>at.tortmayr.chillisp</groupId>
 	<artifactId>chillisp-api</artifactId>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 
 	<name>chillisp-api</name>
 
