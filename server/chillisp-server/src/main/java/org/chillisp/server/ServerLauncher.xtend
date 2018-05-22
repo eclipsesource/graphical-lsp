@@ -69,7 +69,7 @@ class ServerLauncher {
 
 		val container = WebSocketServerContainerInitializer.configureContext(context);
 
-		var builder = ServerEndpointConfig.Builder.create(TestServerEndpoint, "/echo");
+		var builder = ServerEndpointConfig.Builder.create(TestServerEndpoint, "/diagram");
 		builder=builder.configurator(new TestEndpointConfigurator)
 		val config = builder.build
 		container.addEndpoint(config)

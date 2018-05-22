@@ -18,4 +18,11 @@ public class ActionMessage {
 		return clientId;
 	}
 
+	@Override
+	public String toString() {
+		return "ActionMessage [action=" + action.getKind() + ", clientId=" + clientId + "]";
+	}
+	
+	
+
 }

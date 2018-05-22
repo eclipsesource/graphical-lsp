@@ -96,7 +96,7 @@ public class ServerLauncher {
       context.setContextPath("/");
       server.setHandler(context);
       final ServerContainer container = WebSocketServerContainerInitializer.configureContext(context);
-      ServerEndpointConfig.Builder builder = ServerEndpointConfig.Builder.create(ServerLauncher.TestServerEndpoint.class, "/echo");
+      ServerEndpointConfig.Builder builder = ServerEndpointConfig.Builder.create(ServerLauncher.TestServerEndpoint.class, "/diagram");
       ServerLauncher.TestEndpointConfigurator _testEndpointConfigurator = new ServerLauncher.TestEndpointConfigurator();
       builder = builder.configurator(_testEndpointConfigurator);
       final ServerEndpointConfig config = builder.build();

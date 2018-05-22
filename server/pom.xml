@@ -18,7 +18,7 @@
 		</plugins>
 	</build>
 	<modules>
-		<module>at.tortmayr.chillisp.api</module>
+		<module>chillisp-api</module>
 		<module>chillisp-websocket</module>
 		<module>chillisp-server</module>
 	</modules>
