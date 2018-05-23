@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import at.tortmayr.chillisp.api.Action;
 import at.tortmayr.chillisp.api.ActionMessage;
+import at.tortmayr.chillisp.api.IAction;
 import at.tortmayr.chillisp.api.IActionHandler;
 import at.tortmayr.chillisp.api.IGraphicalLanguageServer;
+import at.tortmayr.chillisp.api.actions.Action;
 import at.tortmayr.chillisp.api.actions.RequestModelAction;
 import at.tortmayr.chillisp.api.actions.SetModelAction;
 import io.typefox.sprotty.api.Dimension;
@@ -26,15 +27,16 @@ public class DefaultGLServer implements IGraphicalLanguageServer {
 	private Object modelLock;
 
 	public DefaultGLServer() {
+
+		currentRoot = new SModelRoot();
+		currentRoot.setType("graph");
+		currentRoot.setId("sprotty");
 		SNode node = new SNode();
 		node.setId("first");
 		node.setType("node");
 		node.setLayout("vbox");
 		node.setPosition(new Point(100, 100));
 		node.setSize(new Dimension(25, 25));
-		currentRoot = new SModelRoot();
-		currentRoot.setType("graph");
-		currentRoot.setId("sprotty");
 		List<SModelElement> children = new ArrayList<>();
 		children.add(node);
 		currentRoot.setChildren(children);
@@ -50,9 +52,9 @@ public class DefaultGLServer implements IGraphicalLanguageServer {
 	public void accept(ActionMessage message) {
 		String clientId = getClientId();
 		if (clientId != null && clientId.equals(message.getClientId())) {
-			Action action = message.getAction();
+			IAction action = message.getAction();
 			switch (action.getKind()) {
-			case RequestModelAction.KIND:
+			case Action.Kind.REQUEST_MODEL:
 				actionHandler.handle((RequestModelAction) action);
 			}
 
@@ -60,7 +62,7 @@ public class DefaultGLServer implements IGraphicalLanguageServer {
 	}
 
 	@Override
-	public void dispatch(Action action) {
+	public void dispatch(IAction action) {
 		Consumer<ActionMessage> remoteEndpoint = getRemoteEndpoint();
 		if (remoteEndpoint != null) {
 			remoteEndpoint.accept(new ActionMessage(getClientId(), action));

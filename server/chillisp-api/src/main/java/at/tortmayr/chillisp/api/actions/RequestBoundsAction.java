@@ -2,19 +2,12 @@ package at.tortmayr.chillisp.api.actions;
 
 import io.typefox.sprotty.api.SModelRoot;
 
-public class SetModelAction extends Action {
-
-	public SetModelAction() {
-		super(Action.Kind.SET_MODEL);
-
-	}
-
-	public SetModelAction(SModelRoot newRoot) {
-		this();
-		this.newRoot = newRoot;
-	}
-
+public class RequestBoundsAction extends Action {
 	private SModelRoot newRoot;
+
+	public RequestBoundsAction() {
+		super(Action.Kind.REQUEST_BOUNDS);
+	}
 
 	public SModelRoot getNewRoot() {
 		return newRoot;
@@ -23,7 +16,7 @@ public class SetModelAction extends Action {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		int result = super.hashCode();
 		result = prime * result + ((newRoot == null) ? 0 : newRoot.hashCode());
 		return result;
 	}
@@ -32,11 +25,11 @@ public class SetModelAction extends Action {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SetModelAction other = (SetModelAction) obj;
+		RequestBoundsAction other = (RequestBoundsAction) obj;
 		if (newRoot == null) {
 			if (other.newRoot != null)
 				return false;

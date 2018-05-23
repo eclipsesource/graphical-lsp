@@ -25,6 +25,6 @@ public interface IGraphicalLanguageServer extends Consumer<ActionMessage> {
 		IGraphicalLanguageServer getGraphicalLanguageServer(String clientId);
 	}
 
-	void dispatch(Action action);
+	void dispatch(IAction action);
 
 }
