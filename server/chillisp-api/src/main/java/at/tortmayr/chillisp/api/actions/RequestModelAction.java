@@ -2,24 +2,17 @@ package at.tortmayr.chillisp.api.actions;
 
 import java.util.Map;
 
-import at.tortmayr.chillisp.api.Action;
-
-public class RequestModelAction implements Action {
-	public static final String KIND = "requestModel";
+public class RequestModelAction extends Action {
 
 	private Map<String, String> options;
-	private String kind = KIND;
 
 	public RequestModelAction() {
-		
-	}
-	public RequestModelAction(Map<String, String> options, String kind) {
-		this.options = options;
+		super(Action.Kind.REQUEST_MODEL);
 	}
 
-	@Override
-	public String getKind() {
-		return kind;
+	public RequestModelAction(Map<String, String> options) {
+		this();
+		this.options = options;
 	}
 
 	public Map<String, String> getOptions() {

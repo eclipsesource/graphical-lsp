@@ -2,19 +2,17 @@ package at.tortmayr.chillisp.api.actions;
 
 import io.typefox.sprotty.api.SModelRoot;
 
-public class SetModelAction extends Action {
+public class SetPopupModelAction extends Action {
+	private SModelRoot newRoot;
 
-	public SetModelAction() {
-		super(Action.Kind.SET_MODEL);
-
+	public SetPopupModelAction() {
+		super(Action.Kind.SET_POPUP_MODEL);
 	}
 
-	public SetModelAction(SModelRoot newRoot) {
+	public SetPopupModelAction(SModelRoot newRoot) {
 		this();
 		this.newRoot = newRoot;
 	}
-
-	private SModelRoot newRoot;
 
 	public SModelRoot getNewRoot() {
 		return newRoot;
@@ -23,7 +21,7 @@ public class SetModelAction extends Action {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		int result = super.hashCode();
 		result = prime * result + ((newRoot == null) ? 0 : newRoot.hashCode());
 		return result;
 	}
@@ -32,11 +30,11 @@ public class SetModelAction extends Action {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SetModelAction other = (SetModelAction) obj;
+		SetPopupModelAction other = (SetPopupModelAction) obj;
 		if (newRoot == null) {
 			if (other.newRoot != null)
 				return false;

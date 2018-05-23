@@ -1,7 +1,6 @@
 package at.tortmayr.chillisp.api;
 
-public interface Action {
-
+public interface IAction {
 	String getKind();
 
 }
