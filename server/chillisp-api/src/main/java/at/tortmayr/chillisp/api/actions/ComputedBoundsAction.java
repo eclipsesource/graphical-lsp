@@ -2,19 +2,20 @@ package at.tortmayr.chillisp.api.actions;
 
 import java.util.Arrays;
 
+import at.tortmayr.chillisp.api.ActionRegistry;
 import io.typefox.sprotty.api.ElementAndAlignment;
 import io.typefox.sprotty.api.ElementAndBounds;
 
-public class ComputeBoundsAction extends Action {
+public class ComputedBoundsAction extends Action {
 
 	private ElementAndBounds[] bounds;
 	private ElementAndAlignment[] alignments;
 
-	public ComputeBoundsAction() {
-		super(Action.Kind.COMPUTE_BOUNDS);
+	public ComputedBoundsAction() {
+		super(ActionRegistry.Kind.COMPUTED_BOUNDS);
 	}
 
-	public ComputeBoundsAction(ElementAndBounds[] bounds, ElementAndAlignment[] alignments) {
+	public ComputedBoundsAction(ElementAndBounds[] bounds, ElementAndAlignment[] alignments) {
 		this();
 		this.bounds = bounds;
 		this.alignments = alignments;
@@ -45,7 +46,7 @@ public class ComputeBoundsAction extends Action {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ComputeBoundsAction other = (ComputeBoundsAction) obj;
+		ComputedBoundsAction other = (ComputedBoundsAction) obj;
 		if (!Arrays.equals(alignments, other.alignments))
 			return false;
 		if (!Arrays.equals(bounds, other.bounds))

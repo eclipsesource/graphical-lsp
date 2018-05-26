@@ -1,12 +1,13 @@
 package at.tortmayr.chillisp.api.actions;
 
+import at.tortmayr.chillisp.api.ActionRegistry;
 import io.typefox.sprotty.api.SModelRoot;
 
 public class SetPopupModelAction extends Action {
 	private SModelRoot newRoot;
 
 	public SetPopupModelAction() {
-		super(Action.Kind.SET_POPUP_MODEL);
+		super(ActionRegistry.Kind.SET_POPUP_MODEL);
 	}
 
 	public SetPopupModelAction(SModelRoot newRoot) {

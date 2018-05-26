@@ -2,12 +2,14 @@ package at.tortmayr.chillisp.api.actions;
 
 import java.util.Arrays;
 
+import at.tortmayr.chillisp.api.ActionRegistry;
+
 public class SelectAction extends Action {
 	private String[] selectedElementsIDs;
 	private String[] deselectedElementsIDs;
 
 	public SelectAction() {
-		super(Action.Kind.SELECT);
+		super(ActionRegistry.Kind.SELECT);
 	}
 
 	public SelectAction(String[] selectedElementsIDs, String[] deselectedElementsIDs) {

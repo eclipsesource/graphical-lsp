@@ -1,11 +1,13 @@
 package at.tortmayr.chillisp.api.actions;
 
+import at.tortmayr.chillisp.api.ActionRegistry;
+
 public class ToogleLayerAction extends Action {
 	private String layerName;
 	private boolean newState;
 
 	public ToogleLayerAction() {
-		super(Action.Kind.TOOGLE_LAYER);
+		super(ActionRegistry.Kind.TOOGLE_LAYER);
 
 	}
 

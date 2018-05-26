@@ -13,7 +13,7 @@ import com.google.gson.JsonSyntaxException;
 
 import at.tortmayr.chillisp.api.ActionMessage;
 import at.tortmayr.chillisp.api.IGraphicalLanguageServer;
-import chillisp.websocket.json.ActionTypeAdapter;
+import at.tortmayr.chillisp.api.json.ActionTypeAdapter;
 
 
 public class GraphicalLanguageServerEndpoint extends Endpoint implements Consumer<ActionMessage> {

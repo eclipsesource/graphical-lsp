@@ -2,6 +2,7 @@ package at.tortmayr.chillisp.api.actions;
 
 import java.util.Arrays;
 
+import at.tortmayr.chillisp.api.ActionRegistry;
 import io.typefox.sprotty.api.Bounds;
 
 public class RequestPopupModelAction extends Action {
@@ -10,7 +11,7 @@ public class RequestPopupModelAction extends Action {
 	private Bounds bounds;
 
 	public RequestPopupModelAction() {
-		super(Action.Kind.REQUEST_POPUP_MODEL);
+		super(ActionRegistry.Kind.REQUEST_POPUP_MODEL);
 	}
 
 	public RequestPopupModelAction(String[] elementIds, Bounds bounds) {

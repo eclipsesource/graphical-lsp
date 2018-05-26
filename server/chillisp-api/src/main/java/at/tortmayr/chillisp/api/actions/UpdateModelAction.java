@@ -2,6 +2,7 @@ package at.tortmayr.chillisp.api.actions;
 
 import java.util.Arrays;
 
+import at.tortmayr.chillisp.api.ActionRegistry;
 import at.tortmayr.chillisp.api.type.Match;
 import io.typefox.sprotty.api.SModelRoot;
 
@@ -11,7 +12,7 @@ public class UpdateModelAction extends Action {
 	private boolean animate;
 
 	public UpdateModelAction() {
-		super(Action.Kind.UPDATE_MODEL);
+		super(ActionRegistry.Kind.UPDATE_MODEL);
 	}
 
 	public UpdateModelAction(SModelRoot newRoot, Match[] machtes, boolean animate) {

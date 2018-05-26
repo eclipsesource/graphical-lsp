@@ -1,5 +1,6 @@
 package at.tortmayr.chillisp.api.actions;
 
+import at.tortmayr.chillisp.api.ActionRegistry;
 import io.typefox.sprotty.api.Point;
 
 public class ExecuteNodeCreationToolAction extends Action {
@@ -9,7 +10,7 @@ public class ExecuteNodeCreationToolAction extends Action {
 	private String containerId;
 
 	public ExecuteNodeCreationToolAction() {
-		super(Action.Kind.EXECUTE_NODE_CREATION_TOOL);
+		super(ActionRegistry.Kind.EXECUTE_NODE_CREATION_TOOL);
 	}
 
 	public ExecuteNodeCreationToolAction(String toolId, Point location, String containerId) {
