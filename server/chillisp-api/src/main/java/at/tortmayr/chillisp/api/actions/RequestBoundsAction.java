@@ -1,12 +1,13 @@
 package at.tortmayr.chillisp.api.actions;
 
+import at.tortmayr.chillisp.api.ActionRegistry;
 import io.typefox.sprotty.api.SModelRoot;
 
 public class RequestBoundsAction extends Action {
 	private SModelRoot newRoot;
 
 	public RequestBoundsAction() {
-		super(Action.Kind.REQUEST_BOUNDS);
+		super(ActionRegistry.Kind.REQUEST_BOUNDS);
 	}
 
 	public SModelRoot getNewRoot() {

@@ -2,13 +2,14 @@ package at.tortmayr.chillisp.api.actions;
 
 import java.util.Arrays;
 
+import at.tortmayr.chillisp.api.ActionRegistry;
 import io.typefox.sprotty.api.ElementAndBounds;
 
 public class SetBoundsAction extends Action {
 	private ElementAndBounds[] bounds;
 
 	public SetBoundsAction() {
-		super(Action.Kind.SET_BOUNDS);
+		super(ActionRegistry.Kind.SET_BOUNDS);
 	}
 
 	public SetBoundsAction(ElementAndBounds[] bounds) {

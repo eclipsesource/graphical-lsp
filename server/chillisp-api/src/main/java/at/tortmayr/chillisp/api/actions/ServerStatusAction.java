@@ -2,13 +2,15 @@ package at.tortmayr.chillisp.api.actions;
 
 import java.util.Arrays;
 
+import at.tortmayr.chillisp.api.ActionRegistry;
+
 public class ServerStatusAction extends Action {
 	private String severity;
 	private String message;
 	private String[] elementIds;
 
 	public ServerStatusAction() {
-		super(Action.Kind.SERVER_STATUS);
+		super(ActionRegistry.Kind.SERVER_STATUS);
 	}
 
 	public ServerStatusAction(String severity, String message, String[] elementIds) {

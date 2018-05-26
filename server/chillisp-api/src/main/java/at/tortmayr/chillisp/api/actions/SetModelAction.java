@@ -1,11 +1,12 @@
 package at.tortmayr.chillisp.api.actions;
 
+import at.tortmayr.chillisp.api.ActionRegistry;
 import io.typefox.sprotty.api.SModelRoot;
 
 public class SetModelAction extends Action {
 
 	public SetModelAction() {
-		super(Action.Kind.SET_MODEL);
+		super(ActionRegistry.Kind.SET_MODEL);
 
 	}
 

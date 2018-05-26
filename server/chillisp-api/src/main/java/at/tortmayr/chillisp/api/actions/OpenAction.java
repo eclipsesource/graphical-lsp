@@ -1,14 +1,16 @@
 package at.tortmayr.chillisp.api.actions;
 
+import at.tortmayr.chillisp.api.ActionRegistry;
+
 public class OpenAction extends Action {
 	private String elementId;
 
 	public OpenAction() {
-		super(Action.Kind.OPEN);
+		super(ActionRegistry.Kind.OPEN);
 	}
 
 	public OpenAction(String elementId) {
-		super(Action.Kind.OPEN);
+		super(ActionRegistry.Kind.OPEN);
 		this.elementId = elementId;
 	}
 

@@ -2,6 +2,7 @@ package at.tortmayr.chillisp.api.actions;
 
 import java.util.Arrays;
 
+import at.tortmayr.chillisp.api.ActionRegistry;
 import at.tortmayr.chillisp.api.type.DragAndDropHint;
 
 public class SetMoveHintsAction extends Action {
@@ -9,7 +10,7 @@ public class SetMoveHintsAction extends Action {
 	private DragAndDropHint[] hints;
 
 	public SetMoveHintsAction() {
-		super(Action.Kind.SET_MOVE_HINTS);
+		super(ActionRegistry.Kind.SET_MOVE_HINTS);
 	}
 
 	public SetMoveHintsAction(DragAndDropHint[] hints) {

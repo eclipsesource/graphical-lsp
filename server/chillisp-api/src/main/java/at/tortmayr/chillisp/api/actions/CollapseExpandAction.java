@@ -2,6 +2,8 @@ package at.tortmayr.chillisp.api.actions;
 
 import java.util.Arrays;
 
+import at.tortmayr.chillisp.api.ActionRegistry;
+
 public class CollapseExpandAction extends Action {
 
 	private String[] expandIds;
@@ -9,7 +11,7 @@ public class CollapseExpandAction extends Action {
 	private boolean collapse = true;
 
 	public CollapseExpandAction() {
-		super(Action.Kind.COLLAPSE_EXPAND);
+		super(ActionRegistry.Kind.COLLAPSE_EXPAND);
 	}
 
 	public CollapseExpandAction(String[] expandIds, String[] collapseIds, boolean collapse) {

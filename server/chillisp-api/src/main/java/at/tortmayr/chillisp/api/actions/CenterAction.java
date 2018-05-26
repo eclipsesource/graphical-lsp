@@ -2,13 +2,15 @@ package at.tortmayr.chillisp.api.actions;
 
 import java.util.Arrays;
 
+import at.tortmayr.chillisp.api.ActionRegistry;
+
 public class CenterAction extends Action {
 
 	private String[] elementIDs;
 	private boolean animate = true;
 
 	public CenterAction() {
-		super(Action.Kind.CENTER);
+		super(ActionRegistry.Kind.CENTER);
 	}
 
 	public CenterAction(String[] elementIDs, boolean animate) {

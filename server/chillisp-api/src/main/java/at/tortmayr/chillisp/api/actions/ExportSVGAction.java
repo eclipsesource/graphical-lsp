@@ -1,10 +1,12 @@
 package at.tortmayr.chillisp.api.actions;
 
+import at.tortmayr.chillisp.api.ActionRegistry;
+
 public class ExportSVGAction extends Action {
 	private String svg;
 
 	public ExportSVGAction() {
-		super(Action.Kind.EXPORT_SVG);
+		super(ActionRegistry.Kind.EXPORT_SVG);
 	}
 
 	public ExportSVGAction(String svg) {

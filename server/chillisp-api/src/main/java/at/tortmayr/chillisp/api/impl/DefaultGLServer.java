@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import at.tortmayr.chillisp.api.ActionMessage;
+import at.tortmayr.chillisp.api.ActionRegistry;
 import at.tortmayr.chillisp.api.IAction;
 import at.tortmayr.chillisp.api.IActionHandler;
 import at.tortmayr.chillisp.api.IGraphicalLanguageServer;
-import at.tortmayr.chillisp.api.actions.Action;
 import at.tortmayr.chillisp.api.actions.RequestModelAction;
 import at.tortmayr.chillisp.api.actions.SetModelAction;
 import io.typefox.sprotty.api.Dimension;
@@ -54,7 +54,7 @@ public class DefaultGLServer implements IGraphicalLanguageServer {
 		if (clientId != null && clientId.equals(message.getClientId())) {
 			IAction action = message.getAction();
 			switch (action.getKind()) {
-			case Action.Kind.REQUEST_MODEL:
+			case ActionRegistry.Kind.REQUEST_MODEL:
 				actionHandler.handle((RequestModelAction) action);
 			}
 
