@@ -1,8 +1,6 @@
 package at.tortmayr.chillisp.api.actions;
 
-import at.tortmayr.chillisp.api.IAction;
-
-public abstract class Action implements IAction {
+public abstract class Action {
 
 	private String kind;
 
@@ -11,7 +9,6 @@ public abstract class Action implements IAction {
 		this.kind = kind;
 	}
 
-	@Override
 	public String getKind() {
 		return kind;
 	}

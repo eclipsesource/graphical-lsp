@@ -9,12 +9,11 @@ import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
 
 import at.tortmayr.chillisp.api.ActionRegistry;
-import at.tortmayr.chillisp.api.IAction;
 import at.tortmayr.chillisp.api.actions.Action;
 import io.typefox.sprotty.server.json.EnumTypeAdapter;
 import io.typefox.sprotty.server.json.PropertyBasedTypeAdapter;
 
-public class ActionTypeAdapter extends PropertyBasedTypeAdapter<IAction> {
+public class ActionTypeAdapter extends PropertyBasedTypeAdapter<Action> {
 
 	public static GsonBuilder configureGson(GsonBuilder gsonBuilder) {
 		gsonBuilder.registerTypeAdapterFactory(new ActionTypeAdapter.Factory())
@@ -27,12 +26,12 @@ public class ActionTypeAdapter extends PropertyBasedTypeAdapter<IAction> {
 	}
 
 	@Override
-	protected IAction createInstance(String kind) {
-		Class<? extends IAction> clazz = ActionRegistry.getActionClass(kind);
+	protected Action createInstance(String kind) {
+		Class<? extends Action> clazz = ActionRegistry.getActionClass(kind);
 		if (clazz == null)
 			throw new IllegalArgumentException("Unknown action kind: " + kind);
 		try {
-			Constructor<? extends IAction> constructor = clazz.getConstructor();
+			Constructor<? extends Action> constructor = clazz.getConstructor();
 			return constructor.newInstance();
 		} catch (NoSuchMethodException e) {
 			throw new RuntimeException("Action class does not have a default constructor.", e);

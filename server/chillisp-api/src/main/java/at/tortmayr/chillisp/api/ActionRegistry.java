@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import at.tortmayr.chillisp.api.actions.Action;
 import at.tortmayr.chillisp.api.actions.CenterAction;
 import at.tortmayr.chillisp.api.actions.ChangeBoundsAction;
 import at.tortmayr.chillisp.api.actions.CollapseExpandAction;
@@ -37,7 +38,7 @@ import at.tortmayr.chillisp.api.actions.ToogleLayerAction;
 import at.tortmayr.chillisp.api.actions.UpdateModelAction;
 
 public class ActionRegistry {
-	private static Map<String, Class<? extends IAction>> actionKinds = new HashMap<String, Class<? extends IAction>>() {
+	private static Map<String, Class<? extends Action>> actionKinds = new HashMap<String, Class<? extends Action>>() {
 
 		private static final long serialVersionUID = 1L;
 
@@ -76,44 +77,42 @@ public class ActionRegistry {
 		}
 	};
 
-	private static Map<String, Consumer<IAction>> actionConsumers = new HashMap<>();
+	private static Map<String, Consumer<Action>> actionConsumers = new HashMap<>();
 
-	public static Class<? extends IAction> getActionClass(String kind) {
+	public static Class<? extends Action> getActionClass(String kind) {
 		return actionKinds.get(kind);
 	}
 
-	public static Consumer<IAction> getActionConsumer(String kind) {
+	public static Consumer<Action> getActionConsumer(String kind) {
 		return actionConsumers.get(kind);
 	}
 
-	public static void bindActionHandler(IActionHandler actionHandler) {
-		actionConsumers = new HashMap<String, Consumer<IAction>>() {
+	public static void bindActionHandler(IRequestActionHandler actionHandler) {
+		actionConsumers = new HashMap<String, Consumer<Action>>() {
 			private static final long serialVersionUID = 1L;
 			{
-				put(Kind.REQUEST_MODEL, (IAction a) -> actionHandler.handle((RequestModelAction) a));
-				put(Kind.CENTER, (IAction a) -> actionHandler.handle((CenterAction) a));
-				put(Kind.COLLAPSE_EXPAND, (IAction a) -> actionHandler.handle((CollapseExpandAction) a));
-				put(Kind.COLLAPSE_EXPAND_ALL, (IAction a) -> actionHandler.handle((CollapseExpandAllAction) a));
-				put(Kind.COMPUTED_BOUNDS, (IAction a) -> actionHandler.handle((ComputedBoundsAction) a));
+				put(Kind.REQUEST_MODEL, (Action a) -> actionHandler.handle((RequestModelAction) a));
+				put(Kind.CENTER, (Action a) -> actionHandler.handle((CenterAction) a));
+				put(Kind.COLLAPSE_EXPAND, (Action a) -> actionHandler.handle((CollapseExpandAction) a));
+				put(Kind.COLLAPSE_EXPAND_ALL, (Action a) -> actionHandler.handle((CollapseExpandAllAction) a));
+				put(Kind.COMPUTED_BOUNDS, (Action a) -> actionHandler.handle((ComputedBoundsAction) a));
 				put(Kind.EXECUTE_NODE_CREATION_TOOL,
-						(IAction a) -> actionHandler.handle((ExecuteNodeCreationToolAction) a));
-				put(Kind.COMPUTED_BOUNDS, (IAction a) -> actionHandler.handle((ExecuteToolAction) a));
+						(Action a) -> actionHandler.handle((ExecuteNodeCreationToolAction) a));
+				put(Kind.COMPUTED_BOUNDS, (Action a) -> actionHandler.handle((ExecuteToolAction) a));
 				put(Kind.REQUEST_BOUNDS_CHANGE_HINTS,
-						(IAction a) -> actionHandler.handle((RequestBoundsChangeHintsAction) a));
-				put(Kind.CHANGE_BOUNDS_ACTION, (IAction a) -> actionHandler.handle((ChangeBoundsAction) a));
-				put(Kind.REQUEST_MOVE_HINTS, (IAction a) -> actionHandler.handle((RequestMoveHintsAction) a));
-				put(Kind.MOVE, (IAction a) -> actionHandler.handle((MoveAction) a));
-				put(Kind.FIT_TO_SCREEN, (IAction a) -> actionHandler.handle((FitToScreenAction) a));
-				put(Kind.OPEN, (IAction a) -> actionHandler.handle((OpenAction) a));
-				put(Kind.REQUEST_BOUNDS, (IAction a) -> actionHandler.handle((RequestBoundsAction) a));
-				put(Kind.REQUEST_EXPORT_SVG, (IAction a) -> actionHandler.handle((RequestExportSvgAction) a));
-				put(Kind.REQUEST_LAYERS, (IAction a) -> actionHandler.handle((RequestLayersAction) a));
-				put(Kind.REQUEST_POPUP_MODEL, (IAction a) -> actionHandler.handle((RequestPopupModelAction) a));
-				put(Kind.REQUEST_TOOLS, (IAction a) -> actionHandler.handle((RequestToolsAction) a));
-				put(Kind.SELECT, (IAction a) -> actionHandler.handle((SelectAction) a));
-				put(Kind.SELECT_ALL_ACTION, (IAction a) -> actionHandler.handle((SelectAllAction) a));
-				put(Kind.SERVER_STATUS, (IAction a) -> actionHandler.handle((ServerStatusAction) a));
-				put(Kind.TOOGLE_LAYER, (IAction a) -> actionHandler.handle((ToogleLayerAction) a));
+						(Action a) -> actionHandler.handle((RequestBoundsChangeHintsAction) a));
+				put(Kind.CHANGE_BOUNDS_ACTION, (Action a) -> actionHandler.handle((ChangeBoundsAction) a));
+				put(Kind.REQUEST_MOVE_HINTS, (Action a) -> actionHandler.handle((RequestMoveHintsAction) a));
+				put(Kind.MOVE, (Action a) -> actionHandler.handle((MoveAction) a));
+				put(Kind.FIT_TO_SCREEN, (Action a) -> actionHandler.handle((FitToScreenAction) a));
+				put(Kind.OPEN, (Action a) -> actionHandler.handle((OpenAction) a));
+				put(Kind.REQUEST_EXPORT_SVG, (Action a) -> actionHandler.handle((RequestExportSvgAction) a));
+				put(Kind.REQUEST_LAYERS, (Action a) -> actionHandler.handle((RequestLayersAction) a));
+				put(Kind.REQUEST_POPUP_MODEL, (Action a) -> actionHandler.handle((RequestPopupModelAction) a));
+				put(Kind.REQUEST_TOOLS, (Action a) -> actionHandler.handle((RequestToolsAction) a));
+				put(Kind.SELECT, (Action a) -> actionHandler.handle((SelectAction) a));
+				put(Kind.SELECT_ALL_ACTION, (Action a) -> actionHandler.handle((SelectAllAction) a));
+				put(Kind.TOOGLE_LAYER, (Action a) -> actionHandler.handle((ToogleLayerAction) a));
 			}
 		};
 	}
