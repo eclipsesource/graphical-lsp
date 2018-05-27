@@ -2,7 +2,7 @@ package org.chillisp.server;
 
 import at.tortmayr.chillisp.api.ActionMessage;
 import at.tortmayr.chillisp.api.IGraphicalLanguageServer;
-import at.tortmayr.chillisp.api.impl.DefaultGLServer;
+import at.tortmayr.chillisp.api.impl.DefaultGraphicalLanguageServer;
 import java.util.function.Consumer;
 import javax.websocket.CloseReason;
 import javax.websocket.EndpointConfig;
@@ -71,7 +71,8 @@ public class ServerLauncher {
         final IGraphicalLanguageServer.Provider provider = new IGraphicalLanguageServer.Provider() {
           @Override
           public IGraphicalLanguageServer getGraphicalLanguageServer(final String clientId) {
-            return new DefaultGLServer(clientId);
+            final DefaultGraphicalLanguageServer server = new DefaultGraphicalLanguageServer(clientId);
+            return server;
           }
         };
         T _endpointInstance = super.<T>getEndpointInstance(endpointClass);

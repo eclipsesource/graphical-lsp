@@ -1,25 +1,21 @@
 package at.tortmayr.chillisp.api.impl;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Consumer;
 
 import at.tortmayr.chillisp.api.ActionMessage;
 import at.tortmayr.chillisp.api.ActionRegistry;
 import at.tortmayr.chillisp.api.IGraphicalLanguageServer;
 import at.tortmayr.chillisp.api.IGraphicalModelState;
+import at.tortmayr.chillisp.api.IModelFactory;
+import at.tortmayr.chillisp.api.IPopupModelFactory;
 import at.tortmayr.chillisp.api.IRequestActionHandler;
+import at.tortmayr.chillisp.api.IModelFactory.NullImpl;
 import at.tortmayr.chillisp.api.actions.Action;
 import at.tortmayr.chillisp.api.actions.ServerStatusAction;
-import io.typefox.sprotty.api.Dimension;
 import io.typefox.sprotty.api.ILayoutEngine;
-import io.typefox.sprotty.api.Point;
-import io.typefox.sprotty.api.SModelElement;
-import io.typefox.sprotty.api.SModelRoot;
-import io.typefox.sprotty.api.SNode;
 import io.typefox.sprotty.api.ServerStatus;
 
-public class DefaultGLServer implements IGraphicalLanguageServer {
+public class DefaultGraphicalLanguageServer implements IGraphicalLanguageServer {
 
 	private String clientId;
 
@@ -28,12 +24,18 @@ public class DefaultGLServer implements IGraphicalLanguageServer {
 	private IGraphicalModelState modelState;
 	private ServerStatus status;
 
-	public DefaultGLServer() {
+	private IModelFactory modelFactory;
+
+	private IPopupModelFactory popupModelFactory;;
+
+	public DefaultGraphicalLanguageServer() {
 		modelState = new ModelState();
 		setRequestActionHandler(new RequestActionHandler(this));
+		popupModelFactory = new IPopupModelFactory.NullImpl();
+		modelFactory = new IModelFactory.NullImpl();
 	}
 
-	public DefaultGLServer(String clientId) {
+	public DefaultGraphicalLanguageServer(String clientId) {
 		this();
 		this.clientId = clientId;
 	}
@@ -113,20 +115,24 @@ public class DefaultGLServer implements IGraphicalLanguageServer {
 	}
 
 	@Override
-	public SModelRoot loadModel() {
-		SModelRoot currentRoot = new SModelRoot();
-		currentRoot.setType("graph");
-		currentRoot.setId("sprotty");
-		SNode node = new SNode();
-		node.setId("first");
-		node.setType("node");
-		node.setLayout("vbox");
-		node.setPosition(new Point(100, 100));
-		node.setSize(new Dimension(25, 25));
-		List<SModelElement> children = new ArrayList<>();
-		children.add(node);
-		currentRoot.setChildren(children);
-		return currentRoot;
+	public void setModelFactory(IModelFactory modelFactory) {
+		this.modelFactory = modelFactory;
+
+	}
+
+	@Override
+	public void setPopupModelFactory(IPopupModelFactory popupModelFactory) {
+		this.popupModelFactory = popupModelFactory;
+	}
+
+	@Override
+	public IModelFactory getModelFactory() {
+		return modelFactory;
+	}
+
+	@Override
+	public IPopupModelFactory getPopupModelFactory() {
+		return popupModelFactory;
 	}
 
 }

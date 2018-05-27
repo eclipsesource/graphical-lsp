@@ -2,7 +2,6 @@ package org.chillisp.server
 
 import at.tortmayr.chillisp.api.ActionMessage
 import at.tortmayr.chillisp.api.IGraphicalLanguageServer.Provider
-import at.tortmayr.chillisp.api.impl.DefaultGLServer
 import java.util.Objects
 import javax.websocket.CloseReason
 import javax.websocket.EndpointConfig
@@ -15,6 +14,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler
 import org.eclipse.jetty.servlet.ServletHolder
 import org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer
 import org.chillisp.server.ServerLauncher.TestServerEndpoint
+import at.tortmayr.chillisp.api.impl.DefaultGraphicalLanguageServer
 
 class ServerLauncher {
 	static class TestServerEndpoint extends GraphicalLanguageServerEndpoint {
@@ -45,10 +45,11 @@ class ServerLauncher {
 		override <T> T getEndpointInstance(Class<T> endpointClass) throws InstantiationException {
 
 			val provider = new Provider {
-		
 
 				override getGraphicalLanguageServer(String clientId) {
-					return new DefaultGLServer(clientId)
+					val server = new DefaultGraphicalLanguageServer(clientId)
+//					server.modelFactory = new ExampleModelFactory
+					return server
 				}
 
 			}
@@ -70,7 +71,7 @@ class ServerLauncher {
 		val container = WebSocketServerContainerInitializer.configureContext(context);
 
 		var builder = ServerEndpointConfig.Builder.create(TestServerEndpoint, "/diagram");
-		builder=builder.configurator(new TestEndpointConfigurator)
+		builder = builder.configurator(new TestEndpointConfigurator)
 		val config = builder.build
 		container.addEndpoint(config)
 

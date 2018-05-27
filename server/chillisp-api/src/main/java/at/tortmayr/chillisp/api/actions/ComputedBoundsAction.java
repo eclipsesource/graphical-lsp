@@ -10,31 +10,38 @@ public class ComputedBoundsAction extends Action {
 
 	private ElementAndBounds[] bounds;
 	private ElementAndAlignment[] alignments;
+	private int revision;
 
 	public ComputedBoundsAction() {
 		super(ActionRegistry.Kind.COMPUTED_BOUNDS);
 	}
 
-	public ComputedBoundsAction(ElementAndBounds[] bounds, ElementAndAlignment[] alignments) {
+	public ComputedBoundsAction(ElementAndBounds[] bounds, int revision, ElementAndAlignment[] alignments) {
 		this();
 		this.bounds = bounds;
+		this.revision = revision;
 		this.alignments = alignments;
 	}
 
-	public void setBounds(ElementAndBounds[] bounds) {
-		this.bounds = bounds;
+	public ElementAndBounds[] getBounds() {
+		return bounds;
 	}
 
-	public void setAlignments(ElementAndAlignment[] alignments) {
-		this.alignments = alignments;
+	public ElementAndAlignment[] getAlignments() {
+		return alignments;
+	}
+
+	public int getRevision() {
+		return revision;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		int result = super.hashCode();
 		result = prime * result + Arrays.hashCode(alignments);
 		result = prime * result + Arrays.hashCode(bounds);
+		result = prime * result + revision;
 		return result;
 	}
 
@@ -42,7 +49,7 @@ public class ComputedBoundsAction extends Action {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
@@ -51,7 +58,8 @@ public class ComputedBoundsAction extends Action {
 			return false;
 		if (!Arrays.equals(bounds, other.bounds))
 			return false;
+		if (revision != other.revision)
+			return false;
 		return true;
 	}
-
 }
