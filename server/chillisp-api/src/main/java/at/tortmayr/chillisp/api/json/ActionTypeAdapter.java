@@ -1,7 +1,6 @@
 package at.tortmayr.chillisp.api.json;
 
 import java.lang.reflect.Constructor;
-import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -29,7 +28,7 @@ public class ActionTypeAdapter extends PropertyBasedTypeAdapter<IAction> {
 
 	@Override
 	protected IAction createInstance(String kind) {
-		Class<? extends IAction> clazz = ActionRegistry.getInstance().getActionClass(kind);
+		Class<? extends IAction> clazz = ActionRegistry.getActionClass(kind);
 		if (clazz == null)
 			throw new IllegalArgumentException("Unknown action kind: " + kind);
 		try {
