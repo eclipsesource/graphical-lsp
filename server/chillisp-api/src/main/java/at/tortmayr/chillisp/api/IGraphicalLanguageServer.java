@@ -2,29 +2,37 @@ package at.tortmayr.chillisp.api;
 
 import java.util.function.Consumer;
 
+import at.tortmayr.chillisp.api.actions.Action;
+import io.typefox.sprotty.api.IDiagramState;
+import io.typefox.sprotty.api.ILayoutEngine;
 import io.typefox.sprotty.api.SModelRoot;
+import io.typefox.sprotty.api.ServerStatus;
 
 public interface IGraphicalLanguageServer extends Consumer<ActionMessage> {
 	Consumer<ActionMessage> getRemoteEndpoint();
 
 	void setRemoteEndpoint(Consumer<ActionMessage> remoteEndpoint);
 
-	SModelRoot getModel();
-
-	void setModel(SModelRoot root);
-
 	void setClientId(String clientId);
 
 	String getClientId();
 
-	void setActionHandler(IActionHandler actionHandler);
+	void setStatus(ServerStatus serverStatus);
 
-	IActionHandler getActionHandler();
+	void setRequestActionHandler(IRequestActionHandler actionHandler);
+
+	IRequestActionHandler getRequestActionHandler();
+	
+	ILayoutEngine getLayoutEngine();
+
+	IGraphicalModelState getModelState();
+	
+	SModelRoot loadModel();
 
 	public interface Provider {
 		IGraphicalLanguageServer getGraphicalLanguageServer(String clientId);
 	}
 
-	void dispatch(IAction action);
+	void dispatch(Action action);
 
 }

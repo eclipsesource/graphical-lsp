@@ -3,21 +3,21 @@ package at.tortmayr.chillisp.api.actions;
 import java.util.Arrays;
 
 import at.tortmayr.chillisp.api.ActionRegistry;
+import io.typefox.sprotty.api.ServerStatus;
 
 public class ServerStatusAction extends Action {
 	private String severity;
 	private String message;
-	private String[] elementIds;
+
 
 	public ServerStatusAction() {
 		super(ActionRegistry.Kind.SERVER_STATUS);
 	}
 
-	public ServerStatusAction(String severity, String message, String[] elementIds) {
+	public ServerStatusAction(ServerStatus status) {
 		this();
-		this.severity = severity;
-		this.message = message;
-		this.elementIds = elementIds;
+		this.severity = status.getSeverity().toString();
+		this.message = status.getMessage();
 	}
 
 	public String getSeverity() {
@@ -28,15 +28,10 @@ public class ServerStatusAction extends Action {
 		return message;
 	}
 
-	public String[] getElementIds() {
-		return elementIds;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Arrays.hashCode(elementIds);
 		result = prime * result + ((message == null) ? 0 : message.hashCode());
 		result = prime * result + ((severity == null) ? 0 : severity.hashCode());
 		return result;
@@ -51,8 +46,6 @@ public class ServerStatusAction extends Action {
 		if (getClass() != obj.getClass())
 			return false;
 		ServerStatusAction other = (ServerStatusAction) obj;
-		if (!Arrays.equals(elementIds, other.elementIds))
-			return false;
 		if (message == null) {
 			if (other.message != null)
 				return false;
@@ -65,5 +58,6 @@ public class ServerStatusAction extends Action {
 			return false;
 		return true;
 	}
+
 
 }

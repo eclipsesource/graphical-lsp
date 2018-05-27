@@ -1,16 +1,18 @@
 package at.tortmayr.chillisp.api;
 
+import at.tortmayr.chillisp.api.actions.Action;
+
 public class ActionMessage {
 
-	private IAction action;
+	private Action action;
 	private String clientId;
 
-	public ActionMessage(String clientId, IAction action) {
+	public ActionMessage(String clientId, Action action) {
 		this.clientId = clientId;
 		this.action = action;
 	}
 
-	public IAction getAction() {
+	public Action getAction() {
 		return action;
 	}
 

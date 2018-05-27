@@ -9,7 +9,7 @@ import io.typefox.sprotty.api.SModelRoot;
 public class UpdateModelAction extends Action {
 	private SModelRoot newRoot;
 	private Match[] machtes;
-	private boolean animate;
+	private boolean animate=true;
 
 	public UpdateModelAction() {
 		super(ActionRegistry.Kind.UPDATE_MODEL);

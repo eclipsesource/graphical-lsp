@@ -10,6 +10,11 @@ public class RequestBoundsAction extends Action {
 		super(ActionRegistry.Kind.REQUEST_BOUNDS);
 	}
 
+	public RequestBoundsAction(SModelRoot newRoot) {
+		this();
+		this.newRoot = newRoot;
+	}
+
 	public SModelRoot getNewRoot() {
 		return newRoot;
 	}

@@ -23,7 +23,7 @@ import at.tortmayr.chillisp.api.actions.SelectAllAction;
 import at.tortmayr.chillisp.api.actions.ServerStatusAction;
 import at.tortmayr.chillisp.api.actions.ToogleLayerAction;
 
-public interface IActionHandler {
+public interface IRequestActionHandler {
 
 	void handle(RequestModelAction action);
 
@@ -51,8 +51,6 @@ public interface IActionHandler {
 
 	void handle(OpenAction action);
 
-	void handle(RequestBoundsAction action);
-
 	void handle(RequestExportSvgAction action);
 
 	void handle(RequestLayersAction action);
@@ -64,8 +62,6 @@ public interface IActionHandler {
 	void handle(SelectAction action);
 
 	void handle(SelectAllAction action);
-
-	void handle(ServerStatusAction action);
 
 	void handle(ToogleLayerAction action);
 }
