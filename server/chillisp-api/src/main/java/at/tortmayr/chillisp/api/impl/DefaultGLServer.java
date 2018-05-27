@@ -9,8 +9,29 @@ import at.tortmayr.chillisp.api.ActionRegistry;
 import at.tortmayr.chillisp.api.IAction;
 import at.tortmayr.chillisp.api.IActionHandler;
 import at.tortmayr.chillisp.api.IGraphicalLanguageServer;
+import at.tortmayr.chillisp.api.actions.CenterAction;
+import at.tortmayr.chillisp.api.actions.ChangeBoundsAction;
+import at.tortmayr.chillisp.api.actions.CollapseExpandAction;
+import at.tortmayr.chillisp.api.actions.CollapseExpandAllAction;
+import at.tortmayr.chillisp.api.actions.ComputedBoundsAction;
+import at.tortmayr.chillisp.api.actions.ExecuteNodeCreationToolAction;
+import at.tortmayr.chillisp.api.actions.ExecuteToolAction;
+import at.tortmayr.chillisp.api.actions.FitToScreenAction;
+import at.tortmayr.chillisp.api.actions.MoveAction;
+import at.tortmayr.chillisp.api.actions.OpenAction;
+import at.tortmayr.chillisp.api.actions.RequestBoundsAction;
+import at.tortmayr.chillisp.api.actions.RequestBoundsChangeHintsAction;
+import at.tortmayr.chillisp.api.actions.RequestExportSvgAction;
+import at.tortmayr.chillisp.api.actions.RequestLayersAction;
 import at.tortmayr.chillisp.api.actions.RequestModelAction;
+import at.tortmayr.chillisp.api.actions.RequestMoveHintsAction;
+import at.tortmayr.chillisp.api.actions.RequestPopupModelAction;
+import at.tortmayr.chillisp.api.actions.RequestToolsAction;
+import at.tortmayr.chillisp.api.actions.SelectAction;
+import at.tortmayr.chillisp.api.actions.SelectAllAction;
+import at.tortmayr.chillisp.api.actions.ServerStatusAction;
 import at.tortmayr.chillisp.api.actions.SetModelAction;
+import at.tortmayr.chillisp.api.actions.ToogleLayerAction;
 import io.typefox.sprotty.api.Dimension;
 import io.typefox.sprotty.api.Point;
 import io.typefox.sprotty.api.SModelElement;
@@ -53,11 +74,10 @@ public class DefaultGLServer implements IGraphicalLanguageServer {
 		String clientId = getClientId();
 		if (clientId != null && clientId.equals(message.getClientId())) {
 			IAction action = message.getAction();
-			switch (action.getKind()) {
-			case ActionRegistry.Kind.REQUEST_MODEL:
-				actionHandler.handle((RequestModelAction) action);
+			Consumer<IAction> actionConsumer = ActionRegistry.getActionConsumer(action.getKind());
+			if (actionConsumer != null) {
+				actionConsumer.accept(action);
 			}
-
 		}
 	}
 
@@ -107,6 +127,7 @@ public class DefaultGLServer implements IGraphicalLanguageServer {
 	@Override
 	public void setActionHandler(IActionHandler actionHandler) {
 		this.actionHandler = actionHandler;
+		ActionRegistry.bindActionHandler(actionHandler);
 
 	}
 
@@ -123,6 +144,132 @@ public class DefaultGLServer implements IGraphicalLanguageServer {
 			if (model != null) {
 				dispatch(new SetModelAction(model));
 			}
+		}
+
+		@Override
+		public void handle(CenterAction action) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void handle(CollapseExpandAction action) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void handle(CollapseExpandAllAction action) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void handle(ComputedBoundsAction action) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void handle(ExecuteNodeCreationToolAction action) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void handle(ExecuteToolAction action) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void handle(RequestBoundsChangeHintsAction action) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void handle(ChangeBoundsAction action) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void handle(RequestMoveHintsAction action) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void handle(MoveAction action) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void handle(FitToScreenAction action) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void handle(OpenAction action) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void handle(RequestBoundsAction action) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void handle(RequestExportSvgAction action) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void handle(RequestLayersAction action) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void handle(RequestPopupModelAction action) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void handle(RequestToolsAction action) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void handle(SelectAction action) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void handle(SelectAllAction action) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void handle(ServerStatusAction action) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void handle(ToogleLayerAction action) {
+			// TODO Auto-generated method stub
+
 		}
 
 	}
