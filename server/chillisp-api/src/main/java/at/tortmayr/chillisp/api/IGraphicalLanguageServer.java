@@ -3,9 +3,7 @@ package at.tortmayr.chillisp.api;
 import java.util.function.Consumer;
 
 import at.tortmayr.chillisp.api.actions.Action;
-import io.typefox.sprotty.api.IDiagramState;
 import io.typefox.sprotty.api.ILayoutEngine;
-import io.typefox.sprotty.api.SModelRoot;
 import io.typefox.sprotty.api.ServerStatus;
 
 public interface IGraphicalLanguageServer extends Consumer<ActionMessage> {
@@ -22,17 +20,23 @@ public interface IGraphicalLanguageServer extends Consumer<ActionMessage> {
 	void setRequestActionHandler(IRequestActionHandler actionHandler);
 
 	IRequestActionHandler getRequestActionHandler();
-	
+
 	ILayoutEngine getLayoutEngine();
 
 	IGraphicalModelState getModelState();
 	
-	SModelRoot loadModel();
+	void dispatch(Action action);
 
+	void setModelFactory(IModelFactory modelFactory);
+
+	void setPopupModelFactory(IPopupModelFactory popupModelFactory);
+
+	IModelFactory getModelFactory();
+
+	IPopupModelFactory getPopupModelFactory();
+	
 	public interface Provider {
 		IGraphicalLanguageServer getGraphicalLanguageServer(String clientId);
 	}
-
-	void dispatch(Action action);
 
 }

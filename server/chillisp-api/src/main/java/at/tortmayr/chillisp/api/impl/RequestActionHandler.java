@@ -1,10 +1,16 @@
 package at.tortmayr.chillisp.api.impl;
 
+import java.util.Arrays;
 import java.util.Map;
+import java.util.Set;
 
 import at.tortmayr.chillisp.api.IGraphicalLanguageServer;
+import at.tortmayr.chillisp.api.IGraphicalModelExpansionListener;
+import at.tortmayr.chillisp.api.IGraphicalModelSelectionListener;
 import at.tortmayr.chillisp.api.IGraphicalModelState;
+import at.tortmayr.chillisp.api.IModelElementOpenListener;
 import at.tortmayr.chillisp.api.IRequestActionHandler;
+import at.tortmayr.chillisp.api.LayoutUtil;
 import at.tortmayr.chillisp.api.actions.CenterAction;
 import at.tortmayr.chillisp.api.actions.ChangeBoundsAction;
 import at.tortmayr.chillisp.api.actions.CollapseExpandAction;
@@ -26,22 +32,31 @@ import at.tortmayr.chillisp.api.actions.RequestToolsAction;
 import at.tortmayr.chillisp.api.actions.SelectAction;
 import at.tortmayr.chillisp.api.actions.SelectAllAction;
 import at.tortmayr.chillisp.api.actions.SetModelAction;
+import at.tortmayr.chillisp.api.actions.SetPopupModelAction;
 import at.tortmayr.chillisp.api.actions.ToogleLayerAction;
 import at.tortmayr.chillisp.api.actions.UpdateModelAction;
 import io.typefox.sprotty.api.ILayoutEngine;
+import io.typefox.sprotty.api.SModelElement;
+import io.typefox.sprotty.api.SModelIndex;
 import io.typefox.sprotty.api.SModelRoot;
 
 public class RequestActionHandler implements IRequestActionHandler {
 
 	private IGraphicalModelState modelState;
 	private IGraphicalLanguageServer server;
-	private Object modelLock= new Object();
+	private IGraphicalModelSelectionListener selectionListener;
+	private IGraphicalModelExpansionListener expansionListener;
+	private IModelElementOpenListener modelElementOpenListener;
+	private Object modelLock = new Object();
 	private int revision = 0;
 	private String lastSubmittedModelType;
 
 	public RequestActionHandler(IGraphicalLanguageServer server) {
 		this.server = server;
 		this.modelState = server.getModelState();
+		selectionListener = new IGraphicalModelSelectionListener.NullImpl();
+		expansionListener = new IGraphicalModelExpansionListener.NullImpl();
+		modelElementOpenListener = new IModelElementOpenListener.NullImpl();
 	}
 
 	protected void submitModel(SModelRoot newRoot, boolean update) {
@@ -50,6 +65,7 @@ public class RequestActionHandler implements IRequestActionHandler {
 		} else {
 			doSubmitModel(newRoot, update);
 		}
+		modelState.setCurrentModel(newRoot);
 	}
 
 	private void doSubmitModel(SModelRoot newRoot, boolean update) {
@@ -81,7 +97,7 @@ public class RequestActionHandler implements IRequestActionHandler {
 			if (needsClientLayout != null && !needsClientLayout.isEmpty()) {
 				modelState.setNeedsClientLayout(Boolean.parseBoolean(needsClientLayout));
 			}
-			SModelRoot model = server.loadModel();
+			SModelRoot model = server.getModelFactory().loadModel(server);
 			modelState.setCurrentModel(model);
 			if (model != null) {
 				submitModel(model, false);
@@ -98,19 +114,42 @@ public class RequestActionHandler implements IRequestActionHandler {
 
 	@Override
 	public void handle(CollapseExpandAction action) {
-		// TODO Auto-generated method stub
+		Set<String> expandedElements = modelState.getExpandedElements();
+		if (action.getCollapseIds() != null) {
+			expandedElements.removeAll(Arrays.asList(action.getCollapseIds()));
+		}
+		if (action.getExpandIds() != null) {
+			expandedElements.addAll(Arrays.asList(action.getExpandIds()));
+		}
+
+		if (expansionListener != null) {
+			expansionListener.expansionChanged(action, server);
+		}
 
 	}
 
 	@Override
 	public void handle(CollapseExpandAllAction action) {
-		// TODO Auto-generated method stub
+		Set<String> expandedElements = modelState.getExpandedElements();
+		expandedElements.clear();
+		if (action.isExpand()) {
+			new SModelIndex(modelState.getCurrentModel()).allIds().forEach(id -> expandedElements.add(id));
+		}
+		if (expansionListener != null) {
+			expansionListener.expansionChanged(action, server);
+		}
 
 	}
 
 	@Override
 	public void handle(ComputedBoundsAction action) {
-		// TODO Auto-generated method stub
+		synchronized (modelLock) {
+			SModelRoot model = modelState.getCurrentModel();
+			if (model != null && model.getRevision() == action.getRevision()) {
+				LayoutUtil.applyBounds(model, action);
+				doSubmitModel(model, true);
+			}
+		}
 
 	}
 
@@ -158,8 +197,9 @@ public class RequestActionHandler implements IRequestActionHandler {
 
 	@Override
 	public void handle(OpenAction action) {
-		// TODO Auto-generated method stub
-
+		if (modelElementOpenListener != null) {
+			modelElementOpenListener.elementOpened(action, server);
+		}
 	}
 
 	@Override
@@ -176,26 +216,47 @@ public class RequestActionHandler implements IRequestActionHandler {
 
 	@Override
 	public void handle(RequestPopupModelAction action) {
-		// TODO Auto-generated method stub
+		SModelRoot model = modelState.getCurrentModel();
+		SModelElement element = SModelIndex.find(model, action.getElementId());
+		if (server.getPopupModelFactory() != null) {
+			SModelRoot popupModel = server.getPopupModelFactory().createPopuModel(element, action, server);
+			if (popupModel != null) {
+				server.dispatch(new SetPopupModelAction(popupModel));
+			}
+		}
 
 	}
 
 	@Override
 	public void handle(RequestToolsAction action) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void handle(SelectAction action) {
-		// TODO Auto-generated method stub
+		Set<String> selectedElements = modelState.getSelectedElements();
+		if (action.getDeselectedElementsIDs() != null) {
+			selectedElements.removeAll(Arrays.asList(action.getDeselectedElementsIDs()));
+		}
+		if (action.getSelectedElementsIDs() != null) {
+			selectedElements.addAll(Arrays.asList(action.getSelectedElementsIDs()));
+		}
+		if (selectionListener != null) {
+			selectionListener.selectionChanged(action, server);
+		}
 
 	}
 
 	@Override
 	public void handle(SelectAllAction action) {
-		// TODO Auto-generated method stub
-
+		Set<String> selectedElements = modelState.getSelectedElements();
+		if (action.isSelect()) {
+			new SModelIndex(modelState.getCurrentModel()).allIds().forEach(id -> selectedElements.add(id));
+		} else
+			selectedElements.clear();
+		if (selectionListener != null) {
+			selectionListener.selectionChanged(action, server);
+		}
 	}
 
 	@Override
@@ -203,5 +264,4 @@ public class RequestActionHandler implements IRequestActionHandler {
 		// TODO Auto-generated method stub
 
 	}
-
 }
