@@ -10,7 +10,10 @@ public interface IModelFactory {
 
 		@Override
 		public SModelRoot loadModel(IGraphicalLanguageServer server) {
-			return null;
+			SModelRoot root = new SModelRoot();
+			root.setType("NONE");
+			root.setId("ROOT");
+			return root;
 		}
 
 	}

@@ -7,7 +7,7 @@ import java.util.Set;
 import at.tortmayr.chillisp.api.IGraphicalModelState;
 import io.typefox.sprotty.api.SModelRoot;
 
-public class ModelState implements IGraphicalModelState {
+public class DefaultModelState implements IGraphicalModelState {
 	private Map<String, String> options;
 	private String clientId;
 	private SModelRoot currentModel;
@@ -15,7 +15,7 @@ public class ModelState implements IGraphicalModelState {
 	private Set<String> selectedElements;
 	private boolean needsClientLayout;
 
-	public ModelState() {
+	public DefaultModelState() {
 		expandedElements = new HashSet<>();
 		selectedElements = new HashSet<>();
 	}

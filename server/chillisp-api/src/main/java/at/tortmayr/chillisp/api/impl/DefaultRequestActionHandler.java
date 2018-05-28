@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 import at.tortmayr.chillisp.api.IGraphicalLanguageServer;
 import at.tortmayr.chillisp.api.IGraphicalModelExpansionListener;
 import at.tortmayr.chillisp.api.IGraphicalModelSelectionListener;
@@ -31,6 +33,7 @@ import at.tortmayr.chillisp.api.actions.RequestPopupModelAction;
 import at.tortmayr.chillisp.api.actions.RequestToolsAction;
 import at.tortmayr.chillisp.api.actions.SelectAction;
 import at.tortmayr.chillisp.api.actions.SelectAllAction;
+import at.tortmayr.chillisp.api.actions.SetBoundsAction;
 import at.tortmayr.chillisp.api.actions.SetModelAction;
 import at.tortmayr.chillisp.api.actions.SetPopupModelAction;
 import at.tortmayr.chillisp.api.actions.ToogleLayerAction;
@@ -40,20 +43,24 @@ import io.typefox.sprotty.api.SModelElement;
 import io.typefox.sprotty.api.SModelIndex;
 import io.typefox.sprotty.api.SModelRoot;
 
-public class RequestActionHandler implements IRequestActionHandler {
+public class DefaultRequestActionHandler implements IRequestActionHandler {
 
-	private IGraphicalModelState modelState;
 	private IGraphicalLanguageServer server;
+
+	@Inject
+	private IGraphicalModelState modelState;
+	@Inject
 	private IGraphicalModelSelectionListener selectionListener;
+	@Inject
 	private IGraphicalModelExpansionListener expansionListener;
+	@Inject
 	private IModelElementOpenListener modelElementOpenListener;
+
 	private Object modelLock = new Object();
 	private int revision = 0;
 	private String lastSubmittedModelType;
 
-	public RequestActionHandler(IGraphicalLanguageServer server) {
-		this.server = server;
-		this.modelState = server.getModelState();
+	public DefaultRequestActionHandler() {
 		selectionListener = new IGraphicalModelSelectionListener.NullImpl();
 		expansionListener = new IGraphicalModelExpansionListener.NullImpl();
 		modelElementOpenListener = new IModelElementOpenListener.NullImpl();
@@ -263,5 +270,22 @@ public class RequestActionHandler implements IRequestActionHandler {
 	public void handle(ToogleLayerAction action) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void handle(SetBoundsAction action) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setLanguageServer(IGraphicalLanguageServer server) {
+		this.server = server;
+
+	}
+
+	@Override
+	public IGraphicalModelState getModelState() {
+		return modelState;
 	}
 }

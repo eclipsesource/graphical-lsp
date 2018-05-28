@@ -1,7 +1,5 @@
 package at.tortmayr.chillisp.api.actions;
 
-import java.util.Arrays;
-
 import at.tortmayr.chillisp.api.ActionRegistry;
 import io.typefox.sprotty.api.ServerStatus;
 

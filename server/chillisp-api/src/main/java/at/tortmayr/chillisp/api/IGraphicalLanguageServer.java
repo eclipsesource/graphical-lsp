@@ -7,9 +7,12 @@ import io.typefox.sprotty.api.ILayoutEngine;
 import io.typefox.sprotty.api.ServerStatus;
 
 public interface IGraphicalLanguageServer extends Consumer<ActionMessage> {
+
+	void initialize();
+
 	Consumer<ActionMessage> getRemoteEndpoint();
 
-	void setRemoteEndpoint(Consumer<ActionMessage> remoteEndpoint);
+	void setRemoteEndpoint(Consumer<ActionMessage> consumer);
 
 	void setClientId(String clientId);
 
@@ -17,26 +20,18 @@ public interface IGraphicalLanguageServer extends Consumer<ActionMessage> {
 
 	void setStatus(ServerStatus serverStatus);
 
-	void setRequestActionHandler(IRequestActionHandler actionHandler);
-
-	IRequestActionHandler getRequestActionHandler();
-
 	ILayoutEngine getLayoutEngine();
 
-	IGraphicalModelState getModelState();
-	
+
 	void dispatch(Action action);
-
-	void setModelFactory(IModelFactory modelFactory);
-
-	void setPopupModelFactory(IPopupModelFactory popupModelFactory);
 
 	IModelFactory getModelFactory();
 
 	IPopupModelFactory getPopupModelFactory();
-	
+
 	public interface Provider {
 		IGraphicalLanguageServer getGraphicalLanguageServer(String clientId);
+
 	}
 
 }
