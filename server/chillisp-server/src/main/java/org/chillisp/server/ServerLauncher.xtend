@@ -11,6 +11,8 @@ import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.servlet.ServletContextHandler
 import org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer
 import at.tortmayr.chillisp.api.impl.DefaultGraphicalLanguageServer
+import org.eclipse.elk.alg.layered.options.LayeredOptions
+import io.typefox.sprotty.layout.ElkLayoutEngine
 
 class ServerLauncher {
 	static class TestServerEndpoint extends GraphicalLanguageServerEndpoint {
@@ -55,7 +57,8 @@ class ServerLauncher {
 		val context = new ServletContextHandler(ServletContextHandler.SESSIONS)
 		context.setContextPath("/")
 		server.setHandler(context)
-
+	
+		ElkLayoutEngine.initialize(new LayeredOptions)
 		val container = WebSocketServerContainerInitializer.configureContext(context);
 
 		var builder = ServerEndpointConfig.Builder.create(TestServerEndpoint, "/diagram");

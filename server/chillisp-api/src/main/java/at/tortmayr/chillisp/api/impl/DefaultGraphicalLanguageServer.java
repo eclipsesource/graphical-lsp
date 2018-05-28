@@ -39,24 +39,26 @@ import io.typefox.sprotty.api.ServerStatus;
 
 public class DefaultGraphicalLanguageServer implements IGraphicalLanguageServer {
 
-	private  HashMap<String, Consumer<Action>> actionConsumers;
-	
+	private HashMap<String, Consumer<Action>> actionConsumers;
+
 	private IRequestActionHandler actionHandler;
 	@Inject
 	private IModelFactory modelFactory;
 	@Inject
 	private IPopupModelFactory popupModelFactory;
-
+	@Inject
+	private ILayoutEngine layoutEngine;
 	private String clientId;
 	private ServerStatus status;
 	private Consumer<ActionMessage> remoteEndpoint;
 
 	@Inject
 	public DefaultGraphicalLanguageServer(IRequestActionHandler actionHandler) {
-		this.actionHandler=actionHandler;
+		this.actionHandler = actionHandler;
 		actionHandler.setLanguageServer(this);
 		initialize();
 	}
+
 	@Override
 	public void initialize() {
 		actionConsumers = new HashMap<String, Consumer<Action>>() {
@@ -114,11 +116,11 @@ public class DefaultGraphicalLanguageServer implements IGraphicalLanguageServer 
 	public Consumer<ActionMessage> getRemoteEndpoint() {
 		return remoteEndpoint;
 	}
-	
+
 	@Override
 	public void setRemoteEndpoint(Consumer<ActionMessage> remoteEndpoint) {
-		this.remoteEndpoint=remoteEndpoint;
-		
+		this.remoteEndpoint = remoteEndpoint;
+
 	}
 
 	@Override
@@ -143,8 +145,7 @@ public class DefaultGraphicalLanguageServer implements IGraphicalLanguageServer 
 
 	@Override
 	public ILayoutEngine getLayoutEngine() {
-		// TODO Auto-generated method stub
-		return null;
+		return layoutEngine;
 	}
 
 	@Override
@@ -156,6 +157,5 @@ public class DefaultGraphicalLanguageServer implements IGraphicalLanguageServer 
 	public IPopupModelFactory getPopupModelFactory() {
 		return popupModelFactory;
 	}
-	
 
 }

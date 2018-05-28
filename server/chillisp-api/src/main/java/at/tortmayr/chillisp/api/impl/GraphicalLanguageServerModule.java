@@ -10,8 +10,9 @@ import at.tortmayr.chillisp.api.IModelElementOpenListener;
 import at.tortmayr.chillisp.api.IModelFactory;
 import at.tortmayr.chillisp.api.IPopupModelFactory;
 import at.tortmayr.chillisp.api.IRequestActionHandler;
+import io.typefox.sprotty.api.ILayoutEngine;
 
-public  class GraphicalLanguageServerModule extends AbstractModule {
+public class GraphicalLanguageServerModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
@@ -23,6 +24,11 @@ public  class GraphicalLanguageServerModule extends AbstractModule {
 		bind(IGraphicalModelSelectionListener.class).to(bindGraphicalModelSelectionListener());
 		bind(IGraphicalModelExpansionListener.class).to(bindGraphicalModelExpansionListener());
 		bind(IModelElementOpenListener.class).to(bindModelElementOpenListener());
+		bind(ILayoutEngine.class).to(bindLayoutEngine());
+	}
+
+	protected Class<? extends ILayoutEngine> bindLayoutEngine() {
+		return ILayoutEngine.NullImpl.class;
 	}
 
 	protected Class<? extends IModelElementOpenListener> bindModelElementOpenListener() {
