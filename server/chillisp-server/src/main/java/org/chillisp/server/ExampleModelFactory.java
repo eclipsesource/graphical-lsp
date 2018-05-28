@@ -7,6 +7,7 @@ import at.tortmayr.chillisp.api.IGraphicalLanguageServer;
 import at.tortmayr.chillisp.api.IModelFactory;
 import io.typefox.sprotty.api.Dimension;
 import io.typefox.sprotty.api.Point;
+import io.typefox.sprotty.api.SGraph;
 import io.typefox.sprotty.api.SModelElement;
 import io.typefox.sprotty.api.SModelRoot;
 import io.typefox.sprotty.api.SNode;
@@ -15,7 +16,7 @@ public class ExampleModelFactory implements IModelFactory {
 
 	@Override
 	public SModelRoot loadModel(IGraphicalLanguageServer server) {
-		SModelRoot model = new SModelRoot();
+		SModelRoot model = new SGraph();
 		model.setType("graph");
 		model.setId("sprotty");
 		SNode node = new SNode();
