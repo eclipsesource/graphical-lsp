@@ -77,44 +77,8 @@ public class ActionRegistry {
 		}
 	};
 
-	private static Map<String, Consumer<Action>> actionConsumers = new HashMap<>();
-
 	public static Class<? extends Action> getActionClass(String kind) {
 		return actionKinds.get(kind);
-	}
-
-	public static Consumer<Action> getActionConsumer(String kind) {
-		return actionConsumers.get(kind);
-	}
-
-	public static void bindActionHandler(IRequestActionHandler actionHandler) {
-		actionConsumers = new HashMap<String, Consumer<Action>>() {
-			private static final long serialVersionUID = 1L;
-			{
-				put(Kind.REQUEST_MODEL, (Action a) -> actionHandler.handle((RequestModelAction) a));
-				put(Kind.CENTER, (Action a) -> actionHandler.handle((CenterAction) a));
-				put(Kind.COLLAPSE_EXPAND, (Action a) -> actionHandler.handle((CollapseExpandAction) a));
-				put(Kind.COLLAPSE_EXPAND_ALL, (Action a) -> actionHandler.handle((CollapseExpandAllAction) a));
-				put(Kind.COMPUTED_BOUNDS, (Action a) -> actionHandler.handle((ComputedBoundsAction) a));
-				put(Kind.EXECUTE_NODE_CREATION_TOOL,
-						(Action a) -> actionHandler.handle((ExecuteNodeCreationToolAction) a));
-				put(Kind.COMPUTED_BOUNDS, (Action a) -> actionHandler.handle((ExecuteToolAction) a));
-				put(Kind.REQUEST_BOUNDS_CHANGE_HINTS,
-						(Action a) -> actionHandler.handle((RequestBoundsChangeHintsAction) a));
-				put(Kind.CHANGE_BOUNDS_ACTION, (Action a) -> actionHandler.handle((ChangeBoundsAction) a));
-				put(Kind.REQUEST_MOVE_HINTS, (Action a) -> actionHandler.handle((RequestMoveHintsAction) a));
-				put(Kind.MOVE, (Action a) -> actionHandler.handle((MoveAction) a));
-				put(Kind.FIT_TO_SCREEN, (Action a) -> actionHandler.handle((FitToScreenAction) a));
-				put(Kind.OPEN, (Action a) -> actionHandler.handle((OpenAction) a));
-				put(Kind.REQUEST_EXPORT_SVG, (Action a) -> actionHandler.handle((RequestExportSvgAction) a));
-				put(Kind.REQUEST_LAYERS, (Action a) -> actionHandler.handle((RequestLayersAction) a));
-				put(Kind.REQUEST_POPUP_MODEL, (Action a) -> actionHandler.handle((RequestPopupModelAction) a));
-				put(Kind.REQUEST_TOOLS, (Action a) -> actionHandler.handle((RequestToolsAction) a));
-				put(Kind.SELECT, (Action a) -> actionHandler.handle((SelectAction) a));
-				put(Kind.SELECT_ALL_ACTION, (Action a) -> actionHandler.handle((SelectAllAction) a));
-				put(Kind.TOOGLE_LAYER, (Action a) -> actionHandler.handle((ToogleLayerAction) a));
-			}
-		};
 	}
 
 	private ActionRegistry() {

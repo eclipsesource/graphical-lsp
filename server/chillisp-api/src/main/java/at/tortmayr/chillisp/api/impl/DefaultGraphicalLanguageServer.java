@@ -1,43 +1,93 @@
 package at.tortmayr.chillisp.api.impl;
 
+import java.util.HashMap;
 import java.util.function.Consumer;
 
+import javax.inject.Inject;
+
 import at.tortmayr.chillisp.api.ActionMessage;
-import at.tortmayr.chillisp.api.ActionRegistry;
+import at.tortmayr.chillisp.api.ActionRegistry.Kind;
 import at.tortmayr.chillisp.api.IGraphicalLanguageServer;
-import at.tortmayr.chillisp.api.IGraphicalModelState;
 import at.tortmayr.chillisp.api.IModelFactory;
 import at.tortmayr.chillisp.api.IPopupModelFactory;
 import at.tortmayr.chillisp.api.IRequestActionHandler;
-import at.tortmayr.chillisp.api.IModelFactory.NullImpl;
 import at.tortmayr.chillisp.api.actions.Action;
+import at.tortmayr.chillisp.api.actions.CenterAction;
+import at.tortmayr.chillisp.api.actions.ChangeBoundsAction;
+import at.tortmayr.chillisp.api.actions.CollapseExpandAction;
+import at.tortmayr.chillisp.api.actions.CollapseExpandAllAction;
+import at.tortmayr.chillisp.api.actions.ComputedBoundsAction;
+import at.tortmayr.chillisp.api.actions.ExecuteNodeCreationToolAction;
+import at.tortmayr.chillisp.api.actions.ExecuteToolAction;
+import at.tortmayr.chillisp.api.actions.FitToScreenAction;
+import at.tortmayr.chillisp.api.actions.MoveAction;
+import at.tortmayr.chillisp.api.actions.OpenAction;
+import at.tortmayr.chillisp.api.actions.RequestBoundsChangeHintsAction;
+import at.tortmayr.chillisp.api.actions.RequestExportSvgAction;
+import at.tortmayr.chillisp.api.actions.RequestLayersAction;
+import at.tortmayr.chillisp.api.actions.RequestModelAction;
+import at.tortmayr.chillisp.api.actions.RequestMoveHintsAction;
+import at.tortmayr.chillisp.api.actions.RequestPopupModelAction;
+import at.tortmayr.chillisp.api.actions.RequestToolsAction;
+import at.tortmayr.chillisp.api.actions.SelectAction;
+import at.tortmayr.chillisp.api.actions.SelectAllAction;
 import at.tortmayr.chillisp.api.actions.ServerStatusAction;
+import at.tortmayr.chillisp.api.actions.SetBoundsAction;
+import at.tortmayr.chillisp.api.actions.ToogleLayerAction;
 import io.typefox.sprotty.api.ILayoutEngine;
 import io.typefox.sprotty.api.ServerStatus;
 
 public class DefaultGraphicalLanguageServer implements IGraphicalLanguageServer {
 
-	private String clientId;
-
-	private Consumer<ActionMessage> remoteEndpoint;
+	private  HashMap<String, Consumer<Action>> actionConsumers;
+	
 	private IRequestActionHandler actionHandler;
-	private IGraphicalModelState modelState;
-	private ServerStatus status;
-
+	@Inject
 	private IModelFactory modelFactory;
+	@Inject
+	private IPopupModelFactory popupModelFactory;
 
-	private IPopupModelFactory popupModelFactory;;
+	private String clientId;
+	private ServerStatus status;
+	private Consumer<ActionMessage> remoteEndpoint;
 
-	public DefaultGraphicalLanguageServer() {
-		modelState = new ModelState();
-		setRequestActionHandler(new RequestActionHandler(this));
-		popupModelFactory = new IPopupModelFactory.NullImpl();
-		modelFactory = new IModelFactory.NullImpl();
+	@Inject
+	public DefaultGraphicalLanguageServer(IRequestActionHandler actionHandler) {
+		this.actionHandler=actionHandler;
+		actionHandler.setLanguageServer(this);
+		initialize();
 	}
+	@Override
+	public void initialize() {
+		actionConsumers = new HashMap<String, Consumer<Action>>() {
+			private static final long serialVersionUID = 1L;
+			{
+				put(Kind.REQUEST_MODEL, (Action a) -> actionHandler.handle((RequestModelAction) a));
+				put(Kind.CENTER, (Action a) -> actionHandler.handle((CenterAction) a));
+				put(Kind.COLLAPSE_EXPAND, (Action a) -> actionHandler.handle((CollapseExpandAction) a));
+				put(Kind.COLLAPSE_EXPAND_ALL, (Action a) -> actionHandler.handle((CollapseExpandAllAction) a));
+				put(Kind.COMPUTED_BOUNDS, (Action a) -> actionHandler.handle((ComputedBoundsAction) a));
+				put(Kind.EXECUTE_NODE_CREATION_TOOL,
+						(Action a) -> actionHandler.handle((ExecuteNodeCreationToolAction) a));
+				put(Kind.COMPUTED_BOUNDS, (Action a) -> actionHandler.handle((ExecuteToolAction) a));
+				put(Kind.REQUEST_BOUNDS_CHANGE_HINTS,
+						(Action a) -> actionHandler.handle((RequestBoundsChangeHintsAction) a));
+				put(Kind.CHANGE_BOUNDS_ACTION, (Action a) -> actionHandler.handle((ChangeBoundsAction) a));
+				put(Kind.REQUEST_MOVE_HINTS, (Action a) -> actionHandler.handle((RequestMoveHintsAction) a));
+				put(Kind.MOVE, (Action a) -> actionHandler.handle((MoveAction) a));
+				put(Kind.FIT_TO_SCREEN, (Action a) -> actionHandler.handle((FitToScreenAction) a));
+				put(Kind.OPEN, (Action a) -> actionHandler.handle((OpenAction) a));
+				put(Kind.REQUEST_EXPORT_SVG, (Action a) -> actionHandler.handle((RequestExportSvgAction) a));
+				put(Kind.REQUEST_LAYERS, (Action a) -> actionHandler.handle((RequestLayersAction) a));
+				put(Kind.REQUEST_POPUP_MODEL, (Action a) -> actionHandler.handle((RequestPopupModelAction) a));
+				put(Kind.REQUEST_TOOLS, (Action a) -> actionHandler.handle((RequestToolsAction) a));
+				put(Kind.SELECT, (Action a) -> actionHandler.handle((SelectAction) a));
+				put(Kind.SELECT_ALL_ACTION, (Action a) -> actionHandler.handle((SelectAllAction) a));
+				put(Kind.TOOGLE_LAYER, (Action a) -> actionHandler.handle((ToogleLayerAction) a));
+				put(Kind.SET_BOUNDS, (Action a) -> actionHandler.handle((SetBoundsAction) a));
+			}
+		};
 
-	public DefaultGraphicalLanguageServer(String clientId) {
-		this();
-		this.clientId = clientId;
 	}
 
 	@Override
@@ -45,7 +95,7 @@ public class DefaultGraphicalLanguageServer implements IGraphicalLanguageServer 
 		String clientId = getClientId();
 		if (clientId != null && clientId.equals(message.getClientId())) {
 			Action action = message.getAction();
-			Consumer<Action> actionConsumer = ActionRegistry.getActionConsumer(action.getKind());
+			Consumer<Action> actionConsumer = actionConsumers.get(action.getKind());
 			if (actionConsumer != null) {
 				actionConsumer.accept(action);
 			}
@@ -64,11 +114,11 @@ public class DefaultGraphicalLanguageServer implements IGraphicalLanguageServer 
 	public Consumer<ActionMessage> getRemoteEndpoint() {
 		return remoteEndpoint;
 	}
-
+	
 	@Override
 	public void setRemoteEndpoint(Consumer<ActionMessage> remoteEndpoint) {
-		this.remoteEndpoint = remoteEndpoint;
-
+		this.remoteEndpoint=remoteEndpoint;
+		
 	}
 
 	@Override
@@ -79,18 +129,6 @@ public class DefaultGraphicalLanguageServer implements IGraphicalLanguageServer 
 	@Override
 	public void setClientId(String clientId) {
 		this.clientId = clientId;
-	}
-
-	@Override
-	public void setRequestActionHandler(IRequestActionHandler actionHandler) {
-		this.actionHandler = actionHandler;
-		ActionRegistry.bindActionHandler(actionHandler);
-
-	}
-
-	@Override
-	public IRequestActionHandler getRequestActionHandler() {
-		return actionHandler;
 	}
 
 	@Override
@@ -110,22 +148,6 @@ public class DefaultGraphicalLanguageServer implements IGraphicalLanguageServer 
 	}
 
 	@Override
-	public IGraphicalModelState getModelState() {
-		return modelState;
-	}
-
-	@Override
-	public void setModelFactory(IModelFactory modelFactory) {
-		this.modelFactory = modelFactory;
-
-	}
-
-	@Override
-	public void setPopupModelFactory(IPopupModelFactory popupModelFactory) {
-		this.popupModelFactory = popupModelFactory;
-	}
-
-	@Override
 	public IModelFactory getModelFactory() {
 		return modelFactory;
 	}
@@ -134,5 +156,6 @@ public class DefaultGraphicalLanguageServer implements IGraphicalLanguageServer 
 	public IPopupModelFactory getPopupModelFactory() {
 		return popupModelFactory;
 	}
+	
 
 }

@@ -25,11 +25,17 @@
 			<artifactId>diagram-api</artifactId>
 			<version>0.3.0</version>
 		</dependency>
-		
-			<dependency>
+
+		<dependency>
 			<groupId>io.typefox.sprotty</groupId>
 			<artifactId>diagram-server</artifactId>
 			<version>0.3.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+			<version>4.0</version>
 		</dependency>
 	</dependencies>
 </project>

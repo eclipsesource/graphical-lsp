@@ -1,13 +1,14 @@
 package org.chillisp.server;
 
 import at.tortmayr.chillisp.api.ActionMessage;
-import at.tortmayr.chillisp.api.IGraphicalLanguageServer;
+import at.tortmayr.chillisp.api.impl.DIGraphicalServerProvider;
 import at.tortmayr.chillisp.api.impl.DefaultGraphicalLanguageServer;
 import java.util.function.Consumer;
 import javax.websocket.CloseReason;
 import javax.websocket.EndpointConfig;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpointConfig;
+import org.chillisp.server.ExampleServerModule;
 import org.chillisp.websocket.GraphicalLanguageServerEndpoint;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -66,27 +67,18 @@ public class ServerLauncher {
   public static class TestEndpointConfigurator extends ServerEndpointConfig.Configurator {
     @Override
     public <T extends Object> T getEndpointInstance(final Class<T> endpointClass) throws InstantiationException {
-      T _xblockexpression = null;
-      {
-        final IGraphicalLanguageServer.Provider provider = new IGraphicalLanguageServer.Provider() {
-          @Override
-          public IGraphicalLanguageServer getGraphicalLanguageServer(final String clientId) {
-            final DefaultGraphicalLanguageServer server = new DefaultGraphicalLanguageServer(clientId);
-            return server;
-          }
+      T _endpointInstance = super.<T>getEndpointInstance(endpointClass);
+      final Procedure1<T> _function = (T instance) -> {
+        final ServerLauncher.TestServerEndpoint endpoint = ((ServerLauncher.TestServerEndpoint) instance);
+        ExampleServerModule _exampleServerModule = new ExampleServerModule();
+        DIGraphicalServerProvider _dIGraphicalServerProvider = new DIGraphicalServerProvider(DefaultGraphicalLanguageServer.class, _exampleServerModule);
+        endpoint.setGraphicalLanguageServerProvider(_dIGraphicalServerProvider);
+        final Consumer<Exception> _function_1 = (Exception e) -> {
+          InputOutput.<Exception>println(e);
         };
-        T _endpointInstance = super.<T>getEndpointInstance(endpointClass);
-        final Procedure1<T> _function = (T instance) -> {
-          final ServerLauncher.TestServerEndpoint endpoint = ((ServerLauncher.TestServerEndpoint) instance);
-          endpoint.setGraphicalLanguageServerProvider(provider);
-          final Consumer<Exception> _function_1 = (Exception e) -> {
-            InputOutput.<Exception>println(e);
-          };
-          endpoint.setExceptionHandler(_function_1);
-        };
-        _xblockexpression = ObjectExtensions.<T>operator_doubleArrow(_endpointInstance, _function);
-      }
-      return _xblockexpression;
+        endpoint.setExceptionHandler(_function_1);
+      };
+      return ObjectExtensions.<T>operator_doubleArrow(_endpointInstance, _function);
     }
   }
   

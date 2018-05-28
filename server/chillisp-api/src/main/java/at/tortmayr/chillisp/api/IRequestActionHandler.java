@@ -10,7 +10,6 @@ import at.tortmayr.chillisp.api.actions.ExecuteToolAction;
 import at.tortmayr.chillisp.api.actions.FitToScreenAction;
 import at.tortmayr.chillisp.api.actions.MoveAction;
 import at.tortmayr.chillisp.api.actions.OpenAction;
-import at.tortmayr.chillisp.api.actions.RequestBoundsAction;
 import at.tortmayr.chillisp.api.actions.RequestBoundsChangeHintsAction;
 import at.tortmayr.chillisp.api.actions.RequestExportSvgAction;
 import at.tortmayr.chillisp.api.actions.RequestLayersAction;
@@ -20,10 +19,13 @@ import at.tortmayr.chillisp.api.actions.RequestPopupModelAction;
 import at.tortmayr.chillisp.api.actions.RequestToolsAction;
 import at.tortmayr.chillisp.api.actions.SelectAction;
 import at.tortmayr.chillisp.api.actions.SelectAllAction;
-import at.tortmayr.chillisp.api.actions.ServerStatusAction;
+import at.tortmayr.chillisp.api.actions.SetBoundsAction;
 import at.tortmayr.chillisp.api.actions.ToogleLayerAction;
 
 public interface IRequestActionHandler {
+	void setLanguageServer(IGraphicalLanguageServer server);
+	
+	IGraphicalModelState getModelState();
 
 	void handle(RequestModelAction action);
 
@@ -56,6 +58,8 @@ public interface IRequestActionHandler {
 	void handle(RequestLayersAction action);
 
 	void handle(RequestPopupModelAction action);
+
+	void handle(SetBoundsAction action);
 
 	void handle(RequestToolsAction action);
 
