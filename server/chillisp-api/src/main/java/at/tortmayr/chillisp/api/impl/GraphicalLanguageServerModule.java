@@ -1,6 +1,7 @@
 package at.tortmayr.chillisp.api.impl;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.TypeLiteral;
 
 import at.tortmayr.chillisp.api.IGraphicalLanguageServer;
 import at.tortmayr.chillisp.api.IGraphicalModelExpansionListener;
@@ -10,6 +11,7 @@ import at.tortmayr.chillisp.api.IModelElementOpenListener;
 import at.tortmayr.chillisp.api.IModelFactory;
 import at.tortmayr.chillisp.api.IPopupModelFactory;
 import at.tortmayr.chillisp.api.IRequestActionHandler;
+import at.tortmayr.chillisp.api.IToolConfiguration;
 import io.typefox.sprotty.api.ILayoutEngine;
 
 public class GraphicalLanguageServerModule extends AbstractModule {
@@ -25,6 +27,11 @@ public class GraphicalLanguageServerModule extends AbstractModule {
 		bind(IGraphicalModelExpansionListener.class).to(bindGraphicalModelExpansionListener());
 		bind(IModelElementOpenListener.class).to(bindModelElementOpenListener());
 		bind(ILayoutEngine.class).to(bindLayoutEngine());
+		bind(IToolConfiguration.class).to(bindToolConfiguration());
+	}
+
+	protected Class<? extends IToolConfiguration> bindToolConfiguration() {
+		return IToolConfiguration.NullImpl.class;
 	}
 
 	protected Class<? extends ILayoutEngine> bindLayoutEngine() {

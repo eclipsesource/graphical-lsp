@@ -33,15 +33,14 @@
 		<dependency>
 			<groupId>at.tortmayr.chillisp</groupId>
 			<artifactId>chillisp-api</artifactId>
-			  <version>${project.version}</version>
+			<version>${project.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>io.typefox.sprotty</groupId>
 			<artifactId>diagram-server</artifactId>
 			<version>0.3.0</version>
 		</dependency>
-
 	</dependencies>
 </project>

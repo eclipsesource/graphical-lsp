@@ -12,6 +12,7 @@ import at.tortmayr.chillisp.api.IGraphicalModelSelectionListener;
 import at.tortmayr.chillisp.api.IGraphicalModelState;
 import at.tortmayr.chillisp.api.IModelElementOpenListener;
 import at.tortmayr.chillisp.api.IRequestActionHandler;
+import at.tortmayr.chillisp.api.IToolConfiguration;
 import at.tortmayr.chillisp.api.LayoutUtil;
 import at.tortmayr.chillisp.api.actions.CenterAction;
 import at.tortmayr.chillisp.api.actions.ChangeBoundsAction;
@@ -36,8 +37,10 @@ import at.tortmayr.chillisp.api.actions.SelectAllAction;
 import at.tortmayr.chillisp.api.actions.SetBoundsAction;
 import at.tortmayr.chillisp.api.actions.SetModelAction;
 import at.tortmayr.chillisp.api.actions.SetPopupModelAction;
+import at.tortmayr.chillisp.api.actions.SetToolsAction;
 import at.tortmayr.chillisp.api.actions.ToogleLayerAction;
 import at.tortmayr.chillisp.api.actions.UpdateModelAction;
+import at.tortmayr.chillisp.api.type.Tool;
 import io.typefox.sprotty.api.ILayoutEngine;
 import io.typefox.sprotty.api.SModelElement;
 import io.typefox.sprotty.api.SModelIndex;
@@ -55,6 +58,8 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 	private IGraphicalModelExpansionListener expansionListener;
 	@Inject
 	private IModelElementOpenListener modelElementOpenListener;
+	@Inject
+	private IToolConfiguration toolConfiguration;
 
 	private Object modelLock = new Object();
 	private int revision = 0;
@@ -228,7 +233,7 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 		if (server.getPopupModelFactory() != null) {
 			SModelRoot popupModel = server.getPopupModelFactory().createPopuModel(element, action, server);
 			if (popupModel != null) {
-				server.dispatch(new SetPopupModelAction(popupModel));
+				server.dispatch(new SetPopupModelAction(popupModel,action.getBounds()));
 			}
 		}
 
@@ -236,7 +241,12 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 
 	@Override
 	public void handle(RequestToolsAction action) {
-
+		if (toolConfiguration!=null) {
+			Tool[] tools=toolConfiguration.getTools(action, server);
+			if (tools!=null) {
+				server.dispatch(new SetToolsAction(tools));
+			}
+		}
 	}
 
 	@Override
