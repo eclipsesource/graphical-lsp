@@ -4,18 +4,14 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 import at.tortmayr.chillisp.api.IGraphicalLanguageServer;
+import at.tortmayr.chillisp.api.di.DefaultServerRuntimeModule;
 
 public class DIGraphicalServerProvider extends AbstractDIGraphicalServerProvider {
 
-	private GraphicalLanguageServerModule module;
-
-	public DIGraphicalServerProvider() {
-		super(DefaultGraphicalLanguageServer.class);
-		module = new GraphicalLanguageServerModule();
-	}
+	private DefaultServerRuntimeModule module;
 
 	public DIGraphicalServerProvider(Class<? extends IGraphicalLanguageServer> serverClass,
-			GraphicalLanguageServerModule module) {
+			DefaultServerRuntimeModule module) {
 		super(serverClass);
 		this.module = module;
 	}

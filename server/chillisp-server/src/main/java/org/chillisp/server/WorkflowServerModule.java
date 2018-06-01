@@ -5,38 +5,38 @@ import at.tortmayr.chillisp.api.IGraphicalModelSelectionListener;
 import at.tortmayr.chillisp.api.IModelElementOpenListener;
 import at.tortmayr.chillisp.api.IModelFactory;
 import at.tortmayr.chillisp.api.IPopupModelFactory;
-import at.tortmayr.chillisp.api.impl.GraphicalLanguageServerModule;
+import at.tortmayr.chillisp.api.di.DefaultServerRuntimeModule;
 import io.typefox.sprotty.api.ILayoutEngine;
 
-public class WorkflowServerModule extends GraphicalLanguageServerModule {
+public class WorkflowServerModule extends DefaultServerRuntimeModule {
 
 	@Override
-	protected Class<? extends IModelFactory> bindModelFactory() {
+	public Class<? extends IModelFactory> bindModelFactory() {
 		return WorkflowModelFactory.class;
 	}
 
 	@Override
-	protected Class<? extends ILayoutEngine> bindLayoutEngine() {
+	public Class<? extends ILayoutEngine> bindLayoutEngine() {
 		return ExampleLayoutEngine.class;
 	}
 
 	@Override
-	protected Class<? extends IPopupModelFactory> bindPopupModelFactory() {
+	public Class<? extends IPopupModelFactory> bindPopupModelFactory() {
 		return WorkflowPopupFactory.class;
 	}
 
 	@Override
-	protected Class<? extends IGraphicalModelSelectionListener> bindGraphicalModelSelectionListener() {
+	public Class<? extends IGraphicalModelSelectionListener> bindGraphicalModelSelectionListener() {
 		return WorkflowServerListener.class;
 	}
 
 	@Override
-	protected Class<? extends IModelElementOpenListener> bindModelElementOpenListener() {
+	public Class<? extends IModelElementOpenListener> bindModelElementOpenListener() {
 		return WorkflowServerListener.class;
 	}
 
 	@Override
-	protected Class<? extends IGraphicalModelExpansionListener> bindGraphicalModelExpansionListener() {
+	public Class<? extends IGraphicalModelExpansionListener> bindGraphicalModelExpansionListener() {
 		return WorkflowServerListener.class;
 	}
 
