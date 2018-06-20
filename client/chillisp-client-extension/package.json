@@ -14,9 +14,9 @@
     "@theia/languages": "next",
     "@theia/monaco": "next",
     "@types/node": "^8.0.14",
-    "sprotty": "0.2.1",
-    "theia-sprotty": "0.1.11",
-    "workflow-sprotty":"0.1.0"
+    "sprotty": "0.3.0",
+    "workflow-sprotty":"0.1.0",
+     "theia-sprotty": "0.1.16"
   },
   "devDependencies": {
     "rimraf": "latest",
@@ -30,7 +30,7 @@
   },
   "theiaExtensions": [
     {
-      "frontend": "lib/browser/chillisp-client-frontend-module"
+      "frontend": "lib/frontend-extension"
     }
   ]
 }

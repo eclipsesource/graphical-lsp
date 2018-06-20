@@ -10,12 +10,11 @@ import {
     defaultModule, TYPES, SGraphView, SLabelView, SCompartmentView, PolylineEdgeView,
     ConsoleLogger, LogLevel, boundsModule, moveModule, selectModule, undoRedoModule,
     viewportModule, hoverModule, HtmlRootView, PreRenderedView, exportModule, expandModule,
-    fadeModule, ExpandButtonView, buttonModule, SRoutingHandleView,
-    RectangularNodeView, openModule, modelSourceModule, overrideViewerOptions, ViewRegistry
+    fadeModule, ExpandButtonView, buttonModule, SRoutingHandleView, openModule, modelSourceModule, overrideViewerOptions, ViewRegistry
 } from "sprotty/lib";
 
 
-import { WeightedEdgeView, IconView, ActivityNodeView } from "./workflow-views";
+import { WeightedEdgeView, IconView, ActivityNodeView, TaskNodeView} from "./workflow-views";
 import { WorkflowModelFactory } from "./model-factory";
 
 
@@ -33,7 +32,7 @@ export default function createContainer(widgetId: string): Container {
     // container.bind(TYPES.ModelSource).to(WebSocketDiagramServer).inSingletonScope();
     overrideViewerOptions(container, {
         needsClientLayout: true,
-        needsServerLayout: true,
+        needsServerLayout: false,
         baseDiv: widgetId
     })
     const viewRegistry = container.get<ViewRegistry>(TYPES.ViewRegistry)
@@ -52,7 +51,7 @@ export default function createContainer(widgetId: string): Container {
     viewRegistry.register('edge:weighted', WeightedEdgeView)
     viewRegistry.register('icon', IconView);
     viewRegistry.register('node:activity', ActivityNodeView)
-    viewRegistry.register('node', RectangularNodeView)
+    viewRegistry.register("node:task",TaskNodeView)
 
     return container
 }

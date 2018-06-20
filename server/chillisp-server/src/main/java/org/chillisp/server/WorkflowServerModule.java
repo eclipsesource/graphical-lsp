@@ -11,7 +11,7 @@ import io.typefox.sprotty.api.ILayoutEngine;
 public class WorkflowServerModule extends DefaultServerRuntimeModule {
 
 	public Class<? extends IModelFactory> bindModelFactory() {
-		return SimpleModelFactory.class;
+		return WorkflowModelFactory.class;
 	}
 
 	@Override
