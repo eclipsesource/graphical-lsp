@@ -2,8 +2,8 @@ import { Disposable } from "@theia/languages/lib/browser";
 import { ThemeService, Theme } from "@theia/core/lib/browser/theming";
 import { injectable } from "inversify";
 
-const darkTheme = require('yang-sprotty/css/dark/dark.useable.css')
-const lightTheme = require('yang-sprotty/css/light/light.useable.css')
+const darkTheme = require('workflow-sprotty/css/dark/dark.useable.css')
+const lightTheme = require('workflow-sprotty/css/light/light.useable.css')
 
 @injectable()
 export class ThemeManager implements Disposable {
