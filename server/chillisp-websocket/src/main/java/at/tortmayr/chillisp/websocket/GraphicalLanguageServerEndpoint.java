@@ -1,4 +1,4 @@
-package org.chillisp.websocket;
+package at.tortmayr.chillisp.websocket;
 
 import java.util.function.Consumer;
 

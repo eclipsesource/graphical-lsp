@@ -1,4 +1,4 @@
-package org.chillisp.server;
+package at.tortmayr.chillisp.server;
 
 import org.eclipse.elk.alg.layered.options.LayeredOptions;
 import org.eclipse.elk.alg.layered.options.NodePlacementStrategy;

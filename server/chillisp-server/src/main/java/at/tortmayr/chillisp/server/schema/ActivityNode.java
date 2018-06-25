@@ -1,4 +1,4 @@
-package org.chillisp.server.schema;
+package at.tortmayr.chillisp.server.schema;
 
 import io.typefox.sprotty.api.SNode;
 
