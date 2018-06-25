@@ -8,8 +8,11 @@ import org.chillisp.server.schema.Icon;
 import org.chillisp.server.schema.TaskNode;
 import org.chillisp.server.schema.WeightedEdge;
 
+import com.google.gson.Gson;
+
 import at.tortmayr.chillisp.api.IGraphicalLanguageServer;
 import at.tortmayr.chillisp.api.IModelFactory;
+import at.tortmayr.chillisp.api.actions.RequestModelAction;
 import io.typefox.sprotty.api.LayoutOptions;
 import io.typefox.sprotty.api.Point;
 import io.typefox.sprotty.api.SEdge;
@@ -24,7 +27,7 @@ public class WorkflowModelFactory implements IModelFactory {
 	private static int edgeCouner = 0;
 
 	@Override
-	public SModelRoot loadModel(IGraphicalLanguageServer server) {
+	public SModelRoot loadModel(IGraphicalLanguageServer server, RequestModelAction action) {
 		TaskNode task1 = this.createTaskNode("Push", false, 30, null, 10, 200);
 		TaskNode task2 = this.createTaskNode("ChkWt", true, 10, "ControlUnit", 200, 200);
 		TaskNode task3 = this.createTaskNode("RflWt", false, 200, null, 400, 150);

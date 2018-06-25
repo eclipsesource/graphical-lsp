@@ -5,6 +5,7 @@ import java.util.List;
 
 import at.tortmayr.chillisp.api.IGraphicalLanguageServer;
 import at.tortmayr.chillisp.api.IModelFactory;
+import at.tortmayr.chillisp.api.actions.RequestModelAction;
 import io.typefox.sprotty.api.Dimension;
 import io.typefox.sprotty.api.Point;
 import io.typefox.sprotty.api.SModelElement;
@@ -14,7 +15,7 @@ import io.typefox.sprotty.api.SNode;
 public class SimpleModelFactory implements IModelFactory {
 
 	@Override
-	public SModelRoot loadModel(IGraphicalLanguageServer server) {
+	public SModelRoot loadModel(IGraphicalLanguageServer server, RequestModelAction action) {
 		SNode node = new SNode();
 		node.setId("first");
 		node.setType("node");

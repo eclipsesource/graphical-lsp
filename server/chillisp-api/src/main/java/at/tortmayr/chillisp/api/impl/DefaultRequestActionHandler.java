@@ -109,7 +109,7 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 			if (needsClientLayout != null && !needsClientLayout.isEmpty()) {
 				modelState.setNeedsClientLayout(Boolean.parseBoolean(needsClientLayout));
 			}
-			SModelRoot model = server.getModelFactory().loadModel(server);
+			SModelRoot model = server.getModelFactory().loadModel(server, action);
 			modelState.setCurrentModel(model);
 			if (model != null) {
 				submitModel(model, false);
@@ -233,7 +233,7 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 		if (server.getPopupModelFactory() != null) {
 			SModelRoot popupModel = server.getPopupModelFactory().createPopuModel(element, action, server);
 			if (popupModel != null) {
-				server.dispatch(new SetPopupModelAction(popupModel,action.getBounds()));
+				server.dispatch(new SetPopupModelAction(popupModel, action.getBounds()));
 			}
 		}
 
@@ -241,9 +241,9 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 
 	@Override
 	public void handle(RequestToolsAction action) {
-		if (toolConfiguration!=null) {
-			Tool[] tools=toolConfiguration.getTools(action, server);
-			if (tools!=null) {
+		if (toolConfiguration != null) {
+			Tool[] tools = toolConfiguration.getTools(action, server);
+			if (tools != null) {
 				server.dispatch(new SetToolsAction(tools));
 			}
 		}

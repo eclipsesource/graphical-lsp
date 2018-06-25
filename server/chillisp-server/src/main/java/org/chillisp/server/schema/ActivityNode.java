@@ -3,7 +3,6 @@ package org.chillisp.server.schema;
 import io.typefox.sprotty.api.SNode;
 
 public class ActivityNode extends SNode {
-	
 	public ActivityNode() {
 		setType("node:activity");
 	}
