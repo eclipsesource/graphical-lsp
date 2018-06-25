@@ -1,4 +1,4 @@
-package org.chillisp.server;
+package at.tortmayr.chillisp.server;
 
 import at.tortmayr.chillisp.api.IGraphicalModelExpansionListener;
 import at.tortmayr.chillisp.api.IGraphicalModelSelectionListener;

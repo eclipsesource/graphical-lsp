@@ -1,18 +1,17 @@
-package org.chillisp.server;
+package at.tortmayr.chillisp.server;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import org.chillisp.server.schema.ActivityNode;
-import org.chillisp.server.schema.Icon;
-import org.chillisp.server.schema.TaskNode;
-import org.chillisp.server.schema.WeightedEdge;
 
 import com.google.gson.Gson;
 
 import at.tortmayr.chillisp.api.IGraphicalLanguageServer;
 import at.tortmayr.chillisp.api.IModelFactory;
 import at.tortmayr.chillisp.api.actions.RequestModelAction;
+import at.tortmayr.chillisp.server.schema.ActivityNode;
+import at.tortmayr.chillisp.server.schema.Icon;
+import at.tortmayr.chillisp.server.schema.TaskNode;
+import at.tortmayr.chillisp.server.schema.WeightedEdge;
 import io.typefox.sprotty.api.LayoutOptions;
 import io.typefox.sprotty.api.Point;
 import io.typefox.sprotty.api.SEdge;

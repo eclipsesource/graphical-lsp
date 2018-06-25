@@ -1,4 +1,4 @@
-package org.chillisp.server;
+package at.tortmayr.chillisp.server;
 
 import java.util.ArrayList;
 import java.util.List;

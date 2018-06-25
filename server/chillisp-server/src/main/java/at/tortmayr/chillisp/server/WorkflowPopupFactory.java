@@ -1,13 +1,12 @@
-package org.chillisp.server;
+package at.tortmayr.chillisp.server;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.chillisp.server.schema.TaskNode;
-
 import at.tortmayr.chillisp.api.IGraphicalLanguageServer;
 import at.tortmayr.chillisp.api.IPopupModelFactory;
 import at.tortmayr.chillisp.api.actions.RequestPopupModelAction;
+import at.tortmayr.chillisp.server.schema.TaskNode;
 import io.typefox.sprotty.api.HtmlRoot;
 import io.typefox.sprotty.api.PreRenderedElement;
 import io.typefox.sprotty.api.SModelElement;

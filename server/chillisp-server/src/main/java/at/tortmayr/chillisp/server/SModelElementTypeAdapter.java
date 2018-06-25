@@ -1,14 +1,9 @@
 
-package org.chillisp.server;
+package at.tortmayr.chillisp.server;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.chillisp.server.schema.ActivityNode;
-import org.chillisp.server.schema.Icon;
-import org.chillisp.server.schema.TaskNode;
-import org.chillisp.server.schema.WeightedEdge;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -16,6 +11,10 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
 
+import at.tortmayr.chillisp.server.schema.ActivityNode;
+import at.tortmayr.chillisp.server.schema.Icon;
+import at.tortmayr.chillisp.server.schema.TaskNode;
+import at.tortmayr.chillisp.server.schema.WeightedEdge;
 import io.typefox.sprotty.api.HtmlRoot;
 import io.typefox.sprotty.api.PreRenderedElement;
 import io.typefox.sprotty.api.SCompartment;

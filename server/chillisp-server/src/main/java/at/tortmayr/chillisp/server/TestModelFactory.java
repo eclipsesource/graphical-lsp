@@ -1,4 +1,4 @@
-package org.chillisp.server;
+package at.tortmayr.chillisp.server;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

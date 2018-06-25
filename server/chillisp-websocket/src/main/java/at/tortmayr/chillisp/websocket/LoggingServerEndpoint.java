@@ -1,4 +1,4 @@
-package org.chillisp.websocket;
+package at.tortmayr.chillisp.websocket;
 
 import javax.websocket.CloseReason;
 import javax.websocket.EndpointConfig;
