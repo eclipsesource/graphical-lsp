@@ -20,6 +20,6 @@
 	<modules>
 		<module>chillisp-api</module>
 		<module>chillisp-websocket</module>
-		<module>chillisp-server</module>
+		<module>chillisp-example</module>
 	</modules>
 </project>
