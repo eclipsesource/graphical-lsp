@@ -22,7 +22,7 @@ public abstract class FileBasedModelFactory implements IModelFactory {
 	public FileBasedModelFactory() {
 		configureGson();
 	}
-	
+
 	protected abstract void configureGson();
 
 	@Override
@@ -32,8 +32,7 @@ public abstract class FileBasedModelFactory implements IModelFactory {
 			File modelFile = convertToFile(sourceURI);
 			if (modelFile != null && modelFile.exists()) {
 				String json = FileUtils.readFileToString(modelFile, "UTF8");
-				modelRoot= gson.fromJson(json, SGraph.class);
-				System.out.println(modelRoot);
+				modelRoot = gson.fromJson(json, SGraph.class);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -49,6 +48,5 @@ public abstract class FileBasedModelFactory implements IModelFactory {
 		return null;
 
 	}
-
 
 }
