@@ -66,9 +66,9 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 	private String lastSubmittedModelType;
 
 	public DefaultRequestActionHandler() {
-		selectionListener = new IGraphicalModelSelectionListener.NullImpl();
-		expansionListener = new IGraphicalModelExpansionListener.NullImpl();
-		modelElementOpenListener = new IModelElementOpenListener.NullImpl();
+		selectionListener = new IGraphicalModelSelectionListener() {};
+		expansionListener = new IGraphicalModelExpansionListener() {};
+		modelElementOpenListener = new IModelElementOpenListener() {};
 	}
 
 	protected void submitModel(SModelRoot newRoot, boolean update) {

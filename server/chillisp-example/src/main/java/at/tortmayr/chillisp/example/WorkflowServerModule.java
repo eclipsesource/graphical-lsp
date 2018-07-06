@@ -19,22 +19,22 @@ public class WorkflowServerModule extends DefaultServerRuntimeModule {
 		return ExampleLayoutEngine.class;
 	}
 
-	@Override
+
 	public Class<? extends IPopupModelFactory> bindPopupModelFactory() {
 		return WorkflowPopupFactory.class;
 	}
 
-	@Override
+
 	public Class<? extends IGraphicalModelSelectionListener> bindGraphicalModelSelectionListener() {
 		return WorkflowServerListener.class;
 	}
 
-	@Override
+
 	public Class<? extends IModelElementOpenListener> bindModelElementOpenListener() {
 		return WorkflowServerListener.class;
 	}
 
-	@Override
+
 	public Class<? extends IGraphicalModelExpansionListener> bindGraphicalModelExpansionListener() {
 		return WorkflowServerListener.class;
 	}
