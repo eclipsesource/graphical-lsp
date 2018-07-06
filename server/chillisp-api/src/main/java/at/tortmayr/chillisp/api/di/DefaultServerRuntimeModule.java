@@ -8,17 +8,12 @@ import at.tortmayr.chillisp.api.IRequestActionHandler;
 import at.tortmayr.chillisp.api.impl.DefaultGraphicalLanguageServer;
 import at.tortmayr.chillisp.api.impl.DefaultModelState;
 import at.tortmayr.chillisp.api.impl.DefaultRequestActionHandler;
-import io.typefox.sprotty.api.ILayoutEngine;
 
 public abstract class DefaultServerRuntimeModule extends AbstractGenericModule {
 
 	@Override
 	public void configure(Binder binder) {
 		super.configure(binder);
-	}
-
-	public Class<? extends ILayoutEngine> bindLayoutEngine() {
-		return ILayoutEngine.NullImpl.class;
 	}
 
 	public Class<? extends IGraphicalModelState> bindGraphicalModelState() {

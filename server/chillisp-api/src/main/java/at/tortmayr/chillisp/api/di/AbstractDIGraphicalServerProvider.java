@@ -1,4 +1,4 @@
-package at.tortmayr.chillisp.api.impl;
+package at.tortmayr.chillisp.api.di;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

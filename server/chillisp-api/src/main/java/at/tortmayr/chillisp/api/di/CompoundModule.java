@@ -1,4 +1,3 @@
-package at.tortmayr.chillisp.api.di;
 /*******************************************************************************
  * Copyright (c) 2009 itemis AG (http://www.itemis.eu) and others.
  * All rights reserved. This program and the accompanying materials
@@ -6,7 +5,7 @@ package at.tortmayr.chillisp.api.di;
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-
+package at.tortmayr.chillisp.api.di;
 
 import java.util.List;
 

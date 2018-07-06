@@ -22,7 +22,6 @@ public interface IGraphicalLanguageServer extends Consumer<ActionMessage> {
 
 	ILayoutEngine getLayoutEngine();
 
-
 	void dispatch(Action action);
 
 	IModelFactory getModelFactory();

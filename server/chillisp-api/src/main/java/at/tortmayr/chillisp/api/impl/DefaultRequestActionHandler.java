@@ -66,18 +66,16 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 	private String lastSubmittedModelType;
 
 	public DefaultRequestActionHandler() {
-		selectionListener = new IGraphicalModelSelectionListener() {};
-		expansionListener = new IGraphicalModelExpansionListener() {};
-		modelElementOpenListener = new IModelElementOpenListener() {};
 	}
 
 	protected void submitModel(SModelRoot newRoot, boolean update) {
-		if (modelState.needsClientLayout()) {
+
+		if (getModelState().needsClientLayout()) {
 			server.dispatch(new RequestBoundsAction(newRoot));
 		} else {
 			doSubmitModel(newRoot, update);
 		}
-		modelState.setCurrentModel(newRoot);
+		getModelState().setCurrentModel(newRoot);
 	}
 
 	private void doSubmitModel(SModelRoot newRoot, boolean update) {
@@ -104,13 +102,13 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 	public void handle(RequestModelAction action) {
 		Map<String, String> options = action.getOptions();
 		if (options != null) {
-			modelState.setOptions(options);
+			getModelState().setOptions(options);
 			String needsClientLayout = options.get("needsClientLayout");
 			if (needsClientLayout != null && !needsClientLayout.isEmpty()) {
-				modelState.setNeedsClientLayout(Boolean.parseBoolean(needsClientLayout));
+				getModelState().setNeedsClientLayout(Boolean.parseBoolean(needsClientLayout));
 			}
 			SModelRoot model = server.getModelFactory().loadModel(server, action);
-			modelState.setCurrentModel(model);
+			getModelState().setCurrentModel(model);
 			if (model != null) {
 				submitModel(model, false);
 			}
@@ -126,7 +124,7 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 
 	@Override
 	public void handle(CollapseExpandAction action) {
-		Set<String> expandedElements = modelState.getExpandedElements();
+		Set<String> expandedElements = getModelState().getExpandedElements();
 		if (action.getCollapseIds() != null) {
 			expandedElements.removeAll(Arrays.asList(action.getCollapseIds()));
 		}
@@ -142,10 +140,10 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 
 	@Override
 	public void handle(CollapseExpandAllAction action) {
-		Set<String> expandedElements = modelState.getExpandedElements();
+		Set<String> expandedElements = getModelState().getExpandedElements();
 		expandedElements.clear();
 		if (action.isExpand()) {
-			new SModelIndex(modelState.getCurrentModel()).allIds().forEach(id -> expandedElements.add(id));
+			new SModelIndex(getModelState().getCurrentModel()).allIds().forEach(id -> expandedElements.add(id));
 		}
 		if (expansionListener != null) {
 			expansionListener.expansionChanged(action, server);
@@ -156,7 +154,7 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 	@Override
 	public void handle(ComputedBoundsAction action) {
 		synchronized (modelLock) {
-			SModelRoot model = modelState.getCurrentModel();
+			SModelRoot model = getModelState().getCurrentModel();
 			if (model != null && model.getRevision() == action.getRevision()) {
 				LayoutUtil.applyBounds(model, action);
 				doSubmitModel(model, true);
@@ -228,7 +226,7 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 
 	@Override
 	public void handle(RequestPopupModelAction action) {
-		SModelRoot model = modelState.getCurrentModel();
+		SModelRoot model = getModelState().getCurrentModel();
 		SModelElement element = SModelIndex.find(model, action.getElementId());
 		if (server.getPopupModelFactory() != null) {
 			SModelRoot popupModel = server.getPopupModelFactory().createPopuModel(element, action, server);
@@ -251,7 +249,7 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 
 	@Override
 	public void handle(SelectAction action) {
-		Set<String> selectedElements = modelState.getSelectedElements();
+		Set<String> selectedElements = getModelState().getSelectedElements();
 		if (action.getDeselectedElementsIDs() != null) {
 			selectedElements.removeAll(Arrays.asList(action.getDeselectedElementsIDs()));
 		}
@@ -266,9 +264,9 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 
 	@Override
 	public void handle(SelectAllAction action) {
-		Set<String> selectedElements = modelState.getSelectedElements();
+		Set<String> selectedElements = getModelState().getSelectedElements();
 		if (action.isSelect()) {
-			new SModelIndex(modelState.getCurrentModel()).allIds().forEach(id -> selectedElements.add(id));
+			new SModelIndex(getModelState().getCurrentModel()).allIds().forEach(id -> selectedElements.add(id));
 		} else
 			selectedElements.clear();
 		if (selectionListener != null) {
@@ -296,6 +294,7 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 
 	@Override
 	public IGraphicalModelState getModelState() {
+		assert(modelState!=null);
 		return modelState;
 	}
 }

@@ -4,6 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 import at.tortmayr.chillisp.api.IGraphicalLanguageServer;
+import at.tortmayr.chillisp.api.di.AbstractDIGraphicalServerProvider;
 import at.tortmayr.chillisp.api.di.DefaultServerRuntimeModule;
 
 public class DIGraphicalServerProvider extends AbstractDIGraphicalServerProvider {

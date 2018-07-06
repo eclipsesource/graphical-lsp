@@ -2,7 +2,6 @@ package at.tortmayr.chillisp.api;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
 
 import at.tortmayr.chillisp.api.actions.Action;
 import at.tortmayr.chillisp.api.actions.CenterAction;
