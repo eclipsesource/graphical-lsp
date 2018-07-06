@@ -5,7 +5,5 @@ import at.tortmayr.chillisp.api.type.Tool;
 
 public interface IToolConfiguration {
 
-	default Tool[] getTools(RequestToolsAction action, IGraphicalLanguageServer server) {
-		return new Tool[0];
-	}
+	 Tool[] getTools(RequestToolsAction action, IGraphicalLanguageServer server);
 }
