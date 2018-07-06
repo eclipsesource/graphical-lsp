@@ -58,7 +58,7 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 	private IGraphicalModelExpansionListener expansionListener;
 	@Inject
 	private IModelElementOpenListener modelElementOpenListener;
-	@Inject
+	@Inject 
 	private IToolConfiguration toolConfiguration;
 
 	private Object modelLock = new Object();
