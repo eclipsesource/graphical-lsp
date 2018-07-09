@@ -1,0 +1,44 @@
+/*
+ * Copyright (C) 2017 TypeFox and others.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License") you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ */
+
+import { inject, injectable } from 'inversify'
+import { ExportSvgAction } from 'sprotty/lib'
+import { FileSystem } from '@theia/filesystem/lib/common'
+import { MessageService } from '@theia/core/lib/common'
+
+@injectable()
+export class TheiaFileSaver {
+    constructor(@inject(FileSystem) protected readonly fileSystem: FileSystem,
+                @inject(MessageService) protected readonly messageService: MessageService) {
+    }
+
+    save(sourceUri: string, action: ExportSvgAction) {
+        this.getNextFileName(sourceUri).then(fileName =>
+            this.fileSystem.createFile(fileName, { content: action.svg })
+                .then(() =>
+                    this.messageService.info(`Diagram exported to '${fileName}'`)
+                )
+                .catch((error) =>
+                    this.messageService.error(`Error exporting diagram '${error}`)
+                )
+        )
+    }
+
+    getNextFileName(sourceUri: string): Promise<string> {
+        return new Promise<string>(resolve => this.tryNextFileName(sourceUri, 0, resolve))
+    }
+
+    tryNextFileName(sourceURI: string, count: number, resolve: (fileName: string) => void) {
+        const currentName = sourceURI + (count === 0 ? '' : count) + '.svg'
+        this.fileSystem.exists(currentName).then(exists => {
+            if (!exists)
+                resolve(currentName)
+            else
+                this.tryNextFileName(sourceURI, ++count, resolve)
+        })
+    }
+}
