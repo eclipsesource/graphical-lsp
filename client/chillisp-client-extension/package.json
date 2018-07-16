@@ -15,9 +15,9 @@
     "@theia/languages": "latest",
     "@theia/monaco": "latest",
     "@types/node": "^8.0.14",
-    "sprotty": "0.3.0",
+    "sprotty": "0.4.0",
     "workflow-sprotty": "0.1.0",
-    "theia-sprotty": "0.1.16"
+    "theia-sprotty": "0.1.15"
   },
   "devDependencies": {
     "rimraf": "latest",
