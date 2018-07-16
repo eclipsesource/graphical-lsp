@@ -9,15 +9,15 @@
     "src"
   ],
   "dependencies": {
-    "@theia/core": "latest", 
+    "@theia/core": "latest",
     "@theia/editor": "latest",
     "@theia/filesystem": "latest",
     "@theia/languages": "latest",
     "@theia/monaco": "latest",
     "@types/node": "^8.0.14",
     "sprotty": "0.3.0",
-    "workflow-sprotty":"0.1.0",
-      "theia-sprotty": "0.1.16"
+    "workflow-sprotty": "0.1.0",
+    "theia-sprotty": "0.1.16"
   },
   "devDependencies": {
     "rimraf": "latest",
