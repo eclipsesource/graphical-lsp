@@ -22,8 +22,8 @@ import com.google.gson.GsonBuilder;
 
 import at.tortmayr.chillisp.api.IGraphicalLanguageServer;
 import at.tortmayr.chillisp.api.IModelFactory;
-import at.tortmayr.chillisp.api.SModelElementTypeAdapter;
 import at.tortmayr.chillisp.api.actions.RequestModelAction;
+import at.tortmayr.chillisp.api.json.SModelElementTypeAdapter;
 import io.typefox.sprotty.api.SGraph;
 import io.typefox.sprotty.api.SModelElement;
 import io.typefox.sprotty.api.SModelRoot;
@@ -46,6 +46,11 @@ public abstract class FileBasedModelFactory implements IModelFactory {
 				.registerTypeAdapterFactory(new EnumTypeAdapter.Factory());
 	}
 
+	/**
+	 * Returns a map which enables the identification of the corresponding Java
+	 * class for each SModelElement based on its type property. This mappings will
+	 * be reused by GSON for proper JSON-to-Java conversion.
+	 */
 	protected abstract Map<String, Class<? extends SModelElement>> getModelTypeSchema();
 
 	@Override

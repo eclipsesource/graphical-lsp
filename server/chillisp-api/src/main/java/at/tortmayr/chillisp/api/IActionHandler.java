@@ -33,7 +33,7 @@ import at.tortmayr.chillisp.api.actions.SelectAllAction;
 import at.tortmayr.chillisp.api.actions.SetBoundsAction;
 import at.tortmayr.chillisp.api.actions.ToogleLayerAction;
 
-public interface IRequestActionHandler {
+public interface IActionHandler {
 	void setLanguageServer(IGraphicalLanguageServer server);
 	
 	IGraphicalModelState getModelState();

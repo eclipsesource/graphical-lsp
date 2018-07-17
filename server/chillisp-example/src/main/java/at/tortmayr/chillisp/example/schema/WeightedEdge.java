@@ -13,8 +13,10 @@ package at.tortmayr.chillisp.example.schema;
 import io.typefox.sprotty.api.SEdge;
 
 public class WeightedEdge extends SEdge {
+	public static final String TYPE = "edge:weighted";
+
 	public WeightedEdge() {
-		setType("edge:weighted");
+		setType(WeightedEdge.TYPE);
 	}
 
 	private String probability;

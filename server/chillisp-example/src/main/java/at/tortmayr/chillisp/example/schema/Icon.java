@@ -14,10 +14,11 @@ import io.typefox.sprotty.api.Point;
 import io.typefox.sprotty.api.SShapeElement;
 
 public class Icon extends SShapeElement{
+	public static final String TYPE="icon";
 	private String layout;
 	
 	public Icon() {
-		setType("icon");
+		setType(Icon.TYPE);
 		setPosition(new Point());
 	}
 

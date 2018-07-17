@@ -18,9 +18,7 @@ import javax.inject.Inject;
 import at.tortmayr.chillisp.api.ActionMessage;
 import at.tortmayr.chillisp.api.ActionRegistry.Kind;
 import at.tortmayr.chillisp.api.IGraphicalLanguageServer;
-import at.tortmayr.chillisp.api.IModelFactory;
-import at.tortmayr.chillisp.api.IPopupModelFactory;
-import at.tortmayr.chillisp.api.IRequestActionHandler;
+import at.tortmayr.chillisp.api.IActionHandler;
 import at.tortmayr.chillisp.api.actions.Action;
 import at.tortmayr.chillisp.api.actions.CenterAction;
 import at.tortmayr.chillisp.api.actions.ChangeBoundsAction;
@@ -45,21 +43,20 @@ import at.tortmayr.chillisp.api.actions.SelectAllAction;
 import at.tortmayr.chillisp.api.actions.ServerStatusAction;
 import at.tortmayr.chillisp.api.actions.SetBoundsAction;
 import at.tortmayr.chillisp.api.actions.ToogleLayerAction;
-import io.typefox.sprotty.api.ILayoutEngine;
 import io.typefox.sprotty.api.ServerStatus;
 
 public class DefaultGraphicalLanguageServer implements IGraphicalLanguageServer {
 
 	private HashMap<String, Consumer<Action>> actionConsumers;
 
-	private IRequestActionHandler actionHandler;
+	private IActionHandler actionHandler;
 
 	private String clientId;
 	private ServerStatus status;
 	private Consumer<ActionMessage> remoteEndpoint;
 
 	@Inject
-	public DefaultGraphicalLanguageServer(IRequestActionHandler actionHandler) {
+	public DefaultGraphicalLanguageServer(IActionHandler actionHandler) {
 		this.actionHandler = actionHandler;
 		actionHandler.setLanguageServer(this);
 		initialize();

@@ -8,7 +8,7 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-package at.tortmayr.chillisp.api;
+package at.tortmayr.chillisp.api.json;
 
 import java.lang.reflect.Constructor;
 import java.util.Map;

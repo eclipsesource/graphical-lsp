@@ -28,8 +28,6 @@ public class ExampleServerLauncher {
 
 	public static void main(String[] args) {
 		try {
-	
-			
 			Server server = new Server(8080);
 			ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
 			contextHandler.setContextPath("/");
@@ -40,7 +38,7 @@ public class ExampleServerLauncher {
 			ServerEndpointConfig.Builder builder = ServerEndpointConfig.Builder.create(LoggingServerEndpoint.class,
 					"/diagram");
 			builder = builder.configurator(new EndpointConfigurator(
-					new DIGraphicalServerProvider(DefaultGraphicalLanguageServer.class, new WorkflowServerModule())));
+					new DIGraphicalServerProvider(DefaultGraphicalLanguageServer.class, new WorkflowServerRuntimeModule())));
 			ServerEndpointConfig config = builder.build();
 			container.addEndpoint(config);
 

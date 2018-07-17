@@ -19,11 +19,11 @@ import at.tortmayr.chillisp.api.IGraphicalModelState;
 import at.tortmayr.chillisp.api.IModelElementOpenListener;
 import at.tortmayr.chillisp.api.IModelFactory;
 import at.tortmayr.chillisp.api.IPopupModelFactory;
-import at.tortmayr.chillisp.api.IRequestActionHandler;
+import at.tortmayr.chillisp.api.IActionHandler;
 import at.tortmayr.chillisp.api.IToolConfiguration;
 import at.tortmayr.chillisp.api.impl.DefaultGraphicalLanguageServer;
 import at.tortmayr.chillisp.api.impl.DefaultModelState;
-import at.tortmayr.chillisp.api.impl.DefaultRequestActionHandler;
+import at.tortmayr.chillisp.api.impl.DefaultActionHandler;
 import io.typefox.sprotty.api.ILayoutEngine;
 
 public abstract class DefaultServerRuntimeModule extends AbstractGenericModule {
@@ -37,8 +37,8 @@ public abstract class DefaultServerRuntimeModule extends AbstractGenericModule {
 		return DefaultModelState.class;
 	}
 
-	public Class<? extends IRequestActionHandler> bindRequestActionHandler() {
-		return DefaultRequestActionHandler.class;
+	public Class<? extends IActionHandler> bindRequestActionHandler() {
+		return DefaultActionHandler.class;
 	}
 
 	public Class<? extends IGraphicalLanguageServer> bindGraphicalLanguageServer() {

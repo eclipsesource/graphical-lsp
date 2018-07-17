@@ -13,6 +13,7 @@ package at.tortmayr.chillisp.example.schema;
 import io.typefox.sprotty.api.SNode;
 
 public class TaskNode extends SNode {
+	public static final String TYPE="node:task";
 	private String name;
 	private boolean expanded;
 	private int duration;
@@ -20,7 +21,7 @@ public class TaskNode extends SNode {
 	private String reference;
 
 	public TaskNode() {
-		setType("node:task");
+		setType(TaskNode.TYPE);
 	}
 
 	public boolean isExpanded() {

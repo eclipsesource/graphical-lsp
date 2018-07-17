@@ -18,7 +18,7 @@ import at.tortmayr.chillisp.api.IPopupModelFactory;
 import at.tortmayr.chillisp.api.IToolConfiguration;
 import at.tortmayr.chillisp.api.di.DefaultServerRuntimeModule;
 
-public class WorkflowServerModule extends DefaultServerRuntimeModule {
+public class WorkflowServerRuntimeModule extends DefaultServerRuntimeModule {
 	@Override
 	public Class<? extends IModelFactory> bindModelFactory() {
 		return WorkflowModelFactory.class;

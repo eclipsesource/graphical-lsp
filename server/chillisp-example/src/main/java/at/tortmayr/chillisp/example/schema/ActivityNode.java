@@ -13,9 +13,12 @@ package at.tortmayr.chillisp.example.schema;
 import io.typefox.sprotty.api.SNode;
 
 public class ActivityNode extends SNode {
+	public static final String TYPE = "node:activity";
+
 	public ActivityNode() {
-		setType("node:activity");
+		setType(ActivityNode.TYPE);
 	}
+
 	private String nodeType;
 
 	public String getNodeType() {
@@ -25,5 +28,5 @@ public class ActivityNode extends SNode {
 	public void setNodeType(String nodeType) {
 		this.nodeType = nodeType;
 	}
-	
+
 }

@@ -16,6 +16,7 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+import at.tortmayr.chillisp.api.IActionHandler;
 import at.tortmayr.chillisp.api.IGraphicalLanguageServer;
 import at.tortmayr.chillisp.api.IGraphicalModelExpansionListener;
 import at.tortmayr.chillisp.api.IGraphicalModelSelectionListener;
@@ -23,7 +24,6 @@ import at.tortmayr.chillisp.api.IGraphicalModelState;
 import at.tortmayr.chillisp.api.IModelElementOpenListener;
 import at.tortmayr.chillisp.api.IModelFactory;
 import at.tortmayr.chillisp.api.IPopupModelFactory;
-import at.tortmayr.chillisp.api.IRequestActionHandler;
 import at.tortmayr.chillisp.api.IToolConfiguration;
 import at.tortmayr.chillisp.api.LayoutUtil;
 import at.tortmayr.chillisp.api.actions.CenterAction;
@@ -59,7 +59,7 @@ import io.typefox.sprotty.api.SModelElement;
 import io.typefox.sprotty.api.SModelIndex;
 import io.typefox.sprotty.api.SModelRoot;
 
-public class DefaultRequestActionHandler implements IRequestActionHandler {
+public class DefaultActionHandler implements IActionHandler {
 
 	private IGraphicalLanguageServer server;
 
@@ -83,7 +83,7 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 	private int revision = 0;
 	private String lastSubmittedModelType;
 
-	public DefaultRequestActionHandler() {
+	public DefaultActionHandler() {
 	}
 
 	protected void submitModel(SModelRoot newRoot, boolean update) {
@@ -136,8 +136,7 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 
 	@Override
 	public void handle(CenterAction action) {
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException("Method not yet implemented");
 	}
 
 	@Override
@@ -183,44 +182,41 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 
 	@Override
 	public void handle(ExecuteNodeCreationToolAction action) {
-		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Method not yet implemented");
 
 	}
 
 	@Override
 	public void handle(ExecuteToolAction action) {
-		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Method not yet implemented");
 
 	}
 
 	@Override
 	public void handle(RequestBoundsChangeHintsAction action) {
-		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Method not yet implemented");
 
 	}
 
 	@Override
 	public void handle(ChangeBoundsAction action) {
-		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Method not yet implemented");
 
 	}
 
 	@Override
 	public void handle(RequestMoveHintsAction action) {
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException("Method not yet implemented");
 	}
 
 	@Override
 	public void handle(MoveAction action) {
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException("Method not yet implemented");
 	}
 
 	@Override
 	public void handle(FitToScreenAction action) {
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException("Method not yet implemented");
 	}
 
 	@Override
@@ -232,14 +228,12 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 
 	@Override
 	public void handle(RequestExportSvgAction action) {
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException("Method not yet implemented");
 	}
 
 	@Override
 	public void handle(RequestLayersAction action) {
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException("Method not yet implemented");
 	}
 
 	@Override
@@ -252,7 +246,6 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 				server.dispatch(new SetPopupModelAction(popupModel, action.getBounds()));
 			}
 		}
-
 	}
 
 	@Override
@@ -277,7 +270,6 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 		if (selectionListener != null) {
 			selectionListener.selectionChanged(action, server);
 		}
-
 	}
 
 	@Override
@@ -294,14 +286,12 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 
 	@Override
 	public void handle(ToogleLayerAction action) {
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException("Method not yet implemented");
 	}
 
 	@Override
 	public void handle(SetBoundsAction action) {
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException("Method not yet implemented");
 	}
 
 	@Override

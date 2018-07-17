@@ -42,10 +42,10 @@ public class WorkflowModelFactory extends FileBasedModelFactory {
 				put("edge", SEdge.class);
 				put("html", HtmlRoot.class);
 				put("pre-rendered", PreRenderedElement.class);
-				put("edge:weighted", WeightedEdge.class);
-				put("icon", Icon.class);
-				put("node:activity", ActivityNode.class);
-				put("node:task", TaskNode.class);
+				put(WeightedEdge.TYPE, WeightedEdge.class);
+				put(Icon.TYPE, Icon.class);
+				put(ActivityNode.TYPE, ActivityNode.class);
+				put(TaskNode.TYPE, TaskNode.class);
 			}
 		};
 
