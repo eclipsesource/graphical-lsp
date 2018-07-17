@@ -2,7 +2,7 @@ import { injectable, inject } from "inversify";
 import { DiagramManagerImpl, DiagramWidget, TheiaLSPDiagramServer, } from "theia-sprotty/lib";
 import URI from "@theia/core/lib/common/uri";
 import { ModelSource, DiagramServer, TYPES, IActionDispatcher, } from "sprotty/lib";
-import { GLSPLanguageContribution, TheiaWebsocketDiagramServer } from "./diagram-server";
+import { GLSPLanguageContribution, TheiaWebsocketDiagramServer } from "theia-sprotty/lib"
 import { ThemeManager } from "./theme-manager";
 
 

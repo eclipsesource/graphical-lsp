@@ -3,7 +3,7 @@ import { DiagramConfiguration, DiagramManagerProvider, DiagramManager } from "th
 import { WorkflowDiagramConfiguration } from "./di.config";
 import { WorkflowDiagramManager } from "./workflow-diagram-manager";
 import { FrontendApplicationContribution, OpenHandler } from '@theia/core/lib/browser'
-import { GLSPLanguageContribution } from "./diagram-server";
+import { GLSPLanguageContribution } from "theia-sprotty/lib";
 import { ThemeManager } from "./theme-manager";
 
 const WebSocket = require("reconnecting-websocket");

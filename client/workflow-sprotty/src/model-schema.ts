@@ -25,5 +25,3 @@ export interface WeightedEdgeSchema extends SEdgeSchema {
 export interface ActivityNodeSchema extends SNodeSchema {
     nodeType: string
 }
-
-

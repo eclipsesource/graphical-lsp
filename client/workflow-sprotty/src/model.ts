@@ -1,8 +1,8 @@
-import { RectangularNode, SEdge, LayoutContainer, SShapeElement, Bounds, boundsFeature, layoutContainerFeature, layoutableChildFeature, fadeFeature, Expandable, expandFeature } from "sprotty/lib";
+import { RectangularNode, SEdge, LayoutContainer, SShapeElement, Bounds, boundsFeature, layoutContainerFeature, layoutableChildFeature, fadeFeature, Expandable, expandFeature, } from "sprotty/lib";
 import { ActivityNodeSchema } from "./model-schema";
 
 export class TaskNode extends RectangularNode implements Expandable {
-    expanded: boolean 
+    expanded: boolean
     name: string = ""
     duration?: number;
     taskType?: string;
@@ -28,9 +28,9 @@ export class ActivityNode extends RectangularNode {
 
 }
 export class Icon extends SShapeElement implements LayoutContainer {
-    layout: string 
+    layout: string
     layoutOptions?: { [key: string]: string | number | boolean; };
-    bounds:Bounds
+    bounds: Bounds
     size = {
         width: 32,
         height: 32

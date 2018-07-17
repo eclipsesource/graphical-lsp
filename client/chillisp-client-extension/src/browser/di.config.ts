@@ -2,7 +2,7 @@ import { DiagramConfiguration, TheiaKeyTool } from "theia-sprotty/lib"
 import { createWorkflowDiagramContainer } from "workflow-sprotty/lib"
 
 import { Container, injectable } from "inversify";
-import { TheiaWebsocketDiagramServer } from "./diagram-server";
+import { TheiaWebsocketDiagramServer } from "theia-sprotty/lib"
 import { TYPES, KeyTool } from "sprotty/lib";
 
 @injectable()

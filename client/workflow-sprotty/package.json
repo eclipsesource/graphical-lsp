@@ -10,9 +10,10 @@
     "diagram"
   ],
   "dependencies": {
-    "sprotty": "0.4.0"
+    "chilli-sprotty": "0.0.1"
   },
   "devDependencies": {
+    "chilli-sprotty": "0.0.1",
     "rimraf": "latest",
     "typescript": "latest"
   },

@@ -10,13 +10,14 @@ import {
     defaultModule, TYPES, SGraphView, SLabelView, SCompartmentView, PolylineEdgeView,
     ConsoleLogger, LogLevel, boundsModule, moveModule, selectModule, undoRedoModule,
     viewportModule, hoverModule, HtmlRootView, PreRenderedView, exportModule, expandModule,
-    fadeModule, ExpandButtonView, buttonModule, SRoutingHandleView, openModule, modelSourceModule, overrideViewerOptions, configureModelElement, SGraph, SLabel, SCompartment, SEdge, PreRenderedElement, HtmlRoot, SButton, SRoutingHandle, RectangularNode, RectangularNodeView
+    fadeModule, ExpandButtonView, buttonModule, SRoutingHandleView, openModule, modelSourceModule, overrideViewerOptions, configureModelElement, SLabel, SCompartment, SEdge, PreRenderedElement, HtmlRoot, SButton, SRoutingHandle, RectangularNode, RectangularNodeView
 } from "sprotty/lib";
 
 
 import { WeightedEdgeView, IconView, ActivityNodeView, TaskNodeView} from "./workflow-views";
 import { WorkflowModelFactory } from "./model-factory";
 import { TaskNode, WeightedEdge, Icon, ActivityNode } from "./model";
+import {saveModule,GLSPGraph} from "chilli-sprotty/lib"
 
 
 const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
@@ -24,7 +25,7 @@ const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind
     rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn)
     rebind(TYPES.IModelFactory).to(WorkflowModelFactory).inSingletonScope()
     const context = { bind, unbind, isBound, rebind };
-    configureModelElement(context, 'graph', SGraph, SGraphView);
+    configureModelElement(context, 'graph', GLSPGraph, SGraphView);
     configureModelElement(context, 'node:task', TaskNode, TaskNodeView);
     configureModelElement(context, 'label:heading', SLabel, SLabelView);
     configureModelElement(context, 'label:text', SLabel, SLabelView);
@@ -47,7 +48,7 @@ export default function createContainer(widgetId: string): Container {
 
     container.load(defaultModule, selectModule, moveModule, boundsModule, undoRedoModule, viewportModule,
         hoverModule, fadeModule, exportModule, expandModule, openModule, buttonModule, modelSourceModule,
-        workflowDiagramModule);
+        workflowDiagramModule, saveModule);
 
         
     overrideViewerOptions(container, {
