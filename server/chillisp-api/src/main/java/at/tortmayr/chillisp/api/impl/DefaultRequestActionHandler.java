@@ -21,6 +21,8 @@ import at.tortmayr.chillisp.api.IGraphicalModelExpansionListener;
 import at.tortmayr.chillisp.api.IGraphicalModelSelectionListener;
 import at.tortmayr.chillisp.api.IGraphicalModelState;
 import at.tortmayr.chillisp.api.IModelElementOpenListener;
+import at.tortmayr.chillisp.api.IModelFactory;
+import at.tortmayr.chillisp.api.IPopupModelFactory;
 import at.tortmayr.chillisp.api.IRequestActionHandler;
 import at.tortmayr.chillisp.api.IToolConfiguration;
 import at.tortmayr.chillisp.api.LayoutUtil;
@@ -42,6 +44,7 @@ import at.tortmayr.chillisp.api.actions.RequestModelAction;
 import at.tortmayr.chillisp.api.actions.RequestMoveHintsAction;
 import at.tortmayr.chillisp.api.actions.RequestPopupModelAction;
 import at.tortmayr.chillisp.api.actions.RequestToolsAction;
+import at.tortmayr.chillisp.api.actions.SaveModelAction;
 import at.tortmayr.chillisp.api.actions.SelectAction;
 import at.tortmayr.chillisp.api.actions.SelectAllAction;
 import at.tortmayr.chillisp.api.actions.SetBoundsAction;
@@ -68,9 +71,14 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 	private IGraphicalModelExpansionListener expansionListener;
 	@Inject
 	private IModelElementOpenListener modelElementOpenListener;
-	@Inject 
+	@Inject
 	private IToolConfiguration toolConfiguration;
-
+	@Inject
+	private IModelFactory modelFactory;
+	@Inject
+	private IPopupModelFactory popupModelFactory;
+	@Inject
+	private ILayoutEngine layoutEngine;
 	private Object modelLock = new Object();
 	private int revision = 0;
 	private String lastSubmittedModelType;
@@ -89,8 +97,7 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 	}
 
 	private void doSubmitModel(SModelRoot newRoot, boolean update) {
-
-		ILayoutEngine layoutEngine = server.getLayoutEngine();
+		
 		if (layoutEngine != null) {
 			layoutEngine.layout(newRoot);
 		}
@@ -112,13 +119,14 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 	public void handle(RequestModelAction action) {
 		Map<String, String> options = action.getOptions();
 		if (options != null) {
-			getModelState().setOptions(options);
+
 			String needsClientLayout = options.get("needsClientLayout");
 			if (needsClientLayout != null && !needsClientLayout.isEmpty()) {
 				getModelState().setNeedsClientLayout(Boolean.parseBoolean(needsClientLayout));
 			}
-			SModelRoot model = server.getModelFactory().loadModel(server, action);
+			SModelRoot model = modelFactory.loadModel(server, action);
 			getModelState().setCurrentModel(model);
+			getModelState().setOptions(options);
 			if (model != null) {
 				submitModel(model, false);
 			}
@@ -238,8 +246,8 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 	public void handle(RequestPopupModelAction action) {
 		SModelRoot model = getModelState().getCurrentModel();
 		SModelElement element = SModelIndex.find(model, action.getElementId());
-		if (server.getPopupModelFactory() != null) {
-			SModelRoot popupModel = server.getPopupModelFactory().createPopuModel(element, action, server);
+		if (popupModelFactory != null) {
+			SModelRoot popupModel = popupModelFactory.createPopuModel(element, action, server);
 			if (popupModel != null) {
 				server.dispatch(new SetPopupModelAction(popupModel, action.getBounds()));
 			}
@@ -304,7 +312,14 @@ public class DefaultRequestActionHandler implements IRequestActionHandler {
 
 	@Override
 	public IGraphicalModelState getModelState() {
-		assert(modelState!=null);
+		assert (modelState != null);
 		return modelState;
+	}
+
+	@Override
+	public void handle(SaveModelAction action) {
+		if (action !=null && modelFactory instanceof FileBasedModelFactory) {
+			((FileBasedModelFactory)modelFactory).saveModel(getModelState().getCurrentModel());
+		}	
 	}
 }

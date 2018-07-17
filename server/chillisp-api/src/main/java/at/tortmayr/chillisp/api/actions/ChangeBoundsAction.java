@@ -19,7 +19,7 @@ public class ChangeBoundsAction extends Action {
 	private ElementAndBounds[] newBounds;
 
 	public ChangeBoundsAction() {
-		super(ActionRegistry.Kind.CHANGE_BOUNDS_ACTION);
+		super(ActionRegistry.Kind.CHANGE_BOUNDS);
 
 	}
 

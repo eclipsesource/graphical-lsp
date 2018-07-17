@@ -39,6 +39,7 @@ import at.tortmayr.chillisp.api.actions.RequestModelAction;
 import at.tortmayr.chillisp.api.actions.RequestMoveHintsAction;
 import at.tortmayr.chillisp.api.actions.RequestPopupModelAction;
 import at.tortmayr.chillisp.api.actions.RequestToolsAction;
+import at.tortmayr.chillisp.api.actions.SaveModelAction;
 import at.tortmayr.chillisp.api.actions.SelectAction;
 import at.tortmayr.chillisp.api.actions.SelectAllAction;
 import at.tortmayr.chillisp.api.actions.ServerStatusAction;
@@ -52,12 +53,7 @@ public class DefaultGraphicalLanguageServer implements IGraphicalLanguageServer 
 	private HashMap<String, Consumer<Action>> actionConsumers;
 
 	private IRequestActionHandler actionHandler;
-	@Inject
-	private IModelFactory modelFactory;
-	@Inject
-	private IPopupModelFactory popupModelFactory;
-	@Inject
-	private ILayoutEngine layoutEngine;
+
 	private String clientId;
 	private ServerStatus status;
 	private Consumer<ActionMessage> remoteEndpoint;
@@ -84,7 +80,7 @@ public class DefaultGraphicalLanguageServer implements IGraphicalLanguageServer 
 				put(Kind.COMPUTED_BOUNDS, (Action a) -> actionHandler.handle((ExecuteToolAction) a));
 				put(Kind.REQUEST_BOUNDS_CHANGE_HINTS,
 						(Action a) -> actionHandler.handle((RequestBoundsChangeHintsAction) a));
-				put(Kind.CHANGE_BOUNDS_ACTION, (Action a) -> actionHandler.handle((ChangeBoundsAction) a));
+				put(Kind.CHANGE_BOUNDS, (Action a) -> actionHandler.handle((ChangeBoundsAction) a));
 				put(Kind.REQUEST_MOVE_HINTS, (Action a) -> actionHandler.handle((RequestMoveHintsAction) a));
 				put(Kind.MOVE, (Action a) -> actionHandler.handle((MoveAction) a));
 				put(Kind.FIT_TO_SCREEN, (Action a) -> actionHandler.handle((FitToScreenAction) a));
@@ -94,9 +90,10 @@ public class DefaultGraphicalLanguageServer implements IGraphicalLanguageServer 
 				put(Kind.REQUEST_POPUP_MODEL, (Action a) -> actionHandler.handle((RequestPopupModelAction) a));
 				put(Kind.REQUEST_TOOLS, (Action a) -> actionHandler.handle((RequestToolsAction) a));
 				put(Kind.SELECT, (Action a) -> actionHandler.handle((SelectAction) a));
-				put(Kind.SELECT_ALL_ACTION, (Action a) -> actionHandler.handle((SelectAllAction) a));
+				put(Kind.SELECT_ALL, (Action a) -> actionHandler.handle((SelectAllAction) a));
 				put(Kind.TOOGLE_LAYER, (Action a) -> actionHandler.handle((ToogleLayerAction) a));
 				put(Kind.SET_BOUNDS, (Action a) -> actionHandler.handle((SetBoundsAction) a));
+				put(Kind.SAVE_MODEL, (Action a) -> actionHandler.handle((SaveModelAction) a));
 			}
 		};
 
@@ -151,21 +148,6 @@ public class DefaultGraphicalLanguageServer implements IGraphicalLanguageServer 
 
 	public ServerStatus getStatus() {
 		return status;
-	}
-
-	@Override
-	public ILayoutEngine getLayoutEngine() {
-		return layoutEngine;
-	}
-
-	@Override
-	public IModelFactory getModelFactory() {
-		return modelFactory;
-	}
-
-	@Override
-	public IPopupModelFactory getPopupModelFactory() {
-		return popupModelFactory;
 	}
 
 }

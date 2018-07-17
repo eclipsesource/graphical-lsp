@@ -33,6 +33,7 @@ import at.tortmayr.chillisp.api.actions.RequestModelAction;
 import at.tortmayr.chillisp.api.actions.RequestMoveHintsAction;
 import at.tortmayr.chillisp.api.actions.RequestPopupModelAction;
 import at.tortmayr.chillisp.api.actions.RequestToolsAction;
+import at.tortmayr.chillisp.api.actions.SaveModelAction;
 import at.tortmayr.chillisp.api.actions.SelectAction;
 import at.tortmayr.chillisp.api.actions.SelectAllAction;
 import at.tortmayr.chillisp.api.actions.ServerStatusAction;
@@ -62,7 +63,7 @@ public class ActionRegistry {
 			put(Kind.EXECUTE_TOOL, ExecuteToolAction.class);
 			put(Kind.REQUEST_BOUNDS_CHANGE_HINTS, RequestBoundsChangeHintsAction.class);
 			put(Kind.SET_BOUNDS_CHANGE_HINTS, SetBoundsChangeHintsAction.class);
-			put(Kind.CHANGE_BOUNDS_ACTION, ChangeBoundsAction.class);
+			put(Kind.CHANGE_BOUNDS, ChangeBoundsAction.class);
 			put(Kind.REQUEST_MOVE_HINTS, RequestMoveHintsAction.class);
 			put(Kind.SET_MOVE_HINTS, SetMoveHintsAction.class);
 			put(Kind.MOVE, MoveAction.class);
@@ -82,7 +83,8 @@ public class ActionRegistry {
 			put(Kind.SET_TOOLS, SetToolsAction.class);
 			put(Kind.TOOGLE_LAYER, ToogleLayerAction.class);
 			put(Kind.UPDATE_MODEL, UpdateModelAction.class);
-			put(Kind.SELECT_ALL_ACTION, SelectAllAction.class);
+			put(Kind.SELECT_ALL, SelectAllAction.class);
+			put(Kind.SAVE_MODEL, SaveModelAction.class);
 		}
 	};
 
@@ -104,7 +106,7 @@ public class ActionRegistry {
 		public static final String EXECUTE_TOOL = "executeTool";
 		public static final String REQUEST_BOUNDS_CHANGE_HINTS = "requestBoundsChangeHints";
 		public static final String SET_BOUNDS_CHANGE_HINTS = "setBoundsChangeHints";
-		public static final String CHANGE_BOUNDS_ACTION = "changeBounds";
+		public static final String CHANGE_BOUNDS = "changeBounds";
 		public static final String REQUEST_MOVE_HINTS = "requestMoveHints";
 		public static final String SET_MOVE_HINTS = "setMoveHints";
 		public static final String MOVE = "move";
@@ -124,7 +126,8 @@ public class ActionRegistry {
 		public static final String SET_TOOLS = "setTools";
 		public static final String TOOGLE_LAYER = "toggleLayer";
 		public static final String UPDATE_MODEL = "updateModel";
-		public static final String SELECT_ALL_ACTION = "allSelected";
+		public static final String SELECT_ALL = "allSelected";
+		public static final String SAVE_MODEL = "saveModel";
 
 		private Kind() {
 

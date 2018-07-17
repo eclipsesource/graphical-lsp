@@ -27,6 +27,7 @@ import at.tortmayr.chillisp.api.actions.RequestModelAction;
 import at.tortmayr.chillisp.api.actions.RequestMoveHintsAction;
 import at.tortmayr.chillisp.api.actions.RequestPopupModelAction;
 import at.tortmayr.chillisp.api.actions.RequestToolsAction;
+import at.tortmayr.chillisp.api.actions.SaveModelAction;
 import at.tortmayr.chillisp.api.actions.SelectAction;
 import at.tortmayr.chillisp.api.actions.SelectAllAction;
 import at.tortmayr.chillisp.api.actions.SetBoundsAction;
@@ -78,4 +79,6 @@ public interface IRequestActionHandler {
 	void handle(SelectAllAction action);
 
 	void handle(ToogleLayerAction action);
+	
+	void handle(SaveModelAction action);
 }

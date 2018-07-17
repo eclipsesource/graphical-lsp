@@ -32,17 +32,18 @@ import io.typefox.sprotty.server.json.EnumTypeAdapter;
 public abstract class FileBasedModelFactory implements IModelFactory {
 	private static Logger LOGGER = Logger.getLogger(FileBasedModelFactory.class);
 	private SModelRoot modelRoot;
-	protected Gson gson;
+	protected GsonBuilder builder;
+
+	private File modelFile;
 
 	public FileBasedModelFactory() {
 		configureGson();
 	}
 
 	private void configureGson() {
-		GsonBuilder builder = new GsonBuilder();
+		builder = new GsonBuilder();
 		builder.registerTypeAdapterFactory(new SModelElementTypeAdapter.Factory(getModelTypeSchema()))
 				.registerTypeAdapterFactory(new EnumTypeAdapter.Factory());
-		this.gson = builder.create();
 	}
 
 	protected abstract Map<String, Class<? extends SModelElement>> getModelTypeSchema();
@@ -51,9 +52,10 @@ public abstract class FileBasedModelFactory implements IModelFactory {
 	public SModelRoot loadModel(IGraphicalLanguageServer server, RequestModelAction action) {
 		String sourceURI = action.getOptions().get("sourceUri");
 		try {
-			File modelFile = convertToFile(sourceURI);
+			modelFile = convertToFile(sourceURI);
 			if (modelFile != null && modelFile.exists()) {
 				String json = FileUtils.readFileToString(modelFile, "UTF8");
+				Gson gson = builder.create();
 				modelRoot = gson.fromJson(json, SGraph.class);
 			}
 		} catch (IOException e) {
@@ -61,6 +63,19 @@ public abstract class FileBasedModelFactory implements IModelFactory {
 			LOGGER.error(e);
 		}
 		return modelRoot;
+	}
+
+	public boolean saveModel(SModelRoot modelRoot) {
+		if (modelFile != null) {
+			try {
+				Gson gson = builder.setPrettyPrinting().create();
+				FileUtils.writeStringToFile(modelFile, gson.toJson(modelRoot, SModelRoot.class), "UTF8");
+				return true;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
 	}
 
 	private File convertToFile(String sourceURI) {

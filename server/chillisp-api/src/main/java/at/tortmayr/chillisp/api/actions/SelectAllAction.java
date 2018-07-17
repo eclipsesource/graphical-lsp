@@ -16,7 +16,7 @@ public class SelectAllAction extends Action {
 	private boolean select;
 
 	public SelectAllAction() {
-		super(ActionRegistry.Kind.SELECT_ALL_ACTION);
+		super(ActionRegistry.Kind.SELECT_ALL);
 	}
 
 	public SelectAllAction(boolean select) {
