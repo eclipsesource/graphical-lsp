@@ -12,14 +12,14 @@ package at.tortmayr.chillisp.api.actions;
 
 import java.util.Arrays;
 
-import at.tortmayr.chillisp.api.ActionRegistry;
+import at.tortmayr.chillisp.api.ActionKind;
 import at.tortmayr.chillisp.api.type.Tool;
 
 public class SetToolsAction extends Action {
 	private Tool[] tools;
 
 	public SetToolsAction() {
-		super(ActionRegistry.Kind.SET_TOOLS);
+		super(ActionKind.SET_TOOLS);
 	}
 
 	public SetToolsAction(Tool[] tools) {

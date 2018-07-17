@@ -10,12 +10,12 @@
  ******************************************************************************/
 package at.tortmayr.chillisp.api.actions;
 
-import at.tortmayr.chillisp.api.ActionRegistry;
+import at.tortmayr.chillisp.api.ActionKind;
 
 public class RequestLayersAction extends Action {
 
 	public RequestLayersAction() {
-		super(ActionRegistry.Kind.REQUEST_LAYERS);
+		super(ActionKind.REQUEST_LAYERS);
 	}
 
 

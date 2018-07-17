@@ -10,7 +10,7 @@
  ******************************************************************************/
 package at.tortmayr.chillisp.api.actions;
 
-import at.tortmayr.chillisp.api.ActionRegistry;
+import at.tortmayr.chillisp.api.ActionKind;
 import io.typefox.sprotty.api.ServerStatus;
 
 public class ServerStatusAction extends Action {
@@ -19,7 +19,7 @@ public class ServerStatusAction extends Action {
 
 
 	public ServerStatusAction() {
-		super(ActionRegistry.Kind.SERVER_STATUS);
+		super(ActionKind.SERVER_STATUS);
 	}
 
 	public ServerStatusAction(ServerStatus status) {

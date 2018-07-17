@@ -10,129 +10,117 @@
  ******************************************************************************/
 package at.tortmayr.chillisp.api;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+
+import com.google.common.reflect.ClassPath;
 
 import at.tortmayr.chillisp.api.actions.Action;
-import at.tortmayr.chillisp.api.actions.CenterAction;
-import at.tortmayr.chillisp.api.actions.ChangeBoundsAction;
-import at.tortmayr.chillisp.api.actions.CollapseExpandAction;
-import at.tortmayr.chillisp.api.actions.CollapseExpandAllAction;
-import at.tortmayr.chillisp.api.actions.ComputedBoundsAction;
-import at.tortmayr.chillisp.api.actions.ExecuteNodeCreationToolAction;
-import at.tortmayr.chillisp.api.actions.ExecuteToolAction;
-import at.tortmayr.chillisp.api.actions.ExportSVGAction;
-import at.tortmayr.chillisp.api.actions.FitToScreenAction;
-import at.tortmayr.chillisp.api.actions.MoveAction;
-import at.tortmayr.chillisp.api.actions.OpenAction;
-import at.tortmayr.chillisp.api.actions.RequestBoundsAction;
-import at.tortmayr.chillisp.api.actions.RequestBoundsChangeHintsAction;
-import at.tortmayr.chillisp.api.actions.RequestExportSvgAction;
-import at.tortmayr.chillisp.api.actions.RequestLayersAction;
-import at.tortmayr.chillisp.api.actions.RequestModelAction;
-import at.tortmayr.chillisp.api.actions.RequestMoveHintsAction;
-import at.tortmayr.chillisp.api.actions.RequestPopupModelAction;
-import at.tortmayr.chillisp.api.actions.RequestToolsAction;
-import at.tortmayr.chillisp.api.actions.SaveModelAction;
-import at.tortmayr.chillisp.api.actions.SelectAction;
-import at.tortmayr.chillisp.api.actions.SelectAllAction;
-import at.tortmayr.chillisp.api.actions.ServerStatusAction;
-import at.tortmayr.chillisp.api.actions.SetBoundsAction;
-import at.tortmayr.chillisp.api.actions.SetBoundsChangeHintsAction;
-import at.tortmayr.chillisp.api.actions.SetLayersAction;
-import at.tortmayr.chillisp.api.actions.SetModelAction;
-import at.tortmayr.chillisp.api.actions.SetMoveHintsAction;
-import at.tortmayr.chillisp.api.actions.SetPopupModelAction;
-import at.tortmayr.chillisp.api.actions.SetToolsAction;
-import at.tortmayr.chillisp.api.actions.ToogleLayerAction;
-import at.tortmayr.chillisp.api.actions.UpdateModelAction;
 
 public class ActionRegistry {
-	private static Map<String, Class<? extends Action>> actionKinds = new HashMap<String, Class<? extends Action>>() {
+	static Logger log = Logger.getLogger(ActionRegistry.class.getName());
+	private static String ACTION_PACKAGE_NAME = "at.tortmayr.chillisp.api.actions";
+	private static ActionRegistry INSTANCE;
 
-		private static final long serialVersionUID = 1L;
-
-		{
-			put(Kind.REQUEST_MODEL, RequestModelAction.class);
-			put(Kind.SET_MODEL, SetModelAction.class);
-			put(Kind.CENTER, CenterAction.class);
-			put(Kind.COLLAPSE_EXPAND, CollapseExpandAction.class);
-			put(Kind.COLLAPSE_EXPAND_ALL, CollapseExpandAllAction.class);
-			put(Kind.COMPUTED_BOUNDS, ComputedBoundsAction.class);
-			put(Kind.EXECUTE_NODE_CREATION_TOOL, ExecuteNodeCreationToolAction.class);
-			put(Kind.EXECUTE_TOOL, ExecuteToolAction.class);
-			put(Kind.REQUEST_BOUNDS_CHANGE_HINTS, RequestBoundsChangeHintsAction.class);
-			put(Kind.SET_BOUNDS_CHANGE_HINTS, SetBoundsChangeHintsAction.class);
-			put(Kind.CHANGE_BOUNDS, ChangeBoundsAction.class);
-			put(Kind.REQUEST_MOVE_HINTS, RequestMoveHintsAction.class);
-			put(Kind.SET_MOVE_HINTS, SetMoveHintsAction.class);
-			put(Kind.MOVE, MoveAction.class);
-			put(Kind.EXPORT_SVG, ExportSVGAction.class);
-			put(Kind.FIT_TO_SCREEN, FitToScreenAction.class);
-			put(Kind.OPEN, OpenAction.class);
-			put(Kind.REQUEST_BOUNDS, RequestBoundsAction.class);
-			put(Kind.REQUEST_EXPORT_SVG, RequestExportSvgAction.class);
-			put(Kind.REQUEST_LAYERS, RequestLayersAction.class);
-			put(Kind.REQUEST_POPUP_MODEL, RequestPopupModelAction.class);
-			put(Kind.REQUEST_TOOLS, RequestToolsAction.class);
-			put(Kind.SELECT, SelectAction.class);
-			put(Kind.SERVER_STATUS, ServerStatusAction.class);
-			put(Kind.SET_BOUNDS, SetBoundsAction.class);
-			put(Kind.SET_LAYERS, SetLayersAction.class);
-			put(Kind.SET_POPUP_MODEL, SetPopupModelAction.class);
-			put(Kind.SET_TOOLS, SetToolsAction.class);
-			put(Kind.TOOGLE_LAYER, ToogleLayerAction.class);
-			put(Kind.UPDATE_MODEL, UpdateModelAction.class);
-			put(Kind.SELECT_ALL, SelectAllAction.class);
-			put(Kind.SAVE_MODEL, SaveModelAction.class);
+	public static ActionRegistry getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new ActionRegistry();
 		}
-	};
+		return INSTANCE;
+	}
 
-	public static Class<? extends Action> getActionClass(String kind) {
+	private Map<String, Class<? extends Action>> actionKinds = new HashMap<>();
+	private Map<String, Consumer<Action>> actionConsumers = new HashMap<>();
+
+	private ActionRegistry() {
+		// private constructor due to Singleton pattern
+		try {
+			intializeDefaultActions();
+		} catch (InstantiationException | IllegalAccessException | IOException e) {
+			log.warning("Error during action registry initialization. Some action might not be registred correctly");
+			e.printStackTrace();
+		}
+
+	}
+
+	private void intializeDefaultActions() throws IOException, InstantiationException, IllegalAccessException {
+		final ClassLoader loader = Thread.currentThread().getContextClassLoader();
+		// retrieve all action classes from the default action package (i.e. classes
+		// inside the package which are not abstract and subclasses of Action)
+		List<Class<?>> actionClasses = ClassPath.from(loader).getTopLevelClasses(ACTION_PACKAGE_NAME).stream()
+				.map(ci -> ci.load()).filter(c -> !Modifier.isAbstract(c.getModifiers()))
+				.filter(Action.class::isAssignableFrom).collect(Collectors.toList());
+		for (Class<?> actionClass : actionClasses) {
+			Action action = (Action) actionClass.newInstance();
+			if (action != null && action.getKind() != null) {
+				actionKinds.put(action.getKind(), action.getClass());
+			}
+		}
+
+	}
+
+	public <T extends IActionHandler> void initialize(T actionHandler)
+			throws InstantiationException, IllegalAccessException {
+		// filters non-conforming available methods of the action handler (subclass).
+		// Method name as to be 'handle' and only method parameter is allowed
+		List<Method> conformingMethods = Arrays.stream(actionHandler.getClass().getMethods())
+				.filter(m -> m.getName().equals("handle") && m.getParameterCount() == 1).collect(Collectors.toList());
+		for (Method m : conformingMethods) {
+			Class<?> param = m.getParameters()[0].getType();
+			// Check if the first and only method parameter is an action (sub) type
+			if (Action.class.isAssignableFrom(param)) {
+				Action action = (Action) param.newInstance();
+				if (action.getKind() != null) {
+					actionConsumers.put(action.getKind(), (Action a) -> {
+						if (param.isInstance(a)) {
+							try {
+								m.invoke(actionHandler, a);
+							} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+								e.printStackTrace();
+							}
+						}
+					});
+
+				}
+
+			}
+		}
+
+	}
+
+	/**
+	 * Queries the correspondent Java class object for the given action kind
+	 * 
+	 * @param kind The kind/type of action
+	 * @return correspondent Class
+	 */
+	public Class<? extends Action> getActionClass(String kind) {
 		return actionKinds.get(kind);
 	}
 
-	private ActionRegistry() {
-	}
-
-	public static class Kind {
-		public static final String REQUEST_MODEL = "requestModel";
-		public static final String SET_MODEL = "setModel";
-		public static final String CENTER = "center";
-		public static final String COLLAPSE_EXPAND = "collapseExpand";
-		public static final String COLLAPSE_EXPAND_ALL = "collapseExpandAll";
-		public static final String COMPUTED_BOUNDS = "computedBounds";
-		public static final String EXECUTE_NODE_CREATION_TOOL = "executeNodeCreationTool";
-		public static final String EXECUTE_TOOL = "executeTool";
-		public static final String REQUEST_BOUNDS_CHANGE_HINTS = "requestBoundsChangeHints";
-		public static final String SET_BOUNDS_CHANGE_HINTS = "setBoundsChangeHints";
-		public static final String CHANGE_BOUNDS = "changeBounds";
-		public static final String REQUEST_MOVE_HINTS = "requestMoveHints";
-		public static final String SET_MOVE_HINTS = "setMoveHints";
-		public static final String MOVE = "move";
-		public static final String EXPORT_SVG = "exportSvg";
-		public static final String FIT_TO_SCREEN = "fit";
-		public static final String OPEN = "open";
-		public static final String REQUEST_BOUNDS = "requestBounds";
-		public static final String REQUEST_EXPORT_SVG = "requestExportSvg";
-		public static final String REQUEST_LAYERS = "requestLayers";
-		public static final String REQUEST_POPUP_MODEL = "requestPopupModel";
-		public static final String REQUEST_TOOLS = "requestTools";
-		public static final String SELECT = "elementSelected";
-		public static final String SERVER_STATUS = "serverStatus";
-		public static final String SET_BOUNDS = "setBounds";
-		public static final String SET_LAYERS = "setLayers";
-		public static final String SET_POPUP_MODEL = "setPopupModel";
-		public static final String SET_TOOLS = "setTools";
-		public static final String TOOGLE_LAYER = "toggleLayer";
-		public static final String UPDATE_MODEL = "updateModel";
-		public static final String SELECT_ALL = "allSelected";
-		public static final String SAVE_MODEL = "saveModel";
-
-		private Kind() {
-
+	/**
+	 * Process the passed action by delegating it to the registered consumer (i.e.
+	 * action handler method)
+	 * 
+	 * @param action Action which should be processed
+	 * @return true if a registered consumer was found and the action was accepted
+	 */
+	public boolean handleAction(Action action) {
+		Consumer<Action> consumer = actionConsumers.get(action.getKind());
+		if (consumer != null) {
+			consumer.accept(action);
+			return true;
 		}
-
+		return false;
 	}
 
 }

@@ -12,7 +12,7 @@ package at.tortmayr.chillisp.api.actions;
 
 import java.util.Arrays;
 
-import at.tortmayr.chillisp.api.ActionRegistry;
+import at.tortmayr.chillisp.api.ActionKind;
 
 public class FitToScreenAction extends Action {
 	private String[] elementIds;
@@ -21,7 +21,7 @@ public class FitToScreenAction extends Action {
 	private boolean animate;
 
 	public FitToScreenAction() {
-		super(ActionRegistry.Kind.FIT_TO_SCREEN);
+		super(ActionKind.FIT_TO_SCREEN);
 	}
 
 	public FitToScreenAction(String[] elementIds, double padding, double maxZoom, boolean animate) {

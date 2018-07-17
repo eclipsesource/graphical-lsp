@@ -37,7 +37,7 @@ public class ActionTypeAdapter extends PropertyBasedTypeAdapter<Action> {
 
 	@Override
 	protected Action createInstance(String kind) {
-		Class<? extends Action> clazz = ActionRegistry.getActionClass(kind);
+		Class<? extends Action> clazz = ActionRegistry.getInstance().getActionClass(kind);
 		if (clazz == null)
 			throw new IllegalArgumentException("Unknown action kind: " + kind);
 		try {

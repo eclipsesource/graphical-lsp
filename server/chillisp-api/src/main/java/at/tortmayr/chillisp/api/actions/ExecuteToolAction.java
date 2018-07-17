@@ -10,7 +10,7 @@
  ******************************************************************************/
 package at.tortmayr.chillisp.api.actions;
 
-import at.tortmayr.chillisp.api.ActionRegistry;
+import at.tortmayr.chillisp.api.ActionKind;
 import io.typefox.sprotty.api.Point;
 
 public class ExecuteToolAction extends Action {
@@ -19,7 +19,7 @@ public class ExecuteToolAction extends Action {
 	private String elementId;
 
 	public ExecuteToolAction() {
-		super(ActionRegistry.Kind.EXECUTE_TOOL);
+		super(ActionKind.EXECUTE_TOOL);
 	}
 
 	public ExecuteToolAction(String toolId, Point location, String elementId) {

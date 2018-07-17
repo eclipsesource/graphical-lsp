@@ -10,13 +10,13 @@
  ******************************************************************************/
 package at.tortmayr.chillisp.api.actions;
 
-import at.tortmayr.chillisp.api.ActionRegistry;
+import at.tortmayr.chillisp.api.ActionKind;
 
 public class CollapseExpandAllAction extends Action {
 	public boolean expand = true;
 
 	public CollapseExpandAllAction() {
-		super(ActionRegistry.Kind.COLLAPSE_EXPAND_ALL);
+		super(ActionKind.COLLAPSE_EXPAND_ALL);
 
 	}
 

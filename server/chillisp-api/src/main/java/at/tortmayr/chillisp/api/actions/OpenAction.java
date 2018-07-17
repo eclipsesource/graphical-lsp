@@ -10,17 +10,17 @@
  ******************************************************************************/
 package at.tortmayr.chillisp.api.actions;
 
-import at.tortmayr.chillisp.api.ActionRegistry;
+import at.tortmayr.chillisp.api.ActionKind;
 
 public class OpenAction extends Action {
 	private String elementId;
 
 	public OpenAction() {
-		super(ActionRegistry.Kind.OPEN);
+		super(ActionKind.OPEN);
 	}
 
 	public OpenAction(String elementId) {
-		super(ActionRegistry.Kind.OPEN);
+		super(ActionKind.OPEN);
 		this.elementId = elementId;
 	}
 

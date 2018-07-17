@@ -10,14 +10,14 @@
  ******************************************************************************/
 package at.tortmayr.chillisp.api.actions;
 
-import at.tortmayr.chillisp.api.ActionRegistry;
+import at.tortmayr.chillisp.api.ActionKind;
 
 public class MoveAction extends Action {
 	private String movedElementId;
 	private String targetContainerId;
 
 	public MoveAction() {
-		super(ActionRegistry.Kind.MOVE);
+		super(ActionKind.MOVE);
 		// TODO Auto-generated constructor stub
 	}
 

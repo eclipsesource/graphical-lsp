@@ -10,12 +10,12 @@
  ******************************************************************************/
 package at.tortmayr.chillisp.api.actions;
 
-import at.tortmayr.chillisp.api.ActionRegistry;
+import at.tortmayr.chillisp.api.ActionKind;
 
 public class RequestBoundsChangeHintsAction extends Action {
 
 	public RequestBoundsChangeHintsAction() {
-		super(ActionRegistry.Kind.REQUEST_BOUNDS_CHANGE_HINTS);
+		super(ActionKind.REQUEST_BOUNDS_CHANGE_HINTS);
 	}
 
 }

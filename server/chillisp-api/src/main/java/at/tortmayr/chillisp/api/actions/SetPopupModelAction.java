@@ -10,7 +10,7 @@
  ******************************************************************************/
 package at.tortmayr.chillisp.api.actions;
 
-import at.tortmayr.chillisp.api.ActionRegistry;
+import at.tortmayr.chillisp.api.ActionKind;
 import io.typefox.sprotty.api.Bounds;
 import io.typefox.sprotty.api.SModelRoot;
 
@@ -19,7 +19,7 @@ public class SetPopupModelAction extends Action {
 	private Bounds bounds;
 
 	public SetPopupModelAction() {
-		super(ActionRegistry.Kind.SET_POPUP_MODEL);
+		super(ActionKind.SET_POPUP_MODEL);
 	}
 
 	public SetPopupModelAction(SModelRoot newRoot, Bounds bounds) {

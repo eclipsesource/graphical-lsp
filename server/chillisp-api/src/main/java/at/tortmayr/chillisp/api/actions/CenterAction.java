@@ -12,7 +12,7 @@ package at.tortmayr.chillisp.api.actions;
 
 import java.util.Arrays;
 
-import at.tortmayr.chillisp.api.ActionRegistry;
+import at.tortmayr.chillisp.api.ActionKind;
 
 public class CenterAction extends Action {
 
@@ -20,7 +20,7 @@ public class CenterAction extends Action {
 	private boolean animate = true;
 
 	public CenterAction() {
-		super(ActionRegistry.Kind.CENTER);
+		super(ActionKind.CENTER);
 	}
 
 	public CenterAction(String[] elementIDs, boolean animate) {

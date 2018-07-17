@@ -12,7 +12,7 @@ package at.tortmayr.chillisp.api.actions;
 
 import java.util.Arrays;
 
-import at.tortmayr.chillisp.api.ActionRegistry;
+import at.tortmayr.chillisp.api.ActionKind;
 import io.typefox.sprotty.api.ElementAndAlignment;
 import io.typefox.sprotty.api.ElementAndBounds;
 
@@ -23,7 +23,7 @@ public class ComputedBoundsAction extends Action {
 	private int revision;
 
 	public ComputedBoundsAction() {
-		super(ActionRegistry.Kind.COMPUTED_BOUNDS);
+		super(ActionKind.COMPUTED_BOUNDS);
 	}
 
 	public ComputedBoundsAction(ElementAndBounds[] bounds, int revision, ElementAndAlignment[] alignments) {

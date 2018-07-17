@@ -11,7 +11,7 @@ export class WorkflowDiagramManager extends DiagramManagerImpl {
     protected glspClient: GLSPLanguageContribution;
     readonly diagramType = 'workflow-diagram'
     readonly iconClass = 'fa fa-microchip'
-
+    readonly label= "Graphical Workflow Editor"
 
 
     constructor(@inject(GLSPLanguageContribution) glspClient: GLSPLanguageContribution,

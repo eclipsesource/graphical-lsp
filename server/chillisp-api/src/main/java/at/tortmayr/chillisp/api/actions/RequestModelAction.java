@@ -12,14 +12,14 @@ package at.tortmayr.chillisp.api.actions;
 
 import java.util.Map;
 
-import at.tortmayr.chillisp.api.ActionRegistry;
+import at.tortmayr.chillisp.api.ActionKind;
 
 public class RequestModelAction extends Action {
 
 	private Map<String, String> options;
 
 	public RequestModelAction() {
-		super(ActionRegistry.Kind.REQUEST_MODEL);
+		super(ActionKind.REQUEST_MODEL);
 	}
 
 	public RequestModelAction(Map<String, String> options) {

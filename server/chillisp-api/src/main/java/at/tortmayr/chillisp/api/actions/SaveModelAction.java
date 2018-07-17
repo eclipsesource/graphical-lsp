@@ -10,12 +10,12 @@
  ******************************************************************************/
 package at.tortmayr.chillisp.api.actions;
 
-import at.tortmayr.chillisp.api.ActionRegistry;
+import at.tortmayr.chillisp.api.ActionKind;
 
 public class SaveModelAction extends Action{
 
 	public SaveModelAction() {
-		super(ActionRegistry.Kind.SAVE_MODEL);
+		super(ActionKind.SAVE_MODEL);
 	}
 	
 }

@@ -12,14 +12,14 @@ package at.tortmayr.chillisp.api.actions;
 
 import java.util.Arrays;
 
-import at.tortmayr.chillisp.api.ActionRegistry;
+import at.tortmayr.chillisp.api.ActionKind;
 import at.tortmayr.chillisp.api.type.Layer;
 
 public class SetLayersAction extends Action {
 	private Layer[] layers;
 
 	public SetLayersAction() {
-		super(ActionRegistry.Kind.SET_LAYERS);
+		super(ActionKind.SET_LAYERS);
 	}
 
 	public SetLayersAction(Layer[] layers) {

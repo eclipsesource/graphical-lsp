@@ -10,13 +10,13 @@
  ******************************************************************************/
 package at.tortmayr.chillisp.api.actions;
 
-import at.tortmayr.chillisp.api.ActionRegistry;
+import at.tortmayr.chillisp.api.ActionKind;
 
 public class SelectAllAction extends Action {
 	private boolean select;
 
 	public SelectAllAction() {
-		super(ActionRegistry.Kind.SELECT_ALL);
+		super(ActionKind.SELECT_ALL);
 	}
 
 	public SelectAllAction(boolean select) {

@@ -10,12 +10,12 @@
  ******************************************************************************/
 package at.tortmayr.chillisp.api.actions;
 
-import at.tortmayr.chillisp.api.ActionRegistry;
+import at.tortmayr.chillisp.api.ActionKind;
 
 public class RequestToolsAction extends Action {
 
 	public RequestToolsAction() {
-		super(ActionRegistry.Kind.REQUEST_TOOLS);
+		super(ActionKind.REQUEST_TOOLS);
 	}
 
 }
