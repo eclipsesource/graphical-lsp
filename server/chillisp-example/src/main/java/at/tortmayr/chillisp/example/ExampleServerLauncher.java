@@ -10,41 +10,25 @@
  ******************************************************************************/
 package at.tortmayr.chillisp.example;
 
-import javax.websocket.server.ServerContainer;
-import javax.websocket.server.ServerEndpointConfig;
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
-import org.eclipse.elk.alg.layered.options.LayeredOptions;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer;
-
-import at.tortmayr.chillisp.api.impl.DIGraphicalServerProvider;
-import at.tortmayr.chillisp.api.impl.DefaultGraphicalLanguageServer;
-import at.tortmayr.chillisp.websocket.EndpointConfigurator;
-import at.tortmayr.chillisp.websocket.LoggingServerEndpoint;
-import io.typefox.sprotty.layout.ElkLayoutEngine;
+import at.tortmayr.chillisp.api.impl.ServerLauncher;
 
 public class ExampleServerLauncher {
 
 	public static void main(String[] args) {
+		ServerLauncher launcher=new ServerLauncher("localhost", 5007, new WorkflowServerRuntimeModule());
 		try {
-			Server server = new Server(8080);
-			ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
-			contextHandler.setContextPath("/");
-			server.setHandler(contextHandler);
-			ServerContainer container = WebSocketServerContainerInitializer.configureContext(contextHandler);
-			ElkLayoutEngine.initialize(new LayeredOptions());
-
-			ServerEndpointConfig.Builder builder = ServerEndpointConfig.Builder.create(LoggingServerEndpoint.class,
-					"/diagram");
-			builder = builder.configurator(new EndpointConfigurator(
-					new DIGraphicalServerProvider(DefaultGraphicalLanguageServer.class, new WorkflowServerRuntimeModule())));
-			ServerEndpointConfig config = builder.build();
-			container.addEndpoint(config);
-
-			server.start();
-			server.join();
-		} catch (Exception e) {
+			launcher.run();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

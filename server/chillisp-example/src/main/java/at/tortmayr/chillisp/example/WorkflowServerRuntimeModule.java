@@ -10,42 +10,42 @@
  ******************************************************************************/
 package at.tortmayr.chillisp.example;
 
-import at.tortmayr.chillisp.api.IGraphicalModelExpansionListener;
-import at.tortmayr.chillisp.api.IGraphicalModelSelectionListener;
-import at.tortmayr.chillisp.api.IModelElementOpenListener;
-import at.tortmayr.chillisp.api.IModelFactory;
-import at.tortmayr.chillisp.api.IPopupModelFactory;
-import at.tortmayr.chillisp.api.IToolConfiguration;
-import at.tortmayr.chillisp.api.di.DefaultServerRuntimeModule;
+import at.tortmayr.chillisp.api.GraphicalModelExpansionListener;
+import at.tortmayr.chillisp.api.GraphicalModelSelectionListener;
+import at.tortmayr.chillisp.api.ModelElementOpenListener;
+import at.tortmayr.chillisp.api.ModelFactory;
+import at.tortmayr.chillisp.api.PopupModelFactory;
+import at.tortmayr.chillisp.api.ToolConfiguration;
+import at.tortmayr.chillisp.api.di.ServerModule;
 
-public class WorkflowServerRuntimeModule extends DefaultServerRuntimeModule {
+public class WorkflowServerRuntimeModule extends ServerModule {
 	@Override
-	public Class<? extends IModelFactory> bindModelFactory() {
+	public Class<? extends ModelFactory> bindModelFactory() {
 		return WorkflowModelFactory.class;
 	}
 
 	@Override
-	public Class<? extends IPopupModelFactory> bindPopupModelFactory() {
+	public Class<? extends PopupModelFactory> bindPopupModelFactory() {
 		return WorkflowPopupFactory.class;
 	}
 
 	@Override
-	public Class<? extends IGraphicalModelSelectionListener> bindGraphicalModelSelectionListener() {
+	public Class<? extends GraphicalModelSelectionListener> bindGraphicalModelSelectionListener() {
 		return WorkflowServerListener.class;
 	}
 
 	@Override
-	public Class<? extends IModelElementOpenListener> bindModelElementOpenListener() {
+	public Class<? extends ModelElementOpenListener> bindModelElementOpenListener() {
 		return WorkflowServerListener.class;
 	}
 
 	@Override
-	public Class<? extends IGraphicalModelExpansionListener> bindGraphicalModelExpansionListener() {
+	public Class<? extends GraphicalModelExpansionListener> bindGraphicalModelExpansionListener() {
 		return WorkflowServerListener.class;
 	}
 
 	@Override
-	public Class<? extends IToolConfiguration> bindToolConfiguration() {
+	public Class<? extends ToolConfiguration> bindToolConfiguration() {
 		return WorkflowToolConfiguration.class;
 	}
 

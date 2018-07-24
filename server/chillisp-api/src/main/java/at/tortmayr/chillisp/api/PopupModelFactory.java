@@ -10,31 +10,19 @@
  ******************************************************************************/
 package at.tortmayr.chillisp.api;
 
-import at.tortmayr.chillisp.api.action.Action;
+import at.tortmayr.chillisp.api.action.RequestPopupModelAction;
+import io.typefox.sprotty.api.SModelElement;
+import io.typefox.sprotty.api.SModelRoot;
 
-public class ActionMessage {
+public interface PopupModelFactory {
+	SModelRoot createPopuModel(SModelElement element, RequestPopupModelAction action);
 
-	private Action action;
-	private String clientId;
+	public static class NullImpl implements PopupModelFactory {
 
-	public ActionMessage(String clientId, Action action) {
-		this.clientId = clientId;
-		this.action = action;
+		@Override
+		public SModelRoot createPopuModel(SModelElement element, RequestPopupModelAction action) {
+			return null;
+		}
+
 	}
-
-	public Action getAction() {
-		return action;
-	}
-
-	public String getClientId() {
-		return clientId;
-	}
-
-	@Override
-	public String toString() {
-		return "ActionMessage [action=" + action.getKind() + ", clientId=" + clientId + "]";
-	}
-	
-	
-
 }

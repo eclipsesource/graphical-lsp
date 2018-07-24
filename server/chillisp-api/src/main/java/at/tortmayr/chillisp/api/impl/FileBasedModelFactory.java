@@ -20,16 +20,16 @@ import org.apache.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import at.tortmayr.chillisp.api.IGraphicalLanguageServer;
-import at.tortmayr.chillisp.api.IModelFactory;
-import at.tortmayr.chillisp.api.actions.RequestModelAction;
+import at.tortmayr.chillisp.api.GraphicalLanguageServer;
+import at.tortmayr.chillisp.api.ModelFactory;
+import at.tortmayr.chillisp.api.action.RequestModelAction;
 import at.tortmayr.chillisp.api.json.SModelElementTypeAdapter;
 import io.typefox.sprotty.api.SGraph;
 import io.typefox.sprotty.api.SModelElement;
 import io.typefox.sprotty.api.SModelRoot;
 import io.typefox.sprotty.server.json.EnumTypeAdapter;
 
-public abstract class FileBasedModelFactory implements IModelFactory {
+public abstract class FileBasedModelFactory implements ModelFactory {
 	private static Logger LOGGER = Logger.getLogger(FileBasedModelFactory.class);
 	private SModelRoot modelRoot;
 	protected GsonBuilder builder;
@@ -54,7 +54,7 @@ public abstract class FileBasedModelFactory implements IModelFactory {
 	protected abstract Map<String, Class<? extends SModelElement>> getModelTypeSchema();
 
 	@Override
-	public SModelRoot loadModel(IGraphicalLanguageServer server, RequestModelAction action) {
+	public SModelRoot loadModel( RequestModelAction action) {
 		String sourceURI = action.getOptions().get("sourceUri");
 		try {
 			modelFile = convertToFile(sourceURI);

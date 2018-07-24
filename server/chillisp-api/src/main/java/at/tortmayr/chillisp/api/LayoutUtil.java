@@ -8,11 +8,13 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
+
+//TODO class is heavily based on the LayoutUtil of the sprotty repository. Change copyright header accordingly 
 package at.tortmayr.chillisp.api;
 
 import java.util.ArrayList;
 
-import at.tortmayr.chillisp.api.actions.ComputedBoundsAction;
+import at.tortmayr.chillisp.api.action.ComputedBoundsAction;
 import io.typefox.sprotty.api.Alignable;
 import io.typefox.sprotty.api.Bounds;
 import io.typefox.sprotty.api.BoundsAware;

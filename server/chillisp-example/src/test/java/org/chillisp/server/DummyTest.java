@@ -10,7 +10,7 @@
  ******************************************************************************/
 package org.chillisp.server;
 
-import at.tortmayr.chillisp.api.type.Tool;
+import at.tortmayr.chillisp.api.utils.Tool;
 import at.tortmayr.chillisp.example.tools.AutomatedTaskTool;
 
 public class DummyTest {

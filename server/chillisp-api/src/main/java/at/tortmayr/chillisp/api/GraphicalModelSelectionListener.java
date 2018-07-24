@@ -10,31 +10,24 @@
  ******************************************************************************/
 package at.tortmayr.chillisp.api;
 
-import at.tortmayr.chillisp.api.action.Action;
+import at.tortmayr.chillisp.api.action.SelectAction;
+import at.tortmayr.chillisp.api.action.SelectAllAction;
 
-public class ActionMessage {
+public interface GraphicalModelSelectionListener {
+	void selectionChanged(SelectAction acion);
 
-	private Action action;
-	private String clientId;
+	void selectionChanged(SelectAllAction action);
 
-	public ActionMessage(String clientId, Action action) {
-		this.clientId = clientId;
-		this.action = action;
+	public static class NullImpl implements GraphicalModelSelectionListener {
+
+		@Override
+		public void selectionChanged(SelectAction action) {
+		}
+
+		@Override
+		public void selectionChanged(SelectAllAction action) {
+		}
+
 	}
-
-	public Action getAction() {
-		return action;
-	}
-
-	public String getClientId() {
-		return clientId;
-	}
-
-	@Override
-	public String toString() {
-		return "ActionMessage [action=" + action.getKind() + ", clientId=" + clientId + "]";
-	}
-	
-	
 
 }
