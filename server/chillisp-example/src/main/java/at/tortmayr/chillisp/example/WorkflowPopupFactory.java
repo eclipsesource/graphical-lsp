@@ -13,16 +13,16 @@ package at.tortmayr.chillisp.example;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import at.tortmayr.chillisp.api.IGraphicalLanguageServer;
-import at.tortmayr.chillisp.api.IPopupModelFactory;
-import at.tortmayr.chillisp.api.actions.RequestPopupModelAction;
+import at.tortmayr.chillisp.api.GraphicalLanguageServer;
+import at.tortmayr.chillisp.api.PopupModelFactory;
+import at.tortmayr.chillisp.api.action.RequestPopupModelAction;
 import at.tortmayr.chillisp.example.schema.TaskNode;
 import io.typefox.sprotty.api.HtmlRoot;
 import io.typefox.sprotty.api.PreRenderedElement;
 import io.typefox.sprotty.api.SModelElement;
 import io.typefox.sprotty.api.SModelRoot;
 
-public class WorkflowPopupFactory implements IPopupModelFactory {
+public class WorkflowPopupFactory implements PopupModelFactory {
 
 	private String generateTitle(TaskNode task) {
 		return String.format("Task %s", task.getName());
@@ -36,8 +36,7 @@ public class WorkflowPopupFactory implements IPopupModelFactory {
 	private static final String NL = "<br>";
 
 	@Override
-	public SModelRoot createPopuModel(SModelElement element, RequestPopupModelAction action,
-			IGraphicalLanguageServer server) {
+	public SModelRoot createPopuModel(SModelElement element, RequestPopupModelAction action) {
 		if (element != null && element.getType().equals("node:task")) {
 			TaskNode task = (TaskNode) element;
 			HtmlRoot root = new HtmlRoot();

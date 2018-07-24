@@ -39,12 +39,6 @@
 		</dependency>
 		<dependency>
 			<groupId>at.tortmayr.chillisp</groupId>
-			<artifactId>chillisp-websocket</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>at.tortmayr.chillisp</groupId>
 			<artifactId>chillisp-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>provided</scope>

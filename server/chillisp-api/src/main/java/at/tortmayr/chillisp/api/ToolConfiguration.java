@@ -10,31 +10,19 @@
  ******************************************************************************/
 package at.tortmayr.chillisp.api;
 
-import at.tortmayr.chillisp.api.action.Action;
+import at.tortmayr.chillisp.api.action.RequestToolsAction;
+import at.tortmayr.chillisp.api.utils.Tool;
 
-public class ActionMessage {
+public interface ToolConfiguration {
 
-	private Action action;
-	private String clientId;
+	Tool[] getTools(RequestToolsAction action);
 
-	public ActionMessage(String clientId, Action action) {
-		this.clientId = clientId;
-		this.action = action;
+	public static class NullImpl implements ToolConfiguration {
+
+		@Override
+		public Tool[] getTools(RequestToolsAction action) {
+			return new Tool[0];
+		}
+
 	}
-
-	public Action getAction() {
-		return action;
-	}
-
-	public String getClientId() {
-		return clientId;
-	}
-
-	@Override
-	public String toString() {
-		return "ActionMessage [action=" + action.getKind() + ", clientId=" + clientId + "]";
-	}
-	
-	
-
 }

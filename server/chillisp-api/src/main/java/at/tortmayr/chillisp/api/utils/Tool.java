@@ -8,33 +8,12 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-package at.tortmayr.chillisp.api;
+package at.tortmayr.chillisp.api.utils;
 
-import at.tortmayr.chillisp.api.action.Action;
+public interface Tool {
+	String getId();
 
-public class ActionMessage {
+	String getName();
 
-	private Action action;
-	private String clientId;
-
-	public ActionMessage(String clientId, Action action) {
-		this.clientId = clientId;
-		this.action = action;
-	}
-
-	public Action getAction() {
-		return action;
-	}
-
-	public String getClientId() {
-		return clientId;
-	}
-
-	@Override
-	public String toString() {
-		return "ActionMessage [action=" + action.getKind() + ", clientId=" + clientId + "]";
-	}
-	
-	
-
+	String getToolType();
 }

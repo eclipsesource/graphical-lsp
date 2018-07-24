@@ -10,31 +10,23 @@
  ******************************************************************************/
 package at.tortmayr.chillisp.api;
 
-import at.tortmayr.chillisp.api.action.Action;
+import at.tortmayr.chillisp.api.action.CollapseExpandAction;
+import at.tortmayr.chillisp.api.action.CollapseExpandAllAction;
 
-public class ActionMessage {
-
-	private Action action;
-	private String clientId;
-
-	public ActionMessage(String clientId, Action action) {
-		this.clientId = clientId;
-		this.action = action;
-	}
-
-	public Action getAction() {
-		return action;
-	}
-
-	public String getClientId() {
-		return clientId;
-	}
-
-	@Override
-	public String toString() {
-		return "ActionMessage [action=" + action.getKind() + ", clientId=" + clientId + "]";
-	}
+public interface GraphicalModelExpansionListener {
+	void expansionChanged(CollapseExpandAction action);
+	void expansionChanged(CollapseExpandAllAction action);
 	
-	
+	public static class NullImpl implements GraphicalModelExpansionListener{
 
+		@Override
+		public void expansionChanged(CollapseExpandAction action) {
+		}
+
+		@Override
+		public void expansionChanged(CollapseExpandAllAction action) {	
+		}
+
+		
+	}
 }

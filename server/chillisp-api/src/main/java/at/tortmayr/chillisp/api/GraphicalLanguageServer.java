@@ -10,31 +10,20 @@
  ******************************************************************************/
 package at.tortmayr.chillisp.api;
 
-import at.tortmayr.chillisp.api.action.Action;
+import org.eclipse.lsp4j.jsonrpc.services.JsonNotification;
 
-public class ActionMessage {
+import io.typefox.sprotty.api.ServerStatus;
 
-	private Action action;
-	private String clientId;
+public interface GraphicalLanguageServer extends GraphicalLanguageClientAware {
 
-	public ActionMessage(String clientId, Action action) {
-		this.clientId = clientId;
-		this.action = action;
+	public interface Provider {
+		GraphicalLanguageServer getGraphicalLanguageServer(String clientId);
 	}
 
-	public Action getAction() {
-		return action;
-	}
+	void initialize();
 
-	public String getClientId() {
-		return clientId;
-	}
+	@JsonNotification("server/process")
+	void process(ActionMessage message);
 
-	@Override
-	public String toString() {
-		return "ActionMessage [action=" + action.getKind() + ", clientId=" + clientId + "]";
-	}
-	
-	
-
+	void setStatus(ServerStatus serverStatus);
 }

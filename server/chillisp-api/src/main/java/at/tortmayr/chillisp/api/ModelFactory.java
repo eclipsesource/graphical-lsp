@@ -10,31 +10,20 @@
  ******************************************************************************/
 package at.tortmayr.chillisp.api;
 
-import at.tortmayr.chillisp.api.action.Action;
+import at.tortmayr.chillisp.api.action.RequestModelAction;
+import io.typefox.sprotty.api.SModelRoot;
 
-public class ActionMessage {
+public interface ModelFactory {
 
-	private Action action;
-	private String clientId;
+	SModelRoot loadModel(RequestModelAction action);
 
-	public ActionMessage(String clientId, Action action) {
-		this.clientId = clientId;
-		this.action = action;
+	public static class NullImpl implements ModelFactory {
+
+		@Override
+		public SModelRoot loadModel(RequestModelAction action) {
+			return null;
+		}
+
 	}
-
-	public Action getAction() {
-		return action;
-	}
-
-	public String getClientId() {
-		return clientId;
-	}
-
-	@Override
-	public String toString() {
-		return "ActionMessage [action=" + action.getKind() + ", clientId=" + clientId + "]";
-	}
-	
-	
 
 }

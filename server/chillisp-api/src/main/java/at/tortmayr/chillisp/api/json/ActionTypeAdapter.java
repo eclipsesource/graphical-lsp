@@ -19,7 +19,7 @@ import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
 
 import at.tortmayr.chillisp.api.ActionRegistry;
-import at.tortmayr.chillisp.api.actions.Action;
+import at.tortmayr.chillisp.api.action.Action;
 import io.typefox.sprotty.server.json.EnumTypeAdapter;
 import io.typefox.sprotty.server.json.PropertyBasedTypeAdapter;
 

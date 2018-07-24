@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 import com.google.common.reflect.ClassPath;
 
-import at.tortmayr.chillisp.api.actions.Action;
+import at.tortmayr.chillisp.api.action.Action;
 
 public class ActionRegistry {
 	static Logger log = Logger.getLogger(ActionRegistry.class.getName());
@@ -68,7 +68,7 @@ public class ActionRegistry {
 
 	}
 
-	public <T extends IActionHandler> void initialize(T actionHandler)
+	public <T extends ActionHandler> void initialize(T actionHandler)
 			throws InstantiationException, IllegalAccessException {
 		// filters non-conforming available methods of the action handler (subclass).
 		// Method name as to be 'handle' and only method parameter is allowed

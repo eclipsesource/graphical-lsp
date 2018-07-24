@@ -8,33 +8,15 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-package at.tortmayr.chillisp.api;
+package at.tortmayr.chillisp.api.action;
 
-import at.tortmayr.chillisp.api.action.Action;
+import at.tortmayr.chillisp.api.ActionKind;
 
-public class ActionMessage {
+public class RequestLayersAction extends Action {
 
-	private Action action;
-	private String clientId;
-
-	public ActionMessage(String clientId, Action action) {
-		this.clientId = clientId;
-		this.action = action;
+	public RequestLayersAction() {
+		super(ActionKind.REQUEST_LAYERS);
 	}
 
-	public Action getAction() {
-		return action;
-	}
-
-	public String getClientId() {
-		return clientId;
-	}
-
-	@Override
-	public String toString() {
-		return "ActionMessage [action=" + action.getKind() + ", clientId=" + clientId + "]";
-	}
-	
-	
 
 }

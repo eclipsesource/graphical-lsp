@@ -13,7 +13,7 @@ package at.tortmayr.chillisp.api.tools;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import at.tortmayr.chillisp.api.type.Tool;
+import at.tortmayr.chillisp.api.utils.Tool;
 
 public abstract class ConnectionTool implements Tool {
 	public static final String TYPE = "connection-tool";
