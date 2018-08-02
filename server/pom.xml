@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>at.tortmayr.chillisp</groupId>
-	<artifactId>chillisp-parent</artifactId>
+	<groupId>at.tortmayr.glsp</groupId>
+	<artifactId>glsp-parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
@@ -18,7 +18,8 @@
 		</plugins>
 	</build>
 	<modules>
-		<module>chillisp-api</module>
-		<module>chillisp-example</module>
+		<module>glsp-api</module>
+		<module>example/workflow-example</module>
+		<module>glsp-server</module>
 	</modules>
 </project>
