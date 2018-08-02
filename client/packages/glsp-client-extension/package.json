@@ -1,0 +1,36 @@
+{
+  "name": "glsp-client-extension",
+  "keywords": [
+    "theia-extension"
+  ],
+  "version": "0.0.0",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+    "@theia/core": "latest",
+    "@theia/editor": "latest",
+    "@theia/filesystem": "latest",
+    "@theia/languages": "latest",
+    "@theia/monaco": "latest",
+    "@types/node": "^8.0.14",
+    "sprotty": "0.4.0",
+    "theia-glsp": "0.0.1"
+  },
+  "devDependencies": {
+    "rimraf": "latest",
+    "typescript": "latest"
+  },
+  "scripts": {
+    "prepare": "yarn run clean && yarn run build",
+    "clean": "rimraf lib",
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "theiaExtensions": [
+    {
+      
+    }
+  ]
+}

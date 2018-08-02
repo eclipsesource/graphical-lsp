@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es5",
+    "outDir": "lib",
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "jsx": "react",
+    "sourceMap": true,
+    "reactNamespace": "JSX",
+    "skipLibCheck": true
+  },
+  "include": [
+    "src"
+  ]
+}
