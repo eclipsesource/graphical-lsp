@@ -1,3 +1,0 @@
-[submodule "client/theia-sprotty"]
-	path = client/theia-sprotty
-	url = git@github.com:tortmayr/theia-sprotty.git
