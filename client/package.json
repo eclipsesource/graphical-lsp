@@ -9,6 +9,8 @@
     "lerna": "2.4.0"
   },
   "workspaces": [
-    "chillisp-client-extension", "chilli-sprotty","workflow-sprotty", "theia-sprotty","browser-app"
+     "packages/*",
+    "examples/*"
+
   ]
 }

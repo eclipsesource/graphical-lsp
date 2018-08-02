@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es5",
+    "outDir": "lib",
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "typeRoots": [
+      "../node_modules/@types"
+    ],
+    "jsx": "react",
+    "sourceMap": true,
+    "reactNamespace": "JSX",
+    "skipLibCheck": true
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "**/*.spec.ts", "**/*.spec.tsx"
+  ]
+}

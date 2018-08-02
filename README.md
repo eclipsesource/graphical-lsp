@@ -19,9 +19,9 @@ It's recommended to clone the repository recursively. Otherwise submodules have 
 	mvn clean install
 	
 ## 1. Starting the GLSP Server
-The example server can be started by executing the main method of the class ExampleServerLauncher.java (server/chillisp-example)
+The example server can be started by executing the main method of the class ExampleServerLauncher.java (server/examaples/workflow-example)
 
 ## 2. Starting the theia client
-	cd client/browser-app
+	cd client/examples/browser-app
 	yarn start
 and then open http://localhost:3000 in the browser.

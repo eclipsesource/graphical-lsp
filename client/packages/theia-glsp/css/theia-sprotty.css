@@ -1,0 +1,59 @@
+/*
+ * Copyright (C) 2017 TypeFox and others.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ */
+
+.copyright {
+    margin-top: 10px;
+    text-align: right;
+    font-size: 10px;
+    color: #888;
+}
+
+.sprotty {
+    display: flex;
+    height:100%;
+}
+
+svg {
+    width: 100%;
+    flex: 1;
+    border-style: solid;
+    border-width: 0px;
+    border-color: #bbb;
+}
+
+.sprotty-status {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.sprotty-status .error {
+    color: #ff0000
+}
+
+.sprotty-status .warning {
+    color: #ffff00
+}
+
+.sprotty-status .info {
+    color: #bbbbbb
+}
+
+.sprotty-status .ok {
+    visibility: hidden;
+}
+
+.sprotty-status-message {
+    visibility: hidden;
+    padding-left: 10px;
+}
+
+.sprotty-status:hover .sprotty-status-message {
+    visibility: visible;
+}

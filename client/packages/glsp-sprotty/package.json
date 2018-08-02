@@ -1,0 +1,30 @@
+{
+  "name": "glsp-sprotty",
+  "version": "0.0.1",
+  "description": "Extension for the sprotty framework to be compatible with the glsp protocol",
+  "scripts": {
+    "prepare": "yarn run clean && yarn run build",
+    "clean": "rimraf lib",
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "dependencies": {
+    "sprotty": "0.4.0"
+  },
+  "devDependencies": {
+    "rimraf": "latest",
+    "typescript": "latest"
+  },
+  "files": [
+    "lib",
+    "src"
+  ],
+  "keywords": [
+    "sprotty",
+    "glsp",
+    "diagram",
+    "theia"
+  ],
+  "author": "Tobias Ortmayr <tortmayr.ext@eclipsesource.com>",
+  "license": "EPL-1.0"
+}
