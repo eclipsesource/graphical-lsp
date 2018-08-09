@@ -1,28 +1,14 @@
 {
-    "compilerOptions": {
-       "declaration": true,
-    "noImplicitAny": false,
-    "noEmitOnError": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "strictNullChecks": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "module": "commonjs",
-    "moduleResolution": "node",
-        "target": "es5",
-        "lib": [
-            "es6",
-            "dom"
-        ],
-        "sourceMap": true,
-        "rootDir": "src",
-        "outDir": "lib",
-        "jsx": "react",
- "reactNamespace": "JSX",
-  "skipLibCheck": true
-    },
-    "include": [
-        "src"
-    ]
+  "extends": "../../configs/base.tsconfig",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib",
+    "baseUrl": ".",
+  	"reactNamespace": "JSX",
+  	"skipLibCheck" : true
+  },
+  "include": [
+    "src"
+  ],
+ 
 }
