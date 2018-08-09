@@ -40,6 +40,7 @@ module.exports = (port, host) => Promise.resolve()
     .then(function () { return Promise.resolve(require('@theia/languages/lib/node/languages-backend-module')).then(load) })
     .then(function () { return Promise.resolve(require('@theia/typescript/lib/node/typescript-backend-module')).then(load) })
     .then(function () { return Promise.resolve(require('@theia/messages/lib/node/messages-backend-module')).then(load) })
+    .then(function () { return Promise.resolve(require('workflow-glsp-extension/lib/node/backend-extension')).then(load) })
     .then(() => start(port, host)).catch(reason => {
         console.error('Failed to start the backend application.');
         if (reason) {

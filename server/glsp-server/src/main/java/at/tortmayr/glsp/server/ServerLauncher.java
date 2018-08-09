@@ -42,6 +42,7 @@ public class ServerLauncher {
 		AsynchronousServerSocketChannel serverSocket = AsynchronousServerSocketChannel.open()
 				.bind(new InetSocketAddress(host, port));
 		ExecutorService threadPool = Executors.newCachedThreadPool();
+		System.out.println("The graphical server launcher is ready to accept new client requests");
 		while (true) {
 			AsynchronousSocketChannel socketChannel = serverSocket.accept().get();
 			InputStream in = Channels.newInputStream(socketChannel);
