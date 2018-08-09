@@ -16,7 +16,6 @@ import { GraphicalLanguageClientContribution } from "./graphical-langauge-client
 import { FrontendApplicationContribution } from "@theia/core/lib/browser";
 import { GraphicalLanguagesFrontendContribution } from "./graphical-languages-frontend-contribution";
 import { GraphicalLanguageClientProviderImpl, GraphicalLanguageClientProvider } from "./graphical-language-client-provider";
-import { TestGLClientContribution } from "./test";
 
 export default new ContainerModule(bind => {
 
@@ -29,5 +28,4 @@ export default new ContainerModule(bind => {
 
     bind(GraphicalLanguageClientProviderImpl).toSelf().inSingletonScope();
     bind(GraphicalLanguageClientProvider).toDynamicValue(ctx => ctx.container.get(GraphicalLanguageClientProviderImpl)).inSingletonScope();
-    bind(GraphicalLanguageClientContribution).to(TestGLClientContribution).inSingletonScope()
 });

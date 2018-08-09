@@ -8,11 +8,12 @@
             "type": "node",
             "request": "launch",
             "name": "Start Browser Backend",
-            "program": "${workspaceRoot}/browser-app/src-gen/backend/main.js",
+            "program": "${workspaceRoot}/examples/browser-app/src-gen/backend/main.js",
             "args": [
                 "--loglevel=debug",
                 "--port=3000",
-                "--no-cluster"
+                "--no-cluster",
+                "--WORKFLOW_LSP=5007"
             ],
             "env": {
                 "NODE_ENV": "development"

@@ -10,27 +10,27 @@
  ******************************************************************************/
 import { injectable, inject } from "inversify";
 import { LanguageContribution } from "@theia/languages/lib/common";
-import { Commands } from "vscode-base-languageclient/lib/services";
-import { GraphicalLanguageClient, GraphicalLanguageClientOptions } from "../common/graphical-language-client";
-import { CommandRegistry, Disposable } from "@theia/core";
+import { Commands, Disposable } from "vscode-base-languageclient/lib/services";
+import { GraphicalLanguageClient, GraphicalLanguageClientOptions } from "../common/graphical-language-client-services";
+import { CommandRegistry } from "@theia/core";
 import { GraphicalLanguageClientFactory } from "./graphical-language-client-factory";
 import { FrontendApplication } from "@theia/core/lib/browser";
-
 export const GraphicalLanguageClientContribution = Symbol('GraphicalLanguageClientContribution')
 export interface GraphicalLanguageClientContribution extends LanguageContribution {
-    readonly languageClient: Promise<GraphicalLanguageClient>
+    readonly languageClient: Promise<GraphicalLanguageClient>;
     activate(app: FrontendApplication): Disposable;
+    waitForActivation(app: FrontendApplication): Promise<void>;
 }
 
 @injectable()
-export abstract class BaseGraphicalLanguageClientContribution implements LanguageContribution, Commands {
+export abstract class BaseGraphicalLanguageClientContribution implements GraphicalLanguageClientContribution, Commands {
     abstract readonly id: string;
     abstract readonly name: string;
 
     protected _languageClient: GraphicalLanguageClient | undefined;
 
     protected resolveReady: (languageClient: GraphicalLanguageClient) => void;
-    protected ready: Promise<GraphicalLanguageClient>;
+    languageClient: Promise<GraphicalLanguageClient>;
 
     @inject(CommandRegistry) protected readonly registry: CommandRegistry;
     constructor(@inject(GraphicalLanguageClientFactory) protected readonly languageClientFactory: GraphicalLanguageClientFactory) {
@@ -40,7 +40,7 @@ export abstract class BaseGraphicalLanguageClientContribution implements Languag
 
 
     protected waitForReady(): void {
-        this.ready = new Promise<GraphicalLanguageClient>(resolve =>
+        this.languageClient = new Promise<GraphicalLanguageClient>(resolve =>
             this.resolveReady = resolve
         );
     }
@@ -49,6 +49,10 @@ export abstract class BaseGraphicalLanguageClientContribution implements Languag
         const languageClient = this.createLanguageClient();
         this.onWillStart(languageClient);
         return languageClient.start();
+    }
+
+    waitForActivation(app: FrontendApplication): Promise<any> {
+        return Promise.resolve()
     }
     protected onWillStart(languageClient: GraphicalLanguageClient): void {
         languageClient.onReady().then(() => this.onReady(languageClient));
