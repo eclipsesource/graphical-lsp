@@ -1,0 +1,33 @@
+{
+  "extends": "./configs/base.tsconfig",
+  "compilerOptions": {
+    "skipLibCheck": false,
+    "baseUrl": ".",
+    "paths": {
+      "glsp-client-extension": [
+        "packages/glsp-client-extension/src/*"
+      ],
+      "glsp-sprotty": [
+        "packages/glsp-sprotty/src/*"
+      ],
+      "theia-glsp": [
+        "packages/theia-glsp/src/*"
+      ],
+      "workflow-glsp-extension": [
+        "examples/workflow-glsp-extension/src/*"
+      ],
+      "workflow-sprotty": [
+        "examples/workflow-sprotty/src/*"
+      ]
+    },
+    "plugins": [
+      {
+        "name": "tslint-language-service"
+      }
+    ]
+  },
+  "include": [
+    "dev-packages/*/src",
+    "examples/*/src"
+  ]
+}

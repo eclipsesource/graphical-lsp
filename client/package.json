@@ -1,5 +1,10 @@
 {
   "private": true,
+  "name": "parent",
+  "version" : "0.0.0",
+  "resolution" :{
+    "**/@types/node": "8.10.20"
+  },
   "scripts": {
     "prepare": "lerna run prepare",
     "rebuild:browser": "theia rebuild:browser",
