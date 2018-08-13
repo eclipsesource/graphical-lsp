@@ -10,7 +10,10 @@
  ******************************************************************************/
 package at.tortmayr.glsp.api;
 
+import java.util.concurrent.CompletableFuture;
+
 import org.eclipse.lsp4j.jsonrpc.services.JsonNotification;
+import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
 
 import io.typefox.sprotty.api.ServerStatus;
 
@@ -24,6 +27,11 @@ public interface GraphicalLanguageServer extends GraphicalLanguageClientAware {
 
 	@JsonNotification("process")
 	void process(ActionMessage message);
-
+	
+	@JsonRequest("shutdown")
+	CompletableFuture<Object> shutdown();
+	
+	@JsonNotification("exit")
+	void exit();
 	void setStatus(ServerStatus serverStatus);
 }

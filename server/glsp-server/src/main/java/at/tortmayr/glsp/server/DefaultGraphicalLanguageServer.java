@@ -10,6 +10,8 @@
  ******************************************************************************/
 package at.tortmayr.glsp.server;
 
+import java.util.concurrent.CompletableFuture;
+
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
@@ -66,6 +68,18 @@ public class DefaultGraphicalLanguageServer implements GraphicalLanguageServer {
 	public void setStatus(ServerStatus status) {
 		this.status = status;
 
+	}
+
+	@Override
+	public CompletableFuture<Object> shutdown() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void exit() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
