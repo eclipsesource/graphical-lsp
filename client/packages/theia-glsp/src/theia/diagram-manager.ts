@@ -5,7 +5,7 @@
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  */
 
-import { TheiaLSPDiagramServer } from '../sprotty/theia-diagram-server';
+import { TheiaDiagramServer } from '../sprotty/theia-diagram-server';
 import { TheiaSprottyConnector } from '../sprotty/theia-sprotty-connector'
 import { DiagramConfigurationRegistry } from './diagram-configuration'
 import { injectable, inject } from "inversify"
@@ -80,7 +80,7 @@ export abstract class DiagramManagerImpl implements DiagramManager {
         const modelSource = diContainer.get<ModelSource>(TYPES.ModelSource)
         if (modelSource instanceof DiagramServer)
             modelSource.clientId = widgetId
-        if (modelSource instanceof TheiaLSPDiagramServer && this.diagramConnector)
+        if (modelSource instanceof TheiaDiagramServer && this.diagramConnector)
             this.diagramConnector.connect(modelSource)
         const newWidget = this.diagramWidgetFactory({
             id: widgetId, svgContainerId, uri, diagramType: this.diagramType, modelSource,
@@ -92,7 +92,7 @@ export abstract class DiagramManagerImpl implements DiagramManager {
         this.widgetRegistry.addWidget(uri, this.diagramType, newWidget)
         newWidget.disposed.connect(() => {
             this.widgetRegistry.removeWidget(uri, this.diagramType)
-            if (modelSource instanceof TheiaLSPDiagramServer && this.diagramConnector)
+            if (modelSource instanceof TheiaDiagramServer && this.diagramConnector)
                 this.diagramConnector.disconnect(modelSource)
         })
         return newWidget

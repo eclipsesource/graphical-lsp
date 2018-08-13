@@ -11,16 +11,18 @@
 import { Commands, ConnectionErrorHandler, ConnectionCloseHandler, OutputChannel } from "@theia/languages/lib/common"
 import { ErrorHandler } from "vscode-base-languageclient/lib/base";
 import { ActionMessage } from "sprotty/lib"
-import { MessageConnection, Message, NotificationHandler, Disposable } from "vscode-jsonrpc";
+import { MessageConnection, Message, NotificationHandler, Disposable, NotificationType } from "vscode-jsonrpc";
 import { ActionMessageNotification, ExitNotification, ShutdownRequest } from "./graphical-language-server-protocol";
+
+import { FrontendApplication } from "@theia/core/lib/browser";
 export const GraphicalLanguageClient = Symbol('GraphicalLanguageClient');
 export interface GraphicalLanguageClient {
     createDefaultErrorHandler(): ErrorHandler
     onReady(): Promise<void>
     start(): Disposable;
     stop(): Thenable<void> | undefined
-    sendActionMessage(message: ActionMessage): void
-    onActionMessage(handler: NotificationHandler<ActionMessage>): void
+    onNotification<P, RO>(type: NotificationType<P, RO>, handler: NotificationHandler<P>): void;
+    sendNotification<P, RO>(type: NotificationType<P, RO>, params?: P): void;
 
 }
 export namespace GraphicalLanguageClient {
@@ -41,8 +43,8 @@ export interface GraphicalLanguageClientOptions {
 export const Connection = Symbol('Connection')
 export interface Connection {
     listen(): void
-    sendActionMessage(message: ActionMessage): void
-    onActionMessage(handler: NotificationHandler<ActionMessage>): void
+    onNotification<P, RO>(type: NotificationType<P, RO>, handler: NotificationHandler<P>): void;
+    sendNotification<P, RO>(type: NotificationType<P, RO>, params?: P): void;
     shutdown(): Thenable<void>;
     exit(): void;
     dispose(): void;
@@ -56,10 +58,11 @@ export interface ConnectionProvider {
 export function createConnection(connection: MessageConnection, errorHandler: ConnectionErrorHandler, closeHandler: ConnectionCloseHandler) {
     connection.onError((data: [Error, Message, number]) => { errorHandler(data[0], data[1], data[2]); });
     connection.onClose(closeHandler);
+    connection.onNotification
     let result: Connection = {
         listen: () => connection.listen(),
-        sendActionMessage: (message: ActionMessage) => connection.sendNotification(ActionMessageNotification.type, message),
-        onActionMessage: (handler: NotificationHandler<ActionMessage>) => connection.onNotification(ActionMessageNotification.type, handler),
+        sendNotification: <P, RO>(type: NotificationType<P, RO>, params?: P): void => connection.sendNotification(type, params),
+        onNotification: <P, RO>(type: NotificationType<P, RO>, handler: NotificationHandler<P>): void => connection.onNotification(type, handler),
         shutdown: () => connection.sendRequest(ShutdownRequest.type, undefined),
         exit: () => connection.sendNotification(ExitNotification.type),
         dispose: () => connection.dispose()

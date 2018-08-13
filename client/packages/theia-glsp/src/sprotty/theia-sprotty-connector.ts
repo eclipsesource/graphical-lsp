@@ -6,7 +6,7 @@
 */
 
 import { ActionMessage, ExportSvgAction, ServerStatusAction } from 'sprotty/lib'
-import { TheiaDiagramServer, TheiaLSPDiagramServer } from './theia-diagram-server'
+import { TheiaDiagramServer } from './theia-diagram-server'
 import { NotificationType } from 'vscode-jsonrpc/lib/messages'
 import { Location } from 'vscode-languageserver-types'
 import { LanguageClientContribution } from '@theia/languages/lib/browser'
@@ -24,6 +24,15 @@ const acceptMessageType = new NotificationType<ActionMessage, void>('diagram/acc
 const didCloseMessageType = new NotificationType<string, void>('diagram/didClose')
 const openInTextEditorMessageType = new NotificationType<OpenInTextEditorMessage, void>('diagram/openInTextEditor')
 
+export interface TheiaSprottyConnector {
+    connect(diagramServer: TheiaDiagramServer): void
+    disconnect(diagramServer: TheiaDiagramServer): void
+    save(uri: string, action: ExportSvgAction): void
+    openInTextEditor(message: OpenInTextEditorMessage): void
+    showStatus(widgetId: string, status: ServerStatusAction): void
+    sendMessage(message: ActionMessage): void
+    onMessageReceived(message: ActionMessage): void
+}
 /**
  * Connects sprotty DiagramServers to a Theia LanguageClientContribution.
  *
@@ -34,17 +43,17 @@ const openInTextEditorMessageType = new NotificationType<OpenInTextEditorMessage
  * diagram) and a specific language client from the Theia DI container
  * (one per application).
  */
-export class TheiaSprottyConnector {
+export class LSPTheiaSprottyConnector implements TheiaSprottyConnector {
 
     private servers: TheiaDiagramServer[] = []
 
     constructor(private languageClientContribution: LanguageClientContribution,
-                private fileSaver: TheiaFileSaver,
-                private editorManager: EditorManager,
-                private diagramWidgetRegistry: DiagramWidgetRegistry) {
+        private fileSaver: TheiaFileSaver,
+        private editorManager: EditorManager,
+        private diagramWidgetRegistry: DiagramWidgetRegistry) {
         this.languageClientContribution.languageClient.then(
             lc => {
-                lc.onNotification(acceptMessageType, this.receivedThroughLsp.bind(this))
+                lc.onNotification(acceptMessageType, this.onMessageReceived.bind(this))
                 lc.onNotification(openInTextEditorMessageType, this.openInTextEditor.bind(this))
             }
         ).catch(
@@ -52,12 +61,12 @@ export class TheiaSprottyConnector {
         )
     }
 
-    connect(diagramServer: TheiaLSPDiagramServer) {
+    connect(diagramServer: TheiaDiagramServer) {
         this.servers.push(diagramServer)
         diagramServer.connect(this)
     }
 
-    disconnect(diagramServer: TheiaLSPDiagramServer) {
+    disconnect(diagramServer: TheiaDiagramServer) {
         const index = this.servers.indexOf(diagramServer)
         if (index >= 0)
             this.servers.splice(index, 0)
@@ -97,11 +106,11 @@ export class TheiaSprottyConnector {
             widget.setStatus(status)
     }
 
-    sendThroughLsp(message: ActionMessage) {
+    sendMessage(message: ActionMessage) {
         this.languageClientContribution.languageClient.then(lc => lc.sendNotification(acceptMessageType, message))
     }
 
-    receivedThroughLsp(message: ActionMessage) {
+    onMessageReceived(message: ActionMessage) {
         this.servers.forEach(element => {
             element.messageReceived(message)
         })

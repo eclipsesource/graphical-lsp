@@ -10,12 +10,12 @@
  ******************************************************************************/
 import { injectable, inject } from "inversify";
 import { WebSocketConnectionProvider } from "@theia/core/lib/browser";
-import { GraphicalLanguageClient, GraphicalLanguageClientOptions, createConnection, ConnectionProvider, Connection } from "../common/graphical-language-client-services";
+import { GraphicalLanguageClient, GraphicalLanguageClientOptions, createConnection, ConnectionProvider, Connection } from "../../common/graphical-language-client-services";
 import { LanguageContribution, ConnectionErrorHandler, ConnectionCloseHandler, OutputChannel } from "@theia/languages/lib/common"
-import { ErrorAction, ErrorHandler, NotificationHandler, CloseAction } from "vscode-base-languageclient/lib/base"
+import { ErrorAction, ErrorHandler, NotificationHandler, CloseAction, State } from "vscode-base-languageclient/lib/base"
 import { Disposable } from "@theia/core/lib/common/disposable";
 import { ActionMessage } from "sprotty/lib";
-import { Message } from "vscode-jsonrpc";
+import { Message, NotificationType } from "vscode-jsonrpc";
 
 enum ClientState {
     Initial,
@@ -45,6 +45,7 @@ export class BaseGraphcialLanguageClient implements GraphicalLanguageClient {
         this.clientOptions = clientOptions;
         this.onStop = undefined
         this._onReady = Promise.resolve()
+        this.state = ClientState.Initial
 
     }
     start(): Disposable {
@@ -105,23 +106,32 @@ export class BaseGraphcialLanguageClient implements GraphicalLanguageClient {
         return this.connectionProvider.get(errorHandler, closeHandler, undefined);
     }
 
+
+    private handleConnectionError(error: Error, message: Message, count: number) {
+        let action = this.clientOptions.errorHandler!.error(error, message, count);
+        if (action === ErrorAction.Shutdown) {
+            console.error('Connection to server is erroring. Shutting down server.')
+            this.stop();
+        }
+    }
+
     protected handleConnectionClosed() {
         if (this.state === ClientState.Stopping || this.state === ClientState.Stopped) {
             return;
         }
     }
-    sendActionMessage(message: ActionMessage): void {
-        if (!this.isConnectionActive()) {
-            throw new Error('Graphical Language client is not ready yet');
-        }
-        this.resolvedConnection!.sendActionMessage(message);
 
-    }
-    onActionMessage(handler: NotificationHandler<ActionMessage>): void {
+    onNotification<P, RO>(type: NotificationType<P, RO>, handler: NotificationHandler<P>): void {
         if (!this.isConnectionActive()) {
             throw new Error('Graphical Language client is not ready yet');
         }
-        this.resolvedConnection!.onActionMessage(handler)
+        this.resolvedConnection!.onNotification(type, handler);
+    }
+    sendNotification<P, RO>(type: NotificationType<P, RO>, params?: P): void {
+        if (!this.isConnectionActive()) {
+            throw new Error('Graphical Language client is not ready yet');
+        }
+        this.resolvedConnection!.sendNotification(type, params);
     }
 
     private isConnectionActive(): boolean {

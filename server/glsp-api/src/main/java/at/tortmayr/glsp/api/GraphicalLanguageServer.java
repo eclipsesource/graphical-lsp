@@ -22,7 +22,7 @@ public interface GraphicalLanguageServer extends GraphicalLanguageClientAware {
 
 	void initialize();
 
-	@JsonNotification("server/process")
+	@JsonNotification("process")
 	void process(ActionMessage message);
 
 	void setStatus(ServerStatus serverStatus);

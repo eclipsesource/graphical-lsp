@@ -56,6 +56,13 @@
             "smartStep": true,
             "internalConsoleOptions": "openOnSessionStart",
             "outputCapture": "std"
+        },
+        {
+            "name": "Launch Frontend",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:3000/",
+            "webRoot": "${workspaceRoot}"
         }
     ]
 }

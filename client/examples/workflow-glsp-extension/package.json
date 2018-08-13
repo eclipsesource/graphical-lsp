@@ -15,8 +15,8 @@
     "@theia/languages": "latest",
     "@theia/monaco": "latest",
     "@types/node": "^8.0.14",
-    "sprotty": "0.4.0",
     "workflow-sprotty": "0.1.0",
+    "glsp-sprotty": "0.0.1",
     "theia-glsp": "0.0.1",
     "glsp-client-extension": "0.0.0"
   },
