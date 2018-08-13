@@ -10,12 +10,12 @@
  ******************************************************************************/
 
 import { ContainerModule } from "inversify";
-import { GraphicalLanguageClientFactory } from "./graphical-language-client-factory";
+import { GraphicalLanguageClientFactory } from "./language/graphical-language-client";
 import { bindContributionProvider } from "@theia/core";
-import { GraphicalLanguageClientContribution } from "./graphical-langauge-client-contribution";
+import { GraphicalLanguageClientContribution } from "./language/graphical-langauge-client-contribution";
 import { FrontendApplicationContribution } from "@theia/core/lib/browser";
-import { GraphicalLanguagesFrontendContribution } from "./graphical-languages-frontend-contribution";
-import { GraphicalLanguageClientProviderImpl, GraphicalLanguageClientProvider } from "./graphical-language-client-provider";
+import { GraphicalLanguagesFrontendContribution } from "./language/graphical-languages-frontend-contribution";
+import { GraphicalLanguageClientProviderImpl, GraphicalLanguageClientProvider } from "./language/graphical-language-client-provider";
 
 export default new ContainerModule(bind => {
 
@@ -28,4 +28,5 @@ export default new ContainerModule(bind => {
 
     bind(GraphicalLanguageClientProviderImpl).toSelf().inSingletonScope();
     bind(GraphicalLanguageClientProvider).toDynamicValue(ctx => ctx.container.get(GraphicalLanguageClientProviderImpl)).inSingletonScope();
+
 });

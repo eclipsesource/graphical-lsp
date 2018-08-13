@@ -9,7 +9,7 @@ import { RequestModelAction, CenterAction, InitializeCanvasBoundsAction, ModelSo
 import { Widget } from "@phosphor/widgets"
 import { Message } from "@phosphor/messaging/lib"
 import URI from "@theia/core/lib/common/uri"
-import { BaseWidget } from '@theia/core/lib/browser'
+import { BaseWidget } from '@theia/core/lib/browser/widgets/widget'
 
 export interface DiagramWidgetOptions {
     id: string
@@ -66,7 +66,7 @@ export class DiagramWidget extends BaseWidget {
         this.modelSource.handle(new RequestModelAction({
             sourceUri: this.uri.toString(),
             diagramType: this.diagramType,
-            needsClientLayout: "true"
+            needsClientLayout: 'true'
         }))
     }
 

@@ -16,20 +16,17 @@ import {
 import { DiagramWidget } from './diagram-widget'
 import { DiagramManagerImpl } from './diagram-manager'
 import { injectable, inject } from 'inversify'
-import {
-    MAIN_MENU_BAR, MenuContribution, MenuModelRegistry, CommandContribution,
-    CommandHandler, CommandRegistry, MenuPath
-} from '@theia/core/lib/common'
+import { MAIN_MENU_BAR, MenuContribution, MenuModelRegistry, CommandContribution,
+         CommandHandler, CommandRegistry, MenuPath } from '@theia/core/lib/common'
 import { ApplicationShell, OpenerService, CommonCommands } from '@theia/core/lib/browser'
 import { EDITOR_CONTEXT_MENU, EditorManager } from "@theia/editor/lib/browser"
-import { SaveModelAction } from "glsp-sprotty/lib"
+
 export namespace DiagramCommands {
     export const CENTER = 'diagram:center'
     export const FIT = 'diagram:fit'
     export const EXPORT = 'diagram:export'
     export const SELECT_ALL = 'diagram.selectAll'
     export const OPEN_IN_DIAGRAM = 'diagram.open'
-    export const SAVE_MODEL = 'diagram.save'
 }
 
 export namespace DiagramMenus {
@@ -54,17 +51,13 @@ export class DiagramMenuContribution implements MenuContribution {
         registry.registerMenuAction(EDITOR_CONTEXT_MENU, {
             commandId: DiagramCommands.OPEN_IN_DIAGRAM
         })
-
-        registry.registerMenuAction(DiagramMenus.DIAGRAM, {
-            commandId: DiagramCommands.SAVE_MODEL
-        })
     }
 }
 
 export class DiagramCommandHandler implements CommandHandler {
 
     constructor(protected readonly shell: ApplicationShell,
-        protected readonly doExecute: (diagram: DiagramWidget) => any) {
+                protected readonly doExecute: (diagram: DiagramWidget) => any) {
     }
 
     execute(...args: any[]) {
@@ -81,7 +74,7 @@ export class DiagramCommandHandler implements CommandHandler {
 export class OpenInDiagramHandler implements CommandHandler {
 
     constructor(protected readonly editorManager: EditorManager,
-        protected readonly openerService: OpenerService) {
+                protected readonly openerService: OpenerService) {
     }
 
     execute(...args: any[]) {
@@ -101,8 +94,8 @@ export class OpenInDiagramHandler implements CommandHandler {
 @injectable()
 export class DiagramCommandContribution implements CommandContribution {
     constructor(@inject(ApplicationShell) protected readonly shell: ApplicationShell,
-        @inject(EditorManager) protected readonly editorManager: EditorManager,
-        @inject(OpenerService) protected readonly openerService: OpenerService) {
+                @inject(EditorManager) protected readonly editorManager: EditorManager,
+                @inject(OpenerService) protected readonly openerService: OpenerService) {
     }
 
     registerCommands(registry: CommandRegistry): void {
@@ -121,11 +114,6 @@ export class DiagramCommandContribution implements CommandContribution {
         registry.registerCommand({
             id: DiagramCommands.SELECT_ALL,
             label: 'Select all'
-        })
-
-        registry.registerCommand({
-            id: DiagramCommands.SAVE_MODEL,
-            label: "Save diagram"
         })
         registry.registerCommand({
             id: DiagramCommands.OPEN_IN_DIAGRAM,
@@ -150,11 +138,6 @@ export class DiagramCommandContribution implements CommandContribution {
                 widget.actionDispatcher.dispatch(new RequestExportSvgAction())
             )
         )
-
-        registry.registerHandler(
-            DiagramCommands.SAVE_MODEL, new DiagramCommandHandler(this.shell, widget => widget.actionDispatcher.dispatch(new SaveModelAction())
-            )
-        )
         registry.registerHandler(
             DiagramCommands.SELECT_ALL,
             new DiagramCommandHandler(this.shell, widget => {
@@ -162,7 +145,10 @@ export class DiagramCommandContribution implements CommandContribution {
                 widget.actionDispatcher.dispatch(action)
             })
         )
-
+        registry.registerHandler(
+            DiagramCommands.OPEN_IN_DIAGRAM,
+            new OpenInDiagramHandler(this.editorManager, this.openerService)
+        )
         registry.registerHandler(
             CommonCommands.UNDO.id,
             new DiagramCommandHandler(this.shell, widget =>
