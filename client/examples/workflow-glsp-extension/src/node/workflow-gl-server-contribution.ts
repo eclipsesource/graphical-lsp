@@ -1,8 +1,9 @@
 import { injectable } from "inversify";
-import { BaseLanguageServerContribution, IConnection } from "@theia/languages/lib/node"
+import { IConnection } from "@theia/languages/lib/node"
 import { createSocketConnection } from 'vscode-ws-jsonrpc/lib/server'
 import * as net from 'net'
 import { WorkflowLanguage } from "../common/workflow-language";
+import { BaseGraphicalLanguageServerContribution } from 'glsp-client-extension/lib/node'
 
 function getPort(): number | undefined {
     let arg = process.argv.filter(arg => arg.startsWith('--WORKFLOW_LSP='))[0]
@@ -13,7 +14,7 @@ function getPort(): number | undefined {
     }
 }
 @injectable()
-export class WorkflowGLServerContribution extends BaseLanguageServerContribution {
+export class WorkflowGLServerContribution extends BaseGraphicalLanguageServerContribution {
     readonly id = WorkflowLanguage.Id
     readonly name = WorkflowLanguage.Name
 
