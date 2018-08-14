@@ -5,8 +5,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>at.tortmayr.chillisp</groupId>
-		<artifactId>chillisp-parent</artifactId>
+		<groupId>at.tortmayr.glsp</groupId>
+		<artifactId>glsp-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>workflow-example</artifactId>
