@@ -95,7 +95,6 @@ public class DefaultActionHandler implements ActionHandler {
 		if (client != null && clientId != null) {
 			ActionMessage message = new ActionMessage(clientId, action);
 			client.process(message);
-			System.out.println("success");
 		}
 
 	}

@@ -1,9 +1,8 @@
 import { injectable, inject } from "inversify";
-import { DiagramManagerImpl, TheiaFileSaver, DiagramWidgetRegistry } from "theia-glsp/lib";
+import { DiagramManagerImpl, TheiaFileSaver, DiagramWidgetRegistry } from "theia-sprotty/lib";
 import { WorkflowLanguage } from "../../common/workflow-language";
-import { GLSPTheiaSprottyConnector } from "glsp-client-extension/lib/browser";
+import { GLSPTheiaSprottyConnector, GraphicalLanguageClientContribution } from "glsp-theia-extension/lib/browser";
 import { WorkflowGLClientContribution } from "../language/workflow-gl-client-contribution";
-import { GraphicalLanguageClientContribution } from "glsp-client-extension/lib/browser";
 import { EditorManager } from "@theia/editor/lib/browser";
 import { ThemeManager } from "./thememanager";
 @injectable()
@@ -14,7 +13,7 @@ export class WorkflowDiagramManager extends DiagramManagerImpl {
     private _diagramConnector: GLSPTheiaSprottyConnector;
     constructor(
         @inject(WorkflowGLClientContribution)
-        readonly languageClientContribution: WorkflowGLClientContribution,
+        readonly languageClientContribution: GraphicalLanguageClientContribution,
         @inject(TheiaFileSaver)
         readonly theiaFileSaver: TheiaFileSaver,
         @inject(EditorManager)

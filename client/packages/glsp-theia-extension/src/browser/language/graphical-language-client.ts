@@ -14,7 +14,6 @@ import { GraphicalLanguageClient, GraphicalLanguageClientOptions, createConnecti
 import { LanguageContribution, ConnectionErrorHandler, ConnectionCloseHandler, OutputChannel } from "@theia/languages/lib/common"
 import { ErrorAction, ErrorHandler, NotificationHandler, CloseAction, State } from "vscode-base-languageclient/lib/base"
 import { Disposable } from "@theia/core/lib/common/disposable";
-import { ActionMessage } from "sprotty/lib";
 import { Message, NotificationType } from "vscode-jsonrpc";
 
 enum ClientState {

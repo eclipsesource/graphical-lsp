@@ -11,7 +11,7 @@
 import { injectable, inject, named } from "inversify";
 import { ContributionProvider } from "@theia/core";
 import { GraphicalLanguageClientContribution } from "./graphical-langauge-client-contribution";
-import { GraphicalLanguageClient } from "glsp-client-extension/src/common/graphical-language-client-services";
+import { GraphicalLanguageClient } from "glsp-theia-extension/src/common/graphical-language-client-services";
 
 
 export const GraphicalLanguageClientProvider = Symbol('GraphicalLanguageClientProvider')

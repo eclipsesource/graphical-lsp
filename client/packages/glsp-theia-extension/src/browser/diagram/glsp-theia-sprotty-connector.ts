@@ -8,7 +8,7 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { TheiaSprottyConnector, TheiaDiagramServer, OpenInTextEditorMessage, TheiaFileSaver, DiagramWidgetRegistry } from "theia-glsp/lib";
+import { TheiaSprottyConnector, TheiaDiagramServer, OpenInTextEditorMessage, TheiaFileSaver, DiagramWidgetRegistry } from "theia-sprotty/lib";
 import { ExportSvgAction, ServerStatusAction, ActionMessage } from "glsp-sprotty/lib";
 import { GraphicalLanguageClientContribution } from "../language/graphical-langauge-client-contribution";
 import { EditorManager } from "@theia/editor/lib/browser";

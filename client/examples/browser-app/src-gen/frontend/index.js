@@ -47,8 +47,8 @@ module.exports = Promise.resolve()
     .then(function () { return Promise.resolve(require('@theia/callhierarchy/lib/browser/callhierarchy-frontend-module')).then(load) })
     .then(function () { return Promise.resolve(require('@theia/typescript/lib/browser/typescript-frontend-module')).then(load) })
     .then(function () { return Promise.resolve(require('@theia/messages/lib/browser/messages-frontend-module')).then(load) })
-    .then(function () { return Promise.resolve(require('theia-glsp/lib/theia/diagram-module')).then(load) })
-    .then(function () { return Promise.resolve(require('glsp-client-extension/lib/browser/graphical-languages-frontend-module')).then(load) })
+    .then(function () { return Promise.resolve(require('theia-sprotty/lib/theia/diagram-module')).then(load) })
+    .then(function () { return Promise.resolve(require('glsp-theia-extension/lib/browser/graphical-languages-frontend-module')).then(load) })
     .then(function () { return Promise.resolve(require('workflow-glsp-extension/lib/browser/frontend-extension')).then(load) })
     .then(start).catch(reason => {
         console.error('Failed to start the frontend application.');

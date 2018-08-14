@@ -10,11 +10,10 @@
  ******************************************************************************/
 import { Commands, ConnectionErrorHandler, ConnectionCloseHandler, OutputChannel } from "@theia/languages/lib/common"
 import { ErrorHandler } from "vscode-base-languageclient/lib/base";
-import { ActionMessage } from "sprotty/lib"
-import { MessageConnection, Message, NotificationHandler, Disposable, NotificationType } from "vscode-jsonrpc";
-import { ActionMessageNotification, ExitNotification, ShutdownRequest } from "./graphical-language-server-protocol";
 
-import { FrontendApplication } from "@theia/core/lib/browser";
+import { MessageConnection, Message, NotificationHandler, Disposable, NotificationType } from "vscode-jsonrpc";
+import { ExitNotification, ShutdownRequest } from "./graphical-language-server-protocol";
+
 export const GraphicalLanguageClient = Symbol('GraphicalLanguageClient');
 export interface GraphicalLanguageClient {
     createDefaultErrorHandler(): ErrorHandler

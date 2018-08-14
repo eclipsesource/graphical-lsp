@@ -17,8 +17,8 @@
     "@types/node": "^8.0.14",
     "workflow-sprotty": "0.1.0",
     "glsp-sprotty": "0.0.1",
-    "theia-glsp": "0.0.1",
-    "glsp-client-extension": "0.0.0"
+    "theia-sprotty": "0.0.1",
+    "glsp-theia-extension": "0.0.0"
   },
   "devDependencies": {
     "rimraf": "latest",
