@@ -4,5 +4,5 @@ node_modules
 lib
 !*/glsp-sprotty/src/lib
 *.log
-*-app/*
-!*-app/package.json
+examples/browser-app/
+!examples/browser-app/package.json
