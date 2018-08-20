@@ -2,19 +2,31 @@
 
 This is a prototypical implementation of an web-based Diagram modeling editor. For client server communication an adapted version of the Graphical Server Protocol proposed by Obeo is used (https://github.com/ObeoNetwork/GraphicalServerProtocol)
 The web client is based on Theia and reuses the Sprotty framework.
+## Prerequisites
+You’ll need node in version 8:
 
+	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.5/install.sh | bash
+	nvm install 8
+and yarn
+
+	npm install -g yarn
+
+and lerna
+
+	npm install -g lerna
 ## Cloning the repository
 
 It's recommended to clone the repository recursively. Otherwise submodules have to be cloned and initialized separatly
 
-    git clone --recursive git@github.com:tortmayr/chilliSP.git
-    cd chilliSP
+    git clone git@github.com:tortmayr/graphical-lsp.git
+    cd graphical-lsp
     
-## Building the client component
+    
+## Building the client components
 	cd client
-	yarn prepare
+	yarn 
 	
-## Building the server component
+## Building the server components
 	cd server
 	mvn clean install
 	
