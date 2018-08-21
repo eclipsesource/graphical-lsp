@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2018 Tobias Ortmayr.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *   
+ * Contributors:
+ * 	Tobias Ortmayr - initial API and implementation
+ ******************************************************************************/
 import * as snabbdom from "snabbdom-jsx"
 import { TaskNode, WeightedEdge, Icon } from "./model";
 import { RenderingContext, RectangularNodeView, PolylineEdgeView, IView, SShapeElement } from "sprotty/lib";
@@ -32,8 +42,8 @@ export class ActivityNodeView extends RectangularNodeView {
     render(node: ActivityNode, context: RenderingContext): VNode {
         // In this context, the coordinates (0,0) mark the upper left corner of
         // the node, thus we shift all elements by the radius of the circle.
-        const hw=node.bounds.width/2
-        const hh=node.bounds.height/2
+        const hw = node.bounds.width / 2
+        const hh = node.bounds.height / 2
         const graph = <g>
             <rect class-sprotty-node={true} class-activity-node={true} class-mouseover={node.hoverFeedback} class-selected={node.selected}
                 x={0} y={0}

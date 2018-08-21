@@ -25,7 +25,7 @@
   "scripts": {
     "prepare": "theia build",    
     "start": "theia start --WORKFLOW_LSP=5007",
-    "watch": "theia build --watch"
+  	"watch": "theia build --watch --mode development"
   },
   "theia": {
     "target": "browser"
