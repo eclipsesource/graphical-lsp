@@ -1,7 +1,8 @@
-# ChilliSP
+# Graphical Language Server Protocol Implementation
 
 This is a prototypical implementation of an web-based Diagram modeling editor. For client server communication an adapted version of the Graphical Server Protocol proposed by Obeo is used (https://github.com/ObeoNetwork/GraphicalServerProtocol)
 The web client is based on Theia and reuses the Sprotty framework.
+
 ## Prerequisites
 You’ll need node in version 8:
 
@@ -14,6 +15,7 @@ and yarn
 and lerna
 
 	npm install -g lerna
+
 ## Cloning the repository
 
 It's recommended to clone the repository recursively. Otherwise submodules have to be cloned and initialized separatly
