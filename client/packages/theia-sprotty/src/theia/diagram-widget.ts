@@ -62,14 +62,16 @@ export class DiagramWidget extends BaseWidget {
         this.statusMessageDiv = document.createElement("div")
         this.statusMessageDiv.setAttribute('class', 'sprotty-status-message')
         statusDiv.appendChild(this.statusMessageDiv)
+        this.sendInitialRequestMessages()
 
+    }
+
+    protected sendInitialRequestMessages() {
         this.modelSource.handle(new RequestModelAction({
             sourceUri: this.uri.toString(),
             diagramType: this.diagramType,
-            needsClientLayout: 'true'
         }))
     }
-
     protected getBoundsInPage(element: Element) {
         const bounds = element.getBoundingClientRect()
         return {

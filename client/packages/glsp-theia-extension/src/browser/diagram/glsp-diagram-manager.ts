@@ -8,20 +8,21 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-export interface Tool {
-    /**
-     * The tool identifier.
-     */
-    readonly id: string;
+import { injectable, inject } from "inversify";
+import { DiagramManagerImpl, DiagramWidgetFactory } from "theia-sprotty/lib";
+import { GLSPDiagramWidget } from "./glsp-diagram-widget";
 
-    /**
-     * The tool name.
-     */
-    readonly name: string;
+@injectable()
+export abstract class GLSPDiagramManager extends DiagramManagerImpl {
 
-    /**
-     * The tool type.
-     */
-    readonly toolType: string;
+    protected get diagramWidgetFactory(): DiagramWidgetFactory {
+        return options => new GLSPDiagramWidget(options)
+    }
+
+
+
+
+
+
 
 }

@@ -16,7 +16,7 @@ import { GraphicalLanguageClientContribution } from "./language/graphical-langau
 import { FrontendApplicationContribution } from "@theia/core/lib/browser";
 import { GraphicalLanguagesFrontendContribution } from "./language/graphical-languages-frontend-contribution";
 import { GraphicalLanguageClientProviderImpl, GraphicalLanguageClientProvider } from "./language/graphical-language-client-provider";
-
+import { GLSPTheiaSprottyConnector } from "./diagram/glsp-theia-sprotty-connector";
 export default new ContainerModule(bind => {
 
 
@@ -27,6 +27,9 @@ export default new ContainerModule(bind => {
 
 
     bind(GraphicalLanguageClientProviderImpl).toSelf().inSingletonScope();
-    bind(GraphicalLanguageClientProvider).toDynamicValue(ctx => ctx.container.get(GraphicalLanguageClientProviderImpl)).inSingletonScope();
+    bind(GraphicalLanguageClientProvider).toDynamicValue(ctx => ctx.container.get(GraphicalLanguageClientProviderImpl)).inSingletonScope()
+
+    bind(GLSPTheiaSprottyConnector).toSelf().inSingletonScope();
+
 
 });
