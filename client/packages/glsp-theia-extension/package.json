@@ -32,7 +32,7 @@
   },
   "theiaExtensions": [
     {
-      "frontend": "lib/browser/graphical-languages-frontend-module"
+      "frontend": "lib/browser/frontend-extension"
     }
   ]
 }

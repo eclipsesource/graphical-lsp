@@ -8,20 +8,18 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-export interface Tool {
-    /**
-     * The tool identifier.
-     */
-    readonly id: string;
+import { DiagramWidget } from "theia-sprotty/lib";
+import { RequestModelAction, RequestToolsAction } from "glsp-sprotty/lib";
 
-    /**
-     * The tool name.
-     */
-    readonly name: string;
+export class GLSPDiagramWidget extends DiagramWidget {
 
-    /**
-     * The tool type.
-     */
-    readonly toolType: string;
+    protected sendInitialRequestMessages() {
+        this.modelSource.handle(new RequestModelAction({
+            sourceUri: this.uri.toString(),
+            diagramType: this.diagramType,
+            needsClientLayout: 'true'
+        }))
 
+        this.modelSource.handle(new RequestToolsAction())
+    }
 }
