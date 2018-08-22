@@ -11,17 +11,20 @@
 package at.tortmayr.glsp.example.workflow;
 
 import at.tortmayr.glsp.api.ToolConfiguration;
+import at.tortmayr.glsp.api.ToolType;
 import at.tortmayr.glsp.api.action.RequestToolsAction;
 import at.tortmayr.glsp.api.utils.Tool;
-import at.tortmayr.glsp.example.workflow.tools.AutomatedTaskTool;
-import at.tortmayr.glsp.example.workflow.tools.ManualTaskTool;
-import at.tortmayr.glsp.example.workflow.tools.WeightedEdgeTool;
 
 public class WorkflowToolConfiguration implements ToolConfiguration {
+	public static final String AUTOMATED_TASK_TOOL_ID = "wf-automated-task-tool";
+	public static final String MANUAL_TASK_TOOL_ID = "wf-manual-task-tool";
+	public static final String WEIGHTED_EDGE_TOOL_ID = "wf-weighted-edge-tool";
 
 	@Override
 	public Tool[] getTools(RequestToolsAction action) {
-		Tool[] tools = { new AutomatedTaskTool(), new ManualTaskTool(), new WeightedEdgeTool() };
+		Tool[] tools = { new Tool("Autotmated Task", AUTOMATED_TASK_TOOL_ID, ToolType.CREATION),
+				new Tool("Manual Task", MANUAL_TASK_TOOL_ID, ToolType.CREATION),
+				new Tool("Weighted Edge", WEIGHTED_EDGE_TOOL_ID, ToolType.CONNECTION) };
 		return tools;
 
 	}

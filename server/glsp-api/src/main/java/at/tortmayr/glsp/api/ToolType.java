@@ -8,15 +8,13 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-package at.tortmayr.glsp.example.workflow.tools;
+package at.tortmayr.glsp.api;
 
-import at.tortmayr.glsp.api.tools.ConnectionTool;
+public final class ToolType {
 
-public class WeightedEdgeTool extends ConnectionTool {
+	public static final String CREATION = "creation-tool";
+	public static final String CONNECTION = "connection-tool";
 
-	@Override
-	public String getName() {
-		return "Weighted Edge";
+	private ToolType() {
 	}
-
 }
