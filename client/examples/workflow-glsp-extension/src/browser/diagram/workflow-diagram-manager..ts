@@ -15,6 +15,9 @@ import { GLSPTheiaSprottyConnector, GraphicalLanguageClientContribution, GLSPDia
 import { WorkflowGLClientContribution } from "../language/workflow-gl-client-contribution";
 import { EditorManager } from "@theia/editor/lib/browser";
 import { ThemeManager } from "./thememanager";
+import { MenuModelRegistry, SelectionService, CommandRegistry } from "@theia/core";
+
+
 
 @injectable()
 export class WorkflowDiagramManager extends GLSPDiagramManager {
@@ -34,7 +37,10 @@ export class WorkflowDiagramManager extends GLSPDiagramManager {
         @inject(DiagramWidgetRegistry)
         readonly diagramWidgetRegistry: DiagramWidgetRegistry,
         @inject(ThemeManager)
-        readonly themeManager: ThemeManager) {
+        readonly themeManager: ThemeManager,
+        @inject(MenuModelRegistry) readonly menuModelRegistry: MenuModelRegistry,
+        @inject(CommandRegistry) readonly commandRegistry: CommandRegistry,
+        @inject(SelectionService) readonly selectionService: SelectionService) {
         super();
 
     }
@@ -45,7 +51,10 @@ export class WorkflowDiagramManager extends GLSPDiagramManager {
                 this.languageClientContribution,
                 this.theiaFileSaver,
                 this.editorManager,
-                this.diagramWidgetRegistry);
+                this.diagramWidgetRegistry,
+                this.menuModelRegistry,
+                this.commandRegistry,
+                this.selectionService)
             this.themeManager.initialize();
 
         }

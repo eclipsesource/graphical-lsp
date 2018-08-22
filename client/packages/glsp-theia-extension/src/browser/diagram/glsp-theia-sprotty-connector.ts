@@ -9,11 +9,13 @@
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
 import { TheiaSprottyConnector, TheiaDiagramServer, OpenInTextEditorMessage, TheiaFileSaver, DiagramWidgetRegistry } from "theia-sprotty/lib";
-import { ExportSvgAction, ServerStatusAction, ActionMessage } from "glsp-sprotty/lib";
+import { ExportSvgAction, ServerStatusAction, ActionMessage, Tool, SetToolsAction, Action, ExecuteNodeCreationToolAction, ExecuteToolAction, ToolType, SetToolsCommand } from "glsp-sprotty/lib";
 import { GraphicalLanguageClientContribution } from "../language/graphical-langauge-client-contribution";
-import { EditorManager } from "@theia/editor/lib/browser";
+import { EditorManager, EDITOR_CONTEXT_MENU } from "@theia/editor/lib/browser";
 import URI from "@theia/core/lib/common/uri";
 import { ActionMessageNotification } from "../../common/";
+import { MenuModelRegistry, Command, CommandRegistry, SelectionService } from "@theia/core";
+import { UriCommandHandler, UriAwareCommandHandler } from "@theia/core/lib/common/uri-command-handler";
 
 export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
 
@@ -22,7 +24,10 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
     constructor(private graphicalLanguageClientContribution: GraphicalLanguageClientContribution,
         private fileSaver: TheiaFileSaver,
         private editorManager: EditorManager,
-        private diagramWidgetRegistry: DiagramWidgetRegistry) {
+        private diagramWidgetRegistry: DiagramWidgetRegistry,
+        private menuModelRegistry: MenuModelRegistry,
+        private commandRegistry: CommandRegistry,
+        private selectionService: SelectionService) {
 
         this.graphicalLanguageClientContribution.languageClient.then(
             lc => {
@@ -80,7 +85,51 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
     onMessageReceived(message: ActionMessage): void {
         this.servers.forEach(element => {
             element.messageReceived(message)
+        })
+        if (message.action.kind === SetToolsCommand.KIND) {
+            this.handleSetToolsAction(message)
         }
-        )
+
     }
+
+
+
+    handleSetToolsAction(message: ActionMessage) {
+        (message.action as SetToolsAction).tools.forEach(tool => {
+            this.createToolCommand(tool, message.clientId)
+        });
+    }
+
+    private createToolCommand(tool: Tool, clientId: string) {
+        const command: Command = {
+            id: tool.id,
+            label: tool.name
+        }
+
+        this.commandRegistry.registerCommand(command, {
+            execute: async () => {
+                let message = { clientId: clientId, action: this.createdAction(tool) }
+                this.sendMessage(message)
+            }
+
+        })
+
+        this.menuModelRegistry.registerMenuAction([...EDITOR_CONTEXT_MENU, '0_glsp'], {
+            commandId: command.id,
+            label: command.label
+        })
+    }
+
+    protected createdAction(tool: Tool): Action {
+        let point = { x: 5, y: 5 }
+        if (tool.toolType === ToolType.CREATION) {
+            return new ExecuteNodeCreationToolAction(tool.id, point, undefined)
+        } else if (tool.toolType === ToolType.CONNECTION) {
+
+        }
+        return new ExecuteToolAction(tool.id, point, undefined)
+    }
+
+
+
 }
