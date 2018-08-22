@@ -10,13 +10,9 @@
  ******************************************************************************/
 package org.chillisp.server;
 
-import at.tortmayr.glsp.api.utils.Tool;
-import at.tortmayr.glsp.example.workflow.tools.AutomatedTaskTool;
-
 public class DummyTest {
 
 	public static void main(String[] args) {
-		Tool tool= new AutomatedTaskTool();
-		System.out.println(tool.getId());
+		
 	}
 }

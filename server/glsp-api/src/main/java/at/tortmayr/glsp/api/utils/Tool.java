@@ -10,10 +10,43 @@
  ******************************************************************************/
 package at.tortmayr.glsp.api.utils;
 
-public interface Tool {
-	String getId();
+public class Tool {
+	private String id;
+	private String name;
+	private String toolType;
 
-	String getName();
+	public Tool() {
+	}
 
-	String getToolType();
+	public Tool(String id, String name, String toolType) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.toolType = toolType;
+	}
+
+	String getId() {
+		return id;
+	}
+
+	String getName() {
+		return name;
+	}
+
+	String getToolType() {
+		return toolType;
+	}
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return super.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return super.equals(obj);
+	}
+
 }
