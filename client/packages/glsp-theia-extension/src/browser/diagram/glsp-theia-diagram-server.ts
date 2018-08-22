@@ -10,12 +10,18 @@
  ******************************************************************************/
 import { injectable, inject } from "inversify";
 import { TheiaDiagramServer } from "theia-sprotty/lib";
-import { ActionHandlerRegistry, SetToolsCommand, RequestToolsAction, SaveModelAction, ActionMessage, SetToolsAction, TYPES, IActionDispatcher, ViewerOptions, SModelStorage, ILogger } from "glsp-sprotty/lib";
+import { ActionMessage, Tool, ActionHandlerRegistry, SetToolsCommand, RequestToolsAction, SaveModelAction, SetToolsAction, TYPES, IActionDispatcher, ViewerOptions, SModelStorage, ILogger, ToolType, Action, ExecuteNodeCreationToolAction, ExecuteToolAction, alignFeature } from "glsp-sprotty/lib";
+import { MenuModelRegistry, CommandRegistry, SelectionService, Command } from "@theia/core/lib/common";
+import { UriCommandHandler, UriAwareCommandHandler } from "@theia/core/lib/common/uri-command-handler";
+import URI from "@theia/core/lib/common/uri";
+import { EDITOR_CONTEXT_MENU } from "@theia/editor/lib/browser";
+
+
+
 
 
 @injectable()
 export class GLSPTheiaDiagramServer extends TheiaDiagramServer {
-
 
 
     constructor(@inject(TYPES.IActionDispatcher) public actionDispatcher: IActionDispatcher,
@@ -23,6 +29,9 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer {
         @inject(TYPES.ViewerOptions) viewerOptions: ViewerOptions,
         @inject(TYPES.SModelStorage) storage: SModelStorage,
         @inject(TYPES.ILogger) logger: ILogger
+        // @inject(MenuModelRegistry) private readonly menuRegistry: MenuModelRegistry
+        // @inject(CommandRegistry) private readonly commandRegistry: CommandRegistry,
+        // @inject(SelectionService) protected readonly selectionService: SelectionService,
     ) {
         super(actionDispatcher, actionHandlerRegistry, viewerOptions, storage, logger)
     }
@@ -36,16 +45,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer {
     }
 
     messageReceived(message: ActionMessage) {
-        if (message.action.kind === SetToolsCommand.KIND) {
-            this.handleSetToolsAction(message.action as SetToolsAction)
-        }
         super.messageReceived(message)
     }
 
-    handleSetToolsAction(action: SetToolsAction) {
-        alert(
-            'Handle Tool action'
-        )
-    }
 }
-

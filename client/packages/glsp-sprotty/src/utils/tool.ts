@@ -8,6 +8,10 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
+export namespace ToolType {
+    export const CONNECTION = 'connection-tool'
+    export const CREATION = 'creation-tool'
+}
 export interface Tool {
     /**
      * The tool identifier.
