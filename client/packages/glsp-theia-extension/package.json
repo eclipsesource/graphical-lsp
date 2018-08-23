@@ -19,7 +19,7 @@
     "@theia/monaco": "latest",
     "@types/node": "^8.0.14",
     "glsp-sprotty": "0.0.1",
-    "theia-sprotty": "0.0.1"
+    "theia-glsp": "0.0.1"
   },
   "devDependencies": {
     "vscode": "^1.1.18"

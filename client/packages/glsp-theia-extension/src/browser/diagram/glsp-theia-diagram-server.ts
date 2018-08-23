@@ -9,7 +9,7 @@
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
 import { injectable, inject } from "inversify";
-import { TheiaDiagramServer } from "theia-sprotty/lib";
+import { TheiaDiagramServer } from "theia-glsp/lib";
 import { ActionMessage, Tool, ActionHandlerRegistry, SetToolsCommand, RequestToolsAction, SaveModelAction, SetToolsAction, TYPES, IActionDispatcher, ViewerOptions, SModelStorage, ILogger, ToolType, Action, ExecuteNodeCreationToolAction, ExecuteToolAction, alignFeature } from "glsp-sprotty/lib";
 import { MenuModelRegistry, CommandRegistry, SelectionService, Command } from "@theia/core/lib/common";
 import { UriCommandHandler, UriAwareCommandHandler } from "@theia/core/lib/common/uri-command-handler";

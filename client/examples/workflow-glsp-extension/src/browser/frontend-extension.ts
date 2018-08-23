@@ -11,7 +11,7 @@
 import { ContainerModule, interfaces } from "inversify";
 import { LanguageClientContribution } from "@theia/languages/lib/browser"
 import { WorkflowGLClientContribution } from "./language/workflow-gl-client-contribution";
-import { DiagramConfiguration, DiagramManagerProvider, DiagramManager } from "theia-sprotty/lib";
+import { DiagramConfiguration, DiagramManagerProvider, DiagramManager } from "theia-glsp/lib";
 import { WorkflowDiagramConfiguration } from "./diagram/di.config";
 import { WorkflowDiagramManager } from "./diagram/workflow-diagram-manager.";
 import { WorkflowLanguage } from "../common/workflow-language";

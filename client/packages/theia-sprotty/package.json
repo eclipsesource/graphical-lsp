@@ -1,5 +1,5 @@
 {
-  "name": "theia-sprotty",
+  "name": "theia-glsp",
   "version": "0.0.1",
   "description": "Glue code for GLSP diagrams in a Theia IDE",
   "author": "Project Theia",
