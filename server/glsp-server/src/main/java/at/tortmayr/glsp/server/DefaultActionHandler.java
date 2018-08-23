@@ -11,8 +11,10 @@
 package at.tortmayr.glsp.server;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -54,6 +56,7 @@ import at.tortmayr.glsp.api.jsonrpc.GraphicalLanguageClient;
 import at.tortmayr.glsp.api.listener.GraphicalModelExpansionListener;
 import at.tortmayr.glsp.api.listener.GraphicalModelSelectionListener;
 import at.tortmayr.glsp.api.listener.ModelElementOpenListener;
+import at.tortmayr.glsp.api.tool.ExecutableTool;
 import at.tortmayr.glsp.api.tool.ToolConfiguration;
 import at.tortmayr.glsp.api.types.Tool;
 import at.tortmayr.glsp.api.utils.InitalRequestOptions;
@@ -75,6 +78,7 @@ public class DefaultActionHandler implements ActionHandler {
 	private ModelElementOpenListener modelElementOpenListener;
 	@Inject
 	private ToolConfiguration toolConfiguration;
+	private Map<String, ExecutableTool> toolRegistry;
 	@Inject
 	private ModelFactory modelFactory;
 	@Inject
@@ -89,6 +93,7 @@ public class DefaultActionHandler implements ActionHandler {
 	private String clientId;
 
 	public DefaultActionHandler() {
+		toolRegistry = new HashMap<>();
 	}
 
 	private void sendResponse(Action action) {
@@ -197,7 +202,13 @@ public class DefaultActionHandler implements ActionHandler {
 
 	@Override
 	public void handle(ExecuteNodeCreationToolAction action) {
-		throw new UnsupportedOperationException("Method not yet implemented");
+		ExecutableTool tool = toolRegistry.get(action.getToolId());
+		if (tool != null) {
+			SModelRoot model = getModelState().getCurrentModel();
+			model = tool.execute(action, model);
+			doSubmitModel(model, true);
+
+		}
 
 	}
 
@@ -266,9 +277,11 @@ public class DefaultActionHandler implements ActionHandler {
 	@Override
 	public void handle(RequestToolsAction action) {
 		if (toolConfiguration != null) {
-			Tool[] tools = toolConfiguration.getTools(action);
+			ExecutableTool[] tools = toolConfiguration.getTools(action);
 			if (tools != null) {
-				sendResponse(new SetToolsAction(tools));
+				Arrays.stream(tools).forEach(tool -> toolRegistry.put(tool.getId(), tool));
+
+				sendResponse(new SetToolsAction(toolRegistry.values().stream().toArray(Tool[]::new)));
 			}
 		}
 	}

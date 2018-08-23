@@ -25,15 +25,15 @@ public class Tool {
 		this.toolType = toolType;
 	}
 
-	String getId() {
+	public String getId() {
 		return id;
 	}
 
-	String getName() {
+	public String getName() {
 		return name;
 	}
 
-	String getToolType() {
+	public String getToolType() {
 		return toolType;
 	}
 

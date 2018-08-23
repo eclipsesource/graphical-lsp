@@ -10,18 +10,16 @@
  ******************************************************************************/
 package at.tortmayr.glsp.api.tool;
 
-import at.tortmayr.glsp.api.action.kind.RequestToolsAction;
+import at.tortmayr.glsp.api.action.Action;
+import at.tortmayr.glsp.api.types.Tool;
+import io.typefox.sprotty.api.SModelRoot;
 
-public interface ToolConfiguration {
+public abstract class ExecutableTool extends Tool {
 
-	ExecutableTool[] getTools(RequestToolsAction action);
-
-	public static class NullImpl implements ToolConfiguration {
-
-		@Override
-		public ExecutableTool[] getTools(RequestToolsAction action) {
-			return new ExecutableTool[0];
-		}
-
+	public ExecutableTool(String id, String name, String toolType) {
+		super(id,name,toolType);
 	}
+
+	public abstract SModelRoot execute(Action action,SModelRoot modelRoot);
+
 }
