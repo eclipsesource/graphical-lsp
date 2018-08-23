@@ -16,11 +16,11 @@ import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 
-import at.tortmayr.glsp.api.ActionHandler;
-import at.tortmayr.glsp.api.ActionMessage;
-import at.tortmayr.glsp.api.ActionRegistry;
-import at.tortmayr.glsp.api.GraphicalLanguageClient;
-import at.tortmayr.glsp.api.GraphicalLanguageServer;
+import at.tortmayr.glsp.api.action.ActionHandler;
+import at.tortmayr.glsp.api.action.ActionMessage;
+import at.tortmayr.glsp.api.action.ActionRegistry;
+import at.tortmayr.glsp.api.jsonrpc.GraphicalLanguageClient;
+import at.tortmayr.glsp.api.jsonrpc.GraphicalLanguageServer;
 import io.typefox.sprotty.api.ServerStatus;
 
 public class DefaultGraphicalLanguageServer implements GraphicalLanguageServer {

@@ -30,9 +30,9 @@ import com.google.gson.GsonBuilder;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-import at.tortmayr.glsp.api.GraphicalLanguageClient;
-import at.tortmayr.glsp.api.GraphicalLanguageServer;
 import at.tortmayr.glsp.api.json.ActionTypeAdapter;
+import at.tortmayr.glsp.api.jsonrpc.GraphicalLanguageClient;
+import at.tortmayr.glsp.api.jsonrpc.GraphicalLanguageServer;
 import at.tortmayr.glsp.server.di.ServerModule;
 
 public class ServerLauncher {

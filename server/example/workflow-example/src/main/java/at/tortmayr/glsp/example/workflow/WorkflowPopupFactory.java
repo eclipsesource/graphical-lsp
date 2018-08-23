@@ -13,8 +13,8 @@ package at.tortmayr.glsp.example.workflow;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import at.tortmayr.glsp.api.PopupModelFactory;
-import at.tortmayr.glsp.api.action.RequestPopupModelAction;
+import at.tortmayr.glsp.api.action.kind.RequestPopupModelAction;
+import at.tortmayr.glsp.api.factory.PopupModelFactory;
 import at.tortmayr.glsp.example.workflow.schema.TaskNode;
 import io.typefox.sprotty.api.HtmlRoot;
 import io.typefox.sprotty.api.PreRenderedElement;

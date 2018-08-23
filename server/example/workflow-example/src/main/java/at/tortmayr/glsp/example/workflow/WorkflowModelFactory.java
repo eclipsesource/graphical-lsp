@@ -13,7 +13,7 @@ package at.tortmayr.glsp.example.workflow;
 import java.util.HashMap;
 import java.util.Map;
 
-import at.tortmayr.glsp.api.FileBasedModelFactory;
+import at.tortmayr.glsp.api.factory.FileBasedModelFactory;
 import at.tortmayr.glsp.example.workflow.schema.ActivityNode;
 import at.tortmayr.glsp.example.workflow.schema.Icon;
 import at.tortmayr.glsp.example.workflow.schema.TaskNode;

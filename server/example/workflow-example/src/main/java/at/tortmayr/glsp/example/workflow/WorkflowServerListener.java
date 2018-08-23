@@ -10,14 +10,14 @@
  ******************************************************************************/
 package at.tortmayr.glsp.example.workflow;
 
-import at.tortmayr.glsp.api.GraphicalModelExpansionListener;
-import at.tortmayr.glsp.api.GraphicalModelSelectionListener;
-import at.tortmayr.glsp.api.ModelElementOpenListener;
-import at.tortmayr.glsp.api.action.CollapseExpandAction;
-import at.tortmayr.glsp.api.action.CollapseExpandAllAction;
-import at.tortmayr.glsp.api.action.OpenAction;
-import at.tortmayr.glsp.api.action.SelectAction;
-import at.tortmayr.glsp.api.action.SelectAllAction;
+import at.tortmayr.glsp.api.action.kind.CollapseExpandAction;
+import at.tortmayr.glsp.api.action.kind.CollapseExpandAllAction;
+import at.tortmayr.glsp.api.action.kind.OpenAction;
+import at.tortmayr.glsp.api.action.kind.SelectAction;
+import at.tortmayr.glsp.api.action.kind.SelectAllAction;
+import at.tortmayr.glsp.api.listener.GraphicalModelExpansionListener;
+import at.tortmayr.glsp.api.listener.GraphicalModelSelectionListener;
+import at.tortmayr.glsp.api.listener.ModelElementOpenListener;
 
 public class WorkflowServerListener
 		implements GraphicalModelSelectionListener, GraphicalModelExpansionListener, ModelElementOpenListener {

@@ -14,7 +14,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import at.tortmayr.glsp.api.GraphicalModelState;
+import at.tortmayr.glsp.api.factory.GraphicalModelState;
 import io.typefox.sprotty.api.SModelRoot;
 
 public class ModelStateImpl implements GraphicalModelState {

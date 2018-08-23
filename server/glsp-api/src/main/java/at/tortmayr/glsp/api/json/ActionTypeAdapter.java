@@ -18,8 +18,8 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
 
-import at.tortmayr.glsp.api.ActionRegistry;
 import at.tortmayr.glsp.api.action.Action;
+import at.tortmayr.glsp.api.action.ActionRegistry;
 import io.typefox.sprotty.server.json.EnumTypeAdapter;
 import io.typefox.sprotty.server.json.PropertyBasedTypeAdapter;
 

@@ -10,10 +10,10 @@
  ******************************************************************************/
 package at.tortmayr.glsp.example.workflow;
 
-import at.tortmayr.glsp.api.ToolConfiguration;
-import at.tortmayr.glsp.api.ToolType;
-import at.tortmayr.glsp.api.action.RequestToolsAction;
-import at.tortmayr.glsp.api.utils.Tool;
+import at.tortmayr.glsp.api.action.kind.RequestToolsAction;
+import at.tortmayr.glsp.api.tool.ToolConfiguration;
+import at.tortmayr.glsp.api.tool.ToolType;
+import at.tortmayr.glsp.api.types.Tool;
 
 public class WorkflowToolConfiguration implements ToolConfiguration {
 	public static final String AUTOMATED_TASK_TOOL_ID = "wf-automated-task-tool";

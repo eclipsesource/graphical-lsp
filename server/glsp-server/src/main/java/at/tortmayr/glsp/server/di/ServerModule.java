@@ -12,15 +12,15 @@ package at.tortmayr.glsp.server.di;
 
 import com.google.inject.Binder;
 
-import at.tortmayr.glsp.api.ActionHandler;
-import at.tortmayr.glsp.api.GraphicalLanguageServer;
-import at.tortmayr.glsp.api.GraphicalModelExpansionListener;
-import at.tortmayr.glsp.api.GraphicalModelSelectionListener;
-import at.tortmayr.glsp.api.GraphicalModelState;
-import at.tortmayr.glsp.api.ModelElementOpenListener;
-import at.tortmayr.glsp.api.ModelFactory;
-import at.tortmayr.glsp.api.PopupModelFactory;
-import at.tortmayr.glsp.api.ToolConfiguration;
+import at.tortmayr.glsp.api.action.ActionHandler;
+import at.tortmayr.glsp.api.factory.GraphicalModelState;
+import at.tortmayr.glsp.api.factory.ModelFactory;
+import at.tortmayr.glsp.api.factory.PopupModelFactory;
+import at.tortmayr.glsp.api.jsonrpc.GraphicalLanguageServer;
+import at.tortmayr.glsp.api.listener.GraphicalModelExpansionListener;
+import at.tortmayr.glsp.api.listener.GraphicalModelSelectionListener;
+import at.tortmayr.glsp.api.listener.ModelElementOpenListener;
+import at.tortmayr.glsp.api.tool.ToolConfiguration;
 import at.tortmayr.glsp.server.DefaultActionHandler;
 import at.tortmayr.glsp.server.DefaultGraphicalLanguageServer;
 import at.tortmayr.glsp.server.ModelStateImpl;

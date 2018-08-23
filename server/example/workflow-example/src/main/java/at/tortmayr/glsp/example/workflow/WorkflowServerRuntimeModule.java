@@ -10,12 +10,12 @@
  ******************************************************************************/
 package at.tortmayr.glsp.example.workflow;
 
-import at.tortmayr.glsp.api.GraphicalModelExpansionListener;
-import at.tortmayr.glsp.api.GraphicalModelSelectionListener;
-import at.tortmayr.glsp.api.ModelElementOpenListener;
-import at.tortmayr.glsp.api.ModelFactory;
-import at.tortmayr.glsp.api.PopupModelFactory;
-import at.tortmayr.glsp.api.ToolConfiguration;
+import at.tortmayr.glsp.api.factory.ModelFactory;
+import at.tortmayr.glsp.api.factory.PopupModelFactory;
+import at.tortmayr.glsp.api.listener.GraphicalModelExpansionListener;
+import at.tortmayr.glsp.api.listener.GraphicalModelSelectionListener;
+import at.tortmayr.glsp.api.listener.ModelElementOpenListener;
+import at.tortmayr.glsp.api.tool.ToolConfiguration;
 import at.tortmayr.glsp.server.di.ServerModule;
 
 
