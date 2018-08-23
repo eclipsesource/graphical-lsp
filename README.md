@@ -39,3 +39,7 @@ The example server can be started by executing the main method of the class Exam
 	cd client/examples/browser-app
 	yarn start
 and then open http://localhost:3000 in the browser.
+
+
+## Testing the example
+The example workspace should be opend automatically on Theia launch. THis workspace constains the file "example1.wf". You can display this file in the Workflow Digram editor via context menu (Open with -> Workflow Diagram)
