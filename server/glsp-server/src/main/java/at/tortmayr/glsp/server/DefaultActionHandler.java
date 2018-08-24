@@ -204,8 +204,8 @@ public class DefaultActionHandler implements ActionHandler {
 	public void handle(ExecuteNodeCreationToolAction action) {
 		ExecutableTool tool = toolRegistry.get(action.getToolId());
 		if (tool != null) {
-			SModelRoot model = getModelState().getCurrentModel();
-			model = tool.execute(action, model);
+			
+			SModelRoot model = tool.execute(action, getModelState());
 			doSubmitModel(model, true);
 			SModelRoot updatedmodel = tool.execute(action, getModelState());
 			doSubmitModel(updatedmodel, false);
