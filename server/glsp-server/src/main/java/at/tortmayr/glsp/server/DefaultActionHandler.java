@@ -207,6 +207,8 @@ public class DefaultActionHandler implements ActionHandler {
 			SModelRoot model = getModelState().getCurrentModel();
 			model = tool.execute(action, model);
 			doSubmitModel(model, true);
+			SModelRoot updatedmodel = tool.execute(action, getModelState());
+			doSubmitModel(updatedmodel, false);
 
 		}
 
@@ -280,7 +282,6 @@ public class DefaultActionHandler implements ActionHandler {
 			ExecutableTool[] tools = toolConfiguration.getTools(action);
 			if (tools != null) {
 				Arrays.stream(tools).forEach(tool -> toolRegistry.put(tool.getId(), tool));
-
 				sendResponse(new SetToolsAction(toolRegistry.values().stream().toArray(Tool[]::new)));
 			}
 		}

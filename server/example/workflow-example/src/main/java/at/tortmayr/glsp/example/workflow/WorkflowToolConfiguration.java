@@ -10,15 +10,22 @@
  ******************************************************************************/
 package at.tortmayr.glsp.example.workflow;
 
+import java.util.ArrayList;
+
 import com.google.common.base.Optional;
 
 import at.tortmayr.glsp.api.action.kind.RequestToolsAction;
 import at.tortmayr.glsp.api.tool.ExecutableTool;
 import at.tortmayr.glsp.api.tool.NodeCreationTool;
 import at.tortmayr.glsp.api.tool.ToolConfiguration;
+import at.tortmayr.glsp.api.utils.SModelIndex;
+import at.tortmayr.glsp.example.workflow.schema.Icon;
 import at.tortmayr.glsp.example.workflow.schema.TaskNode;
+import io.typefox.sprotty.api.LayoutOptions;
 import io.typefox.sprotty.api.Point;
+import io.typefox.sprotty.api.SLabel;
 import io.typefox.sprotty.api.SModelElement;
+import io.typefox.sprotty.api.SNode;
 
 public class WorkflowToolConfiguration implements ToolConfiguration {
 	public static final String AUTOMATED_TASK_TOOL_ID = "wf-automated-task-tool";
@@ -28,16 +35,56 @@ public class WorkflowToolConfiguration implements ToolConfiguration {
 	private ExecutableTool automatedTaskTool = new NodeCreationTool(AUTOMATED_TASK_TOOL_ID, "Automated Task") {
 
 		@Override
-		protected SModelElement createNode(Optional<Point> point) {
-			TaskNode node = new TaskNode();
-			node.setName("NewAutomatedTask");
-			if (point.isPresent()) {
-				node.setPosition(point.get());
-			}
-			// TODO: change after server-side rendering is implemented
-			node.setLayout("hbox");
+		protected SModelElement createNode(Optional<Point> point, SModelIndex index) {
 
-			return node;
+			TaskNode taskNode = new TaskNode();
+			int nodeCounter = getCounter(index, taskNode.getType());
+			taskNode.setId("task" + nodeCounter);
+			taskNode.setName("AutomatedTask" + nodeCounter);
+			taskNode.setDuration(0);
+
+			taskNode.setTaskType("automated");
+			if (point.isPresent()) {
+				taskNode.setPosition(point.get());
+			}
+
+			taskNode.setLayout("vbox");
+			taskNode.setChildren(new ArrayList<SModelElement>());
+
+			SNode compHeader = new SNode();
+			compHeader.setId("task" + nodeCounter + "_header");
+			compHeader.setType("comp:header");
+			compHeader.setLayout("hbox");
+			compHeader.setChildren(new ArrayList<SModelElement>());
+			Icon icon = new Icon();
+			icon.setId("task" + nodeCounter + "_icon");
+			icon.setLayout("stack");
+			LayoutOptions layoutOptions = new LayoutOptions();
+			layoutOptions.setHAlign("center");
+			layoutOptions.setResizeContainer(false);
+			icon.setLayoutOptions(layoutOptions);
+			icon.setChildren(new ArrayList<SModelElement>());
+			SLabel iconLabel = new SLabel();
+			iconLabel.setType("label:icon");
+			iconLabel.setId("task" + nodeCounter + "_ticon");
+			iconLabel.setText("" + taskNode.getTaskType().toUpperCase().charAt(0));
+			icon.getChildren().add(iconLabel);
+
+			SLabel heading = new SLabel();
+			heading.setId("task" + nodeCounter + "_classname");
+			heading.setType("label:heading");
+			heading.setText("AutomatedTask" + nodeCounter);
+			compHeader.getChildren().add(icon);
+			compHeader.getChildren().add(heading);
+			taskNode.getChildren().add(compHeader);
+
+			return taskNode;
+
+		}
+
+		private int getCounter(SModelIndex index, String type) {
+			int i = index.getTypeCount(type);
+			return i++;
 		}
 
 	};

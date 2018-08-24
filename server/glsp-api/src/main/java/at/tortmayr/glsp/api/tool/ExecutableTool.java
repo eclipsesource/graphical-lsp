@@ -11,6 +11,7 @@
 package at.tortmayr.glsp.api.tool;
 
 import at.tortmayr.glsp.api.action.Action;
+import at.tortmayr.glsp.api.factory.GraphicalModelState;
 import at.tortmayr.glsp.api.types.Tool;
 import io.typefox.sprotty.api.SModelRoot;
 
@@ -20,6 +21,6 @@ public abstract class ExecutableTool extends Tool {
 		super(id,name,toolType);
 	}
 
-	public abstract SModelRoot execute(Action action,SModelRoot modelRoot);
+	public abstract SModelRoot execute(Action action,GraphicalModelState modelState);
 
 }

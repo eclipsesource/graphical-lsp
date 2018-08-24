@@ -13,6 +13,7 @@ package at.tortmayr.glsp.api.factory;
 import java.util.Map;
 import java.util.Set;
 
+import at.tortmayr.glsp.api.utils.SModelIndex;
 import io.typefox.sprotty.api.SModelRoot;
 
 public interface GraphicalModelState {
@@ -38,5 +39,7 @@ public interface GraphicalModelState {
 	boolean needsClientLayout();
 
 	void setNeedsClientLayout(boolean value);
+	
+	SModelIndex getCurrentModelIndex();
 
 }

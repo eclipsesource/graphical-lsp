@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Set;
 
 import at.tortmayr.glsp.api.factory.GraphicalModelState;
+import at.tortmayr.glsp.api.utils.SModelIndex;
 import io.typefox.sprotty.api.SModelRoot;
 
 public class ModelStateImpl implements GraphicalModelState {
@@ -24,6 +25,7 @@ public class ModelStateImpl implements GraphicalModelState {
 	private Set<String> expandedElements;
 	private Set<String> selectedElements;
 	private boolean needsClientLayout;
+	private SModelIndex currentModelIndex;
 
 	public ModelStateImpl() {
 		expandedElements = new HashSet<>();
@@ -48,6 +50,7 @@ public class ModelStateImpl implements GraphicalModelState {
 	@Override
 	public void setCurrentModel(SModelRoot newRoot) {
 		this.currentModel = newRoot;
+		this.currentModelIndex= new SModelIndex(newRoot);
 	}
 
 	@Override
@@ -86,6 +89,11 @@ public class ModelStateImpl implements GraphicalModelState {
 	@Override
 	public void setSelectedElemetns(Set<String> selectedElements) {
 		this.selectedElements = selectedElements;
+	}
+
+	@Override
+	public SModelIndex getCurrentModelIndex() {
+		return currentModelIndex;
 	}
 
 }

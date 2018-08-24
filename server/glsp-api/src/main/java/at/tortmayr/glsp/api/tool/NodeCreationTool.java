@@ -16,9 +16,11 @@ import com.google.common.base.Optional;
 
 import at.tortmayr.glsp.api.action.Action;
 import at.tortmayr.glsp.api.action.kind.ExecuteNodeCreationToolAction;
+import at.tortmayr.glsp.api.factory.GraphicalModelState;
+import at.tortmayr.glsp.api.utils.SModelIndex;
 import io.typefox.sprotty.api.Point;
 import io.typefox.sprotty.api.SModelElement;
-import io.typefox.sprotty.api.SModelIndex;
+
 import io.typefox.sprotty.api.SModelRoot;
 
 public abstract class NodeCreationTool extends ExecutableTool {
@@ -27,28 +29,40 @@ public abstract class NodeCreationTool extends ExecutableTool {
 		super(id, name, ToolType.CREATION);
 	}
 
-	protected abstract SModelElement createNode(Optional<Point> point);
-	
+	protected abstract SModelElement createNode(Optional<Point> point, SModelIndex index);
+
 	@Override
-	public SModelRoot execute(Action action, SModelRoot modelRoot) {
+	public SModelRoot execute(Action action, GraphicalModelState modelState) {
 
 		if (action instanceof ExecuteNodeCreationToolAction) {
 			ExecuteNodeCreationToolAction executeAction = (ExecuteNodeCreationToolAction) action;
+			SModelIndex index = modelState.getCurrentModelIndex();
 
-			SModelElement container = SModelIndex.find(modelRoot, executeAction.getContainerId());
+			SModelElement container = index.get(executeAction.getContainerId());
 			if (container == null) {
-				container = modelRoot;
+				container = modelState.getCurrentModel();
 			}
 
 			Optional<Point> point = Optional.of(executeAction.getLocation());
-			SModelElement element = createNode(point);
+			SModelElement element = createNode(point,index);
 			if (container.getChildren() == null) {
 				container.setChildren(new ArrayList<SModelElement>());
 			}
 			container.getChildren().add(element);
-
+			return modelState.getCurrentModel();
 		}
-		return modelRoot;
+		return null;
+
+	}
+
+	protected String generateID(SModelElement element, SModelIndex index) {
+		int i = index.getTypeCount(element.getType());
+		String id = element.getType().replace(":", "").toLowerCase();
+
+		while (index.get(id + i) != null) {
+			i++;
+		}
+		return id + i;
 	}
 
 }
