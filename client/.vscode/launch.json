@@ -58,7 +58,7 @@
             "outputCapture": "std"
         },
         {
-            "name": "Launch Frontend",
+            "name": "Launch Browser Frontend",
             "type": "chrome",
             "request": "launch",
             "url": "http://localhost:3000/",

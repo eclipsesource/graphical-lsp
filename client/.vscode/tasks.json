@@ -1,0 +1,39 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Workflow Example: Watch browser-app",
+            "type": "shell",
+            "group": "build",
+            "command": "cd examples/browser-app && yarn watch",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "GLSP: Watch all packages",
+            "type": "shell",
+            "group": "build",
+            "command": "yarn watch",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Workflow Example: Start in Browser",
+            "type": "shell",
+            "command": "cd examples/browser-app && yarn start:debug",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": []
+        }
+    ]
+}
