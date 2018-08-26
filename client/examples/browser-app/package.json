@@ -24,8 +24,9 @@
   },
   "scripts": {
     "prepare": "theia build",    
-    "start": "theia start --WORKFLOW_LSP=5007",
-  	"watch": "theia build --watch --mode development"
+    "start": "theia start --WORKFLOW_LSP=5007 --root-dir=../workspace",
+    "start:debug": "yarn start --log-level=debug",
+  	"watch": "theia build --watch"
   },
   "theia": {
     "target": "browser"

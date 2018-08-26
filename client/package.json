@@ -2,19 +2,34 @@
   "private": true,
   "name": "parent",
   "version" : "0.0.0",
+  "engines": {
+    "yarn": "1.0.x || >=1.2.1",
+    "node": ">=7.9.0"
+  },
   "resolution" :{
     "**/@types/node": "8.10.20"
   },
   "scripts": {
     "prepare": "lerna run prepare",
     "rebuild:browser": "theia rebuild:browser",
-    "rebuild:electron": "theia rebuild:electron"
+    "rebuild:electron": "theia rebuild:electron",
+    "publish": "yarn && yarn publish:latest",
+    "publish:latest": "lerna publish --registry=https://registry.npmjs.org/ --skip-git --force-publish"
   },
   "devDependencies": {
-    "lerna": "2.4.0"
+    "lerna": "2.4.0",
+    "@types/chai": "^4.0.1",
+    "@types/chai-as-promised": "0.0.31",
+    "@types/chai-string": "^1.4.0",
+    "@types/jsdom": "^11.0.4",
+    "@types/mocha": "^2.2.41",
+    "@types/node": "8.10.20",
+    "@types/sinon": "^2.3.5",
+    "@types/temp": "^0.8.29",
+    "@types/webdriverio": "^4.7.0"
   },
   "workspaces": [
-     "packages/*",
+    "packages/*",
     "examples/*"
 
   ]

@@ -23,7 +23,7 @@ import { MenuModelRegistry, SelectionService, CommandRegistry } from "@theia/cor
 export class WorkflowDiagramManager extends GLSPDiagramManager {
     readonly diagramType = WorkflowLanguage.DiagramType;
     readonly iconClass = "fa fa-project-diagram";
-    readonly label = WorkflowLanguage.Label;
+    readonly label = WorkflowLanguage.Label + " Editor";
 
     private _diagramConnector: GLSPTheiaSprottyConnector;
 
