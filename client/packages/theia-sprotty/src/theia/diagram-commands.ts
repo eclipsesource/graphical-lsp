@@ -47,7 +47,7 @@ export class DiagramMenuContribution implements MenuContribution {
         })
         registry.registerMenuAction(DiagramMenus.DIAGRAM, {
             commandId: DiagramCommands.EXPORT
-        })
+        }),
         registry.registerMenuAction(EDITOR_CONTEXT_MENU, {
             commandId: DiagramCommands.OPEN_IN_DIAGRAM
         })
@@ -110,10 +110,6 @@ export class DiagramCommandContribution implements CommandContribution {
         registry.registerCommand({
             id: DiagramCommands.EXPORT,
             label: 'Export'
-        })
-        registry.registerCommand({
-            id: DiagramCommands.SELECT_ALL,
-            label: 'Select all'
         })
         registry.registerCommand({
             id: DiagramCommands.OPEN_IN_DIAGRAM,

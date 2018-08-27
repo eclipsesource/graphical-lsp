@@ -20,6 +20,6 @@ export class GLSPDiagramWidget extends DiagramWidget {
             needsClientLayout: 'true'
         }))
 
-        // this.modelSource.handle(new RequestToolsAction())
+        this.modelSource.handle(new RequestToolsAction())
     }
 }

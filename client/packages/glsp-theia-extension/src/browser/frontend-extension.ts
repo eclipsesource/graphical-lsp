@@ -11,13 +11,15 @@
 
 import { ContainerModule } from "inversify";
 import { GraphicalLanguageClientFactory } from "./language/graphical-language-client";
-import { bindContributionProvider } from "@theia/core";
+import { bindContributionProvider, CommandContribution, MenuContribution } from "@theia/core";
 import { GraphicalLanguageClientContribution } from "./language/graphical-langauge-client-contribution";
 import { FrontendApplicationContribution } from "@theia/core/lib/browser";
 import { GraphicalLanguagesFrontendContribution } from "./language/graphical-languages-frontend-contribution";
 import { GraphicalLanguageClientProviderImpl, GraphicalLanguageClientProvider } from "./language/graphical-language-client-provider";
 import { GLSPTheiaSprottyConnector } from "./diagram/glsp-theia-sprotty-connector";
+import { GLSPDiagramCommandContribution, GLSPDiagramMenuContribution } from "./diagram/glsp-diagram-commands";
 export default new ContainerModule(bind => {
+
 
 
     bind(GraphicalLanguageClientFactory).toSelf().inSingletonScope();
@@ -31,5 +33,6 @@ export default new ContainerModule(bind => {
 
     bind(GLSPTheiaSprottyConnector).toSelf().inSingletonScope();
 
-
+    bind(CommandContribution).to(GLSPDiagramCommandContribution).inSingletonScope()
+    bind(MenuContribution).to(GLSPDiagramMenuContribution).inSingletonScope()
 });

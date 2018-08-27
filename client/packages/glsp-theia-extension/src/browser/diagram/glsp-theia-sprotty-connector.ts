@@ -86,9 +86,9 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
         this.servers.forEach(element => {
             element.messageReceived(message)
         })
-        if (message.action.kind === SetToolsCommand.KIND) {
-            this.handleSetToolsAction(message)
-        }
+        // if (message.action.kind === SetToolsCommand.KIND) {
+        //     this.handleSetToolsAction(message)
+        // }
 
     }
 
