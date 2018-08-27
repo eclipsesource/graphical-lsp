@@ -42,6 +42,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer {
         // register actions
         registry.register(RequestToolsAction.KIND, this)
         registry.register(SaveModelAction.KIND, this)
+        registry.register(ExecuteNodeCreationToolAction.KIND, this)
     }
 
     messageReceived(message: ActionMessage) {
