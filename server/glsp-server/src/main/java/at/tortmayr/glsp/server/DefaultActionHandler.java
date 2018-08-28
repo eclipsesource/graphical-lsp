@@ -163,7 +163,7 @@ public class DefaultActionHandler implements ActionHandler {
 	public void handle(CenterAction action) {
 		throw new UnsupportedOperationException("Method not yet implemented");
 	}
-
+	
 	@Override
 	public void handle(CollapseExpandAction action) {
 		Set<String> expandedElements = getModelState().getExpandedElements();
