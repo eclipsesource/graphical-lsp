@@ -15,6 +15,7 @@ import java.util.concurrent.CompletableFuture;
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
+import org.eclipse.lsp4j.jsonrpc.CompletableFutures;
 
 import at.tortmayr.glsp.api.action.ActionHandler;
 import at.tortmayr.glsp.api.action.ActionMessage;
@@ -72,8 +73,7 @@ public class DefaultGraphicalLanguageServer implements GraphicalLanguageServer {
 
 	@Override
 	public CompletableFuture<Object> shutdown() {
-		// TODO Auto-generated method stub
-		return null;
+		return  new CompletableFuture<Object>();
 	}
 
 	@Override
