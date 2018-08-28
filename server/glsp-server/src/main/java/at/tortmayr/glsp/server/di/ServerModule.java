@@ -20,7 +20,8 @@ import at.tortmayr.glsp.api.jsonrpc.GraphicalLanguageServer;
 import at.tortmayr.glsp.api.listener.GraphicalModelExpansionListener;
 import at.tortmayr.glsp.api.listener.GraphicalModelSelectionListener;
 import at.tortmayr.glsp.api.listener.ModelElementOpenListener;
-import at.tortmayr.glsp.api.tool.ToolConfiguration;
+import at.tortmayr.glsp.api.operations.OperationConfiguration;
+import at.tortmayr.glsp.api.operations.OperationHandlerProvider;
 import at.tortmayr.glsp.server.DefaultActionHandler;
 import at.tortmayr.glsp.server.DefaultGraphicalLanguageServer;
 import at.tortmayr.glsp.server.ModelStateImpl;
@@ -65,8 +66,12 @@ public abstract class ServerModule extends AbstractGenericModule {
 		return PopupModelFactory.NullImpl.class;
 	}
 
-	public Class<? extends ToolConfiguration> bindToolConfiguration() {
-		return ToolConfiguration.NullImpl.class;
+	public Class<? extends OperationConfiguration> bindOperationConfiguration() {
+		return OperationConfiguration.NullOperationConfiguration.class;
+	}
+	
+	public Class<? extends OperationHandlerProvider> bindOperationHandlerProvider() {
+		return OperationHandlerProvider.NullOperationHandlerProvider.class;
 	}
 
 	public Class<? extends ILayoutEngine> bindLayoutEngine() {

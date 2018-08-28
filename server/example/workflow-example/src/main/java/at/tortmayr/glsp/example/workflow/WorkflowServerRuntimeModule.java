@@ -15,7 +15,8 @@ import at.tortmayr.glsp.api.factory.PopupModelFactory;
 import at.tortmayr.glsp.api.listener.GraphicalModelExpansionListener;
 import at.tortmayr.glsp.api.listener.GraphicalModelSelectionListener;
 import at.tortmayr.glsp.api.listener.ModelElementOpenListener;
-import at.tortmayr.glsp.api.tool.ToolConfiguration;
+import at.tortmayr.glsp.api.operations.OperationConfiguration;
+import at.tortmayr.glsp.api.operations.OperationHandlerProvider;
 import at.tortmayr.glsp.server.di.ServerModule;
 
 
@@ -46,8 +47,13 @@ public class WorkflowServerRuntimeModule extends ServerModule {
 	}
 
 	@Override
-	public Class<? extends ToolConfiguration> bindToolConfiguration() {
-		return WorkflowToolConfiguration.class;
+	public Class<? extends OperationConfiguration> bindOperationConfiguration() {
+		return WorkflowOperationConfiguration.class;
+	}
+	
+	@Override
+	public Class<? extends OperationHandlerProvider> bindOperationHandlerProvider() {
+		return WorkflowOperationHandlerProvider.class;
 	}
 
 }

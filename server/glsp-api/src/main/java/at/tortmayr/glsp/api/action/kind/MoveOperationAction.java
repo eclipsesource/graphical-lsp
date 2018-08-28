@@ -1,44 +1,65 @@
 /*******************************************************************************
- * Copyright (c) 2018 Tobias Ortmayr.
+ * Copyright (c) 2018 EclipseSource Services GmbH and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *   
  * Contributors:
- * 	Tobias Ortmayr - initial API and implementation
+ * 	Philip Langer - initial API and implementation
  ******************************************************************************/
 package at.tortmayr.glsp.api.action.kind;
 
-import at.tortmayr.glsp.api.action.Action;
+import at.tortmayr.glsp.api.operations.OperationKind;
 import io.typefox.sprotty.api.Point;
 
-public class ExecuteToolAction extends Action {
-	private String toolId;
-	private Point location;
+public class MoveOperationAction extends ExecuteOperationAction {
+	
 	private String elementId;
+	private String targetContainerId;
+	private Point location;
 
-	public ExecuteToolAction() {
-		super(ActionKind.EXECUTE_TOOL);
+	public MoveOperationAction() {
+		super(OperationKind.MOVE);
+	}
+	
+	public MoveOperationAction(String elementId, Point location) {
+		this();
+		this.elementId = elementId;
+		this.location = location;
+	}
+	
+	public MoveOperationAction(String elementId, Point location, String targetContainerId) {
+		this(elementId, location);
+		this.targetContainerId = targetContainerId;
+	}
+	
+	public MoveOperationAction(String elementId, String targetContainerId) {
+		this(elementId, (Point)null, targetContainerId);
 	}
 
-	public ExecuteToolAction(String toolId, Point location, String elementId) {
-		this();
-		this.toolId = toolId;
-		this.location = location;
+	public String getElementId() {
+		return elementId;
+	}
+
+	public void setElementId(String elementId) {
 		this.elementId = elementId;
 	}
 
-	public String getToolId() {
-		return toolId;
+	public String getTargetContainerId() {
+		return targetContainerId;
+	}
+
+	public void setTargetContainerId(String targetContainerId) {
+		this.targetContainerId = targetContainerId;
 	}
 
 	public Point getLocation() {
 		return location;
 	}
 
-	public String getElementId() {
-		return elementId;
+	public void setLocation(Point location) {
+		this.location = location;
 	}
 
 	@Override
@@ -47,7 +68,7 @@ public class ExecuteToolAction extends Action {
 		int result = super.hashCode();
 		result = prime * result + ((elementId == null) ? 0 : elementId.hashCode());
 		result = prime * result + ((location == null) ? 0 : location.hashCode());
-		result = prime * result + ((toolId == null) ? 0 : toolId.hashCode());
+		result = prime * result + ((targetContainerId == null) ? 0 : targetContainerId.hashCode());
 		return result;
 	}
 
@@ -59,7 +80,7 @@ public class ExecuteToolAction extends Action {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ExecuteToolAction other = (ExecuteToolAction) obj;
+		MoveOperationAction other = (MoveOperationAction) obj;
 		if (elementId == null) {
 			if (other.elementId != null)
 				return false;
@@ -70,10 +91,10 @@ public class ExecuteToolAction extends Action {
 				return false;
 		} else if (!location.equals(other.location))
 			return false;
-		if (toolId == null) {
-			if (other.toolId != null)
+		if (targetContainerId == null) {
+			if (other.targetContainerId != null)
 				return false;
-		} else if (!toolId.equals(other.toolId))
+		} else if (!targetContainerId.equals(other.targetContainerId))
 			return false;
 		return true;
 	}

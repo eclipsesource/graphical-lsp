@@ -12,10 +12,10 @@ package at.tortmayr.glsp.api.action.kind;
 
 import at.tortmayr.glsp.api.action.Action;
 
-public class RequestToolsAction extends Action {
+public class RequestOperationsAction extends Action {
 
-	public RequestToolsAction() {
-		super(ActionKind.REQUEST_TOOLS);
+	public RequestOperationsAction() {
+		super(ActionKind.REQUEST_OPERATIONS);
 	}
 
 }

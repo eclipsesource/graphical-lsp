@@ -25,9 +25,11 @@ import at.tortmayr.glsp.api.jsonrpc.GraphicalLanguageServer;
 import io.typefox.sprotty.api.ServerStatus;
 
 public class DefaultGraphicalLanguageServer implements GraphicalLanguageServer {
+
 	static Logger log = Logger.getLogger(DefaultGraphicalLanguageServer.class);
 
 	private ServerStatus status;
+
 	private ActionHandler actionHandler;
 
 	private String clientId;
@@ -41,7 +43,6 @@ public class DefaultGraphicalLanguageServer implements GraphicalLanguageServer {
 			log.warn("Error during registration of the action handler. Some action messages might not be processable");
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
@@ -59,10 +60,9 @@ public class DefaultGraphicalLanguageServer implements GraphicalLanguageServer {
 			clientId = message.getClientId();
 			actionHandler.setClientId(clientId);
 		}
-		if ( clientId.equals(message.getClientId())) {
+		if (clientId.equals(message.getClientId())) {
 			ActionRegistry.getInstance().handleAction(message.getAction());
 		}
-
 	}
 
 	@Override
@@ -79,7 +79,6 @@ public class DefaultGraphicalLanguageServer implements GraphicalLanguageServer {
 	@Override
 	public void exit() {
 		// TODO Auto-generated method stub
-		
 	}
 
 }

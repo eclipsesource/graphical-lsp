@@ -34,5 +34,6 @@ public interface GraphicalLanguageServer extends GraphicalLanguageClientAware {
 	
 	@JsonNotification("exit")
 	void exit();
+	
 	void setStatus(ServerStatus serverStatus);
 }

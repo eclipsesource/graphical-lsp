@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2018 Tobias Ortmayr.
+ * Copyright (c) 2018 EclipseSource Services GmbH and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,9 +11,8 @@
 package at.tortmayr.glsp.server;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -26,12 +25,8 @@ import at.tortmayr.glsp.api.action.kind.ChangeBoundsAction;
 import at.tortmayr.glsp.api.action.kind.CollapseExpandAction;
 import at.tortmayr.glsp.api.action.kind.CollapseExpandAllAction;
 import at.tortmayr.glsp.api.action.kind.ComputedBoundsAction;
-import at.tortmayr.glsp.api.action.kind.CreateConnectionAction;
-import at.tortmayr.glsp.api.action.kind.DeleteAction;
-import at.tortmayr.glsp.api.action.kind.ExecuteNodeCreationToolAction;
-import at.tortmayr.glsp.api.action.kind.ExecuteToolAction;
+import at.tortmayr.glsp.api.action.kind.ExecuteOperationAction;
 import at.tortmayr.glsp.api.action.kind.FitToScreenAction;
-import at.tortmayr.glsp.api.action.kind.MoveAction;
 import at.tortmayr.glsp.api.action.kind.OpenAction;
 import at.tortmayr.glsp.api.action.kind.RequestBoundsAction;
 import at.tortmayr.glsp.api.action.kind.RequestBoundsChangeHintsAction;
@@ -39,15 +34,15 @@ import at.tortmayr.glsp.api.action.kind.RequestExportSvgAction;
 import at.tortmayr.glsp.api.action.kind.RequestLayersAction;
 import at.tortmayr.glsp.api.action.kind.RequestModelAction;
 import at.tortmayr.glsp.api.action.kind.RequestMoveHintsAction;
+import at.tortmayr.glsp.api.action.kind.RequestOperationsAction;
 import at.tortmayr.glsp.api.action.kind.RequestPopupModelAction;
-import at.tortmayr.glsp.api.action.kind.RequestToolsAction;
 import at.tortmayr.glsp.api.action.kind.SaveModelAction;
 import at.tortmayr.glsp.api.action.kind.SelectAction;
 import at.tortmayr.glsp.api.action.kind.SelectAllAction;
 import at.tortmayr.glsp.api.action.kind.SetBoundsAction;
 import at.tortmayr.glsp.api.action.kind.SetModelAction;
+import at.tortmayr.glsp.api.action.kind.SetOperationsAction;
 import at.tortmayr.glsp.api.action.kind.SetPopupModelAction;
-import at.tortmayr.glsp.api.action.kind.SetToolsAction;
 import at.tortmayr.glsp.api.action.kind.ToogleLayerAction;
 import at.tortmayr.glsp.api.action.kind.UpdateModelAction;
 import at.tortmayr.glsp.api.factory.FileBasedModelFactory;
@@ -58,17 +53,16 @@ import at.tortmayr.glsp.api.jsonrpc.GraphicalLanguageClient;
 import at.tortmayr.glsp.api.listener.GraphicalModelExpansionListener;
 import at.tortmayr.glsp.api.listener.GraphicalModelSelectionListener;
 import at.tortmayr.glsp.api.listener.ModelElementOpenListener;
-import at.tortmayr.glsp.api.tool.ExecutableTool;
-import at.tortmayr.glsp.api.tool.ToolConfiguration;
-import at.tortmayr.glsp.api.types.Tool;
+import at.tortmayr.glsp.api.operations.Operation;
+import at.tortmayr.glsp.api.operations.OperationConfiguration;
+import at.tortmayr.glsp.api.operations.OperationHandler;
+import at.tortmayr.glsp.api.operations.OperationHandlerProvider;
 import at.tortmayr.glsp.api.utils.InitalRequestOptions;
 import at.tortmayr.glsp.api.utils.LayoutUtil;
 import io.typefox.sprotty.api.ILayoutEngine;
-import io.typefox.sprotty.api.SEdge;
 import io.typefox.sprotty.api.SModelElement;
 import io.typefox.sprotty.api.SModelIndex;
 import io.typefox.sprotty.api.SModelRoot;
-import io.typefox.sprotty.api.SNode;
 
 public class DefaultActionHandler implements ActionHandler {
 
@@ -81,35 +75,32 @@ public class DefaultActionHandler implements ActionHandler {
 	@Inject
 	private ModelElementOpenListener modelElementOpenListener;
 	@Inject
-	private ToolConfiguration toolConfiguration;
-	private Map<String, ExecutableTool> toolRegistry;
+	private OperationConfiguration operationConfiguration;
+	@Inject
+	private OperationHandlerProvider operationHandlers;
+
 	@Inject
 	private ModelFactory modelFactory;
 	@Inject
 	private PopupModelFactory popupModelFactory;
 	@Inject
 	private ILayoutEngine layoutEngine;
-	private Object modelLock = new Object();
-	private int revision = 0;
-	private String lastSubmittedModelType;
 
 	private GraphicalLanguageClient client;
 	private String clientId;
 
-	public DefaultActionHandler() {
-		toolRegistry = new HashMap<>();
-	}
+	private Object modelLock = new Object();
+	private String lastSubmittedModelType;
+	private int revision = 0;
 
 	private void sendResponse(Action action) {
 		if (client != null && clientId != null) {
 			ActionMessage message = new ActionMessage(clientId, action);
 			client.process(message);
 		}
-
 	}
 
 	protected void submitModel(SModelRoot newRoot, boolean update) {
-
 		if (getModelState().needsClientLayout()) {
 			sendResponse(new RequestBoundsAction(newRoot));
 		} else {
@@ -119,7 +110,6 @@ public class DefaultActionHandler implements ActionHandler {
 	}
 
 	private void doSubmitModel(SModelRoot newRoot, boolean update) {
-
 		if (layoutEngine != null) {
 			layoutEngine.layout(newRoot);
 		}
@@ -134,38 +124,50 @@ public class DefaultActionHandler implements ActionHandler {
 					sendResponse(new SetModelAction(newRoot));
 				}
 				lastSubmittedModelType = modelType;
-
 			}
 		}
+	}
+
+	@Override
+	public void setGraphicalLanguageClient(GraphicalLanguageClient client) {
+		this.client = client;
+	}
+
+	@Override
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
+
+	}
+
+	@Override
+	public GraphicalModelState getModelState() {
+		assert (modelState != null);
+		return modelState;
 	}
 
 	@Override
 	public void handle(RequestModelAction action) {
 		Map<String, String> options = action.getOptions();
-		if (options != null) {
-
-			String needsClientLayout = options.get(InitalRequestOptions.NEEDS_CLIENT_LAYOUT);
-			if (needsClientLayout != null && !needsClientLayout.isEmpty()) {
-				getModelState().setNeedsClientLayout(Boolean.parseBoolean(needsClientLayout));
-			}
-			SModelRoot model = modelFactory.loadModel(action);
-			getModelState().setCurrentModel(model);
-			getModelState().setOptions(options);
-			if (model != null) {
-				lastSubmittedModelType = model.getType();
-				submitModel(model, false);
-			} else {
-				lastSubmittedModelType = null;
-			}
+		if (options == null) {
+			return;
 		}
 
+		String needsClientLayout = options.get(InitalRequestOptions.NEEDS_CLIENT_LAYOUT);
+		if (needsClientLayout != null && !needsClientLayout.isEmpty()) {
+			getModelState().setNeedsClientLayout(Boolean.parseBoolean(needsClientLayout));
+		}
+
+		SModelRoot model = modelFactory.loadModel(action);
+		getModelState().setCurrentModel(model);
+		getModelState().setOptions(options);
+		if (model != null) {
+			lastSubmittedModelType = model.getType();
+			submitModel(model, false);
+		} else {
+			lastSubmittedModelType = null;
+		}
 	}
 
-	@Override
-	public void handle(CenterAction action) {
-		throw new UnsupportedOperationException("Method not yet implemented");
-	}
-	
 	@Override
 	public void handle(CollapseExpandAction action) {
 		Set<String> expandedElements = getModelState().getExpandedElements();
@@ -179,7 +181,6 @@ public class DefaultActionHandler implements ActionHandler {
 		if (expansionListener != null) {
 			expansionListener.expansionChanged(action);
 		}
-
 	}
 
 	@Override
@@ -192,7 +193,6 @@ public class DefaultActionHandler implements ActionHandler {
 		if (expansionListener != null) {
 			expansionListener.expansionChanged(action);
 		}
-
 	}
 
 	@Override
@@ -204,56 +204,6 @@ public class DefaultActionHandler implements ActionHandler {
 				doSubmitModel(model, true);
 			}
 		}
-
-	}
-
-	@Override
-	public void handle(ExecuteNodeCreationToolAction action) {
-		ExecutableTool tool = toolRegistry.get(action.getToolId());
-		if (tool != null) {
-
-			SModelRoot model = tool.execute(action, getModelState());
-			if (model != null) {
-				lastSubmittedModelType = model.getType();
-				submitModel(model, false);
-			} else {
-				lastSubmittedModelType = null;
-			}
-		}
-
-	}
-
-	@Override
-	public void handle(ExecuteToolAction action) {
-		throw new UnsupportedOperationException("Method not yet implemented");
-
-	}
-
-	@Override
-	public void handle(RequestBoundsChangeHintsAction action) {
-		throw new UnsupportedOperationException("Method not yet implemented");
-
-	}
-
-	@Override
-	public void handle(ChangeBoundsAction action) {
-		throw new UnsupportedOperationException("Method not yet implemented");
-
-	}
-
-	@Override
-	public void handle(RequestMoveHintsAction action) {
-		throw new UnsupportedOperationException("Method not yet implemented");
-	}
-
-	@Override
-	public void handle(MoveAction action) {
-		throw new UnsupportedOperationException("Method not yet implemented");
-	}
-
-	@Override
-	public void handle(FitToScreenAction action) {
-		throw new UnsupportedOperationException("Method not yet implemented");
 	}
 
 	@Override
@@ -261,16 +211,6 @@ public class DefaultActionHandler implements ActionHandler {
 		if (modelElementOpenListener != null) {
 			modelElementOpenListener.elementOpened(action);
 		}
-	}
-
-	@Override
-	public void handle(RequestExportSvgAction action) {
-		throw new UnsupportedOperationException("Method not yet implemented");
-	}
-
-	@Override
-	public void handle(RequestLayersAction action) {
-		throw new UnsupportedOperationException("Method not yet implemented");
 	}
 
 	@Override
@@ -286,14 +226,10 @@ public class DefaultActionHandler implements ActionHandler {
 	}
 
 	@Override
-	public void handle(RequestToolsAction action) {
-		if (toolConfiguration != null) {
-			ExecutableTool[] tools = toolConfiguration.getTools(action);
-			if (tools != null) {
-				Arrays.stream(tools).forEach(tool -> toolRegistry.put(tool.getId(), tool));
-				sendResponse(new SetToolsAction(toolRegistry.values().stream().toArray(Tool[]::new)));
-			}
-		}
+	public void handle(RequestOperationsAction action) {
+		Optional<Operation[]> operations = Optional.ofNullable(operationConfiguration)
+				.map(config -> config.getOperations(action));
+		sendResponse(new SetOperationsAction(operations.orElse(new Operation[0])));
 	}
 
 	@Override
@@ -323,6 +259,54 @@ public class DefaultActionHandler implements ActionHandler {
 	}
 
 	@Override
+	public void handle(SaveModelAction action) {
+		if (action != null && modelFactory instanceof FileBasedModelFactory) {
+			((FileBasedModelFactory) modelFactory).saveModel(getModelState().getCurrentModel());
+		}
+	}
+
+	@Override
+	public void handle(ExecuteOperationAction action) {
+		Optional<OperationHandler> handler = Optional.ofNullable(operationHandlers)
+				.flatMap(handlers -> handlers.getOperationHandler(action));
+		if (handler.isPresent()) {
+			Optional<SModelRoot> modelRoot = handler.get().execute(action, getModelState());
+			lastSubmittedModelType = modelRoot.map(SModelRoot::getType).orElse(null);
+			modelRoot.ifPresent(r -> submitModel(r, false));
+		}
+	}
+
+	@Override
+	public void handle(RequestExportSvgAction action) {
+		throw new UnsupportedOperationException("Method not yet implemented");
+	}
+
+	@Override
+	public void handle(RequestLayersAction action) {
+		throw new UnsupportedOperationException("Method not yet implemented");
+	}
+
+	@Override
+	public void handle(RequestBoundsChangeHintsAction action) {
+		throw new UnsupportedOperationException("Method not yet implemented");
+	}
+
+	@Override
+	public void handle(ChangeBoundsAction action) {
+		throw new UnsupportedOperationException("Method not yet implemented");
+	}
+
+	@Override
+	public void handle(RequestMoveHintsAction action) {
+		throw new UnsupportedOperationException("Method not yet implemented");
+	}
+
+	@Override
+	public void handle(FitToScreenAction action) {
+		throw new UnsupportedOperationException("Method not yet implemented");
+	}
+
+	@Override
 	public void handle(ToogleLayerAction action) {
 		throw new UnsupportedOperationException("Method not yet implemented");
 	}
@@ -333,160 +317,8 @@ public class DefaultActionHandler implements ActionHandler {
 	}
 
 	@Override
-	public GraphicalModelState getModelState() {
-		assert (modelState != null);
-		return modelState;
+	public void handle(CenterAction action) {
+		throw new UnsupportedOperationException("Method not yet implemented");
 	}
 
-	@Override
-	public void handle(SaveModelAction action) {
-		if (action != null && modelFactory instanceof FileBasedModelFactory) {
-			((FileBasedModelFactory) modelFactory).saveModel(getModelState().getCurrentModel());
-		}
-	}
-
-	@Override
-	public void setGraphicalLanguageClient(GraphicalLanguageClient client) {
-		this.client = client;
-	}
-
-	@Override
-	public void setClientId(String clientId) {
-		this.clientId = clientId;
-
-	}
-
-	@Override
-	public void handle(CreateConnectionAction action) {
-		//TODO Language specific
-		
-		if (action.getSourceElement() == null || action.getTargetElement() == null) {
-			System.out.println("Incomplete create connection action");
-			return;
-		}
-
-		at.tortmayr.glsp.api.utils.SModelIndex index = modelState.getCurrentModelIndex();
-
-		SModelElement source = index.get(action.getSourceElement());
-		SModelElement target = index.get(action.getTargetElement());
-
-		if (source == null) {
-			System.out.println("NULL source for ID " + action.getSourceElement());
-			return;
-		}
-		if (target == null) {
-			System.out.println("NULL target for ID " + action.getTargetElement());
-			return;
-		}
-
-		if (false == source instanceof SNode) {
-			source = findNode(source, index);
-		}
-		if (false == target instanceof SNode) {
-			target = findNode(target, index);
-		}
-		
-		SModelRoot currentModel = modelState.getCurrentModel();
-		
-		if (source == currentModel || target == currentModel) {
-			System.out.println("Can't create a link to the root node");
-			return;
-		}
-
-		SEdge edge = new SEdge();
-		edge.setSourceId(source.getId());
-		edge.setTargetId(target.getId());
-		edge.setType("edge:weighted"); // TODO Language specific
-		int newID = index.getTypeCount("edge:weighted");
-		edge.setId("edge:weighted" + newID);
-
-		currentModel.getChildren().add(edge);
-		index.addToIndex(edge, currentModel);
-
-		// Generic implementation
-		lastSubmittedModelType = currentModel.getType();
-		submitModel(currentModel, false);
-	}
-
-	@Override
-	public void handle(DeleteAction action) {
-		String elementId = action.getElementId();
-		if (elementId == null) {
-			return;
-		}
-		at.tortmayr.glsp.api.utils.SModelIndex index = getModelState().getCurrentModelIndex();
-		SModelElement element = index.get(elementId);
-
-		if (element == null) {
-			return;
-		}
-
-		// Always delete the top-level node
-		SModelElement nodeToDelete = findNode(element, index);
-		SModelElement parent = index.getParent(nodeToDelete);
-		if (parent == null) {
-			return; // Can't delete the root, or an element that doesn't belong to the model
-		}
-
-		Set<SModelElement> dependents = new LinkedHashSet<>();
-		collectDependents(dependents, nodeToDelete);
-		
-		dependents.forEach(this::delete);
-
-		SModelRoot currentModel = getModelState().getCurrentModel();
-		lastSubmittedModelType = currentModel.getType();
-		submitModel(currentModel, false);
-	}
-	
-	private void delete(SModelElement element) {
-		SModelElement parent = getModelState().getCurrentModelIndex().getParent(element);
-		if (parent == null || parent.getChildren() == null) {
-			return;
-		}
-		parent.getChildren().remove(element);
-		getModelState().getCurrentModelIndex().removeFromIndex(element);
-	}
-
-	/**
-	 * Collect the dependent elements, in deletion order
-	 * @param dependents
-	 * @param nodeToDelete
-	 */
-	private void collectDependents(Set<SModelElement> dependents, SModelElement nodeToDelete) {
-		if (dependents.contains(nodeToDelete)) {
-			return;
-		}
-		
-		// First, children
-		if (nodeToDelete.getChildren() != null) {
-			for (SModelElement child : nodeToDelete.getChildren()) {
-				collectDependents(dependents, child);
-			}
-		}
-		
-		at.tortmayr.glsp.api.utils.SModelIndex index = getModelState().getCurrentModelIndex();
-		
-		// Then, incoming/outgoing links
-		for (SModelElement incoming : index.getIncomingEdges(nodeToDelete)) {
-			collectDependents(dependents, incoming);
-		}
-		for (SModelElement outgoing : index.getOutgoingEdges(nodeToDelete)) {
-			collectDependents(dependents, outgoing);
-		}
-		
-		// Finally, the node to delete
-		dependents.add(nodeToDelete);
-	}
-
-	private SModelElement findNode(SModelElement element, at.tortmayr.glsp.api.utils.SModelIndex index) {
-		if (element instanceof SNode) {
-			return element;
-		}
-
-		SModelElement parent = index.getParent(element);
-		if (parent == null) {
-			return element;
-		}
-		return findNode(parent, index);
-	}
 }
