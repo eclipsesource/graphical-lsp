@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -148,7 +147,10 @@ public class DefaultActionHandler implements ActionHandler {
 			getModelState().setCurrentModel(model);
 			getModelState().setOptions(options);
 			if (model != null) {
+				lastSubmittedModelType = model.getType();
 				submitModel(model, false);
+			} else {
+				lastSubmittedModelType = null;
 			}
 		}
 
@@ -207,8 +209,6 @@ public class DefaultActionHandler implements ActionHandler {
 			
 			SModelRoot model = tool.execute(action, getModelState());
 			doSubmitModel(model, true);
-			SModelRoot updatedmodel = tool.execute(action, getModelState());
-			doSubmitModel(updatedmodel, false);
 
 		}
 

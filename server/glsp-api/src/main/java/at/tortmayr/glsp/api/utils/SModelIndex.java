@@ -45,7 +45,7 @@ public class SModelIndex {
 		idToElement.put(element.getId(), element);
 	}
 
-	protected void addToIndex(SModelElement element) {
+	public void addToIndex(SModelElement element) {
 		indexId(element);
 		indexType(element);
 		if (element.getChildren() != null) {
@@ -71,7 +71,7 @@ public class SModelIndex {
 	}
 
 	public int getTypeCount(String type) {
-		return typeToElements.size();
+		return typeToElements.computeIfAbsent(type, t -> new HashSet<>()).size();
 	}
 
 	/**
