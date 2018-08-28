@@ -20,6 +20,7 @@ import io.typefox.sprotty.api.SModelElement;
 public class SModelIndex {
 	private final Map<String, SModelElement> idToElement;
 	private final Map<String, Set<SModelElement>> typeToElements;
+	private final Map<SModelElement, SModelElement> childToParent;
 
 	/**
 	 * Build an index from the given parent element. All content of the element is
@@ -28,6 +29,7 @@ public class SModelIndex {
 	public SModelIndex(SModelElement parent) {
 		idToElement = new HashMap<>();
 		typeToElements = new HashMap<>();
+		childToParent = new HashMap<>();
 		addToIndex(parent);
 	}
 
@@ -44,15 +46,45 @@ public class SModelIndex {
 	private void indexId(SModelElement element) {
 		idToElement.put(element.getId(), element);
 	}
+	
+	private void indexChildren(SModelElement element) {
+		if (element.getChildren() != null) {
+			for (SModelElement child : element.getChildren()) {
+				childToParent.put(child, element);
+			}
+		}
+	}
 
-	public void addToIndex(SModelElement element) {
+	private SModelElement findParent(SModelElement child) {
+		for (SModelElement element : idToElement.values()) {
+			if (element.getChildren().contains(child)) {
+				return element;
+			}
+		}
+		return null;
+	}
+	
+	public void addToIndex(SModelElement element, SModelElement parent) {
+		addToIndex(element);
+		childToParent.put(element, parent);
+	}
+
+	private void addToIndex(SModelElement element) {
 		indexId(element);
 		indexType(element);
+		indexChildren(element);
 		if (element.getChildren() != null) {
 			for (SModelElement child : element.getChildren()) {
 				addToIndex(child);
 			}
 		}
+	}
+	
+	public SModelElement getParent(SModelElement element) {
+		if (! childToParent.containsKey(element)) {
+			childToParent.put(element, findParent(element));
+		}
+		return childToParent.get(element);
 	}
 
 	/**

@@ -49,7 +49,7 @@ public abstract class NodeCreationTool extends ExecutableTool {
 				container.setChildren(new ArrayList<SModelElement>());
 			}
 			container.getChildren().add(element);
-			index.addToIndex(element);
+			index.addToIndex(element, container);
 			return modelState.getCurrentModel();
 		}
 		return null;

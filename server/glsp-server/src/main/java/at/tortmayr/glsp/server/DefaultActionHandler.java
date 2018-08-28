@@ -66,6 +66,7 @@ import io.typefox.sprotty.api.SEdge;
 import io.typefox.sprotty.api.SModelElement;
 import io.typefox.sprotty.api.SModelIndex;
 import io.typefox.sprotty.api.SModelRoot;
+import io.typefox.sprotty.api.SNode;
 
 public class DefaultActionHandler implements ActionHandler {
 
@@ -376,20 +377,39 @@ public class DefaultActionHandler implements ActionHandler {
 			return;
 		}
 		
+		if (false == source instanceof SNode) {
+			source = findNode(source, index);
+		}
+		if (false == target instanceof SNode) {
+			target = findNode(target, index);
+		}
+		
 		SEdge edge = new SEdge();
-		edge.setSourceId(action.getSourceElement());
-		edge.setTargetId(action.getTargetElement());
+		edge.setSourceId(source.getId());
+		edge.setTargetId(target.getId());
 		edge.setType("edge:weighted"); //TODO Language specific
 		int newID = index.getTypeCount("edge:weighted");
 		edge.setId("edge:weighted"+newID);
 		
 		SModelRoot currentModel = modelState.getCurrentModel();
 		currentModel.getChildren().add(edge);
-		index.addToIndex(edge);
+		index.addToIndex(edge, currentModel);
 		
 		
 		// Generic implementation
 		lastSubmittedModelType = currentModel.getType();
 		submitModel(currentModel, false);
+	}
+
+	private SModelElement findNode(SModelElement element, at.tortmayr.glsp.api.utils.SModelIndex index) {
+		if (element instanceof SNode) {
+			return element;
+		}
+		
+		SModelElement parent = index.getParent(element);
+		if (parent == null) {
+			return element;
+		}
+		return findNode(parent, index);
 	}
 }
