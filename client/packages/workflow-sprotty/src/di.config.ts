@@ -17,7 +17,7 @@ import {
 import { WeightedEdgeView, IconView, ActivityNodeView, TaskNodeView } from "./workflow-views";
 import { WorkflowModelFactory } from "./model-factory";
 import { TaskNode, WeightedEdge, Icon, ActivityNode } from "./model";
-import { saveModule, paletteModule, GLSPGraph } from "glsp-sprotty/lib"
+import { saveModule, paletteModule, moveToolModule, GLSPGraph } from "glsp-sprotty/lib"
 
 
 const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
@@ -48,7 +48,7 @@ export default function createContainer(widgetId: string): Container {
 
     container.load(defaultModule, selectModule, moveModule, boundsModule, undoRedoModule, viewportModule,
         hoverModule, fadeModule, exportModule, expandModule, openModule, buttonModule, modelSourceModule,
-        workflowDiagramModule, saveModule, paletteModule);
+        workflowDiagramModule, saveModule, paletteModule, moveToolModule);
 
 
     overrideViewerOptions(container, {

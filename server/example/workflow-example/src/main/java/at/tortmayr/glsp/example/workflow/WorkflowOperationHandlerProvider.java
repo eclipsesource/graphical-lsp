@@ -15,6 +15,8 @@ import java.util.List;
 
 import at.tortmayr.glsp.api.operations.OperationHandler;
 import at.tortmayr.glsp.api.operations.OperationHandlerProvider;
+import at.tortmayr.glsp.server.handlers.DeleteHandler;
+import at.tortmayr.glsp.server.handlers.MoveNodeHandler;
 
 public class WorkflowOperationHandlerProvider implements OperationHandlerProvider {
 
@@ -25,6 +27,8 @@ public class WorkflowOperationHandlerProvider implements OperationHandlerProvide
 		operationHandlers.add(new CreateAutomatedTaskHandler());
 		operationHandlers.add(new CreateWeightedEdgeHandler());
 		operationHandlers.add(new DeleteWorkflowElementHandler());
+		operationHandlers.add(new MoveNodeHandler());
+		operationHandlers.add(new DeleteHandler());
 		return operationHandlers;
 	}
 
