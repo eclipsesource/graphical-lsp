@@ -84,7 +84,7 @@ public class WorkflowToolConfiguration implements ToolConfiguration {
 
 		private int getCounter(SModelIndex index, String type) {
 			int i = index.getTypeCount(type);
-			return i++;
+			return i + 1;
 		}
 
 	};
