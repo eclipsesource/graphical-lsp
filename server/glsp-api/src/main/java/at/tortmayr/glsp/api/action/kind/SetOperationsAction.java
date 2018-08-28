@@ -1,41 +1,46 @@
 /*******************************************************************************
- * Copyright (c) 2018 Tobias Ortmayr.
+ * Copyright (c) 2018 EclipseSource Services GmbH and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *   
  * Contributors:
- * 	Tobias Ortmayr - initial API and implementation
+ * 	Philip Langer - initial API and implementation
  ******************************************************************************/
 package at.tortmayr.glsp.api.action.kind;
 
 import java.util.Arrays;
 
 import at.tortmayr.glsp.api.action.Action;
-import at.tortmayr.glsp.api.types.Tool;
+import at.tortmayr.glsp.api.operations.Operation;
 
-public class SetToolsAction extends Action {
-	private Tool[] tools;
+public class SetOperationsAction extends Action {
+	
+	private Operation[] operations;
 
-	public SetToolsAction() {
+	public SetOperationsAction() {
 		super(ActionKind.SET_TOOLS);
 	}
 
-	public SetToolsAction(Tool[] tools) {
+	public SetOperationsAction(Operation[] tools) {
 		this();
-		this.tools = tools;
+		this.operations = tools;
 	}
 
-	public Tool[] getTools() {
-		return tools;
+	public Operation[] getOperations() {
+		return operations;
+	}
+
+	public void setOperations(Operation[] operations) {
+		this.operations = operations;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Arrays.hashCode(tools);
+		result = prime * result + Arrays.hashCode(operations);
 		return result;
 	}
 
@@ -47,8 +52,8 @@ public class SetToolsAction extends Action {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SetToolsAction other = (SetToolsAction) obj;
-		if (!Arrays.equals(tools, other.tools))
+		SetOperationsAction other = (SetOperationsAction) obj;
+		if (!Arrays.equals(operations, other.operations))
 			return false;
 		return true;
 	}
