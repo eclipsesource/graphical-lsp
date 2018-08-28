@@ -380,12 +380,16 @@ public class DefaultActionHandler implements ActionHandler {
 		edge.setSourceId(action.getSourceElement());
 		edge.setTargetId(action.getTargetElement());
 		edge.setType("edge:weighted"); //TODO Language specific
-		edge.setId("sampleNewID23333");
+		int newID = index.getTypeCount("edge:weighted");
+		edge.setId("edge:weighted"+newID);
 		
 		SModelRoot currentModel = modelState.getCurrentModel();
 		currentModel.getChildren().add(edge);
 		index.addToIndex(edge);
 		
-		doSubmitModel(currentModel, true);
+		
+		// Generic implementation
+		lastSubmittedModelType = currentModel.getType();
+		submitModel(currentModel, false);
 	}
 }
