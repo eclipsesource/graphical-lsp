@@ -16,7 +16,6 @@ public class OperationKind {
 	public static final String CREATE_CONNECTION = "create-connection";
 	public static final String DELETE_ELEMENT = "delete-node";
 	public static final String MOVE = "move";
-	public static final String GENERIC = "generic";
 	
 	private OperationKind() {
 		// prevent instantiation for class only holding constants.
