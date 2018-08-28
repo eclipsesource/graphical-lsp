@@ -38,8 +38,9 @@ public class WorkflowToolConfiguration implements ToolConfiguration {
 		protected SModelElement createNode(Optional<Point> point, SModelIndex index) {
 
 			TaskNode taskNode = new TaskNode();
-			int nodeCounter = getCounter(index, taskNode.getType());
-			taskNode.setId("task" + nodeCounter);
+			String idPrefix = "task";
+			int nodeCounter = getCounter(index, taskNode.getType(), idPrefix);
+			taskNode.setId(idPrefix + nodeCounter);
 			taskNode.setName("AutomatedTask" + nodeCounter);
 			taskNode.setDuration(0);
 
@@ -82,9 +83,15 @@ public class WorkflowToolConfiguration implements ToolConfiguration {
 
 		}
 
-		private int getCounter(SModelIndex index, String type) {
+		private int getCounter(SModelIndex index, String type, String idPrefix) {
 			int i = index.getTypeCount(type);
-			return i + 1;
+			while (true) {
+				String id = idPrefix + i;
+				if (index.get(id) == null) {
+					return i;
+				}
+				i++;
+			}
 		}
 
 	};

@@ -10,17 +10,21 @@
  ******************************************************************************/
 package at.tortmayr.glsp.api.utils;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import io.typefox.sprotty.api.SEdge;
 import io.typefox.sprotty.api.SModelElement;
 
 public class SModelIndex {
 	private final Map<String, SModelElement> idToElement;
 	private final Map<String, Set<SModelElement>> typeToElements;
 	private final Map<SModelElement, SModelElement> childToParent;
+	private final Map<SModelElement, Set<SEdge>> incomingEdges;
+	private final Map<SModelElement, Set<SEdge>> outgoingEdges;
 
 	/**
 	 * Build an index from the given parent element. All content of the element is
@@ -30,6 +34,8 @@ public class SModelIndex {
 		idToElement = new HashMap<>();
 		typeToElements = new HashMap<>();
 		childToParent = new HashMap<>();
+		outgoingEdges = new HashMap<>();
+		incomingEdges = new HashMap<>();
 		addToIndex(parent);
 	}
 
@@ -57,7 +63,7 @@ public class SModelIndex {
 
 	private SModelElement findParent(SModelElement child) {
 		for (SModelElement element : idToElement.values()) {
-			if (element.getChildren().contains(child)) {
+			if (element.getChildren() != null && element.getChildren().contains(child)) {
 				return element;
 			}
 		}
@@ -73,6 +79,9 @@ public class SModelIndex {
 		indexId(element);
 		indexType(element);
 		indexChildren(element);
+		if (element instanceof SEdge) {
+			indexSourceAndTarget((SEdge)element);
+		}
 		if (element.getChildren() != null) {
 			for (SModelElement child : element.getChildren()) {
 				addToIndex(child);
@@ -80,6 +89,16 @@ public class SModelIndex {
 		}
 	}
 	
+	private void indexSourceAndTarget(SEdge edge) {
+		String sourceId = edge.getSourceId();
+		SModelElement source = get(sourceId);
+		outgoingEdges.computeIfAbsent(source, s -> new HashSet<>()).add(edge);
+		
+		String targetId = edge.getTargetId();
+		SModelElement target = get(targetId);
+		incomingEdges.computeIfAbsent(target, t -> new HashSet<>()).add(edge);
+	}
+
 	public SModelElement getParent(SModelElement element) {
 		if (! childToParent.containsKey(element)) {
 			childToParent.put(element, findParent(element));
@@ -124,6 +143,20 @@ public class SModelIndex {
 			}
 		}
 		return null;
+	}
+
+	public Collection<SEdge> getIncomingEdges(SModelElement nodeToDelete) {
+		return incomingEdges.computeIfAbsent(nodeToDelete, n -> new HashSet<>());
+	}
+
+	public Collection<SEdge> getOutgoingEdges(SModelElement nodeToDelete) {
+		return outgoingEdges.computeIfAbsent(nodeToDelete, n -> new HashSet<>());
+	}
+
+	public void removeFromIndex(SModelElement element) {
+		idToElement.remove(element.getId());
+		typeToElements.get(element.getType()).remove(element);
+		childToParent.remove(element);
 	}
 
 }
