@@ -208,8 +208,12 @@ public class DefaultActionHandler implements ActionHandler {
 		if (tool != null) {
 			
 			SModelRoot model = tool.execute(action, getModelState());
-			doSubmitModel(model, true);
-
+			if (model != null) {
+				lastSubmittedModelType = model.getType();
+				submitModel(model, false);
+			} else {
+				lastSubmittedModelType = null;
+			}
 		}
 
 	}
