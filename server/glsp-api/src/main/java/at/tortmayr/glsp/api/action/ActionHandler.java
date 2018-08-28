@@ -16,6 +16,7 @@ import at.tortmayr.glsp.api.action.kind.CollapseExpandAction;
 import at.tortmayr.glsp.api.action.kind.CollapseExpandAllAction;
 import at.tortmayr.glsp.api.action.kind.ComputedBoundsAction;
 import at.tortmayr.glsp.api.action.kind.CreateConnectionAction;
+import at.tortmayr.glsp.api.action.kind.DeleteAction;
 import at.tortmayr.glsp.api.action.kind.ExecuteNodeCreationToolAction;
 import at.tortmayr.glsp.api.action.kind.ExecuteToolAction;
 import at.tortmayr.glsp.api.action.kind.FitToScreenAction;
@@ -88,4 +89,6 @@ public interface ActionHandler {
 	void handle(SaveModelAction action);
 
 	void handle(CreateConnectionAction action);
+	
+	void handle(DeleteAction action);
 }

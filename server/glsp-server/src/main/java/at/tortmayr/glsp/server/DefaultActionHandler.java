@@ -12,6 +12,7 @@ package at.tortmayr.glsp.server;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -26,6 +27,7 @@ import at.tortmayr.glsp.api.action.kind.CollapseExpandAction;
 import at.tortmayr.glsp.api.action.kind.CollapseExpandAllAction;
 import at.tortmayr.glsp.api.action.kind.ComputedBoundsAction;
 import at.tortmayr.glsp.api.action.kind.CreateConnectionAction;
+import at.tortmayr.glsp.api.action.kind.DeleteAction;
 import at.tortmayr.glsp.api.action.kind.ExecuteNodeCreationToolAction;
 import at.tortmayr.glsp.api.action.kind.ExecuteToolAction;
 import at.tortmayr.glsp.api.action.kind.FitToScreenAction;
@@ -362,21 +364,21 @@ public class DefaultActionHandler implements ActionHandler {
 			System.out.println("Incomplete create connection action");
 			return;
 		}
-		
+
 		at.tortmayr.glsp.api.utils.SModelIndex index = modelState.getCurrentModelIndex();
-		
+
 		SModelElement source = index.get(action.getSourceElement());
 		SModelElement target = index.get(action.getTargetElement());
-		
+
 		if (source == null) {
-			System.out.println("NULL source for ID "+action.getSourceElement());
+			System.out.println("NULL source for ID " + action.getSourceElement());
 			return;
 		}
 		if (target == null) {
-			System.out.println("NULL target for ID "+action.getTargetElement());
+			System.out.println("NULL target for ID " + action.getTargetElement());
 			return;
 		}
-		
+
 		if (false == source instanceof SNode) {
 			source = findNode(source, index);
 		}
@@ -384,28 +386,103 @@ public class DefaultActionHandler implements ActionHandler {
 			target = findNode(target, index);
 		}
 		
+		SModelRoot currentModel = modelState.getCurrentModel();
+		
+		if (source == currentModel || target == currentModel) {
+			System.out.println("Can't create a link to the root node");
+			return;
+		}
+
 		SEdge edge = new SEdge();
 		edge.setSourceId(source.getId());
 		edge.setTargetId(target.getId());
-		edge.setType("edge:weighted"); //TODO Language specific
+		edge.setType("edge:weighted"); // TODO Language specific
 		int newID = index.getTypeCount("edge:weighted");
-		edge.setId("edge:weighted"+newID);
-		
-		SModelRoot currentModel = modelState.getCurrentModel();
+		edge.setId("edge:weighted" + newID);
+
 		currentModel.getChildren().add(edge);
 		index.addToIndex(edge, currentModel);
-		
-		
+
 		// Generic implementation
 		lastSubmittedModelType = currentModel.getType();
 		submitModel(currentModel, false);
+	}
+
+	@Override
+	public void handle(DeleteAction action) {
+		String elementId = action.getElementId();
+		if (elementId == null) {
+			return;
+		}
+		at.tortmayr.glsp.api.utils.SModelIndex index = getModelState().getCurrentModelIndex();
+		SModelElement element = index.get(elementId);
+
+		if (element == null) {
+			return;
+		}
+
+		// Always delete the top-level node
+		SModelElement nodeToDelete = findNode(element, index);
+		SModelElement parent = index.getParent(nodeToDelete);
+		if (parent == null) {
+			return; // Can't delete the root, or an element that doesn't belong to the model
+		}
+
+		Set<SModelElement> dependents = new LinkedHashSet<>();
+		collectDependents(dependents, nodeToDelete);
+		
+		dependents.forEach(this::delete);
+
+		SModelRoot currentModel = getModelState().getCurrentModel();
+		lastSubmittedModelType = currentModel.getType();
+		submitModel(currentModel, false);
+	}
+	
+	private void delete(SModelElement element) {
+		SModelElement parent = getModelState().getCurrentModelIndex().getParent(element);
+		if (parent == null || parent.getChildren() == null) {
+			return;
+		}
+		parent.getChildren().remove(element);
+		getModelState().getCurrentModelIndex().removeFromIndex(element);
+	}
+
+	/**
+	 * Collect the dependent elements, in deletion order
+	 * @param dependents
+	 * @param nodeToDelete
+	 */
+	private void collectDependents(Set<SModelElement> dependents, SModelElement nodeToDelete) {
+		if (dependents.contains(nodeToDelete)) {
+			return;
+		}
+		
+		// First, children
+		if (nodeToDelete.getChildren() != null) {
+			for (SModelElement child : nodeToDelete.getChildren()) {
+				collectDependents(dependents, child);
+			}
+		}
+		
+		at.tortmayr.glsp.api.utils.SModelIndex index = getModelState().getCurrentModelIndex();
+		
+		// Then, incoming/outgoing links
+		for (SModelElement incoming : index.getIncomingEdges(nodeToDelete)) {
+			collectDependents(dependents, incoming);
+		}
+		for (SModelElement outgoing : index.getOutgoingEdges(nodeToDelete)) {
+			collectDependents(dependents, outgoing);
+		}
+		
+		// Finally, the node to delete
+		dependents.add(nodeToDelete);
 	}
 
 	private SModelElement findNode(SModelElement element, at.tortmayr.glsp.api.utils.SModelIndex index) {
 		if (element instanceof SNode) {
 			return element;
 		}
-		
+
 		SModelElement parent = index.getParent(element);
 		if (parent == null) {
 			return element;

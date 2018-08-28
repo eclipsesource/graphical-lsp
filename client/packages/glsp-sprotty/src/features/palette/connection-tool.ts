@@ -14,7 +14,6 @@ export class ConnectionTool extends MouseListener {
     private isMouseMove: boolean;
 
     createAction(): CreateConnectionAction {
-        console.log("Request creation from " + this.source + " to " + this.target)
         return new CreateConnectionAction("ConnectionTool", this.source, this.target)
     }
 
