@@ -43,6 +43,7 @@ public final class ActionKind {
 	public static final String UPDATE_MODEL = "updateModel";
 	public static final String SELECT_ALL = "allSelected";
 	public static final String SAVE_MODEL = "saveModel";
+	public static final String CREATE_CONNECTION = "createConnection";
 
 	private ActionKind() {
 		// prevent instantiation for class only holding constants.
