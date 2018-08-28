@@ -25,6 +25,7 @@ import at.tortmayr.glsp.api.action.kind.ChangeBoundsAction;
 import at.tortmayr.glsp.api.action.kind.CollapseExpandAction;
 import at.tortmayr.glsp.api.action.kind.CollapseExpandAllAction;
 import at.tortmayr.glsp.api.action.kind.ComputedBoundsAction;
+import at.tortmayr.glsp.api.action.kind.CreateConnectionAction;
 import at.tortmayr.glsp.api.action.kind.ExecuteNodeCreationToolAction;
 import at.tortmayr.glsp.api.action.kind.ExecuteToolAction;
 import at.tortmayr.glsp.api.action.kind.FitToScreenAction;
@@ -61,6 +62,7 @@ import at.tortmayr.glsp.api.types.Tool;
 import at.tortmayr.glsp.api.utils.InitalRequestOptions;
 import at.tortmayr.glsp.api.utils.LayoutUtil;
 import io.typefox.sprotty.api.ILayoutEngine;
+import io.typefox.sprotty.api.SEdge;
 import io.typefox.sprotty.api.SModelElement;
 import io.typefox.sprotty.api.SModelIndex;
 import io.typefox.sprotty.api.SModelRoot;
@@ -206,7 +208,7 @@ public class DefaultActionHandler implements ActionHandler {
 	public void handle(ExecuteNodeCreationToolAction action) {
 		ExecutableTool tool = toolRegistry.get(action.getToolId());
 		if (tool != null) {
-			
+
 			SModelRoot model = tool.execute(action, getModelState());
 			if (model != null) {
 				lastSubmittedModelType = model.getType();
@@ -349,5 +351,41 @@ public class DefaultActionHandler implements ActionHandler {
 	public void setClientId(String clientId) {
 		this.clientId = clientId;
 
+	}
+
+	@Override
+	public void handle(CreateConnectionAction action) {
+		//TODO Language specific
+		
+		if (action.getSourceElement() == null || action.getTargetElement() == null) {
+			System.out.println("Incomplete create connection action");
+			return;
+		}
+		
+		at.tortmayr.glsp.api.utils.SModelIndex index = modelState.getCurrentModelIndex();
+		
+		SModelElement source = index.get(action.getSourceElement());
+		SModelElement target = index.get(action.getTargetElement());
+		
+		if (source == null) {
+			System.out.println("NULL source for ID "+action.getSourceElement());
+			return;
+		}
+		if (target == null) {
+			System.out.println("NULL target for ID "+action.getTargetElement());
+			return;
+		}
+		
+		SEdge edge = new SEdge();
+		edge.setSourceId(action.getSourceElement());
+		edge.setTargetId(action.getTargetElement());
+		edge.setType("edge:weighted"); //TODO Language specific
+		edge.setId("sampleNewID23333");
+		
+		SModelRoot currentModel = modelState.getCurrentModel();
+		currentModel.getChildren().add(edge);
+		index.addToIndex(edge);
+		
+		doSubmitModel(currentModel, true);
 	}
 }
