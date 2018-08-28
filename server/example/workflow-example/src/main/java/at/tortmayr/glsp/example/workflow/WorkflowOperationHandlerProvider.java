@@ -17,13 +17,14 @@ import at.tortmayr.glsp.api.operations.OperationHandler;
 import at.tortmayr.glsp.api.operations.OperationHandlerProvider;
 
 public class WorkflowOperationHandlerProvider implements OperationHandlerProvider {
-	
+
 	List<OperationHandler> operationHandlers = new ArrayList<>();
 
 	@Override
 	public List<OperationHandler> getOperationHandlers() {
 		operationHandlers.add(new CreateAutomatedTaskHandler());
 		operationHandlers.add(new CreateWeightedEdgeHandler());
+		operationHandlers.add(new DeleteWorkflowElementHandler());
 		return operationHandlers;
 	}
 
