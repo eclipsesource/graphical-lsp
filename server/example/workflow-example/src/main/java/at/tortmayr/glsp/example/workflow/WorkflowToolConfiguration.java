@@ -23,9 +23,9 @@ import at.tortmayr.glsp.example.workflow.schema.Icon;
 import at.tortmayr.glsp.example.workflow.schema.TaskNode;
 import io.typefox.sprotty.api.LayoutOptions;
 import io.typefox.sprotty.api.Point;
+import io.typefox.sprotty.api.SCompartment;
 import io.typefox.sprotty.api.SLabel;
 import io.typefox.sprotty.api.SModelElement;
-import io.typefox.sprotty.api.SNode;
 
 public class WorkflowToolConfiguration implements ToolConfiguration {
 	public static final String AUTOMATED_TASK_TOOL_ID = "wf-automated-task-tool";
@@ -51,7 +51,7 @@ public class WorkflowToolConfiguration implements ToolConfiguration {
 			taskNode.setLayout("vbox");
 			taskNode.setChildren(new ArrayList<SModelElement>());
 
-			SNode compHeader = new SNode();
+			SCompartment compHeader = new SCompartment();
 			compHeader.setId("task" + nodeCounter + "_header");
 			compHeader.setType("comp:header");
 			compHeader.setLayout("hbox");
