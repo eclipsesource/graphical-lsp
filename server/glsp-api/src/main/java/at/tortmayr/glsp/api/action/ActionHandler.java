@@ -15,8 +15,11 @@ import at.tortmayr.glsp.api.action.kind.ChangeBoundsAction;
 import at.tortmayr.glsp.api.action.kind.CollapseExpandAction;
 import at.tortmayr.glsp.api.action.kind.CollapseExpandAllAction;
 import at.tortmayr.glsp.api.action.kind.ComputedBoundsAction;
-import at.tortmayr.glsp.api.action.kind.ExecuteOperationAction;
+import at.tortmayr.glsp.api.action.kind.CreateConnectionOperationAction;
+import at.tortmayr.glsp.api.action.kind.CreateNodeOperationAction;
+import at.tortmayr.glsp.api.action.kind.DeleteElementOperationAction;
 import at.tortmayr.glsp.api.action.kind.FitToScreenAction;
+import at.tortmayr.glsp.api.action.kind.MoveOperationAction;
 import at.tortmayr.glsp.api.action.kind.OpenAction;
 import at.tortmayr.glsp.api.action.kind.RequestBoundsChangeHintsAction;
 import at.tortmayr.glsp.api.action.kind.RequestExportSvgAction;
@@ -47,7 +50,13 @@ public interface ActionHandler {
 
 	void handle(ComputedBoundsAction action);
 
-	void handle(ExecuteOperationAction action);
+	void handle(CreateConnectionOperationAction action);
+
+	void handle(CreateNodeOperationAction action);
+
+	void handle(DeleteElementOperationAction action);
+
+	void handle(MoveOperationAction action);
 
 	void handle(RequestBoundsChangeHintsAction action);
 

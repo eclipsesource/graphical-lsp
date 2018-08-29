@@ -13,8 +13,8 @@ package at.tortmayr.glsp.example.workflow;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import at.tortmayr.glsp.api.action.ExecuteOperationAction;
 import at.tortmayr.glsp.api.action.kind.CreateNodeOperationAction;
-import at.tortmayr.glsp.api.action.kind.ExecuteOperationAction;
 import at.tortmayr.glsp.api.operations.CreateNodeOperationHandler;
 import at.tortmayr.glsp.api.utils.SModelIndex;
 import at.tortmayr.glsp.example.workflow.schema.Icon;
@@ -28,18 +28,16 @@ import io.typefox.sprotty.api.SModelElement;
 public class CreateAutomatedTaskHandler extends CreateNodeOperationHandler {
 
 	@Override
-	public boolean handles(ExecuteOperationAction action) {
-		if (action instanceof CreateNodeOperationAction) {
-			CreateNodeOperationAction createNodeOperationAction = (CreateNodeOperationAction) action;
-			return WorkflowOperationConfiguration.AUTOMATED_TASK_ID
-					.contentEquals(createNodeOperationAction.getElementId());
+	public boolean handles(ExecuteOperationAction execAction) {
+		if (execAction instanceof CreateNodeOperationAction) {
+			CreateNodeOperationAction action = (CreateNodeOperationAction) execAction;
+			return WorkflowOperationConfiguration.AUTOMATED_TASK_ID.equals(action.getElementId());
 		}
 		return false;
 	}
 
 	@Override
 	protected SModelElement createNode(Optional<Point> point, SModelIndex index) {
-
 		TaskNode taskNode = new TaskNode();
 		int nodeCounter = getCounter(index, taskNode.getType());
 		taskNode.setId("task" + nodeCounter);

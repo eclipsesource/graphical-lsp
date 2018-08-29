@@ -10,6 +10,7 @@
  ******************************************************************************/
 package at.tortmayr.glsp.api.action.kind;
 
+import at.tortmayr.glsp.api.action.ExecuteOperationAction;
 import at.tortmayr.glsp.api.operations.OperationKind;
 
 public class CreateConnectionOperationAction extends ExecuteOperationAction {
@@ -20,7 +21,7 @@ public class CreateConnectionOperationAction extends ExecuteOperationAction {
 
 	private String targetElementId;
 
-	protected CreateConnectionOperationAction() {
+	public CreateConnectionOperationAction() {
 		super(OperationKind.CREATE_CONNECTION);
 	}
 

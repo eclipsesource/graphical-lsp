@@ -20,13 +20,17 @@ import javax.inject.Inject;
 import at.tortmayr.glsp.api.action.Action;
 import at.tortmayr.glsp.api.action.ActionHandler;
 import at.tortmayr.glsp.api.action.ActionMessage;
+import at.tortmayr.glsp.api.action.ExecuteOperationAction;
 import at.tortmayr.glsp.api.action.kind.CenterAction;
 import at.tortmayr.glsp.api.action.kind.ChangeBoundsAction;
 import at.tortmayr.glsp.api.action.kind.CollapseExpandAction;
 import at.tortmayr.glsp.api.action.kind.CollapseExpandAllAction;
 import at.tortmayr.glsp.api.action.kind.ComputedBoundsAction;
-import at.tortmayr.glsp.api.action.kind.ExecuteOperationAction;
+import at.tortmayr.glsp.api.action.kind.CreateConnectionOperationAction;
+import at.tortmayr.glsp.api.action.kind.CreateNodeOperationAction;
+import at.tortmayr.glsp.api.action.kind.DeleteElementOperationAction;
 import at.tortmayr.glsp.api.action.kind.FitToScreenAction;
+import at.tortmayr.glsp.api.action.kind.MoveOperationAction;
 import at.tortmayr.glsp.api.action.kind.OpenAction;
 import at.tortmayr.glsp.api.action.kind.RequestBoundsAction;
 import at.tortmayr.glsp.api.action.kind.RequestBoundsChangeHintsAction;
@@ -264,9 +268,28 @@ public class DefaultActionHandler implements ActionHandler {
 			((FileBasedModelFactory) modelFactory).saveModel(getModelState().getCurrentModel());
 		}
 	}
+	
+	@Override
+	public void handle(CreateNodeOperationAction action) {
+		doHandle(action);
+	}
+	
+	@Override
+	public void handle(CreateConnectionOperationAction action) {
+		doHandle(action);
+	}
 
 	@Override
-	public void handle(ExecuteOperationAction action) {
+	public void handle(DeleteElementOperationAction action) {
+		doHandle(action);
+	}
+
+	@Override
+	public void handle(MoveOperationAction action) {
+		doHandle(action);
+	}
+
+	public void doHandle(ExecuteOperationAction action) {
 		Optional<OperationHandler> handler = Optional.ofNullable(operationHandlers)
 				.flatMap(handlers -> handlers.getOperationHandler(action));
 		if (handler.isPresent()) {

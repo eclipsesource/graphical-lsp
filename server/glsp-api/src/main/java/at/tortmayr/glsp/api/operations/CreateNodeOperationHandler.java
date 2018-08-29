@@ -3,8 +3,8 @@ package at.tortmayr.glsp.api.operations;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import at.tortmayr.glsp.api.action.ExecuteOperationAction;
 import at.tortmayr.glsp.api.action.kind.CreateNodeOperationAction;
-import at.tortmayr.glsp.api.action.kind.ExecuteOperationAction;
 import at.tortmayr.glsp.api.factory.GraphicalModelState;
 import at.tortmayr.glsp.api.utils.SModelIndex;
 import io.typefox.sprotty.api.Point;

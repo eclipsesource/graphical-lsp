@@ -14,7 +14,8 @@ export class ConnectionTool extends MouseListener {
     private isMouseMove: boolean;
 
     createAction(): CreateConnectionAction {
-        return new CreateConnectionAction("ConnectionTool", this.source, this.target)
+        // TODO this is language specific for now but the connection type has to be passed
+        return new CreateConnectionAction("wf-weighted-edge-tool", this.source, this.target)
     }
 
     mouseDown(target: SModelElement, event: MouseEvent): Action[] {
@@ -53,10 +54,10 @@ export class ConnectionTool extends MouseListener {
 
 export class CreateConnectionAction implements Action {
 
-    static readonly KIND = 'createConnection'
+    static readonly KIND = 'executeOperation_create-connection'
     readonly kind = CreateConnectionAction.KIND
 
-    constructor(public readonly toolId: string,
-        public readonly sourceElement?: string,
-        public readonly targetElement?: string) { }
+    constructor(public readonly elementTypeId: string,
+        public readonly sourceElementId?: string,
+        public readonly targetElementId?: string) { }
 }

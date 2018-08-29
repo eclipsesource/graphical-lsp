@@ -10,6 +10,7 @@
  ******************************************************************************/
 package at.tortmayr.glsp.api.action.kind;
 
+import at.tortmayr.glsp.api.action.ExecuteOperationAction;
 import at.tortmayr.glsp.api.operations.OperationKind;
 
 public class DeleteElementOperationAction extends ExecuteOperationAction {

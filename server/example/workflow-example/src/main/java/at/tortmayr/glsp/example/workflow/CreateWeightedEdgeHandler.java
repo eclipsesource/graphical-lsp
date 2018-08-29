@@ -2,8 +2,8 @@ package at.tortmayr.glsp.example.workflow;
 
 import java.util.Optional;
 
+import at.tortmayr.glsp.api.action.ExecuteOperationAction;
 import at.tortmayr.glsp.api.action.kind.CreateConnectionOperationAction;
-import at.tortmayr.glsp.api.action.kind.ExecuteOperationAction;
 import at.tortmayr.glsp.api.factory.GraphicalModelState;
 import at.tortmayr.glsp.api.operations.OperationHandler;
 import at.tortmayr.glsp.api.utils.SModelIndex;
@@ -15,11 +15,10 @@ import io.typefox.sprotty.api.SNode;
 public class CreateWeightedEdgeHandler implements OperationHandler {
 
 	@Override
-	public boolean handles(ExecuteOperationAction action) {
-		if (action instanceof CreateConnectionOperationAction) {
-			CreateConnectionOperationAction createConnectionOperationAction = (CreateConnectionOperationAction) action;
-			return WorkflowOperationConfiguration.WEIGHTED_EDGE_ID
-					.contentEquals(createConnectionOperationAction.getElementTypeId());
+	public boolean handles(ExecuteOperationAction execAction) {
+		if (execAction instanceof CreateConnectionOperationAction) {
+			CreateConnectionOperationAction action = (CreateConnectionOperationAction) execAction;
+			return WorkflowOperationConfiguration.WEIGHTED_EDGE_ID.equals(action.getElementTypeId());
 		}
 		return false;
 	}

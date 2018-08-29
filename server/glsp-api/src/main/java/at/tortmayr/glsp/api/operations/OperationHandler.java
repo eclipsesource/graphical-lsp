@@ -12,7 +12,7 @@ package at.tortmayr.glsp.api.operations;
 
 import java.util.Optional;
 
-import at.tortmayr.glsp.api.action.kind.ExecuteOperationAction;
+import at.tortmayr.glsp.api.action.ExecuteOperationAction;
 import at.tortmayr.glsp.api.factory.GraphicalModelState;
 import io.typefox.sprotty.api.SModelRoot;
 
