@@ -20,7 +20,7 @@ public class SetOperationsAction extends Action {
 	private Operation[] operations;
 
 	public SetOperationsAction() {
-		super(ActionKind.SET_TOOLS);
+		super(ActionKind.SET_OPERATIONS);
 	}
 
 	public SetOperationsAction(Operation[] tools) {

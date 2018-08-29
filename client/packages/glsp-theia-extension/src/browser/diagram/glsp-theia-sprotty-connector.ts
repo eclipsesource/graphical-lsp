@@ -9,12 +9,13 @@
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
 import { TheiaSprottyConnector, TheiaDiagramServer, OpenInTextEditorMessage, TheiaFileSaver, DiagramWidgetRegistry } from "theia-glsp/lib";
-import { ExportSvgAction, ServerStatusAction, ActionMessage, } from "glsp-sprotty/lib";
+import { ExportSvgAction, ServerStatusAction, ActionMessage, SetOperationsAction, SetOperationsCommand, SaveModelAction, } from "glsp-sprotty/lib";
 import { GraphicalLanguageClientContribution } from "../language/graphical-langauge-client-contribution";
 import { EditorManager } from "@theia/editor/lib/browser";
 import URI from "@theia/core/lib/common/uri";
 import { ActionMessageNotification } from "../../common/";
 import { GLSPPaletteContribution } from "../diagram/glsp-palette-contribution";
+import { GLSPTheiaDiagramServer } from "glsp-theia-extension/src/browser/diagram/glsp-theia-diagram-server";
 
 
 export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
@@ -37,7 +38,7 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
     }
 
     connect(diagramServer: TheiaDiagramServer): void {
-        this.paletteContribution.register(diagramServer);
+        this.paletteContribution.register(diagramServer as GLSPTheiaDiagramServer);
         this.servers.push(diagramServer)
         diagramServer.connect(this)
     }
@@ -82,6 +83,11 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
         this.graphicalLanguageClientContribution.languageClient.then(lc => lc.sendNotification(ActionMessageNotification.type, message))
     }
     onMessageReceived(message: ActionMessage): void {
+        if (message.action.kind === SetOperationsCommand.KIND) {
+            let action: SetOperationsAction = message.action as SetOperationsAction
+
+            // this.paletteContribution.createTools(action.operations)
+        }
         this.servers.forEach(element => {
             element.messageReceived(message)
         })
