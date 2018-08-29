@@ -37,7 +37,7 @@ public final class ActionKind {
 	public static final String SET_BOUNDS = "setBounds";
 	public static final String SET_LAYERS = "setLayers";
 	public static final String SET_POPUP_MODEL = "setPopupModel";
-	public static final String SET_TOOLS = "setTools";
+	public static final String SET_OPERATIONS = "setOperations";
 	public static final String TOOGLE_LAYER = "toggleLayer";
 	public static final String UPDATE_MODEL = "updateModel";
 	public static final String SELECT_ALL = "allSelected";

@@ -49,4 +49,10 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer {
         super.messageReceived(message)
     }
 
+    public getSourceURI(): string {
+        return this.sourceUri
+    }
+
+
+
 }

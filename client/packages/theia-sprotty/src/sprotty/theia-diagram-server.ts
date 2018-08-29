@@ -28,7 +28,7 @@ export class TheiaDiagramServer extends DiagramServer {
 
     protected connector: Promise<TheiaSprottyConnector>
     private resolveConnector: (server: TheiaSprottyConnector) => void
-    private sourceUri: string
+    protected sourceUri: string
 
     constructor(@inject(TYPES.IActionDispatcher) public actionDispatcher: IActionDispatcher,
         @inject(TYPES.ActionHandlerRegistry) actionHandlerRegistry: ActionHandlerRegistry,
@@ -57,7 +57,7 @@ export class TheiaDiagramServer extends DiagramServer {
         registry.register(SelectCommand.KIND, this)
     }
 
-    handle(action: Action): void |  ICommand {
+    handle(action: Action): void | ICommand {
         if (action instanceof RequestModelAction && action.options !== undefined)
             this.sourceUri = action.options.sourceUri
 
