@@ -8,24 +8,20 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-export namespace ToolType {
-    export const CONNECTION = 'connection-tool'
-    export const CREATION = 'creation-tool'
+export namespace OperationKind {
+
+    export const CREATE_NODE = "create-node";
+    export const CREATE_CONNECTION = "create-connection";
+    export const DELETE_ELEMENT = "delete-node";
+    export const MOVE = "move";
+    export const GENERIC = "generic";
 }
-export interface Tool {
-    /**
-     * The tool identifier.
-     */
-    readonly id: string;
+export interface Operation {
 
-    /**
-     * The tool name.
-     */
-    readonly name: string;
+    readonly elementTypeId: string;
 
-    /**
-     * The tool type.
-     */
-    readonly toolType: string;
+    readonly label: string;
+
+    readonly operationKind: string;
 
 }

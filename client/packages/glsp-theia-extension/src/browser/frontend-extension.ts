@@ -18,6 +18,7 @@ import { GraphicalLanguagesFrontendContribution } from "./language/graphical-lan
 import { GraphicalLanguageClientProviderImpl, GraphicalLanguageClientProvider } from "./language/graphical-language-client-provider";
 import { GLSPTheiaSprottyConnector } from "./diagram/glsp-theia-sprotty-connector";
 import { GLSPDiagramCommandContribution, GLSPDiagramMenuContribution } from "./diagram/glsp-diagram-commands";
+import { GLSPPaletteContribution } from "./diagram/glsp-palette-contribution";
 export default new ContainerModule(bind => {
 
 
@@ -34,5 +35,6 @@ export default new ContainerModule(bind => {
     bind(GLSPTheiaSprottyConnector).toSelf().inSingletonScope();
 
     bind(CommandContribution).to(GLSPDiagramCommandContribution).inSingletonScope()
-    bind(MenuContribution).to(GLSPDiagramMenuContribution).inSingletonScope()
+    bind(MenuContribution).to(GLSPDiagramMenuContribution)
+
 });

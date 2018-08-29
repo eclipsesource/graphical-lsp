@@ -9,7 +9,7 @@
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
 import { DiagramWidget } from "theia-glsp/lib";
-import { RequestModelAction, RequestToolsAction } from "glsp-sprotty/lib";
+import { RequestModelAction, RequestOperationsAction } from "glsp-sprotty/lib";
 
 export class GLSPDiagramWidget extends DiagramWidget {
 
@@ -20,6 +20,6 @@ export class GLSPDiagramWidget extends DiagramWidget {
             needsClientLayout: 'true'
         }))
 
-        this.modelSource.handle(new RequestToolsAction())
+        this.modelSource.handle(new RequestOperationsAction())
     }
 }
