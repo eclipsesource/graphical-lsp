@@ -4,8 +4,8 @@ import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import at.tortmayr.glsp.api.action.ExecuteOperationAction;
 import at.tortmayr.glsp.api.action.kind.DeleteElementOperationAction;
-import at.tortmayr.glsp.api.action.kind.ExecuteOperationAction;
 import at.tortmayr.glsp.api.factory.GraphicalModelState;
 import at.tortmayr.glsp.api.operations.OperationHandler;
 import at.tortmayr.glsp.api.utils.SModelIndex;

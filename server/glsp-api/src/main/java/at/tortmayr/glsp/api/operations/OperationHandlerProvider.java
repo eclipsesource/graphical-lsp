@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import at.tortmayr.glsp.api.action.kind.ExecuteOperationAction;
+import at.tortmayr.glsp.api.action.ExecuteOperationAction;
 
 public interface OperationHandlerProvider {
 

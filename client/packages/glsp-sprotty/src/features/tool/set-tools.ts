@@ -13,7 +13,7 @@ import { Command, Action, CommandResult, CommandExecutionContext } from "sprotty
 import { Tool } from "../../utils/tool";
 
 export class RequestToolsAction implements Action {
-    static readonly KIND = 'requestTools'
+    static readonly KIND = 'requestOperations'
     readonly kind = RequestToolsAction.KIND
 
     constructor() { }

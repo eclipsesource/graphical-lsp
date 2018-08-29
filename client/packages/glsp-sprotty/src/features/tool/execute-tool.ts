@@ -12,11 +12,11 @@ import { Action, Point } from "sprotty/lib";
 
 export class ExecuteNodeCreationToolAction implements Action {
 
-    static readonly KIND = 'executeNodeCreationTool'
+    static readonly KIND = 'executeOperation_create-node'
     readonly kind = ExecuteNodeCreationToolAction.KIND
 
 
-    constructor(public readonly toolId: string,
+    constructor(public readonly elementId: string,
         public readonly location?: Point,
         public readonly containerId?: string) { }
 }

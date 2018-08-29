@@ -8,13 +8,17 @@
  * Contributors:
  * 	Philip Langer - initial API and implementation
  ******************************************************************************/
-package at.tortmayr.glsp.api.action.kind;
+package at.tortmayr.glsp.api.action;
 
-import at.tortmayr.glsp.api.action.Action;
+import at.tortmayr.glsp.api.action.kind.ActionKind;
 
 public abstract class ExecuteOperationAction extends Action {
 	
 	private String operationKind;
+	
+	public ExecuteOperationAction() {
+		super(ActionKind.EXECUTE_OPERATION);
+	}
 
 	public ExecuteOperationAction(String operationKind) {
 		super(ActionKind.EXECUTE_OPERATION + "_" + operationKind);
