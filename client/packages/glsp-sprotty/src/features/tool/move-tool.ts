@@ -1,5 +1,6 @@
 import { MouseListener, SModelElement, Action, Point, manhattanDistance, MoveAction, ElementMove, isMoveable, findParentByFeature, isViewport, Locateable } from "sprotty/lib";
-import { injectable } from "inversify";
+import { injectable, inject } from "inversify";
+import { OperationService, OP_TYPES } from "../palette/operation-service";
 
 /**
  * A custom Move Tool that is optimized for Client/Server operation
@@ -15,6 +16,10 @@ export class MoveTool extends MouseListener {
     private initialElementLocation: Point;
     private isStillSincePress: boolean;
     private element: SModelElement & Locateable;
+
+    constructor(@inject(OP_TYPES.GLSPOperationService) private operationService: OperationService) {
+        super();
+    }
 
     mouseDown(target: SModelElement, event: MouseEvent): Action[] {
         this.isStillSincePress = true;

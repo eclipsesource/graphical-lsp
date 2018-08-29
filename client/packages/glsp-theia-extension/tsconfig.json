@@ -7,6 +7,6 @@
     "noUnusedLocals": false
   },
   "include": [
-    "src"
+    "src",
   ]
 }

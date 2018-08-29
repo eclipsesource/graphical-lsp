@@ -18,7 +18,7 @@ import { GraphicalLanguagesFrontendContribution } from "./language/graphical-lan
 import { GraphicalLanguageClientProviderImpl, GraphicalLanguageClientProvider } from "./language/graphical-language-client-provider";
 import { GLSPTheiaSprottyConnector } from "./diagram/glsp-theia-sprotty-connector";
 import { GLSPDiagramCommandContribution, GLSPDiagramMenuContribution } from "./diagram/glsp-diagram-commands";
-import { GLSPPaletteContribution, OperationService } from "./diagram/glsp-palette-contribution";
+import { OperationService, OperationServiceImpl, OP_TYPES } from "glsp-sprotty/lib";
 export default new ContainerModule(bind => {
 
 
@@ -36,7 +36,5 @@ export default new ContainerModule(bind => {
 
     bind(CommandContribution).to(GLSPDiagramCommandContribution).inSingletonScope()
     bind(MenuContribution).to(GLSPDiagramMenuContribution)
-
-
-
+    bind<OperationService>(OP_TYPES.GLSPOperationService).to(OperationServiceImpl);
 });

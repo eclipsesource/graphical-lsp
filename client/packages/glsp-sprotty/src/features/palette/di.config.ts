@@ -8,10 +8,11 @@
 import { ContainerModule } from "inversify";
 import { TYPES } from "sprotty/lib";
 import { ConnectionTool } from "./connection-tool";
+import { OP_TYPES, OperationServiceImpl } from "./operation-service";
 
 const paletteModule = new ContainerModule(bind => {
     bind(TYPES.MouseListener).to(ConnectionTool);
-
+    bind(OP_TYPES.GLSPOperationService).to(OperationServiceImpl);
 });
 
 export default paletteModule;
