@@ -16,8 +16,10 @@ import {
 import { DiagramWidget } from './diagram-widget'
 import { DiagramManagerImpl } from './diagram-manager'
 import { injectable, inject } from 'inversify'
-import { MAIN_MENU_BAR, MenuContribution, MenuModelRegistry, CommandContribution,
-         CommandHandler, CommandRegistry, MenuPath } from '@theia/core/lib/common'
+import {
+    MAIN_MENU_BAR, MenuContribution, MenuModelRegistry, CommandContribution,
+    CommandHandler, CommandRegistry, MenuPath
+} from '@theia/core/lib/common'
 import { ApplicationShell, OpenerService, CommonCommands } from '@theia/core/lib/browser'
 import { EDITOR_CONTEXT_MENU, EditorManager } from "@theia/editor/lib/browser"
 
@@ -31,6 +33,7 @@ export namespace DiagramCommands {
 
 export namespace DiagramMenus {
     export const DIAGRAM: MenuPath = MAIN_MENU_BAR.concat("3_diagram")
+    export const TEST: MenuPath = DIAGRAM.concat("1_test");
 }
 
 @injectable()
@@ -48,16 +51,16 @@ export class DiagramMenuContribution implements MenuContribution {
         registry.registerMenuAction(DiagramMenus.DIAGRAM, {
             commandId: DiagramCommands.EXPORT
         }),
-        registry.registerMenuAction(EDITOR_CONTEXT_MENU, {
-            commandId: DiagramCommands.OPEN_IN_DIAGRAM
-        })
+            registry.registerMenuAction(EDITOR_CONTEXT_MENU, {
+                commandId: DiagramCommands.OPEN_IN_DIAGRAM
+            })
     }
 }
 
 export class DiagramCommandHandler implements CommandHandler {
 
     constructor(protected readonly shell: ApplicationShell,
-                protected readonly doExecute: (diagram: DiagramWidget) => any) {
+        protected readonly doExecute: (diagram: DiagramWidget) => any) {
     }
 
     execute(...args: any[]) {
@@ -74,7 +77,7 @@ export class DiagramCommandHandler implements CommandHandler {
 export class OpenInDiagramHandler implements CommandHandler {
 
     constructor(protected readonly editorManager: EditorManager,
-                protected readonly openerService: OpenerService) {
+        protected readonly openerService: OpenerService) {
     }
 
     execute(...args: any[]) {
@@ -94,8 +97,8 @@ export class OpenInDiagramHandler implements CommandHandler {
 @injectable()
 export class DiagramCommandContribution implements CommandContribution {
     constructor(@inject(ApplicationShell) protected readonly shell: ApplicationShell,
-                @inject(EditorManager) protected readonly editorManager: EditorManager,
-                @inject(OpenerService) protected readonly openerService: OpenerService) {
+        @inject(EditorManager) protected readonly editorManager: EditorManager,
+        @inject(OpenerService) protected readonly openerService: OpenerService) {
     }
 
     registerCommands(registry: CommandRegistry): void {

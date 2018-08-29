@@ -7,10 +7,10 @@ export * from './features/palette/connection-tool'
 
 export * from './lib/model'
 
-export * from './features/tool/set-tools'
-export * from './features/tool/execute-tool'
+export * from './features/operation/set-operations'
+export * from './features/operation/execute-tool'
 
-export * from './utils/tool'
+export * from './utils/operation'
 import saveModule from './features/save/di.config'
 import paletteModule from './features/palette/di.config'
 import moveToolModule from './features/tool/di.config'

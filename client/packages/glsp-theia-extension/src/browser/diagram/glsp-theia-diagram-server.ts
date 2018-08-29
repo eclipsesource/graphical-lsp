@@ -15,6 +15,7 @@ import { MenuModelRegistry, CommandRegistry, SelectionService, Command } from "@
 import { UriCommandHandler, UriAwareCommandHandler } from "@theia/core/lib/common/uri-command-handler";
 import URI from "@theia/core/lib/common/uri";
 import { EDITOR_CONTEXT_MENU } from "@theia/editor/lib/browser";
+import { ActionMessage, ActionHandlerRegistry, SaveModelAction, TYPES, IActionDispatcher, ViewerOptions, SModelStorage, ILogger, Action, ExecuteNodeCreationToolAction, ExecuteToolAction, alignFeature, CreateConnectionAction, SetOperationsCommand, RequestOperationsAction } from "glsp-sprotty/lib";
 
 
 
@@ -29,18 +30,15 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer {
         @inject(TYPES.ViewerOptions) viewerOptions: ViewerOptions,
         @inject(TYPES.SModelStorage) storage: SModelStorage,
         @inject(TYPES.ILogger) logger: ILogger
-        // @inject(MenuModelRegistry) private readonly menuRegistry: MenuModelRegistry
-        // @inject(CommandRegistry) private readonly commandRegistry: CommandRegistry,
-        // @inject(SelectionService) protected readonly selectionService: SelectionService,
     ) {
         super(actionDispatcher, actionHandlerRegistry, viewerOptions, storage, logger)
     }
     initialize(registry: ActionHandlerRegistry): void {
         super.initialize(registry);
         //register commads
-        registry.registerCommand(SetToolsCommand)
+        registry.registerCommand(SetOperationsCommand)
         // register actions
-        registry.register(RequestToolsAction.KIND, this)
+        registry.register(RequestOperationsAction.KIND, this)
         registry.register(SaveModelAction.KIND, this)
         registry.register(ExecuteNodeCreationToolAction.KIND, this)
         registry.register(CreateConnectionAction.KIND, this)

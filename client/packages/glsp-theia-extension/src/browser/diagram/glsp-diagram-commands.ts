@@ -49,6 +49,7 @@ export class GLSPDiagramCommandContribution implements CommandContribution {
             }))
         registry.registerHandler(GLSPDiagramCommands.SAVE_MODEL, new DiagramCommandHandler(this.shell, widget => {
             widget.actionDispatcher.dispatch(new SaveModelAction())
+            
         }))
     }
 
