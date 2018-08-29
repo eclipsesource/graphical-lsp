@@ -17,8 +17,9 @@ import { WorkflowDiagramManager } from "./diagram/workflow-diagram-manager.";
 import { WorkflowLanguage } from "../common/workflow-language";
 import { FrontendApplicationContribution, OpenHandler } from "@theia/core/lib/browser";
 import { ThemeManager } from "./diagram/thememanager";
-import { GraphicalLanguageClientContribution, GLSPPaletteContribution, OperationService } from "glsp-theia-extension/lib/browser";
+import { GraphicalLanguageClientContribution, GLSPPaletteContribution } from "glsp-theia-extension/lib/browser";
 import { MenuContribution, CommandContribution } from "@theia/core";
+import { OP_TYPES, OperationService } from "glsp-sprotty/lib";
 
 export default new ContainerModule((bind: interfaces.Bind, unbind: interfaces.Unbind, isBound: interfaces.IsBound, rebind: interfaces.Rebind) => {
     bind(WorkflowGLClientContribution).toSelf().inSingletonScope()
@@ -38,7 +39,6 @@ export default new ContainerModule((bind: interfaces.Bind, unbind: interfaces.Un
         context.container.get(WorkflowDiagramManager))
     bind(OpenHandler).toDynamicValue(context => context.container.get(WorkflowDiagramManager))
     bind(ThemeManager).toSelf().inSingletonScope()
-    bind(OperationService).toSelf().inSingletonScope()
     bind(GLSPPaletteContribution).toSelf().inSingletonScope()
     bind(MenuContribution).toDynamicValue(ctx => ctx.container.get(GLSPPaletteContribution)).inSingletonScope()
     bind(CommandContribution).toDynamicValue(ctx => ctx.container.get(GLSPPaletteContribution)).inSingletonScope()

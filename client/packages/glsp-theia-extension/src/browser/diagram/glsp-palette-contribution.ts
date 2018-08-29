@@ -6,6 +6,7 @@ import { GLSPTheiaDiagramServer } from "glsp-theia-extension/src/browser/diagram
 import { TheiaSprottyConnector, TheiaDiagramServer } from "theia-glsp/lib";
 import { Menu } from "@phosphor/widgets";
 import { EditorManager } from "@theia/editor/lib/browser";
+import { OperationService, OP_TYPES } from "glsp-sprotty/lib";
 
 
 export namespace DiagramMenus {
@@ -23,34 +24,13 @@ export namespace PaletteCommands {
     export const DELETE_WEIGHTED_EDGE = { id: "delete:weighted:edge", label: "Weighted Edge" }
 
 }
-@injectable()
-export class OperationService {
-
-    private currentCommands: { [id: string]: Operation; } = {};
-    private previouslySelectedOperations: { [id: string]: Operation; } = {};
-
-    public setCurrentOperation(id: string, operation: Operation) {
-
-        this.previouslySelectedOperations[id] = this.currentCommands[id]
-        this.currentCommands[id] = operation
-
-    }
-
-    public getCurrentOperation(id: string): Operation | undefined {
-        return this.currentCommands[id]
-    }
-
-
-    public getPreviouslySelectedOperation(id: string): Operation | undefined {
-        return this.previouslySelectedOperations[id]
-    }
-}
 
 
 @injectable()
 export class GLSPPaletteContribution implements MenuContribution, CommandContribution {
 
-    @inject(OperationService) private readonly operationService: OperationService
+    @inject(OP_TYPES.GLSPOperationService)
+    private readonly operationService: OperationService
     private commandCounter: number = 0
     private diagramServer: GLSPTheiaDiagramServer;
 
