@@ -16,8 +16,7 @@ import { DiagramWidgetRegistry } from "./diagram-widget-registry"
 import { Emitter, Event, SelectionService } from '@theia/core/lib/common'
 import { TYPES, ModelSource, IActionDispatcher, DiagramServer } from 'sprotty/lib'
 import { EditorManager } from '@theia/editor/lib/browser';
-import { ServiceRegistry } from './diagram-serviceregistry';
-import { OP_TYPES } from 'glsp-sprotty/lib'
+import { OP_TYPES, OperationService } from 'glsp-sprotty/lib'
 export const DiagramManagerProvider = Symbol('DiagramManagerProvider')
 
 export type DiagramManagerProvider = () => Promise<DiagramManager>
@@ -35,7 +34,7 @@ export abstract class DiagramManagerImpl implements DiagramManager {
     @inject(SelectionService) protected readonly selectionService: SelectionService
     @inject(DiagramConfigurationRegistry) protected diagramConfigurationRegistry: DiagramConfigurationRegistry
     @inject(EditorManager) protected editorManager: EditorManager
-    @inject(ServiceRegistry) protected serviceRegistry: ServiceRegistry
+    @inject(OP_TYPES.OperationService) protected operationService: OperationService
     protected readonly onDiagramOpenedEmitter = new Emitter<URI>()
 
     abstract get diagramType(): string
@@ -78,8 +77,7 @@ export abstract class DiagramManagerImpl implements DiagramManager {
         const svgContainerId = widgetId + '_sprotty'
         const diagramConfiguration = this.diagramConfigurationRegistry.get(this.diagramType)
         const diContainer = diagramConfiguration.createContainer(svgContainerId)
-        const operationService = diContainer.get(OP_TYPES.OperationService)
-        this.serviceRegistry.registerService(OP_TYPES.OperationService, operationService)
+        diContainer.rebind<OperationService>(OP_TYPES.OperationService).toConstantValue(this.operationService)
         const modelSource = diContainer.get<ModelSource>(TYPES.ModelSource)
         if (modelSource instanceof DiagramServer)
             modelSource.clientId = widgetId

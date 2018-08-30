@@ -16,4 +16,4 @@ export * from './sprotty/theia-diagram-server'
 export * from './sprotty/theia-file-saver'
 export * from './sprotty/theia-key-tool'
 export * from './sprotty/theia-sprotty-connector'
-export * from './theia/diagram-serviceregistry'
+
