@@ -13,6 +13,7 @@ import { DiagramCommandContribution, DiagramMenuContribution } from './diagram-c
 import { CommandContribution, MenuContribution } from '@theia/core/lib/common'
 import { DiagramKeybindingContext, DiagramKeybindingContribution } from './diagram-keybinding'
 import { KeybindingContext, KeybindingContribution } from '@theia/core/lib/browser';
+import { ServiceRegistry } from './diagram-serviceregistry';
 
 export default new ContainerModule(bind => {
     bind(DiagramWidgetRegistry).toSelf().inSingletonScope()
@@ -23,4 +24,5 @@ export default new ContainerModule(bind => {
     bind(DiagramKeybindingContext).toSelf().inSingletonScope()
     bind(KeybindingContext).to(DiagramKeybindingContext).inSingletonScope()
     bind(KeybindingContribution).to(DiagramKeybindingContribution).inSingletonScope()
+    bind(ServiceRegistry).toSelf().inSingletonScope();
 })

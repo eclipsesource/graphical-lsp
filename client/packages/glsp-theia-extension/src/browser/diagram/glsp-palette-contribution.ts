@@ -3,7 +3,7 @@ import { MenuModelRegistry, CommandRegistry, MAIN_MENU_BAR, MenuPath, MenuContri
 import { Operation, OperationKind } from "glsp-sprotty/lib";
 import { Disposable } from "vscode-jsonrpc";
 import { GLSPTheiaDiagramServer } from "glsp-theia-extension/src/browser/diagram/glsp-theia-diagram-server";
-import { TheiaSprottyConnector, TheiaDiagramServer } from "theia-glsp/lib";
+import { TheiaSprottyConnector, ServiceRegistry } from "theia-glsp/lib";
 import { Menu } from "@phosphor/widgets";
 import { EditorManager } from "@theia/editor/lib/browser";
 import { OperationService, OP_TYPES } from "glsp-sprotty/lib";
@@ -28,16 +28,19 @@ export namespace PaletteCommands {
 
 @injectable()
 export class GLSPPaletteContribution implements MenuContribution, CommandContribution {
+    @inject(ServiceRegistry) private serviceRegistry: ServiceRegistry
 
-    @inject(OP_TYPES.GLSPOperationService)
-    private readonly operationService: OperationService
     private commandCounter: number = 0
     private diagramServer: GLSPTheiaDiagramServer;
-
+    private operationService: OperationService
 
 
     register(diagramServer: GLSPTheiaDiagramServer): any {
         this.diagramServer = diagramServer
+        if (!this.operationService) {
+            const service = this.serviceRegistry.getService(OP_TYPES.GLSPOperationService)
+            if (service) this.operationService = service as OperationService
+        }
 
     }
 

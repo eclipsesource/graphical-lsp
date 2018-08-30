@@ -36,5 +36,5 @@ export default new ContainerModule(bind => {
 
     bind(CommandContribution).to(GLSPDiagramCommandContribution).inSingletonScope()
     bind(MenuContribution).to(GLSPDiagramMenuContribution)
-    bind<OperationService>(OP_TYPES.GLSPOperationService).to(OperationServiceImpl);
+   
 });
