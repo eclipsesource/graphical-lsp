@@ -9,14 +9,15 @@ import { TheiaDiagramServer } from '../sprotty/theia-diagram-server';
 import { TheiaSprottyConnector } from '../sprotty/theia-sprotty-connector'
 import { DiagramConfigurationRegistry } from './diagram-configuration'
 import { injectable, inject } from "inversify"
-import { OpenerOptions, OpenHandler, FrontendApplicationContribution, ApplicationShell } from "@theia/core/lib/browser"
+import { OpenerOptions, OpenHandler, FrontendApplicationContribution, ApplicationShell, OpenerService } from "@theia/core/lib/browser"
 import URI from "@theia/core/lib/common/uri"
 import { DiagramWidget, DiagramWidgetFactory } from "./diagram-widget"
 import { DiagramWidgetRegistry } from "./diagram-widget-registry"
 import { Emitter, Event, SelectionService } from '@theia/core/lib/common'
 import { TYPES, ModelSource, IActionDispatcher, DiagramServer } from 'sprotty/lib'
 import { EditorManager } from '@theia/editor/lib/browser';
-
+import { ServiceRegistry } from './diagram-serviceregistry';
+import { OP_TYPES } from 'glsp-sprotty/lib'
 export const DiagramManagerProvider = Symbol('DiagramManagerProvider')
 
 export type DiagramManagerProvider = () => Promise<DiagramManager>
@@ -34,7 +35,7 @@ export abstract class DiagramManagerImpl implements DiagramManager {
     @inject(SelectionService) protected readonly selectionService: SelectionService
     @inject(DiagramConfigurationRegistry) protected diagramConfigurationRegistry: DiagramConfigurationRegistry
     @inject(EditorManager) protected editorManager: EditorManager
-
+    @inject(ServiceRegistry) protected serviceRegistry: ServiceRegistry
     protected readonly onDiagramOpenedEmitter = new Emitter<URI>()
 
     abstract get diagramType(): string
@@ -77,6 +78,8 @@ export abstract class DiagramManagerImpl implements DiagramManager {
         const svgContainerId = widgetId + '_sprotty'
         const diagramConfiguration = this.diagramConfigurationRegistry.get(this.diagramType)
         const diContainer = diagramConfiguration.createContainer(svgContainerId)
+        const operationService = diContainer.get(OP_TYPES.GLSPOperationService)
+        this.serviceRegistry.registerService(OP_TYPES.GLSPOperationService, operationService)
         const modelSource = diContainer.get<ModelSource>(TYPES.ModelSource)
         if (modelSource instanceof DiagramServer)
             modelSource.clientId = widgetId
@@ -95,6 +98,8 @@ export abstract class DiagramManagerImpl implements DiagramManager {
             if (modelSource instanceof TheiaDiagramServer && this.diagramConnector)
                 this.diagramConnector.disconnect(modelSource)
         })
+
+
         return newWidget
     }
 
@@ -114,7 +119,7 @@ export abstract class DiagramManagerImpl implements DiagramManager {
         return options => new DiagramWidget(options)
     }
 
-    get diagramConnector(): TheiaSprottyConnector | undefined {
+    get diagramConnector(): TheiaSprottyConnector | undefined {
         return undefined
     }
 }

@@ -12,7 +12,7 @@ import { OP_TYPES, OperationServiceImpl } from "./operation-service";
 
 const paletteModule = new ContainerModule(bind => {
     bind(TYPES.MouseListener).to(ConnectionTool);
-    bind(OP_TYPES.GLSPOperationService).to(OperationServiceImpl);
+    bind(OP_TYPES.GLSPOperationService).to(OperationServiceImpl).inSingletonScope();
 });
 
 export default paletteModule;
