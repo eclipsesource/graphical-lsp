@@ -7,18 +7,18 @@ import at.tortmayr.glsp.api.action.kind.CreateConnectionOperationAction;
 import at.tortmayr.glsp.api.factory.GraphicalModelState;
 import at.tortmayr.glsp.api.operations.OperationHandler;
 import at.tortmayr.glsp.api.utils.SModelIndex;
-import at.tortmayr.glsp.example.workflow.schema.WeightedEdge;
+import io.typefox.sprotty.api.SEdge;
 import io.typefox.sprotty.api.SModelElement;
 import io.typefox.sprotty.api.SModelRoot;
 import io.typefox.sprotty.api.SNode;
 
-public class CreateWeightedEdgeHandler implements OperationHandler {
+public class CreateEdgeHandler implements OperationHandler {
 
 	@Override
 	public boolean handles(ExecuteOperationAction execAction) {
 		if (execAction instanceof CreateConnectionOperationAction) {
 			CreateConnectionOperationAction action = (CreateConnectionOperationAction) execAction;
-			return WorkflowOperationConfiguration.WEIGHTED_EDGE_ID.equals(action.getElementTypeId());
+			return WorkflowOperationConfiguration.EDGE_ID.equals(action.getElementTypeId());
 		}
 		return false;
 	}
@@ -55,13 +55,16 @@ public class CreateWeightedEdgeHandler implements OperationHandler {
 			return Optional.empty();
 		}
 
-		WeightedEdge edge = new WeightedEdge();
+		SEdge edge = new SEdge();
 		edge.setSourceId(source.getId());
 		edge.setTargetId(target.getId());
-		edge.setType("edge:weighted");
-		int newID = index.getTypeCount("edge:weighted");
-		edge.setId("edge:weighted" + newID);
-		edge.setProbability("high");
+		String type = "edge";
+		edge.setType(type);
+		int newID = index.getTypeCount(type);
+		while (index.get(type + newID) != null) {
+			newID++;
+		}
+		edge.setId(type + newID);
 
 		currentModel.getChildren().add(edge);
 		index.addToIndex(edge, currentModel);

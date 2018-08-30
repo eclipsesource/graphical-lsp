@@ -19,6 +19,7 @@ public class WorkflowOperationConfiguration implements OperationConfiguration {
 	public static final String AUTOMATED_TASK_ID = "wf-automated-task";
 	public static final String MANUAL_TASK_ID = "wf-manual-task";
 	public static final String WEIGHTED_EDGE_ID = "wf-weighted-edge";
+	public static final String EDGE_ID = "wf-edge";
 
 	@Override
 	public Operation[] getOperations(RequestOperationsAction action) {
@@ -26,10 +27,10 @@ public class WorkflowOperationConfiguration implements OperationConfiguration {
 		Operation createAutomatedTask= new Operation("Automated Task", AUTOMATED_TASK_ID, OperationKind.CREATE_NODE);
 		Operation createManualTask= new Operation("Manual Task", MANUAL_TASK_ID, OperationKind.CREATE_NODE);
 		Operation createWeightedEdge= new Operation("Weighted Edge", WEIGHTED_EDGE_ID, OperationKind.CREATE_CONNECTION);
-		
+		Operation createEdge = new Operation("Edge", EDGE_ID, OperationKind.CREATE_CONNECTION);
 		Operation deleteElement= new Operation("Delete element", null, OperationKind.DELETE_ELEMENT);
 		
-		Operation[] operations = { createAutomatedTask,createManualTask,createWeightedEdge,deleteElement};
+		Operation[] operations = { createAutomatedTask,createManualTask,createWeightedEdge,deleteElement,createEdge};
 		return operations;
 	}
 

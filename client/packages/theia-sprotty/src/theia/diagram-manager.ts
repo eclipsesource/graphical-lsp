@@ -78,8 +78,8 @@ export abstract class DiagramManagerImpl implements DiagramManager {
         const svgContainerId = widgetId + '_sprotty'
         const diagramConfiguration = this.diagramConfigurationRegistry.get(this.diagramType)
         const diContainer = diagramConfiguration.createContainer(svgContainerId)
-        const operationService = diContainer.get(OP_TYPES.GLSPOperationService)
-        this.serviceRegistry.registerService(OP_TYPES.GLSPOperationService, operationService)
+        const operationService = diContainer.get(OP_TYPES.OperationService)
+        this.serviceRegistry.registerService(OP_TYPES.OperationService, operationService)
         const modelSource = diContainer.get<ModelSource>(TYPES.ModelSource)
         if (modelSource instanceof DiagramServer)
             modelSource.clientId = widgetId

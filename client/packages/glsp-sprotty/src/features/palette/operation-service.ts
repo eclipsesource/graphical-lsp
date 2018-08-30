@@ -15,7 +15,7 @@ export class OperationServiceImpl implements OperationService {
     private previouslySelectedOperations: { [id: string]: Operation; } = {};
 
     public setCurrentOperation(id: string, operation: Operation) {
-
+        operation.isActive = true;
         this.previouslySelectedOperations[id] = this.currentCommands[id]
         this.currentCommands[id] = operation
 
@@ -34,5 +34,5 @@ export class OperationServiceImpl implements OperationService {
 }
 
 export const OP_TYPES = {
-    GLSPOperationService: Symbol.for("OperationService")
+    OperationService: Symbol.for("OperationService")
 }

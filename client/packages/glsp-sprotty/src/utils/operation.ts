@@ -24,4 +24,6 @@ export interface Operation {
 
     readonly operationKind: string;
 
+    isActive?: boolean;
+
 }

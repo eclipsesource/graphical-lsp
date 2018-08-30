@@ -39,7 +39,7 @@ export class GLSPPaletteContribution implements MenuContribution, CommandContrib
     register(diagramServer: GLSPTheiaDiagramServer): any {
         this.diagramServer = diagramServer
         if (!this.operationService) {
-            const service = this.serviceRegistry.getService(OP_TYPES.GLSPOperationService)
+            const service = this.serviceRegistry.getService(OP_TYPES.OperationService)
             if (service) this.operationService = service as OperationService
         }
 
