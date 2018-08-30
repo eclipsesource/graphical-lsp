@@ -16,14 +16,20 @@ import at.tortmayr.glsp.api.operations.OperationConfiguration;
 import at.tortmayr.glsp.api.operations.OperationKind;
 
 public class WorkflowOperationConfiguration implements OperationConfiguration {
-
-	public static final String AUTOMATED_TASK_ID = "wf-automated-task-tool";
-	public static final String MANUAL_TASK_ID = "wf-manual-task-tool";
-	public static final String WEIGHTED_EDGE_ID = "wf-weighted-edge-tool";
+	public static final String AUTOMATED_TASK_ID = "wf-automated-task";
+	public static final String MANUAL_TASK_ID = "wf-manual-task";
+	public static final String WEIGHTED_EDGE_ID = "wf-weighted-edge";
 
 	@Override
 	public Operation[] getOperations(RequestOperationsAction action) {
-		Operation[] operations = { new Operation("New automated task", AUTOMATED_TASK_ID, OperationKind.CREATE_NODE) };
+		
+		Operation createAutomatedTask= new Operation("Automated Task", AUTOMATED_TASK_ID, OperationKind.CREATE_NODE);
+		Operation createManualTask= new Operation("Manual Task", MANUAL_TASK_ID, OperationKind.CREATE_NODE);
+		Operation createWeightedEdge= new Operation("Weighted Edge", WEIGHTED_EDGE_ID, OperationKind.CREATE_CONNECTION);
+		
+		Operation deleteElement= new Operation("Delete element", null, OperationKind.DELETE_ELEMENT);
+		
+		Operation[] operations = { createAutomatedTask,createManualTask,createWeightedEdge,deleteElement};
 		return operations;
 	}
 

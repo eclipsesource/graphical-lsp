@@ -18,7 +18,7 @@ export namespace OperationKind {
 }
 export interface Operation {
 
-    readonly elementTypeId: string;
+    readonly elementTypeId?: string;
 
     readonly label: string;
 

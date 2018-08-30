@@ -10,18 +10,19 @@ import { OperationService, OP_TYPES } from "glsp-sprotty/lib";
 
 
 export namespace DiagramMenus {
-    export const PALETTE: MenuPath = MAIN_MENU_BAR.concat("4_glsp_palette")
+    export const PALETTE: MenuPath = MAIN_MENU_BAR.concat("3_glsp_palette")
     export const CREATE_NODE: MenuPath = PALETTE.concat("1_create_node");
     export const CREATE_CONNECTION: MenuPath = PALETTE.concat("2_create_connection");
-    export const DELETE_ELEMENT: MenuPath = PALETTE.concat("3_delete_element");
 
 }
 
 export namespace PaletteCommands {
     export const CREATE_AUTOMATED_TASK = { id: "create:automated:task", label: "Automated Task" }
-    export const DELETE_AUTOMATED_TASK = { id: "delete:automated:task", label: "Automated Task" }
+    export const CREATE_MANUAL_TASK = { id: "create:manual:task", label: "Manual Task" }
+    export const DELETE_ELEMENT = { id: "delete:automated:task", label: "Delete Element" }
+    export const CREATE_EDGE = { id: "create:edge", label: "Edge" }
     export const CREATE_WEIGHTED_EDGE = { id: "create:weighted:edge", label: "Weighted Edge" }
-    export const DELETE_WEIGHTED_EDGE = { id: "delete:weighted:edge", label: "Weighted Edge" }
+
 
 }
 
@@ -46,66 +47,36 @@ export class GLSPPaletteContribution implements MenuContribution, CommandContrib
 
     registerMenus(menus: MenuModelRegistry): void {
         menus.registerSubmenu(DiagramMenus.PALETTE, "Palette")
-        menus.registerSubmenu(DiagramMenus.CREATE_NODE, "Create node")
-        menus.registerSubmenu(DiagramMenus.CREATE_CONNECTION, "Create element")
-        menus.registerSubmenu(DiagramMenus.DELETE_ELEMENT, "Delete")
+        menus.registerSubmenu(DiagramMenus.CREATE_NODE, "Create Node")
+        menus.registerSubmenu(DiagramMenus.CREATE_CONNECTION, "Create Connection")
 
-        menus.registerMenuAction(DiagramMenus.CREATE_NODE, { commandId: PaletteCommands.CREATE_AUTOMATED_TASK.id, label: "Create automated task" })
-        menus.registerMenuAction(DiagramMenus.DELETE_ELEMENT, { commandId: PaletteCommands.DELETE_AUTOMATED_TASK.id, label: "Delete automated task" })
-        menus.registerMenuAction(DiagramMenus.CREATE_CONNECTION, { commandId: PaletteCommands.CREATE_WEIGHTED_EDGE.id, label: "Create weighted edge" })
-        menus.registerMenuAction(DiagramMenus.DELETE_ELEMENT, { commandId: PaletteCommands.DELETE_WEIGHTED_EDGE.id, label: "Delete weighted edge" })
+        menus.registerMenuAction(DiagramMenus.PALETTE, { commandId: PaletteCommands.DELETE_ELEMENT.id, label: "Delete Element" })
+
+        menus.registerMenuAction(DiagramMenus.CREATE_NODE, { commandId: PaletteCommands.CREATE_AUTOMATED_TASK.id, label: "Automated Task" })
+        menus.registerMenuAction(DiagramMenus.CREATE_NODE, { commandId: PaletteCommands.CREATE_MANUAL_TASK.id, label: "Manual Task" })
+        menus.registerMenuAction(DiagramMenus.CREATE_CONNECTION, { commandId: PaletteCommands.CREATE_WEIGHTED_EDGE.id, label: "Weighted Edge" })
+        menus.registerMenuAction(DiagramMenus.CREATE_CONNECTION, { commandId: PaletteCommands.CREATE_EDGE.id, label: "Edge" })
     }
 
     registerCommands(commands: CommandRegistry): void {
         commands.registerCommand(PaletteCommands.CREATE_AUTOMATED_TASK)
         commands.registerCommand(PaletteCommands.CREATE_WEIGHTED_EDGE)
-        commands.registerCommand(PaletteCommands.DELETE_AUTOMATED_TASK)
-        commands.registerCommand(PaletteCommands.DELETE_WEIGHTED_EDGE)
-        let createTask = { elementTypeId: "node:task", operationKind: OperationKind.CREATE_NODE, label: PaletteCommands.CREATE_AUTOMATED_TASK.label }
-        commands.registerHandler(PaletteCommands.CREATE_AUTOMATED_TASK.id, { execute: () => this.operationService.setCurrentOperation(this.diagramServer.clientId, createTask) })
-        let deleteTask = { elementTypeId: "node:task", operationKind: OperationKind.DELETE_ELEMENT, label: PaletteCommands.DELETE_AUTOMATED_TASK.label }
-        commands.registerHandler(PaletteCommands.DELETE_AUTOMATED_TASK.id, { execute: () => this.operationService.setCurrentOperation(this.diagramServer.clientId, deleteTask) })
-        let createConnection = { elementTypeId: "weighted:edge", operationKind: OperationKind.CREATE_CONNECTION, label: PaletteCommands.CREATE_WEIGHTED_EDGE.label }
-        commands.registerHandler(PaletteCommands.CREATE_WEIGHTED_EDGE.id, { execute: () => this.operationService.setCurrentOperation(this.diagramServer.clientId, createConnection) })
-        let deleteConnection = { elementTypeId: "weighted:edge", operationKind: OperationKind.DELETE_ELEMENT, label: PaletteCommands.DELETE_WEIGHTED_EDGE.label }
-        commands.registerHandler(PaletteCommands.DELETE_WEIGHTED_EDGE.id, { execute: () => this.operationService.setCurrentOperation(this.diagramServer.clientId, deleteConnection) })
+        commands.registerCommand(PaletteCommands.CREATE_MANUAL_TASK)
+        commands.registerCommand(PaletteCommands.CREATE_EDGE)
+        commands.registerCommand(PaletteCommands.DELETE_ELEMENT)
+
+        let createManualTask = { elementTypeId: "wf-manual-task", operationKind: OperationKind.CREATE_NODE, label: PaletteCommands.CREATE_MANUAL_TASK.label }
+        commands.registerHandler(PaletteCommands.CREATE_MANUAL_TASK.id, { execute: () => this.operationService.setCurrentOperation(this.diagramServer.clientId, createAutomatedTask) })
+
+        let createAutomatedTask = { elementTypeId: "wf-automated-task", operationKind: OperationKind.CREATE_NODE, label: PaletteCommands.CREATE_AUTOMATED_TASK.label }
+        commands.registerHandler(PaletteCommands.CREATE_AUTOMATED_TASK.id, { execute: () => this.operationService.setCurrentOperation(this.diagramServer.clientId, createManualTask) })
+        let deleteElement = { operationKind: OperationKind.DELETE_ELEMENT, label: PaletteCommands.DELETE_ELEMENT.label }
+        commands.registerHandler(PaletteCommands.DELETE_ELEMENT.id, { execute: () => this.operationService.setCurrentOperation(this.diagramServer.clientId, deleteElement) })
+        let createWeightedEdge = { elementTypeId: "wf-weighted-edge", operationKind: OperationKind.CREATE_CONNECTION, label: PaletteCommands.CREATE_WEIGHTED_EDGE.label }
+        commands.registerHandler(PaletteCommands.CREATE_WEIGHTED_EDGE.id, { execute: () => this.operationService.setCurrentOperation(this.diagramServer.clientId, createWeightedEdge) })
+        let createEdge = { elementTypeId: "wf-edge", operationKind: OperationKind.CREATE_CONNECTION, label: PaletteCommands.CREATE_EDGE.label }
+        commands.registerHandler(PaletteCommands.CREATE_EDGE.id, { execute: () => this.operationService.setCurrentOperation(this.diagramServer.clientId, createEdge) })
     }
-
-
-
-
-    // public createTools(operations: Operation[]): void {
-    //     operations.forEach(op => {
-    //         let menu = this.findCorrespondingSubMenu(op.operationKind)
-    //         this.commandCounter++
-    //         let command = { id: 'paletteCommand' + this.commandCounter, label: op.label }
-
-    //         this.commandRegistry.registerCommand(command, { execute: () => { }, isVisible: () => true, isEnabled: () => true })
-    //         if (menu) {
-    //             this.menus.registerMenuAction(menu.concat(this.commandCounter + '_entry'), { commandId: command.id, label: command.label })
-    //             this.commandCounter++;
-    //             this.menus.registerMenuAction(menu.concat(this.commandCounter + '_entry'), { commandId: command.id, label: command.label })
-    //             this.commandCounter++;
-    //             this.menus.registerMenuAction(menu.concat(this.commandCounter + '_entry'), { commandId: command.id, label: command.label })
-    //         }
-    //     });
-
-    // }
-
-    private findCorrespondingSubMenu(operationKind: string): MenuPath | undefined {
-        switch (operationKind) {
-            case OperationKind.CREATE_CONNECTION:
-                return DiagramMenus.CREATE_CONNECTION
-            case OperationKind.CREATE_NODE:
-                return DiagramMenus.CREATE_NODE
-            case OperationKind.DELETE_ELEMENT:
-                return DiagramMenus.DELETE_ELEMENT
-            default:
-                return undefined
-
-        }
-    }
-
 
 
 }
