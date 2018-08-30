@@ -4,7 +4,10 @@ export * from 'sprotty/lib';
 export * from './features/save/model'
 export * from './features/save/save'
 export * from './features/palette/connection-tool'
+export * from './features/palette/creation-tool'
+export * from './features/palette/delete-tool'
 export * from './features/palette/operation-service'
+export * from './features/tool/move-tool'
 
 export * from './lib/model'
 

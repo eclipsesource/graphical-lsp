@@ -11,7 +11,6 @@ import { ExecuteNodeCreationToolAction } from "../tool/execute-tool";
 @injectable()
 export class CreationTool extends MouseListener {
 
-    private target: string;
     private location: Point;
     private container: SModelElement;
 
@@ -23,7 +22,8 @@ export class CreationTool extends MouseListener {
         if (!operation.elementTypeId) {
             return undefined;
         }
-        return new ExecuteNodeCreationToolAction(operation.elementTypeId, this.location)
+        const containerId: string | undefined = this.container instanceof SModelRoot ? undefined : this.container.id;
+        return new ExecuteNodeCreationToolAction(operation.elementTypeId, this.location, containerId)
     }
 
     mouseUp(target: SModelElement, event: MouseEvent): Action[] {
