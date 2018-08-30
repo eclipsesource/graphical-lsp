@@ -8,7 +8,7 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { RectangularNode, SEdge, LayoutContainer, SShapeElement, Bounds, boundsFeature, layoutContainerFeature, layoutableChildFeature, fadeFeature, Expandable, expandFeature, } from "sprotty/lib";
+import { RectangularNode, SEdge, LayoutContainer, SShapeElement, Bounds, boundsFeature, layoutContainerFeature, layoutableChildFeature, fadeFeature, Expandable, expandFeature, Point, SParentElement, } from "sprotty/lib";
 import { ActivityNodeSchema } from "./model-schema";
 
 export class TaskNode extends RectangularNode implements Expandable {
@@ -35,6 +35,32 @@ export class ActivityNode extends RectangularNode {
         width: 16,
         height: 16
     };
+
+    getTranslatedAnchor(refPoint: Point, refContainer: SParentElement, edge: SEdge, offset?: number): Point {
+        var rectangleAnchor = super.getTranslatedAnchor(refPoint, refContainer, edge, offset);
+        return this.rotate_point(this.position.x + this.size.width / 2, this.position.y + this.size.height / 2, 0.785398, rectangleAnchor);
+    }
+
+    rotate_point(cx: number, cy: number, angle: number, p: Point): Point {
+        const s = Math.sin(angle);
+        const c = Math.cos(angle);
+
+        // translate point back to origin:
+        var x = p.x;
+        var y = p.y;
+        x -= cx;
+        y -= cy;
+
+        // rotate point
+        const xnew = x * c - y * s;
+        const ynew = x * s + y * c;
+
+        // translate point back:
+        return {
+            x: xnew + cx,
+            y: ynew + cy
+        };
+    }
 
 }
 export class Icon extends SShapeElement implements LayoutContainer {
