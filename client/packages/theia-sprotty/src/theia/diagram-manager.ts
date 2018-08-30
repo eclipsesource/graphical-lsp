@@ -78,6 +78,7 @@ export abstract class DiagramManagerImpl implements DiagramManager {
         const diagramConfiguration = this.diagramConfigurationRegistry.get(this.diagramType)
         const diContainer = diagramConfiguration.createContainer(svgContainerId)
         diContainer.rebind<OperationService>(OP_TYPES.OperationService).toConstantValue(this.operationService)
+        diContainer.bind(SelectionService).toConstantValue(this.selectionService)
         const modelSource = diContainer.get<ModelSource>(TYPES.ModelSource)
         if (modelSource instanceof DiagramServer)
             modelSource.clientId = widgetId

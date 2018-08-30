@@ -42,6 +42,5 @@ export default new ContainerModule((bind: interfaces.Bind, unbind: interfaces.Un
     bind(GLSPPaletteContribution).toSelf().inSingletonScope()
     bind(MenuContribution).toDynamicValue(ctx => ctx.container.get(GLSPPaletteContribution)).inSingletonScope()
     bind(CommandContribution).toDynamicValue(ctx => ctx.container.get(GLSPPaletteContribution)).inSingletonScope()
-
 })
 
