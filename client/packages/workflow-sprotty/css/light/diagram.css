@@ -140,16 +140,22 @@ text {
     text-anchor: middle;
 }
 
-.sprotty-edge.weighted.low {
-    stroke: lightblue
+.sprotty-edge.weighted.low,
+.sprotty-edge.weighted.low .arrow {
+    stroke: lightblue;
+    fill: lightblue;
 }
 
-.sprotty-edge.weighted.medium {
-    stroke: blue
+.sprotty-edge.weighted.medium,
+.sprotty-edge.weighted.medium .arrow {
+    stroke: blue;
+    fill: blue;
 }
 
-.sprotty-edge.weighted.high {
-    stroke: darkblue
+.sprotty-edge.weighted.high,
+.sprotty-edge.weighted.high .arrow {
+    stroke: darkblue;
+    fill: darkblue;
 }
 
 .sprotty-node.activity-node {
