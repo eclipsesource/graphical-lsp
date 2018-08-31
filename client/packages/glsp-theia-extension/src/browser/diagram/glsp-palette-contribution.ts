@@ -1,10 +1,8 @@
-import { injectable, inject } from "inversify";
-import { MenuModelRegistry, CommandRegistry, MAIN_MENU_BAR, MenuPath, MenuContribution, CommandContribution, Command } from "@theia/core";
-import { Operation, OperationKind, OperationServiceImpl } from "glsp-sprotty/lib";
-import { Disposable } from "vscode-jsonrpc";
+import { CommandContribution, CommandRegistry, MAIN_MENU_BAR, MenuContribution, MenuModelRegistry, MenuPath } from "@theia/core";
+import { OperationKind, OperationService, OP_TYPES } from "glsp-sprotty/lib";
 import { GLSPTheiaDiagramServer } from "glsp-theia-extension/src/browser/diagram/glsp-theia-diagram-server";
+import { inject, injectable } from "inversify";
 
-import { OperationService, OP_TYPES } from "glsp-sprotty/lib";
 
 
 export namespace DiagramMenus {

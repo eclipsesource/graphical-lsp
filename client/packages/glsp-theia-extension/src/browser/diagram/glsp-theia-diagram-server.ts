@@ -8,9 +8,9 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { injectable, inject } from "inversify";
+import { ActionHandlerRegistry, ActionMessage, CreateConnectionAction, DeleteElementAction, ExecuteNodeCreationToolAction, IActionDispatcher, ILogger, MoveElementAction, RequestOperationsAction, SaveModelAction, SetOperationsCommand, SModelStorage, SwitchEditModeCommand, TYPES, ViewerOptions } from "glsp-sprotty/lib";
+import { inject, injectable } from "inversify";
 import { TheiaDiagramServer } from "theia-glsp/lib";
-import { ActionMessage, ActionHandlerRegistry, SaveModelAction, TYPES, IActionDispatcher, ViewerOptions, SModelStorage, ILogger, Action, ExecuteNodeCreationToolAction, ExecuteToolAction, alignFeature, CreateConnectionAction, MoveAction, MoveCommand, SetOperationsCommand, RequestOperationsAction, DeleteElementAction, MoveElementAction, SwitchEditModeAction, SwitchEditModeCommand } from "glsp-sprotty/lib";
 
 
 

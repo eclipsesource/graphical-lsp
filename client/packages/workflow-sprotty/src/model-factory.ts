@@ -8,9 +8,9 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { SGraphFactory, SModelElementSchema, SParentElement, SChildElement, getBasicType, getSubType } from "sprotty/lib";
-import { WeightedEdge, TaskNode, ActivityNode } from "./model";
-import { TaskNodeSchema, ActivityNodeSchema, WeightedEdgeSchema } from "./model-schema";
+import { getBasicType, getSubType, SChildElement, SGraphFactory, SModelElementSchema, SParentElement } from "sprotty/lib";
+import { ActivityNode, TaskNode, WeightedEdge } from "./model";
+import { ActivityNodeSchema, TaskNodeSchema, WeightedEdgeSchema } from "./model-schema";
 
 export class WorkflowModelFactory extends SGraphFactory {
     createElement(schema: SModelElementSchema, parent?: SParentElement): SChildElement {

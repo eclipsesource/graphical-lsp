@@ -8,10 +8,10 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { injectable, inject, named } from "inversify";
-import { FrontendApplicationContribution, FrontendApplication } from "@theia/core/lib/browser";
-import { GraphicalLanguageClientContribution } from "./graphical-langauge-client-contribution";
 import { ContributionProvider } from "@theia/core";
+import { FrontendApplication, FrontendApplicationContribution } from "@theia/core/lib/browser";
+import { inject, injectable, named } from "inversify";
+import { GraphicalLanguageClientContribution } from "./graphical-langauge-client-contribution";
 
 @injectable()
 export class GraphicalLanguagesFrontendContribution implements FrontendApplicationContribution {

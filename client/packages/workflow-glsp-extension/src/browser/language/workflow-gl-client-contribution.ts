@@ -8,8 +8,8 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
+import { BaseGraphicalLanguageClientContribution } from "glsp-theia-extension/lib/browser";
 import { injectable } from "inversify";
-import { BaseGraphicalLanguageClientContribution } from "glsp-theia-extension/lib/browser"
 import { WorkflowLanguage } from "../../common/workflow-language";
 @injectable()
 export class WorkflowGLClientContribution extends BaseGraphicalLanguageClientContribution {

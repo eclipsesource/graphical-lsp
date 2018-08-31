@@ -8,14 +8,14 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { TheiaSprottyConnector, TheiaDiagramServer, OpenInTextEditorMessage, TheiaFileSaver, DiagramWidgetRegistry } from "theia-glsp/lib";
-import { ExportSvgAction, ServerStatusAction, ActionMessage, SetOperationsAction, SetOperationsCommand, SaveModelAction, } from "glsp-sprotty/lib";
-import { GraphicalLanguageClientContribution } from "../language/graphical-langauge-client-contribution";
-import { EditorManager } from "@theia/editor/lib/browser";
 import URI from "@theia/core/lib/common/uri";
+import { EditorManager } from "@theia/editor/lib/browser";
+import { ActionMessage, ExportSvgAction, ServerStatusAction, SetOperationsAction, SetOperationsCommand } from "glsp-sprotty/lib";
+import { GLSPTheiaDiagramServer } from "glsp-theia-extension/src/browser/diagram/glsp-theia-diagram-server";
+import { DiagramWidgetRegistry, OpenInTextEditorMessage, TheiaDiagramServer, TheiaFileSaver, TheiaSprottyConnector } from "theia-glsp/lib";
 import { ActionMessageNotification } from "../../common/";
 import { GLSPPaletteContribution } from "../diagram/glsp-palette-contribution";
-import { GLSPTheiaDiagramServer } from "glsp-theia-extension/src/browser/diagram/glsp-theia-diagram-server";
+import { GraphicalLanguageClientContribution } from "../language/graphical-langauge-client-contribution";
 
 
 export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {

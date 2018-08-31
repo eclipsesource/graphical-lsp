@@ -1,8 +1,8 @@
-import { injectable, inject } from "inversify";
-import { MenuContribution, MenuPath, MAIN_MENU_BAR, MenuModelRegistry, CommandContribution, CommandRegistry } from "@theia/core";
-import { DiagramMenus, DiagramCommandHandler } from "theia-glsp/lib";
-import { ApplicationShell, Widget } from "@theia/core/lib/browser";
+import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry } from "@theia/core";
+import { ApplicationShell } from "@theia/core/lib/browser";
 import { ExecuteNodeCreationToolAction, SaveModelAction } from "glsp-sprotty/lib";
+import { inject, injectable } from "inversify";
+import { DiagramCommandHandler, DiagramMenus } from "theia-glsp/lib";
 
 
 
@@ -49,7 +49,7 @@ export class GLSPDiagramCommandContribution implements CommandContribution {
             }))
         registry.registerHandler(GLSPDiagramCommands.SAVE_MODEL, new DiagramCommandHandler(this.shell, widget => {
             widget.actionDispatcher.dispatch(new SaveModelAction())
-            
+
         }))
     }
 

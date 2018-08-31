@@ -9,16 +9,15 @@
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
 
-import { ContainerModule } from "inversify";
-import { GraphicalLanguageClientFactory } from "./language/graphical-language-client";
 import { bindContributionProvider, CommandContribution, MenuContribution } from "@theia/core";
-import { GraphicalLanguageClientContribution } from "./language/graphical-langauge-client-contribution";
 import { FrontendApplicationContribution } from "@theia/core/lib/browser";
-import { GraphicalLanguagesFrontendContribution } from "./language/graphical-languages-frontend-contribution";
-import { GraphicalLanguageClientProviderImpl, GraphicalLanguageClientProvider } from "./language/graphical-language-client-provider";
-import { GLSPTheiaSprottyConnector } from "./diagram/glsp-theia-sprotty-connector";
+import { ContainerModule } from "inversify";
 import { GLSPDiagramCommandContribution, GLSPDiagramMenuContribution } from "./diagram/glsp-diagram-commands";
-import { OperationService, OperationServiceImpl, OP_TYPES } from "glsp-sprotty/lib";
+import { GLSPTheiaSprottyConnector } from "./diagram/glsp-theia-sprotty-connector";
+import { GraphicalLanguageClientContribution } from "./language/graphical-langauge-client-contribution";
+import { GraphicalLanguageClientFactory } from "./language/graphical-language-client";
+import { GraphicalLanguageClientProvider, GraphicalLanguageClientProviderImpl } from "./language/graphical-language-client-provider";
+import { GraphicalLanguagesFrontendContribution } from "./language/graphical-languages-frontend-contribution";
 export default new ContainerModule(bind => {
 
 

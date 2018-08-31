@@ -8,14 +8,13 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { injectable, inject } from "inversify";
-import { TheiaFileSaver, DiagramWidgetRegistry } from "theia-glsp/lib";
-import { WorkflowLanguage } from "../../common/workflow-language";
-import { GLSPTheiaSprottyConnector, GraphicalLanguageClientContribution, GLSPDiagramManager, GLSPPaletteContribution } from "glsp-theia-extension/lib/browser";
-import { WorkflowGLClientContribution } from "../language/workflow-gl-client-contribution";
 import { EditorManager } from "@theia/editor/lib/browser";
+import { GLSPDiagramManager, GLSPPaletteContribution, GLSPTheiaSprottyConnector, GraphicalLanguageClientContribution } from "glsp-theia-extension/lib/browser";
+import { inject, injectable } from "inversify";
+import { DiagramWidgetRegistry, TheiaFileSaver } from "theia-glsp/lib";
+import { WorkflowLanguage } from "../../common/workflow-language";
+import { WorkflowGLClientContribution } from "../language/workflow-gl-client-contribution";
 import { ThemeManager } from "./thememanager";
-import { read } from "fs";
 
 
 

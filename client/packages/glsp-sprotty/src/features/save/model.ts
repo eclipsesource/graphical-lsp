@@ -8,7 +8,7 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { SModelExtension, SModelElement, SModelRoot } from "sprotty/lib";
+import { SModelElement, SModelExtension, SModelRoot } from "sprotty/lib";
 
 export const saveFeature = Symbol('saveFeature');
 

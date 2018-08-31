@@ -1,7 +1,7 @@
-import { Action, MouseListener, SModelElement } from "sprotty/lib";
 import { inject, injectable } from "inversify";
+import { Action, MouseListener, SModelElement } from "sprotty/lib";
+import { Operation, OperationKind } from "../../utils/operation";
 import { OperationService, OP_TYPES } from "./operation-service";
-import { OperationKind, Operation } from "../../utils/operation";
 
 /**
  * Tool to create connections in a Diagram, by selecting a source and target node

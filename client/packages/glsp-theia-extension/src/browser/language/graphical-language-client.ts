@@ -8,13 +8,13 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { injectable, inject } from "inversify";
 import { WebSocketConnectionProvider } from "@theia/core/lib/browser";
-import { GraphicalLanguageClient, GraphicalLanguageClientOptions, createConnection, ConnectionProvider, Connection } from "../../common/graphical-language-client-services";
-import { LanguageContribution, ConnectionErrorHandler, ConnectionCloseHandler, OutputChannel } from "@theia/languages/lib/common"
-import { ErrorAction, ErrorHandler, NotificationHandler, CloseAction, State } from "vscode-base-languageclient/lib/base"
 import { Disposable } from "@theia/core/lib/common/disposable";
+import { ConnectionCloseHandler, ConnectionErrorHandler, LanguageContribution, OutputChannel } from "@theia/languages/lib/common";
+import { inject, injectable } from "inversify";
+import { CloseAction, ErrorAction, ErrorHandler, NotificationHandler } from "vscode-base-languageclient/lib/base";
 import { Message, NotificationType } from "vscode-jsonrpc";
+import { Connection, ConnectionProvider, createConnection, GraphicalLanguageClient, GraphicalLanguageClientOptions } from "../../common/graphical-language-client-services";
 
 enum ClientState {
     Initial,

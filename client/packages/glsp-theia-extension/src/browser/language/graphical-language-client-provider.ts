@@ -8,10 +8,10 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { injectable, inject, named } from "inversify";
 import { ContributionProvider } from "@theia/core";
-import { GraphicalLanguageClientContribution } from "./graphical-langauge-client-contribution";
 import { GraphicalLanguageClient } from "glsp-theia-extension/src/common/graphical-language-client-services";
+import { inject, injectable, named } from "inversify";
+import { GraphicalLanguageClientContribution } from "./graphical-langauge-client-contribution";
 
 
 export const GraphicalLanguageClientProvider = Symbol('GraphicalLanguageClientProvider')

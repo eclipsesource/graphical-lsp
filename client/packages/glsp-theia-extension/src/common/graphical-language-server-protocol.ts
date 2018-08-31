@@ -8,8 +8,8 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { NotificationType, RequestType0, NotificationType0 } from "vscode-jsonrpc";
 import { ActionMessage } from "glsp-sprotty/lib";
+import { NotificationType, NotificationType0, RequestType0 } from "vscode-jsonrpc";
 
 export namespace ActionMessageNotification {
     export const type = new NotificationType<ActionMessage, void>('process')

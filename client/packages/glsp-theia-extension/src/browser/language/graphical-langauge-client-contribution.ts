@@ -8,14 +8,13 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { injectable, inject } from "inversify";
-import { LanguageContribution } from "@theia/languages/lib/common";
-import { Commands, Disposable } from "vscode-base-languageclient/lib/services";
 import { CommandRegistry } from "@theia/core";
-import { GraphicalLanguageClientFactory } from "./graphical-language-client";
 import { FrontendApplication } from "@theia/core/lib/browser";
+import { LanguageContribution } from "@theia/languages/lib/common";
+import { inject, injectable } from "inversify";
+import { Commands, Disposable } from "vscode-base-languageclient/lib/services";
 import { GraphicalLanguageClient, GraphicalLanguageClientOptions } from "../../common/graphical-language-client-services";
-import { alignFeature } from "sprotty/lib";
+import { GraphicalLanguageClientFactory } from "./graphical-language-client";
 
 export const GraphicalLanguageClientContribution = Symbol('GraphicalLanguageClientContribution')
 export interface GraphicalLanguageClientContribution extends LanguageContribution {

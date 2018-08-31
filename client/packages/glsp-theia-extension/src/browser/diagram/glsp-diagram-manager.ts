@@ -8,7 +8,7 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { injectable, inject } from "inversify";
+import { injectable } from "inversify";
 import { DiagramManagerImpl, DiagramWidgetFactory } from "theia-glsp/lib";
 import { GLSPDiagramWidget } from "./glsp-diagram-widget";
 

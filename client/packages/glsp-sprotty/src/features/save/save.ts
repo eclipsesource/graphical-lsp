@@ -8,8 +8,8 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { Action, SModelRoot, KeyListener } from "sprotty/lib";
-import { matchesKeystroke } from "sprotty/lib/utils/keyboard"
+import { Action, KeyListener, SModelRoot } from "sprotty/lib";
+import { matchesKeystroke } from "sprotty/lib/utils/keyboard";
 
 export class SaveModelAction implements Action {
     static readonly KIND = "saveModel"

@@ -1,7 +1,6 @@
-import { MouseListener, SModelElement, Action, Point, manhattanDistance, MoveAction, ElementMove, isMoveable, findParentByFeature, isViewport, Locateable } from "sprotty/lib";
-import { injectable, inject } from "inversify";
+import { inject, injectable } from "inversify";
+import { Action, findParentByFeature, isMoveable, isViewport, Locateable, manhattanDistance, MouseListener, Point, SModelElement } from "sprotty/lib";
 import { OperationService, OP_TYPES } from "../palette/operation-service";
-import { Operation, OperationKind } from "../../utils/operation";
 
 /**
  * A custom Move Tool that is optimized for Client/Server operation

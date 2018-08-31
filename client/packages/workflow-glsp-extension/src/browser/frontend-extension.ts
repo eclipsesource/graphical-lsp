@@ -8,18 +8,17 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { ContainerModule, interfaces } from "inversify";
-
-import { WorkflowGLClientContribution } from "./language/workflow-gl-client-contribution";
-import { DiagramConfiguration, DiagramManagerProvider, DiagramManager } from "theia-glsp/lib";
-import { WorkflowDiagramConfiguration } from "./diagram/di.config";
-import { WorkflowDiagramManager } from "./diagram/workflow-diagram-manager.";
-import { WorkflowLanguage } from "../common/workflow-language";
+import { CommandContribution, MenuContribution } from "@theia/core";
 import { FrontendApplicationContribution, OpenHandler } from "@theia/core/lib/browser";
+import { GLSPPaletteContribution, GraphicalLanguageClientContribution } from "glsp-theia-extension/lib/browser";
+import { ContainerModule, interfaces } from "inversify";
+import { DiagramConfiguration, DiagramManager, DiagramManagerProvider } from "theia-glsp/lib";
+import { WorkflowLanguage } from "../common/workflow-language";
+import { WorkflowDiagramConfiguration } from "./diagram/di.config";
 import { ThemeManager } from "./diagram/thememanager";
-import { GraphicalLanguageClientContribution, GLSPPaletteContribution } from "glsp-theia-extension/lib/browser";
-import { MenuContribution, CommandContribution } from "@theia/core";
-import { OP_TYPES, OperationService } from "glsp-sprotty/lib";
+import { WorkflowDiagramManager } from "./diagram/workflow-diagram-manager.";
+import { WorkflowGLClientContribution } from "./language/workflow-gl-client-contribution";
+
 
 export default new ContainerModule((bind: interfaces.Bind, unbind: interfaces.Unbind, isBound: interfaces.IsBound, rebind: interfaces.Rebind) => {
     bind(WorkflowGLClientContribution).toSelf().inSingletonScope()

@@ -8,8 +8,8 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { DiagramWidget } from "theia-glsp/lib";
 import { RequestModelAction, RequestOperationsAction } from "glsp-sprotty/lib";
+import { DiagramWidget } from "theia-glsp/lib";
 
 export class GLSPDiagramWidget extends DiagramWidget {
 

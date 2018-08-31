@@ -8,8 +8,8 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { ContainerModule } from "inversify";
 import { LanguageServerContribution } from "@theia/languages/lib/node";
+import { ContainerModule } from "inversify";
 import { WorkflowGLServerContribution } from "./workflow-gl-server-contribution";
 
 export default new ContainerModule(bind => {

@@ -1,5 +1,5 @@
-import { Operation } from "../../utils/operation";
 import { injectable } from "inversify";
+import { Operation } from "../../utils/operation";
 
 export interface OperationService {
     getCurrentOperation(id: string): Operation | undefined;

@@ -1,8 +1,8 @@
-import { injectable, inject } from "inversify";
-import { MouseListener, Point, SModelElement, Action, SModelRoot, findParentByFeature, isViewport, Viewport } from "sprotty/lib";
+import { inject, injectable } from "inversify";
+import { Action, findParentByFeature, isViewport, MouseListener, Point, SModelElement, SModelRoot, Viewport } from "sprotty/lib";
 import { Operation, OperationKind } from "../../utils/operation";
-import { OP_TYPES, OperationService } from "./operation-service";
 import { ExecuteNodeCreationToolAction } from "../tool/execute-tool";
+import { OperationService, OP_TYPES } from "./operation-service";
 
 /**
  * Tool to create nodes in a Diagram, by selecting a location

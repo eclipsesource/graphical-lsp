@@ -8,7 +8,7 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { SNodeSchema, SEdgeSchema } from "sprotty/lib";
+import { SEdgeSchema, SNodeSchema } from "sprotty/lib";
 
 export namespace ActivityNodeSchema {
     export namespace Type {
