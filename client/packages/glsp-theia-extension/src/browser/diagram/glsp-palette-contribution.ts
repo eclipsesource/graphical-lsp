@@ -20,8 +20,8 @@ export namespace PaletteCommands {
     export const DELETE_ELEMENT = { id: "delete:automated:task", label: "Delete Element" }
     export const CREATE_EDGE = { id: "create:edge", label: "Edge" }
     export const CREATE_WEIGHTED_EDGE = { id: "create:weighted:edge", label: "Weighted Edge" }
-
-
+    export const CREATE_DECISION_NODE = { id: "create:decision:node", label: "Decision Node" }
+    export const CREATE_MERGE_NODE = { id: "create:merge:node", label: "Merge Node" }
 }
 
 
@@ -46,6 +46,8 @@ export class GLSPPaletteContribution implements MenuContribution, CommandContrib
 
         menus.registerMenuAction(DiagramMenus.CREATE_NODE, { commandId: PaletteCommands.CREATE_AUTOMATED_TASK.id, label: "Automated Task" })
         menus.registerMenuAction(DiagramMenus.CREATE_NODE, { commandId: PaletteCommands.CREATE_MANUAL_TASK.id, label: "Manual Task" })
+        menus.registerMenuAction(DiagramMenus.CREATE_NODE, { commandId: PaletteCommands.CREATE_DECISION_NODE.id, label: "Decision Node" })
+        menus.registerMenuAction(DiagramMenus.CREATE_NODE, { commandId: PaletteCommands.CREATE_MERGE_NODE.id, label: "Merge Node" })
         menus.registerMenuAction(DiagramMenus.CREATE_CONNECTION, { commandId: PaletteCommands.CREATE_WEIGHTED_EDGE.id, label: "Weighted Edge" })
         menus.registerMenuAction(DiagramMenus.CREATE_CONNECTION, { commandId: PaletteCommands.CREATE_EDGE.id, label: "Edge" })
     }
@@ -54,14 +56,20 @@ export class GLSPPaletteContribution implements MenuContribution, CommandContrib
         commands.registerCommand(PaletteCommands.CREATE_AUTOMATED_TASK)
         commands.registerCommand(PaletteCommands.CREATE_WEIGHTED_EDGE)
         commands.registerCommand(PaletteCommands.CREATE_MANUAL_TASK)
+        commands.registerCommand(PaletteCommands.CREATE_DECISION_NODE)
+        commands.registerCommand(PaletteCommands.CREATE_MERGE_NODE)
         commands.registerCommand(PaletteCommands.CREATE_EDGE)
         commands.registerCommand(PaletteCommands.DELETE_ELEMENT)
 
         let createManualTask = { elementTypeId: "wf-manual-task", operationKind: OperationKind.CREATE_NODE, label: PaletteCommands.CREATE_MANUAL_TASK.label }
         commands.registerHandler(PaletteCommands.CREATE_MANUAL_TASK.id, { execute: () => this.operationService.setCurrentOperation(this.diagramServer.clientId, createManualTask) })
-
         let createAutomatedTask = { elementTypeId: "wf-automated-task", operationKind: OperationKind.CREATE_NODE, label: PaletteCommands.CREATE_AUTOMATED_TASK.label }
         commands.registerHandler(PaletteCommands.CREATE_AUTOMATED_TASK.id, { execute: () => this.operationService.setCurrentOperation(this.diagramServer.clientId, createAutomatedTask) })
+        let createDecisionNode = { elementTypeId: "wf-decision-node", operationKind: OperationKind.CREATE_NODE, label: PaletteCommands.CREATE_DECISION_NODE.label }
+        commands.registerHandler(PaletteCommands.CREATE_DECISION_NODE.id, { execute: () => this.operationService.setCurrentOperation(this.diagramServer.clientId, createDecisionNode) })
+        let createMergeNode = { elementTypeId: "wf-merge-node", operationKind: OperationKind.CREATE_NODE, label: PaletteCommands.CREATE_MERGE_NODE.label }
+        commands.registerHandler(PaletteCommands.CREATE_MERGE_NODE.id, { execute: () => this.operationService.setCurrentOperation(this.diagramServer.clientId, createMergeNode) })
+
         let deleteElement = { operationKind: OperationKind.DELETE_ELEMENT, label: PaletteCommands.DELETE_ELEMENT.label }
         commands.registerHandler(PaletteCommands.DELETE_ELEMENT.id, { execute: () => this.operationService.setCurrentOperation(this.diagramServer.clientId, deleteElement) })
         let createWeightedEdge = { elementTypeId: "wf-weighted-edge", operationKind: OperationKind.CREATE_CONNECTION, label: PaletteCommands.CREATE_WEIGHTED_EDGE.label }

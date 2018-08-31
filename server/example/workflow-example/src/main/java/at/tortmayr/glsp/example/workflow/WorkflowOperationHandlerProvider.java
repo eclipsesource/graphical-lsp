@@ -25,6 +25,9 @@ public class WorkflowOperationHandlerProvider implements OperationHandlerProvide
 	@Override
 	public List<OperationHandler> getOperationHandlers() {
 		operationHandlers.add(new CreateAutomatedTaskHandler());
+		operationHandlers.add(new CreateManualTaskHandler());
+		operationHandlers.add(new CreateDecisionNodeHandler());
+		operationHandlers.add(new CreateMergeNodeHandler());
 		operationHandlers.add(new CreateWeightedEdgeHandler());
 		operationHandlers.add(new CreateEdgeHandler());
 		operationHandlers.add(new DeleteWorkflowElementHandler());

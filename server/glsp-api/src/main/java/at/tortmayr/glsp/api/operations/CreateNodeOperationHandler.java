@@ -2,6 +2,7 @@ package at.tortmayr.glsp.api.operations;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.function.Function;
 
 import at.tortmayr.glsp.api.action.ExecuteOperationAction;
 import at.tortmayr.glsp.api.action.kind.CreateNodeOperationAction;
@@ -50,5 +51,17 @@ public abstract class CreateNodeOperationHandler implements OperationHandler {
 	}
 
 	protected abstract SModelElement createNode(Optional<Point> point, SModelIndex index);
+	
+	protected int getCounter(SModelIndex index, String type, Function<Integer, String> idProvider) {
+		int i = index.getTypeCount(type);
+		while (true) {
+			String id = idProvider.apply(i);
+			if (index.get(id) == null) {
+				break;
+			}
+			i++;
+		}
+		return i;
+	}
 
 }

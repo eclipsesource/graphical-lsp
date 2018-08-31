@@ -249,8 +249,8 @@
       "reference": "BrewingUnit",
       "layout": "vbox",
       "position": {
-        "x": 600.0,
-        "y": 400.0
+        "x": 493.0,
+        "y": 349.0
       },
       "type": "node:task",
       "id": "task6",

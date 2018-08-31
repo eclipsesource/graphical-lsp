@@ -13,17 +13,17 @@ package at.tortmayr.glsp.example.workflow;
 import at.tortmayr.glsp.api.action.ExecuteOperationAction;
 import at.tortmayr.glsp.api.action.kind.CreateNodeOperationAction;
 
-public class CreateAutomatedTaskHandler extends CreateTaskHandler {
-	
-	public CreateAutomatedTaskHandler() {
-		super("automated", i -> "AutomatedTask" + i);
+public class CreateManualTaskHandler extends CreateTaskHandler {
+
+	public CreateManualTaskHandler() {
+		super("manual", i -> "ManualTask" + i);
 	}
 
 	@Override
 	public boolean handles(ExecuteOperationAction execAction) {
 		if (execAction instanceof CreateNodeOperationAction) {
 			CreateNodeOperationAction action = (CreateNodeOperationAction) execAction;
-			return WorkflowOperationConfiguration.AUTOMATED_TASK_ID.equals(action.getElementId());
+			return WorkflowOperationConfiguration.MANUAL_TASK_ID.equals(action.getElementId());
 		}
 		return false;
 	}
