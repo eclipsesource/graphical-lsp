@@ -9,6 +9,7 @@ import at.tortmayr.glsp.api.action.kind.DeleteElementOperationAction;
 import at.tortmayr.glsp.api.factory.GraphicalModelState;
 import at.tortmayr.glsp.api.operations.OperationHandler;
 import at.tortmayr.glsp.api.utils.SModelIndex;
+import io.typefox.sprotty.api.SEdge;
 import io.typefox.sprotty.api.SModelElement;
 import io.typefox.sprotty.api.SModelRoot;
 import io.typefox.sprotty.api.SNode;
@@ -28,19 +29,22 @@ public class DeleteHandler implements OperationHandler {
 		DeleteElementOperationAction action = (DeleteElementOperationAction) execAction;
 		String elementId = action.getElementId();
 		if (elementId == null) {
+			System.out.println("Element to delete is not specified");
 			return Optional.empty();
 		}
 		SModelIndex index = modelState.getCurrentModelIndex();
 		SModelElement element = index.get(elementId);
 
 		if (element == null) {
+			System.out.println("Element not found: " + elementId);
 			return Optional.empty();
 		}
 
 		// Always delete the top-level node
-		SModelElement nodeToDelete = findNode(element, index);
+		SModelElement nodeToDelete = findTopLevelElement(element, index);
 		SModelElement parent = index.getParent(nodeToDelete);
 		if (parent == null) {
+			System.out.println("The requested node doesn't have a parent; it can't be deleted");
 			return Optional.empty(); // Can't delete the root, or an element that doesn't belong to the model
 		}
 
@@ -56,7 +60,7 @@ public class DeleteHandler implements OperationHandler {
 	protected void delete(SModelElement element, GraphicalModelState modelState) {
 		SModelElement parent = modelState.getCurrentModelIndex().getParent(element);
 		modelState.getCurrentModelIndex().removeFromIndex(element);
-		
+
 		if (parent == null || parent.getChildren() == null) {
 			return;
 		}
@@ -90,8 +94,8 @@ public class DeleteHandler implements OperationHandler {
 		dependents.add(nodeToDelete);
 	}
 
-	protected SModelElement findNode(SModelElement element, SModelIndex index) {
-		if (element instanceof SNode) {
+	protected SModelElement findTopLevelElement(SModelElement element, SModelIndex index) {
+		if (element instanceof SNode || element instanceof SEdge) {
 			return element;
 		}
 
@@ -99,7 +103,7 @@ public class DeleteHandler implements OperationHandler {
 		if (parent == null) {
 			return element;
 		}
-		return findNode(parent, index);
+		return findTopLevelElement(parent, index);
 	}
 
 }

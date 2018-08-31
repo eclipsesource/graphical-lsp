@@ -10,7 +10,7 @@
  ******************************************************************************/
 import { injectable, inject } from "inversify";
 import { TheiaDiagramServer } from "theia-glsp/lib";
-import { ActionMessage, ActionHandlerRegistry, SaveModelAction, TYPES, IActionDispatcher, ViewerOptions, SModelStorage, ILogger, Action, ExecuteNodeCreationToolAction, ExecuteToolAction, alignFeature, CreateConnectionAction, MoveAction, MoveCommand, SetOperationsCommand, RequestOperationsAction, DeleteElementAction, MoveElementAction } from "glsp-sprotty/lib";
+import { ActionMessage, ActionHandlerRegistry, SaveModelAction, TYPES, IActionDispatcher, ViewerOptions, SModelStorage, ILogger, Action, ExecuteNodeCreationToolAction, ExecuteToolAction, alignFeature, CreateConnectionAction, MoveAction, MoveCommand, SetOperationsCommand, RequestOperationsAction, DeleteElementAction, MoveElementAction, SwitchEditModeAction, SwitchEditModeCommand } from "glsp-sprotty/lib";
 
 
 
@@ -40,6 +40,10 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer {
         registry.register(CreateConnectionAction.KIND, this)
         registry.register(MoveElementAction.KIND, this)
         registry.register(DeleteElementAction.KIND, this)
+        // Register an empty handler for SwitchEditMode, to avoid runtime exceptions.
+        // We don't want to support SwitchEditMode, but sprotty still sends some corresponding
+        // actions.
+        registry.register(SwitchEditModeCommand.KIND, { handle: action => undefined })
     }
 
     messageReceived(message: ActionMessage) {
