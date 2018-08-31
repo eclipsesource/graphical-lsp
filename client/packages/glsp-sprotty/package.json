@@ -1,6 +1,6 @@
 {
   "name": "glsp-sprotty",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "description": "Extension for the sprotty framework to be compatible with the glsp protocol",
   "scripts": {
     "prepare": "yarn run clean && yarn run build",
