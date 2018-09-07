@@ -6,14 +6,14 @@
  */
 
 import { injectable, inject, multiInject, optional } from 'inversify'
-import { IActionDispatcher, KeyListener, KeyTool, SModelElement, TYPES } from 'sprotty/lib'
-import { VNode } from 'snabbdom/vnode'
+import { IActionDispatcher, KeyListener, KeyTool, SModelElement, TYPES } from 'glsp-sprotty/lib'
+import { VNode }  from 'snabbdom/vnode'
 
 @injectable()
 export class TheiaKeyTool extends KeyTool {
 
     constructor(@inject(TYPES.IActionDispatcher) actionDispatcher: IActionDispatcher,
-        @multiInject(TYPES.KeyListener)@optional() protected keyListeners: KeyListener[] = []) {
+        @multiInject(TYPES.KeyListener) @optional() protected keyListeners: KeyListener[] = []) {
         super(actionDispatcher, [])
     }
 

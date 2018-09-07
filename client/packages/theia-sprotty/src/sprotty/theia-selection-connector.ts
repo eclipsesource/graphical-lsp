@@ -10,7 +10,7 @@
  ******************************************************************************/
 import { SelectionService } from "@theia/core";
 import { inject, injectable, optional } from "inversify";
-import { Action, ActionHandlerRegistry, IActionHandler, IActionHandlerInitializer, SelectAction, SelectCommand } from "sprotty/lib";
+import { Action, ActionHandlerRegistry, IActionHandler, IActionHandlerInitializer, SelectAction, SelectCommand } from "glsp-sprotty/lib";
 
 class SprottySelectionForwardingActionHandler implements IActionHandler {
 

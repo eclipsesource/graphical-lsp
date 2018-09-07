@@ -5,7 +5,7 @@
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  */
 
-import { InstanceRegistry } from 'sprotty/lib/utils/registry'
+import { InstanceRegistry } from 'glsp-sprotty/lib/utils/registry'
 import { injectable, Container, multiInject, optional } from "inversify"
 
 export const DiagramConfiguration = Symbol('DiagramConfiguration')
@@ -17,7 +17,7 @@ export interface DiagramConfiguration {
 
 @injectable()
 export class DiagramConfigurationRegistry extends InstanceRegistry<DiagramConfiguration> {
-    constructor(@multiInject(DiagramConfiguration)@optional() diagramConfigs: DiagramConfiguration[]) {
+    constructor(@multiInject(DiagramConfiguration) @optional() diagramConfigs: DiagramConfiguration[]) {
         super()
         diagramConfigs.forEach(c => this.register(c.diagramType, c))
     }

@@ -11,7 +11,7 @@ import {
     ILogger, SelectCommand, ActionHandlerRegistry, IActionDispatcher, SModelStorage, TYPES,
     ViewerOptions, DiagramServer, ActionMessage, ExportSvgAction, RequestModelAction, Action,
     ICommand, ServerStatusAction
-} from 'sprotty/lib'
+} from 'glsp-sprotty/lib'
 import { TheiaSprottyConnector } from './theia-sprotty-connector'
 import { injectable, inject } from "inversify"
 

@@ -10,7 +10,7 @@
  ******************************************************************************/
 import * as snabbdom from "snabbdom-jsx"
 import { TaskNode, WeightedEdge, Icon } from "./model";
-import { RenderingContext, RectangularNodeView, PolylineEdgeView, IView, SShapeElement, SEdge, Point, angleOfPoint, toDegrees } from "sprotty/lib";
+import { RenderingContext, RectangularNodeView, PolylineEdgeView, IView, SShapeElement, SEdge, Point, angleOfPoint, toDegrees } from "glsp-sprotty/lib";
 import { VNode } from "snabbdom/vnode";
 import { ActivityNode } from "./model";
 

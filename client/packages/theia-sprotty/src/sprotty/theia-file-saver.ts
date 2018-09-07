@@ -6,14 +6,14 @@
  */
 
 import { inject, injectable } from 'inversify'
-import { ExportSvgAction } from 'sprotty/lib'
+import { ExportSvgAction } from 'glsp-sprotty/lib'
 import { FileSystem } from '@theia/filesystem/lib/common'
 import { MessageService } from '@theia/core/lib/common'
 
 @injectable()
 export class TheiaFileSaver {
     constructor(@inject(FileSystem) protected readonly fileSystem: FileSystem,
-                @inject(MessageService) protected readonly messageService: MessageService) {
+        @inject(MessageService) protected readonly messageService: MessageService) {
     }
 
     save(sourceUri: string, action: ExportSvgAction) {

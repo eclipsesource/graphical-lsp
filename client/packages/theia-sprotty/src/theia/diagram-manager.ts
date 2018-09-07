@@ -14,7 +14,7 @@ import URI from "@theia/core/lib/common/uri"
 import { DiagramWidget, DiagramWidgetFactory } from "./diagram-widget"
 import { DiagramWidgetRegistry } from "./diagram-widget-registry"
 import { Emitter, Event, SelectionService } from '@theia/core/lib/common'
-import { TYPES, ModelSource, IActionDispatcher, DiagramServer } from 'sprotty/lib'
+import { TYPES, ModelSource, IActionDispatcher, DiagramServer } from 'glsp-sprotty/lib'
 import { EditorManager } from '@theia/editor/lib/browser';
 import { OP_TYPES, OperationService } from 'glsp-sprotty/lib'
 export const DiagramManagerProvider = Symbol('DiagramManagerProvider')
