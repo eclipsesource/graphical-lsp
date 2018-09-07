@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2018 EclipseSource Services GmbH and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *   
+ * Contributors:
+ * 	Camille Letavernier - initial API and implementation
+ ******************************************************************************/
 import { CommandContribution, CommandRegistry, MAIN_MENU_BAR, MenuContribution, MenuModelRegistry, MenuPath } from "@theia/core";
 import { OperationKind, OperationService, OP_TYPES } from "glsp-sprotty/lib";
 import { GLSPTheiaDiagramServer } from "glsp-theia-extension/src/browser/diagram/glsp-theia-diagram-server";
