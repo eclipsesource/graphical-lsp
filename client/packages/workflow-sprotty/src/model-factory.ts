@@ -8,7 +8,7 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { getBasicType, getSubType, SChildElement, SGraphFactory, SModelElementSchema, SParentElement } from "sprotty/lib";
+import { getBasicType, getSubType, SChildElement, SGraphFactory, SModelElementSchema, SParentElement } from "glsp-sprotty/lib";
 import { ActivityNode, TaskNode, WeightedEdge } from "./model";
 import { ActivityNodeSchema, TaskNodeSchema, WeightedEdgeSchema } from "./model-schema";
 

@@ -7,7 +7,7 @@
 * Modifications: Copyright (C) 2018 Tobias Ortmayr<tormayr@eclipsesource.com>
 */
 
-import { ActionMessage, ExportSvgAction, ServerStatusAction } from 'sprotty/lib'
+import { ActionMessage, ExportSvgAction, ServerStatusAction } from 'glsp-sprotty/lib'
 import { TheiaDiagramServer } from './theia-diagram-server'
 import { NotificationType } from 'vscode-jsonrpc/lib/messages'
 import { Location } from 'vscode-languageserver-types'

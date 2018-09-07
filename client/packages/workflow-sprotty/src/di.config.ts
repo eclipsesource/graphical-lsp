@@ -11,7 +11,7 @@ import {
     ConsoleLogger, LogLevel, boundsModule, moveModule, selectModule, undoRedoModule,
     viewportModule, hoverModule, HtmlRootView, PreRenderedView, exportModule, expandModule,
     fadeModule, ExpandButtonView, buttonModule, SRoutingHandleView, openModule, modelSourceModule, overrideViewerOptions, configureModelElement, SLabel, SCompartment, SEdge, PreRenderedElement, HtmlRoot, SButton, SRoutingHandle, RectangularNode, RectangularNodeView
-} from "sprotty/lib";
+} from "glsp-sprotty/lib";
 
 
 import { WeightedEdgeView, IconView, ActivityNodeView, TaskNodeView, WorkflowEdgeView } from "./workflow-views";

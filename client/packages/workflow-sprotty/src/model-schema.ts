@@ -8,7 +8,7 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { SEdgeSchema, SNodeSchema } from "sprotty/lib";
+import { SEdgeSchema, SNodeSchema } from "glsp-sprotty/lib";
 
 export namespace ActivityNodeSchema {
     export namespace Type {

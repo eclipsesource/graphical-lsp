@@ -12,7 +12,7 @@ import {
     UndoAction,
     RedoAction,
     SelectAllAction
-} from 'sprotty/lib'
+} from 'glsp-sprotty/lib'
 import { DiagramWidget } from './diagram-widget'
 import { DiagramManagerImpl } from './diagram-manager'
 import { injectable, inject } from 'inversify'

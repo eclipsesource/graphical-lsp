@@ -16,7 +16,7 @@
     "@theia/filesystem": "latest",
     "@theia/languages": "latest",
     "@theia/monaco": "latest",
-    "glsp-sprotty": "0.5.0"
+    "glsp-sprotty": "0.4.2"
   },
   "scripts": {
     "prepare": "yarn run clean && yarn run build",

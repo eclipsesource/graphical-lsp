@@ -1,0 +1,3 @@
+[submodule "client/packages/sprotty"]
+	path = client/packages/sprotty
+	url = https://github.com/eclipsesource/sprotty
