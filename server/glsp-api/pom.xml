@@ -9,7 +9,7 @@
 
 
 	<parent>
-		<groupId>at.tortmayr.glsp</groupId>
+		<groupId>com.eclipsesource.glsp</groupId>
 		<artifactId>glsp-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>

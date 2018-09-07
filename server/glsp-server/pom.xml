@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>at.tortmayr.glsp</groupId>
+		<groupId>com.eclipsesource.glsp</groupId>
 		<artifactId>glsp-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
@@ -11,7 +11,7 @@
 	<name>GLSP Server</name>
 	<dependencies>
 		<dependency>
-			<groupId>at.tortmayr.glsp</groupId>
+			<groupId>com.eclipsesource.glsp</groupId>
 			<artifactId>glsp-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
