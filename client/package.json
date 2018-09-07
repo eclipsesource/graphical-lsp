@@ -33,6 +33,6 @@
   "workspaces": [
     "packages/*",
     "examples/*",
-    "packages/sprotty/client/"
+    "packages/glsp-sprotty/client/"
   ]
 }
