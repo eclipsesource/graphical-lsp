@@ -22,4 +22,5 @@ export class GLSPDiagramWidget extends DiagramWidget {
 
         this.modelSource.handle(new RequestOperationsAction())
     }
+
 }

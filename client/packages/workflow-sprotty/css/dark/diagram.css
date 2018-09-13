@@ -8,10 +8,14 @@
 @import "page.css";
 @import "popup.css";
 
+.sprotty {
+    height: 100%;
+}
 
 .sprotty-graph {
     font-size: 15pt;
     background: rgb(179, 196, 202);
+    height: 100%;
 }
 
 .sprotty-text {
