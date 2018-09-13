@@ -19,10 +19,4 @@ export abstract class GLSPDiagramManager extends DiagramManagerImpl {
         return options => new GLSPDiagramWidget(options)
     }
 
-
-
-
-
-
-
 }
