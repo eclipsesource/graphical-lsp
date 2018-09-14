@@ -1,4 +1,5 @@
 /*******************************************************************************
+
  * Copyright (c) 2018 EclipseSource Services GmbH and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,89 +11,77 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
-import java.util.function.Consumer;
+import java.util.Optional;
+import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import com.google.common.reflect.ClassPath;
+import com.eclipsesource.glsp.api.model.ModelStateProvider;
+import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
+import com.eclipsesource.glsp.api.provider.ActionProvider;
+import com.google.common.collect.Sets;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+@Singleton
 public class ActionRegistry {
 	static Logger log = Logger.getLogger(ActionRegistry.class.getName());
-	private static String ACTION_KIND_PACKAGE_NAME = "com.eclipsesource.glsp.api.action.kind";
-	private static ActionRegistry INSTANCE;
 
-	public static ActionRegistry getInstance() {
-		if (INSTANCE == null) {
-			INSTANCE = new ActionRegistry();
-		}
-		return INSTANCE;
-	}
+	private Set<Action> registeredActions;
+	private Map<String, Class<? extends Action>> actionKinds;
+	private Map<String, ActionHandler> actionHandlers;
 
-	private Map<String, Class<? extends Action>> actionKinds = new HashMap<>();
-	private Map<String, Consumer<Action>> actionConsumers = new HashMap<>();
-
-	private ActionRegistry() {
-		// private constructor due to Singleton pattern
-		try {
-			intializeDefaultActions();
-		} catch (InstantiationException | IllegalAccessException | IOException e) {
-			log.warning("Error during action registry initialization. Some action might not be registred correctly");
-			e.printStackTrace();
-		}
+	@Inject
+	public ActionRegistry(Set<ActionProvider> registeredActionProviders,
+			Set<ActionHandlerProvider> registeredHandlerProviders) {
+		actionKinds = new HashMap<>();
+		actionHandlers = new HashMap<>();
+		registeredActions = new HashSet<>();
+		initializeMaps(registeredActionProviders, registeredHandlerProviders);
 
 	}
 
-	private void intializeDefaultActions() throws IOException, InstantiationException, IllegalAccessException {
-		final ClassLoader loader = Thread.currentThread().getContextClassLoader();
-		// retrieve all action classes from the default action package (i.e. classes
-		// inside the package which are not abstract and subclasses of Action)
-		List<Class<?>> actionClasses = ClassPath.from(loader).getTopLevelClasses(ACTION_KIND_PACKAGE_NAME).stream()
-				.map(ci -> ci.load()).filter(c -> !Modifier.isAbstract(c.getModifiers()))
-				.filter(Action.class::isAssignableFrom).collect(Collectors.toList());
-		for (Class<?> actionClass : actionClasses) {
-			Action action = (Action) actionClass.newInstance();
-			if (action != null && action.getKind() != null) {
-				actionKinds.put(action.getKind(), action.getClass());
-			}
-		}
+	private void initializeMaps(Set<ActionProvider> actionProviders,
+			Set<ActionHandlerProvider> registeredHandlerProviders) {
+		// sort providers by priority
+		Set<ActionHandlerProvider> sportedHandlerProviders = registeredHandlerProviders.stream()
+				.sorted(Comparator.comparing(ActionHandlerProvider::getPriority)).collect(Collectors.toSet());
+		Set<ActionProvider> sortedActionProvider = actionProviders = actionProviders.stream()
+				.sorted(Comparator.comparing(ActionProvider::getPriority)).collect(Collectors.toSet());
 
-	}
+		sortedActionProvider.forEach(aProv -> {
+			aProv.getActions().forEach(action -> {
+				if (!actionKinds.containsKey(action.getKind())) {
+					actionKinds.put(action.getKind(), action.getClass());
+					registeredActions.add(action);
 
-	public <T extends ActionHandler> void initialize(T actionHandler)
-			throws InstantiationException, IllegalAccessException {
-		// filters non-conforming available methods of the action handler (subclass).
-		// Method name as to be 'handle' and only method parameter is allowed
-		List<Method> conformingMethods = Arrays.stream(actionHandler.getClass().getMethods())
-				.filter(m -> m.getName().equals("handle") && m.getParameterCount() == 1).collect(Collectors.toList());
-		for (Method m : conformingMethods) {
-			Class<?> param = m.getParameters()[0].getType();
-			// Check if the first and only method parameter is an action (sub) type
-			if (Action.class.isAssignableFrom(param)) {
-				Action action = (Action) param.newInstance();
-				if (action.getKind() != null) {
-					actionConsumers.put(action.getKind(), (Action a) -> {
-						if (param.isInstance(a)) {
-							try {
-								m.invoke(actionHandler, a);
-							} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-								e.printStackTrace();
-							}
-						}
-					});
+					Optional<ActionHandler> handlerOpt = getActionHandler(action, sportedHandlerProviders);
+					if (handlerOpt.isPresent()) {
+						actionHandlers.put(action.getKind(), handlerOpt.get());
+					}
 
 				}
+			});
+		});
 
-			}
+	}
+
+	private Optional<ActionHandler> getActionHandler(Action action, Set<ActionHandlerProvider> handlerProviders) {
+		Optional<ActionHandlerProvider> handlerProviderOpt = handlerProviders.stream()
+				.filter((hProv -> hProv.isHandled(action))).findFirst();
+		if (handlerProviderOpt.isPresent()) {
+			return handlerProviderOpt.get().getActionHandler(action);
 		}
+		return Optional.empty();
+	}
 
+	public Set<Action> getAllActions() {
+		return Collections.unmodifiableSet(registeredActions);
 	}
 
 	/**
@@ -112,13 +101,17 @@ public class ActionRegistry {
 	 * @param action Action which should be processed
 	 * @return true if a registered consumer was found and the action was accepted
 	 */
-	public boolean handleAction(Action action) {
-		Consumer<Action> consumer = actionConsumers.get(action.getKind());
-		if (consumer != null) {
-			consumer.accept(action);
-			return true;
+	public Optional<Action> delegatToHandler(Action action, ModelStateProvider modelStateProvider) {
+		ActionHandler handler = actionHandlers.get(action.getKind());
+		if (handler != null) {
+			handler.setModelStateProvider(modelStateProvider);
+			return handler.handle(action);
 		}
-		return false;
+		return Optional.empty();
+	}
+
+	public boolean hasHandler(Action action) {
+		return actionHandlers.containsKey(action.getKind());
 	}
 
 }

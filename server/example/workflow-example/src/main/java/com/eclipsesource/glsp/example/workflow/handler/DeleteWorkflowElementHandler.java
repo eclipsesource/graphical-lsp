@@ -6,22 +6,15 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *   
  * Contributors:
- * 	Tobias Ortmayr - initial API and implementation
+ * 	Camille Letavernier - initial API and implementation
  ******************************************************************************/
-package com.eclipsesource.glsp.api.action;
+package com.eclipsesource.glsp.example.workflow.handler;
 
-import java.util.Optional;
+import com.eclipsesource.glsp.api.operations.OperationHandler;
+import com.eclipsesource.glsp.server.operationhandler.DeleteHandler;
 
-import com.eclipsesource.glsp.api.model.ModelStateProvider;
+public class DeleteWorkflowElementHandler extends DeleteHandler implements OperationHandler {
 
-public interface ActionHandler {
-	
-	public int getPriority();
-
-	public boolean canHandle(Action action);
-
-	public Optional<Action> handle(Action action);
-
-	public void setModelStateProvider(ModelStateProvider provider);
+	// Nothing special, yet. Just reuse the default implementation
 
 }

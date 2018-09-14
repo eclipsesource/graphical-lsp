@@ -10,34 +10,31 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import com.eclipsesource.glsp.api.action.ExecuteOperationAction;
-import com.eclipsesource.glsp.api.operations.OperationKind;
-
 import io.typefox.sprotty.api.Point;
 
 public class MoveOperationAction extends ExecuteOperationAction {
-	
+
 	private String elementId;
 	private String targetContainerId;
 	private Point location;
 
 	public MoveOperationAction() {
-		super(OperationKind.MOVE);
+		super(ActionKind.MOVE_OPERATION);
 	}
-	
+
 	public MoveOperationAction(String elementId, Point location) {
 		this();
 		this.elementId = elementId;
 		this.location = location;
 	}
-	
+
 	public MoveOperationAction(String elementId, Point location, String targetContainerId) {
 		this(elementId, location);
 		this.targetContainerId = targetContainerId;
 	}
-	
+
 	public MoveOperationAction(String elementId, String targetContainerId) {
-		this(elementId, (Point)null, targetContainerId);
+		this(elementId, (Point) null, targetContainerId);
 	}
 
 	public String getElementId() {

@@ -11,16 +11,16 @@
 package com.eclipsesource.glsp.server;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
-import com.eclipsesource.glsp.api.factory.GraphicalModelState;
+import com.eclipsesource.glsp.api.utils.ModelOptions.ParsedModelOptions;
+import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 
 import io.typefox.sprotty.api.SModelRoot;
 
-public class ModelStateImpl implements GraphicalModelState {
-	private Map<String, String> options;
+public class ModelStateImpl implements ModelState {
+	private ParsedModelOptions options;
 	private String clientId;
 	private SModelRoot currentModel;
 	private Set<String> expandedElements;
@@ -34,7 +34,7 @@ public class ModelStateImpl implements GraphicalModelState {
 	}
 
 	@Override
-	public Map<String, String> getOptions() {
+	public ParsedModelOptions getOptions() {
 		return options;
 	}
 
@@ -65,7 +65,7 @@ public class ModelStateImpl implements GraphicalModelState {
 	}
 
 	@Override
-	public void setOptions(Map<String, String> options) {
+	public void setOptions(ParsedModelOptions options) {
 		this.options = options;
 
 	}

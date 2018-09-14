@@ -10,18 +10,20 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server;
 
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
-import org.eclipse.lsp4j.jsonrpc.CompletableFutures;
 
-import com.eclipsesource.glsp.api.action.ActionHandler;
+import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.ActionMessage;
 import com.eclipsesource.glsp.api.action.ActionRegistry;
+import com.eclipsesource.glsp.api.action.kind.ActionKind;
 import com.eclipsesource.glsp.api.jsonrpc.GraphicalLanguageClient;
 import com.eclipsesource.glsp.api.jsonrpc.GraphicalLanguageServer;
+import com.eclipsesource.glsp.api.model.ModelState;
 
 import io.typefox.sprotty.api.ServerStatus;
 
@@ -30,20 +32,16 @@ public class DefaultGraphicalLanguageServer implements GraphicalLanguageServer {
 	static Logger log = Logger.getLogger(DefaultGraphicalLanguageServer.class);
 
 	private ServerStatus status;
-
-	private ActionHandler actionHandler;
-
 	private String clientId;
+	private ActionRegistry actionRegistry;
+	private ModelState modelState;
+
+	private GraphicalLanguageClient clientProxy;
 
 	@Inject
-	public DefaultGraphicalLanguageServer(ActionHandler actionHandler) {
-		try {
-			this.actionHandler = actionHandler;
-			ActionRegistry.getInstance().initialize(actionHandler);
-		} catch (InstantiationException | IllegalAccessException e) {
-			log.warn("Error during registration of the action handler. Some action messages might not be processable");
-			e.printStackTrace();
-		}
+	public DefaultGraphicalLanguageServer(ActionRegistry actionRegistry, ModelState modelState) {
+		this.actionRegistry = actionRegistry;
+		this.modelState = modelState;
 	}
 
 	@Override
@@ -51,18 +49,27 @@ public class DefaultGraphicalLanguageServer implements GraphicalLanguageServer {
 	}
 
 	@Override
-	public void connect(GraphicalLanguageClient client) {
-		actionHandler.setGraphicalLanguageClient(client);
+	public void connect(GraphicalLanguageClient clientProxy) {
+		this.clientProxy = clientProxy;
 	}
 
 	@Override
 	public void process(ActionMessage message) {
 		if (this.clientId == null) {
 			clientId = message.getClientId();
-			actionHandler.setClientId(clientId);
 		}
 		if (clientId.equals(message.getClientId())) {
-			ActionRegistry.getInstance().handleAction(message.getAction());
+			Action requestAction = message.getAction();
+			if (actionRegistry.hasHandler(requestAction)) {
+				Optional<Action> responseOpt = actionRegistry.delegatToHandler(requestAction, this);
+				if (responseOpt.isPresent()) {
+					ActionMessage response = new ActionMessage(clientId, responseOpt.get());
+					clientProxy.process(response);
+				}
+			} else {
+				log.info("No action handler is registered for the action kind: \"" + message.getAction().getKind()
+						+ "\"");
+			}
 		}
 	}
 
@@ -74,12 +81,17 @@ public class DefaultGraphicalLanguageServer implements GraphicalLanguageServer {
 
 	@Override
 	public CompletableFuture<Object> shutdown() {
-		return  new CompletableFuture<Object>();
+		return new CompletableFuture<Object>();
 	}
 
 	@Override
 	public void exit() {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public ModelState getModelState() {
+		return modelState;
 	}
 
 }

@@ -8,20 +8,19 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-package com.eclipsesource.glsp.api.action;
+package com.eclipsesource.glsp.api.model;
 
-import java.util.Optional;
+import com.eclipsesource.glsp.api.action.kind.OpenAction;
 
-import com.eclipsesource.glsp.api.model.ModelStateProvider;
-
-public interface ActionHandler {
+public interface ModelElementOpenListener {
 	
-	public int getPriority();
+	void elementOpened(OpenAction action);
+	
+	public static class NullImpl implements ModelElementOpenListener{
 
-	public boolean canHandle(Action action);
-
-	public Optional<Action> handle(Action action);
-
-	public void setModelStateProvider(ModelStateProvider provider);
-
+		@Override
+		public void elementOpened(OpenAction action) {
+		}
+		
+	}
 }

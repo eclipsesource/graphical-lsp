@@ -12,15 +12,20 @@ package com.eclipsesource.glsp.example.workflow;
 
 import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
-import com.eclipsesource.glsp.api.listener.GraphicalModelExpansionListener;
-import com.eclipsesource.glsp.api.listener.GraphicalModelSelectionListener;
-import com.eclipsesource.glsp.api.listener.ModelElementOpenListener;
+import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
+import com.eclipsesource.glsp.api.model.ModelExpansionListener;
+import com.eclipsesource.glsp.api.model.ModelSelectionListener;
 import com.eclipsesource.glsp.api.operations.OperationConfiguration;
-import com.eclipsesource.glsp.api.operations.OperationHandlerProvider;
-import com.eclipsesource.glsp.server.di.ServerModule;
-
+import com.eclipsesource.glsp.server.ServerModule;
 
 public class WorkflowServerRuntimeModule extends ServerModule {
+	
+	@Override
+	protected void bindOperationHandlerProviders() {
+		// TODO Auto-generated method stub
+		bindOperationHandlerProvider().to(WorkflowOperationHandlerProvider.class);
+	}
+
 	@Override
 	public Class<? extends ModelFactory> bindModelFactory() {
 		return WorkflowModelFactory.class;
@@ -32,7 +37,7 @@ public class WorkflowServerRuntimeModule extends ServerModule {
 	}
 
 	@Override
-	public Class<? extends GraphicalModelSelectionListener> bindGraphicalModelSelectionListener() {
+	public Class<? extends ModelSelectionListener> bindGraphicalModelSelectionListener() {
 		return WorkflowServerListener.class;
 	}
 
@@ -42,7 +47,7 @@ public class WorkflowServerRuntimeModule extends ServerModule {
 	}
 
 	@Override
-	public Class<? extends GraphicalModelExpansionListener> bindGraphicalModelExpansionListener() {
+	public Class<? extends ModelExpansionListener> bindGraphicalModelExpansionListener() {
 		return WorkflowServerListener.class;
 	}
 
@@ -50,10 +55,4 @@ public class WorkflowServerRuntimeModule extends ServerModule {
 	public Class<? extends OperationConfiguration> bindOperationConfiguration() {
 		return WorkflowOperationConfiguration.class;
 	}
-	
-	@Override
-	public Class<? extends OperationHandlerProvider> bindOperationHandlerProvider() {
-		return WorkflowOperationHandlerProvider.class;
-	}
-
 }

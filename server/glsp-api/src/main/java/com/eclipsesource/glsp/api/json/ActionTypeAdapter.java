@@ -11,33 +11,29 @@
 package com.eclipsesource.glsp.api.json;
 
 import java.lang.reflect.Constructor;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.action.ActionRegistry;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
 
-import io.typefox.sprotty.server.json.EnumTypeAdapter;
 import io.typefox.sprotty.server.json.PropertyBasedTypeAdapter;
 
 public class ActionTypeAdapter extends PropertyBasedTypeAdapter<Action> {
+	private Map<String, Class<? extends Action>> actionKinds;
 
-	public static GsonBuilder configureGson(GsonBuilder gsonBuilder) {
-		gsonBuilder.registerTypeAdapterFactory(new ActionTypeAdapter.Factory())
-				.registerTypeAdapterFactory(new EnumTypeAdapter.Factory());
-		return gsonBuilder;
-	}
-
-	public ActionTypeAdapter(Gson gson) {
+	public ActionTypeAdapter(Gson gson, Map<String, Class<? extends Action>> actionKinds) {
 		super(gson, "kind");
+		this.actionKinds=actionKinds;
 	}
 
 	@Override
 	protected Action createInstance(String kind) {
-		Class<? extends Action> clazz = ActionRegistry.getInstance().getActionClass(kind);
+		Class<? extends Action> clazz = actionKinds.get(kind);
 		if (clazz == null)
 			throw new IllegalArgumentException("Unknown action kind: " + kind);
 		try {
@@ -51,8 +47,11 @@ public class ActionTypeAdapter extends PropertyBasedTypeAdapter<Action> {
 	}
 
 	public static class Factory implements TypeAdapterFactory {
+		private Map<String, Class<? extends Action>> actionKinds;
 
-		public Factory() {
+		public Factory(Set<Action> registeredActions) {
+			actionKinds = new HashMap<>();
+			registeredActions.forEach(action -> actionKinds.put(action.getKind(), action.getClass()));
 		}
 
 		@Override
@@ -60,7 +59,7 @@ public class ActionTypeAdapter extends PropertyBasedTypeAdapter<Action> {
 		public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
 			if (!Action.class.isAssignableFrom(typeToken.getRawType()))
 				return null;
-			return (TypeAdapter<T>) new ActionTypeAdapter(gson);
+			return (TypeAdapter<T>) new ActionTypeAdapter(gson,actionKinds);
 		}
 
 	}

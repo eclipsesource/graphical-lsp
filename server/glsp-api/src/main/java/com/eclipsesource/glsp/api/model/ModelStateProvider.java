@@ -8,20 +8,10 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-package com.eclipsesource.glsp.api.action;
+package com.eclipsesource.glsp.api.model;
 
-import java.util.Optional;
-
-import com.eclipsesource.glsp.api.model.ModelStateProvider;
-
-public interface ActionHandler {
+public interface ModelStateProvider {
 	
-	public int getPriority();
-
-	public boolean canHandle(Action action);
-
-	public Optional<Action> handle(Action action);
-
-	public void setModelStateProvider(ModelStateProvider provider);
+	ModelState getModelState();
 
 }

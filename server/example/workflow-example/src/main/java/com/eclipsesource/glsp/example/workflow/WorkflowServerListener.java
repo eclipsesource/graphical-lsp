@@ -10,45 +10,49 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow;
 
+
+
+import org.apache.log4j.Logger;
+
 import com.eclipsesource.glsp.api.action.kind.CollapseExpandAction;
 import com.eclipsesource.glsp.api.action.kind.CollapseExpandAllAction;
 import com.eclipsesource.glsp.api.action.kind.OpenAction;
 import com.eclipsesource.glsp.api.action.kind.SelectAction;
 import com.eclipsesource.glsp.api.action.kind.SelectAllAction;
-import com.eclipsesource.glsp.api.listener.GraphicalModelExpansionListener;
-import com.eclipsesource.glsp.api.listener.GraphicalModelSelectionListener;
-import com.eclipsesource.glsp.api.listener.ModelElementOpenListener;
+import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
+import com.eclipsesource.glsp.api.model.ModelExpansionListener;
+import com.eclipsesource.glsp.api.model.ModelSelectionListener;
 
 public class WorkflowServerListener
-		implements GraphicalModelSelectionListener, GraphicalModelExpansionListener, ModelElementOpenListener {
-
+		implements ModelSelectionListener, ModelExpansionListener, ModelElementOpenListener {
+	private static Logger log= Logger.getLogger(WorkflowServerListener.class);
 	@Override
 	public void elementOpened(OpenAction action) {
-		System.out.println("HANDLE: OpenAction for element: " + action.getElementId());
+		log.info("HANDLE: OpenAction for element: " + action.getElementId());
 
 	}
 
 	@Override
 	public void expansionChanged(CollapseExpandAction action) {
-		System.out.println("HANDLE: CollapseExpandAction for elements: " + action.getCollapseIds());
+		log.info("HANDLE: CollapseExpandAction for elements: " + action.getCollapseIds());
 
 	}
 
 	@Override
 	public void expansionChanged(CollapseExpandAllAction action) {
-		System.out.println("HANDLE: CollapseExpandAllAction");
+		log.info("HANDLE: CollapseExpandAllAction");
 
 	}
 
 	@Override
 	public void selectionChanged(SelectAction action) {
-		System.out.println("HANDLE: SelectAction for elements:" + action.getSelectedElementsIDs());
+		log.info("HANDLE: SelectAction for elements:" + action.getSelectedElementsIDs());
 
 	}
 
 	@Override
 	public void selectionChanged(SelectAllAction action) {
-		System.out.println("HANDLE: SelectAllAction");
+		log.info("HANDLE: SelectAllAction");
 
 	}
 
