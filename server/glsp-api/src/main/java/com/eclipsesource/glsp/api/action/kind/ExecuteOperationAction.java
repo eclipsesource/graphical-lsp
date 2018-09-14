@@ -6,22 +6,26 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *   
  * Contributors:
- * 	Tobias Ortmayr - initial API and implementation
+ * 	Philip Langer - initial API and implementation
  ******************************************************************************/
-package com.eclipsesource.glsp.api.action;
+package com.eclipsesource.glsp.api.action.kind;
 
-import java.util.Optional;
+import com.eclipsesource.glsp.api.action.Action;
 
-import com.eclipsesource.glsp.api.model.ModelStateProvider;
-
-public interface ActionHandler {
+public abstract class ExecuteOperationAction extends Action {
 	
-	public int getPriority();
+	private String operationKind;
+	
+	public ExecuteOperationAction(String operationKind) {
+		super(operationKind);
+	}
 
-	public boolean canHandle(Action action);
+	public String getOperationKind() {
+		return operationKind;
+	}
 
-	public Optional<Action> handle(Action action);
-
-	public void setModelStateProvider(ModelStateProvider provider);
+	public void setOperationKind(String operationKind) {
+		this.operationKind = operationKind;
+	}
 
 }

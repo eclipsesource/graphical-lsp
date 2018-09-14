@@ -10,7 +10,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import com.eclipsesource.glsp.api.action.ExecuteOperationAction;
 import com.eclipsesource.glsp.api.operations.OperationKind;
 
 import io.typefox.sprotty.api.Point;
@@ -24,7 +23,7 @@ public class CreateNodeOperationAction extends ExecuteOperationAction {
 	private String containerId;
 	
 	public CreateNodeOperationAction() {
-		super(OperationKind.CREATE_NODE);
+		super(ActionKind.CREATE_NODE_OPERATION);
 	}
 	
 	public CreateNodeOperationAction(String elementId) {

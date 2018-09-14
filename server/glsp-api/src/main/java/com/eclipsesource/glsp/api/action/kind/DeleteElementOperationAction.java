@@ -10,7 +10,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import com.eclipsesource.glsp.api.action.ExecuteOperationAction;
 import com.eclipsesource.glsp.api.operations.OperationKind;
 
 public class DeleteElementOperationAction extends ExecuteOperationAction {
@@ -18,7 +17,7 @@ public class DeleteElementOperationAction extends ExecuteOperationAction {
 	private String elementId;
 	
 	public DeleteElementOperationAction() {
-		super(OperationKind.DELETE_ELEMENT);
+		super(ActionKind.DELETE_ELEMENT_OPERATION);
 	}
 	
 	public DeleteElementOperationAction(String elementId) {

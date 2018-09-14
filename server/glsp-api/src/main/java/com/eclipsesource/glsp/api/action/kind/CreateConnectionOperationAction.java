@@ -10,7 +10,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import com.eclipsesource.glsp.api.action.ExecuteOperationAction;
 import com.eclipsesource.glsp.api.operations.OperationKind;
 
 public class CreateConnectionOperationAction extends ExecuteOperationAction {
@@ -22,7 +21,7 @@ public class CreateConnectionOperationAction extends ExecuteOperationAction {
 	private String targetElementId;
 
 	public CreateConnectionOperationAction() {
-		super(OperationKind.CREATE_CONNECTION);
+		super(ActionKind.CREATE_CONNECTION_OPERATION);
 	}
 
 	public CreateConnectionOperationAction(String elementTypeId, String sourceElementId, String targetElementId) {

@@ -8,20 +8,26 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-package com.eclipsesource.glsp.api.action;
+package com.eclipsesource.glsp.api.model;
 
-import java.util.Optional;
+import com.eclipsesource.glsp.api.action.kind.SelectAction;
+import com.eclipsesource.glsp.api.action.kind.SelectAllAction;
 
-import com.eclipsesource.glsp.api.model.ModelStateProvider;
+public interface ModelSelectionListener {
+	void selectionChanged(SelectAction acion);
 
-public interface ActionHandler {
-	
-	public int getPriority();
+	void selectionChanged(SelectAllAction action);
 
-	public boolean canHandle(Action action);
+	public static class NullImpl implements ModelSelectionListener {
 
-	public Optional<Action> handle(Action action);
+		@Override
+		public void selectionChanged(SelectAction action) {
+		}
 
-	public void setModelStateProvider(ModelStateProvider provider);
+		@Override
+		public void selectionChanged(SelectAllAction action) {
+		}
+
+	}
 
 }

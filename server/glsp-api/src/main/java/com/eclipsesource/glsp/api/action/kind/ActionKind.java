@@ -10,6 +10,8 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
+import com.eclipsesource.glsp.api.operations.OperationKind;
+
 public final class ActionKind {
 
 	public static final String REQUEST_MODEL = "requestModel";
@@ -42,8 +44,10 @@ public final class ActionKind {
 	public static final String UPDATE_MODEL = "updateModel";
 	public static final String SELECT_ALL = "allSelected";
 	public static final String SAVE_MODEL = "saveModel";
-	public static final String CREATE_CONNECTION = "createConnection";
-	public static final String DELETE = "delete";
+	public static final String CREATE_CONNECTION_OPERATION = EXECUTE_OPERATION + "_" + OperationKind.CREATE_CONNECTION;
+	public static final String CREATE_NODE_OPERATION = EXECUTE_OPERATION + "_" + OperationKind.CREATE_NODE;
+	public static final String DELETE_ELEMENT_OPERATION = EXECUTE_OPERATION + "_" + OperationKind.DELETE_ELEMENT;
+	public static final String MOVE_OPERATION = EXECUTE_OPERATION + "_" + OperationKind.MOVE;
 
 	private ActionKind() {
 		// prevent instantiation for class only holding constants.

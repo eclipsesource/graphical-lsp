@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
 
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
 import com.eclipsesource.glsp.api.json.SModelElementTypeAdapter;
-import com.eclipsesource.glsp.api.utils.InitalRequestOptions;
+import com.eclipsesource.glsp.api.utils.ModelOptions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -55,7 +55,7 @@ public abstract class FileBasedModelFactory implements ModelFactory {
 
 	@Override
 	public SModelRoot loadModel( RequestModelAction action) {
-		String sourceURI = action.getOptions().get(InitalRequestOptions.SOURCE_URI);
+		String sourceURI = action.getOptions().get(ModelOptions.SOURCE_URI);
 		try {
 			modelFile = convertToFile(sourceURI);
 			if (modelFile != null && modelFile.exists()) {

@@ -10,20 +10,27 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.eclipsesource.glsp.api.operations.OperationHandler;
-import com.eclipsesource.glsp.api.operations.OperationHandlerProvider;
-import com.eclipsesource.glsp.server.handlers.DeleteHandler;
-import com.eclipsesource.glsp.server.handlers.MoveNodeHandler;
+import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
+import com.eclipsesource.glsp.example.workflow.handler.CreateAutomatedTaskHandler;
+import com.eclipsesource.glsp.example.workflow.handler.CreateDecisionNodeHandler;
+import com.eclipsesource.glsp.example.workflow.handler.CreateEdgeHandler;
+import com.eclipsesource.glsp.example.workflow.handler.CreateManualTaskHandler;
+import com.eclipsesource.glsp.example.workflow.handler.CreateMergeNodeHandler;
+import com.eclipsesource.glsp.example.workflow.handler.CreateWeightedEdgeHandler;
+import com.eclipsesource.glsp.example.workflow.handler.DeleteWorkflowElementHandler;
+import com.eclipsesource.glsp.server.operationhandler.DeleteHandler;
+import com.eclipsesource.glsp.server.operationhandler.MoveNodeHandler;
 
 public class WorkflowOperationHandlerProvider implements OperationHandlerProvider {
 
-	List<OperationHandler> operationHandlers = new ArrayList<>();
+	Set<OperationHandler> operationHandlers = new HashSet<>();
 
 	@Override
-	public List<OperationHandler> getOperationHandlers() {
+	public Set<OperationHandler> getOperationHandlers() {
 		operationHandlers.add(new CreateAutomatedTaskHandler());
 		operationHandlers.add(new CreateManualTaskHandler());
 		operationHandlers.add(new CreateDecisionNodeHandler());

@@ -12,8 +12,8 @@ package com.eclipsesource.glsp.api.operations;
 
 import java.util.Optional;
 
-import com.eclipsesource.glsp.api.action.ExecuteOperationAction;
-import com.eclipsesource.glsp.api.factory.GraphicalModelState;
+import com.eclipsesource.glsp.api.action.kind.ExecuteOperationAction;
+import com.eclipsesource.glsp.api.model.ModelState;
 
 import io.typefox.sprotty.api.SModelRoot;
 
@@ -21,6 +21,6 @@ public interface OperationHandler {
 
 	boolean handles(ExecuteOperationAction action);
 
-	Optional<SModelRoot> execute(ExecuteOperationAction action, GraphicalModelState modelState);
+	Optional<SModelRoot> execute(ExecuteOperationAction action, ModelState modelState);
 
 }

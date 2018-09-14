@@ -9,6 +9,17 @@
 	</parent>
 	<artifactId>glsp-server</artifactId>
 	<name>GLSP Server</name>
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<targetPath>${project.build.directory}</targetPath>
+				<includes>
+					<include>log4j.properties</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
 	<dependencies>
 		<dependency>
 			<groupId>com.eclipsesource.glsp</groupId>
@@ -20,7 +31,7 @@
 			<artifactId>guice</artifactId>
 			<version>4.0</version>
 		</dependency>
-	
-		
+
+
 	</dependencies>
 </project>

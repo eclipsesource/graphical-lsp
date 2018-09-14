@@ -16,10 +16,11 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonNotification;
 import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
 
 import com.eclipsesource.glsp.api.action.ActionMessage;
+import com.eclipsesource.glsp.api.model.ModelStateProvider;
 
 import io.typefox.sprotty.api.ServerStatus;
 
-public interface GraphicalLanguageServer extends GraphicalLanguageClientAware {
+public interface GraphicalLanguageServer extends GraphicalLanguageClientAware,ModelStateProvider {
 
 	public interface Provider {
 		GraphicalLanguageServer getGraphicalLanguageServer(String clientId);
