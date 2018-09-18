@@ -11,10 +11,10 @@
 import URI from "@theia/core/lib/common/uri";
 import { EditorManager } from "@theia/editor/lib/browser";
 import { ActionMessage, ExportSvgAction, ServerStatusAction, SetOperationsAction, SetOperationsCommand } from "glsp-sprotty/lib";
-import { GLSPTheiaDiagramServer } from "glsp-theia-extension/src/browser/diagram/glsp-theia-diagram-server";
+import { GLSPTheiaDiagramServer } from "./glsp-theia-diagram-server";
 import { DiagramWidgetRegistry, OpenInTextEditorMessage, TheiaDiagramServer, TheiaFileSaver, TheiaSprottyConnector } from "theia-glsp/lib";
 import { ActionMessageNotification } from "../../common/";
-import { GLSPPaletteContribution } from "../diagram/glsp-palette-contribution";
+import { GLSPPaletteContribution } from "./glsp-palette-contribution";
 import { GraphicalLanguageClientContribution } from "../language/graphical-langauge-client-contribution";
 
 

@@ -10,11 +10,11 @@
  ******************************************************************************/
 import { WebSocketConnectionProvider } from "@theia/core/lib/browser";
 import { Disposable } from "@theia/core/lib/common/disposable";
-import { ConnectionCloseHandler, ConnectionErrorHandler, LanguageContribution, OutputChannel } from "@theia/languages/lib/common";
+import { CloseAction, ConnectionCloseHandler, ConnectionErrorHandler, ErrorAction, ErrorHandler, NotificationHandler, OutputChannel } from '@theia/languages/lib/browser';
+import { LanguageContribution } from "@theia/languages/lib/common";
 import { inject, injectable } from "inversify";
-import { CloseAction, ErrorAction, ErrorHandler, NotificationHandler } from "vscode-base-languageclient/lib/base";
 import { Message, NotificationType } from "vscode-jsonrpc";
-import { Connection, ConnectionProvider, createConnection, GraphicalLanguageClient, GraphicalLanguageClientOptions } from "../../common/graphical-language-client-services";
+import { Connection, ConnectionProvider, createConnection, GraphicalLanguageClient, GraphicalLanguageClientOptions } from "./graphical-language-client-services";
 
 enum ClientState {
     Initial,

@@ -10,7 +10,7 @@
  ******************************************************************************/
 import { CommandContribution, CommandRegistry, MAIN_MENU_BAR, MenuContribution, MenuModelRegistry, MenuPath } from "@theia/core";
 import { OperationKind, OperationService, OP_TYPES } from "glsp-sprotty/lib";
-import { GLSPTheiaDiagramServer } from "glsp-theia-extension/src/browser/diagram/glsp-theia-diagram-server";
+import { GLSPTheiaDiagramServer } from "./glsp-theia-diagram-server";
 import { inject, injectable } from "inversify";
 
 
