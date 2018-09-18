@@ -10,10 +10,10 @@
  ******************************************************************************/
 import { CommandRegistry } from "@theia/core";
 import { FrontendApplication } from "@theia/core/lib/browser";
+import { Commands, Disposable } from '@theia/languages/lib/browser';
 import { LanguageContribution } from "@theia/languages/lib/common";
 import { inject, injectable } from "inversify";
-import { Commands, Disposable } from "vscode-base-languageclient/lib/services";
-import { GraphicalLanguageClient, GraphicalLanguageClientOptions } from "../../common/graphical-language-client-services";
+import { GraphicalLanguageClient, GraphicalLanguageClientOptions } from "./graphical-language-client-services";
 import { GraphicalLanguageClientFactory } from "./graphical-language-client";
 
 export const GraphicalLanguageClientContribution = Symbol('GraphicalLanguageClientContribution')

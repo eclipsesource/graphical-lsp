@@ -8,10 +8,9 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { Commands, ConnectionCloseHandler, ConnectionErrorHandler, OutputChannel } from "@theia/languages/lib/common";
-import { ErrorHandler } from "vscode-base-languageclient/lib/base";
+import { Commands, ConnectionCloseHandler, ConnectionErrorHandler, OutputChannel, ErrorHandler } from "@theia/languages/lib/browser";
 import { Disposable, Message, MessageConnection, NotificationHandler, NotificationType } from "vscode-jsonrpc";
-import { ExitNotification, ShutdownRequest } from "./graphical-language-server-protocol";
+import { ExitNotification, ShutdownRequest } from "../../common";
 
 
 export const GraphicalLanguageClient = Symbol('GraphicalLanguageClient');
