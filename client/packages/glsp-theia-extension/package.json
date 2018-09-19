@@ -18,7 +18,7 @@
     "@theia/languages": "latest",
     "@theia/monaco": "latest",
     "@types/node": "^8.0.14",
-    "glsp-sprotty": "0.4.2",
+    "glsp-sprotty": "0.4.3",
     "theia-glsp": "0.1.21"
   },
   "devDependencies": {

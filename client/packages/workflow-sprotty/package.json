@@ -10,7 +10,7 @@
     "diagram"
   ],
   "dependencies": {
-    "glsp-sprotty": "0.4.2"
+    "glsp-sprotty": "0.4.3"
   },
   "devDependencies": {
     "rimraf": "latest",
