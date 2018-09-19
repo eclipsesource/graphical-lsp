@@ -42,7 +42,7 @@ public class MoveNodeHandler implements OperationHandler {
 		Point location = moveAction.getLocation();
 		
 		if (elementId == null || location == null) {
-			log.info("Invalid Move Action; missing mandatory arguments");
+			log.warn("Invalid Move Action; missing mandatory arguments");
 			return Optional.empty();
 		}
 		
@@ -51,12 +51,12 @@ public class MoveNodeHandler implements OperationHandler {
 		
 		SModelElement element = index.get(elementId);
 		if (element == null) {
-			log.info("Element with id "+elementId+" not found");
+			log.warn("Element with id "+elementId+" not found");
 			return Optional.empty();
 		}
 		
 		if (false == element instanceof SNode) {
-			log.info("Element "+elementId+" is not moveable");
+			log.warn("Element "+elementId+" is not moveable");
 			return Optional.empty();
 		}
 		

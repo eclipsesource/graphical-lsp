@@ -101,7 +101,7 @@ public class ActionRegistry {
 	 * @param action Action which should be processed
 	 * @return true if a registered consumer was found and the action was accepted
 	 */
-	public Optional<Action> delegatToHandler(Action action, ModelStateProvider modelStateProvider) {
+	public Optional<Action> delegateToHandler(Action action, ModelStateProvider modelStateProvider) {
 		ActionHandler handler = actionHandlers.get(action.getKind());
 		if (handler != null) {
 			handler.setModelStateProvider(modelStateProvider);

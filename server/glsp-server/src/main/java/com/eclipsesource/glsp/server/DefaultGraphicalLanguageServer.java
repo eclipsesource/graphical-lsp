@@ -61,13 +61,13 @@ public class DefaultGraphicalLanguageServer implements GraphicalLanguageServer {
 		if (clientId.equals(message.getClientId())) {
 			Action requestAction = message.getAction();
 			if (actionRegistry.hasHandler(requestAction)) {
-				Optional<Action> responseOpt = actionRegistry.delegatToHandler(requestAction, this);
+				Optional<Action> responseOpt = actionRegistry.delegateToHandler(requestAction, this);
 				if (responseOpt.isPresent()) {
 					ActionMessage response = new ActionMessage(clientId, responseOpt.get());
 					clientProxy.process(response);
 				}
 			} else {
-				log.info("No action handler is registered for the action kind: \"" + message.getAction().getKind()
+				log.warn("No action handler is registered for the action kind: \"" + message.getAction().getKind()
 						+ "\"");
 			}
 		}

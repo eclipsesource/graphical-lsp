@@ -41,7 +41,7 @@ public class CreateEdgeHandler implements OperationHandler {
 	public Optional<SModelRoot> execute(ExecuteOperationAction operationAction, ModelState modelState) {
 		CreateConnectionOperationAction action = (CreateConnectionOperationAction) operationAction;
 		if (action.getSourceElementId() == null || action.getTargetElementId() == null) {
-			log.info("Incomplete create connection action");
+			log.warn("Incomplete create connection action");
 			return Optional.empty();
 		}
 
@@ -51,7 +51,7 @@ public class CreateEdgeHandler implements OperationHandler {
 		SModelElement target = index.get(action.getTargetElementId());
 
 		if (source == null || target == null) {
-			log.info("NULL source or target for source ID " + action.getSourceElementId() + " and target ID "
+			log.warn("NULL source or target for source ID " + action.getSourceElementId() + " and target ID "
 					+ action.getTargetElementId());
 			return Optional.empty();
 		}
@@ -65,7 +65,7 @@ public class CreateEdgeHandler implements OperationHandler {
 
 		SModelRoot currentModel = modelState.getCurrentModel();
 		if (source == currentModel || target == currentModel) {
-			log.info("Can't create a link to the root node");
+			log.warn("Can't create a link to the root node");
 			return Optional.empty();
 		}
 

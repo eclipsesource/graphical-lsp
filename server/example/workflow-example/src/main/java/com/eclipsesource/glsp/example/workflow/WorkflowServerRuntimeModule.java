@@ -22,7 +22,6 @@ public class WorkflowServerRuntimeModule extends ServerModule {
 	
 	@Override
 	protected void bindOperationHandlerProviders() {
-		// TODO Auto-generated method stub
 		bindOperationHandlerProvider().to(WorkflowOperationHandlerProvider.class);
 	}
 
