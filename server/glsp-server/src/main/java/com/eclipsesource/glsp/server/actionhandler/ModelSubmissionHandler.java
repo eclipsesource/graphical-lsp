@@ -47,9 +47,7 @@ public class ModelSubmissionHandler {
 		if (layoutEngine != null) {
 			layoutEngine.layout(root);
 		}
-		synchronized (modelLock)
-
-		{
+		synchronized (modelLock) {
 			if (root.getRevision() == revision) {
 				String modelType = root.getType();
 				lastSubmittedModelType = modelType;
@@ -63,7 +61,7 @@ public class ModelSubmissionHandler {
 		}
 		return Optional.empty();
 	}
-	
+
 	public synchronized Object getModelLock() {
 		return modelLock;
 	}

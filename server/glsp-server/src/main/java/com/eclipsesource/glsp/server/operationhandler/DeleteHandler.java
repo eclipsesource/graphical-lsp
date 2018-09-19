@@ -42,14 +42,14 @@ public class DeleteHandler implements OperationHandler {
 		DeleteElementOperationAction action = (DeleteElementOperationAction) execAction;
 		String elementId = action.getElementId();
 		if (elementId == null) {
-			log.info("Element to delete is not specified");
+			log.warn("Element to delete is not specified");
 			return Optional.empty();
 		}
 		SModelIndex index = modelState.getCurrentModelIndex();
 		SModelElement element = index.get(elementId);
 
 		if (element == null) {
-			log.info("Element not found: " + elementId);
+			log.warn("Element not found: " + elementId);
 			return Optional.empty();
 		}
 
@@ -57,7 +57,7 @@ public class DeleteHandler implements OperationHandler {
 		SModelElement nodeToDelete = findTopLevelElement(element, index);
 		SModelElement parent = index.getParent(nodeToDelete);
 		if (parent == null) {
-			log.info("The requested node doesn't have a parent; it can't be deleted");
+			log.warn("The requested node doesn't have a parent; it can't be deleted");
 			return Optional.empty(); // Can't delete the root, or an element that doesn't belong to the model
 		}
 
