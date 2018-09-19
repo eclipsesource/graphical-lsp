@@ -16,6 +16,8 @@ import { DiagramWidgetRegistry, OpenInTextEditorMessage, TheiaDiagramServer, The
 import { ActionMessageNotification } from "../../common/";
 import { GLSPPaletteContribution } from "./glsp-palette-contribution";
 import { GraphicalLanguageClientContribution } from "../language/graphical-langauge-client-contribution";
+import { Workspace } from "@theia/languages/lib/browser";
+
 
 
 export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
@@ -26,7 +28,8 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
         private fileSaver: TheiaFileSaver,
         private editorManager: EditorManager,
         private diagramWidgetRegistry: DiagramWidgetRegistry,
-        private paletteContribution: GLSPPaletteContribution) {
+        private paletteContribution: GLSPPaletteContribution,
+        readonly workspace?: Workspace) {
 
         this.graphicalLanguageClientContribution.languageClient.then(
             lc => {
@@ -92,6 +95,5 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
             element.messageReceived(message)
         })
     }
-
 
 }
