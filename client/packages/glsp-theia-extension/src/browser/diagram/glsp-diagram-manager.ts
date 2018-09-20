@@ -8,15 +8,19 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { injectable } from "inversify";
+import { EditorPreferences } from "@theia/editor/lib/browser";
+import { inject, injectable } from "inversify";
 import { DiagramManagerImpl, DiagramWidgetFactory } from "theia-glsp/lib";
 import { GLSPDiagramWidget } from "./glsp-diagram-widget";
 
 @injectable()
 export abstract class GLSPDiagramManager extends DiagramManagerImpl {
 
+    @inject(EditorPreferences)
+    protected readonly editorPreferences: EditorPreferences;
+
     protected get diagramWidgetFactory(): DiagramWidgetFactory {
-        return options => new GLSPDiagramWidget(options)
+        return options => new GLSPDiagramWidget(options, this.editorPreferences);
     }
 
 }

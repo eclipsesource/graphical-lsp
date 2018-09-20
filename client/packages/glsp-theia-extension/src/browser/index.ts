@@ -1,5 +1,4 @@
 //diagram export
-export * from './diagram/glsp-diagram-commands';
 export * from './diagram/glsp-diagram-manager';
 export * from './diagram/glsp-diagram-widget';
 export * from './diagram/glsp-palette-contribution';
