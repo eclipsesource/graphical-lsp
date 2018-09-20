@@ -16,7 +16,6 @@ import java.util.Optional;
 
 import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.action.kind.ActionKind;
 import com.eclipsesource.glsp.api.action.kind.RequestOperationsAction;
 import com.eclipsesource.glsp.api.action.kind.SetOperationsAction;
 import com.eclipsesource.glsp.api.operations.Operation;

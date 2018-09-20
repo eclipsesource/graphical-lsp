@@ -18,7 +18,6 @@ import javax.inject.Inject;
 
 import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.action.kind.ActionKind;
 import com.eclipsesource.glsp.api.action.kind.OpenAction;
 import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
 

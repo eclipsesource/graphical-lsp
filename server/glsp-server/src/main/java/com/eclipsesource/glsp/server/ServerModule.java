@@ -21,13 +21,11 @@ public abstract class ServerModule extends GLSPModule {
 	@Override
 	protected void bindActionProviders() {
 		bindActionProvider().to(DefaultActionProvider.class);
-
 	}
 
 	@Override
 	protected void bindActionHandlerProviders() {
 		bindActionHandlerProvider().to(DefaultActionHandlerProvider.class);
-
 	}
 	
 

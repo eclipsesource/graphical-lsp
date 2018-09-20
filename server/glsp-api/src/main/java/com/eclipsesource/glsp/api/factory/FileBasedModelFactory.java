@@ -30,7 +30,7 @@ import io.typefox.sprotty.server.json.EnumTypeAdapter;
 
 public abstract class FileBasedModelFactory implements ModelFactory {
 	private static Logger LOGGER = Logger.getLogger(FileBasedModelFactory.class);
-	private static final String FILE_PREFIX="file://";
+	private static final String FILE_PREFIX = "file://";
 	private SModelRoot modelRoot;
 	protected GsonBuilder builder;
 
@@ -54,7 +54,7 @@ public abstract class FileBasedModelFactory implements ModelFactory {
 	protected abstract Map<String, Class<? extends SModelElement>> getModelTypeSchema();
 
 	@Override
-	public SModelRoot loadModel( RequestModelAction action) {
+	public SModelRoot loadModel(RequestModelAction action) {
 		String sourceURI = action.getOptions().get(ModelOptions.SOURCE_URI);
 		try {
 			modelFile = convertToFile(sourceURI);
@@ -64,7 +64,6 @@ public abstract class FileBasedModelFactory implements ModelFactory {
 				modelRoot = gson.fromJson(json, SGraph.class);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
 			LOGGER.error(e);
 		}
 		return modelRoot;
@@ -77,7 +76,7 @@ public abstract class FileBasedModelFactory implements ModelFactory {
 				FileUtils.writeStringToFile(modelFile, gson.toJson(modelRoot, SModelRoot.class), "UTF8");
 				return true;
 			} catch (IOException e) {
-				e.printStackTrace();
+				LOGGER.error(e);
 			}
 		}
 		return false;
