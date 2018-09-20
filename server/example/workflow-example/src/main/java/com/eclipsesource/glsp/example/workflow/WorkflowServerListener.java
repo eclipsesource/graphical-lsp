@@ -10,8 +10,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow;
 
-import java.util.StringJoiner;
-
 import org.apache.log4j.Logger;
 
 import com.eclipsesource.glsp.api.action.kind.CollapseExpandAction;

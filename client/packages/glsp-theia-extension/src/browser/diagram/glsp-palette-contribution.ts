@@ -10,8 +10,8 @@
  ******************************************************************************/
 import { CommandContribution, CommandRegistry, MAIN_MENU_BAR, MenuContribution, MenuModelRegistry, MenuPath } from "@theia/core";
 import { OperationKind, OperationService, OP_TYPES } from "glsp-sprotty/lib";
-import { GLSPTheiaDiagramServer } from "./glsp-theia-diagram-server";
 import { inject, injectable } from "inversify";
+import { GLSPTheiaDiagramServer } from "./glsp-theia-diagram-server";
 
 
 
@@ -38,8 +38,6 @@ export class GLSPPaletteContribution implements MenuContribution, CommandContrib
     @inject(OP_TYPES.OperationService) private operationService: OperationService
     private commandCounter: number = 0
     private diagramServer: GLSPTheiaDiagramServer;
-
-
 
     register(diagramServer: GLSPTheiaDiagramServer): any {
         this.diagramServer = diagramServer

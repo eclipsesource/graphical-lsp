@@ -16,13 +16,13 @@ import java.util.Optional;
 
 import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.action.kind.ActionKind;
 import com.eclipsesource.glsp.api.action.kind.SaveModelAction;
 import com.eclipsesource.glsp.api.factory.FileBasedModelFactory;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.google.inject.Inject;
 
 public class SaveModelActionHandler extends AbstractActionHandler {
+	
 	@Inject
 	ModelFactory modelFactory;
 

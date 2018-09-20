@@ -27,7 +27,6 @@ import com.eclipsesource.glsp.api.action.kind.DeleteElementOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ExecuteOperationAction;
 import com.eclipsesource.glsp.api.action.kind.MoveOperationAction;
 import com.eclipsesource.glsp.api.operations.OperationHandler;
-import com.eclipsesource.glsp.api.operations.OperationKind;
 import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
 
 import io.typefox.sprotty.api.SModelRoot;

@@ -20,7 +20,6 @@ import org.apache.log4j.Logger;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.ActionMessage;
 import com.eclipsesource.glsp.api.action.ActionRegistry;
-import com.eclipsesource.glsp.api.action.kind.ActionKind;
 import com.eclipsesource.glsp.api.jsonrpc.GraphicalLanguageClient;
 import com.eclipsesource.glsp.api.jsonrpc.GraphicalLanguageServer;
 import com.eclipsesource.glsp.api.model.ModelState;
