@@ -18,6 +18,7 @@ import com.eclipsesource.glsp.example.workflow.schema.ActivityNode;
 import com.eclipsesource.glsp.example.workflow.schema.Icon;
 import com.eclipsesource.glsp.example.workflow.schema.TaskNode;
 import com.eclipsesource.glsp.example.workflow.schema.WeightedEdge;
+import com.google.inject.Singleton;
 
 import io.typefox.sprotty.api.HtmlRoot;
 import io.typefox.sprotty.api.PreRenderedElement;
@@ -27,6 +28,7 @@ import io.typefox.sprotty.api.SGraph;
 import io.typefox.sprotty.api.SLabel;
 import io.typefox.sprotty.api.SModelElement;
 
+@Singleton
 public class WorkflowModelFactory extends FileBasedModelFactory {
 
 	@Override

@@ -8,18 +8,15 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { ActionHandlerRegistry, ActionMessage, CreateConnectionAction, DeleteElementAction, ExecuteNodeCreationToolAction, IActionDispatcher, ILogger, MoveElementAction, RequestOperationsAction, SaveModelAction, SetOperationsCommand, SModelStorage, SwitchEditModeCommand, TYPES, ViewerOptions } from "glsp-sprotty/lib";
+import { Emitter, Event } from "@theia/core/lib/common";
+import { Action, ActionHandlerRegistry, ActionMessage, CreateConnectionAction, DeleteElementAction, ExecuteNodeCreationToolAction, IActionDispatcher, ICommand, ILogger, ModelSource, MoveElementAction, RequestOperationsAction, SaveModelAction, SetOperationsCommand, SModelStorage, SwitchEditModeCommand, TYPES, ViewerOptions } from "glsp-sprotty/lib";
 import { inject, injectable } from "inversify";
 import { TheiaDiagramServer } from "theia-glsp/lib";
 
-
-
-
-
-
 @injectable()
-export class GLSPTheiaDiagramServer extends TheiaDiagramServer {
+export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements NotifyingModelSource {
 
+    readonly handledActionEventEmitter: Emitter<Action> = new Emitter<Action>();
 
     constructor(@inject(TYPES.IActionDispatcher) public actionDispatcher: IActionDispatcher,
         @inject(TYPES.ActionHandlerRegistry) actionHandlerRegistry: ActionHandlerRegistry,
@@ -29,6 +26,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer {
     ) {
         super(actionDispatcher, actionHandlerRegistry, viewerOptions, storage, logger)
     }
+
     initialize(registry: ActionHandlerRegistry): void {
         super.initialize(registry);
         //register commads
@@ -54,6 +52,23 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer {
         return this.sourceUri
     }
 
+    get onHandledAction(): Event<Action> {
+        return this.handledActionEventEmitter.event;
+    }
 
+    handle(action: Action): void | ICommand {
+        this.handledActionEventEmitter.fire(action);
+        return super.handle(action);
+    }
 
+}
+
+export interface NotifyingModelSource extends ModelSource {
+    readonly onHandledAction: Event<Action>;
+}
+
+export namespace NotifyingModelSource {
+    export function is(arg: any): arg is NotifyingModelSource {
+        return !!arg && ('onHandledAction' in arg);
+    }
 }

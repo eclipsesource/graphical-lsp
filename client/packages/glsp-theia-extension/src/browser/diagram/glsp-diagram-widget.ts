@@ -7,11 +7,30 @@
  *   
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
+ *  Philip Langer - add support for saveable
  ******************************************************************************/
-import { RequestModelAction, RequestOperationsAction } from "glsp-sprotty/lib";
-import { DiagramWidget } from "theia-glsp/lib";
+import { Saveable, SaveableSource } from "@theia/core/lib/browser";
+import { Disposable, DisposableCollection, Emitter, Event, MaybePromise } from "@theia/core/lib/common";
+import { EditorPreferences } from "@theia/editor/lib/browser";
+import { Action, IActionDispatcher, ModelSource, RequestModelAction, RequestOperationsAction, SaveModelAction } from "glsp-sprotty/lib";
+import { DiagramWidget, DiagramWidgetOptions } from "theia-glsp/lib";
+import { NotifyingModelSource } from "./glsp-theia-diagram-server";
 
-export class GLSPDiagramWidget extends DiagramWidget {
+export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
+
+    saveable = new SaveableGLSPModelSource(this.actionDispatcher, this.modelSource);
+
+    constructor(options: DiagramWidgetOptions, readonly editorPreferences: EditorPreferences) {
+        super(options);
+        const prefUpdater = editorPreferences.onPreferenceChanged(() => this.updateSaveable());
+        this.toDispose.push(prefUpdater);
+        this.toDispose.push(this.saveable);
+    }
+
+    protected updateSaveable() {
+        this.saveable.autoSave = this.editorPreferences['editor.autoSave'];
+        this.saveable.autoSaveDelay = this.editorPreferences['editor.autoSaveDelay'];
+    }
 
     protected sendInitialRequestMessages() {
         this.modelSource.handle(new RequestModelAction({
@@ -19,8 +38,66 @@ export class GLSPDiagramWidget extends DiagramWidget {
             diagramType: this.diagramType,
             needsClientLayout: 'true'
         }))
-
-        this.modelSource.handle(new RequestOperationsAction())
+        this.modelSource.handle(new RequestOperationsAction());
     }
 
+}
+
+export class SaveableGLSPModelSource implements Saveable, Disposable {
+
+    autoSave: "on" | "off" = "on";
+    autoSaveDelay: number = 500;
+
+    private toDispose = new DisposableCollection();
+    private isDirty: boolean = false;
+    readonly dirtyChangedEmitter: Emitter<void> = new Emitter<void>();
+
+    constructor(readonly actionDispatcher: IActionDispatcher, readonly modelSource: ModelSource) {
+        if (NotifyingModelSource.is(this.modelSource)) {
+            const notifyingModelSource = this.modelSource as NotifyingModelSource;
+            notifyingModelSource.onHandledAction((action) => {
+                this.dirty = this.dirty || isModelManipulation(action)
+            });
+        }
+    }
+
+    get onDirtyChanged(): Event<void> {
+        return this.dirtyChangedEmitter.event;
+    }
+
+    save(): MaybePromise<void> {
+        return this.actionDispatcher.dispatch(new SaveModelAction())
+            .then(() => { this.dirty = false });
+    }
+
+    set dirty(newDirty: boolean) {
+        const oldValue = this.isDirty;
+        if (oldValue !== newDirty) {
+            this.isDirty = newDirty;
+            this.dirtyChangedEmitter.fire(undefined);
+            this.doAutoSave();
+        }
+    }
+
+    protected doAutoSave(): void {
+        if (this.autoSave === 'on') {
+            const handle = window.setTimeout(() => { this.save() }, this.autoSaveDelay);
+            this.toDispose.push(Disposable.create(() =>
+                window.clearTimeout(handle)));
+        }
+    }
+
+    get dirty(): boolean {
+        return this.isDirty;
+    }
+
+    dispose(): void {
+        this.toDispose.dispose();
+        this.dirtyChangedEmitter.dispose();
+    }
+
+}
+
+function isModelManipulation(action: Action): boolean {
+    return action.kind.startsWith("executeOperation") || action.kind === "move";
 }
