@@ -1,0 +1,21 @@
+{
+  "name": "glsp-sprotty",
+  "version": "0.4.3",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+   "sprotty" :"latest"
+  },
+  "devDependencies": {
+    "rimraf": "latest",
+    "typescript": "latest"
+  },
+  "scripts": {
+    "prepare": "yarn run clean && yarn run build",
+    "clean": "rimraf lib",
+    "build": "tsc",
+    "watch": "tsc -w"
+  }
+}
