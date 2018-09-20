@@ -10,7 +10,7 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow;
 
-
+import java.util.StringJoiner;
 
 import org.apache.log4j.Logger;
 
@@ -25,7 +25,8 @@ import com.eclipsesource.glsp.api.model.ModelSelectionListener;
 
 public class WorkflowServerListener
 		implements ModelSelectionListener, ModelExpansionListener, ModelElementOpenListener {
-	private static Logger log= Logger.getLogger(WorkflowServerListener.class);
+	private static Logger log = Logger.getLogger(WorkflowServerListener.class);
+
 	@Override
 	public void elementOpened(OpenAction action) {
 		log.info("HANDLE: OpenAction for element: " + action.getElementId());
@@ -46,7 +47,7 @@ public class WorkflowServerListener
 
 	@Override
 	public void selectionChanged(SelectAction action) {
-		log.info("HANDLE: SelectAction for elements:" + action.getSelectedElementsIDs());
+		log.info("HANDLE: SelectAction for elements: " + String.join(", ", action.getSelectedElementsIDs()));
 
 	}
 

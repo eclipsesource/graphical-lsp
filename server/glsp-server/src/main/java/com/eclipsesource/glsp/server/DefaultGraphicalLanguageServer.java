@@ -55,6 +55,7 @@ public class DefaultGraphicalLanguageServer implements GraphicalLanguageServer {
 
 	@Override
 	public void process(ActionMessage message) {
+		log.debug("process " + message);
 		if (this.clientId == null) {
 			clientId = message.getClientId();
 		}
@@ -67,8 +68,7 @@ public class DefaultGraphicalLanguageServer implements GraphicalLanguageServer {
 					clientProxy.process(response);
 				}
 			} else {
-				log.warn("No action handler is registered for the action kind: \"" + message.getAction().getKind()
-						+ "\"");
+				log.warn("No action handler registered for action kind: \"" + message.getAction().getKind() + "\"");
 			}
 		}
 	}
