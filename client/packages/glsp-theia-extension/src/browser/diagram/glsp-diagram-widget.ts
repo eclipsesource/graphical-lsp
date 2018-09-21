@@ -22,6 +22,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
 
     constructor(options: DiagramWidgetOptions, readonly editorPreferences: EditorPreferences) {
         super(options);
+        this.updateSaveable();
         const prefUpdater = editorPreferences.onPreferenceChanged(() => this.updateSaveable());
         this.toDispose.push(prefUpdater);
         this.toDispose.push(this.saveable);
@@ -45,10 +46,10 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
 
 export class SaveableGLSPModelSource implements Saveable, Disposable {
 
-    autoSave: "on" | "off" = "on";
+    isAutoSave: "on" | "off" = "on";
     autoSaveDelay: number = 500;
 
-    private toDispose = new DisposableCollection();
+    private autoSaveJobs = new DisposableCollection();
     private isDirty: boolean = false;
     readonly dirtyChangedEmitter: Emitter<void> = new Emitter<void>();
 
@@ -70,29 +71,53 @@ export class SaveableGLSPModelSource implements Saveable, Disposable {
             .then(() => { this.dirty = false });
     }
 
+    get dirty(): boolean {
+        return this.isDirty;
+    }
+
     set dirty(newDirty: boolean) {
         const oldValue = this.isDirty;
         if (oldValue !== newDirty) {
             this.isDirty = newDirty;
             this.dirtyChangedEmitter.fire(undefined);
-            this.doAutoSave();
+        }
+        this.scheduleAutoSave();
+    }
+
+    set autoSave(isAutoSave: "on" | "off") {
+        this.isAutoSave = isAutoSave;
+        if (this.shouldAutoSave) {
+            this.scheduleAutoSave();
+        } else {
+            this.autoSaveJobs.dispose();
         }
     }
 
-    protected doAutoSave(): void {
-        if (this.autoSave === 'on') {
-            const handle = window.setTimeout(() => { this.save() }, this.autoSaveDelay);
-            this.toDispose.push(Disposable.create(() =>
-                window.clearTimeout(handle)));
+    get autoSave(): "on" | "off" {
+        return this.isAutoSave;
+    }
+
+    protected scheduleAutoSave() {
+        if (this.shouldAutoSave) {
+            this.autoSaveJobs.dispose();
+            const autoSaveJob = window.setTimeout(() => this.doAutoSave(), this.autoSaveDelay);
+            const disposableAutoSaveJob = Disposable.create(() => window.clearTimeout(autoSaveJob));
+            this.autoSaveJobs.push(disposableAutoSaveJob);
         }
     }
 
-    get dirty(): boolean {
-        return this.isDirty;
+    protected doAutoSave() {
+        if (this.shouldAutoSave) {
+            this.save();
+        }
+    }
+
+    protected get shouldAutoSave(): boolean {
+        return this.dirty && this.autoSave === 'on';
     }
 
     dispose(): void {
-        this.toDispose.dispose();
+        this.autoSaveJobs.dispose();
         this.dirtyChangedEmitter.dispose();
     }
 
