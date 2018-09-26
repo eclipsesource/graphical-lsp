@@ -1,9 +1,9 @@
 # Graphical Language Server Protocol Framework
 
-The Graphical Language Server Protocol Framework implements a client and an extensible server component to enable the development of editable diagrams in (distributed) web-applications via a client-server protocol.
+The Graphical Language Server Protocol Framework implements extensible components to enable the development of *diagram editors including edit functionality* in (distributed) web-applications via a client-server protocol.
 This [Graphical Language Server Protocol (GLSP)](https://github.com/eclipsesource/GraphicalServerProtocol) is work in progress and developed in collaboration among TypeFox, Obeo, and EclipseSource.
 It follows the same architectural pattern as the [Language Server Protocol](https://github.com/Microsoft/language-server-protocol) for textual languages, but applies it to graphical modeling for browser/cloud-based deployments.
-The protocol as well as the client implementation is heavily based on [Sprotty](https://github.com/theia-ide/sprotty).
+The protocol as well as the client implementation is heavily based on [Sprotty](https://github.com/theia-ide/sprotty) but extends it with editing functionality and GLSP-specific communication with the server.
 
 ## Getting started
 ### Prerequisites
