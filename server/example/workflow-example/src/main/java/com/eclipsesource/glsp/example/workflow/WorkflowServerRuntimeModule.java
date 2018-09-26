@@ -10,24 +10,24 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow;
 
-import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
 import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
 import com.eclipsesource.glsp.api.model.ModelExpansionListener;
 import com.eclipsesource.glsp.api.model.ModelSelectionListener;
+import com.eclipsesource.glsp.api.model.ModelTypeConfiguration;
 import com.eclipsesource.glsp.api.operations.OperationConfiguration;
 import com.eclipsesource.glsp.server.ServerModule;
 
 public class WorkflowServerRuntimeModule extends ServerModule {
-	
+
 	@Override
 	protected void bindOperationHandlerProviders() {
 		bindOperationHandlerProvider().to(WorkflowOperationHandlerProvider.class);
 	}
 
 	@Override
-	public Class<? extends ModelFactory> bindModelFactory() {
-		return WorkflowModelFactory.class;
+	public Class<? extends ModelTypeConfiguration> bindModelTypeConfiguration() {
+		return WorkflowModelTypeConfiguration.class;
 	}
 
 	@Override

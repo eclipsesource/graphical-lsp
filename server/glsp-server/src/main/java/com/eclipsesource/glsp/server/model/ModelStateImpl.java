@@ -8,7 +8,7 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-package com.eclipsesource.glsp.server;
+package com.eclipsesource.glsp.server.model;
 
 import java.util.HashSet;
 import java.util.Set;

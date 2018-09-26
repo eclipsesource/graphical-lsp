@@ -8,59 +8,47 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-package com.eclipsesource.glsp.api.factory;
+package com.eclipsesource.glsp.server.model;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
-import com.eclipsesource.glsp.api.json.SModelElementTypeAdapter;
+import com.eclipsesource.glsp.api.factory.ModelFactory;
+import com.eclipsesource.glsp.api.model.ModelTypeConfiguration;
 import com.eclipsesource.glsp.api.utils.ModelOptions;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.inject.Inject;
 
 import io.typefox.sprotty.api.SGraph;
-import io.typefox.sprotty.api.SModelElement;
 import io.typefox.sprotty.api.SModelRoot;
-import io.typefox.sprotty.server.json.EnumTypeAdapter;
 
-public abstract class FileBasedModelFactory implements ModelFactory {
+/**
+ * A base class which can be used for all modelfactories that load an SModel
+ * from a file (typically .json)
+ * 
+ * @author Tobias Ortmayr <tortmayr@eclipsesource.com>
+ *
+ */
+public  class FileBasedModelFactory implements ModelFactory {
 	private static Logger LOGGER = Logger.getLogger(FileBasedModelFactory.class);
 	private static final String FILE_PREFIX = "file://";
+
+	@Inject
+	private ModelTypeConfiguration modelTypeConfiguration;
 	private SModelRoot modelRoot;
-	protected GsonBuilder builder;
-
-	private File modelFile;
-
-	public FileBasedModelFactory() {
-		configureGson();
-	}
-
-	private void configureGson() {
-		builder = new GsonBuilder();
-		builder.registerTypeAdapterFactory(new SModelElementTypeAdapter.Factory(getModelTypeSchema()))
-				.registerTypeAdapterFactory(new EnumTypeAdapter.Factory());
-	}
-
-	/**
-	 * Returns a map which enables the identification of the corresponding Java
-	 * class for each SModelElement based on its type property. This mappings will
-	 * be reused by GSON for proper JSON-to-Java conversion.
-	 */
-	protected abstract Map<String, Class<? extends SModelElement>> getModelTypeSchema();
 
 	@Override
 	public SModelRoot loadModel(RequestModelAction action) {
 		String sourceURI = action.getOptions().get(ModelOptions.SOURCE_URI);
 		try {
-			modelFile = convertToFile(sourceURI);
+			File modelFile = convertToFile(sourceURI);
 			if (modelFile != null && modelFile.exists()) {
 				String json = FileUtils.readFileToString(modelFile, "UTF8");
-				Gson gson = builder.create();
+				Gson gson = modelTypeConfiguration.configureGSON().create();
 				modelRoot = gson.fromJson(json, SGraph.class);
 			}
 		} catch (IOException e) {
@@ -69,25 +57,11 @@ public abstract class FileBasedModelFactory implements ModelFactory {
 		return modelRoot;
 	}
 
-	public boolean saveModel(SModelRoot modelRoot) {
-		if (modelFile != null) {
-			try {
-				Gson gson = builder.setPrettyPrinting().create();
-				FileUtils.writeStringToFile(modelFile, gson.toJson(modelRoot, SModelRoot.class), "UTF8");
-				return true;
-			} catch (IOException e) {
-				LOGGER.error(e);
-			}
-		}
-		return false;
-	}
-
 	private File convertToFile(String sourceURI) {
 		if (sourceURI != null && sourceURI.startsWith(FILE_PREFIX)) {
 			return new File(sourceURI.replace(FILE_PREFIX, ""));
 		}
 		return null;
-
 	}
 
 }

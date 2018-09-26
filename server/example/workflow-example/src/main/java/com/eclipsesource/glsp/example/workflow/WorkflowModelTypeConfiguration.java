@@ -13,12 +13,11 @@ package com.eclipsesource.glsp.example.workflow;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.eclipsesource.glsp.api.factory.FileBasedModelFactory;
+import com.eclipsesource.glsp.api.model.ModelTypeConfiguration;
 import com.eclipsesource.glsp.example.workflow.schema.ActivityNode;
 import com.eclipsesource.glsp.example.workflow.schema.Icon;
 import com.eclipsesource.glsp.example.workflow.schema.TaskNode;
 import com.eclipsesource.glsp.example.workflow.schema.WeightedEdge;
-import com.google.inject.Singleton;
 
 import io.typefox.sprotty.api.HtmlRoot;
 import io.typefox.sprotty.api.PreRenderedElement;
@@ -28,29 +27,25 @@ import io.typefox.sprotty.api.SGraph;
 import io.typefox.sprotty.api.SLabel;
 import io.typefox.sprotty.api.SModelElement;
 
-@Singleton
-public class WorkflowModelFactory extends FileBasedModelFactory {
+public class WorkflowModelTypeConfiguration implements ModelTypeConfiguration {
 
 	@Override
-	protected Map<String, Class<? extends SModelElement>> getModelTypeSchema() {
-		return new HashMap<String, Class<? extends SModelElement>>() {
-			private static final long serialVersionUID = 1L;
-			{
-				put("graph", SGraph.class);
-				put("label:heading", SLabel.class);
-				put("label:text", SLabel.class);
-				put("comp:comp", SCompartment.class);
-				put("comp:header", SCompartment.class);
-				put("label:icon", SLabel.class);
-				put("edge", SEdge.class);
-				put("html", HtmlRoot.class);
-				put("pre-rendered", PreRenderedElement.class);
-				put(WeightedEdge.TYPE, WeightedEdge.class);
-				put(Icon.TYPE, Icon.class);
-				put(ActivityNode.TYPE, ActivityNode.class);
-				put(TaskNode.TYPE, TaskNode.class);
-			}
-		};
+	public Map<String, Class<? extends SModelElement>> getModelTypes() {
+		Map<String, Class<? extends SModelElement>> conf = new HashMap<>();
+		conf.put("graph", SGraph.class);
+		conf.put("label:heading", SLabel.class);
+		conf.put("label:text", SLabel.class);
+		conf.put("comp:comp", SCompartment.class);
+		conf.put("comp:header", SCompartment.class);
+		conf.put("label:icon", SLabel.class);
+		conf.put("edge", SEdge.class);
+		conf.put("html", HtmlRoot.class);
+		conf.put("pre-rendered", PreRenderedElement.class);
+		conf.put(WeightedEdge.TYPE, WeightedEdge.class);
+		conf.put(Icon.TYPE, Icon.class);
+		conf.put(ActivityNode.TYPE, ActivityNode.class);
+		conf.put(TaskNode.TYPE, TaskNode.class);
+		return conf;
 
 	}
 
