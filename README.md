@@ -1,7 +1,9 @@
-# Graphical Language Server Protocol Implementation
+# Graphical Language Server Protocol Framework
 
-This is a prototypical implementation of an web-based Diagram modeling editor. For client server communication an adapted version of the Graphical Server Protocol proposed by Obeo is used (https://github.com/ObeoNetwork/GraphicalServerProtocol)
-The web client is based on Theia and reuses the Sprotty framework.
+The Graphical Language Server Protocol Framework implements a client and an extensible server component to enable the development of editable diagrams in (distributed) web-applications via a client-server protocol.
+This [Graphical Language Server Protocol (GLSP)](https://github.com/eclipsesource/GraphicalServerProtocol) is work in progress and developed in collaboration among TypeFox, Obeo, and EclipseSource.
+It follows the same architectural pattern as the [Language Server Protocol](https://github.com/Microsoft/language-server-protocol) for textual languages, but applies it to graphical modeling for browser/cloud-based deployments.
+The protocol as well as the client implementation is heavily based on [Sprotty](https://github.com/theia-ide/sprotty).
 
 ## Getting started
 ### Prerequisites
@@ -43,7 +45,7 @@ and then open http://localhost:3000 in the browser.
 
 
 ### Testing the example
-The example workspace should be opend automatically on Theia launch. THis workspace constains the file "example1.wf". You can display this file in the Workflow Digram editor via context menu (Open with -> Workflow Diagram)
+The example workspace should be opend automatically on Theia launch. This workspace constains the file "example1.wf". You can display this file in the Workflow Digram editor via context menu (Open with -> Workflow Diagram)
 
 ## Tips & Tricks
 ### Typescript MonoRepo Import Fixer
