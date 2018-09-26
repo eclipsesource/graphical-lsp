@@ -11,8 +11,9 @@
 package com.eclipsesource.glsp.api.utils;
 
 import java.util.Map;
+import java.util.Optional;
 
-import com.google.common.base.Optional;
+
 
 public final class ModelOptions {
 

@@ -17,6 +17,7 @@ import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
 import com.eclipsesource.glsp.api.model.ModelExpansionListener;
 import com.eclipsesource.glsp.api.model.ModelSelectionListener;
 import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.ModelTypeConfiguration;
 import com.eclipsesource.glsp.api.operations.OperationConfiguration;
 import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
 import com.eclipsesource.glsp.api.provider.ActionProvider;
@@ -49,6 +50,7 @@ public abstract class GLSPModule extends AbstractModule {
 		bind(ModelElementOpenListener.class).to(bindModelElementOpenListener());
 		bind(ILayoutEngine.class).to(bindLayoutEngine());
 		bind(OperationConfiguration.class).to(bindOperationConfiguration());
+		bind(ModelTypeConfiguration.class).to(bindModelTypeConfiguration());
 	}
 
 	protected void bindProviders() {
@@ -69,7 +71,7 @@ public abstract class GLSPModule extends AbstractModule {
 	protected abstract void bindActionHandlerProviders();
 
 	protected abstract void bindOperationHandlerProviders();
-
+	
 	protected final LinkedBindingBuilder<ActionProvider> bindActionProvider() {
 		return actionProviderBinder.addBinding();
 	}
@@ -109,4 +111,9 @@ public abstract class GLSPModule extends AbstractModule {
 	protected Class<? extends ILayoutEngine> bindLayoutEngine() {
 		return ILayoutEngine.NullImpl.class;
 	}
+
+	protected Class<? extends ModelTypeConfiguration> bindModelTypeConfiguration() {
+		return ModelTypeConfiguration.NullImpl.class;
+	}
+
 }
