@@ -1,21 +1,30 @@
-language: java
-
-jdk:
-  - oraclejdk8
-
-cache:
-  directories:
-  - "$HOME/.m2/repository"
-
 # Handle git submodules yourself
 git:
-    submodules: false
+  submodules: false
 # Use sed to replace the SSH URL with the public URL, then initialize submodules
 before_install:
-    - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
-    - git submodule update --init --recursive
+  - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+  - git submodule update --init --recursive
 
-install: true
+matrix:
+  include:
+    - language: java
+      jdk: oraclejdk8
+      before_script:
+        - cd server
+      cache:
+        directories:
+          - "$HOME/.m2/repository"
+      install: true
+      script:
+        - mvn clean verify
 
-script:
- - mvn -f server/pom.xml clean verify
+    - language: node_js
+      node_js:
+        - "8"
+      before_script:
+        - cd client
+      cache:
+        yarn: true
+        directories:
+          - node_modules

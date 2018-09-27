@@ -10,6 +10,7 @@
     "**/@types/node": "8.10.20"
   },
   "scripts": {
+    "test": "yarn",
     "prepare": "lerna run prepare",
     "rebuild:browser": "theia rebuild:browser",
     "rebuild:electron": "theia rebuild:electron",
