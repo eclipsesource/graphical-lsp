@@ -43,9 +43,11 @@ The example server can be started by executing the main method of the class Exam
 	yarn start
 and then open http://localhost:3000 in the browser.
 
-
 ### Testing the example
 The example workspace should be opend automatically on Theia launch. This workspace constains the file "example1.wf". You can display this file in the Workflow Digram editor via context menu (Open with -> Workflow Diagram)
+
+## Contributing to the Graphical LSP project [![CLA assistant](https://cla-assistant.io/readme/badge/eclipsesource/graphical-lsp)](https://cla-assistant.io/eclipsesource/graphical-lsp)
+We'd be trhilled to receive your contribution! Please feel free to open issues, fork this repo, and/or open pull requests. Note that we will ask you to sign a CLA to ensure all contributions can be distributed under the terms of the following open-source licenses: Apache License 2.0, BSD 2/3 License, MIT License, and Eclipse Public License v1.0.
 
 ## Tips & Tricks
 ### Typescript MonoRepo Import Fixer
