@@ -3,7 +3,7 @@
   "keywords": [
     "theia-extension"
   ],
-  "version": "0.1.6",
+  "version": "0.1.7",
   "files": [
     "lib",
     "src"
@@ -18,8 +18,8 @@
     "@theia/languages": "latest",
     "@theia/monaco": "latest",
     "@types/node": "^8.0.14",
-    "glsp-sprotty": "0.4.3",
-    "theia-glsp": "0.1.21"
+    "glsp-sprotty": "0.4.4",
+    "theia-glsp": "0.1.22"
   },
   "devDependencies": {
     "vscode": "^1.1.18"
