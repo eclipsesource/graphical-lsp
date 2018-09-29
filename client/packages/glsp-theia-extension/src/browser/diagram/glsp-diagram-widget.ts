@@ -35,7 +35,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
 
     protected sendInitialRequestMessages() {
         this.modelSource.handle(new RequestModelAction({
-            sourceUri: this.uri.toString(),
+            sourceUri: decodeURIComponent(this.uri.toString()),
             diagramType: this.diagramType,
             needsClientLayout: 'true'
         }))
