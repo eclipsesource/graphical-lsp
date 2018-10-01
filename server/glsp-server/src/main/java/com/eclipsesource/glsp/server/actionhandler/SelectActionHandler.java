@@ -34,7 +34,7 @@ public class SelectActionHandler extends AbstractActionHandler {
 	}
 
 	@Override
-	public Optional<Action> handle(Action action) {
+	public Optional<Action> execute(Action action) {
 		switch (action.getKind()) {
 		case ActionKind.SELECT:
 			return handleSelectAction((SelectAction) action);

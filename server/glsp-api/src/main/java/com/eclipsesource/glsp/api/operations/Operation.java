@@ -30,24 +30,12 @@ public class Operation {
 		return label;
 	}
 
-	public void setLabel(String label) {
-		this.label = label;
-	}
-
 	public String getElementTypeId() {
 		return elementTypeId;
 	}
 
-	public void setElementTypeId(String elementTypeId) {
-		this.elementTypeId = elementTypeId;
-	}
-
 	public String getOperationKind() {
 		return operationKind;
-	}
-
-	public void setOperationKind(String operationKind) {
-		this.operationKind = operationKind;
 	}
 
 	@Override

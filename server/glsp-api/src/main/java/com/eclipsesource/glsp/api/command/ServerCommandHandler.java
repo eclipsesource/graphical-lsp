@@ -1,32 +1,25 @@
 /*******************************************************************************
-
  * Copyright (c) 2018 EclipseSource Services GmbH and others.
  * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
+ * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * http://www.eclipse.org/legal/epl-v20.html
  *   
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-package com.eclipsesource.glsp.api.provider;
+package com.eclipsesource.glsp.api.command;
 
 import java.util.Collections;
-import java.util.Set;
+import java.util.Map;
 
-import com.eclipsesource.glsp.api.action.Action;
+public interface ServerCommandHandler {
+	
+	public boolean handles(String commandId);
 
-public interface ActionProvider {
-
-	Set<Action> getActions();
-
-	public static class NullImpl implements ActionProvider {
-
-		@Override
-		public Set<Action> getActions() {
-			return Collections.emptySet();
-		}
-
+	default public void execute(String commandId) {
+		execute(commandId, Collections.emptyMap());
 	}
 
+	public void execute(String commandId, Map<String, String> options);
 }

@@ -14,6 +14,8 @@ import com.eclipsesource.glsp.api.di.GLSPModule;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.jsonrpc.GraphicalLanguageServer;
 import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
+import com.eclipsesource.glsp.api.provider.ActionProvider;
 import com.eclipsesource.glsp.server.model.FileBasedModelFactory;
 import com.eclipsesource.glsp.server.model.ModelStateImpl;
 import com.eclipsesource.glsp.server.provider.DefaultActionHandlerProvider;
@@ -22,14 +24,15 @@ import com.eclipsesource.glsp.server.provider.DefaultActionProvider;
 public abstract class ServerModule extends GLSPModule {
 
 	@Override
-	protected void bindActionProviders() {
-		bindActionProvider().to(DefaultActionProvider.class);
+	protected Class<? extends ActionProvider> bindActionProvider() {
+		return DefaultActionProvider.class;
 	}
 
 	@Override
-	protected void bindActionHandlerProviders() {
-		bindActionHandlerProvider().to(DefaultActionHandlerProvider.class);
+	protected Class<? extends ActionHandlerProvider> bindActionHandlerProvider() {
+		return DefaultActionHandlerProvider.class;
 	}
+
 
 	@Override
 	protected Class<? extends ModelFactory> bindModelFactory() {
