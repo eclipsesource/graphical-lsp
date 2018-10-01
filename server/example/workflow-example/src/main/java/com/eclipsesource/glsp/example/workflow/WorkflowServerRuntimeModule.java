@@ -16,13 +16,14 @@ import com.eclipsesource.glsp.api.model.ModelExpansionListener;
 import com.eclipsesource.glsp.api.model.ModelSelectionListener;
 import com.eclipsesource.glsp.api.model.ModelTypeConfiguration;
 import com.eclipsesource.glsp.api.operations.OperationConfiguration;
+import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
 import com.eclipsesource.glsp.server.ServerModule;
 
 public class WorkflowServerRuntimeModule extends ServerModule {
 
 	@Override
-	protected void bindOperationHandlerProviders() {
-		bindOperationHandlerProvider().to(WorkflowOperationHandlerProvider.class);
+	protected Class<? extends OperationHandlerProvider> bindOperatioHandlerProvider() {
+		return WorkflowOperationHandlerProvider.class;
 	}
 
 	@Override
@@ -36,7 +37,7 @@ public class WorkflowServerRuntimeModule extends ServerModule {
 	}
 
 	@Override
-	public Class<? extends ModelSelectionListener> bindGraphicalModelSelectionListener() {
+	public Class<? extends ModelSelectionListener> bindModelSelectionListener() {
 		return WorkflowServerListener.class;
 	}
 
@@ -46,7 +47,7 @@ public class WorkflowServerRuntimeModule extends ServerModule {
 	}
 
 	@Override
-	public Class<? extends ModelExpansionListener> bindGraphicalModelExpansionListener() {
+	public Class<? extends ModelExpansionListener> bindModelExpansionListener() {
 		return WorkflowServerListener.class;
 	}
 

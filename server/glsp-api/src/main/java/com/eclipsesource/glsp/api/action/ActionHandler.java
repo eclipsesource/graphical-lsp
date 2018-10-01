@@ -16,11 +16,9 @@ import com.eclipsesource.glsp.api.model.ModelStateProvider;
 
 public interface ActionHandler {
 	
-	public int getPriority();
+	public boolean handles(Action action);
 
-	public boolean canHandle(Action action);
-
-	public Optional<Action> handle(Action action);
+	public Optional<Action> execute(Action action);
 
 	public void setModelStateProvider(ModelStateProvider provider);
 
