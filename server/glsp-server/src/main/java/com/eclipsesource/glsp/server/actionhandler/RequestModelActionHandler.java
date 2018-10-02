@@ -34,7 +34,7 @@ public class RequestModelActionHandler extends AbstractActionHandler {
 
 
 	@Override
-	public Optional<Action> handle(Action action) {
+	public Optional<Action> execute(Action action) {
 		if (action instanceof RequestModelAction) {
 			RequestModelAction requestAction = (RequestModelAction) action;
 			ParsedModelOptions options = ModelOptions.parse(requestAction.getOptions());

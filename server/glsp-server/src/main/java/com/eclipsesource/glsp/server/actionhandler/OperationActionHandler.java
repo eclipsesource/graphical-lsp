@@ -12,9 +12,7 @@ package com.eclipsesource.glsp.server.actionhandler;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.Optional;
-import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -33,7 +31,7 @@ import io.typefox.sprotty.api.SModelRoot;
 
 public class OperationActionHandler extends AbstractActionHandler {
 	@Inject
-	private Set<OperationHandlerProvider> operationHandlers;
+	private OperationHandlerProvider operationHandlerProvider;
 	@Inject
 	private ModelSubmissionHandler submissionHandler;
 
@@ -44,7 +42,7 @@ public class OperationActionHandler extends AbstractActionHandler {
 	}
 
 	@Override
-	public Optional<Action> handle(Action action) {
+	public Optional<Action> execute(Action action) {
 		switch (action.getKind()) {
 		case ActionKind.CREATE_NODE_OPERATION:
 		case ActionKind.CREATE_CONNECTION_OPERATION:
@@ -57,16 +55,14 @@ public class OperationActionHandler extends AbstractActionHandler {
 	}
 
 	public Optional<Action> doHandle(ExecuteOperationAction action) {
-		Optional<OperationHandler> handler = operationHandlers.stream()
-				.sorted(Comparator.comparing(OperationHandlerProvider::getPriority))
-				.filter(prov -> prov.isHandled(action)).findFirst().flatMap(prov -> prov.getOperationHandler(action));
-
-		if (handler.isPresent()) {
-			Optional<SModelRoot> modelRoot = handler.get().execute(action, getModelState());
+		if (operationHandlerProvider.isHandled(action)) {
+			OperationHandler handler = operationHandlerProvider.getOperationHandler(action).get();
+			Optional<SModelRoot> modelRoot = handler.execute(action, getModelState());
 			if (modelRoot.isPresent()) {
 				return submissionHandler.handleSubmission(modelRoot.get(), false, getModelState());
 			}
 		}
+
 		return Optional.empty();
 	}
 

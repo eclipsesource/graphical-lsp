@@ -1,5 +1,4 @@
 /*******************************************************************************
-
  * Copyright (c) 2018 EclipseSource Services GmbH and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
@@ -12,21 +11,27 @@
 package com.eclipsesource.glsp.api.provider;
 
 import java.util.Collections;
+import java.util.Optional;
 import java.util.Set;
 
-import com.eclipsesource.glsp.api.action.Action;
+import com.eclipsesource.glsp.api.command.ServerCommandHandler;
 
-public interface ActionProvider {
+public interface ServerCommandHandlerProvider {
+	Set<ServerCommandHandler> getServerCommandHandlers();
 
-	Set<Action> getActions();
-
-	public static class NullImpl implements ActionProvider {
-
-		@Override
-		public Set<Action> getActions() {
-			return Collections.emptySet();
-		}
-
+	default boolean isHandled(String commandId) {
+		return getOperationHandler(commandId).isPresent();
 	}
 
+	default Optional<ServerCommandHandler> getOperationHandler(String commandId) {
+		return getServerCommandHandlers().stream().filter(ha -> ha.handles(commandId)).findFirst();
+	}
+
+	final static class NullImpl implements ServerCommandHandlerProvider {
+
+		@Override
+		public Set<ServerCommandHandler> getServerCommandHandlers() {
+			return Collections.emptySet();
+		}
+	}
 }

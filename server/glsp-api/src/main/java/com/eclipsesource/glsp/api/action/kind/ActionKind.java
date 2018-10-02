@@ -48,6 +48,7 @@ public final class ActionKind {
 	public static final String CREATE_NODE_OPERATION = EXECUTE_OPERATION + "_" + OperationKind.CREATE_NODE;
 	public static final String DELETE_ELEMENT_OPERATION = EXECUTE_OPERATION + "_" + OperationKind.DELETE_ELEMENT;
 	public static final String MOVE_OPERATION = EXECUTE_OPERATION + "_" + OperationKind.MOVE;
+	public static final String EXECUTE_SERVER_COMMAND = "executeServerCommand";
 
 	private ActionKind() {
 		// prevent instantiation for class only holding constants.

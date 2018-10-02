@@ -32,7 +32,7 @@ public class RequestOperationsHandler extends AbstractActionHandler {
 	}
 
 	@Override
-	public Optional<Action> handle(Action action) {
+	public Optional<Action> execute(Action action) {
 		if (action instanceof RequestOperationsAction) {
 			RequestOperationsAction requestAction = (RequestOperationsAction) action;
 			Optional<Operation[]> operations = Optional.ofNullable(operationConfiguration)

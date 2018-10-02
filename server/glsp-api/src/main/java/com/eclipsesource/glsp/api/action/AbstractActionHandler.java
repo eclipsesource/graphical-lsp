@@ -22,7 +22,7 @@ public abstract class AbstractActionHandler implements ActionHandler {
 
 	protected abstract Collection<Action> handleableActionsKinds();
 
-	public boolean canHandle(Action action) {
+	public boolean handles(Action action) {
 
 		return handleableActionsKinds().stream().anyMatch(
 				hAction -> hAction.getKind().equals(action.getKind()) && hAction.getClass().equals(action.getClass()));
@@ -32,7 +32,7 @@ public abstract class AbstractActionHandler implements ActionHandler {
 	 * Processes and action and returns the response action which should be send to
 	 * the client. If no response to the client is need a NoOpAction is returned
 	 */
-	public abstract Optional<Action> handle(Action action);
+	public abstract Optional<Action> execute(Action action);
 
 	public void setModelStateProvider(ModelStateProvider modelStateProvider) {
 		this.modelStateProvider = modelStateProvider;
@@ -40,11 +40,6 @@ public abstract class AbstractActionHandler implements ActionHandler {
 
 	protected ModelState getModelState() {
 		return modelStateProvider.getModelState();
-	}
-
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
 	}
 
 }

@@ -12,19 +12,16 @@
 package com.eclipsesource.glsp.api.action;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import com.eclipsesource.glsp.api.model.ModelStateProvider;
 import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
 import com.eclipsesource.glsp.api.provider.ActionProvider;
-import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -37,49 +34,31 @@ public class ActionRegistry {
 	private Map<String, ActionHandler> actionHandlers;
 
 	@Inject
-	public ActionRegistry(Set<ActionProvider> registeredActionProviders,
-			Set<ActionHandlerProvider> registeredHandlerProviders) {
+	public ActionRegistry(ActionProvider registeredActionProvider, ActionHandlerProvider registeredHandlerProvider) {
 		actionKinds = new HashMap<>();
 		actionHandlers = new HashMap<>();
 		registeredActions = new HashSet<>();
-		initializeMaps(registeredActionProviders, registeredHandlerProviders);
+		initializeMaps(registeredActionProvider, registeredHandlerProvider);
 
 	}
 
-	private void initializeMaps(Set<ActionProvider> actionProviders,
-			Set<ActionHandlerProvider> registeredHandlerProviders) {
+	private void initializeMaps(ActionProvider registeredActionProvider,
+			ActionHandlerProvider registeredHandlerProvider) {
 		// sort providers by priority
-		Set<ActionHandlerProvider> sportedHandlerProviders = registeredHandlerProviders.stream()
-				.sorted(Comparator.comparing(ActionHandlerProvider::getPriority)).collect(Collectors.toSet());
-		Set<ActionProvider> sortedActionProvider = actionProviders = actionProviders.stream()
-				.sorted(Comparator.comparing(ActionProvider::getPriority)).collect(Collectors.toSet());
 
-		sortedActionProvider.forEach(aProv -> {
-			aProv.getActions().forEach(action -> {
-				if (!actionKinds.containsKey(action.getKind())) {
-					actionKinds.put(action.getKind(), action.getClass());
-					registeredActions.add(action);
-
-					Optional<ActionHandler> handlerOpt = getActionHandler(action, sportedHandlerProviders);
-					if (handlerOpt.isPresent()) {
-						actionHandlers.put(action.getKind(), handlerOpt.get());
-					}
-
+		registeredActionProvider.getActions().forEach(action -> {
+			if (!actionKinds.containsKey(action.getKind())) {
+				actionKinds.put(action.getKind(), action.getClass());
+				registeredActions.add(action);
+				if (registeredHandlerProvider.isHandled(action)) {
+					ActionHandler handler = registeredHandlerProvider.getActionHandler(action).get();
+					actionHandlers.put(action.getKind(), handler);
 				}
-			});
+			}
 		});
-
 	}
 
-	private Optional<ActionHandler> getActionHandler(Action action, Set<ActionHandlerProvider> handlerProviders) {
-		Optional<ActionHandlerProvider> handlerProviderOpt = handlerProviders.stream()
-				.filter((hProv -> hProv.isHandled(action))).findFirst();
-		if (handlerProviderOpt.isPresent()) {
-			return handlerProviderOpt.get().getActionHandler(action);
-		}
-		return Optional.empty();
-	}
-
+	
 	public Set<Action> getAllActions() {
 		return Collections.unmodifiableSet(registeredActions);
 	}
@@ -105,7 +84,7 @@ public class ActionRegistry {
 		ActionHandler handler = actionHandlers.get(action.getKind());
 		if (handler != null) {
 			handler.setModelStateProvider(modelStateProvider);
-			return handler.handle(action);
+			return handler.execute(action);
 		}
 		return Optional.empty();
 	}

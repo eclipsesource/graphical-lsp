@@ -20,24 +20,20 @@ import com.eclipsesource.glsp.api.action.ActionHandler;
 
 public interface ActionHandlerProvider {
 
-	default int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
-	Set<ActionHandler> getActionHandlerHandlers();
+	Set<ActionHandler> getActionHandlers();
 
 	default boolean isHandled(Action action) {
 		return getActionHandler(action).isPresent();
 	}
 
 	default Optional<ActionHandler> getActionHandler(Action action) {
-		return getActionHandlerHandlers().stream().filter(ha -> ha.canHandle(action)).findFirst();
+		return getActionHandlers().stream().filter(ha -> ha.handles(action)).findFirst();
 	}
 	
 	final static class NullImpl implements ActionHandlerProvider{
 
 		@Override
-		public Set<ActionHandler> getActionHandlerHandlers() {
+		public Set<ActionHandler> getActionHandlers() {
 			return Collections.emptySet();
 		}
 		

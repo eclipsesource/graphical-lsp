@@ -21,10 +21,6 @@ public interface OperationHandlerProvider {
 
 	Set<OperationHandler> getOperationHandlers();
 
-	default int getPriority() {
-		return Integer.MAX_VALUE;
-	}
-
 	default boolean isHandled(ExecuteOperationAction action) {
 		return getOperationHandler(action).isPresent();
 	}
@@ -33,7 +29,7 @@ public interface OperationHandlerProvider {
 		return getOperationHandlers().stream().filter(ha -> ha.handles(action)).findFirst();
 	}
 	
-	final static class NullOperationHandlerProvider implements OperationHandlerProvider {
+	final static class NullImpl implements OperationHandlerProvider {
 		@Override
 		public Set<OperationHandler> getOperationHandlers() {
 			return Collections.emptySet();

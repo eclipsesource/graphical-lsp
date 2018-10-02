@@ -35,7 +35,7 @@ public class CollapseExpandActionHandler extends AbstractActionHandler {
 	}
 
 	@Override
-	public Optional<Action> handle(Action action) {
+	public Optional<Action> execute(Action action) {
 		switch (action.getKind()) {
 		case ActionKind.COLLAPSE_EXPAND:
 			return handleCollapseExpandAction((CollapseExpandAction) action);

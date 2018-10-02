@@ -8,18 +8,18 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-package com.eclipsesource.glsp.api.action;
+package com.eclipsesource.glsp.api.command;
 
-import java.util.Optional;
+import java.util.Collections;
+import java.util.Map;
 
-import com.eclipsesource.glsp.api.model.ModelStateProvider;
-
-public interface ActionHandler {
+public interface ServerCommandHandler {
 	
-	public boolean handles(Action action);
+	public boolean handles(String commandId);
 
-	public Optional<Action> execute(Action action);
+	default public void execute(String commandId) {
+		execute(commandId, Collections.emptyMap());
+	}
 
-	public void setModelStateProvider(ModelStateProvider provider);
-
+	public void execute(String commandId, Map<String, String> options);
 }

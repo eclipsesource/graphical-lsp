@@ -54,7 +54,7 @@ public class DefaultActionHandlerProvider implements ActionHandlerProvider {
 	}
 
 	@Override
-	public Set<ActionHandler> getActionHandlerHandlers() {
+	public Set<ActionHandler> getActionHandlers() {
 		return defaultActionHandlers;
 	}
 
