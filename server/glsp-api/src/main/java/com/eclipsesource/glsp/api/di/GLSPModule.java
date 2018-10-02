@@ -34,7 +34,6 @@ public abstract class GLSPModule extends AbstractModule {
 		bind(GraphicalLanguageServer.class).to(bindGraphicalLanguageServer());
 		bind(PopupModelFactory.class).to(bindPopupModelFactory());
 		bind(ModelFactory.class).to(bindModelFactory());
-		bind(ModelState.class).to(bindModelState());
 		bind(ModelSelectionListener.class).to(bindModelSelectionListener());
 		bind(ModelExpansionListener.class).to(bindModelExpansionListener());
 		bind(ModelElementOpenListener.class).to(bindModelElementOpenListener());
@@ -47,10 +46,7 @@ public abstract class GLSPModule extends AbstractModule {
 		bind(ServerCommandHandlerProvider.class).to(bindServerCommandHandler());
 	}
 
-
 	protected abstract Class<? extends GraphicalLanguageServer> bindGraphicalLanguageServer();
-
-	protected abstract Class<? extends ModelState> bindModelState();
 
 	protected Class<? extends ActionProvider> bindActionProvider() {
 		return ActionProvider.NullImpl.class;

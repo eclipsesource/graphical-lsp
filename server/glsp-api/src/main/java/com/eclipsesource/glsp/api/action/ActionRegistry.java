@@ -19,7 +19,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import com.eclipsesource.glsp.api.model.ModelStateProvider;
+import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
 import com.eclipsesource.glsp.api.provider.ActionProvider;
 import com.google.inject.Inject;
@@ -58,7 +58,6 @@ public class ActionRegistry {
 		});
 	}
 
-	
 	public Set<Action> getAllActions() {
 		return Collections.unmodifiableSet(registeredActions);
 	}
@@ -80,11 +79,10 @@ public class ActionRegistry {
 	 * @param action Action which should be processed
 	 * @return true if a registered consumer was found and the action was accepted
 	 */
-	public Optional<Action> delegateToHandler(Action action, ModelStateProvider modelStateProvider) {
+	public Optional<Action> delegateToHandler(Action action, ModelState modelState) {
 		ActionHandler handler = actionHandlers.get(action.getKind());
 		if (handler != null) {
-			handler.setModelStateProvider(modelStateProvider);
-			return handler.execute(action);
+			return handler.execute(action, modelState);
 		}
 		return Optional.empty();
 	}

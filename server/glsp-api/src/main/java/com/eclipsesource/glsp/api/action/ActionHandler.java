@@ -12,14 +12,12 @@ package com.eclipsesource.glsp.api.action;
 
 import java.util.Optional;
 
-import com.eclipsesource.glsp.api.model.ModelStateProvider;
+import com.eclipsesource.glsp.api.model.ModelState;
 
 public interface ActionHandler {
-	
+
 	public boolean handles(Action action);
 
-	public Optional<Action> execute(Action action);
-
-	public void setModelStateProvider(ModelStateProvider provider);
+	public Optional<Action> execute(Action action, ModelState modelState);
 
 }

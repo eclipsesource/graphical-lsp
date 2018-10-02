@@ -17,6 +17,7 @@ import java.util.Optional;
 import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.ComputedBoundsAction;
+import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.utils.LayoutUtil;
 import com.google.inject.Inject;
 
@@ -32,15 +33,15 @@ public class ComputedBoundsActionHandler extends AbstractActionHandler {
 	}
 
 	@Override
-	public Optional<Action> execute(Action action) {
+	public Optional<Action> execute(Action action, ModelState modelState) {
 		if (action instanceof ComputedBoundsAction) {
 			ComputedBoundsAction computedBoundsAction = (ComputedBoundsAction) action;
 
 			synchronized (submissionHandler.getModelLock()) {
-				SModelRoot model = getModelState().getCurrentModel();
+				SModelRoot model = modelState.getCurrentModel();
 				if (model != null && model.getRevision() == computedBoundsAction.getRevision()) {
 					LayoutUtil.applyBounds(model, computedBoundsAction);
-					return submissionHandler.handleSubmission(model, true, getModelState());
+					return submissionHandler.handleSubmission(model, true, modelState);
 				}
 			}
 		}

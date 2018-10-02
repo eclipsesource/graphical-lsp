@@ -19,6 +19,7 @@ import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestPopupModelAction;
 import com.eclipsesource.glsp.api.action.kind.SetPopupModelAction;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
+import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.google.inject.Inject;
 
@@ -35,10 +36,10 @@ public class RequestPopupModelActionHandler extends AbstractActionHandler {
 	}
 
 	@Override
-	public Optional<Action> execute(Action action) {
+	public Optional<Action> execute(Action action, ModelState modelState) {
 		if (action instanceof RequestPopupModelAction) {
 			RequestPopupModelAction requestAction = (RequestPopupModelAction) action;
-			SModelRoot model = getModelState().getCurrentModel();
+			SModelRoot model = modelState.getCurrentModel();
 			SModelElement element = SModelIndex.find(model, requestAction.getElementId());
 			if (popupModelFactory != null) {
 				SModelRoot popupModel = popupModelFactory.createPopuModel(element, requestAction);

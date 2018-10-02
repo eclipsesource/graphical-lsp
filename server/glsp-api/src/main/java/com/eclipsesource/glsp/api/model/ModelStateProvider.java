@@ -11,7 +11,13 @@
 package com.eclipsesource.glsp.api.model;
 
 public interface ModelStateProvider {
-	
-	ModelState getModelState();
+	/**
+	 * Returns the model state for a given clientId. Note that each sprotty diagram
+	 * is counted as an individual client.
+	 * 
+	 * @param clientId clientId/widgetId
+	 * @return the corresponding model state
+	 */
+	ModelState getModelState(String clientId);
 
 }
