@@ -24,6 +24,7 @@ import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
 import com.eclipsesource.glsp.api.action.kind.DeleteElementOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ExecuteOperationAction;
 import com.eclipsesource.glsp.api.action.kind.MoveOperationAction;
+import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.operations.OperationHandler;
 import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
 
@@ -42,24 +43,24 @@ public class OperationActionHandler extends AbstractActionHandler {
 	}
 
 	@Override
-	public Optional<Action> execute(Action action) {
+	public Optional<Action> execute(Action action, ModelState modelState) {
 		switch (action.getKind()) {
 		case ActionKind.CREATE_NODE_OPERATION:
 		case ActionKind.CREATE_CONNECTION_OPERATION:
 		case ActionKind.DELETE_ELEMENT_OPERATION:
 		case ActionKind.MOVE_OPERATION:
-			return doHandle((ExecuteOperationAction) action);
+			return doHandle((ExecuteOperationAction) action, modelState);
 		default:
 			return Optional.empty();
 		}
 	}
 
-	public Optional<Action> doHandle(ExecuteOperationAction action) {
+	public Optional<Action> doHandle(ExecuteOperationAction action, ModelState modelState) {
 		if (operationHandlerProvider.isHandled(action)) {
 			OperationHandler handler = operationHandlerProvider.getOperationHandler(action).get();
-			Optional<SModelRoot> modelRoot = handler.execute(action, getModelState());
+			Optional<SModelRoot> modelRoot = handler.execute(action, modelState);
 			if (modelRoot.isPresent()) {
-				return submissionHandler.handleSubmission(modelRoot.get(), false, getModelState());
+				return submissionHandler.handleSubmission(modelRoot.get(), false, modelState);
 			}
 		}
 

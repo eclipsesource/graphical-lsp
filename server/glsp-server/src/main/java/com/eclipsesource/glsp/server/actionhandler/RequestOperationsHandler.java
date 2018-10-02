@@ -18,6 +18,7 @@ import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestOperationsAction;
 import com.eclipsesource.glsp.api.action.kind.SetOperationsAction;
+import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.operations.Operation;
 import com.eclipsesource.glsp.api.operations.OperationConfiguration;
 import com.google.inject.Inject;
@@ -32,7 +33,7 @@ public class RequestOperationsHandler extends AbstractActionHandler {
 	}
 
 	@Override
-	public Optional<Action> execute(Action action) {
+	public Optional<Action> execute(Action action, ModelState modelState) {
 		if (action instanceof RequestOperationsAction) {
 			RequestOperationsAction requestAction = (RequestOperationsAction) action;
 			Optional<Operation[]> operations = Optional.ofNullable(operationConfiguration)

@@ -18,7 +18,6 @@ import com.eclipsesource.glsp.api.model.ModelStateProvider;
 
 public abstract class AbstractActionHandler implements ActionHandler {
 
-	private ModelStateProvider modelStateProvider;
 
 	protected abstract Collection<Action> handleableActionsKinds();
 
@@ -32,14 +31,8 @@ public abstract class AbstractActionHandler implements ActionHandler {
 	 * Processes and action and returns the response action which should be send to
 	 * the client. If no response to the client is need a NoOpAction is returned
 	 */
-	public abstract Optional<Action> execute(Action action);
+	public abstract Optional<Action> execute(Action action,ModelState modelState);
 
-	public void setModelStateProvider(ModelStateProvider modelStateProvider) {
-		this.modelStateProvider = modelStateProvider;
-	}
 
-	protected ModelState getModelState() {
-		return modelStateProvider.getModelState();
-	}
 
 }

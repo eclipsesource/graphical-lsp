@@ -30,7 +30,7 @@ import com.google.inject.Inject;
 import io.typefox.sprotty.api.SModelRoot;
 
 public class SaveModelActionHandler extends AbstractActionHandler {
-	private static final Logger LOG= Logger.getLogger(SaveModelActionHandler.class);
+	private static final Logger LOG = Logger.getLogger(SaveModelActionHandler.class);
 	private static final String FILE_PREFIX = "file://";
 
 	@Inject
@@ -42,11 +42,11 @@ public class SaveModelActionHandler extends AbstractActionHandler {
 	}
 
 	@Override
-	public Optional<Action> execute(Action action) {
+	public Optional<Action> execute(Action action, ModelState modelState) {
 		if (action instanceof SaveModelAction) {
 			SaveModelAction saveAction = (SaveModelAction) action;
 			if (saveAction != null) {
-				saveModelState(getModelState());
+				saveModelState(modelState);
 			}
 		}
 		return Optional.empty();

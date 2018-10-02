@@ -44,9 +44,4 @@ public abstract class ServerModule extends GLSPModule {
 		return DefaultGraphicalLanguageServer.class;
 	}
 
-	@Override
-	protected Class<? extends ModelState> bindModelState() {
-		return ModelStateImpl.class;
-	}
-
 }
