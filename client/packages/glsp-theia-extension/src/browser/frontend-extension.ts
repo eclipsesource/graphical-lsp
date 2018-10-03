@@ -17,6 +17,7 @@ import { GraphicalLanguageClientContribution } from "./language/graphical-langau
 import { GraphicalLanguageClientFactory } from "./language/graphical-language-client";
 import { GraphicalLanguageClientProvider, GraphicalLanguageClientProviderImpl } from "./language/graphical-language-client-provider";
 import { GraphicalLanguagesFrontendContribution } from "./language/graphical-languages-frontend-contribution";
+import { OP_TYPES, OperationServiceImpl } from "glsp-sprotty/lib";
 export default new ContainerModule(bind => {
 
     bind(GraphicalLanguageClientFactory).toSelf().inSingletonScope();
@@ -28,5 +29,6 @@ export default new ContainerModule(bind => {
     bind(GraphicalLanguageClientProvider).toDynamicValue(ctx => ctx.container.get(GraphicalLanguageClientProviderImpl)).inSingletonScope()
 
     bind(GLSPTheiaSprottyConnector).toSelf().inSingletonScope();
+    bind(OP_TYPES.OperationService).to(OperationServiceImpl).inSingletonScope()
 
 });
