@@ -28,3 +28,6 @@ matrix:
         yarn: true
         directories:
           - node_modules
+      branches:
+        only: 
+          - master
