@@ -8,24 +8,15 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-package com.eclipsesource.glsp.server.provider;
+package com.eclipsesource.glsp.api.handler;
 
-import java.util.Set;
+import java.util.Optional;
 
-import com.eclipsesource.glsp.api.handler.ActionHandler;
-import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
-import com.google.inject.Inject;
+import com.eclipsesource.glsp.api.action.Action;
+import com.eclipsesource.glsp.api.model.ModelState;
 
-public class DefaultActionHandlerProvider implements ActionHandlerProvider {
-	private Set<ActionHandler> handlers;
-	@Inject
-	public DefaultActionHandlerProvider(Set<ActionHandler> handlers) {
-		this.handlers=handlers;
-	}
+public interface ActionHandler extends Handler<Action> {
 
-	@Override
-	public Set<ActionHandler> getHandlers() {
-		return handlers;
-	}
+	public Optional<Action> execute(Action action, ModelState modelState);
 
 }

@@ -11,26 +11,16 @@
 package com.eclipsesource.glsp.api.provider;
 
 import java.util.Collections;
-import java.util.Optional;
 import java.util.Set;
 
-import com.eclipsesource.glsp.api.command.ServerCommandHandler;
+import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
 
-public interface ServerCommandHandlerProvider {
-	Set<ServerCommandHandler> getServerCommandHandlers();
-
-	default boolean isHandled(String commandId) {
-		return getServerCommandHandler(commandId).isPresent();
-	}
-
-	default Optional<ServerCommandHandler> getServerCommandHandler(String commandId) {
-		return getServerCommandHandlers().stream().filter(ha -> ha.handles(commandId)).findFirst();
-	}
+public interface ServerCommandHandlerProvider extends HandlerProvider<ServerCommandHandler, String> {
 
 	final static class NullImpl implements ServerCommandHandlerProvider {
 
 		@Override
-		public Set<ServerCommandHandler> getServerCommandHandlers() {
+		public Set<ServerCommandHandler> getHandlers() {
 			return Collections.emptySet();
 		}
 	}

@@ -10,7 +10,7 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.handler;
 
-import com.eclipsesource.glsp.api.operations.OperationHandler;
+import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.server.operationhandler.DeleteHandler;
 
 public class DeleteWorkflowElementHandler extends DeleteHandler implements OperationHandler {

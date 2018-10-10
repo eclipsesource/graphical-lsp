@@ -12,19 +12,20 @@ package com.eclipsesource.glsp.server.provider;
 
 import java.util.Set;
 
-import com.eclipsesource.glsp.api.handler.ActionHandler;
-import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
+import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
+import com.eclipsesource.glsp.api.provider.ServerCommandHandlerProvider;
 import com.google.inject.Inject;
 
-public class DefaultActionHandlerProvider implements ActionHandlerProvider {
-	private Set<ActionHandler> handlers;
+public class DefaultServerCommandHandlerProvider implements ServerCommandHandlerProvider {
+	private Set<ServerCommandHandler> handlers;
+
 	@Inject
-	public DefaultActionHandlerProvider(Set<ActionHandler> handlers) {
-		this.handlers=handlers;
+	public DefaultServerCommandHandlerProvider(Set<ServerCommandHandler> handlers) {
+		this.handlers = handlers;
 	}
 
 	@Override
-	public Set<ActionHandler> getHandlers() {
+	public Set<ServerCommandHandler> getHandlers() {
 		return handlers;
 	}
 

@@ -16,15 +16,19 @@ import com.eclipsesource.glsp.api.model.ModelExpansionListener;
 import com.eclipsesource.glsp.api.model.ModelSelectionListener;
 import com.eclipsesource.glsp.api.model.ModelTypeConfiguration;
 import com.eclipsesource.glsp.api.operations.OperationConfiguration;
-import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
+import com.eclipsesource.glsp.example.workflow.handler.CreateAutomatedTaskHandler;
+import com.eclipsesource.glsp.example.workflow.handler.CreateDecisionNodeHandler;
+import com.eclipsesource.glsp.example.workflow.handler.CreateEdgeHandler;
+import com.eclipsesource.glsp.example.workflow.handler.CreateManualTaskHandler;
+import com.eclipsesource.glsp.example.workflow.handler.CreateMergeNodeHandler;
+import com.eclipsesource.glsp.example.workflow.handler.CreateWeightedEdgeHandler;
+import com.eclipsesource.glsp.example.workflow.handler.DeleteWorkflowElementHandler;
 import com.eclipsesource.glsp.server.ServerModule;
+import com.eclipsesource.glsp.server.operationhandler.DeleteHandler;
+import com.eclipsesource.glsp.server.operationhandler.MoveNodeHandler;
 
 public class WorkflowServerRuntimeModule extends ServerModule {
 
-	@Override
-	protected Class<? extends OperationHandlerProvider> bindOperatioHandlerProvider() {
-		return WorkflowOperationHandlerProvider.class;
-	}
 
 	@Override
 	public Class<? extends ModelTypeConfiguration> bindModelTypeConfiguration() {
@@ -55,4 +59,18 @@ public class WorkflowServerRuntimeModule extends ServerModule {
 	public Class<? extends OperationConfiguration> bindOperationConfiguration() {
 		return WorkflowOperationConfiguration.class;
 	}
+
+	@Override
+	protected void multiBindOperationHandlers() {
+		bindOperationHandler().to(CreateAutomatedTaskHandler.class);
+		bindOperationHandler().to(CreateManualTaskHandler.class);
+		bindOperationHandler().to(CreateDecisionNodeHandler.class);
+		bindOperationHandler().to(CreateMergeNodeHandler.class);
+		bindOperationHandler().to(CreateWeightedEdgeHandler.class);
+		bindOperationHandler().to(CreateEdgeHandler.class);
+		bindOperationHandler().to(DeleteWorkflowElementHandler.class);
+		bindOperationHandler().to(MoveNodeHandler.class);
+		bindOperationHandler().to(DeleteHandler.class);
+	}
+
 }

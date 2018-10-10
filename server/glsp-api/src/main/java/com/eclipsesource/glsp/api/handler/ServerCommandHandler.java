@@ -8,14 +8,12 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-package com.eclipsesource.glsp.api.command;
+package com.eclipsesource.glsp.api.handler;
 
 import java.util.Collections;
 import java.util.Map;
 
-public interface ServerCommandHandler {
-	
-	public boolean handles(String commandId);
+public interface ServerCommandHandler extends Handler<String> {
 
 	default public void execute(String commandId) {
 		execute(commandId, Collections.emptyMap());

@@ -89,7 +89,6 @@ public class DefaultActionProvider implements ActionProvider {
 		defaultActions.add(new SetPopupModelAction());
 		defaultActions.add(new ToogleLayerAction());
 		defaultActions.add(new UpdateModelAction());
-
 	}
 
 	@Override

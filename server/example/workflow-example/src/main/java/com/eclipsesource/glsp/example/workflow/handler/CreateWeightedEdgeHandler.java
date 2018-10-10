@@ -16,8 +16,8 @@ import org.apache.log4j.Logger;
 
 import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ExecuteOperationAction;
+import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.ModelState;
-import com.eclipsesource.glsp.api.operations.OperationHandler;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.eclipsesource.glsp.example.workflow.WorkflowOperationConfiguration;
 import com.eclipsesource.glsp.example.workflow.schema.WeightedEdge;

@@ -19,6 +19,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import com.eclipsesource.glsp.api.handler.ActionHandler;
 import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
 import com.eclipsesource.glsp.api.provider.ActionProvider;
@@ -51,7 +52,7 @@ public class ActionRegistry {
 				actionKinds.put(action.getKind(), action.getClass());
 				registeredActions.add(action);
 				if (registeredHandlerProvider.isHandled(action)) {
-					ActionHandler handler = registeredHandlerProvider.getActionHandler(action).get();
+					ActionHandler handler = registeredHandlerProvider.getHandler(action).get();
 					actionHandlers.put(action.getKind(), handler);
 				}
 			}

@@ -8,24 +8,25 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-package com.eclipsesource.glsp.server.provider;
+package com.eclipsesource.glsp.api.provider;
 
+import java.util.Comparator;
+import java.util.Optional;
 import java.util.Set;
 
-import com.eclipsesource.glsp.api.handler.ActionHandler;
-import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
-import com.google.inject.Inject;
+import com.eclipsesource.glsp.api.handler.Handler;
 
-public class DefaultActionHandlerProvider implements ActionHandlerProvider {
-	private Set<ActionHandler> handlers;
-	@Inject
-	public DefaultActionHandlerProvider(Set<ActionHandler> handlers) {
-		this.handlers=handlers;
+public interface HandlerProvider<E extends Handler<T>, T> {
+
+	Set<E> getHandlers();
+
+	default boolean isHandled(T object) {
+		return getHandler(object).isPresent();
 	}
 
-	@Override
-	public Set<ActionHandler> getHandlers() {
-		return handlers;
+	default Optional<E> getHandler(T object) {
+		return getHandlers().stream().sorted(Comparator.comparing(Handler::getPriority))
+				.filter(ha -> ha.handles(object)).findFirst();
 	}
 
 }
