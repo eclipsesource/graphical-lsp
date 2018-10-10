@@ -20,10 +20,10 @@ public interface ServerCommandHandlerProvider {
 	Set<ServerCommandHandler> getServerCommandHandlers();
 
 	default boolean isHandled(String commandId) {
-		return getOperationHandler(commandId).isPresent();
+		return getServerCommandHandler(commandId).isPresent();
 	}
 
-	default Optional<ServerCommandHandler> getOperationHandler(String commandId) {
+	default Optional<ServerCommandHandler> getServerCommandHandler(String commandId) {
 		return getServerCommandHandlers().stream().filter(ha -> ha.handles(commandId)).findFirst();
 	}
 

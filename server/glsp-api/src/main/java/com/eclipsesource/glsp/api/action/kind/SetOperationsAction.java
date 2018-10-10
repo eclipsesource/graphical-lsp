@@ -23,9 +23,9 @@ public class SetOperationsAction extends Action {
 		super(ActionKind.SET_OPERATIONS);
 	}
 
-	public SetOperationsAction(Operation[] tools) {
+	public SetOperationsAction(Operation[] operations) {
 		this();
-		this.operations = tools;
+		this.operations = operations;
 	}
 
 	public Operation[] getOperations() {
