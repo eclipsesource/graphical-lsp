@@ -6,18 +6,19 @@
  * http://www.eclipse.org/legal/epl-v20.html
  *   
  * Contributors:
- * 	Tobias Ortmayr - initial API and implementation
+ * 	Philip Langer - initial API and implementation
  ******************************************************************************/
-package com.eclipsesource.glsp.api.action;
+package com.eclipsesource.glsp.api.handler;
 
 import java.util.Optional;
 
+import com.eclipsesource.glsp.api.action.kind.ExecuteOperationAction;
 import com.eclipsesource.glsp.api.model.ModelState;
 
-public interface ActionHandler {
+import io.typefox.sprotty.api.SModelRoot;
 
-	public boolean handles(Action action);
+public interface OperationHandler extends Handler<ExecuteOperationAction> {
 
-	public Optional<Action> execute(Action action, ModelState modelState);
+	Optional<SModelRoot> execute(ExecuteOperationAction action, ModelState modelState);
 
 }

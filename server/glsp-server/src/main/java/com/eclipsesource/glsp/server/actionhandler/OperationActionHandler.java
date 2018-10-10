@@ -24,8 +24,8 @@ import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
 import com.eclipsesource.glsp.api.action.kind.DeleteElementOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ExecuteOperationAction;
 import com.eclipsesource.glsp.api.action.kind.MoveOperationAction;
+import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.ModelState;
-import com.eclipsesource.glsp.api.operations.OperationHandler;
 import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
 
 import io.typefox.sprotty.api.SModelRoot;
@@ -57,7 +57,7 @@ public class OperationActionHandler extends AbstractActionHandler {
 
 	public Optional<Action> doHandle(ExecuteOperationAction action, ModelState modelState) {
 		if (operationHandlerProvider.isHandled(action)) {
-			OperationHandler handler = operationHandlerProvider.getOperationHandler(action).get();
+			OperationHandler handler = operationHandlerProvider.getHandler(action).get();
 			Optional<SModelRoot> modelRoot = handler.execute(action, modelState);
 			if (modelRoot.isPresent()) {
 				return submissionHandler.handleSubmission(modelRoot.get(), false, modelState);

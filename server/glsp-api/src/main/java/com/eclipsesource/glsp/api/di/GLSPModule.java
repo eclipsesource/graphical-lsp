@@ -12,11 +12,13 @@ package com.eclipsesource.glsp.api.di;
 
 import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
+import com.eclipsesource.glsp.api.handler.ActionHandler;
+import com.eclipsesource.glsp.api.handler.OperationHandler;
+import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
 import com.eclipsesource.glsp.api.jsonrpc.GraphicalLanguageServer;
 import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
 import com.eclipsesource.glsp.api.model.ModelExpansionListener;
 import com.eclipsesource.glsp.api.model.ModelSelectionListener;
-import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.model.ModelTypeConfiguration;
 import com.eclipsesource.glsp.api.operations.OperationConfiguration;
 import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
@@ -24,10 +26,15 @@ import com.eclipsesource.glsp.api.provider.ActionProvider;
 import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
 import com.eclipsesource.glsp.api.provider.ServerCommandHandlerProvider;
 import com.google.inject.AbstractModule;
+import com.google.inject.binder.LinkedBindingBuilder;
+import com.google.inject.multibindings.Multibinder;
 
 import io.typefox.sprotty.api.ILayoutEngine;
 
 public abstract class GLSPModule extends AbstractModule {
+	private Multibinder<ActionHandler> actionHandlerBinder;
+	private Multibinder<ServerCommandHandler> serverCommandHandler;
+	private Multibinder<OperationHandler> operationHandler;
 
 	@Override
 	protected final void configure() {
@@ -43,7 +50,35 @@ public abstract class GLSPModule extends AbstractModule {
 		bind(ActionProvider.class).to(bindActionProvider());
 		bind(ActionHandlerProvider.class).to(bindActionHandlerProvider());
 		bind(OperationHandlerProvider.class).to(bindOperatioHandlerProvider());
-		bind(ServerCommandHandlerProvider.class).to(bindServerCommandHandler());
+		bind(ServerCommandHandlerProvider.class).to(bindServerCommandHandlerProvider());
+		configureMultibindings();
+	}
+
+	protected void configureMultibindings() {
+		actionHandlerBinder = Multibinder.newSetBinder(binder(), ActionHandler.class);
+		serverCommandHandler = Multibinder.newSetBinder(binder(), ServerCommandHandler.class);
+		operationHandler = Multibinder.newSetBinder(binder(), OperationHandler.class);
+		multiBindActionHandlers();
+		multiBindServerCommandHandlers();
+		multiBindOperationHandlers();
+	}
+
+	protected abstract void multiBindOperationHandlers();
+
+	protected abstract void multiBindServerCommandHandlers();
+
+	protected abstract void multiBindActionHandlers();
+
+	protected final LinkedBindingBuilder<ActionHandler> bindActionHandler() {
+		return actionHandlerBinder.addBinding();
+	}
+
+	protected final LinkedBindingBuilder<ServerCommandHandler> bindServerCommandHandler() {
+		return serverCommandHandler.addBinding();
+	}
+
+	protected final LinkedBindingBuilder<OperationHandler> bindOperationHandler() {
+		return operationHandler.addBinding();
 	}
 
 	protected abstract Class<? extends GraphicalLanguageServer> bindGraphicalLanguageServer();
@@ -92,7 +127,7 @@ public abstract class GLSPModule extends AbstractModule {
 		return ModelTypeConfiguration.NullImpl.class;
 	}
 
-	protected  Class<? extends ServerCommandHandlerProvider> bindServerCommandHandler(){
+	protected Class<? extends ServerCommandHandlerProvider> bindServerCommandHandlerProvider() {
 		return ServerCommandHandlerProvider.NullImpl.class;
 	}
 }

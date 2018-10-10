@@ -1,4 +1,5 @@
 package com.eclipsesource.glsp.api.provider;
+
 /*******************************************************************************
 
  * Copyright (c) 2018 EclipseSource Services GmbH and others.
@@ -11,31 +12,19 @@ package com.eclipsesource.glsp.api.provider;
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
 import java.util.Collections;
-import java.util.Optional;
 import java.util.Set;
 
 import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.action.ActionHandler;
+import com.eclipsesource.glsp.api.handler.ActionHandler;
 
+public interface ActionHandlerProvider extends HandlerProvider<ActionHandler, Action> {
 
-public interface ActionHandlerProvider {
-
-	Set<ActionHandler> getActionHandlers();
-
-	default boolean isHandled(Action action) {
-		return getActionHandler(action).isPresent();
-	}
-
-	default Optional<ActionHandler> getActionHandler(Action action) {
-		return getActionHandlers().stream().filter(ha -> ha.handles(action)).findFirst();
-	}
-	
-	final static class NullImpl implements ActionHandlerProvider{
+	final static class NullImpl implements ActionHandlerProvider {
 
 		@Override
-		public Set<ActionHandler> getActionHandlers() {
+		public Set<ActionHandler> getHandlers() {
 			return Collections.emptySet();
 		}
-		
+
 	}
 }

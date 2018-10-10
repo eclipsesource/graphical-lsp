@@ -16,8 +16,8 @@ import java.util.function.Function;
 
 import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ExecuteOperationAction;
+import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.ModelState;
-import com.eclipsesource.glsp.api.operations.OperationHandler;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 
 import io.typefox.sprotty.api.Point;

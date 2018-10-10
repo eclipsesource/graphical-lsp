@@ -15,23 +15,14 @@ import java.util.Optional;
 import java.util.Set;
 
 import com.eclipsesource.glsp.api.action.kind.ExecuteOperationAction;
-import com.eclipsesource.glsp.api.operations.OperationHandler;
+import com.eclipsesource.glsp.api.handler.OperationHandler;
 
-public interface OperationHandlerProvider {
+public interface OperationHandlerProvider extends HandlerProvider<OperationHandler, ExecuteOperationAction> {
 
-	Set<OperationHandler> getOperationHandlers();
-
-	default boolean isHandled(ExecuteOperationAction action) {
-		return getOperationHandler(action).isPresent();
-	}
-
-	default Optional<OperationHandler> getOperationHandler(ExecuteOperationAction action) {
-		return getOperationHandlers().stream().filter(ha -> ha.handles(action)).findFirst();
-	}
-	
 	final static class NullImpl implements OperationHandlerProvider {
+
 		@Override
-		public Set<OperationHandler> getOperationHandlers() {
+		public Set<OperationHandler> getHandlers() {
 			return Collections.emptySet();
 		}
 	}
