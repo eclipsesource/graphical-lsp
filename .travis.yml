@@ -5,12 +5,6 @@ git:
 before_install:
   - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
   - git submodule update --init --recursive
-
-branches:
-  only:
-  - master
-  - ci-configuration-test
-  
 matrix:
   include:
     - language: java
@@ -23,6 +17,15 @@ matrix:
       install: true
       script:
         - mvn clean verify
+      branches:
+        only:
+        - master
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script: bash ../scripts/deployMaven.sh
+        on:
+          branch: master
 
     - language: node_js
       node_js:
@@ -33,3 +36,16 @@ matrix:
         yarn: true
         directories:
           - node_modules
+      before_deploy:
+      - printf "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}\n" >> ~/.npmrc
+      - yarn
+      branches:
+        only:
+        - master
+      deploy:
+        provider: script
+        script: bash ../scripts/deployNPM.sh
+        on:
+          branch: master
+        skip_cleanup: true
+

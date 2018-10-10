@@ -16,7 +16,8 @@
     "rebuild:electron": "theia rebuild:electron",
     "publish": "yarn && yarn publish:latest",
     "watch": "lerna-watch",
-    "publish:latest": "lerna publish --registry=https://registry.npmjs.org/ --skip-git --force-publish"
+    "publish:latest": "lerna publish --registry=https://registry.npmjs.org/ --skip-git --force-publish",
+    "publish:next": "lerna publish --registry=https://registry.npmjs.org/ --exact --canary=next --npm-tag=next --force-publish --skip-git --yes"
   },
   "devDependencies": {
     "@types/chai": "^4.0.1",
