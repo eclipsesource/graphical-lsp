@@ -10,31 +10,41 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.eclipsesource.glsp.api.action.Action;
 
 public class ExecuteServerCommandAction extends Action {
 
-	private String commandID;
+	private String commandId;
+	private Map<String, String> options;
 
 	public ExecuteServerCommandAction() {
 		super(ActionKind.EXECUTE_SERVER_COMMAND);
-
+		options= new HashMap<>();
 	}
 
-	public ExecuteServerCommandAction(String commandID) {
+	public ExecuteServerCommandAction(String commandId, Map<String, String> options) {
 		this();
-		this.commandID = commandID;
+		this.commandId = commandId;
+		this.options = options;
 	}
 
-	public String getCommandID() {
-		return commandID;
+	public String getCommandId() {
+		return commandId;
+	}
+
+	public Map<String, String> getOptions() {
+		return options;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((commandID == null) ? 0 : commandID.hashCode());
+		result = prime * result + ((commandId == null) ? 0 : commandId.hashCode());
+		result = prime * result + ((options == null) ? 0 : options.hashCode());
 		return result;
 	}
 
@@ -47,10 +57,15 @@ public class ExecuteServerCommandAction extends Action {
 		if (getClass() != obj.getClass())
 			return false;
 		ExecuteServerCommandAction other = (ExecuteServerCommandAction) obj;
-		if (commandID == null) {
-			if (other.commandID != null)
+		if (commandId == null) {
+			if (other.commandId != null)
 				return false;
-		} else if (!commandID.equals(other.commandID))
+		} else if (!commandId.equals(other.commandId))
+			return false;
+		if (options == null) {
+			if (other.options != null)
+				return false;
+		} else if (!options.equals(other.options))
 			return false;
 		return true;
 	}
