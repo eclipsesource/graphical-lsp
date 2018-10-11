@@ -40,8 +40,7 @@ public interface ModelState {
 	boolean needsClientLayout();
 
 	void setNeedsClientLayout(boolean value);
-	
+
 	SModelIndex getCurrentModelIndex();
-	
 
 }

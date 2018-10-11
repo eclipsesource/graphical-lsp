@@ -17,6 +17,7 @@ import com.eclipsesource.glsp.api.provider.ServerCommandHandlerProvider;
 import com.google.inject.Inject;
 
 public class DefaultServerCommandHandlerProvider implements ServerCommandHandlerProvider {
+	@Inject
 	private Set<ServerCommandHandler> handlers;
 
 	@Inject

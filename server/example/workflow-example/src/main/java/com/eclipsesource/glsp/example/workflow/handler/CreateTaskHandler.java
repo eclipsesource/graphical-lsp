@@ -61,6 +61,7 @@ public abstract class CreateTaskHandler extends CreateNodeOperationHandler {
 		Icon icon = new Icon();
 		icon.setId("task" + nodeCounter + "_icon");
 		icon.setLayout("stack");
+		icon.setCommandId(SimulateCommandHandler.SIMULATE_COMMAND_ID);
 		LayoutOptions layoutOptions = new LayoutOptions();
 		layoutOptions.setHAlign("center");
 		layoutOptions.setResizeContainer(false);

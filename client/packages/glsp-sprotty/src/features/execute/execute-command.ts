@@ -14,16 +14,15 @@ import { isCommandExecutor } from "./model";
 export class ExecuteServerCommandAction implements Action {
     static readonly KIND = "executeServerCommand"
     kind = ExecuteServerCommandAction.KIND;
+    constructor(public readonly commandId: String, public readonly options?: { [key: string]: string }) { }
 
-    constructor(public readonly commandId: String) { }
 }
-
 export class ExecuteCommandMouseListener extends MouseListener {
     doubleClick(target: SModelElement, event: WheelEvent): (Action | Promise<Action>)[] {
         const result: Action[] = [];
         let commandExecutorTarget = findParentByFeature(target, isCommandExecutor)
         if (commandExecutorTarget) {
-            result.push(new ExecuteServerCommandAction(commandExecutorTarget.commandId));
+            result.push(new ExecuteServerCommandAction(commandExecutorTarget.commandId, { invokerId: commandExecutorTarget.id }));
         }
 
         return result;

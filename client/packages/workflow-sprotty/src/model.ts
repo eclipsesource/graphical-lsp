@@ -8,7 +8,7 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { RectangularNode, SEdge, LayoutContainer, SShapeElement, Bounds, boundsFeature, layoutContainerFeature, layoutableChildFeature, fadeFeature, Expandable, expandFeature, Point, SParentElement, toRadians, } from "glsp-sprotty/lib";
+import { RectangularNode, SEdge, LayoutContainer, SShapeElement, Bounds, boundsFeature, layoutContainerFeature, layoutableChildFeature, fadeFeature, Expandable, expandFeature, Point, SParentElement, toRadians, CommandExecutor, isCommandExecutor, executeCommandFeature, } from "glsp-sprotty/lib";
 import { ActivityNodeSchema } from "./model-schema";
 
 export class TaskNode extends RectangularNode implements Expandable {
@@ -74,7 +74,8 @@ export class ActivityNode extends RotatableRectangularNode {
 }
 
 
-export class Icon extends SShapeElement implements LayoutContainer {
+export class Icon extends SShapeElement implements LayoutContainer, CommandExecutor {
+    commandId: string
     layout: string
     layoutOptions?: { [key: string]: string | number | boolean; };
     bounds: Bounds
@@ -84,6 +85,6 @@ export class Icon extends SShapeElement implements LayoutContainer {
     };
 
     hasFeature(feature: symbol): boolean {
-        return feature === boundsFeature || feature === layoutContainerFeature || feature === layoutableChildFeature || feature === fadeFeature;
+        return feature === executeCommandFeature || feature === boundsFeature || feature === layoutContainerFeature || feature === layoutableChildFeature || feature === fadeFeature;
     }
 }

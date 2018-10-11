@@ -33,6 +33,7 @@
               },
               "type": "icon",
               "id": "task1_icon",
+              "commandId":"simulate-command",
               "children": [
                 {
                   "text": "M",
@@ -81,6 +82,7 @@
               },
               "type": "icon",
               "id": "task2_icon",
+              "commandId":"simulate-command",
               "children": [
                 {
                   "text": "A",
@@ -128,6 +130,7 @@
               },
               "type": "icon",
               "id": "task3_icon",
+              "commandId":"simulate-command",
               "children": [
                 {
                   "text": "M",
@@ -176,6 +179,7 @@
               },
               "type": "icon",
               "id": "task4_icon",
+              "commandId":"simulate-command",
               "children": [
                 {
                   "text": "A",
@@ -224,6 +228,7 @@
               },
               "type": "icon",
               "id": "task5_icon",
+              "commandId":"simulate-command",
               "children": [
                 {
                   "text": "M",
@@ -272,6 +277,7 @@
               },
               "type": "icon",
               "id": "task6_icon",
+              "commandId":"simulate-command",
               "children": [
                 {
                   "text": "M",
@@ -320,6 +326,7 @@
               },
               "type": "icon",
               "id": "task7_icon",
+              "commandId":"simulate-command",
               "children": [
                 {
                   "text": "M",
@@ -368,6 +375,7 @@
               },
               "type": "icon",
               "id": "task8_icon",
+              "commandId":"simulate-command",
               "children": [
                 {
                   "text": "M",

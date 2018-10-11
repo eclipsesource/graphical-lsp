@@ -23,12 +23,12 @@ import com.eclipsesource.glsp.example.workflow.handler.CreateManualTaskHandler;
 import com.eclipsesource.glsp.example.workflow.handler.CreateMergeNodeHandler;
 import com.eclipsesource.glsp.example.workflow.handler.CreateWeightedEdgeHandler;
 import com.eclipsesource.glsp.example.workflow.handler.DeleteWorkflowElementHandler;
+import com.eclipsesource.glsp.example.workflow.handler.SimulateCommandHandler;
 import com.eclipsesource.glsp.server.ServerModule;
 import com.eclipsesource.glsp.server.operationhandler.DeleteHandler;
 import com.eclipsesource.glsp.server.operationhandler.MoveNodeHandler;
 
 public class WorkflowServerRuntimeModule extends ServerModule {
-
 
 	@Override
 	public Class<? extends ModelTypeConfiguration> bindModelTypeConfiguration() {
@@ -71,6 +71,11 @@ public class WorkflowServerRuntimeModule extends ServerModule {
 		bindOperationHandler().to(DeleteWorkflowElementHandler.class);
 		bindOperationHandler().to(MoveNodeHandler.class);
 		bindOperationHandler().to(DeleteHandler.class);
+	}
+
+	@Override
+	protected void multiBindServerCommandHandlers() {
+		bindServerCommandHandler().to(SimulateCommandHandler.class);
 	}
 
 }
