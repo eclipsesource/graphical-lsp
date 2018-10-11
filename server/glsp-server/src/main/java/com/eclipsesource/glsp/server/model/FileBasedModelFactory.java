@@ -30,7 +30,7 @@ import io.typefox.sprotty.api.SModelRoot;
  * A base class which can be used for all modelfactories that load an SModel
  * from a file (typically .json)
  * 
- * @author Tobias Ortmayr <tortmayr@eclipsesource.com>
+ * @author Tobias Ortmayr
  *
  */
 public  class FileBasedModelFactory implements ModelFactory {
