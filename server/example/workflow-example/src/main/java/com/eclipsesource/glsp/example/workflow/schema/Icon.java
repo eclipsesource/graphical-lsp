@@ -13,13 +13,22 @@ package com.eclipsesource.glsp.example.workflow.schema;
 import io.typefox.sprotty.api.Point;
 import io.typefox.sprotty.api.SShapeElement;
 
-public class Icon extends SShapeElement{
-	public static final String TYPE="icon";
+public class Icon extends SShapeElement {
+	public static final String TYPE = "icon";
 	private String layout;
-	
+	private String commandId;
+
 	public Icon() {
 		setType(Icon.TYPE);
 		setPosition(new Point());
+	}
+
+	public String getCommandId() {
+		return commandId;
+	}
+
+	public void setCommandId(String commandId) {
+		this.commandId = commandId;
 	}
 
 	public String getLayout() {
@@ -29,6 +38,5 @@ public class Icon extends SShapeElement{
 	public void setLayout(String layout) {
 		this.layout = layout;
 	}
-	
-	
+
 }

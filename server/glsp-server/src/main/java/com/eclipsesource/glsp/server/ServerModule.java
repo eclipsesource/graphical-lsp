@@ -19,6 +19,7 @@ import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
 import com.eclipsesource.glsp.api.provider.ServerCommandHandlerProvider;
 import com.eclipsesource.glsp.server.actionhandler.CollapseExpandActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.ComputedBoundsActionHandler;
+import com.eclipsesource.glsp.server.actionhandler.ExecuteServerCommandActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.OpenActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.OperationActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.RequestModelActionHandler;
@@ -83,6 +84,7 @@ public abstract class ServerModule extends GLSPModule {
 		bindActionHandler().to(RequestPopupModelActionHandler.class);
 		bindActionHandler().to(SaveModelActionHandler.class);
 		bindActionHandler().to(SelectActionHandler.class);
+		bindActionHandler().to(ExecuteServerCommandActionHandler.class);
 	}
 
 }

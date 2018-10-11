@@ -10,15 +10,16 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.utils;
 
+import static com.eclipsesource.glsp.api.utils.OptionsUtil.getBoolValue;
+import static com.eclipsesource.glsp.api.utils.OptionsUtil.getValue;
+
 import java.util.Map;
 import java.util.Optional;
-
-
 
 public final class ModelOptions {
 
 	public static final String NEEDS_CLIENT_LAYOUT = "needsClientLayout";
-	public static final Object SOURCE_URI = "sourceUri";
+	public static final String SOURCE_URI = "sourceUri";
 
 	private ModelOptions() {
 	}
@@ -32,12 +33,8 @@ public final class ModelOptions {
 		Optional<String> sourceUri;
 
 		private ParsedModelOptions(Map<String, String> options) {
-			if (options.containsKey(NEEDS_CLIENT_LAYOUT)) {
-				needsClientLayout = Boolean.parseBoolean(options.get(NEEDS_CLIENT_LAYOUT));
-			}
-			if (options.containsKey(SOURCE_URI)) {
-				sourceUri = Optional.of(options.get(SOURCE_URI));
-			}
+			needsClientLayout = getBoolValue(options, NEEDS_CLIENT_LAYOUT);
+			sourceUri = getValue(options, SOURCE_URI);
 		}
 
 		public boolean needsClientLayout() {

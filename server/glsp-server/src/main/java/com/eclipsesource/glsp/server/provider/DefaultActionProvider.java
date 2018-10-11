@@ -22,6 +22,7 @@ import com.eclipsesource.glsp.api.action.kind.ComputedBoundsAction;
 import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
 import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
 import com.eclipsesource.glsp.api.action.kind.DeleteElementOperationAction;
+import com.eclipsesource.glsp.api.action.kind.ExecuteServerCommandAction;
 import com.eclipsesource.glsp.api.action.kind.ExportSVGAction;
 import com.eclipsesource.glsp.api.action.kind.FitToScreenAction;
 import com.eclipsesource.glsp.api.action.kind.MoveOperationAction;
@@ -89,6 +90,7 @@ public class DefaultActionProvider implements ActionProvider {
 		defaultActions.add(new SetPopupModelAction());
 		defaultActions.add(new ToogleLayerAction());
 		defaultActions.add(new UpdateModelAction());
+		defaultActions.add(new ExecuteServerCommandAction());
 	}
 
 	@Override
