@@ -5,6 +5,10 @@ This [Graphical Language Server Protocol (GLSP)](https://github.com/eclipsesourc
 It follows the same architectural pattern as the [Language Server Protocol](https://github.com/Microsoft/language-server-protocol) for textual languages, but applies it to graphical modeling for browser/cloud-based deployments.
 The protocol as well as the client implementation is heavily based on [Sprotty](https://github.com/theia-ide/sprotty) but extends it with editing functionality and GLSP-specific communication with the server.
 
+Below is a screenshot of a small example diagram being edited in the GLSP client, as well as the server log printing the GLSP actions processed on the server during the current editing session. Click on the image below to see it in action.
+
+[![Screenshot of GLSP Client with Server Log](documentation/glsp-reduced-teaser.png)](documentation/glsp-animated-reduced.gif)
+
 ## Getting started
 ### Prerequisites
 You’ll need node in version 8:
