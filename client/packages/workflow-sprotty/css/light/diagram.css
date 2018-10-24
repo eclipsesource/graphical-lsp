@@ -30,9 +30,6 @@
     font-weight: bold;
 }
 
-.sprotty-node.selected {
-    stroke-width: 5;
-}
 
 .sprotty-node.mouseover:not(.selected) {
     stroke-width: 3;
@@ -175,4 +172,8 @@ text {
 
 .sprotty-popup-body > p {
     margin-bottom: 2px;
+}
+
+.sprotty-node.selected {
+    stroke-width: 5;
 }
