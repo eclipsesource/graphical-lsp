@@ -10,13 +10,11 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import com.eclipsesource.glsp.api.operations.OperationKind;
-
 import io.typefox.sprotty.api.Point;
 
 public class CreateNodeOperationAction extends ExecuteOperationAction {
 	
-	private String elementId;
+	private String elementTypeId;
 	
 	private Point location;
 	
@@ -26,32 +24,32 @@ public class CreateNodeOperationAction extends ExecuteOperationAction {
 		super(ActionKind.CREATE_NODE_OPERATION);
 	}
 	
-	public CreateNodeOperationAction(String elementId) {
+	public CreateNodeOperationAction(String elementTypeId) {
 		this();
-		this.elementId = elementId;
+		this.elementTypeId = elementTypeId;
 	}
 
-	public CreateNodeOperationAction(String elementId, Point location) {
-		this(elementId);
+	public CreateNodeOperationAction(String elementTypeId, Point location) {
+		this(elementTypeId);
 		this.location = location;
 	}
 
-	public CreateNodeOperationAction(String elementId, Point location, String containerId) {
-		this(elementId, location);
+	public CreateNodeOperationAction(String elementTypeId, Point location, String containerId) {
+		this(elementTypeId, location);
 		this.containerId = containerId;
 	}
 	
-	public CreateNodeOperationAction(String elementId, String containerId) {
-		this(elementId);
+	public CreateNodeOperationAction(String elementTypeId, String containerId) {
+		this(elementTypeId);
 		this.containerId = containerId;
 	}
 
-	public String getElementId() {
-		return elementId;
+	public String getElementTypeId() {
+		return elementTypeId;
 	}
 
-	public void setElementId(String elementId) {
-		this.elementId = elementId;
+	public void setElementTypeId(String elementTypeId) {
+		this.elementTypeId = elementTypeId;
 	}
 
 	public Point getLocation() {
@@ -75,7 +73,7 @@ public class CreateNodeOperationAction extends ExecuteOperationAction {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((containerId == null) ? 0 : containerId.hashCode());
-		result = prime * result + ((elementId == null) ? 0 : elementId.hashCode());
+		result = prime * result + ((elementTypeId == null) ? 0 : elementTypeId.hashCode());
 		result = prime * result + ((location == null) ? 0 : location.hashCode());
 		return result;
 	}
@@ -94,10 +92,10 @@ public class CreateNodeOperationAction extends ExecuteOperationAction {
 				return false;
 		} else if (!containerId.equals(other.containerId))
 			return false;
-		if (elementId == null) {
-			if (other.elementId != null)
+		if (elementTypeId == null) {
+			if (other.elementTypeId != null)
 				return false;
-		} else if (!elementId.equals(other.elementId))
+		} else if (!elementTypeId.equals(other.elementTypeId))
 			return false;
 		if (location == null) {
 			if (other.location != null)

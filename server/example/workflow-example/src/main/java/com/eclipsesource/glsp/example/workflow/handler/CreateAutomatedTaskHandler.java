@@ -24,7 +24,7 @@ public class CreateAutomatedTaskHandler extends CreateTaskHandler {
 	public boolean handles(ExecuteOperationAction execAction) {
 		if (execAction instanceof CreateNodeOperationAction) {
 			CreateNodeOperationAction action = (CreateNodeOperationAction) execAction;
-			return WorkflowOperationConfiguration.AUTOMATED_TASK_ID.equals(action.getElementId());
+			return WorkflowOperationConfiguration.AUTOMATED_TASK_ID.equals(action.getElementTypeId());
 		}
 		return false;
 	}

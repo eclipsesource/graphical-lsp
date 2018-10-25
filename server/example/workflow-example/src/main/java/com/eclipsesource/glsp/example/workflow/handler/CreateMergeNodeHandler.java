@@ -29,7 +29,7 @@ public class CreateMergeNodeHandler extends CreateNodeOperationHandler {
 	public boolean handles(ExecuteOperationAction execAction) {
 		if (execAction instanceof CreateNodeOperationAction) {
 			CreateNodeOperationAction action = (CreateNodeOperationAction) execAction;
-			return WorkflowOperationConfiguration.MERGE_NODE_ID.equals(action.getElementId());
+			return WorkflowOperationConfiguration.MERGE_NODE_ID.equals(action.getElementTypeId());
 		}
 		return false;
 	}
