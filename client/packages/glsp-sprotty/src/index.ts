@@ -41,12 +41,14 @@ export * from './features/tools/change-bounds-tool';
 export * from './features/tools/creation-tool';
 export * from './features/tools/default-tools';
 export * from './features/tools/delete-tool';
+export * from './features/validation/validate';
 export * from './lib/model';
 export * from './types';
 export * from './utils/array-utils';
+export * from './utils/marker';
 export * from './utils/smodel-util';
 export * from './utils/viewpoint-util';
-export { saveModule, executeModule, paletteModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule, commandPaletteModule, requestResponseModule };
+export { validationModule, saveModule, executeModule, paletteModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule, commandPaletteModule, requestResponseModule };
 
 import commandPaletteModule from './features/command-palette/di.config';
 import defaultGLSPModule from './base/di.config';
@@ -56,4 +58,4 @@ import paletteModule from './features/tool-palette/di.config';
 import requestResponseModule from './features/request-response/di.config';
 import saveModule from './features/save/di.config';
 import toolFeedbackModule from './features/tool-feedback/di.config';
-
+import validationModule from './features/validation/di.config';

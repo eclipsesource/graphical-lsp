@@ -171,12 +171,12 @@ public class SModelIndex {
 		return typeToElements.computeIfAbsent(type, t -> new HashSet<>()).size();
 	}
 
-	public Collection<SEdge> getIncomingEdges(SModelElement nodeToDelete) {
-		return incomingEdges.computeIfAbsent(nodeToDelete, n -> new HashSet<>());
+	public Collection<SEdge> getIncomingEdges(SModelElement node) {
+		return incomingEdges.computeIfAbsent(node, n -> new HashSet<>());
 	}
 
-	public Collection<SEdge> getOutgoingEdges(SModelElement nodeToDelete) {
-		return outgoingEdges.computeIfAbsent(nodeToDelete, n -> new HashSet<>());
+	public Collection<SEdge> getOutgoingEdges(SModelElement node) {
+		return outgoingEdges.computeIfAbsent(node, n -> new HashSet<>());
 	}
 
 	public void removeFromIndex(SModelElement element) {
