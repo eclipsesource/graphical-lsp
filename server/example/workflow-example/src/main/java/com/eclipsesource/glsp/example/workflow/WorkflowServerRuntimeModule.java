@@ -16,6 +16,7 @@
 package com.eclipsesource.glsp.example.workflow;
 
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
+import com.eclipsesource.glsp.api.markers.ModelValidator;
 import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
 import com.eclipsesource.glsp.api.model.ModelExpansionListener;
 import com.eclipsesource.glsp.api.model.ModelSelectionListener;
@@ -32,6 +33,7 @@ import com.eclipsesource.glsp.example.workflow.handler.DeleteWorkflowElementHand
 import com.eclipsesource.glsp.example.workflow.handler.ReconnectEdgeHandler;
 import com.eclipsesource.glsp.example.workflow.handler.RerouteEdgeHandler;
 import com.eclipsesource.glsp.example.workflow.handler.SimulateCommandHandler;
+import com.eclipsesource.glsp.example.workflow.marker.WorkflowModelValidator;
 import com.eclipsesource.glsp.server.ServerModule;
 import com.eclipsesource.glsp.server.operationhandler.ChangeBoundsOperationHandler;
 import com.eclipsesource.glsp.server.operationhandler.DeleteHandler;
@@ -91,6 +93,11 @@ public class WorkflowServerRuntimeModule extends ServerModule {
 	@Override
 	protected void multiBindServerCommandHandlers() {
 		bindServerCommandHandler().to(SimulateCommandHandler.class);
+	}
+
+	@Override
+	protected Class<? extends ModelValidator> bindModelValidator() {
+		return WorkflowModelValidator.class;
 	}
 
 }
