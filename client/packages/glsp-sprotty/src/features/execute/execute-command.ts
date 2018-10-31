@@ -15,8 +15,8 @@ export class ExecuteServerCommandAction implements Action {
     static readonly KIND = "executeServerCommand"
     kind = ExecuteServerCommandAction.KIND;
     constructor(public readonly commandId: String, public readonly options?: { [key: string]: string }) { }
-
 }
+
 export class ExecuteCommandMouseListener extends MouseListener {
     doubleClick(target: SModelElement, event: WheelEvent): (Action | Promise<Action>)[] {
         const result: Action[] = [];
@@ -27,5 +27,4 @@ export class ExecuteCommandMouseListener extends MouseListener {
 
         return result;
     }
-
 }

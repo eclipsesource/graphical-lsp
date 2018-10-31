@@ -9,21 +9,16 @@
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
 export namespace OperationKind {
-
     export const CREATE_NODE = "create-node";
     export const CREATE_CONNECTION = "create-connection";
     export const DELETE_ELEMENT = "delete-node";
     export const MOVE = "move";
     export const GENERIC = "generic";
 }
+
 export interface Operation {
-
     readonly elementTypeId?: string;
-
     readonly label: string;
-
     readonly operationKind: string;
-
     isActive?: boolean;
-
 }
