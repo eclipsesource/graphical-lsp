@@ -40,7 +40,7 @@ It's recommended to clone the repository recursively. Otherwise submodules have 
 	mvn clean install
 	
 ### 1. Starting the GLSP Server
-The example server can be started by executing the main method of the class ExampleServerLauncher.java (server/examaples/workflow-example)
+The example server can be started by executing the main method of the class [ExampleServerLauncher.java](https://github.com/eclipsesource/graphical-lsp/blob/master/server/example/workflow-example/src/main/java/com/eclipsesource/glsp/example/workflow/ExampleServerLauncher.java) in the module `server/example/workflow-example`.
 
 ### 2. Starting the theia client
 	cd client/examples/browser-app
