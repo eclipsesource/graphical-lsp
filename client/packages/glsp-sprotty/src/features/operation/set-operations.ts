@@ -17,7 +17,6 @@ export class RequestOperationsAction implements Action {
     readonly kind = RequestOperationsAction.KIND
 
     constructor() { }
-
 }
 
 export class SetOperationsAction implements Action {
@@ -39,7 +38,6 @@ export class SetOperationsCommand extends Command {
     execute(context: CommandExecutionContext): CommandResult {
         this.availableOperations = this.action.operations
         return context.root
-
     }
 
     undo(context: CommandExecutionContext): CommandResult {

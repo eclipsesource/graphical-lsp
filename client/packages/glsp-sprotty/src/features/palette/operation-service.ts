@@ -17,7 +17,6 @@ export interface OperationService {
     getPreviouslySelectedOperation(id: string): Operation | undefined;
 }
 
-
 @injectable()
 export class OperationServiceImpl implements OperationService {
 
@@ -34,10 +33,10 @@ export class OperationServiceImpl implements OperationService {
         return this.currentCommands[id]
     }
 
-
     public getPreviouslySelectedOperation(id: string): Operation | undefined {
         return this.previouslySelectedOperations[id]
     }
+
 }
 
 export const OP_TYPES = {

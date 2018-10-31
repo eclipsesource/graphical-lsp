@@ -29,41 +29,44 @@ import io.typefox.sprotty.api.SNode;
  * Generic handler implementation for {@link MoveOperationAction}
  */
 public class MoveNodeHandler implements OperationHandler {
-	private static Logger log= Logger.getLogger(MoveNodeHandler.class);
+
+	private static Logger log = Logger.getLogger(MoveNodeHandler.class);
+
 	@Override
-	public boolean handles(ExecuteOperationAction action) {
-		return action instanceof MoveOperationAction;
+	public Class<?> handlesActionType() {
+		return MoveOperationAction.class;
 	}
 
 	@Override
 	public Optional<SModelRoot> execute(ExecuteOperationAction action, ModelState modelState) {
-		MoveOperationAction moveAction = (MoveOperationAction)action;
+		MoveOperationAction moveAction = (MoveOperationAction) action;
 		String elementId = moveAction.getElementId();
 		Point location = moveAction.getLocation();
-		
 		if (elementId == null || location == null) {
 			log.warn("Invalid Move Action; missing mandatory arguments");
 			return Optional.empty();
 		}
-		
+
 		SModelIndex index = modelState.getCurrentModelIndex();
-		SModelRoot currentModel = modelState.getCurrentModel();
-		
 		SModelElement element = index.get(elementId);
 		if (element == null) {
-			log.warn("Element with id "+elementId+" not found");
+			log.warn("Element with id " + elementId + " not found");
 			return Optional.empty();
 		}
-		
-		if (false == element instanceof SNode) {
-			log.warn("Element "+elementId+" is not moveable");
+
+		if (isNotMoveable(element)) {
+			log.warn("Element " + elementId + " is not moveable");
 			return Optional.empty();
 		}
+
+		SNode nodeToMove = (SNode) element;
+//		nodeToMove.setPosition(location);
 		
-		SNode nodeToMove = (SNode)element;
-		nodeToMove.setPosition(location);
-		
-		return Optional.of(currentModel);
+		return Optional.of(modelState.getCurrentModel());
+	}
+
+	private boolean isNotMoveable(SModelElement element) {
+		return !(element instanceof SNode);
 	}
 
 }

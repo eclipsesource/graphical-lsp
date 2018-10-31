@@ -21,4 +21,15 @@ public interface OperationHandler extends Handler<ExecuteOperationAction> {
 
 	Optional<SModelRoot> execute(ExecuteOperationAction action, ModelState modelState);
 
+	@Override
+	default boolean handles(ExecuteOperationAction action) {
+		return Optional.ofNullable(handlesActionType()) //
+				.map(cl -> cl.isInstance(action)) //
+				.orElse(false);
+	}
+
+	default Class<?> handlesActionType() {
+		return null;
+	}
+
 }
