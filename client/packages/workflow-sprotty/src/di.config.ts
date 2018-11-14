@@ -9,20 +9,13 @@
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
 
-import { Container, ContainerModule } from "inversify";
-import {
-    defaultModule, TYPES, SGraphView, SLabelView, SCompartmentView, PolylineEdgeView,
-    ConsoleLogger, LogLevel, boundsModule, moveModule, selectModule, undoRedoModule,
-    viewportModule, hoverModule, HtmlRootView, PreRenderedView, exportModule, expandModule,
-    fadeModule, ExpandButtonView, buttonModule, SRoutingHandleView, openModule, modelSourceModule, overrideViewerOptions, configureModelElement, SLabel, SCompartment, SEdge, PreRenderedElement, HtmlRoot, SButton, SRoutingHandle, RectangularNode, RectangularNodeView
-} from "glsp-sprotty/lib";
-
-
-import { WeightedEdgeView, IconView, ActivityNodeView, TaskNodeView, WorkflowEdgeView } from "./workflow-views";
-import { WorkflowModelFactory } from "./model-factory";
-import { TaskNode, WeightedEdge, Icon, ActivityNode } from "./model";
-import { saveModule, paletteModule, moveToolModule, GLSPGraph } from "glsp-sprotty/lib"
+import { boundsModule, buttonModule, configureModelElement, ConsoleLogger, defaultModule, DelKeyDeleteTool, EdgeCreationTool, ExpandButtonView, expandModule, exportModule, fadeModule, GLSPGraph, hoverModule, HtmlRoot, HtmlRootView, LogLevel, modelSourceModule, MouseDeleteTool, moveModule, MoveTool, NodeCreationTool, openModule, overrideViewerOptions, PreRenderedElement, PreRenderedView, RectangularNode, RectangularNodeView, saveModule, SButton, SCompartment, SCompartmentView, SEdge, selectModule, SGraphView, SLabel, SLabelView, SRoutingHandle, SRoutingHandleView, ToolManager, toolManagerModule, TOOL_MANAGER_TYPES, TYPES, undoRedoModule, viewportModule } from "glsp-sprotty/lib";
 import executeCommandModule from "glsp-sprotty/lib/features/execute/di.config";
+import { Container, ContainerModule } from "inversify";
+import { ActivityNode, Icon, TaskNode, WeightedEdge } from "./model";
+import { WorkflowModelFactory } from "./model-factory";
+import { ActivityNodeView, IconView, TaskNodeView, WeightedEdgeView, WorkflowEdgeView } from "./workflow-views";
+
 
 
 const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
@@ -48,20 +41,45 @@ const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind
     configureModelElement(context, 'node:activity', ActivityNode, ActivityNodeView)
     configureModelElement(context, 'node', RectangularNode, RectangularNodeView)
 });
+
 export default function createContainer(widgetId: string): Container {
     const container = new Container();
 
     container.load(defaultModule, selectModule, moveModule, boundsModule, undoRedoModule, viewportModule,
         hoverModule, fadeModule, exportModule, expandModule, openModule, buttonModule, modelSourceModule,
-        workflowDiagramModule, saveModule, paletteModule, moveToolModule, executeCommandModule);
+        workflowDiagramModule, saveModule, executeCommandModule, toolManagerModule);
 
+    // configure standard tools
+    const toolManager: ToolManager = container.get(TOOL_MANAGER_TYPES.ToolManager);
+    toolManager.registerStandardTools(
+        container.resolve(MoveTool),
+        container.resolve(DelKeyDeleteTool));
+    toolManager.registerTools(container.resolve(MouseDeleteTool));
+    toolManager.enableStandardTools();
+
+    // configure workflow-specific additional tools
+    const automaticTaskNodeCreationTool = container.resolve(NodeCreationTool);
+    automaticTaskNodeCreationTool.elementTypeId = "wf-automated-task";
+    const manualTaskNodeCreationTool = container.resolve(NodeCreationTool);
+    manualTaskNodeCreationTool.elementTypeId = "wf-manual-task";
+    const decisionNodeCreationTool = container.resolve(NodeCreationTool);
+    decisionNodeCreationTool.elementTypeId = "wf-decision-node";
+    const mergeNodeCreationTool = container.resolve(NodeCreationTool);
+    mergeNodeCreationTool.elementTypeId = "wf-merge-node";
+    const edgeCreationTool = container.resolve(EdgeCreationTool);
+    edgeCreationTool.elementTypeId = "wf-weighted-edge";
+    const weightedEdgeCreationTool = container.resolve(EdgeCreationTool);
+    weightedEdgeCreationTool.elementTypeId = "wf-edge";
+    toolManager.registerTools(
+        manualTaskNodeCreationTool, automaticTaskNodeCreationTool,
+        decisionNodeCreationTool, mergeNodeCreationTool,
+        edgeCreationTool, weightedEdgeCreationTool);
 
     overrideViewerOptions(container, {
         needsClientLayout: true,
         needsServerLayout: false,
         baseDiv: widgetId
     })
-
 
     return container
 }

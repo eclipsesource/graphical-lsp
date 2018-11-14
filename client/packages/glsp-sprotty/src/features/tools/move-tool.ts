@@ -7,28 +7,47 @@
  *   
  * Contributors:
  * 	Camille Letavernier - initial API and implementation
+ *  Philip Langer - migration to tool manager API
  ******************************************************************************/
-import { injectable } from "inversify";
-import { Action, findParentByFeature, isMoveable, isViewport, Locateable, manhattanDistance, MouseListener, Point, SModelElement } from "sprotty/lib";
+import { inject, injectable } from "inversify";
+import { Action, findParentByFeature, isMoveable, isViewport, Locateable, manhattanDistance, MouseListener, MouseTool, Point, SModelElement } from "sprotty/lib";
+import { Tool } from "./tool-manager";
 
 /**
- * A custom Move Tool that is optimized for Client/Server operation
- * A MoveAction is sent to the server only at the end of the interaction
- * (Whereas the default Sprotty version is a simple client-side live update)
+ * A mouse tool that is optimized for Client/Server operation.
+ * Once a move is peformed, a `MoveAction` is sent to the server
+ * only at the end of the interaction.
+ * This is differnet from Sprotty's implementation of the move, as it
+ * sends client-side live updates.
  */
-
 @injectable()
-export class MoveTool extends MouseListener {
+export class MoveTool implements Tool {
+
+    static ID = "glsp.movetool";
+    readonly id = MoveTool.ID;
+
+    protected moveMouseListener: MoveMouseListener;
+
+    constructor(@inject(MouseTool) protected mouseTool: MouseTool) { }
+
+    enable() {
+        this.moveMouseListener = new MoveMouseListener();
+        this.mouseTool.register(this.moveMouseListener);
+    }
+
+    disable() {
+        this.mouseTool.deregister(this.moveMouseListener);
+    }
+
+}
+
+class MoveMouseListener extends MouseListener {
 
     private isMouseDown: boolean;
     private initialLocation: Point;
     private initialElementLocation: Point;
     private isStillSincePress: boolean;
     private element: SModelElement & Locateable;
-
-    constructor() {
-        super();
-    }
 
     mouseDown(target: SModelElement, event: MouseEvent): Action[] {
         this.isStillSincePress = true;
@@ -77,11 +96,9 @@ export class MoveTool extends MouseListener {
 }
 
 export class MoveElementAction implements Action {
-
     public static readonly KIND = "executeOperation_move";
     public kind = MoveElementAction.KIND;
     public targetContainerId?: string;
 
     constructor(public elementId: string, public location: Point) { }
-
 }

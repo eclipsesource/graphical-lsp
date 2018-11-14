@@ -60,7 +60,7 @@ public class MoveNodeHandler implements OperationHandler {
 		}
 
 		SNode nodeToMove = (SNode) element;
-//		nodeToMove.setPosition(location);
+		nodeToMove.setPosition(location);
 		
 		return Optional.of(modelState.getCurrentModel());
 	}

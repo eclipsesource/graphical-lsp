@@ -15,8 +15,7 @@ export class ExecuteNodeCreationToolAction implements Action {
     static readonly KIND = 'executeOperation_create-node'
     readonly kind = ExecuteNodeCreationToolAction.KIND
 
-
-    constructor(public readonly elementId: string,
+    constructor(public readonly elementTypeId: string,
         public readonly location?: Point,
         public readonly containerId?: string) { }
 }
@@ -26,8 +25,7 @@ export class ExecuteToolAction implements Action {
     static readonly KIND = 'executeTool'
     readonly kind = ExecuteToolAction.KIND
 
-
     constructor(public readonly toolId: string,
         public readonly location?: Point,
-        public readonly elementId?: string) { }
+        public readonly elementTypeId?: string) { }
 }
