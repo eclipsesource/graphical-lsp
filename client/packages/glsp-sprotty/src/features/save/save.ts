@@ -17,7 +17,6 @@ export class SaveModelAction implements Action {
     constructor() { }
 }
 
-
 export class SaveModelKeyboardListener extends KeyListener {
     keyDown(element: SModelRoot, event: KeyboardEvent): Action[] {
         if (matchesKeystroke(event, 'KeyS', 'ctrlCmd')) {

@@ -9,8 +9,10 @@
  * 	Camille Letavernier - initial API and implementation
  ******************************************************************************/
 import { CommandContribution, CommandRegistry, MAIN_MENU_BAR, MenuContribution, MenuModelRegistry, MenuPath } from "@theia/core";
-import { OperationKind, OperationService, OP_TYPES } from "glsp-sprotty/lib";
+import { ApplicationShell } from "@theia/core/lib/browser";
+import { EdgeCreationTool, EnableToolsAction, MouseDeleteTool, NodeCreationTool } from "glsp-sprotty/lib";
 import { inject, injectable } from "inversify";
+import { DiagramCommandHandler } from "theia-glsp/lib";
 import { GLSPTheiaDiagramServer } from "./glsp-theia-diagram-server";
 
 
@@ -35,7 +37,7 @@ export namespace PaletteCommands {
 
 @injectable()
 export class GLSPPaletteContribution implements MenuContribution, CommandContribution {
-    @inject(OP_TYPES.OperationService) private operationService: OperationService
+    @inject(ApplicationShell) private shell: ApplicationShell
     private commandCounter: number = 0
     private diagramServer: GLSPTheiaDiagramServer;
 
@@ -67,23 +69,47 @@ export class GLSPPaletteContribution implements MenuContribution, CommandContrib
         commands.registerCommand(PaletteCommands.CREATE_EDGE)
         commands.registerCommand(PaletteCommands.DELETE_ELEMENT)
 
-        let createManualTask = { elementTypeId: "wf-manual-task", operationKind: OperationKind.CREATE_NODE, label: PaletteCommands.CREATE_MANUAL_TASK.label }
-        commands.registerHandler(PaletteCommands.CREATE_MANUAL_TASK.id, { execute: () => this.operationService.setCurrentOperation(this.diagramServer.clientId, createManualTask) })
-        let createAutomatedTask = { elementTypeId: "wf-automated-task", operationKind: OperationKind.CREATE_NODE, label: PaletteCommands.CREATE_AUTOMATED_TASK.label }
-        commands.registerHandler(PaletteCommands.CREATE_AUTOMATED_TASK.id, { execute: () => this.operationService.setCurrentOperation(this.diagramServer.clientId, createAutomatedTask) })
-        let createDecisionNode = { elementTypeId: "wf-decision-node", operationKind: OperationKind.CREATE_NODE, label: PaletteCommands.CREATE_DECISION_NODE.label }
-        commands.registerHandler(PaletteCommands.CREATE_DECISION_NODE.id, { execute: () => this.operationService.setCurrentOperation(this.diagramServer.clientId, createDecisionNode) })
-        let createMergeNode = { elementTypeId: "wf-merge-node", operationKind: OperationKind.CREATE_NODE, label: PaletteCommands.CREATE_MERGE_NODE.label }
-        commands.registerHandler(PaletteCommands.CREATE_MERGE_NODE.id, { execute: () => this.operationService.setCurrentOperation(this.diagramServer.clientId, createMergeNode) })
+        commands.registerHandler(PaletteCommands.CREATE_AUTOMATED_TASK.id,
+            new DiagramCommandHandler(this.shell, widget =>
+                widget.actionDispatcher.dispatch(new EnableToolsAction([`${NodeCreationTool.ID}.wf-automated-task`]))
+            )
+        )
 
-        let deleteElement = { operationKind: OperationKind.DELETE_ELEMENT, label: PaletteCommands.DELETE_ELEMENT.label }
-        commands.registerHandler(PaletteCommands.DELETE_ELEMENT.id, { execute: () => this.operationService.setCurrentOperation(this.diagramServer.clientId, deleteElement) })
-        let createWeightedEdge = { elementTypeId: "wf-weighted-edge", operationKind: OperationKind.CREATE_CONNECTION, label: PaletteCommands.CREATE_WEIGHTED_EDGE.label }
-        commands.registerHandler(PaletteCommands.CREATE_WEIGHTED_EDGE.id, { execute: () => this.operationService.setCurrentOperation(this.diagramServer.clientId, createWeightedEdge) })
-        let createEdge = { elementTypeId: "wf-edge", operationKind: OperationKind.CREATE_CONNECTION, label: PaletteCommands.CREATE_EDGE.label }
-        commands.registerHandler(PaletteCommands.CREATE_EDGE.id, { execute: () => this.operationService.setCurrentOperation(this.diagramServer.clientId, createEdge) })
+        commands.registerHandler(PaletteCommands.CREATE_MANUAL_TASK.id,
+            new DiagramCommandHandler(this.shell, widget =>
+                widget.actionDispatcher.dispatch(new EnableToolsAction([`${NodeCreationTool.ID}.wf-manual-task`]))
+            )
+        )
+
+        commands.registerHandler(PaletteCommands.CREATE_DECISION_NODE.id,
+            new DiagramCommandHandler(this.shell, widget =>
+                widget.actionDispatcher.dispatch(new EnableToolsAction([`${NodeCreationTool.ID}.wf-decision-node`]))
+            )
+        )
+
+        commands.registerHandler(PaletteCommands.CREATE_MERGE_NODE.id,
+            new DiagramCommandHandler(this.shell, widget =>
+                widget.actionDispatcher.dispatch(new EnableToolsAction([`${NodeCreationTool.ID}.wf-merge-node`]))
+            )
+        )
+
+        commands.registerHandler(PaletteCommands.DELETE_ELEMENT.id,
+            new DiagramCommandHandler(this.shell, widget =>
+                widget.actionDispatcher.dispatch(new EnableToolsAction([MouseDeleteTool.ID]))
+            )
+        )
+
+        commands.registerHandler(PaletteCommands.CREATE_WEIGHTED_EDGE.id,
+            new DiagramCommandHandler(this.shell, widget =>
+                widget.actionDispatcher.dispatch(new EnableToolsAction([`${EdgeCreationTool.ID}.wf-weighted-edge`]))
+            )
+        )
+
+        commands.registerHandler(PaletteCommands.CREATE_EDGE.id,
+            new DiagramCommandHandler(this.shell, widget =>
+                widget.actionDispatcher.dispatch(new EnableToolsAction([`${EdgeCreationTool.ID}.wf-edge`]))
+            )
+        )
     }
 
-
 }
-
