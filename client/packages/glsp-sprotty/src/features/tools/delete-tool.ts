@@ -35,6 +35,7 @@ export class DelKeyDeleteTool implements Tool {
     }
 }
 
+@injectable()
 export class DeleteKeyListener extends KeyListener {
     keyDown(element: SModelElement, event: KeyboardEvent): Action[] {
         if (matchesKeystroke(event, 'Delete')) {

@@ -9,7 +9,7 @@
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
 
-import { boundsModule, buttonModule, configureModelElement, ConsoleLogger, defaultModule, DelKeyDeleteTool, EdgeCreationTool, ExpandButtonView, expandModule, exportModule, fadeModule, GLSPGraph, hoverModule, HtmlRoot, HtmlRootView, LogLevel, modelSourceModule, MouseDeleteTool, moveModule, MoveTool, NodeCreationTool, openModule, overrideViewerOptions, PreRenderedElement, PreRenderedView, RectangularNode, RectangularNodeView, saveModule, SButton, SCompartment, SCompartmentView, SEdge, selectModule, SGraphView, SLabel, SLabelView, SRoutingHandle, SRoutingHandleView, ToolManager, toolManagerModule, TOOL_MANAGER_TYPES, TYPES, undoRedoModule, viewportModule } from "glsp-sprotty/lib";
+import { boundsModule, buttonModule, configureModelElement, ConsoleLogger, defaultModule, DelKeyDeleteTool, EdgeCreationTool, ExpandButtonView, expandModule, exportModule, fadeModule, GLSPGraph, GLSP_TYPES, hoverModule, HtmlRoot, HtmlRootView, LogLevel, modelSourceModule, MouseDeleteTool, moveModule, MoveTool, NodeCreationTool, openModule, overrideViewerOptions, PreRenderedElement, PreRenderedView, RectangularNode, RectangularNodeView, saveModule, SButton, SCompartment, SCompartmentView, SEdge, selectModule, SGraphView, SLabel, SLabelView, SRoutingHandle, SRoutingHandleView, ToolManager, toolManagerModule, TYPES, undoRedoModule, viewportModule } from "glsp-sprotty/lib";
 import executeCommandModule from "glsp-sprotty/lib/features/execute/di.config";
 import { Container, ContainerModule } from "inversify";
 import { ActivityNode, Icon, TaskNode, WeightedEdge } from "./model";
@@ -50,7 +50,7 @@ export default function createContainer(widgetId: string): Container {
         workflowDiagramModule, saveModule, executeCommandModule, toolManagerModule);
 
     // configure standard tools
-    const toolManager: ToolManager = container.get(TOOL_MANAGER_TYPES.ToolManager);
+    const toolManager: ToolManager = container.get(GLSP_TYPES.ToolManager);
     toolManager.registerStandardTools(
         container.resolve(MoveTool),
         container.resolve(DelKeyDeleteTool));

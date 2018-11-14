@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v20.html
  *   
  * Contributors:
- * 	Camille Letavernier - initial API and implementation
+ *  Camille Letavernier - initial API and implementation
  *  Philip Langer - migration to tool manager API
  ******************************************************************************/
 

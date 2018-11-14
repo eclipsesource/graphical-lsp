@@ -11,11 +11,12 @@
 
 import { ContainerModule } from "inversify";
 import { TYPES } from "sprotty/lib";
-import { DefaultToolManager, EnableStandardToolsOnEscape, ToolManagerActionHandlerInitializer, TOOL_MANAGER_TYPES } from "./tool-manager";
+import { GLSP_TYPES } from "../../types";
+import { DefaultToolManager, StandardToolsEnablingKeyListener, ToolManagerActionHandlerInitializer } from "./tool-manager";
 
 const toolManagerModule = new ContainerModule(bind => {
-    bind(TOOL_MANAGER_TYPES.ToolManager).to(DefaultToolManager).inSingletonScope();
-    bind(TYPES.KeyListener).to(EnableStandardToolsOnEscape);
+    bind(GLSP_TYPES.ToolManager).to(DefaultToolManager).inSingletonScope();
+    bind(TYPES.KeyListener).to(StandardToolsEnablingKeyListener);
     bind(TYPES.IActionHandlerInitializer).to(ToolManagerActionHandlerInitializer);
 });
 
