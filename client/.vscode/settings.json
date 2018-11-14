@@ -4,7 +4,11 @@
 // - Linux: $HOME/.config/Code/User/settings.json
 // - Mac: $HOME/Library/Application Support/Code/User/settings.json
 {
+    "tslint.enable": true,
     "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
     "search.exclude": {
         "**/node_modules": true,
         "**/lib": true
