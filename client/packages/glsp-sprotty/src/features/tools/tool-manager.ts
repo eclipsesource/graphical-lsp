@@ -30,7 +30,7 @@ export interface Tool {
  */
 export interface ToolManager {
 
-    /** The currently active tools, which are either specifically enabled tools, or the standard tools. */
+    /** All tools managed by this tool manager. */
     readonly managedTools: Tool[];
 
     /** The tools that are enabled by standard, whenever no other tool is enabled. */
