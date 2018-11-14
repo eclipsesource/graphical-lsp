@@ -11,6 +11,7 @@
 import { inject, injectable } from "inversify";
 import { Action, ActionHandlerRegistry, IActionHandler, IActionHandlerInitializer, ICommand, KeyListener, SModelElement } from "sprotty/lib";
 import { matchesKeystroke } from "sprotty/lib/utils/keyboard";
+import { GLSP_TYPES } from "../../types";
 
 /** A tool that can be managed by a `ToolManager`. */
 export interface Tool {
@@ -62,10 +63,6 @@ export interface ToolManager {
     registerStandardTools(...tools: Tool[]);
 
     registerTools(...tools: Tool[]);
-}
-
-export const TOOL_MANAGER_TYPES = {
-    ToolManager: Symbol.for("ToolManager")
 }
 
 @injectable()
@@ -140,7 +137,7 @@ export class EnableStandardToolsAction implements Action {
 @injectable()
 export class ToolManagerActionHandlerInitializer implements IActionHandlerInitializer {
 
-    @inject(TOOL_MANAGER_TYPES.ToolManager)
+    @inject(GLSP_TYPES.ToolManager)
     readonly toolManager: ToolManager;
 
     initialize(registry: ActionHandlerRegistry): void {
@@ -155,22 +152,17 @@ export class ToolManagerActionHandler implements IActionHandler {
     constructor(readonly toolManager: ToolManager) { }
 
     handle(action: Action): ICommand | Action | void {
-        switch (action.kind) {
-            case EnableStandardToolsAction.KIND:
-                this.toolManager.enableStandardTools();
-                break;
-            case EnableToolsAction.KIND:
-                const enableToolsAction = action as EnableToolsAction;
-                this.toolManager.enable(enableToolsAction.toolIds);
-                break;
-            default:
-                break;
+        if (action instanceof EnableStandardToolsAction) {
+            this.toolManager.enableStandardTools();
+        } else if (action instanceof EnableToolsAction) {
+            const enableToolsAction = action as EnableToolsAction;
+            this.toolManager.enable(enableToolsAction.toolIds);
         }
     }
 }
 
 @injectable()
-export class EnableStandardToolsOnEscape extends KeyListener {
+export class StandardToolsEnablingKeyListener extends KeyListener {
     keyDown(element: SModelElement, event: KeyboardEvent): Action[] {
         if (matchesKeystroke(event, 'Escape')) {
             return [new EnableStandardToolsAction()];

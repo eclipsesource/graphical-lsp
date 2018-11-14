@@ -10,6 +10,7 @@ export * from './features/tools/execute-tool';
 export * from './features/tools/move-tool';
 export * from './features/tools/tool-manager';
 export * from './lib/model';
+export * from './types';
 export * from './utils/operation';
 export { saveModule, toolManagerModule, executeModule };
 
