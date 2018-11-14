@@ -18,8 +18,6 @@ import { GLSPPaletteContribution } from "./glsp-palette-contribution";
 import { GraphicalLanguageClientContribution } from "../language/graphical-langauge-client-contribution";
 import { Workspace } from "@theia/languages/lib/browser";
 
-
-
 export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
 
     private servers: TheiaDiagramServer[] = []
@@ -45,6 +43,7 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
         this.servers.push(diagramServer)
         diagramServer.connect(this)
     }
+
     disconnect(diagramServer: TheiaDiagramServer): void {
         const index = this.servers.indexOf(diagramServer)
         if (index >= 0)
@@ -52,6 +51,7 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
         diagramServer.disconnect()
         this.graphicalLanguageClientContribution.languageClient.then(lc => lc.stop())
     }
+
     save(uri: string, action: ExportSvgAction): void {
         this.fileSaver.save(uri, action)
     }
@@ -77,14 +77,17 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
                 })
         }
     }
+
     showStatus(widgetId: string, status: ServerStatusAction): void {
         const widget = this.diagramWidgetRegistry.getWidgetById(widgetId)
         if (widget)
             widget.setStatus(status)
     }
+
     sendMessage(message: ActionMessage): void {
         this.graphicalLanguageClientContribution.languageClient.then(lc => lc.sendNotification(ActionMessageNotification.type, message))
     }
+
     onMessageReceived(message: ActionMessage): void {
         if (message.action.kind === SetOperationsCommand.KIND) {
             let action: SetOperationsAction = message.action as SetOperationsAction
