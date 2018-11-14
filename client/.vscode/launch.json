@@ -62,7 +62,8 @@
             "type": "chrome",
             "request": "launch",
             "url": "http://localhost:3000/",
-            "webRoot": "${workspaceRoot}"
+            "sourceMaps": true,
+            "webRoot": "${workspaceRoot}/examples/browser-app"
         }
     ]
 }
