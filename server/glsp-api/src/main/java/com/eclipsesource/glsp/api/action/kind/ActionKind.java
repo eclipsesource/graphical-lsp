@@ -46,7 +46,7 @@ public final class ActionKind {
 	public static final String SAVE_MODEL = "saveModel";
 	public static final String CREATE_CONNECTION_OPERATION = EXECUTE_OPERATION + "_" + OperationKind.CREATE_CONNECTION;
 	public static final String CREATE_NODE_OPERATION = EXECUTE_OPERATION + "_" + OperationKind.CREATE_NODE;
-	public static final String DELETE_ELEMENT_OPERATION = EXECUTE_OPERATION + "_" + OperationKind.DELETE_ELEMENT;
+	public static final String DELETE_ELEMENT_OPERATION = "delete";
 	public static final String MOVE_OPERATION = EXECUTE_OPERATION + "_" + OperationKind.MOVE;
 	public static final String EXECUTE_SERVER_COMMAND = "executeServerCommand";
 

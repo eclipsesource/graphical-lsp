@@ -9,7 +9,7 @@
  * 	Philip Langer - initial API and implementation
  ******************************************************************************/
 import { inject, injectable } from "inversify";
-import { Action, isCtrlOrCmd, isSelectable, KeyListener, KeyTool, MouseListener, MouseTool, SModelElement, SModelRoot } from "sprotty/lib";
+import { Action, DeleteElementAction, isCtrlOrCmd, isSelectable, KeyListener, KeyTool, MouseListener, MouseTool, SModelElement, SModelRoot } from "sprotty/lib";
 import { matchesKeystroke } from "sprotty/lib/utils/keyboard";
 import { EnableStandardToolsAction, Tool } from "./tool-manager";
 
@@ -39,13 +39,9 @@ export class DelKeyDeleteTool implements Tool {
 export class DeleteKeyListener extends KeyListener {
     keyDown(element: SModelElement, event: KeyboardEvent): Action[] {
         if (matchesKeystroke(event, 'Delete')) {
-            const actions: Action[] = [];
-            element.root.index.all()
-                .filter(e => isSelectable(e) && e.selected)
-                .filter(e => e.id != e.root.id)
-                .map(e => new DeleteElementAction(e.id))
-                .forEach(action => actions.push(action));
-            return actions;
+            const deleteElementIds = Array.from(element.root.index.all().filter(e => isSelectable(e) && e.selected)
+                .filter(e => e.id !== e.root.id).map(e => e.id))
+            return [new DeleteElementAction(deleteElementIds)]
         }
         return [];
     }
@@ -81,16 +77,10 @@ export class DeleteToolMouseListener extends MouseListener {
         }
 
         const result: Action[] = [];
-        result.push(new DeleteElementAction(target.id));
+        result.push(new DeleteElementAction([target.id]));
         if (!isCtrlOrCmd(event)) {
             result.push(new EnableStandardToolsAction());
         }
         return result;
     }
-}
-
-export class DeleteElementAction implements Action {
-    public static KIND = "executeOperation_delete-node";
-    kind = DeleteElementAction.KIND;
-    constructor(public elementId: string) { }
 }

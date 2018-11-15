@@ -10,34 +10,36 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
+import java.util.Arrays;
+
 import com.eclipsesource.glsp.api.operations.OperationKind;
 
 public class DeleteElementOperationAction extends ExecuteOperationAction {
 	
-	private String elementId;
+	private String[] elementIds;
 	
 	public DeleteElementOperationAction() {
 		super(ActionKind.DELETE_ELEMENT_OPERATION);
 	}
 	
-	public DeleteElementOperationAction(String elementId) {
+	public DeleteElementOperationAction(String[] elementIds) {
 		this();
-		this.elementId = elementId;
+		this.elementIds = elementIds;
 	}
 
-	public String getElementId() {
-		return elementId;
+	public String[] getElementIds() {
+		return elementIds;
 	}
 
-	public void setElementId(String elementId) {
-		this.elementId = elementId;
+	public void setElementIds(String[] elementIds) {
+		this.elementIds = elementIds;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((elementId == null) ? 0 : elementId.hashCode());
+		result = prime * result + Arrays.hashCode(elementIds);
 		return result;
 	}
 
@@ -50,12 +52,11 @@ public class DeleteElementOperationAction extends ExecuteOperationAction {
 		if (getClass() != obj.getClass())
 			return false;
 		DeleteElementOperationAction other = (DeleteElementOperationAction) obj;
-		if (elementId == null) {
-			if (other.elementId != null)
-				return false;
-		} else if (!elementId.equals(other.elementId))
+		if (!Arrays.equals(elementIds, other.elementIds))
 			return false;
 		return true;
 	}
+
+
 
 }

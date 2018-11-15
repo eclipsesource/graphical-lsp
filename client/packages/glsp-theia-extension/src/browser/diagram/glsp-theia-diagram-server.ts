@@ -9,7 +9,7 @@
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
 import { Emitter, Event } from "@theia/core/lib/common";
-import { Action, ActionHandlerRegistry, ActionMessage, CreateConnectionAction, DeleteElementAction, ExecuteNodeCreationToolAction, ExecuteServerCommandAction, IActionDispatcher, ICommand, ILogger, ModelSource, MoveElementAction, RequestOperationsAction, SaveModelAction, SetOperationsCommand, SModelStorage, SwitchEditModeCommand, TYPES, ViewerOptions } from "glsp-sprotty/lib";
+import { Action, ActionHandlerRegistry, ActionMessage, CreateConnectionAction, DeleteElementCommand, ExecuteNodeCreationToolAction, ExecuteServerCommandAction, IActionDispatcher, ICommand, ILogger, ModelSource, MoveElementAction, RequestOperationsAction, SaveModelAction, SetOperationsCommand, SModelStorage, SwitchEditModeCommand, TYPES, ViewerOptions } from "glsp-sprotty/lib";
 import { inject, injectable } from "inversify";
 import { TheiaDiagramServer } from "theia-glsp/lib";
 
@@ -37,7 +37,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         registry.register(ExecuteNodeCreationToolAction.KIND, this)
         registry.register(CreateConnectionAction.KIND, this)
         registry.register(MoveElementAction.KIND, this)
-        registry.register(DeleteElementAction.KIND, this)
+        registry.register(DeleteElementCommand.KIND, this)
         registry.register(ExecuteServerCommandAction.KIND, this)
         // Register an empty handler for SwitchEditMode, to avoid runtime exceptions.
         // We don't want to support SwitchEditMode, but sprotty still sends some corresponding
