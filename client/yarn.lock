@@ -7582,9 +7582,10 @@ sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
 
-sprotty@latest:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/sprotty/-/sprotty-0.4.2.tgz#10d4c17932a317990f15bba25957e021218c8adb"
+sprotty@next:
+  version "0.5.0-next.3be64bd"
+  resolved "https://registry.yarnpkg.com/sprotty/-/sprotty-0.5.0-next.3be64bd.tgz#4c2a3ca05c58d85598fcd1d376918fbf44897df4"
+  integrity sha512-PWo2QeoAxk+WH6SSn05gg72h0A9ta+/yTtwmQFEGsIzu5xFOqDcp3ryAmiUoJCaCRsc8lVpD9D2efBo3xn6fOA==
   dependencies:
     file-saver "1.3.3"
     inversify "^4.3.0"

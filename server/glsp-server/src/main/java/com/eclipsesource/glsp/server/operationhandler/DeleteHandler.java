@@ -10,9 +10,12 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.operationhandler;
 
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
+
+import javax.swing.text.ElementIterator;
 
 import org.apache.log4j.Logger;
 
@@ -31,7 +34,8 @@ import io.typefox.sprotty.api.SNode;
  * Generic handler implementation for {@link DeleteElementOperationAction}
  */
 public class DeleteHandler implements OperationHandler {
-	private static Logger log= Logger.getLogger(DeleteHandler.class);
+	private static Logger log = Logger.getLogger(DeleteHandler.class);
+
 	@Override
 	public boolean handles(ExecuteOperationAction action) {
 		return action instanceof DeleteElementOperationAction;
@@ -40,17 +44,28 @@ public class DeleteHandler implements OperationHandler {
 	@Override
 	public Optional<SModelRoot> execute(ExecuteOperationAction execAction, ModelState modelState) {
 		DeleteElementOperationAction action = (DeleteElementOperationAction) execAction;
-		String elementId = action.getElementId();
-		if (elementId == null) {
-			log.warn("Element to delete is not specified");
+		String elementIds[] = action.getElementIds();
+		if (elementIds == null || elementIds.length == 0) {
+			log.warn("Elements to delete are not specified");
 			return Optional.empty();
 		}
 		SModelIndex index = modelState.getCurrentModelIndex();
+
+		boolean success = Arrays.stream(elementIds).allMatch(eId -> delete(eId, index, modelState));
+		if (!success) {
+			return Optional.empty();
+		}
+
+		SModelRoot currentModel = modelState.getCurrentModel();
+		return Optional.of(currentModel);
+	}
+
+	protected boolean delete(String elementId, SModelIndex index, ModelState modelState) {
 		SModelElement element = index.get(elementId);
 
 		if (element == null) {
 			log.warn("Element not found: " + elementId);
-			return Optional.empty();
+			return false;
 		}
 
 		// Always delete the top-level node
@@ -58,16 +73,14 @@ public class DeleteHandler implements OperationHandler {
 		SModelElement parent = index.getParent(nodeToDelete);
 		if (parent == null) {
 			log.warn("The requested node doesn't have a parent; it can't be deleted");
-			return Optional.empty(); // Can't delete the root, or an element that doesn't belong to the model
+			return false; // Can't delete the root, or an element that doesn't belong to the model
 		}
 
 		Set<SModelElement> dependents = new LinkedHashSet<>();
 		collectDependents(dependents, nodeToDelete, modelState);
 
 		dependents.forEach(modelElement -> delete(modelElement, modelState));
-
-		SModelRoot currentModel = modelState.getCurrentModel();
-		return Optional.of(currentModel);
+		return true;
 	}
 
 	protected void delete(SModelElement element, ModelState modelState) {
@@ -80,8 +93,7 @@ public class DeleteHandler implements OperationHandler {
 		parent.getChildren().remove(element);
 	}
 
-	protected void collectDependents(Set<SModelElement> dependents, SModelElement nodeToDelete,
-			ModelState modelState) {
+	protected void collectDependents(Set<SModelElement> dependents, SModelElement nodeToDelete, ModelState modelState) {
 		if (dependents.contains(nodeToDelete)) {
 			return;
 		}

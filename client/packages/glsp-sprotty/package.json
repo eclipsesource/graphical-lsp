@@ -6,7 +6,7 @@
     "src"
   ],
   "dependencies": {
-   "sprotty" :"latest"
+   "sprotty" :"next"
   },
   "devDependencies": {
     "rimraf": "latest",
