@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
- *   
+ *
  * Contributors:
  * 	Philip Langer - initial API and implementation
  ******************************************************************************/
@@ -17,14 +17,14 @@ import { GLSP_TYPES } from "../../types";
 export interface Tool {
     readonly id: string;
     /* Notifies the tool to become active. */
-    enable();
+    enable(): void;
     /* Notifies the tool to become inactive. */
-    disable();
+    disable(): void;
 }
 
 /**
  * A tool manager coordinates the state of tools in the context of an editor.
- * 
+ *
  * One instance of a tool manager is intended per editor, coordinating the state of all tools within
  * this editor. A tool can be active or not. A tool manager ensures that activating a set of tools
  * will disable all other tools, allowing them to invoke behavior when they become enabled or disabled.
@@ -47,22 +47,22 @@ export interface ToolManager {
      * doesn't manage one or more tools specified in `toolIds`, it'll do nothing. If not a
      * single tool that shall be enabled was found in the managed tools, it'll fall back to
      * the standard tools.
-     * 
+     *
      * @param tools The tools to be enabled.
      */
-    enable(toolIds: string[]);
+    enable(toolIds: string[]): void;
 
     /**
      * Enables all standard tools.
      */
-    enableStandardTools();
+    enableStandardTools(): void;
 
     /** Disables all currently active tools. After this call, no tool will be active anymore. */
-    disableActiveTools();
+    disableActiveTools(): void;
 
-    registerStandardTools(...tools: Tool[]);
+    registerStandardTools(...tools: Tool[]): void;
 
-    registerTools(...tools: Tool[]);
+    registerTools(...tools: Tool[]): void;
 }
 
 @injectable()
@@ -87,13 +87,13 @@ export class DefaultToolManager implements ToolManager {
 
     enableStandardTools() {
         this.disableActiveTools();
-        this.enable(toolIds(this.standardTools));
+        this.enable(this.standardTools.map(tool => tool.id));
     }
 
     enable(toolIds: string[]) {
-        let tools = toolIds.map(id => this.tool(id))
+        const tools = toolIds.map(id => this.tool(id))
         tools.forEach(tool => {
-            if (tool != undefined) {
+            if (tool !== undefined) {
                 tool.enable();
                 this.actives.push(tool);
             }
@@ -105,13 +105,13 @@ export class DefaultToolManager implements ToolManager {
     }
 
     registerStandardTools(...tools: Tool[]) {
-        for (let tool of tools) {
+        for (const tool of tools) {
             this.standardTools.push(tool);
         }
     }
 
     registerTools(...tools: Tool[]) {
-        for (let tool of tools) {
+        for (const tool of tools) {
             this.tools.push(tool);
         }
     }
@@ -169,8 +169,4 @@ export class StandardToolsEnablingKeyListener extends KeyListener {
         }
         return [];
     }
-}
-
-function toolIds(tools: Tool[]): string[] {
-    return tools.map(tool => tool.id);
 }

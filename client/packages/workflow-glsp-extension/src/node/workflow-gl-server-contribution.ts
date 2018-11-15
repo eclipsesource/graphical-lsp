@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
- *   
+ *
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
@@ -16,7 +16,7 @@ import { createSocketConnection } from 'vscode-ws-jsonrpc/lib/server';
 import { WorkflowLanguage } from "../common/workflow-language";
 
 function getPort(): number | undefined {
-    let arg = process.argv.filter(arg => arg.startsWith('--WORKFLOW_LSP='))[0]
+    const arg = process.argv.filter(arg => arg.startsWith('--WORKFLOW_LSP='))[0]
     if (!arg) {
         return undefined
     } else {
@@ -38,7 +38,7 @@ export class WorkflowGLServerContribution extends BaseGraphicalLanguageServerCon
     }
 
     start(clientConnection: IConnection): void {
-        let socketPort = getPort();
+        const socketPort = getPort();
         if (socketPort) {
             const socket = new net.Socket()
             const serverConnection = createSocketConnection(socket, socket, () => {

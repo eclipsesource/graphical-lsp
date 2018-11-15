@@ -4,15 +4,14 @@
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
- *   
+ *
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import * as snabbdom from "snabbdom-jsx"
-import { TaskNode, WeightedEdge, Icon } from "./model";
-import { RenderingContext, RectangularNodeView, PolylineEdgeView, IView, SShapeElement, SEdge, Point, angleOfPoint, toDegrees } from "glsp-sprotty/lib";
+import { angleOfPoint, IView, Point, PolylineEdgeView, RectangularNodeView, RenderingContext, SEdge, SShapeElement, toDegrees } from "glsp-sprotty/lib";
+import * as snabbdom from "snabbdom-jsx";
 import { VNode } from "snabbdom/vnode";
-import { ActivityNode } from "./model";
+import { ActivityNode, Icon, TaskNode, WeightedEdge } from "./model";
 
 const JSX = { createElement: snabbdom.svg }
 

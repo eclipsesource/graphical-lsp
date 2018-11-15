@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
- *   
+ *
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
@@ -13,8 +13,8 @@ import { FrontendApplication } from "@theia/core/lib/browser";
 import { Commands, Disposable } from '@theia/languages/lib/browser';
 import { LanguageContribution } from "@theia/languages/lib/common";
 import { inject, injectable } from "inversify";
-import { GraphicalLanguageClient, GraphicalLanguageClientOptions } from "./graphical-language-client-services";
 import { GraphicalLanguageClientFactory } from "./graphical-language-client";
+import { GraphicalLanguageClient, GraphicalLanguageClientOptions } from "./graphical-language-client-services";
 
 export const GraphicalLanguageClientContribution = Symbol('GraphicalLanguageClientContribution')
 export interface GraphicalLanguageClientContribution extends LanguageContribution {

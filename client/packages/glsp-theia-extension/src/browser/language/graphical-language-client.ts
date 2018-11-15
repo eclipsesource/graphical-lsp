@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
- *   
+ *
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
@@ -107,7 +107,7 @@ export class BaseGraphcialLanguageClient implements GraphicalLanguageClient {
 
 
     private handleConnectionError(error: Error, message: Message, count: number) {
-        let action = this.clientOptions.errorHandler!.error(error, message, count);
+        const action = this.clientOptions.errorHandler!.error(error, message, count);
         if (action === ErrorAction.Shutdown) {
             console.error('Connection to server is erroring. Shutting down server.')
             this.stop();
@@ -201,7 +201,7 @@ class DefaultErrorHandler implements ErrorHandler {
         if (this.restarts.length < 5) {
             return CloseAction.Restart;
         } else {
-            let diff = this.restarts[this.restarts.length - 1] - this.restarts[0];
+            const diff = this.restarts[this.restarts.length - 1] - this.restarts[0];
             if (diff <= 3 * 60 * 1000) {
                 alert(`The ${this.name} server crashed 5 times in the last 3 minutes. The server will not be restarted.`);
                 return CloseAction.DoNotRestart;

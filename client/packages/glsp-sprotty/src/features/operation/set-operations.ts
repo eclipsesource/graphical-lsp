@@ -4,12 +4,12 @@
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
- *   
+ *
  * Contributors:
- *     Tobias Ortmayr - initial API and implementation
+ *  Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
 import { injectable } from "inversify";
-import { Command, Action, CommandResult, CommandExecutionContext } from "sprotty/lib";
+import { Action, Command, CommandExecutionContext, CommandResult } from "sprotty/lib";
 import { Operation } from "../../utils/operation";
 
 export class RequestOperationsAction implements Action {
@@ -25,8 +25,8 @@ export class SetOperationsAction implements Action {
 }
 
 @injectable()
-//Basically a no-op command for now. Because the tools palette has been implemented 
-//with Theia mechanisms in the first draft. Should be improved and changed in a later revision
+// Basically a no-op command for now. Because the tools palette has been implemented
+// with Theia mechanisms in the first draft. Should be improved and changed in a later revision
 export class SetOperationsCommand extends Command {
     static readonly KIND = 'setOperations'
 

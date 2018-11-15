@@ -4,12 +4,12 @@
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
- *   
+ *
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
+import { Theme, ThemeService } from "@theia/core/lib/browser/theming";
 import { Disposable } from "@theia/languages/lib/browser";
-import { ThemeService, Theme } from "@theia/core/lib/browser/theming";
 import { injectable } from "inversify";
 
 const darkTheme = require('workflow-sprotty/css/dark/dark.useable.css')

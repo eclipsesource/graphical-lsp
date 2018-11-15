@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
- *   
+ *
  * Contributors:
  * 	Philip Langer - initial API and implementation
  ******************************************************************************/
@@ -24,7 +24,7 @@ export class DelKeyDeleteTool implements Tool {
 
     protected deleteKeyListener: DeleteKeyListener = new DeleteKeyListener();;
 
-    constructor(@inject(KeyTool) protected readonly keytool) { }
+    constructor(@inject(KeyTool) protected readonly keytool: KeyTool) { }
 
     enable() {
         this.keytool.register(this.deleteKeyListener);
@@ -62,7 +62,7 @@ export class MouseDeleteTool implements Tool {
 
     protected deleteToolMouseListener: DeleteToolMouseListener = new DeleteToolMouseListener();;
 
-    constructor(@inject(MouseTool) protected readonly mouseTool) { }
+    constructor(@inject(MouseTool) protected readonly mouseTool: MouseTool) { }
 
     enable() {
         this.mouseTool.register(this.deleteToolMouseListener);

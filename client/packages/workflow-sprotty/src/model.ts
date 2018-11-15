@@ -4,11 +4,11 @@
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
- *   
+ *
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { RectangularNode, SEdge, LayoutContainer, SShapeElement, Bounds, boundsFeature, layoutContainerFeature, layoutableChildFeature, fadeFeature, Expandable, expandFeature, Point, SParentElement, toRadians, CommandExecutor, isCommandExecutor, executeCommandFeature, } from "glsp-sprotty/lib";
+import { Bounds, boundsFeature, CommandExecutor, executeCommandFeature, Expandable, expandFeature, fadeFeature, layoutableChildFeature, LayoutContainer, layoutContainerFeature, Point, RectangularNode, SEdge, SParentElement, SShapeElement, toRadians } from "glsp-sprotty/lib";
 import { ActivityNodeSchema } from "./model-schema";
 
 export class TaskNode extends RectangularNode implements Expandable {
@@ -34,17 +34,17 @@ export class RotatableRectangularNode extends RectangularNode {
     rotationInDegrees: number = 0
 
     getTranslatedAnchor(refPoint: Point, refContainer: SParentElement, edge: SEdge, offset?: number): Point {
-        let cx = this.position.x + this.size.width / 2
-        let cy = this.position.y + this.size.height / 2
-        let translatedRefPoint = this.rotatePoint(cx, cy, -this.rotationInDegrees, refPoint)
-        let originalAnchor = super.getTranslatedAnchor(translatedRefPoint, refContainer, edge, offset);
+        const cx = this.position.x + this.size.width / 2
+        const cy = this.position.y + this.size.height / 2
+        const translatedRefPoint = this.rotatePoint(cx, cy, -this.rotationInDegrees, refPoint)
+        const originalAnchor = super.getTranslatedAnchor(translatedRefPoint, refContainer, edge, offset);
         return this.rotatePoint(cx, cy, this.rotationInDegrees, originalAnchor);
     }
 
     rotatePoint(cx: number, cy: number, angle: number, p: Point): Point {
-        let rad = toRadians(angle)
-        let s = Math.sin(rad);
-        let c = Math.cos(rad);
+        const rad = toRadians(angle)
+        const s = Math.sin(rad);
+        const c = Math.cos(rad);
 
         // translate point back to origin:
         let x = p.x;
@@ -53,8 +53,8 @@ export class RotatableRectangularNode extends RectangularNode {
         y -= cy;
 
         // rotate point
-        let xnew = x * c - y * s;
-        let ynew = x * s + y * c;
+        const xnew = x * c - y * s;
+        const ynew = x * s + y * c;
 
         // translate point back:
         return {
@@ -85,6 +85,8 @@ export class Icon extends SShapeElement implements LayoutContainer, CommandExecu
     };
 
     hasFeature(feature: symbol): boolean {
-        return feature === executeCommandFeature || feature === boundsFeature || feature === layoutContainerFeature || feature === layoutableChildFeature || feature === fadeFeature;
+        return feature === executeCommandFeature
+            || feature === boundsFeature || feature === layoutContainerFeature
+            || feature === layoutableChildFeature || feature === fadeFeature;
     }
 }
