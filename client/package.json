@@ -20,17 +20,11 @@
     "publish:next": "lerna publish --registry=https://registry.npmjs.org/ --exact --canary=next --npm-tag=next --force-publish --skip-git --yes"
   },
   "devDependencies": {
-    "@types/chai": "^4.0.1",
-    "@types/chai-as-promised": "0.0.31",
-    "@types/chai-string": "^1.4.0",
-    "@types/jsdom": "^11.0.4",
-    "@types/mocha": "^2.2.41",
-    "@types/node": "8.10.20",
-    "@types/sinon": "^2.3.5",
-    "@types/temp": "^0.8.29",
-    "@types/webdriverio": "^4.7.0",
     "lerna": "2.4.0",
-    "lerna-tools": "^1.0.0"
+    "lerna-tools": "^1.0.0",
+    "tslint": "^5.5.0",
+    "tslint-loader": "^3.4.3",
+    "typescript": "2.9.1"
   },
   "workspaces": [
     "packages/*",
