@@ -4,19 +4,19 @@
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
- *   
+ *
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
 import URI from "@theia/core/lib/common/uri";
 import { EditorManager } from "@theia/editor/lib/browser";
+import { Workspace } from "@theia/languages/lib/browser";
 import { ActionMessage, ExportSvgAction, ServerStatusAction, SetOperationsAction, SetOperationsCommand } from "glsp-sprotty/lib";
-import { GLSPTheiaDiagramServer } from "./glsp-theia-diagram-server";
 import { DiagramWidgetRegistry, OpenInTextEditorMessage, TheiaDiagramServer, TheiaFileSaver, TheiaSprottyConnector } from "theia-glsp/lib";
 import { ActionMessageNotification } from "../../common/";
-import { GLSPPaletteContribution } from "./glsp-palette-contribution";
 import { GraphicalLanguageClientContribution } from "../language/graphical-langauge-client-contribution";
-import { Workspace } from "@theia/languages/lib/browser";
+import { GLSPPaletteContribution } from "./glsp-palette-contribution";
+import { GLSPTheiaDiagramServer } from "./glsp-theia-diagram-server";
 
 export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
 
@@ -90,7 +90,7 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
 
     onMessageReceived(message: ActionMessage): void {
         if (message.action.kind === SetOperationsCommand.KIND) {
-            let action: SetOperationsAction = message.action as SetOperationsAction
+            const action: SetOperationsAction = message.action as SetOperationsAction
 
             // this.paletteContribution.createTools(action.operations)
         }

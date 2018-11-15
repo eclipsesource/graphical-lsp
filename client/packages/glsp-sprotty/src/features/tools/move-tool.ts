@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
- *   
+ *
  * Contributors:
  * 	Camille Letavernier - initial API and implementation
  *  Philip Langer - migration to tool manager API
@@ -66,7 +66,7 @@ class MoveMouseListener extends MouseListener {
 
     mouseMove(target: SModelElement, event: MouseEvent): Action[] {
         if (this.isMouseDown) {
-            var distance = manhattanDistance(this.initialLocation, event);
+            const distance = manhattanDistance(this.initialLocation, event);
             if (distance > 3) {
                 this.isStillSincePress = false;
             }

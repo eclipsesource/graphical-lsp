@@ -4,11 +4,11 @@
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
- *   
+ *
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { Commands, ConnectionCloseHandler, ConnectionErrorHandler, OutputChannel, ErrorHandler } from "@theia/languages/lib/browser";
+import { Commands, ConnectionCloseHandler, ConnectionErrorHandler, ErrorHandler, OutputChannel } from "@theia/languages/lib/browser";
 import { Disposable, Message, MessageConnection, NotificationHandler, NotificationType } from "vscode-jsonrpc";
 import { ExitNotification, ShutdownRequest } from "../../common";
 
@@ -57,7 +57,7 @@ export function createConnection(connection: MessageConnection, errorHandler: Co
     connection.onError((data: [Error, Message, number]) => { errorHandler(data[0], data[1], data[2]); });
     connection.onClose(closeHandler);
     connection.onNotification
-    let result: Connection = {
+    const result: Connection = {
         listen: () => connection.listen(),
         sendNotification: <P, RO>(type: NotificationType<P, RO>, params?: P): void => connection.sendNotification(type, params),
         onNotification: <P, RO>(type: NotificationType<P, RO>, handler: NotificationHandler<P>): void => connection.onNotification(type, handler),

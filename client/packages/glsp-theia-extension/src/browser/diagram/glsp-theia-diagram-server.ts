@@ -4,12 +4,12 @@
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
- *   
+ *
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
 import { Emitter, Event } from "@theia/core/lib/common";
-import { Action, ActionHandlerRegistry, ActionMessage, CreateConnectionAction, DeleteElementAction, ExecuteNodeCreationToolAction, IActionDispatcher, ICommand, ILogger, ModelSource, MoveElementAction, RequestOperationsAction, SaveModelAction, SetOperationsCommand, SModelStorage, SwitchEditModeCommand, TYPES, ViewerOptions, ExecuteServerCommandAction } from "glsp-sprotty/lib";
+import { Action, ActionHandlerRegistry, ActionMessage, CreateConnectionAction, DeleteElementAction, ExecuteNodeCreationToolAction, ExecuteServerCommandAction, IActionDispatcher, ICommand, ILogger, ModelSource, MoveElementAction, RequestOperationsAction, SaveModelAction, SetOperationsCommand, SModelStorage, SwitchEditModeCommand, TYPES, ViewerOptions } from "glsp-sprotty/lib";
 import { inject, injectable } from "inversify";
 import { TheiaDiagramServer } from "theia-glsp/lib";
 
@@ -29,7 +29,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
 
     initialize(registry: ActionHandlerRegistry): void {
         super.initialize(registry);
-        //register commads
+        // register commands
         registry.registerCommand(SetOperationsCommand)
         // register actions
         registry.register(RequestOperationsAction.KIND, this)

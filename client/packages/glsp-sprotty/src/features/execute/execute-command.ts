@@ -4,11 +4,11 @@
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
- *   
+ *
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { Action, MouseListener, SModelElement, findParentByFeature } from "sprotty/lib";
+import { Action, findParentByFeature, MouseListener, SModelElement } from "sprotty/lib";
 import { isCommandExecutor } from "./model";
 
 export class ExecuteServerCommandAction implements Action {
@@ -20,7 +20,7 @@ export class ExecuteServerCommandAction implements Action {
 export class ExecuteCommandMouseListener extends MouseListener {
     doubleClick(target: SModelElement, event: WheelEvent): (Action | Promise<Action>)[] {
         const result: Action[] = [];
-        let commandExecutorTarget = findParentByFeature(target, isCommandExecutor)
+        const commandExecutorTarget = findParentByFeature(target, isCommandExecutor)
         if (commandExecutorTarget) {
             result.push(new ExecuteServerCommandAction(commandExecutorTarget.commandId, { invokerId: commandExecutorTarget.id }));
         }

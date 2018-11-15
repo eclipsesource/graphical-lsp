@@ -4,11 +4,11 @@
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
- *   
+ *
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { SModelExtension, SModelElement } from "sprotty/lib";
+import { SModelElement, SModelExtension } from "sprotty/lib";
 
 export const executeCommandFeature = Symbol('executeFeature');
 

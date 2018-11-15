@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
- *   
+ *
  * Contributors:
  *  Camille Letavernier - initial API and implementation
  *  Philip Langer - migration to tool manager API
@@ -157,18 +157,18 @@ export class CreateConnectionAction implements Action {
 /**
  * Return the position corresponding to this mouse event (Browser coordinates)
  * in the diagram coordinates system (i.e. relative to the Diagram's 0;0 point)
- * 
+ *
  * This functions takes into account the following transformations:
  * - Location of the Diagram Canvas inside of the browser's page
  * - Current viewport Scroll and Zoom
- * 
- * @param target 
+ *
+ * @param target
  *  An element from the diagram
- * @param mouseEvent 
+ * @param mouseEvent
  *  A mouseEvent
  */
 export function getAbsolutePosition1(target: SModelElement, mouseEvent: MouseEvent): Point {
-    var xPos = mouseEvent.pageX, yPos = mouseEvent.pageY;
+    let xPos = mouseEvent.pageX, yPos = mouseEvent.pageY;
     const canvasBounds = target.root.canvasBounds;
     xPos -= canvasBounds.x;
     yPos -= canvasBounds.y;
