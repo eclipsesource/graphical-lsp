@@ -15,8 +15,6 @@ import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.swing.text.ElementIterator;
-
 import org.apache.log4j.Logger;
 
 import com.eclipsesource.glsp.api.action.kind.DeleteElementOperationAction;
