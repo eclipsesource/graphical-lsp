@@ -12,6 +12,7 @@ package com.eclipsesource.glsp.api.operations;
 
 public class OperationKind {
 	
+	public static final String CHANGE_BOUNDS = "change-bounds";
 	public static final String CREATE_NODE = "create-node";
 	public static final String CREATE_CONNECTION = "create-connection";
 	public static final String DELETE_ELEMENT = "delete-node";

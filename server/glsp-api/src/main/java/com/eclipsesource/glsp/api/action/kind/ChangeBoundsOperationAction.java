@@ -12,19 +12,17 @@ package com.eclipsesource.glsp.api.action.kind;
 
 import java.util.Arrays;
 
-import com.eclipsesource.glsp.api.action.Action;
-
 import io.typefox.sprotty.api.ElementAndBounds;
 
-public class ChangeBoundsAction extends Action {
+public class ChangeBoundsOperationAction extends ExecuteOperationAction {
 	private ElementAndBounds[] newBounds;
 
-	public ChangeBoundsAction() {
+	public ChangeBoundsOperationAction() {
 		super(ActionKind.CHANGE_BOUNDS);
 
 	}
 
-	public ChangeBoundsAction(ElementAndBounds[] newBounds) {
+	public ChangeBoundsOperationAction(ElementAndBounds[] newBounds) {
 		this();
 		this.newBounds = newBounds;
 	}
@@ -49,7 +47,7 @@ public class ChangeBoundsAction extends Action {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ChangeBoundsAction other = (ChangeBoundsAction) obj;
+		ChangeBoundsOperationAction other = (ChangeBoundsOperationAction) obj;
 		if (!Arrays.equals(newBounds, other.newBounds))
 			return false;
 		return true;

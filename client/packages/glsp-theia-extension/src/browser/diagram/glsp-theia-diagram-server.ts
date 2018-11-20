@@ -9,7 +9,8 @@
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
 import { Emitter, Event } from "@theia/core/lib/common";
-import { Action, ActionHandlerRegistry, ActionMessage, CreateConnectionAction, DeleteElementCommand, ExecuteNodeCreationToolAction, ExecuteServerCommandAction, IActionDispatcher, ICommand, ILogger, ModelSource, MoveElementAction, RequestOperationsAction, SaveModelAction, SetOperationsCommand, SModelStorage, SwitchEditModeCommand, TYPES, ViewerOptions } from "glsp-sprotty/lib";
+// tslint:disable-next-line:max-line-length
+import { Action, ActionHandlerRegistry, ActionMessage, ChangeBoundsAction, CreateConnectionAction, DeleteElementCommand, ExecuteNodeCreationToolAction, ExecuteServerCommandAction, IActionDispatcher, ICommand, ILogger, ModelSource, RequestOperationsAction, SaveModelAction, SetOperationsCommand, SModelStorage, SwitchEditModeCommand, TYPES, ViewerOptions } from "glsp-sprotty/lib";
 import { inject, injectable } from "inversify";
 import { TheiaDiagramServer } from "theia-glsp/lib";
 
@@ -36,7 +37,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         registry.register(SaveModelAction.KIND, this)
         registry.register(ExecuteNodeCreationToolAction.KIND, this)
         registry.register(CreateConnectionAction.KIND, this)
-        registry.register(MoveElementAction.KIND, this)
+        registry.register(ChangeBoundsAction.KIND, this)
         registry.register(DeleteElementCommand.KIND, this)
         registry.register(ExecuteServerCommandAction.KIND, this)
         // Register an empty handler for SwitchEditMode, to avoid runtime exceptions.
