@@ -23,7 +23,6 @@ public final class ActionKind {
 	public static final String EXECUTE_OPERATION = "executeOperation";
 	public static final String REQUEST_BOUNDS_CHANGE_HINTS = "requestBoundsChangeHints";
 	public static final String SET_BOUNDS_CHANGE_HINTS = "setBoundsChangeHints";
-	public static final String CHANGE_BOUNDS = "changeBounds";
 	public static final String REQUEST_MOVE_HINTS = "requestMoveHints";
 	public static final String SET_MOVE_HINTS = "setMoveHints";
 	public static final String EXPORT_SVG = "exportSvg";
@@ -47,6 +46,7 @@ public final class ActionKind {
 	public static final String CREATE_CONNECTION_OPERATION = EXECUTE_OPERATION + "_" + OperationKind.CREATE_CONNECTION;
 	public static final String CREATE_NODE_OPERATION = EXECUTE_OPERATION + "_" + OperationKind.CREATE_NODE;
 	public static final String DELETE_ELEMENT_OPERATION = "delete";
+	public static final String CHANGE_BOUNDS = EXECUTE_OPERATION + "_" + OperationKind.CHANGE_BOUNDS;
 	public static final String MOVE_OPERATION = EXECUTE_OPERATION + "_" + OperationKind.MOVE;
 	public static final String EXECUTE_SERVER_COMMAND = "executeServerCommand";
 

@@ -15,7 +15,7 @@ import java.util.Set;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.CenterAction;
-import com.eclipsesource.glsp.api.action.kind.ChangeBoundsAction;
+import com.eclipsesource.glsp.api.action.kind.ChangeBoundsOperationAction;
 import com.eclipsesource.glsp.api.action.kind.CollapseExpandAction;
 import com.eclipsesource.glsp.api.action.kind.CollapseExpandAllAction;
 import com.eclipsesource.glsp.api.action.kind.ComputedBoundsAction;
@@ -59,7 +59,7 @@ public class DefaultActionProvider implements ActionProvider {
 
 	private void addDefaultActions() {
 		defaultActions.add(new CenterAction());
-		defaultActions.add(new ChangeBoundsAction());
+		defaultActions.add(new ChangeBoundsOperationAction());
 		defaultActions.add(new CollapseExpandAction());
 		defaultActions.add(new CollapseExpandAllAction());
 		defaultActions.add(new ComputedBoundsAction());
