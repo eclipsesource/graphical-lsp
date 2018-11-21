@@ -8,7 +8,8 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { Bounds, boundsFeature, CommandExecutor, executeCommandFeature, Expandable, expandFeature, fadeFeature, layoutableChildFeature, LayoutContainer, layoutContainerFeature, Point, RectangularNode, SEdge, SParentElement, SShapeElement, toRadians } from "glsp-sprotty/lib";
+// tslint:disable-next-line:max-line-length
+import { Bounds, boundsFeature, CommandExecutor, DiamondNode, executeCommandFeature, Expandable, expandFeature, fadeFeature, layoutableChildFeature, LayoutContainer, layoutContainerFeature, Point, RectangularNode, SEdge, SParentElement, SShapeElement, toRadians } from "glsp-sprotty/lib";
 import { ActivityNodeSchema } from "./model-schema";
 
 export class TaskNode extends RectangularNode implements Expandable {
@@ -64,13 +65,13 @@ export class RotatableRectangularNode extends RectangularNode {
     }
 }
 
-export class ActivityNode extends RotatableRectangularNode {
+export class ActivityNode extends DiamondNode {
     nodeType: string = ActivityNodeSchema.Type.UNDEFINED
     size = {
-        width: 16,
-        height: 16
+        width: 32,
+        height: 32
     };
-    rotationInDegrees = 45
+    strokeWidth = 1
 }
 
 

@@ -11,7 +11,7 @@
 import { angleOfPoint, IView, Point, PolylineEdgeView, RectangularNodeView, RenderingContext, SEdge, SShapeElement, toDegrees } from "glsp-sprotty/lib";
 import * as snabbdom from "snabbdom-jsx";
 import { VNode } from "snabbdom/vnode";
-import { ActivityNode, Icon, TaskNode, WeightedEdge } from "./model";
+import { Icon, TaskNode, WeightedEdge } from "./model";
 
 const JSX = { createElement: snabbdom.svg }
 
@@ -34,22 +34,6 @@ export class TaskNodeView extends RectangularNodeView {
 
     protected getRoundedCornerRadius(node: SShapeElement): number {
         return 5;
-    }
-}
-
-export class ActivityNodeView extends RectangularNodeView {
-    render(node: ActivityNode, context: RenderingContext): VNode {
-        // In this context, the coordinates (0,0) mark the upper left corner of
-        // the node, thus we shift all elements by the radius of the circle.
-        const hw = node.bounds.width / 2
-        const hh = node.bounds.height / 2
-        const graph = <g>
-            <rect class-sprotty-node={true} class-activity-node={true} class-mouseover={node.hoverFeedback} class-selected={node.selected}
-                x={0} y={0} width={Math.max(0, node.bounds.width)} height={Math.max(0, node.bounds.height)}
-                transform={`rotate(${node.rotationInDegrees},${hw},${hh})`}></rect>
-            {context.renderChildren(node)}
-        </g>;
-        return graph
     }
 }
 
