@@ -9,7 +9,8 @@
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
 
-import { boundsModule, buttonModule, configureModelElement, ConsoleLogger, defaultModule, DelKeyDeleteTool, DiamondNodeView, EdgeCreationTool, ExpandButtonView, expandModule, exportModule, fadeModule, GLSPGraph, GLSP_TYPES, hoverModule, HtmlRoot, HtmlRootView, LogLevel, modelSourceModule, MouseDeleteTool, moveModule, MoveTool, NodeCreationTool, openModule, overrideViewerOptions, PreRenderedElement, PreRenderedView, RectangularNode, RectangularNodeView, saveModule, SButton, SCompartment, SCompartmentView, SEdge, selectModule, SGraphView, SLabel, SLabelView, SRoutingHandle, SRoutingHandleView, ToolManager, toolManagerModule, TYPES, undoRedoModule, viewportModule } from "glsp-sprotty/lib";
+// tslint:disable-next-line:max-line-length
+import { boundsModule, buttonModule, CenterCommand, CenterKeyboardListener, configureModelElement, ConsoleLogger, defaultModule, DelKeyDeleteTool, DiamondNodeView, EdgeCreationTool, ExpandButtonView, expandModule, exportModule, fadeModule, FitToScreenCommand, GLSPGraph, GLSP_TYPES, hoverModule, HtmlRoot, HtmlRootView, LogLevel, modelSourceModule, MouseDeleteTool, moveModule, MoveTool, NodeCreationTool, openModule, overrideViewerOptions, PreRenderedElement, PreRenderedView, RectangularNode, RectangularNodeView, ResizeTool, saveModule, SButton, SCompartment, SCompartmentView, ScrollMouseListener, SEdge, selectModule, SGraphView, SLabel, SLabelView, SRoutingHandle, SRoutingHandleView, ToolManager, toolManagerModule, TYPES, undoRedoModule, ViewportCommand } from "glsp-sprotty/lib";
 import executeCommandModule from "glsp-sprotty/lib/features/execute/di.config";
 import { Container, ContainerModule } from "inversify";
 import { ActivityNode, Icon, TaskNode, WeightedEdge } from "./model";
@@ -42,10 +43,22 @@ const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind
     configureModelElement(context, 'node', RectangularNode, RectangularNodeView)
 });
 
+const workflowViewportModule = new ContainerModule(bind => {
+    bind(TYPES.ICommand).toConstructor(CenterCommand);
+    bind(TYPES.ICommand).toConstructor(FitToScreenCommand);
+    bind(TYPES.ICommand).toConstructor(ViewportCommand);
+    bind(TYPES.KeyListener).to(CenterKeyboardListener);
+    bind(TYPES.MouseListener).to(ScrollMouseListener);
+
+    // custom viewportModule that omitts the zoom mouse listener that is too greedy (all mouse wheel events lead to viewport zoom)
+    // we implement our own zoom in a resizing tool (ResizeTool) that also allows to actually resize individual elements
+    // bind(TYPES.MouseListener).to(ZoomMouseListener);
+});
+
 export default function createContainer(widgetId: string): Container {
     const container = new Container();
 
-    container.load(defaultModule, selectModule, moveModule, boundsModule, undoRedoModule, viewportModule,
+    container.load(defaultModule, selectModule, moveModule, boundsModule, undoRedoModule, workflowViewportModule,
         hoverModule, fadeModule, exportModule, expandModule, openModule, buttonModule, modelSourceModule,
         workflowDiagramModule, saveModule, executeCommandModule, toolManagerModule);
 
@@ -53,6 +66,7 @@ export default function createContainer(widgetId: string): Container {
     const toolManager: ToolManager = container.get(GLSP_TYPES.ToolManager);
     toolManager.registerStandardTools(
         container.resolve(MoveTool),
+        container.resolve(ResizeTool),
         container.resolve(DelKeyDeleteTool));
     toolManager.registerTools(container.resolve(MouseDeleteTool));
     toolManager.enableStandardTools();

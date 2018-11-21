@@ -12,7 +12,9 @@
  ******************************************************************************/
 import { inject, injectable } from "inversify";
 // tslint:disable-next-line:max-line-length
-import { Action, BoundsAware, ElementAndBounds, findParentByFeature, isBoundsAware, isMoveable, isSelectable, isViewport, MouseListener, MouseTool, Point, SModelElement } from "sprotty/lib";
+import { Action, ElementAndBounds, findParentByFeature, isBoundsAware, isMoveable, isViewport, MouseListener, MouseTool, Point, SModelElement } from "sprotty/lib";
+import { ChangeBoundsAction } from "./../../utils/actions";
+import { forEachElement, isSelectedBoundsAware } from "./../../utils/smodel-util";
 import { Tool } from "./tool-manager";
 
 /**
@@ -77,21 +79,17 @@ class MoveMouseListener extends MouseListener {
         // rely on the Sprotty move tool to update the element bounds and simply collect the selected elements
         // if the Sprotty move tool is not used at some point, we need to update the bounds with the position delta
         const newBounds: ElementAndBounds[] = [];
-        target.root.index.all()
-            .filter(element => isBoundsAware(element) && isSelected(element))
-            .map(element => element as SModelElement & BoundsAware)
-            .forEach(element => newBounds.push({
-                elementId: element.id,
-                newBounds: {
-                    x: element.bounds.x,
-                    y: element.bounds.y,
-                    width: element.bounds.width,
-                    height: element.bounds.height
-                }
-            }));
+        forEachElement(target, isSelectedBoundsAware, element => newBounds.push({
+            elementId: element.id,
+            newBounds: {
+                x: element.bounds.x,
+                y: element.bounds.y,
+                width: element.bounds.width,
+                height: element.bounds.height
+            }
+        }));
         this.resetPosition();
-        const changeBoundsAction = new ChangeBoundsAction(newBounds);
-        return [changeBoundsAction];
+        return [new ChangeBoundsAction(newBounds)];
     }
 
     private initPosition(event: MouseEvent) {
@@ -118,16 +116,4 @@ class MoveMouseListener extends MouseListener {
     private hasPositionDelta(): boolean {
         return this.positionDelta.x !== 0 || this.positionDelta.y !== 0;
     }
-}
-
-function isSelected(element: SModelElement) {
-    return isSelectable(element) && element.selected
-}
-
-export class ChangeBoundsAction implements Action {
-
-    public static readonly KIND = "executeOperation_change-bounds";
-    public kind = ChangeBoundsAction.KIND;
-
-    constructor(public newBounds: ElementAndBounds[]) { }
 }

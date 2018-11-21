@@ -18,9 +18,11 @@ export * from './features/tools/creation-tool';
 export * from './features/tools/delete-tool';
 export * from './features/tools/execute-tool';
 export * from './features/tools/move-tool';
+export * from './features/tools/resize-tool';
 export * from './features/tools/tool-manager';
 export * from './lib/model';
 export * from './types';
+export * from './utils/actions';
 export * from './utils/operation';
 export { saveModule, toolManagerModule, executeModule };
 
