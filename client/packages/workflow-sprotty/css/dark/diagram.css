@@ -152,7 +152,7 @@ text {
     stroke: darkblue
 }
 
-.sprotty-node.activity-node {
+polygon.sprotty-node {
     fill: white;
     stroke: black;
     stroke-width: 1pt;

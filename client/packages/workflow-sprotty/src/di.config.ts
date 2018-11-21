@@ -9,12 +9,12 @@
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
 
-import { boundsModule, buttonModule, configureModelElement, ConsoleLogger, defaultModule, DelKeyDeleteTool, EdgeCreationTool, ExpandButtonView, expandModule, exportModule, fadeModule, GLSPGraph, GLSP_TYPES, hoverModule, HtmlRoot, HtmlRootView, LogLevel, modelSourceModule, MouseDeleteTool, moveModule, MoveTool, NodeCreationTool, openModule, overrideViewerOptions, PreRenderedElement, PreRenderedView, RectangularNode, RectangularNodeView, saveModule, SButton, SCompartment, SCompartmentView, SEdge, selectModule, SGraphView, SLabel, SLabelView, SRoutingHandle, SRoutingHandleView, ToolManager, toolManagerModule, TYPES, undoRedoModule, viewportModule } from "glsp-sprotty/lib";
+import { boundsModule, buttonModule, configureModelElement, ConsoleLogger, defaultModule, DelKeyDeleteTool, DiamondNodeView, EdgeCreationTool, ExpandButtonView, expandModule, exportModule, fadeModule, GLSPGraph, GLSP_TYPES, hoverModule, HtmlRoot, HtmlRootView, LogLevel, modelSourceModule, MouseDeleteTool, moveModule, MoveTool, NodeCreationTool, openModule, overrideViewerOptions, PreRenderedElement, PreRenderedView, RectangularNode, RectangularNodeView, saveModule, SButton, SCompartment, SCompartmentView, SEdge, selectModule, SGraphView, SLabel, SLabelView, SRoutingHandle, SRoutingHandleView, ToolManager, toolManagerModule, TYPES, undoRedoModule, viewportModule } from "glsp-sprotty/lib";
 import executeCommandModule from "glsp-sprotty/lib/features/execute/di.config";
 import { Container, ContainerModule } from "inversify";
 import { ActivityNode, Icon, TaskNode, WeightedEdge } from "./model";
 import { WorkflowModelFactory } from "./model-factory";
-import { ActivityNodeView, IconView, TaskNodeView, WeightedEdgeView, WorkflowEdgeView } from "./workflow-views";
+import { IconView, TaskNodeView, WeightedEdgeView, WorkflowEdgeView } from "./workflow-views";
 
 
 
@@ -38,7 +38,7 @@ const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind
     configureModelElement(context, 'edge', SEdge, WorkflowEdgeView)
     configureModelElement(context, 'edge:weighted', WeightedEdge, WeightedEdgeView)
     configureModelElement(context, 'icon', Icon, IconView);
-    configureModelElement(context, 'node:activity', ActivityNode, ActivityNodeView)
+    configureModelElement(context, 'node:activity', ActivityNode, DiamondNodeView)
     configureModelElement(context, 'node', RectangularNode, RectangularNodeView)
 });
 
