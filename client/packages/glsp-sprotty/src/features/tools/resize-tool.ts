@@ -10,14 +10,16 @@
  ******************************************************************************/
 import { inject, injectable } from "inversify";
 import {
-    Action, ActionDispatcher, ElementAndBounds, findParentByFeature, isViewport, KeyTool, MouseListener, MouseTool, // 
-    SetBoundsAction, SModelElement, TYPES, Viewport, ViewportAction
+    Action, ActionDispatcher, Bounds, BoundsAware, ElementAndBounds, findParentByFeature, isViewport, MouseListener, MouseTool, Point, //
+    SetBoundsAction, SModelElement, SModelRoot, SParentElement, TYPES
 } from "sprotty/lib";
-import { forEachElement, hasSelectedElements, isSelectedBoundsAware } from "../../utils/smodel-util";
+import { CommandStackObserver, ObservableCommandStack } from "../../base/command-stack";
+import { forEachElement, getIndex } from "../../utils/smodel-util";
 import { ChangeBoundsOperationAction } from "../operation/operation-actions";
+import { isResizeable, ResizeHandleLocation, SResizeHandle } from "../resize/model";
+import { addResizeHandles, SwitchResizeModeAction } from "../resize/resize";
+import { FeedbackMoveMouseListener } from "../tool-feedback/move-tool-feedback";
 import { Tool } from "../tool-manager/tool";
-import { ExtendedKeyListener } from "./key-tool";
-
 
 /**
  * A tool that allows to resize elements and is optimized for Client/Server operation.
@@ -27,137 +29,176 @@ import { ExtendedKeyListener } from "./key-tool";
  */
 @injectable()
 export class ResizeTool implements Tool {
+
     static ID = "glsp.resizetool";
     readonly id = ResizeTool.ID;
 
+    protected feedbackMoveMouseListener: FeedbackMoveMouseListener;
     protected resizeListener: ResizeListener;
 
     constructor(@inject(MouseTool) protected mouseTool: MouseTool,
-        @inject(KeyTool) protected keyTool: KeyTool,
-        @inject(TYPES.IActionDispatcher) protected actionDispatcher: ActionDispatcher) { }
+        @inject(TYPES.IActionDispatcher) protected actionDispatcher: ActionDispatcher,
+        @inject(ObservableCommandStack) protected commandStack: ObservableCommandStack) { }
 
     enable() {
+        this.feedbackMoveMouseListener = new FeedbackMoveMouseListener();
+        this.mouseTool.register(this.feedbackMoveMouseListener);
+
         this.resizeListener = new ResizeListener(this.actionDispatcher);
         this.mouseTool.register(this.resizeListener);
-        this.keyTool.register(this.resizeListener);
+        this.commandStack.registerObserver(this.resizeListener);
     }
 
     disable() {
         this.mouseTool.deregister(this.resizeListener);
-        this.keyTool.deregister(this.resizeListener);
+        this.commandStack.deregisterObserver(this.resizeListener);
+
+        this.mouseTool.deregister(this.feedbackMoveMouseListener);
     }
 }
 
-class ResizeListener extends MouseListener implements ExtendedKeyListener {
-    private updateServerTimer: NodeJS.Timer;
+class ResizeListener extends MouseListener implements CommandStackObserver {
+    private activeResizeElementId: string | undefined = undefined;
+    private resizeHandle: SResizeHandle | undefined = undefined;
+    private lastDragPosition: Point | undefined;
 
     constructor(protected actionDispatcher: ActionDispatcher) {
         super();
     }
 
-    /**
-     * Resize Support for Mouse Wheel:
-     * Send updates to server with delay so that we can smoothly resize on client side.
-     */
+    mouseDown(target: SModelElement, event: MouseEvent): Action[] {
+        const actions: Action[] = [];
+        if (event.button === 0) {
+            if (target instanceof SResizeHandle) {
+                this.resizeHandle = target;
+                this.lastDragPosition = { x: event.pageX, y: event.pageY };
+            } else {
+                // all elements are deactivated by default
+                const unresizeable: string[] = [];
+                getIndex(target).all().forEach(element => unresizeable.push(element.id));
 
-    wheel(target: SModelElement, event: WheelEvent): Action[] {
-        if (isResizeWheelEvent(event) && hasSelectedElements(target)) {
-            this.updateServer(target, 300);
-            if (event.deltaY > 0) {
-                return handleElementResize(target, resize_grow, clientAction);
+                // mark single resizeable element active if possible
+                const resizeable: string[] = [];
+                const resizeableElement = findParentByFeature(target, isResizeable);
+                if (resizeableElement) {
+                    resizeable.push(resizeableElement.id);
+                    this.activeResizeElementId = resizeableElement.id;
+                } else {
+                    this.activeResizeElementId = undefined;
+                }
+                actions.push(new SwitchResizeModeAction(resizeable, unresizeable));
             }
-            return handleElementResize(target, resize_shrink, clientAction);
         }
-        return handleViewportZoom(target, event);
+        return actions;
     }
 
-    updateServer(target: SModelElement, delay: number) {
-        if (this.updateServerTimer) {
-            // cancel pending update
-            clearTimeout(this.updateServerTimer);
+    mouseUp(target: SModelElement, event: MouseEvent): Action[] {
+        const actions: Action[] = [];
+        if (this.resizeHandle) {
+            console.log("resize mouse up: " + event.button);
+            const resizeElement = findParentByFeature(this.resizeHandle, isResizeable);
+            if (this.isActiveResizeElement(resizeElement)) {
+                // no further resizing, simply send the latest data to the server
+                createResizeActions(serverAction, resizeElement,
+                    resizeElement.bounds.x, resizeElement.bounds.y, resizeElement.bounds.width, resizeElement.bounds.height)
+                    .forEach(action => actions.push(action));
+            }
+            this.resetDraggingHandle();
         }
-        this.updateServerTimer = setTimeout(function (actionDispatcher: ActionDispatcher) {
-            // no resizing, simply send the latest data to the server
-            actionDispatcher.dispatchAll(handleElementResize(target, no_resize, serverAction))
-        }, delay, this.actionDispatcher);
+        return actions;
     }
 
-    /**
-     * Resize Support for Keys:
-     * Send updates to server on keyUp so that we can smoothly resize on client side with keyDown.
-     */
+    mouseMove(target: SModelElement, event: MouseEvent): Action[] {
+        const actions: Action[] = [];
+        if (event.buttons === 0) {
+            this.mouseUp(target, event);
+        } else if (this.resizeHandle && this.lastDragPosition) {
+            const resizeElement = findParentByFeature(this.resizeHandle, isResizeable);
+            if (this.isActiveResizeElement(resizeElement)) {
+                const viewport = findParentByFeature(target, isViewport);
+                const zoom = viewport ? viewport.zoom : 1;
+                const dx = (event.pageX - this.lastDragPosition.x) / zoom;
+                const dy = (event.pageY - this.lastDragPosition.y) / zoom;
 
-    keyDown(target: SModelElement, event: KeyboardEvent): Action[] {
-        if (isGrowKeyEvent(event)) {
-            return handleElementResize(target, resize_grow, clientAction);
+                // TODO: What to do with negative width and height?
+                switch (this.resizeHandle.location) {
+                    case ResizeHandleLocation.TopLeft:
+                        createResizeActions(clientAction, resizeElement,
+                            resizeElement.bounds.x + dx,
+                            resizeElement.bounds.y + dy,
+                            resizeElement.bounds.width - dx,
+                            resizeElement.bounds.height - dy)
+                            .forEach(action => actions.push(action));
+                        break;
+                    case ResizeHandleLocation.TopRight:
+                        createResizeActions(clientAction, resizeElement,
+                            resizeElement.bounds.x,
+                            resizeElement.bounds.y + dy,
+                            resizeElement.bounds.width + dx,
+                            resizeElement.bounds.height - dy)
+                            .forEach(action => actions.push(action));
+                        break;
+                    case ResizeHandleLocation.BottomLeft:
+                        createResizeActions(clientAction, resizeElement,
+                            resizeElement.bounds.x + dx,
+                            resizeElement.bounds.y,
+                            resizeElement.bounds.width - dx,
+                            resizeElement.bounds.height + dy)
+                            .forEach(action => actions.push(action));
+                        break;
+                    case ResizeHandleLocation.BottomRight:
+                        createResizeActions(clientAction, resizeElement,
+                            resizeElement.bounds.x,
+                            resizeElement.bounds.y,
+                            resizeElement.bounds.width + dx,
+                            resizeElement.bounds.height + dy)
+                            .forEach(action => actions.push(action));
+                        break;
+                }
+                this.lastDragPosition = { x: event.pageX, y: event.pageY };
+                console.log("send actions: " + actions.length);
+            }
         }
-        if (isShrinkKeyEvent(event)) {
-            return handleElementResize(target, resize_shrink, clientAction);
-        }
-        return [];
+        return actions;
     }
 
-    keyUp(target: SModelElement, event: KeyboardEvent): Action[] {
-        if (isResizeKeyEvent(event)) {
-            // no resizing, simply send the latest data to the server
-            return handleElementResize(target, no_resize, serverAction);
-        }
-        return [];
+    beforeServerUpdate(model: SModelRoot): void {
+        const isResizeElement = (element: SModelElement): element is SModelElement => this.isActiveResizeElement(element);
+        forEachElement(model, isResizeElement, addResizeHandles);
+    }
+
+    private resetDraggingHandle() {
+        this.resizeHandle = undefined;
+        this.lastDragPosition = undefined;
+    }
+
+    private isActiveResizeElement(element: SModelElement | undefined): element is SParentElement & BoundsAware {
+        return element !== undefined && element.id === this.activeResizeElementId;
     }
 }
 
-const no_resize: number = 1;
-const resize_grow: number = 1.1;
-const resize_shrink: number = Math.pow(resize_grow, -1);
 const clientAction = SetBoundsAction;
 const serverAction = ChangeBoundsOperationAction;
 
-function isResizeWheelEvent(event: WheelEvent) {
-    return event.altKey;
-}
-
-function isResizeKeyEvent(event: KeyboardEvent) {
-    return isGrowKeyEvent(event) || isShrinkKeyEvent(event);
-}
-
-function isGrowKeyEvent(event: KeyboardEvent) {
-    return event.altKey && event.key === '+';
-}
-
-function isShrinkKeyEvent(event: KeyboardEvent) {
-    return event.altKey && event.key === '-';
-}
-
-function handleElementResize(target: SModelElement, factor: number, ...ActionClassses: (new (bounds: ElementAndBounds[]) => Action)[]): Action[] {
-    const newBounds: ElementAndBounds[] = [];
-    forEachElement(target, isSelectedBoundsAware, element => newBounds.push({
-        elementId: element.id,
-        newBounds: {
-            x: element.bounds.x,
-            y: element.bounds.y,
-            width: element.bounds.width * factor,
-            height: element.bounds.height * factor
-        }
-    }));
-    const actions: Action[] = [];
-    ActionClassses.forEach(ActionClasss => actions.push(new ActionClasss(newBounds)));
-    return actions;
-}
-
-// same functionality as the ZoomMouseListener from Sprotty
-function handleViewportZoom(target: SModelElement, event: WheelEvent): Action[] {
-    const viewport = findParentByFeature(target, isViewport);
-    if (viewport) {
-        const newZoom = Math.exp(-event.deltaY * 0.005);
-        const factor = 1. / (newZoom * viewport.zoom) - 1. / viewport.zoom;
-        const newViewport: Viewport = {
-            scroll: {
-                x: -(factor * event.offsetX - viewport.scroll.x),
-                y: -(factor * event.offsetY - viewport.scroll.y)
-            },
-            zoom: viewport.zoom * newZoom
-        };
-        return [new ViewportAction(viewport.id, newViewport, false)];
+function createResizeActions(ActionClass: (new (bounds: ElementAndBounds[]) => Action), element: SModelElement & SParentElement & BoundsAware,
+    x: number, y: number, width: number, height: number): Action[] {
+    const bounds = { x: x, y: y, width: width, height: height };
+    if (isValidResize(element, bounds)) {
+        return [new ActionClass([{ elementId: element.id, newBounds: bounds }])];
     }
     return [];
+}
+
+function isValidResize(element: SModelElement & SParentElement & BoundsAware, bounds: Bounds): boolean {
+    return bounds.width >= minWidth(element) && bounds.height >= minHeight(element);
+}
+
+function minWidth(element: SModelElement & SParentElement & BoundsAware): number {
+    // currently there are no element-specific constraints
+    return 1;
+}
+
+function minHeight(element: SModelElement & SParentElement & BoundsAware): number {
+    // currently there are no element-specific constraints
+    return 1;
 }

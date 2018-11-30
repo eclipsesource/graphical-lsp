@@ -170,3 +170,19 @@ polygon.sprotty-node {
 .sprotty-node.selected {
     stroke-width: 5;
 }
+
+.sprotty-resize-handle {
+    r: 7px;
+    fill: #884;
+    stroke: none;
+    z-index: 1000;
+}
+
+.sprotty-resize-handle.selected {
+    fill: #66a;
+}
+
+.sprotty-resize-handle.mouseover {
+    stroke: #112;
+    stroke-width: 1;
+}

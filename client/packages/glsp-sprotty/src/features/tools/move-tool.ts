@@ -96,7 +96,10 @@ class MoveMouseListener extends MouseListener {
         }));
 
         this.resetPosition();
-        return [new ChangeBoundsOperationAction(newBounds)];
+        if (newBounds.length > 0) {
+            return [new ChangeBoundsOperationAction(newBounds)];
+        }
+        return [];
     }
 
     private initPosition(event: MouseEvent) {

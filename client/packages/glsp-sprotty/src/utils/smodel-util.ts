@@ -40,3 +40,7 @@ export function isSelected(element: SModelElement): element is SModelElement & S
 export function isSelectedBoundsAware(element: SModelElement): element is SModelElement & BoundsAware & Selectable {
     return isBoundsAware(element) && isSelected(element);
 }
+
+export function isNotUndefined<T>(element: T | undefined): element is T {
+    return element !== undefined;
+}

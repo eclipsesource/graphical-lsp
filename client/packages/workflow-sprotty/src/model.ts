@@ -11,7 +11,8 @@
 
 import {
     Bounds, boundsFeature, CommandExecutor, DiamondNode, executeCommandFeature, Expandable, expandFeature, //
-    fadeFeature, layoutableChildFeature, LayoutContainer, layoutContainerFeature, RectangularNode, SEdge, SShapeElement
+    fadeFeature, layoutableChildFeature, LayoutContainer, layoutContainerFeature, RectangularNode, resizeFeature, //
+    SEdge, SShapeElement
 } from "glsp-sprotty/lib";
 import { ActivityNodeSchema } from "./model-schema";
 
@@ -24,7 +25,7 @@ export class TaskNode extends RectangularNode implements Expandable {
 
 
     hasFeature(feature: symbol) {
-        return feature === expandFeature || super.hasFeature(feature);
+        return feature === expandFeature || super.hasFeature(feature) || feature === resizeFeature;
     }
 }
 
@@ -39,6 +40,10 @@ export class ActivityNode extends DiamondNode {
         height: 32
     };
     strokeWidth = 1
+
+    hasFeature(feature: symbol): boolean {
+        return feature === resizeFeature || super.hasFeature(feature);
+    }
 }
 
 

@@ -9,14 +9,17 @@
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
 
-// tslint:disable-next-line:max-line-length
-import { boundsModule, buttonModule, CenterCommand, CenterKeyboardListener, configureModelElement, ConsoleLogger, defaultGLSPModule, defaultModule, DiamondNodeView, ExpandButtonView, expandModule, exportModule, fadeModule, FitToScreenCommand, GLSPGraph, hoverModule, HtmlRoot, HtmlRootView, LogLevel, modelHintsModule, modelSourceModule, openModule, overrideViewerOptions, PreRenderedElement, PreRenderedView, RectangularNode, RectangularNodeView, saveModule, SButton, SCompartment, SCompartmentView, ScrollMouseListener, SEdge, selectModule, SGraphView, SLabel, SLabelView, SRoutingHandle, SRoutingHandleView, toolFeedbackModule, toolManagerModule, TYPES, undoRedoModule, ViewportCommand } from "glsp-sprotty/lib";
+import {
+    boundsModule, buttonModule, configureModelElement, ConsoleLogger, defaultGLSPModule, defaultModule, DiamondNodeView, ExpandButtonView, expandModule, //
+    exportModule, fadeModule, GLSPGraph, hoverModule, HtmlRoot, HtmlRootView, LogLevel, modelHintsModule, modelSourceModule, openModule, overrideViewerOptions, //
+    PreRenderedElement, PreRenderedView, RectangularNode, RectangularNodeView, resizeCommandModule, saveModule, SButton, SCompartment, SCompartmentView, SEdge, //
+    selectModule, SGraphView, SLabel, SLabelView, SResizeHandle, SRoutingHandle, SRoutingHandleView, toolFeedbackModule, toolManagerModule, TYPES, undoRedoModule, viewportModule
+} from "glsp-sprotty/lib";
 import executeCommandModule from "glsp-sprotty/lib/features/execute/di.config";
 import { Container, ContainerModule } from "inversify";
 import { ActivityNode, Icon, TaskNode, WeightedEdge } from "./model";
 import { WorkflowModelFactory } from "./model-factory";
-import { IconView, TaskNodeView, WeightedEdgeView, WorkflowEdgeView } from "./workflow-views";
-
+import { IconView, SResizeHandleView, TaskNodeView, WeightedEdgeView, WorkflowEdgeView } from "./workflow-views";
 
 
 const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
@@ -38,29 +41,19 @@ const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind
     configureModelElement(context, 'volatile-routing-point', SRoutingHandle, SRoutingHandleView);
     configureModelElement(context, 'edge', SEdge, WorkflowEdgeView)
     configureModelElement(context, 'edge:weighted', WeightedEdge, WeightedEdgeView)
+    configureModelElement(context, 'resize-handle', SResizeHandle, SResizeHandleView);
     configureModelElement(context, 'icon', Icon, IconView);
     configureModelElement(context, 'node:activity', ActivityNode, DiamondNodeView)
     configureModelElement(context, 'node', RectangularNode, RectangularNodeView)
 });
 
-const workflowViewportModule = new ContainerModule(bind => {
-    bind(TYPES.ICommand).toConstructor(CenterCommand);
-    bind(TYPES.ICommand).toConstructor(FitToScreenCommand);
-    bind(TYPES.ICommand).toConstructor(ViewportCommand);
-    bind(TYPES.KeyListener).to(CenterKeyboardListener);
-    bind(TYPES.MouseListener).to(ScrollMouseListener);
-
-    // custom viewportModule that omitts the zoom mouse listener that is too greedy (all mouse wheel events lead to viewport zoom)
-    // we implement our own zoom in a resizing tool (ResizeTool) that also allows to actually resize individual elements
-    // bind(TYPES.MouseListener).to(ZoomMouseListener);
-});
-
 export default function createContainer(widgetId: string): Container {
     const container = new Container();
 
-    container.load(defaultModule, selectModule, boundsModule, undoRedoModule, workflowViewportModule,
+    container.load(defaultModule, selectModule, boundsModule, undoRedoModule, viewportModule,
         hoverModule, fadeModule, exportModule, expandModule, openModule, buttonModule, modelSourceModule,
-        workflowDiagramModule, saveModule, executeCommandModule, toolManagerModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule);
+        workflowDiagramModule, saveModule, executeCommandModule, toolManagerModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule,
+        resizeCommandModule);
 
     overrideViewerOptions(container, {
         needsClientLayout: true,
