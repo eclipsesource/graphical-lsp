@@ -13,7 +13,6 @@ package com.eclipsesource.glsp.example.workflow;
 import com.eclipsesource.glsp.api.action.kind.RequestOperationsAction;
 import com.eclipsesource.glsp.api.operations.Operation;
 import com.eclipsesource.glsp.api.operations.OperationConfiguration;
-import com.eclipsesource.glsp.api.operations.OperationKind;
 
 public class WorkflowOperationConfiguration implements OperationConfiguration {
 	public static final String AUTOMATED_TASK_ID = "wf-automated-task";
@@ -26,13 +25,14 @@ public class WorkflowOperationConfiguration implements OperationConfiguration {
 	@Override
 	public Operation[] getOperations(RequestOperationsAction action) {
 
-		Operation createAutomatedTask = new Operation("Automated Task", AUTOMATED_TASK_ID, OperationKind.CREATE_NODE);
-		Operation createManualTask = new Operation("Manual Task", MANUAL_TASK_ID, OperationKind.CREATE_NODE);
-		Operation createDecisionNode = new Operation("Decision Node", DECISION_NODE_ID, OperationKind.CREATE_NODE);
-		Operation createMergeNode = new Operation("Merge Node", MERGE_NODE_ID, OperationKind.CREATE_NODE);
-		Operation createWeightedEdge = new Operation("Weighted Edge", WEIGHTED_EDGE_ID, OperationKind.CREATE_CONNECTION);
-		Operation createEdge = new Operation("Edge", EDGE_ID, OperationKind.CREATE_CONNECTION);
-		Operation deleteElement = new Operation("Delete element", null, OperationKind.DELETE_ELEMENT);
+		Operation createAutomatedTask = new Operation("Automated Task", AUTOMATED_TASK_ID, Operation.Kind.CREATE_NODE);
+		Operation createManualTask = new Operation("Manual Task", MANUAL_TASK_ID, Operation.Kind.CREATE_NODE);
+		Operation createDecisionNode = new Operation("Decision Node", DECISION_NODE_ID, Operation.Kind.CREATE_NODE);
+		Operation createMergeNode = new Operation("Merge Node", MERGE_NODE_ID, Operation.Kind.CREATE_NODE);
+		Operation createWeightedEdge = new Operation("Weighted Edge", WEIGHTED_EDGE_ID,
+				Operation.Kind.CREATE_CONNECTION);
+		Operation createEdge = new Operation("Edge", EDGE_ID, Operation.Kind.CREATE_CONNECTION);
+		Operation deleteElement = new Operation("Delete element", null, Operation.Kind.DELETE_ELEMENT);
 
 		Operation[] operations = { createAutomatedTask, createManualTask, createDecisionNode, createMergeNode,
 				createWeightedEdge, deleteElement, createEdge };

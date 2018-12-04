@@ -24,16 +24,16 @@ import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
 
 public class ActionTypeAdapter extends PropertyBasedTypeAdapter<Action> {
-	private Map<String, Class<? extends Action>> actionKinds;
+	private Map<String, Class<? extends Action>> actions;
 
-	public ActionTypeAdapter(Gson gson, Map<String, Class<? extends Action>> actionKinds) {
+	public ActionTypeAdapter(Gson gson, Map<String, Class<? extends Action>> actions) {
 		super(gson, "kind");
-		this.actionKinds=actionKinds;
+		this.actions = actions;
 	}
 
 	@Override
 	protected Action createInstance(String kind) {
-		Class<? extends Action> clazz = actionKinds.get(kind);
+		Class<? extends Action> clazz = actions.get(kind);
 		if (clazz == null)
 			throw new IllegalArgumentException("Unknown action kind: " + kind);
 		try {
@@ -47,11 +47,11 @@ public class ActionTypeAdapter extends PropertyBasedTypeAdapter<Action> {
 	}
 
 	public static class Factory implements TypeAdapterFactory {
-		private Map<String, Class<? extends Action>> actionKinds;
+		private Map<String, Class<? extends Action>> actions;
 
 		public Factory(Set<Action> registeredActions) {
-			actionKinds = new HashMap<>();
-			registeredActions.forEach(action -> actionKinds.put(action.getKind(), action.getClass()));
+			actions = new HashMap<>();
+			registeredActions.forEach(action -> actions.put(action.getKind(), action.getClass()));
 		}
 
 		@Override
@@ -59,7 +59,7 @@ public class ActionTypeAdapter extends PropertyBasedTypeAdapter<Action> {
 		public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
 			if (!Action.class.isAssignableFrom(typeToken.getRawType()))
 				return null;
-			return (TypeAdapter<T>) new ActionTypeAdapter(gson,actionKinds);
+			return (TypeAdapter<T>) new ActionTypeAdapter(gson, actions);
 		}
 
 	}

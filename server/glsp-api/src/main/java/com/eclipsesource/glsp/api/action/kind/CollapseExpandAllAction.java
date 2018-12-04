@@ -16,7 +16,7 @@ public class CollapseExpandAllAction extends Action {
 	public boolean expand = true;
 
 	public CollapseExpandAllAction() {
-		super(ActionKind.COLLAPSE_EXPAND_ALL);
+		super(Action.Kind.COLLAPSE_EXPAND_ALL);
 
 	}
 

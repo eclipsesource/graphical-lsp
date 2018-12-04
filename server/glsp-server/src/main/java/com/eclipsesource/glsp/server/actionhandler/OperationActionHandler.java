@@ -20,12 +20,11 @@ import org.eclipse.sprotty.SModelRoot;
 
 import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.action.kind.ActionKind;
+import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ChangeBoundsOperationAction;
 import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
 import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
 import com.eclipsesource.glsp.api.action.kind.DeleteElementOperationAction;
-import com.eclipsesource.glsp.api.action.kind.ExecuteOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
@@ -45,17 +44,17 @@ public class OperationActionHandler extends AbstractActionHandler {
 	@Override
 	public Optional<Action> execute(Action action, ModelState modelState) {
 		switch (action.getKind()) {
-		case ActionKind.CREATE_NODE_OPERATION:
-		case ActionKind.CREATE_CONNECTION_OPERATION:
-		case ActionKind.DELETE_ELEMENT_OPERATION:
-		case ActionKind.CHANGE_BOUNDS:
-			return doHandle((ExecuteOperationAction) action, modelState);
+		case Action.Kind.CREATE_NODE_OPERATION:
+		case Action.Kind.CREATE_CONNECTION_OPERATION:
+		case Action.Kind.DELETE_ELEMENT_OPERATION:
+		case Action.Kind.CHANGE_BOUNDS_OPERATION:
+			return doHandle((AbstractOperationAction) action, modelState);
 		default:
 			return Optional.empty();
 		}
 	}
 
-	public Optional<Action> doHandle(ExecuteOperationAction action, ModelState modelState) {
+	public Optional<Action> doHandle(AbstractOperationAction action, ModelState modelState) {
 		if (operationHandlerProvider.isHandled(action)) {
 			OperationHandler handler = operationHandlerProvider.getHandler(action).get();
 			Optional<SModelRoot> modelRoot = handler.execute(action, modelState);

@@ -9,9 +9,10 @@
  * 	Philip Langer - initial API and implementation
  ******************************************************************************/
 import { inject, injectable } from "inversify";
-import { Action, DeleteElementAction, isCtrlOrCmd, isSelectable, KeyListener, KeyTool, MouseListener, MouseTool, SModelElement, SModelRoot } from "sprotty/lib";
+import { Action, isCtrlOrCmd, isSelectable, KeyListener, KeyTool, MouseListener, MouseTool, SModelElement, SModelRoot } from "sprotty/lib";
 import { matchesKeystroke } from "sprotty/lib/utils/keyboard";
-import { EnableStandardToolsAction, Tool } from "./tool-manager";
+import { DeleteElementOperationAction } from "../operation/operation-actions";
+import { EnableStandardToolsAction, Tool } from "../tool-manager/tool-manager";
 
 /**
  * Deletes selected elements when hitting the `Del` key.
@@ -41,7 +42,7 @@ export class DeleteKeyListener extends KeyListener {
         if (matchesKeystroke(event, 'Delete')) {
             const deleteElementIds = Array.from(element.root.index.all().filter(e => isSelectable(e) && e.selected)
                 .filter(e => e.id !== e.root.id).map(e => e.id))
-            return [new DeleteElementAction(deleteElementIds)]
+            return [new DeleteElementOperationAction(deleteElementIds)]
         }
         return [];
     }
@@ -77,7 +78,7 @@ export class DeleteToolMouseListener extends MouseListener {
         }
 
         const result: Action[] = [];
-        result.push(new DeleteElementAction([target.id]));
+        result.push(new DeleteElementOperationAction([target.id]));
         if (!isCtrlOrCmd(event)) {
             result.push(new EnableStandardToolsAction());
         }

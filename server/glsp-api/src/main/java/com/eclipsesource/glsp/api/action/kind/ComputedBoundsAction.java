@@ -24,7 +24,7 @@ public class ComputedBoundsAction extends Action {
 	private int revision;
 
 	public ComputedBoundsAction() {
-		super(ActionKind.COMPUTED_BOUNDS);
+		super(Action.Kind.COMPUTED_BOUNDS);
 	}
 
 	public ComputedBoundsAction(ElementAndBounds[] bounds, int revision, ElementAndAlignment[] alignments) {

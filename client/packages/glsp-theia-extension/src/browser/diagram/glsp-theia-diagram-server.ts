@@ -10,7 +10,7 @@
  ******************************************************************************/
 import { Emitter, Event } from "@theia/core/lib/common";
 // tslint:disable-next-line:max-line-length
-import { Action, ActionHandlerRegistry, ActionMessage, ChangeBoundsAction, CreateConnectionAction, DeleteElementCommand, ExecuteNodeCreationToolAction, ExecuteServerCommandAction, IActionDispatcher, ICommand, ILogger, ModelSource, RequestOperationsAction, SaveModelAction, SetOperationsCommand, SModelStorage, SwitchEditModeCommand, TYPES, ViewerOptions } from "glsp-sprotty/lib";
+import { Action, ActionHandlerRegistry, ActionMessage, ExecuteServerCommandAction, IActionDispatcher, ICommand, ILogger, ModelSource, OperationKind, RequestOperationsAction, SaveModelAction, SetOperationsCommand, SModelStorage, SwitchEditModeCommand, TYPES, ViewerOptions } from "glsp-sprotty/lib";
 import { inject, injectable } from "inversify";
 import { TheiaDiagramServer } from "theia-glsp/lib";
 
@@ -35,10 +35,10 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         // register actions
         registry.register(RequestOperationsAction.KIND, this)
         registry.register(SaveModelAction.KIND, this)
-        registry.register(ExecuteNodeCreationToolAction.KIND, this)
-        registry.register(CreateConnectionAction.KIND, this)
-        registry.register(ChangeBoundsAction.KIND, this)
-        registry.register(DeleteElementCommand.KIND, this)
+        registry.register(OperationKind.CREATE_CONNECTION, this)
+        registry.register(OperationKind.CREATE_NODE, this)
+        registry.register(OperationKind.CHANGE_BOUNDS, this)
+        registry.register(OperationKind.DELETE_ELEMENT, this)
         registry.register(ExecuteServerCommandAction.KIND, this)
         // Register an empty handler for SwitchEditMode, to avoid runtime exceptions.
         // We don't want to support SwitchEditMode, but sprotty still sends some corresponding

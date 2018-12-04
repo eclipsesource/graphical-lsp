@@ -16,7 +16,7 @@ public class ExportSVGAction extends Action {
 	private String svg;
 
 	public ExportSVGAction() {
-		super(ActionKind.EXPORT_SVG);
+		super(Action.Kind.EXPORT_SVG);
 	}
 
 	public ExportSVGAction(String svg) {

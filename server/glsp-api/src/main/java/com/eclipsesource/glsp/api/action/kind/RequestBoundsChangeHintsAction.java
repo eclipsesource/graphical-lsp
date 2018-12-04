@@ -15,7 +15,7 @@ import com.eclipsesource.glsp.api.action.Action;
 public class RequestBoundsChangeHintsAction extends Action {
 
 	public RequestBoundsChangeHintsAction() {
-		super(ActionKind.REQUEST_BOUNDS_CHANGE_HINTS);
+		super(Action.Kind.REQUEST_BOUNDS_CHANGE_HINTS);
 	}
 
 }

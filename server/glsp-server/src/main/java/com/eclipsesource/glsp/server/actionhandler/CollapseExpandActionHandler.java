@@ -17,7 +17,6 @@ import java.util.Set;
 
 import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.action.kind.ActionKind;
 import com.eclipsesource.glsp.api.action.kind.CollapseExpandAction;
 import com.eclipsesource.glsp.api.action.kind.CollapseExpandAllAction;
 import com.eclipsesource.glsp.api.model.ModelExpansionListener;
@@ -38,9 +37,9 @@ public class CollapseExpandActionHandler extends AbstractActionHandler {
 	@Override
 	public Optional<Action> execute(Action action, ModelState modelState) {
 		switch (action.getKind()) {
-		case ActionKind.COLLAPSE_EXPAND:
+		case Action.Kind.COLLAPSE_EXPAND:
 			return handleCollapseExpandAction((CollapseExpandAction) action, modelState);
-		case ActionKind.COLLAPSE_EXPAND_ALL:
+		case Action.Kind.COLLAPSE_EXPAND_ALL:
 			return handleCollapseExpandAllAction((CollapseExpandAllAction) action, modelState);
 		default:
 			return Optional.empty();

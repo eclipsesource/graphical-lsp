@@ -16,11 +16,11 @@ public class OpenAction extends Action {
 	private String elementId;
 
 	public OpenAction() {
-		super(ActionKind.OPEN);
+		super(Action.Kind.OPEN);
 	}
 
 	public OpenAction(String elementId) {
-		super(ActionKind.OPEN);
+		super(Action.Kind.OPEN);
 		this.elementId = elementId;
 	}
 

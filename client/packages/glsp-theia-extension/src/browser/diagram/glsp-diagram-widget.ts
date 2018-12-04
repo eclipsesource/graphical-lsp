@@ -12,7 +12,7 @@
 import { Saveable, SaveableSource } from "@theia/core/lib/browser";
 import { Disposable, DisposableCollection, Emitter, Event, MaybePromise } from "@theia/core/lib/common";
 import { EditorPreferences } from "@theia/editor/lib/browser";
-import { Action, IActionDispatcher, ModelSource, RequestModelAction, RequestOperationsAction, SaveModelAction } from "glsp-sprotty/lib";
+import { Action, IActionDispatcher, ModelSource, OperationKind, RequestModelAction, RequestOperationsAction, SaveModelAction } from "glsp-sprotty/lib";
 import { DiagramWidget, DiagramWidgetOptions } from "theia-glsp/lib";
 import { NotifyingModelSource } from "./glsp-theia-diagram-server";
 
@@ -124,5 +124,12 @@ export class SaveableGLSPModelSource implements Saveable, Disposable {
 }
 
 function isModelManipulation(action: Action): boolean {
-    return action.kind.startsWith("executeOperation") || action.kind === "move";
+    const kind = action.kind
+    return kind === OperationKind.CREATE_NODE ||
+        kind === OperationKind.CREATE_CONNECTION ||
+        kind === OperationKind.DELETE_ELEMENT ||
+        kind === OperationKind.CHANGE_BOUNDS ||
+        kind === OperationKind.CHANGE_CONTAINER ||
+        kind === OperationKind.CREATE_CONNECTION ||
+        kind === OperationKind.GENERIC
 }

@@ -13,10 +13,10 @@ package com.eclipsesource.glsp.api.provider;
 import java.util.Collections;
 import java.util.Set;
 
-import com.eclipsesource.glsp.api.action.kind.ExecuteOperationAction;
+import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 
-public interface OperationHandlerProvider extends HandlerProvider<OperationHandler, ExecuteOperationAction> {
+public interface OperationHandlerProvider extends HandlerProvider<OperationHandler, AbstractOperationAction> {
 
 	final static class NullImpl implements OperationHandlerProvider {
 

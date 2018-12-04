@@ -22,7 +22,7 @@ import org.eclipse.sprotty.SModelRoot;
 import org.eclipse.sprotty.SNode;
 
 import com.eclipsesource.glsp.api.action.kind.ChangeBoundsOperationAction;
-import com.eclipsesource.glsp.api.action.kind.ExecuteOperationAction;
+import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
@@ -40,7 +40,7 @@ public class ChangeBoundsOperationHandler implements OperationHandler {
 	}
 
 	@Override
-	public Optional<SModelRoot> execute(ExecuteOperationAction action, ModelState modelState) {
+	public Optional<SModelRoot> execute(AbstractOperationAction action, ModelState modelState) {
 		ChangeBoundsOperationAction changeBoundsAction = (ChangeBoundsOperationAction) action;
 		for (ElementAndBounds element : changeBoundsAction.getNewBounds()) {
 			changeElementBounds(element.getElementId(), element.getNewBounds(), modelState);

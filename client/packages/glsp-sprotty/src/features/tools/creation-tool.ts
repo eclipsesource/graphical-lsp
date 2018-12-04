@@ -12,12 +12,11 @@
 
 import { inject, injectable } from "inversify";
 import { Action, findParentByFeature, isCtrlOrCmd, isViewport, MouseListener, MouseTool, Point, SModelElement, SModelRoot, Viewport } from "sprotty/lib";
-import { ExecuteNodeCreationToolAction } from "./execute-tool";
-import { EnableStandardToolsAction, Tool } from "./tool-manager";
+import { CreateConnectionOperationAction, CreateNodeOperationAction } from "../operation/operation-actions";
+import { EnableStandardToolsAction, Tool } from "../tool-manager/tool-manager";
 
 @injectable()
 export class NodeCreationTool implements Tool {
-
     static ID = "glsp.nodecreationtool";
     public elementTypeId: string = "unknown";
     protected creationToolMouseListener: NodeCreationToolMouseListener;
@@ -41,7 +40,6 @@ export class NodeCreationTool implements Tool {
 
 @injectable()
 export class NodeCreationToolMouseListener extends MouseListener {
-
     constructor(protected elementTypeId: string) {
         super();
     }
@@ -50,7 +48,7 @@ export class NodeCreationToolMouseListener extends MouseListener {
         const location = getAbsolutePosition1(target, event);
         const containerId: string | undefined = target instanceof SModelRoot ? undefined : target.id;
         const result: Action[] = [];
-        result.push(new ExecuteNodeCreationToolAction(this.elementTypeId, location, containerId));
+        result.push(new CreateNodeOperationAction(this.elementTypeId, location, containerId));
         if (!isCtrlOrCmd(event)) {
             result.push(new EnableStandardToolsAction());
         }
@@ -64,7 +62,6 @@ export class NodeCreationToolMouseListener extends MouseListener {
  */
 @injectable()
 export class EdgeCreationTool implements Tool {
-
     static ID = "glsp.edgecreationtool";
     public elementTypeId: string = "unknown";
     protected creationToolMouseListener: EdgeCreationToolMouseListener;
@@ -88,7 +85,6 @@ export class EdgeCreationTool implements Tool {
 
 @injectable()
 export class EdgeCreationToolMouseListener extends MouseListener {
-
     private source?: string;
     private target?: string;
 
@@ -130,7 +126,7 @@ export class EdgeCreationToolMouseListener extends MouseListener {
         } else {
             this.target = target.id;
             if (this.source != null && this.target != null) {
-                result.push(new CreateConnectionAction(this.elementTypeId, this.source, this.target));
+                result.push(new CreateConnectionOperationAction(this.elementTypeId, this.source, this.target));
                 this.source = undefined;
                 this.target = undefined;
 
@@ -142,16 +138,6 @@ export class EdgeCreationToolMouseListener extends MouseListener {
 
         return result;
     }
-}
-
-export class CreateConnectionAction implements Action {
-
-    static readonly KIND = 'executeOperation_create-connection'
-    readonly kind = CreateConnectionAction.KIND
-
-    constructor(public readonly elementTypeId: string,
-        public readonly sourceElementId?: string,
-        public readonly targetElementId?: string) { }
 }
 
 /**

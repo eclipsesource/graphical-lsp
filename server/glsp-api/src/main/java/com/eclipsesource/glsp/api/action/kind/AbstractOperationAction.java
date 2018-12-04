@@ -8,18 +8,24 @@
  * Contributors:
  * 	Philip Langer - initial API and implementation
  ******************************************************************************/
-package com.eclipsesource.glsp.api.operations;
+package com.eclipsesource.glsp.api.action.kind;
 
-public class OperationKind {
+import com.eclipsesource.glsp.api.action.Action;
+
+public abstract class AbstractOperationAction extends Action {
 	
-	public static final String CHANGE_BOUNDS = "change-bounds";
-	public static final String CREATE_NODE = "create-node";
-	public static final String CREATE_CONNECTION = "create-connection";
-	public static final String DELETE_ELEMENT = "delete-node";
-	public static final String MOVE = "move";
+	private String operationKind;
 	
-	private OperationKind() {
-		// prevent instantiation for class only holding constants.
+	public AbstractOperationAction(String operationKind) {
+		super(operationKind);
 	}
-	
+
+	public String getOperationKind() {
+		return operationKind;
+	}
+
+	public void setOperationKind(String operationKind) {
+		this.operationKind = operationKind;
+	}
+
 }

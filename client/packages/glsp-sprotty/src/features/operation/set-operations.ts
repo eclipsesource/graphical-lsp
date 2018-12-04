@@ -10,7 +10,22 @@
  ******************************************************************************/
 import { injectable } from "inversify";
 import { Action, Command, CommandExecutionContext, CommandResult } from "sprotty/lib";
-import { Operation } from "../../utils/operation";
+
+export namespace OperationKind {
+    export const CREATE_NODE = "createNode";
+    export const CREATE_CONNECTION = "createConnection";
+    export const DELETE_ELEMENT = "delete";
+    export const CHANGE_BOUNDS = "changeBoundsOperation";
+    export const CHANGE_CONTAINER = "changeContainer"
+    export const GENERIC = "generic";
+}
+
+export interface Operation {
+    readonly elementTypeId?: string;
+    readonly label: string;
+    readonly operationKind: string;
+    isActive?: boolean;
+}
 
 export class RequestOperationsAction implements Action {
     static readonly KIND = 'requestOperations'

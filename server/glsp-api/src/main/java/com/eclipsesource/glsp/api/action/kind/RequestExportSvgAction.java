@@ -15,7 +15,7 @@ import com.eclipsesource.glsp.api.action.Action;
 public class RequestExportSvgAction extends Action {
 
 	public RequestExportSvgAction() {
-		super(ActionKind.REQUEST_EXPORT_SVG);
+		super(Action.Kind.REQUEST_EXPORT_SVG);
 	}
 	
 	

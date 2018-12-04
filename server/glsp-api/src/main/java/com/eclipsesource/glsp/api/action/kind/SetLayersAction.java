@@ -19,7 +19,7 @@ public class SetLayersAction extends Action {
 	private Layer[] layers;
 
 	public SetLayersAction() {
-		super(ActionKind.SET_LAYERS);
+		super(Action.Kind.SET_LAYERS);
 	}
 
 	public SetLayersAction(Layer[] layers) {

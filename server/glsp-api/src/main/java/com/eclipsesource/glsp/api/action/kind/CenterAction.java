@@ -20,7 +20,7 @@ public class CenterAction extends Action {
 	private boolean animate = true;
 
 	public CenterAction() {
-		super(ActionKind.CENTER);
+		super(Action.Kind.CENTER);
 	}
 
 	public CenterAction(String[] elementIDs, boolean animate) {

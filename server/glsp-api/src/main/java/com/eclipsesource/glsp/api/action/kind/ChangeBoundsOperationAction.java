@@ -14,11 +14,13 @@ import java.util.Arrays;
 
 import org.eclipse.sprotty.ElementAndBounds;
 
-public class ChangeBoundsOperationAction extends ExecuteOperationAction {
+import com.eclipsesource.glsp.api.action.Action;
+
+public class ChangeBoundsOperationAction extends AbstractOperationAction {
 	private ElementAndBounds[] newBounds;
 
 	public ChangeBoundsOperationAction() {
-		super(ActionKind.CHANGE_BOUNDS);
+		super(Action.Kind.CHANGE_BOUNDS_OPERATION);
 
 	}
 

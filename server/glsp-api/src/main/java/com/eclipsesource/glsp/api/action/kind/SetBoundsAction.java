@@ -20,7 +20,7 @@ public class SetBoundsAction extends Action {
 	private ElementAndBounds[] bounds;
 
 	public SetBoundsAction() {
-		super(ActionKind.SET_BOUNDS);
+		super(Action.Kind.SET_BOUNDS);
 	}
 
 	public SetBoundsAction(ElementAndBounds[] bounds) {

@@ -15,7 +15,7 @@ import com.eclipsesource.glsp.api.action.Action;
 public class SaveModelAction extends Action{
 
 	public SaveModelAction() {
-		super(ActionKind.SAVE_MODEL);
+		super(Action.Kind.SAVE_MODEL);
 	}
 	
 }

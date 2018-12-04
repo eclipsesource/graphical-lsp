@@ -12,28 +12,30 @@ package com.eclipsesource.glsp.api.action.kind;
 
 import org.eclipse.sprotty.Point;
 
-public class MoveOperationAction extends ExecuteOperationAction {
+import com.eclipsesource.glsp.api.action.Action;
+
+public class ChangeContainerOperationAction extends AbstractOperationAction {
 
 	private String elementId;
 	private String targetContainerId;
 	private Point location;
 
-	public MoveOperationAction() {
-		super(ActionKind.MOVE_OPERATION);
+	public ChangeContainerOperationAction() {
+		super(Action.Kind.CHANGE_CONTAINER_OPERATION);
 	}
 
-	public MoveOperationAction(String elementId, Point location) {
+	public ChangeContainerOperationAction(String elementId, Point location) {
 		this();
 		this.elementId = elementId;
 		this.location = location;
 	}
 
-	public MoveOperationAction(String elementId, Point location, String targetContainerId) {
+	public ChangeContainerOperationAction(String elementId, Point location, String targetContainerId) {
 		this(elementId, location);
 		this.targetContainerId = targetContainerId;
 	}
 
-	public MoveOperationAction(String elementId, String targetContainerId) {
+	public ChangeContainerOperationAction(String elementId, String targetContainerId) {
 		this(elementId, (Point) null, targetContainerId);
 	}
 
@@ -79,7 +81,7 @@ public class MoveOperationAction extends ExecuteOperationAction {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		MoveOperationAction other = (MoveOperationAction) obj;
+		ChangeContainerOperationAction other = (ChangeContainerOperationAction) obj;
 		if (elementId == null) {
 			if (other.elementId != null)
 				return false;

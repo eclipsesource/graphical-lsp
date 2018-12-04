@@ -21,7 +21,7 @@ public class CollapseExpandAction extends Action {
 	private boolean collapse = true;
 
 	public CollapseExpandAction() {
-		super(ActionKind.COLLAPSE_EXPAND);
+		super(Action.Kind.COLLAPSE_EXPAND);
 	}
 
 	public CollapseExpandAction(String[] expandIds, String[] collapseIds, boolean collapse) {

@@ -11,7 +11,16 @@
 package com.eclipsesource.glsp.api.operations;
 
 public class Operation {
-	
+
+	public static class Kind {
+		public static final String CHANGE_BOUNDS = "changeBoundsOperation";
+		public static final String CREATE_NODE = "createNode";
+		public static final String CREATE_CONNECTION = "createConnection";
+		public static final String DELETE_ELEMENT = "delete";
+		public static final String CHANGE_CONTAINER = "changeContainer";
+		public static final String GENERIC = "generic";
+	}
+
 	private String label;
 	private String elementTypeId;
 	private String operationKind;

@@ -21,7 +21,7 @@ public class ExecuteServerCommandAction extends Action {
 	private Map<String, String> options;
 
 	public ExecuteServerCommandAction() {
-		super(ActionKind.EXECUTE_SERVER_COMMAND);
+		super(Action.Kind.EXECUTE_SERVER_COMMAND);
 		options= new HashMap<>();
 	}
 

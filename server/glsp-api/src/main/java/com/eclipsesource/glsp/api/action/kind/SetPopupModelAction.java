@@ -20,7 +20,7 @@ public class SetPopupModelAction extends Action {
 	private Bounds bounds;
 
 	public SetPopupModelAction() {
-		super(ActionKind.SET_POPUP_MODEL);
+		super(Action.Kind.SET_POPUP_MODEL);
 	}
 
 	public SetPopupModelAction(SModelRoot newRoot, Bounds bounds) {

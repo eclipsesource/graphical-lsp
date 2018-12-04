@@ -17,7 +17,7 @@ public class ToogleLayerAction extends Action {
 	private boolean newState;
 
 	public ToogleLayerAction() {
-		super(ActionKind.TOOGLE_LAYER);
+		super(Action.Kind.TOOGLE_LAYER);
 
 	}
 

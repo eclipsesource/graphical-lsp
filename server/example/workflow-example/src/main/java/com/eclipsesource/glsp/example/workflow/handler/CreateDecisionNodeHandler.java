@@ -16,7 +16,7 @@ import org.eclipse.sprotty.Point;
 import org.eclipse.sprotty.SModelElement;
 
 import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
-import com.eclipsesource.glsp.api.action.kind.ExecuteOperationAction;
+import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.eclipsesource.glsp.example.workflow.WorkflowOperationConfiguration;
 import com.eclipsesource.glsp.example.workflow.schema.ActivityNode;
@@ -25,7 +25,7 @@ import com.eclipsesource.glsp.server.operationhandler.CreateNodeOperationHandler
 public class CreateDecisionNodeHandler extends CreateNodeOperationHandler {
 
 	@Override
-	public boolean handles(ExecuteOperationAction execAction) {
+	public boolean handles(AbstractOperationAction execAction) {
 		if (execAction instanceof CreateNodeOperationAction) {
 			CreateNodeOperationAction action = (CreateNodeOperationAction) execAction;
 			return WorkflowOperationConfiguration.DECISION_NODE_ID.equals(action.getElementTypeId());

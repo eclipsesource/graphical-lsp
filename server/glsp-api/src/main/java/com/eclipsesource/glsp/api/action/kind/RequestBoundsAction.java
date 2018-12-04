@@ -18,7 +18,7 @@ public class RequestBoundsAction extends Action {
 	private SModelRoot newRoot;
 
 	public RequestBoundsAction() {
-		super(ActionKind.REQUEST_BOUNDS);
+		super(Action.Kind.REQUEST_BOUNDS);
 	}
 
 	public RequestBoundsAction(SModelRoot newRoot) {

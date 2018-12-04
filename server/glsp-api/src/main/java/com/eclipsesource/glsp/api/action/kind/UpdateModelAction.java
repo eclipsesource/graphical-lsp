@@ -23,7 +23,7 @@ public class UpdateModelAction extends Action {
 	private boolean animate=true;
 
 	public UpdateModelAction() {
-		super(ActionKind.UPDATE_MODEL);
+		super(Action.Kind.UPDATE_MODEL);
 	}
 
 	public UpdateModelAction(SModelRoot newRoot, Match[] machtes, boolean animate) {

@@ -12,12 +12,14 @@ package com.eclipsesource.glsp.api.action.kind;
 
 import java.util.Arrays;
 
-public class DeleteElementOperationAction extends ExecuteOperationAction {
+import com.eclipsesource.glsp.api.action.Action;
+
+public class DeleteElementOperationAction extends AbstractOperationAction {
 	
 	private String[] elementIds;
 	
 	public DeleteElementOperationAction() {
-		super(ActionKind.DELETE_ELEMENT_OPERATION);
+		super(Action.Kind.DELETE_ELEMENT_OPERATION);
 	}
 	
 	public DeleteElementOperationAction(String[] elementIds) {
