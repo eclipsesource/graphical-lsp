@@ -10,12 +10,12 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.json;
 
+import org.eclipse.sprotty.server.json.EnumTypeAdapter;
+
 import com.eclipsesource.glsp.api.action.ActionRegistry;
 import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapterFactory;
 import com.google.inject.Inject;
-
-import io.typefox.sprotty.server.json.EnumTypeAdapter;
 
 public class GsonConfigurator {
 

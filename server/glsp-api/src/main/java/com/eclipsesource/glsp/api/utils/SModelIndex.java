@@ -16,8 +16,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import io.typefox.sprotty.api.SEdge;
-import io.typefox.sprotty.api.SModelElement;
+import org.eclipse.sprotty.SEdge;
+import org.eclipse.sprotty.SModelElement;
 
 public class SModelIndex {
 	private final Map<String, SModelElement> idToElement;

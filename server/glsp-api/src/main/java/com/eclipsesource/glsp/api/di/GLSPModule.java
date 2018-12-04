@@ -10,6 +10,8 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.di;
 
+import org.eclipse.sprotty.ILayoutEngine;
+
 import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
 import com.eclipsesource.glsp.api.handler.ActionHandler;
@@ -28,8 +30,6 @@ import com.eclipsesource.glsp.api.provider.ServerCommandHandlerProvider;
 import com.google.inject.AbstractModule;
 import com.google.inject.binder.LinkedBindingBuilder;
 import com.google.inject.multibindings.Multibinder;
-
-import io.typefox.sprotty.api.ILayoutEngine;
 
 public abstract class GLSPModule extends AbstractModule {
 	private Multibinder<ActionHandler> actionHandlerBinder;

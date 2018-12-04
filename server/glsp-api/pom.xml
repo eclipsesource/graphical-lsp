@@ -40,15 +40,15 @@
 
 		<!-- https://mvnrepository.com/artifact/io.typefox.sprotty/diagram-api -->
 		<dependency>
-			<groupId>io.typefox.sprotty</groupId>
-			<artifactId>diagram-api</artifactId>
-			<version>0.3.0</version>
+			<groupId>org.eclipse.sprotty</groupId>
+			<artifactId>org.eclipse.sprotty</artifactId>
+			<version>0.5.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
-			<groupId>io.typefox.sprotty</groupId>
-			<artifactId>diagram-server</artifactId>
-			<version>0.3.0</version>
+			<groupId>org.eclipse.sprotty</groupId>
+			<artifactId>org.eclipse.sprotty.server</artifactId>
+			<version>0.5.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>

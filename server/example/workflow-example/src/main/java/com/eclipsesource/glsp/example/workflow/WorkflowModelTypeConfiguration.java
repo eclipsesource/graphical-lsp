@@ -13,19 +13,21 @@ package com.eclipsesource.glsp.example.workflow;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.sprotty.HtmlRoot;
+import org.eclipse.sprotty.PreRenderedElement;
+import org.eclipse.sprotty.SCompartment;
+import org.eclipse.sprotty.SEdge;
+import org.eclipse.sprotty.SGraph;
+import org.eclipse.sprotty.SLabel;
+import org.eclipse.sprotty.SModelElement;
+
 import com.eclipsesource.glsp.api.model.ModelTypeConfiguration;
 import com.eclipsesource.glsp.example.workflow.schema.ActivityNode;
 import com.eclipsesource.glsp.example.workflow.schema.Icon;
 import com.eclipsesource.glsp.example.workflow.schema.TaskNode;
 import com.eclipsesource.glsp.example.workflow.schema.WeightedEdge;
 
-import io.typefox.sprotty.api.HtmlRoot;
-import io.typefox.sprotty.api.PreRenderedElement;
-import io.typefox.sprotty.api.SCompartment;
-import io.typefox.sprotty.api.SEdge;
-import io.typefox.sprotty.api.SGraph;
-import io.typefox.sprotty.api.SLabel;
-import io.typefox.sprotty.api.SModelElement;
+
 
 public class WorkflowModelTypeConfiguration implements ModelTypeConfiguration {
 

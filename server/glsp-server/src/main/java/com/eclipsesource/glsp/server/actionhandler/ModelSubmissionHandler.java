@@ -12,6 +12,9 @@ package com.eclipsesource.glsp.server.actionhandler;
 
 import java.util.Optional;
 
+import org.eclipse.sprotty.ILayoutEngine;
+import org.eclipse.sprotty.SModelRoot;
+
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestBoundsAction;
 import com.eclipsesource.glsp.api.action.kind.SetModelAction;
@@ -19,9 +22,6 @@ import com.eclipsesource.glsp.api.action.kind.UpdateModelAction;
 import com.eclipsesource.glsp.api.model.ModelState;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
-import io.typefox.sprotty.api.ILayoutEngine;
-import io.typefox.sprotty.api.SModelRoot;
 
 @Singleton
 public class ModelSubmissionHandler {

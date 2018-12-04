@@ -18,6 +18,7 @@ import java.util.Optional;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.eclipse.sprotty.SModelRoot;
 
 import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
@@ -26,8 +27,6 @@ import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.model.ModelTypeConfiguration;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
-
-import io.typefox.sprotty.api.SModelRoot;
 
 public class SaveModelActionHandler extends AbstractActionHandler {
 	private static final Logger LOG = Logger.getLogger(SaveModelActionHandler.class);

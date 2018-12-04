@@ -10,7 +10,7 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.schema;
 
-import io.typefox.sprotty.api.SNode;
+import org.eclipse.sprotty.SNode;
 
 public class TaskNode extends SNode {
 	public static final String TYPE="node:task";

@@ -10,9 +10,9 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import com.eclipsesource.glsp.api.action.Action;
+import org.eclipse.sprotty.Bounds;
 
-import io.typefox.sprotty.api.Bounds;
+import com.eclipsesource.glsp.api.action.Action;
 
 public class RequestPopupModelAction extends Action {
 

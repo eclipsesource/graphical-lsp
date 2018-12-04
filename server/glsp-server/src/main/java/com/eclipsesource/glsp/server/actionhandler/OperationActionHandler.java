@@ -16,6 +16,8 @@ import java.util.Optional;
 
 import javax.inject.Inject;
 
+import org.eclipse.sprotty.SModelRoot;
+
 import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.ActionKind;
@@ -27,8 +29,6 @@ import com.eclipsesource.glsp.api.action.kind.ExecuteOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
-
-import io.typefox.sprotty.api.SModelRoot;
 
 public class OperationActionHandler extends AbstractActionHandler {
 	@Inject

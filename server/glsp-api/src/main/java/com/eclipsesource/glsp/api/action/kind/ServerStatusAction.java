@@ -10,9 +10,9 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import com.eclipsesource.glsp.api.action.Action;
+import org.eclipse.sprotty.ServerStatus;
 
-import io.typefox.sprotty.api.ServerStatus;
+import com.eclipsesource.glsp.api.action.Action;
 
 public class ServerStatusAction extends Action {
 	private String severity;

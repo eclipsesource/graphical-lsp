@@ -10,8 +10,8 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.schema;
 
-import io.typefox.sprotty.api.Point;
-import io.typefox.sprotty.api.SShapeElement;
+import org.eclipse.sprotty.Point;
+import org.eclipse.sprotty.SShapeElement;
 
 public class Icon extends SShapeElement {
 	public static final String TYPE = "icon";

@@ -15,13 +15,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.sprotty.server.json.PropertyBasedTypeAdapter;
+
 import com.eclipsesource.glsp.api.action.Action;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
-
-import io.typefox.sprotty.server.json.PropertyBasedTypeAdapter;
 
 public class ActionTypeAdapter extends PropertyBasedTypeAdapter<Action> {
 	private Map<String, Class<? extends Action>> actionKinds;

@@ -13,11 +13,11 @@ package com.eclipsesource.glsp.server.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.eclipsesource.glsp.api.utils.ModelOptions.ParsedModelOptions;
-import com.eclipsesource.glsp.api.model.ModelState;
-import com.eclipsesource.glsp.api.utils.SModelIndex;
+import org.eclipse.sprotty.SModelRoot;
 
-import io.typefox.sprotty.api.SModelRoot;
+import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.utils.ModelOptions.ParsedModelOptions;
+import com.eclipsesource.glsp.api.utils.SModelIndex;
 
 public class ModelStateImpl implements ModelState {
 	private ParsedModelOptions options;

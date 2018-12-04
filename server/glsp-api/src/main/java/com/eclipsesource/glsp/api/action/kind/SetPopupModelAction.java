@@ -10,10 +10,10 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import com.eclipsesource.glsp.api.action.Action;
+import org.eclipse.sprotty.Bounds;
+import org.eclipse.sprotty.SModelRoot;
 
-import io.typefox.sprotty.api.Bounds;
-import io.typefox.sprotty.api.SModelRoot;
+import com.eclipsesource.glsp.api.action.Action;
 
 public class SetPopupModelAction extends Action {
 	private SModelRoot newRoot;

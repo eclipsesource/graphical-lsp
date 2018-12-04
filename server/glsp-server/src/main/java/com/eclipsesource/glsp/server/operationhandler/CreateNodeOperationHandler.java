@@ -14,15 +14,15 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.function.Function;
 
+import org.eclipse.sprotty.Point;
+import org.eclipse.sprotty.SModelElement;
+import org.eclipse.sprotty.SModelRoot;
+
 import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ExecuteOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
-
-import io.typefox.sprotty.api.Point;
-import io.typefox.sprotty.api.SModelElement;
-import io.typefox.sprotty.api.SModelRoot;
 
 public abstract class CreateNodeOperationHandler implements OperationHandler {
 

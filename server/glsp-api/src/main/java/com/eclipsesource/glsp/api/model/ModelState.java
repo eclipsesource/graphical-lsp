@@ -12,10 +12,10 @@ package com.eclipsesource.glsp.api.model;
 
 import java.util.Set;
 
+import org.eclipse.sprotty.SModelRoot;
+
 import com.eclipsesource.glsp.api.utils.ModelOptions.ParsedModelOptions;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
-
-import io.typefox.sprotty.api.SModelRoot;
 
 public interface ModelState {
 
