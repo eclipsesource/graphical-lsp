@@ -13,15 +13,15 @@ package com.eclipsesource.glsp.example.workflow.handler;
 import java.util.Optional;
 import java.util.function.Function;
 
+import org.eclipse.sprotty.Point;
+import org.eclipse.sprotty.SModelElement;
+
 import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ExecuteOperationAction;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.eclipsesource.glsp.example.workflow.WorkflowOperationConfiguration;
 import com.eclipsesource.glsp.example.workflow.schema.ActivityNode;
 import com.eclipsesource.glsp.server.operationhandler.CreateNodeOperationHandler;
-
-import io.typefox.sprotty.api.Point;
-import io.typefox.sprotty.api.SModelElement;
 
 public class CreateMergeNodeHandler extends CreateNodeOperationHandler {
 

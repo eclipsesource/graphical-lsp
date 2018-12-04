@@ -12,7 +12,7 @@ package com.eclipsesource.glsp.api.action.kind;
 
 import java.util.Arrays;
 
-import io.typefox.sprotty.api.ElementAndBounds;
+import org.eclipse.sprotty.ElementAndBounds;
 
 public class ChangeBoundsOperationAction extends ExecuteOperationAction {
 	private ElementAndBounds[] newBounds;

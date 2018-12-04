@@ -13,6 +13,9 @@ package com.eclipsesource.glsp.example.workflow.handler;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
+import org.eclipse.sprotty.SModelElement;
+import org.eclipse.sprotty.SModelRoot;
+import org.eclipse.sprotty.SNode;
 
 import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ExecuteOperationAction;
@@ -21,10 +24,6 @@ import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.eclipsesource.glsp.example.workflow.WorkflowOperationConfiguration;
 import com.eclipsesource.glsp.example.workflow.schema.WeightedEdge;
-
-import io.typefox.sprotty.api.SModelElement;
-import io.typefox.sprotty.api.SModelRoot;
-import io.typefox.sprotty.api.SNode;
 
 public class CreateWeightedEdgeHandler implements OperationHandler {
 	private static Logger log= Logger.getLogger(CreateWeightedEdgeHandler.class);

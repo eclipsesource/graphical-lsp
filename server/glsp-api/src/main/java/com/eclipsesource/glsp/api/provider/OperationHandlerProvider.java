@@ -11,7 +11,6 @@
 package com.eclipsesource.glsp.api.provider;
 
 import java.util.Collections;
-import java.util.Optional;
 import java.util.Set;
 
 import com.eclipsesource.glsp.api.action.kind.ExecuteOperationAction;

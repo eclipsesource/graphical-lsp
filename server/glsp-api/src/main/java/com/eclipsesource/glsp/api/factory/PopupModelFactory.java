@@ -10,10 +10,10 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.factory;
 
-import com.eclipsesource.glsp.api.action.kind.RequestPopupModelAction;
+import org.eclipse.sprotty.SModelElement;
+import org.eclipse.sprotty.SModelRoot;
 
-import io.typefox.sprotty.api.SModelElement;
-import io.typefox.sprotty.api.SModelRoot;
+import com.eclipsesource.glsp.api.action.kind.RequestPopupModelAction;
 
 public interface PopupModelFactory {
 	SModelRoot createPopuModel(SModelElement element, RequestPopupModelAction action);

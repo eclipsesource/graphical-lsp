@@ -14,16 +14,16 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.function.Function;
 
+import org.eclipse.sprotty.LayoutOptions;
+import org.eclipse.sprotty.Point;
+import org.eclipse.sprotty.SCompartment;
+import org.eclipse.sprotty.SLabel;
+import org.eclipse.sprotty.SModelElement;
+
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.eclipsesource.glsp.example.workflow.schema.Icon;
 import com.eclipsesource.glsp.example.workflow.schema.TaskNode;
 import com.eclipsesource.glsp.server.operationhandler.CreateNodeOperationHandler;
-
-import io.typefox.sprotty.api.LayoutOptions;
-import io.typefox.sprotty.api.Point;
-import io.typefox.sprotty.api.SCompartment;
-import io.typefox.sprotty.api.SLabel;
-import io.typefox.sprotty.api.SModelElement;
 
 public abstract class CreateTaskHandler extends CreateNodeOperationHandler {
 

@@ -12,10 +12,10 @@ package com.eclipsesource.glsp.api.action.kind;
 
 import java.util.Arrays;
 
+import org.eclipse.sprotty.SModelRoot;
+
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.types.Match;
-
-import io.typefox.sprotty.api.SModelRoot;
 
 public class UpdateModelAction extends Action {
 	private SModelRoot newRoot;

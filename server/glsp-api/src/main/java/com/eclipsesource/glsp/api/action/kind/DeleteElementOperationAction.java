@@ -12,8 +12,6 @@ package com.eclipsesource.glsp.api.action.kind;
 
 import java.util.Arrays;
 
-import com.eclipsesource.glsp.api.operations.OperationKind;
-
 public class DeleteElementOperationAction extends ExecuteOperationAction {
 	
 	private String[] elementIds;

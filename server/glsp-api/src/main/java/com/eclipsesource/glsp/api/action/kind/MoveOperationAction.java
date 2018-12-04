@@ -10,7 +10,7 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import io.typefox.sprotty.api.Point;
+import org.eclipse.sprotty.Point;
 
 public class MoveOperationAction extends ExecuteOperationAction {
 

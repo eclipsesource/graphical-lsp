@@ -13,14 +13,14 @@ package com.eclipsesource.glsp.example.workflow;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.eclipse.sprotty.HtmlRoot;
+import org.eclipse.sprotty.PreRenderedElement;
+import org.eclipse.sprotty.SModelElement;
+import org.eclipse.sprotty.SModelRoot;
+
 import com.eclipsesource.glsp.api.action.kind.RequestPopupModelAction;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
 import com.eclipsesource.glsp.example.workflow.schema.TaskNode;
-
-import io.typefox.sprotty.api.HtmlRoot;
-import io.typefox.sprotty.api.PreRenderedElement;
-import io.typefox.sprotty.api.SModelElement;
-import io.typefox.sprotty.api.SModelRoot;
 
 public class WorkflowPopupFactory implements PopupModelFactory {
 

@@ -16,17 +16,16 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.eclipse.sprotty.SEdge;
+import org.eclipse.sprotty.SModelElement;
+import org.eclipse.sprotty.SModelRoot;
+import org.eclipse.sprotty.SNode;
 
 import com.eclipsesource.glsp.api.action.kind.DeleteElementOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ExecuteOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
-
-import io.typefox.sprotty.api.SEdge;
-import io.typefox.sprotty.api.SModelElement;
-import io.typefox.sprotty.api.SModelRoot;
-import io.typefox.sprotty.api.SNode;
 
 /**
  * Generic handler implementation for {@link DeleteElementOperationAction}

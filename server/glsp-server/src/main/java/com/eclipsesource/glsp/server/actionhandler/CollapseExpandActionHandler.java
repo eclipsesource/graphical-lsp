@@ -22,9 +22,9 @@ import com.eclipsesource.glsp.api.action.kind.CollapseExpandAction;
 import com.eclipsesource.glsp.api.action.kind.CollapseExpandAllAction;
 import com.eclipsesource.glsp.api.model.ModelExpansionListener;
 import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.google.inject.Inject;
 
-import io.typefox.sprotty.api.SModelIndex;
 
 public class CollapseExpandActionHandler extends AbstractActionHandler {
 	@Inject

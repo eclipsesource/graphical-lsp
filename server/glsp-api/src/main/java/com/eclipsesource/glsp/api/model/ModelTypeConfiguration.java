@@ -13,11 +13,11 @@ package com.eclipsesource.glsp.api.model;
 import java.util.Collections;
 import java.util.Map;
 
+import org.eclipse.sprotty.SModelElement;
+import org.eclipse.sprotty.server.json.EnumTypeAdapter;
+
 import com.eclipsesource.glsp.api.json.SModelElementTypeAdapter;
 import com.google.gson.GsonBuilder;
-
-import io.typefox.sprotty.api.SModelElement;
-import io.typefox.sprotty.server.json.EnumTypeAdapter;
 
 /**
  * This configuration class provides the information necessary to determine the

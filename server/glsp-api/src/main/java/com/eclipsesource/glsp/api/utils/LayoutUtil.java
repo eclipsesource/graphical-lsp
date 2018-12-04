@@ -14,19 +14,18 @@ package com.eclipsesource.glsp.api.utils;
 
 import java.util.ArrayList;
 
-import com.eclipsesource.glsp.api.action.kind.ComputedBoundsAction;
+import org.eclipse.sprotty.Alignable;
+import org.eclipse.sprotty.Bounds;
+import org.eclipse.sprotty.BoundsAware;
+import org.eclipse.sprotty.Dimension;
+import org.eclipse.sprotty.ElementAndAlignment;
+import org.eclipse.sprotty.ElementAndBounds;
+import org.eclipse.sprotty.Point;
+import org.eclipse.sprotty.SEdge;
+import org.eclipse.sprotty.SModelElement;
+import org.eclipse.sprotty.SModelRoot;
 
-import io.typefox.sprotty.api.Alignable;
-import io.typefox.sprotty.api.Bounds;
-import io.typefox.sprotty.api.BoundsAware;
-import io.typefox.sprotty.api.Dimension;
-import io.typefox.sprotty.api.ElementAndAlignment;
-import io.typefox.sprotty.api.ElementAndBounds;
-import io.typefox.sprotty.api.Point;
-import io.typefox.sprotty.api.SEdge;
-import io.typefox.sprotty.api.SModelElement;
-import io.typefox.sprotty.api.SModelIndex;
-import io.typefox.sprotty.api.SModelRoot;
+import com.eclipsesource.glsp.api.action.kind.ComputedBoundsAction;
 
 public final class LayoutUtil {
 

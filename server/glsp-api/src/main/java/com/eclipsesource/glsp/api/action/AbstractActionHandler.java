@@ -15,7 +15,6 @@ import java.util.Optional;
 
 import com.eclipsesource.glsp.api.handler.ActionHandler;
 import com.eclipsesource.glsp.api.model.ModelState;
-import com.eclipsesource.glsp.api.model.ModelStateProvider;
 
 public abstract class AbstractActionHandler implements ActionHandler {
 

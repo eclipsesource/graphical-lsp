@@ -15,6 +15,8 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.eclipse.sprotty.SGraph;
+import org.eclipse.sprotty.SModelRoot;
 
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
@@ -22,9 +24,6 @@ import com.eclipsesource.glsp.api.model.ModelTypeConfiguration;
 import com.eclipsesource.glsp.api.utils.ModelOptions;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
-
-import io.typefox.sprotty.api.SGraph;
-import io.typefox.sprotty.api.SModelRoot;
 
 /**
  * A base class which can be used for all modelfactories that load an SModel

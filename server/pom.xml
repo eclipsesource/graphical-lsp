@@ -6,7 +6,13 @@
 	<artifactId>glsp-parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-
+	<repositories>
+		<repository>
+			<id>sonatype</id>
+			<name>Sonatype</name>
+			<url>https://oss.sonatype.org/content/groups/public</url>
+		</repository>
+	</repositories>
 	<licenses>
 		<license>
 			<name>Eclipse Public License - v 2.0</name>

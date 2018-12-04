@@ -25,8 +25,8 @@ import com.eclipsesource.glsp.example.workflow.handler.CreateWeightedEdgeHandler
 import com.eclipsesource.glsp.example.workflow.handler.DeleteWorkflowElementHandler;
 import com.eclipsesource.glsp.example.workflow.handler.SimulateCommandHandler;
 import com.eclipsesource.glsp.server.ServerModule;
-import com.eclipsesource.glsp.server.operationhandler.DeleteHandler;
 import com.eclipsesource.glsp.server.operationhandler.ChangeBoundsOperationHandler;
+import com.eclipsesource.glsp.server.operationhandler.DeleteHandler;
 
 public class WorkflowServerRuntimeModule extends ServerModule {
 

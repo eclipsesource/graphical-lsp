@@ -18,6 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
+import org.eclipse.sprotty.ServerStatus;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.ActionMessage;
@@ -26,8 +27,6 @@ import com.eclipsesource.glsp.api.jsonrpc.GraphicalLanguageClient;
 import com.eclipsesource.glsp.api.jsonrpc.GraphicalLanguageServer;
 import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.server.model.ModelStateImpl;
-
-import io.typefox.sprotty.api.ServerStatus;
 
 public class DefaultGraphicalLanguageServer implements GraphicalLanguageServer {
 

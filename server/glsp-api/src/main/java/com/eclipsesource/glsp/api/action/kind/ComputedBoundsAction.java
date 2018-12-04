@@ -12,10 +12,10 @@ package com.eclipsesource.glsp.api.action.kind;
 
 import java.util.Arrays;
 
-import com.eclipsesource.glsp.api.action.Action;
+import org.eclipse.sprotty.ElementAndAlignment;
+import org.eclipse.sprotty.ElementAndBounds;
 
-import io.typefox.sprotty.api.ElementAndAlignment;
-import io.typefox.sprotty.api.ElementAndBounds;
+import com.eclipsesource.glsp.api.action.Action;
 
 public class ComputedBoundsAction extends Action {
 

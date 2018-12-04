@@ -14,6 +14,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 
+import org.eclipse.sprotty.SModelElement;
+import org.eclipse.sprotty.SModelRoot;
+
 import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestPopupModelAction;
@@ -22,9 +25,6 @@ import com.eclipsesource.glsp.api.factory.PopupModelFactory;
 import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.google.inject.Inject;
-
-import io.typefox.sprotty.api.SModelElement;
-import io.typefox.sprotty.api.SModelRoot;
 
 public class RequestPopupModelActionHandler extends AbstractActionHandler {
 	@Inject

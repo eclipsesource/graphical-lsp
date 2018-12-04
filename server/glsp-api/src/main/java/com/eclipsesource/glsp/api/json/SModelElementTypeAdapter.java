@@ -13,13 +13,13 @@ package com.eclipsesource.glsp.api.json;
 import java.lang.reflect.Constructor;
 import java.util.Map;
 
+import org.eclipse.sprotty.SModelElement;
+import org.eclipse.sprotty.server.json.PropertyBasedTypeAdapter;
+
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
-
-import io.typefox.sprotty.api.SModelElement;
-import io.typefox.sprotty.server.json.PropertyBasedTypeAdapter;
 
 public class SModelElementTypeAdapter extends PropertyBasedTypeAdapter<SModelElement> {
 

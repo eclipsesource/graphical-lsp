@@ -10,8 +10,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import com.eclipsesource.glsp.api.operations.OperationKind;
-
 public class CreateConnectionOperationAction extends ExecuteOperationAction {
 
 	private String elementTypeId;

@@ -10,7 +10,7 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.schema;
 
-import io.typefox.sprotty.api.SEdge;
+import org.eclipse.sprotty.SEdge;
 
 public class WeightedEdge extends SEdge {
 	public static final String TYPE = "edge:weighted";

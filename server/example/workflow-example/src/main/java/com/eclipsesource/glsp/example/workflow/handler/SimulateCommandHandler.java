@@ -17,12 +17,11 @@ import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.log4j.Logger;
+import org.eclipse.sprotty.SModelElement;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
 import com.eclipsesource.glsp.api.model.ModelState;
-
-import io.typefox.sprotty.api.SModelElement;
 
 public class SimulateCommandHandler implements ServerCommandHandler {
 	private static Logger logger = Logger.getLogger(SimulateCommandHandler.class);

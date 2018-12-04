@@ -10,9 +10,9 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.factory;
 
-import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
+import org.eclipse.sprotty.SModelRoot;
 
-import io.typefox.sprotty.api.SModelRoot;
+import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
 
 public interface ModelFactory {
 

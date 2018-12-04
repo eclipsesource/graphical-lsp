@@ -12,10 +12,10 @@ package com.eclipsesource.glsp.api.handler;
 
 import java.util.Optional;
 
+import org.eclipse.sprotty.SModelRoot;
+
 import com.eclipsesource.glsp.api.action.kind.ExecuteOperationAction;
 import com.eclipsesource.glsp.api.model.ModelState;
-
-import io.typefox.sprotty.api.SModelRoot;
 
 public interface OperationHandler extends Handler<ExecuteOperationAction> {
 

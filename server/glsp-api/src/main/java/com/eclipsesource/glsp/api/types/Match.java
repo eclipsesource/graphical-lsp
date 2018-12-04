@@ -10,7 +10,7 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.types;
 
-import io.typefox.sprotty.api.SModelElement;
+import org.eclipse.sprotty.SModelElement;
 
 public class Match {
 	private SModelElement left;
