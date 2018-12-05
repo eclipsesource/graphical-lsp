@@ -12,7 +12,9 @@ package com.eclipsesource.glsp.api.action.kind;
 
 import org.eclipse.sprotty.Point;
 
-public class CreateNodeOperationAction extends ExecuteOperationAction {
+import com.eclipsesource.glsp.api.action.Action;
+
+public class CreateNodeOperationAction extends AbstractOperationAction {
 	
 	private String elementTypeId;
 	
@@ -21,7 +23,7 @@ public class CreateNodeOperationAction extends ExecuteOperationAction {
 	private String containerId;
 	
 	public CreateNodeOperationAction() {
-		super(ActionKind.CREATE_NODE_OPERATION);
+		super(Action.Kind.CREATE_NODE_OPERATION);
 	}
 	
 	public CreateNodeOperationAction(String elementTypeId) {

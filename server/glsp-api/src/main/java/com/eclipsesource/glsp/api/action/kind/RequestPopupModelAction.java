@@ -20,7 +20,7 @@ public class RequestPopupModelAction extends Action {
 	private Bounds bounds;
 
 	public RequestPopupModelAction() {
-		super(ActionKind.REQUEST_POPUP_MODEL);
+		super(Action.Kind.REQUEST_POPUP_MODEL);
 	}
 
 	public RequestPopupModelAction(String elementId, Bounds bounds) {

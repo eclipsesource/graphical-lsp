@@ -15,7 +15,7 @@ import com.eclipsesource.glsp.api.action.Action;
 public class RequestOperationsAction extends Action {
 
 	public RequestOperationsAction() {
-		super(ActionKind.REQUEST_OPERATIONS);
+		super(Action.Kind.REQUEST_OPERATIONS);
 	}
 
 }

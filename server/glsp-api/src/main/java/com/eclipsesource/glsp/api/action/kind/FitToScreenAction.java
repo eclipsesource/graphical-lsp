@@ -21,7 +21,7 @@ public class FitToScreenAction extends Action {
 	private boolean animate;
 
 	public FitToScreenAction() {
-		super(ActionKind.FIT_TO_SCREEN);
+		super(Action.Kind.FIT_TO_SCREEN);
 	}
 
 	public FitToScreenAction(String[] elementIds, double padding, double maxZoom, boolean animate) {

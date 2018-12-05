@@ -20,7 +20,7 @@ public class SetBoundsChangeHintsAction extends Action {
 	private BoundsChangeHint[] hints;
 
 	public SetBoundsChangeHintsAction() {
-		super(ActionKind.SET_BOUNDS_CHANGE_HINTS);
+		super(Action.Kind.SET_BOUNDS_CHANGE_HINTS);
 	}
 
 	public SetBoundsChangeHintsAction(BoundsChangeHint[] hints) {

@@ -19,7 +19,7 @@ import org.eclipse.sprotty.SModelElement;
 import org.eclipse.sprotty.SModelRoot;
 
 import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
-import com.eclipsesource.glsp.api.action.kind.ExecuteOperationAction;
+import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
@@ -27,12 +27,12 @@ import com.eclipsesource.glsp.api.utils.SModelIndex;
 public abstract class CreateNodeOperationHandler implements OperationHandler {
 
 	@Override
-	public boolean handles(ExecuteOperationAction action) {
+	public boolean handles(AbstractOperationAction action) {
 		return action instanceof CreateNodeOperationAction;
 	}
 
 	@Override
-	public Optional<SModelRoot> execute(ExecuteOperationAction action, ModelState modelState) {
+	public Optional<SModelRoot> execute(AbstractOperationAction action, ModelState modelState) {
 		CreateNodeOperationAction executeAction = (CreateNodeOperationAction) action;
 
 		SModelIndex index = modelState.getCurrentModelIndex();

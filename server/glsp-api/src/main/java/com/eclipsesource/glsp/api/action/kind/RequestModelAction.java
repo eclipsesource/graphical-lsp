@@ -19,7 +19,7 @@ public class RequestModelAction extends Action {
 	private Map<String, String> options;
 
 	public RequestModelAction() {
-		super(ActionKind.REQUEST_MODEL);
+		super(Action.Kind.REQUEST_MODEL);
 	}
 
 	public RequestModelAction(Map<String, String> options) {

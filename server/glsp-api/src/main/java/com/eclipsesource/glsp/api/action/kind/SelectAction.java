@@ -19,7 +19,7 @@ public class SelectAction extends Action {
 	private String[] deselectedElementsIDs;
 
 	public SelectAction() {
-		super(ActionKind.SELECT);
+		super(Action.Kind.SELECT);
 	}
 
 	public SelectAction(String[] selectedElementsIDs, String[] deselectedElementsIDs) {

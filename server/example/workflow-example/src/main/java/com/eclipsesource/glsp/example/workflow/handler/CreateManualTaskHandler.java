@@ -11,7 +11,7 @@
 package com.eclipsesource.glsp.example.workflow.handler;
 
 import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
-import com.eclipsesource.glsp.api.action.kind.ExecuteOperationAction;
+import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.example.workflow.WorkflowOperationConfiguration;
 
 public class CreateManualTaskHandler extends CreateTaskHandler {
@@ -21,7 +21,7 @@ public class CreateManualTaskHandler extends CreateTaskHandler {
 	}
 
 	@Override
-	public boolean handles(ExecuteOperationAction execAction) {
+	public boolean handles(AbstractOperationAction execAction) {
 		if (execAction instanceof CreateNodeOperationAction) {
 			CreateNodeOperationAction action = (CreateNodeOperationAction) execAction;
 			return WorkflowOperationConfiguration.MANUAL_TASK_ID.equals(action.getElementTypeId());

@@ -11,10 +11,11 @@
 import { inject, injectable } from "inversify";
 // tslint:disable-next-line:max-line-length
 import { Action, ActionDispatcher, ElementAndBounds, findParentByFeature, isViewport, KeyTool, MouseListener, MouseTool, SetBoundsAction, SModelElement, TYPES, Viewport, ViewportAction } from "sprotty/lib";
-import { ChangeBoundsAction } from "./../../utils/actions";
+import { ChangeBoundsOperationAction } from "../operation/operation-actions";
+import { ExtendedKeyListener } from "../tool-manager/key-tool";
+import { Tool } from "../tool-manager/tool-manager";
 import { forEachElement, hasSelectedElements, isSelectedBoundsAware } from "./../../utils/smodel-util";
-import { ExtendedKeyListener } from "./key-tool";
-import { Tool } from "./tool-manager";
+
 
 /**
  * A tool that allows to resize elements and is optimized for Client/Server operation.
@@ -108,7 +109,7 @@ const no_resize: number = 1;
 const resize_grow: number = 1.1;
 const resize_shrink: number = Math.pow(resize_grow, -1);
 const clientAction = SetBoundsAction;
-const serverAction = ChangeBoundsAction;
+const serverAction = ChangeBoundsOperationAction;
 
 function isResizeWheelEvent(event: WheelEvent) {
     return event.altKey;

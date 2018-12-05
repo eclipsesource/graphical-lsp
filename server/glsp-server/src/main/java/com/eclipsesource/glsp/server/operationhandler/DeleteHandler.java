@@ -22,7 +22,7 @@ import org.eclipse.sprotty.SModelRoot;
 import org.eclipse.sprotty.SNode;
 
 import com.eclipsesource.glsp.api.action.kind.DeleteElementOperationAction;
-import com.eclipsesource.glsp.api.action.kind.ExecuteOperationAction;
+import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
@@ -34,12 +34,12 @@ public class DeleteHandler implements OperationHandler {
 	private static Logger log = Logger.getLogger(DeleteHandler.class);
 
 	@Override
-	public boolean handles(ExecuteOperationAction action) {
+	public boolean handles(AbstractOperationAction action) {
 		return action instanceof DeleteElementOperationAction;
 	}
 
 	@Override
-	public Optional<SModelRoot> execute(ExecuteOperationAction execAction, ModelState modelState) {
+	public Optional<SModelRoot> execute(AbstractOperationAction execAction, ModelState modelState) {
 		DeleteElementOperationAction action = (DeleteElementOperationAction) execAction;
 		String elementIds[] = action.getElementIds();
 		if (elementIds == null || elementIds.length == 0) {

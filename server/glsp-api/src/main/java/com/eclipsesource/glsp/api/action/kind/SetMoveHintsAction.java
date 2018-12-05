@@ -20,7 +20,7 @@ public class SetMoveHintsAction extends Action {
 	private DragAndDropHint[] hints;
 
 	public SetMoveHintsAction() {
-		super(ActionKind.SET_MOVE_HINTS);
+		super(Action.Kind.SET_MOVE_HINTS);
 	}
 
 	public SetMoveHintsAction(DragAndDropHint[] hints) {

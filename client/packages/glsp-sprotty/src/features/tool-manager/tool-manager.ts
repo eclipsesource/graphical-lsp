@@ -13,6 +13,24 @@ import { Action, ActionHandlerRegistry, IActionHandler, IActionHandlerInitialize
 import { matchesKeystroke } from "sprotty/lib/utils/keyboard";
 import { GLSP_TYPES } from "../../types";
 
+/**
+ * Action to enable the tools of the specified `toolIds`.
+ */
+export class EnableToolsAction implements Action {
+    static KIND = "enable-tools";
+    readonly kind = EnableToolsAction.KIND;
+    constructor(public readonly toolIds: string[]) { }
+}
+
+/**
+ * Action to disable the currently active tools and enable the standard tools instead.
+ */
+export class EnableStandardToolsAction implements Action {
+    static KIND = "enable-standard-tools";
+    readonly kind = EnableStandardToolsAction.KIND;
+}
+
+
 /** A tool that can be managed by a `ToolManager`. */
 export interface Tool {
     readonly id: string;
@@ -115,23 +133,6 @@ export class DefaultToolManager implements ToolManager {
             this.tools.push(tool);
         }
     }
-}
-
-/**
- * Action to enable the tools of the specified `toolIds`.
- */
-export class EnableToolsAction implements Action {
-    static KIND = "enable-tools";
-    readonly kind = EnableToolsAction.KIND;
-    constructor(public readonly toolIds: string[]) { }
-}
-
-/**
- * Action to disable the currently active tools and enable the standard tools instead.
- */
-export class EnableStandardToolsAction implements Action {
-    static KIND = "enable-standard-tools";
-    readonly kind = EnableStandardToolsAction.KIND;
 }
 
 @injectable()

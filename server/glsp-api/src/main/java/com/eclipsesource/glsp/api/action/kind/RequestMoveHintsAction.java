@@ -15,6 +15,6 @@ import com.eclipsesource.glsp.api.action.Action;
 public class RequestMoveHintsAction extends Action {
 
 	public RequestMoveHintsAction() {
-		super(ActionKind.REQUEST_MOVE_HINTS);
+		super(Action.Kind.REQUEST_MOVE_HINTS);
 	}
 }

@@ -14,15 +14,15 @@ import java.util.Optional;
 
 import org.eclipse.sprotty.SModelRoot;
 
-import com.eclipsesource.glsp.api.action.kind.ExecuteOperationAction;
+import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.model.ModelState;
 
-public interface OperationHandler extends Handler<ExecuteOperationAction> {
+public interface OperationHandler extends Handler<AbstractOperationAction> {
 
-	Optional<SModelRoot> execute(ExecuteOperationAction action, ModelState modelState);
+	Optional<SModelRoot> execute(AbstractOperationAction action, ModelState modelState);
 
 	@Override
-	default boolean handles(ExecuteOperationAction action) {
+	default boolean handles(AbstractOperationAction action) {
 		return Optional.ofNullable(handlesActionType()) //
 				.map(cl -> cl.isInstance(action)) //
 				.orElse(false);

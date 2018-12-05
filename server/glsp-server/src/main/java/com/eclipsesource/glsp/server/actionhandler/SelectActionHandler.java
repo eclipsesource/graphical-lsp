@@ -17,7 +17,6 @@ import java.util.Set;
 
 import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.action.kind.ActionKind;
 import com.eclipsesource.glsp.api.action.kind.SelectAction;
 import com.eclipsesource.glsp.api.action.kind.SelectAllAction;
 import com.eclipsesource.glsp.api.model.ModelSelectionListener;
@@ -37,9 +36,9 @@ public class SelectActionHandler extends AbstractActionHandler {
 	@Override
 	public Optional<Action> execute(Action action,ModelState modelState) {
 		switch (action.getKind()) {
-		case ActionKind.SELECT:
+		case Action.Kind.SELECT:
 			return handleSelectAction((SelectAction) action, modelState);
-		case ActionKind.SELECT_ALL:
+		case Action.Kind.SELECT_ALL:
 			return handleSelectAllAction((SelectAllAction) action,modelState);
 		default:
 			return Optional.empty();

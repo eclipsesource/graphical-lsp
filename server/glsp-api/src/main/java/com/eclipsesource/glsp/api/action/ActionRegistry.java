@@ -31,12 +31,12 @@ public class ActionRegistry {
 	static Logger log = Logger.getLogger(ActionRegistry.class.getName());
 
 	private Set<Action> registeredActions;
-	private Map<String, Class<? extends Action>> actionKinds;
+	private Map<String, Class<? extends Action>> actions;
 	private Map<String, ActionHandler> actionHandlers;
 
 	@Inject
 	public ActionRegistry(ActionProvider registeredActionProvider, ActionHandlerProvider registeredHandlerProvider) {
-		actionKinds = new HashMap<>();
+		actions= new HashMap<>();
 		actionHandlers = new HashMap<>();
 		registeredActions = new HashSet<>();
 		initializeMaps(registeredActionProvider, registeredHandlerProvider);
@@ -48,8 +48,8 @@ public class ActionRegistry {
 		// sort providers by priority
 
 		registeredActionProvider.getActions().forEach(action -> {
-			if (!actionKinds.containsKey(action.getKind())) {
-				actionKinds.put(action.getKind(), action.getClass());
+			if (!actions.containsKey(action.getKind())) {
+				actions.put(action.getKind(), action.getClass());
 				registeredActions.add(action);
 				if (registeredHandlerProvider.isHandled(action)) {
 					ActionHandler handler = registeredHandlerProvider.getHandler(action).get();
@@ -70,7 +70,7 @@ public class ActionRegistry {
 	 * @return correspondent Class
 	 */
 	public Class<? extends Action> getActionClass(String kind) {
-		return actionKinds.get(kind);
+		return actions.get(kind);
 	}
 
 	/**

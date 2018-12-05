@@ -15,7 +15,7 @@ import com.eclipsesource.glsp.api.action.Action;
 public class RequestLayersAction extends Action {
 
 	public RequestLayersAction() {
-		super(ActionKind.REQUEST_LAYERS);
+		super(Action.Kind.REQUEST_LAYERS);
 	}
 
 

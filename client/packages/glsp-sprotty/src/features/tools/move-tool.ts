@@ -13,9 +13,9 @@
 import { inject, injectable } from "inversify";
 // tslint:disable-next-line:max-line-length
 import { Action, ElementAndBounds, findParentByFeature, isBoundsAware, isMoveable, isViewport, MouseListener, MouseTool, Point, SModelElement } from "sprotty/lib";
-import { ChangeBoundsAction } from "./../../utils/actions";
+import { ChangeBoundsOperationAction } from "../operation/operation-actions";
+import { Tool } from "../tool-manager/tool-manager";
 import { forEachElement, isSelectedBoundsAware } from "./../../utils/smodel-util";
-import { Tool } from "./tool-manager";
 
 /**
  * A mouse tool that is optimized for Client/Server operation.
@@ -89,7 +89,7 @@ class MoveMouseListener extends MouseListener {
             }
         }));
         this.resetPosition();
-        return [new ChangeBoundsAction(newBounds)];
+        return [new ChangeBoundsOperationAction(newBounds)];
     }
 
     private initPosition(event: MouseEvent) {

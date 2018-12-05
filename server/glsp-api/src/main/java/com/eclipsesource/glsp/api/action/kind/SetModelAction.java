@@ -17,7 +17,7 @@ import com.eclipsesource.glsp.api.action.Action;
 public class SetModelAction extends Action {
 
 	public SetModelAction() {
-		super(ActionKind.SET_MODEL);
+		super(Action.Kind.SET_MODEL);
 
 	}
 

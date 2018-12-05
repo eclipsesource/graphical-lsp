@@ -20,7 +20,7 @@ public class ServerStatusAction extends Action {
 
 
 	public ServerStatusAction() {
-		super(ActionKind.SERVER_STATUS);
+		super(Action.Kind.SERVER_STATUS);
 	}
 
 	public ServerStatusAction(ServerStatus status) {
