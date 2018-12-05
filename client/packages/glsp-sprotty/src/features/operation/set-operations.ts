@@ -8,8 +8,7 @@
  * Contributors:
  *  Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { injectable } from "inversify";
-import { Action, Command, CommandExecutionContext, CommandResult } from "sprotty/lib";
+import { Action } from "sprotty/lib";
 
 export namespace OperationKind {
     export const CREATE_NODE = "createNode";
@@ -35,36 +34,12 @@ export class RequestOperationsAction implements Action {
 }
 
 export class SetOperationsAction implements Action {
-    readonly kind = SetOperationsCommand.KIND
+    static readonly KIND = 'setOperations'
+    readonly kind = SetOperationsAction.KIND
     constructor(public readonly operations: Operation[]) { }
 }
 
-@injectable()
-// Basically a no-op command for now. Because the tools palette has been implemented
-// with Theia mechanisms in the first draft. Should be improved and changed in a later revision
-export class SetOperationsCommand extends Command {
-    static readonly KIND = 'setOperations'
-
-    availableOperations: Operation[]
-
-    constructor(public action: SetOperationsAction) {
-        super()
-    }
-    execute(context: CommandExecutionContext): CommandResult {
-        this.availableOperations = this.action.operations
-        return context.root
-    }
-
-    undo(context: CommandExecutionContext): CommandResult {
-        return context.root
-    }
-
-    redo(context: CommandExecutionContext): CommandResult {
-        return context.root
-    }
-
-    getTools(): Operation[] {
-        return this.availableOperations
-    }
-
+export function isSetOperationsAction(action: Action): action is SetOperationsAction {
+    return action !== undefined && (action.kind === SetOperationsAction.KIND)
+        && (<SetOperationsAction>action).operations !== undefined
 }

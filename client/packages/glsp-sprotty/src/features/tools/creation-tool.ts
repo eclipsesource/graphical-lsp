@@ -13,7 +13,8 @@
 import { inject, injectable } from "inversify";
 import { Action, findParentByFeature, isCtrlOrCmd, isViewport, MouseListener, MouseTool, Point, SModelElement, SModelRoot, Viewport } from "sprotty/lib";
 import { CreateConnectionOperationAction, CreateNodeOperationAction } from "../operation/operation-actions";
-import { EnableStandardToolsAction, Tool } from "../tool-manager/tool-manager";
+import { EnableStandardToolsAction, Tool } from "../tool-manager/tool";
+
 
 @injectable()
 export class NodeCreationTool implements Tool {

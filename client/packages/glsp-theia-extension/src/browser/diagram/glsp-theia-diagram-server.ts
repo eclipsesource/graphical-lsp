@@ -10,7 +10,7 @@
  ******************************************************************************/
 import { Emitter, Event } from "@theia/core/lib/common";
 // tslint:disable-next-line:max-line-length
-import { Action, ActionHandlerRegistry, ActionMessage, ExecuteServerCommandAction, IActionDispatcher, ICommand, ILogger, ModelSource, OperationKind, RequestOperationsAction, SaveModelAction, SetOperationsCommand, SModelStorage, SwitchEditModeCommand, TYPES, ViewerOptions } from "glsp-sprotty/lib";
+import { Action, ActionHandlerRegistry, ActionMessage, ExecuteServerCommandAction, IActionDispatcher, ICommand, ILogger, ModelSource, OperationKind, RequestOperationsAction, SaveModelAction, SetOperationsAction, SModelStorage, SwitchEditModeCommand, TYPES, ViewerOptions } from "glsp-sprotty/lib";
 import { inject, injectable } from "inversify";
 import { TheiaDiagramServer } from "theia-glsp/lib";
 
@@ -30,8 +30,6 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
 
     initialize(registry: ActionHandlerRegistry): void {
         super.initialize(registry);
-        // register commands
-        registry.registerCommand(SetOperationsCommand)
         // register actions
         registry.register(RequestOperationsAction.KIND, this)
         registry.register(SaveModelAction.KIND, this)
@@ -47,6 +45,9 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
     }
 
     messageReceived(message: ActionMessage) {
+        if (message.action instanceof SetOperationsAction) {
+            this.actionDispatcher.dispatch(message.action)
+        }
         super.messageReceived(message)
     }
 
