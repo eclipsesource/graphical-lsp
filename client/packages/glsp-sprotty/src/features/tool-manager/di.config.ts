@@ -12,10 +12,12 @@
 import { ContainerModule } from "inversify";
 import { KeyTool, TYPES } from "sprotty/lib";
 import { GLSP_TYPES } from "../../types";
-import { ExtendedKeyTool } from "./key-tool";
+import { ExtendedKeyTool } from "../tools/key-tool";
+import { createToolFactory, Tool } from "./tool";
 import { DefaultToolManager, StandardToolsEnablingKeyListener, ToolManagerActionHandlerInitializer } from "./tool-manager";
 
 const toolManagerModule = new ContainerModule((bind, unbind, isBound, rebind) => {
+    bind(GLSP_TYPES.ToolFactory).toFactory<Tool>(createToolFactory());
     bind(GLSP_TYPES.ToolManager).to(DefaultToolManager).inSingletonScope();
     bind(TYPES.KeyListener).to(StandardToolsEnablingKeyListener);
     bind(TYPES.IActionHandlerInitializer).to(ToolManagerActionHandlerInitializer);

@@ -12,7 +12,7 @@ import { inject, injectable } from "inversify";
 import { Action, isCtrlOrCmd, isSelectable, KeyListener, KeyTool, MouseListener, MouseTool, SModelElement, SModelRoot } from "sprotty/lib";
 import { matchesKeystroke } from "sprotty/lib/utils/keyboard";
 import { DeleteElementOperationAction } from "../operation/operation-actions";
-import { EnableStandardToolsAction, Tool } from "../tool-manager/tool-manager";
+import { EnableStandardToolsAction, Tool } from "../tool-manager/tool";
 
 /**
  * Deletes selected elements when hitting the `Del` key.

@@ -12,33 +12,8 @@ import { inject, injectable } from "inversify";
 import { Action, ActionHandlerRegistry, IActionHandler, IActionHandlerInitializer, ICommand, KeyListener, SModelElement } from "sprotty/lib";
 import { matchesKeystroke } from "sprotty/lib/utils/keyboard";
 import { GLSP_TYPES } from "../../types";
-
-/**
- * Action to enable the tools of the specified `toolIds`.
- */
-export class EnableToolsAction implements Action {
-    static KIND = "enable-tools";
-    readonly kind = EnableToolsAction.KIND;
-    constructor(public readonly toolIds: string[]) { }
-}
-
-/**
- * Action to disable the currently active tools and enable the standard tools instead.
- */
-export class EnableStandardToolsAction implements Action {
-    static KIND = "enable-standard-tools";
-    readonly kind = EnableStandardToolsAction.KIND;
-}
-
-
-/** A tool that can be managed by a `ToolManager`. */
-export interface Tool {
-    readonly id: string;
-    /* Notifies the tool to become active. */
-    enable(): void;
-    /* Notifies the tool to become inactive. */
-    disable(): void;
-}
+import { isSetOperationsAction, SetOperationsAction } from "../operation/set-operations";
+import { EnableStandardToolsAction, EnableToolsAction, Tool, UNDEFINED_TOOL_ID } from "./tool";
 
 /**
  * A tool manager coordinates the state of tools in the context of an editor.
@@ -81,10 +56,18 @@ export interface ToolManager {
     registerStandardTools(...tools: Tool[]): void;
 
     registerTools(...tools: Tool[]): void;
+
+    /**
+     * Configures the toolmanager using a SetOperations action. For each available operation the corresponding
+     * tool will be registered
+     * @param action The action containing the available operations
+     */
+    configure(action: SetOperationsAction): void;
 }
 
 @injectable()
 export class DefaultToolManager implements ToolManager {
+    @inject(GLSP_TYPES.ToolFactory) readonly toolFactory: (operationKind: string) => Tool
 
     readonly standardTools: Tool[] = []
     readonly tools: Tool[] = []
@@ -133,31 +116,37 @@ export class DefaultToolManager implements ToolManager {
             this.tools.push(tool);
         }
     }
+
+    configure(action: SetOperationsAction) {
+        const configuredTools = action.operations.map(op => {
+            const tool = this.toolFactory(op.operationKind)
+            tool.elementTypeId = op.elementTypeId;
+            return tool;
+        }).filter(tool => tool.id !== UNDEFINED_TOOL_ID)
+
+        this.registerTools(...configuredTools)
+
+    }
 }
 
 @injectable()
-export class ToolManagerActionHandlerInitializer implements IActionHandlerInitializer {
-
+export class ToolManagerActionHandlerInitializer implements IActionHandlerInitializer, IActionHandler {
     @inject(GLSP_TYPES.ToolManager)
     readonly toolManager: ToolManager;
 
     initialize(registry: ActionHandlerRegistry): void {
-        const toolManagerActionHandler = new ToolManagerActionHandler(this.toolManager);
-        registry.register(EnableStandardToolsAction.KIND, toolManagerActionHandler);
-        registry.register(EnableToolsAction.KIND, toolManagerActionHandler);
+        registry.register(EnableStandardToolsAction.KIND, this);
+        registry.register(EnableToolsAction.KIND, this);
+        registry.register(SetOperationsAction.KIND, this);
     }
-}
 
-export class ToolManagerActionHandler implements IActionHandler {
-
-    constructor(readonly toolManager: ToolManager) { }
-
-    handle(action: Action): ICommand | Action | void {
+    handle(action: Action): void | ICommand | Action {
         if (action instanceof EnableStandardToolsAction) {
             this.toolManager.enableStandardTools();
         } else if (action instanceof EnableToolsAction) {
-            const enableToolsAction = action as EnableToolsAction;
-            this.toolManager.enable(enableToolsAction.toolIds);
+            this.toolManager.enable(action.toolIds);
+        } else if (isSetOperationsAction(action)) {
+            this.toolManager.configure(action);
         }
     }
 }

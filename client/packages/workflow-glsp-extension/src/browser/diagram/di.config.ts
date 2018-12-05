@@ -8,7 +8,7 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { TYPES } from "glsp-sprotty/lib";
+import { registerDefaultTools, TYPES } from "glsp-sprotty/lib";
 import { GLSPTheiaDiagramServer } from 'glsp-theia-extension/lib/browser';
 import { Container, injectable } from "inversify";
 import { DiagramConfiguration, SprottySelectionForwardingInitializer } from "theia-glsp/lib";
@@ -24,6 +24,7 @@ export class WorkflowDiagramConfiguration implements DiagramConfiguration {
         container.bind(TYPES.ModelSource).to(GLSPTheiaDiagramServer)
         // container.rebind(KeyTool).to(TheiaKeyTool).inSingletonScope()
         container.bind(TYPES.IActionHandlerInitializer).to(SprottySelectionForwardingInitializer)
+        registerDefaultTools(container);
         return container;
     }
 

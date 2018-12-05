@@ -14,7 +14,7 @@ import { inject, injectable } from "inversify";
 // tslint:disable-next-line:max-line-length
 import { Action, ElementAndBounds, findParentByFeature, isBoundsAware, isMoveable, isViewport, MouseListener, MouseTool, Point, SModelElement } from "sprotty/lib";
 import { ChangeBoundsOperationAction } from "../operation/operation-actions";
-import { Tool } from "../tool-manager/tool-manager";
+import { Tool } from "../tool-manager/tool";
 import { forEachElement, isSelectedBoundsAware } from "./../../utils/smodel-util";
 
 /**

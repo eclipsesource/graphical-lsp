@@ -32,10 +32,9 @@ public class WorkflowOperationConfiguration implements OperationConfiguration {
 		Operation createWeightedEdge = new Operation("Weighted Edge", WEIGHTED_EDGE_ID,
 				Operation.Kind.CREATE_CONNECTION);
 		Operation createEdge = new Operation("Edge", EDGE_ID, Operation.Kind.CREATE_CONNECTION);
-		Operation deleteElement = new Operation("Delete element", null, Operation.Kind.DELETE_ELEMENT);
 
 		Operation[] operations = { createAutomatedTask, createManualTask, createDecisionNode, createMergeNode,
-				createWeightedEdge, deleteElement, createEdge };
+				createWeightedEdge, createEdge };
 		return operations;
 	}
 

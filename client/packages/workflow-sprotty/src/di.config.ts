@@ -10,7 +10,7 @@
  ******************************************************************************/
 
 // tslint:disable-next-line:max-line-length
-import { boundsModule, buttonModule, CenterCommand, CenterKeyboardListener, configureModelElement, ConsoleLogger, defaultModule, DelKeyDeleteTool, DiamondNodeView, EdgeCreationTool, ExpandButtonView, expandModule, exportModule, fadeModule, FitToScreenCommand, GLSPGraph, GLSP_TYPES, hoverModule, HtmlRoot, HtmlRootView, LogLevel, modelSourceModule, MouseDeleteTool, moveModule, MoveTool, NodeCreationTool, openModule, overrideViewerOptions, PreRenderedElement, PreRenderedView, RectangularNode, RectangularNodeView, ResizeTool, saveModule, SButton, SCompartment, SCompartmentView, ScrollMouseListener, SEdge, selectModule, SGraphView, SLabel, SLabelView, SRoutingHandle, SRoutingHandleView, ToolManager, toolManagerModule, TYPES, undoRedoModule, ViewportCommand } from "glsp-sprotty/lib";
+import { boundsModule, buttonModule, CenterCommand, CenterKeyboardListener, configureModelElement, ConsoleLogger, defaultModule, DiamondNodeView, ExpandButtonView, expandModule, exportModule, fadeModule, FitToScreenCommand, GLSPGraph, hoverModule, HtmlRoot, HtmlRootView, LogLevel, modelSourceModule, moveModule, openModule, overrideViewerOptions, PreRenderedElement, PreRenderedView, RectangularNode, RectangularNodeView, saveModule, SButton, SCompartment, SCompartmentView, ScrollMouseListener, SEdge, selectModule, SGraphView, SLabel, SLabelView, SRoutingHandle, SRoutingHandleView, toolManagerModule, TYPES, undoRedoModule, ViewportCommand } from "glsp-sprotty/lib";
 import executeCommandModule from "glsp-sprotty/lib/features/execute/di.config";
 import { Container, ContainerModule } from "inversify";
 import { ActivityNode, Icon, TaskNode, WeightedEdge } from "./model";
@@ -61,33 +61,6 @@ export default function createContainer(widgetId: string): Container {
     container.load(defaultModule, selectModule, moveModule, boundsModule, undoRedoModule, workflowViewportModule,
         hoverModule, fadeModule, exportModule, expandModule, openModule, buttonModule, modelSourceModule,
         workflowDiagramModule, saveModule, executeCommandModule, toolManagerModule);
-
-    // configure standard tools
-    const toolManager: ToolManager = container.get(GLSP_TYPES.ToolManager);
-    toolManager.registerStandardTools(
-        container.resolve(MoveTool),
-        container.resolve(ResizeTool),
-        container.resolve(DelKeyDeleteTool));
-    toolManager.registerTools(container.resolve(MouseDeleteTool));
-    toolManager.enableStandardTools();
-
-    // configure workflow-specific additional tools
-    const automaticTaskNodeCreationTool = container.resolve(NodeCreationTool);
-    automaticTaskNodeCreationTool.elementTypeId = "wf-automated-task";
-    const manualTaskNodeCreationTool = container.resolve(NodeCreationTool);
-    manualTaskNodeCreationTool.elementTypeId = "wf-manual-task";
-    const decisionNodeCreationTool = container.resolve(NodeCreationTool);
-    decisionNodeCreationTool.elementTypeId = "wf-decision-node";
-    const mergeNodeCreationTool = container.resolve(NodeCreationTool);
-    mergeNodeCreationTool.elementTypeId = "wf-merge-node";
-    const edgeCreationTool = container.resolve(EdgeCreationTool);
-    edgeCreationTool.elementTypeId = "wf-weighted-edge";
-    const weightedEdgeCreationTool = container.resolve(EdgeCreationTool);
-    weightedEdgeCreationTool.elementTypeId = "wf-edge";
-    toolManager.registerTools(
-        manualTaskNodeCreationTool, automaticTaskNodeCreationTool,
-        decisionNodeCreationTool, mergeNodeCreationTool,
-        edgeCreationTool, weightedEdgeCreationTool);
 
     overrideViewerOptions(container, {
         needsClientLayout: true,

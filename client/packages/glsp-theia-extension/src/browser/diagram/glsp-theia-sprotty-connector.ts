@@ -11,7 +11,7 @@
 import URI from "@theia/core/lib/common/uri";
 import { EditorManager } from "@theia/editor/lib/browser";
 import { Workspace } from "@theia/languages/lib/browser";
-import { ActionMessage, ExportSvgAction, ServerStatusAction, SetOperationsAction, SetOperationsCommand } from "glsp-sprotty/lib";
+import { ActionMessage, ExportSvgAction, ServerStatusAction } from "glsp-sprotty/lib";
 import { DiagramWidgetRegistry, OpenInTextEditorMessage, TheiaDiagramServer, TheiaFileSaver, TheiaSprottyConnector } from "theia-glsp/lib";
 import { ActionMessageNotification } from "../../common/";
 import { GraphicalLanguageClientContribution } from "../language/graphical-langauge-client-contribution";
@@ -89,11 +89,6 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
     }
 
     onMessageReceived(message: ActionMessage): void {
-        if (message.action.kind === SetOperationsCommand.KIND) {
-            const action: SetOperationsAction = message.action as SetOperationsAction
-
-            // this.paletteContribution.createTools(action.operations)
-        }
         this.servers.forEach(element => {
             element.messageReceived(message)
         })
