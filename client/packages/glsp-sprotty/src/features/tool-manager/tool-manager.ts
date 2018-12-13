@@ -87,11 +87,11 @@ export class DefaultToolManager implements ToolManager {
     }
 
     enableStandardTools() {
-        this.disableActiveTools();
         this.enable(this.standardTools.map(tool => tool.id));
     }
 
     enable(toolIds: string[]) {
+        this.disableActiveTools();
         const tools = toolIds.map(id => this.tool(id))
         tools.forEach(tool => {
             if (tool !== undefined) {

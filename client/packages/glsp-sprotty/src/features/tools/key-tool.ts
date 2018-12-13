@@ -16,8 +16,8 @@ import { Action, KeyListener, KeyTool, on, SModelElement, SModelRoot } from "spr
 export class ExtendedKeyTool extends KeyTool {
     protected handleExtendedKeyListenerEvent<K extends keyof ExtendedKeyListener>(methodName: K, model: SModelRoot, event: KeyboardEvent) {
         const actions = this.keyListeners
-            .filter(isExtendedKeyListener)
-            .map(listener => listener[methodName].apply(listener, [model, event]))
+            .filter(l => l instanceof ExtendedKeyListener)
+            .map(listener => (listener as ExtendedKeyListener)[methodName].apply(listener, [model, event]))
             .reduce((a, b) => a.concat(b));
         if (actions.length > 0) {
             event.preventDefault();
@@ -55,8 +55,4 @@ export class ExtendedKeyListener extends KeyListener {
     keyUp(element: SModelElement, event: KeyboardEvent): Action[] {
         return [];
     }
-}
-
-export function isExtendedKeyListener(object: any): object is ExtendedKeyListener {
-    return 'keyUp' in object;
 }
