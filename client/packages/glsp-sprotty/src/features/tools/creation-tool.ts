@@ -11,8 +11,9 @@
  ******************************************************************************/
 
 import { inject, injectable } from "inversify";
-import { Action, findParentByFeature, isCtrlOrCmd, isViewport, MouseListener, MouseTool, Point, SModelElement, SModelRoot, Viewport } from "sprotty/lib";
+import { Action, findParentByFeature, IActionDispatcher, isCtrlOrCmd, isViewport, MouseListener, MouseTool, Point, SModelElement, SModelRoot, TYPES, Viewport } from "sprotty/lib";
 import { CreateConnectionOperationAction, CreateNodeOperationAction } from "../operation/operation-actions";
+import { HideNodeCreationToolFeedbackAction, ShowNodeCreationToolFeedbackAction } from "../tool-feedback/creation-tool-feedback";
 import { EnableStandardToolsAction, Tool } from "../tool-manager/tool";
 
 
@@ -22,7 +23,8 @@ export class NodeCreationTool implements Tool {
     public elementTypeId: string = "unknown";
     protected creationToolMouseListener: NodeCreationToolMouseListener;
 
-    constructor(@inject(MouseTool) protected mouseTool: MouseTool) { }
+    constructor(@inject(MouseTool) protected mouseTool: MouseTool,
+        @inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher) { }
 
     get id() {
         return `${NodeCreationTool.ID}.${this.elementTypeId}`;
@@ -31,10 +33,12 @@ export class NodeCreationTool implements Tool {
     enable() {
         this.creationToolMouseListener = new NodeCreationToolMouseListener(this.elementTypeId);
         this.mouseTool.register(this.creationToolMouseListener);
+        this.actionDispatcher.dispatch(new ShowNodeCreationToolFeedbackAction());
     }
 
     disable() {
         this.mouseTool.deregister(this.creationToolMouseListener);
+        this.actionDispatcher.dispatch(new HideNodeCreationToolFeedbackAction());
     }
 
 }
@@ -46,7 +50,7 @@ export class NodeCreationToolMouseListener extends MouseListener {
     }
 
     mouseUp(target: SModelElement, event: MouseEvent): Action[] {
-        const location = getAbsolutePosition1(target, event);
+        const location = getAbsolutePosition(target, event);
         const containerId: string | undefined = target instanceof SModelRoot ? undefined : target.id;
         const result: Action[] = [];
         result.push(new CreateNodeOperationAction(this.elementTypeId, location, containerId));
@@ -154,7 +158,7 @@ export class EdgeCreationToolMouseListener extends MouseListener {
  * @param mouseEvent
  *  A mouseEvent
  */
-export function getAbsolutePosition1(target: SModelElement, mouseEvent: MouseEvent): Point {
+export function getAbsolutePosition(target: SModelElement, mouseEvent: MouseEvent): Point {
     let xPos = mouseEvent.pageX, yPos = mouseEvent.pageY;
     const canvasBounds = target.root.canvasBounds;
     xPos -= canvasBounds.x;
