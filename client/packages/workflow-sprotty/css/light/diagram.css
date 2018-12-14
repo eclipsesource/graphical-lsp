@@ -181,3 +181,11 @@ polygon.sprotty-node {
 .node-creation-tool-mode {
     cursor: copy;
 }
+
+.edge-creation-select-source-mode {
+    cursor: pointer;
+}
+
+.edge-creation-select-target-mode {
+    cursor: crosshair;
+}

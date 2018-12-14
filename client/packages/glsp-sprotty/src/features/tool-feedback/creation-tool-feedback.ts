@@ -35,3 +35,41 @@ export class HideNodeCreationToolFeedbackCommand extends FeedbackCommand {
         return unapplyCssClassesToRoot(context, [NODE_CREATION_CSS_CLASS]);
     }
 }
+
+const EDGE_CREATION_SOURCE_CSS_CLASS = 'edge-creation-select-source-mode';
+const EDGE_CREATION_TARGET_CSS_CLASS = 'edge-creation-select-target-mode';
+
+export class ShowEdgeCreationSelectSourceFeedbackAction implements Action {
+    kind = ShowEdgeCreationSelectSourceFeedbackCommand.KIND;
+}
+
+export class ShowEdgeCreationSelectTargetFeedbackAction implements Action {
+    kind = ShowEdgeCreationSelectTargetFeedbackCommand.KIND;
+}
+
+export class HideEdgeCreationToolFeedbackAction implements Action {
+    kind = HideEdgeCreationToolFeedbackCommand.KIND;
+}
+
+export class ShowEdgeCreationSelectSourceFeedbackCommand extends FeedbackCommand {
+    static readonly KIND = 'glsp.edgecreationtool.selectsource.feedback.show';
+    execute(context: CommandExecutionContext): SModelRoot {
+        unapplyCssClassesToRoot(context, [EDGE_CREATION_TARGET_CSS_CLASS]);
+        return applyCssClassesToRoot(context, [EDGE_CREATION_SOURCE_CSS_CLASS]);
+    }
+}
+
+export class ShowEdgeCreationSelectTargetFeedbackCommand extends FeedbackCommand {
+    static readonly KIND = 'glsp.edgecreationtool.selecttarget.feedback.show';
+    execute(context: CommandExecutionContext): SModelRoot {
+        unapplyCssClassesToRoot(context, [EDGE_CREATION_SOURCE_CSS_CLASS]);
+        return applyCssClassesToRoot(context, [EDGE_CREATION_TARGET_CSS_CLASS]);
+    }
+}
+
+export class HideEdgeCreationToolFeedbackCommand extends FeedbackCommand {
+    static readonly KIND = 'glsp.edgecreationtool.feedback.hide';
+    execute(context: CommandExecutionContext): SModelRoot {
+        return unapplyCssClassesToRoot(context, [EDGE_CREATION_SOURCE_CSS_CLASS, EDGE_CREATION_TARGET_CSS_CLASS]);
+    }
+}

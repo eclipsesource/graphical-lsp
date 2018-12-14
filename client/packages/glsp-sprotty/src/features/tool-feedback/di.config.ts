@@ -11,11 +11,18 @@
 
 import { ContainerModule } from "inversify";
 import { TYPES } from "sprotty/lib";
-import { HideNodeCreationToolFeedbackCommand, ShowNodeCreationToolFeedbackCommand } from "./creation-tool-feedback";
+import {
+    HideEdgeCreationToolFeedbackCommand, HideNodeCreationToolFeedbackCommand, //
+    ShowEdgeCreationSelectSourceFeedbackCommand, ShowEdgeCreationSelectTargetFeedbackCommand, //
+    ShowNodeCreationToolFeedbackCommand
+} from "./creation-tool-feedback";
 
 const toolFeedbackModule = new ContainerModule(bind => {
     bind(TYPES.ICommand).toConstructor(ShowNodeCreationToolFeedbackCommand);
     bind(TYPES.ICommand).toConstructor(HideNodeCreationToolFeedbackCommand);
+    bind(TYPES.ICommand).toConstructor(ShowEdgeCreationSelectSourceFeedbackCommand);
+    bind(TYPES.ICommand).toConstructor(ShowEdgeCreationSelectTargetFeedbackCommand);
+    bind(TYPES.ICommand).toConstructor(HideEdgeCreationToolFeedbackCommand);
 });
 
 export default toolFeedbackModule;
