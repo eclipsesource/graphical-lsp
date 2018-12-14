@@ -18,7 +18,7 @@ export class ExtendedKeyTool extends KeyTool {
         const actions = this.keyListeners
             .filter(l => l instanceof ExtendedKeyListener)
             .map(listener => (listener as ExtendedKeyListener)[methodName].apply(listener, [model, event]))
-            .reduce((a, b) => a.concat(b));
+            .reduce((a, b) => a.concat(b), []);
         if (actions.length > 0) {
             event.preventDefault();
             this.actionDispatcher.dispatchAll(actions);
