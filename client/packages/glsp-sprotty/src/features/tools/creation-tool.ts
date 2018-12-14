@@ -39,12 +39,12 @@ export class NodeCreationTool implements Tool {
     enable() {
         this.creationToolMouseListener = new NodeCreationToolMouseListener(this.elementTypeId);
         this.mouseTool.register(this.creationToolMouseListener);
-        this.actionDispatcher.dispatch(new ShowNodeCreationToolFeedbackAction());
+        this.actionDispatcher.dispatch(new ShowNodeCreationToolFeedbackAction(this.elementTypeId));
     }
 
     disable() {
         this.mouseTool.deregister(this.creationToolMouseListener);
-        this.actionDispatcher.dispatch(new HideNodeCreationToolFeedbackAction());
+        this.actionDispatcher.dispatch(new HideNodeCreationToolFeedbackAction(this.elementTypeId));
     }
 
 }
@@ -87,12 +87,12 @@ export class EdgeCreationTool implements Tool {
     enable() {
         this.creationToolMouseListener = new EdgeCreationToolMouseListener(this.elementTypeId);
         this.mouseTool.register(this.creationToolMouseListener);
-        this.actionDispatcher.dispatch(new ShowEdgeCreationSelectSourceFeedbackAction());
+        this.actionDispatcher.dispatch(new ShowEdgeCreationSelectSourceFeedbackAction(this.elementTypeId));
     }
 
     disable() {
         this.mouseTool.deregister(this.creationToolMouseListener);
-        this.actionDispatcher.dispatch(new HideEdgeCreationToolFeedbackAction());
+        this.actionDispatcher.dispatch(new HideEdgeCreationToolFeedbackAction(this.elementTypeId));
     }
 
 }
@@ -122,7 +122,7 @@ export class EdgeCreationToolMouseListener extends MouseListener {
             this.isMouseMove = true;
             this.source = undefined;
             this.target = undefined;
-            return [new ShowEdgeCreationSelectSourceFeedbackAction()];
+            return [new ShowEdgeCreationSelectSourceFeedbackAction(this.elementTypeId)];
         }
         return [];
     }
@@ -138,7 +138,7 @@ export class EdgeCreationToolMouseListener extends MouseListener {
 
         if (this.source == null) {
             this.source = target.id;
-            result.push(new ShowEdgeCreationSelectTargetFeedbackAction());
+            result.push(new ShowEdgeCreationSelectTargetFeedbackAction(this.elementTypeId, this.source));
         } else {
             this.target = target.id;
             if (this.source != null && this.target != null) {
