@@ -9,7 +9,7 @@
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
 // tslint:disable-next-line:max-line-length
-import { Bounds, boundsFeature, CommandExecutor, DiamondNode, executeCommandFeature, Expandable, expandFeature, fadeFeature, layoutableChildFeature, LayoutContainer, layoutContainerFeature, Point, RectangularNode, SEdge, SParentElement, SShapeElement, toRadians } from "glsp-sprotty/lib";
+import { Bounds, boundsFeature, CommandExecutor, DiamondNode, executeCommandFeature, Expandable, expandFeature, fadeFeature, layoutableChildFeature, LayoutContainer, layoutContainerFeature, RectangularNode, SEdge, SShapeElement } from "glsp-sprotty/lib";
 import { ActivityNodeSchema } from "./model-schema";
 
 export class TaskNode extends RectangularNode implements Expandable {
@@ -23,46 +23,10 @@ export class TaskNode extends RectangularNode implements Expandable {
     hasFeature(feature: symbol) {
         return feature === expandFeature || super.hasFeature(feature);
     }
-
 }
 
 export class WeightedEdge extends SEdge {
     probability?: string
-}
-
-export class RotatableRectangularNode extends RectangularNode {
-
-    rotationInDegrees: number = 0
-
-    getTranslatedAnchor(refPoint: Point, refContainer: SParentElement, edge: SEdge, offset?: number): Point {
-        const cx = this.position.x + this.size.width / 2
-        const cy = this.position.y + this.size.height / 2
-        const translatedRefPoint = this.rotatePoint(cx, cy, -this.rotationInDegrees, refPoint)
-        const originalAnchor = super.getTranslatedAnchor(translatedRefPoint, refContainer, edge, offset);
-        return this.rotatePoint(cx, cy, this.rotationInDegrees, originalAnchor);
-    }
-
-    rotatePoint(cx: number, cy: number, angle: number, p: Point): Point {
-        const rad = toRadians(angle)
-        const s = Math.sin(rad);
-        const c = Math.cos(rad);
-
-        // translate point back to origin:
-        let x = p.x;
-        let y = p.y;
-        x -= cx;
-        y -= cy;
-
-        // rotate point
-        const xnew = x * c - y * s;
-        const ynew = x * s + y * c;
-
-        // translate point back:
-        return {
-            x: xnew + cx,
-            y: ynew + cy
-        };
-    }
 }
 
 export class ActivityNode extends DiamondNode {
