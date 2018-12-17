@@ -9,6 +9,7 @@
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
 export * from 'sprotty/lib';
+export * from './base/command-stack';
 export * from './features/execute/execute-command';
 export * from './features/execute/model';
 export * from './features/operation/operation-actions';
@@ -27,11 +28,13 @@ export * from './features/tools/move-tool';
 export * from './features/tools/resize-tool';
 export * from './lib/model';
 export * from './types';
-export { saveModule, toolManagerModule, executeModule, toolFeedbackModule };
+export { saveModule, toolManagerModule, executeModule, toolFeedbackModule, defaultGLSPModule};
 
 
+import defaultGLSPModule from './base/di.config';
 import executeModule from './features/execute/di.config';
 import saveModule from './features/save/di.config';
 import toolFeedbackModule from './features/tool-feedback/di.config';
 import toolManagerModule from './features/tool-manager/di.config';
+
 
