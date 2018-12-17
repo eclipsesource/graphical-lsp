@@ -8,15 +8,17 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
+import { SelectionService } from "@theia/core";
 import { registerDefaultTools, TYPES } from "glsp-sprotty/lib";
 import { GLSPTheiaDiagramServer } from 'glsp-theia-extension/lib/browser';
-import { Container, injectable } from "inversify";
+import { Container, inject, injectable } from "inversify";
 import { DiagramConfiguration, SprottySelectionForwardingInitializer } from "theia-glsp/lib";
 import { createWorkflowDiagramContainer } from "workflow-sprotty/lib";
 import { WorkflowLanguage } from "../../common/workflow-language";
 
 @injectable()
 export class WorkflowDiagramConfiguration implements DiagramConfiguration {
+    @inject(SelectionService) protected selectionService: SelectionService
     diagramType: string = WorkflowLanguage.DiagramType
 
     createContainer(widgetId: string): Container {
@@ -24,6 +26,7 @@ export class WorkflowDiagramConfiguration implements DiagramConfiguration {
         container.bind(TYPES.ModelSource).to(GLSPTheiaDiagramServer)
         // container.rebind(KeyTool).to(TheiaKeyTool).inSingletonScope()
         container.bind(TYPES.IActionHandlerInitializer).to(SprottySelectionForwardingInitializer)
+        container.bind(SelectionService).toConstantValue(this.selectionService)
         registerDefaultTools(container);
         return container;
     }
