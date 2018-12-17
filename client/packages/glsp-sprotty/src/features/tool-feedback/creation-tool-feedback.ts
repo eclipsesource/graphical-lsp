@@ -70,7 +70,8 @@ export class ShowEdgeCreationSelectSourceFeedbackCommand extends FeedbackCommand
 }
 
 export class FeedbackEdgeEnd extends SDanglingAnchor {
-    type = 'feedback-edge-end';
+    static readonly TYPE = 'feedback-edge-end';
+    type = FeedbackEdgeEnd.TYPE;
     constructor(readonly sourceId: string,
         readonly elementTypeId: string,
         public feedbackEdge: Routable | undefined = undefined) {
@@ -146,7 +147,6 @@ function drawFeedbackEdge(context: CommandExecutionContext, sourceId: string, el
         return;
     }
 
-    // TODO we need a view for SDanglingAnchor, otherwise MissingView will render a red string ?<id>?
     const edgeEnd = new FeedbackEdgeEnd(source.id, elementTypeId);
     edgeEnd.id = feedbackEdgeEndId(root);
     edgeEnd.position = { x: source.bounds.x, y: source.bounds.y };

@@ -12,11 +12,11 @@
 import { ContainerModule } from "inversify";
 import { TYPES } from "sprotty/lib";
 import {
-    HideEdgeCreationToolFeedbackCommand, HideNodeCreationToolFeedbackCommand, //
+    FeedbackEdgeEnd, HideEdgeCreationToolFeedbackCommand, HideNodeCreationToolFeedbackCommand, //
     ShowEdgeCreationSelectSourceFeedbackCommand, ShowEdgeCreationSelectTargetFeedbackCommand, //
     ShowNodeCreationToolFeedbackCommand
 } from "./creation-tool-feedback";
-import { FeedbackEdgeEnd } from "./view";
+import { FeedbackEdgeEndView } from "./view";
 
 const toolFeedbackModule = new ContainerModule(bind => {
     bind(TYPES.ICommand).toConstructor(ShowNodeCreationToolFeedbackCommand);
@@ -24,7 +24,7 @@ const toolFeedbackModule = new ContainerModule(bind => {
     bind(TYPES.ICommand).toConstructor(ShowEdgeCreationSelectSourceFeedbackCommand);
     bind(TYPES.ICommand).toConstructor(ShowEdgeCreationSelectTargetFeedbackCommand);
     bind(TYPES.ICommand).toConstructor(HideEdgeCreationToolFeedbackCommand);
-    bind(TYPES.ViewRegistration).toConstantValue({ type: 'feedback-edge-end', constr: () => new FeedbackEdgeEnd() });
+    bind(TYPES.ViewRegistration).toConstantValue({ type: FeedbackEdgeEnd.TYPE, constr: () => new FeedbackEdgeEndView() });
 });
 
 export default toolFeedbackModule;

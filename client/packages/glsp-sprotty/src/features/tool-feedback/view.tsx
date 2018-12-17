@@ -16,11 +16,12 @@ import { VNode } from "snabbdom/vnode";
 import { IView, ORIGIN_POINT, Point, RenderingContext, SModelElement } from "sprotty/lib";
 
 
+
 /**
 * This view is used for the invisible end of the feedback edge.
 * A feedback edge is shown as a visual feedback when creating edges.
 */
-export class FeedbackEdgeEnd implements IView {
+export class FeedbackEdgeEndView implements IView {
     render(model: Readonly<SModelElement>, context: RenderingContext): VNode {
         const position: Point = (model as any).position || ORIGIN_POINT;
         return <g x={position.x} y={position.y} />;
