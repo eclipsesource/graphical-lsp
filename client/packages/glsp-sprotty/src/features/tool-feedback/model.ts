@@ -41,6 +41,7 @@ function addCssClasses(root: SModelRoot, cssClasses: string[]) {
         root.cssClasses = [];
     }
     for (const cssClass of cssClasses) {
+        // TODO check if class already exists
         root.cssClasses.push(cssClass);
     }
 }

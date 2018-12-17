@@ -14,7 +14,7 @@ import {
     findParentByFeature, isBoundsAware, isConnectable, isRoutable, MouseListener, MoveAction, //
     Routable, SChildElement, SConnectableElement, SDanglingAnchor, SModelElement, SModelRoot
 } from "sprotty/lib";
-import { getAbsolutePosition } from "../tools/creation-tool";
+import { getAbsolutePosition } from "../../lib/utils/viewpoint-util";
 import { applyCssClassesToRoot, FeedbackCommand, unapplyCssClassesToRoot } from "./model";
 
 const NODE_CREATION_CSS_CLASS = 'node-creation-tool-mode';
@@ -99,7 +99,7 @@ export class HideEdgeCreationToolFeedbackCommand extends FeedbackCommand {
     }
 }
 
-export class FeedbackEndMovingMouseListener extends MouseListener {
+export class FeedbackEdgeEndMovingMouseListener extends MouseListener {
     mouseMove(target: SModelElement, event: MouseEvent): Action[] {
         const root = target.root;
         const edgeEnd = root.index.getById(feedbackEdgeEndId(root));

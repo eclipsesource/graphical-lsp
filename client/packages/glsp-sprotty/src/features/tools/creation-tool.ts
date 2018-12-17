@@ -12,12 +12,13 @@
 
 import { inject, injectable } from "inversify";
 import {
-    Action, findParentByFeature, IActionDispatcher, isCtrlOrCmd, isViewport, MouseListener, //
-    MouseTool, Point, SModelElement, SModelRoot, TYPES, Viewport
+    Action, IActionDispatcher, isCtrlOrCmd, MouseListener, //
+    MouseTool, SModelElement, SModelRoot, TYPES
 } from "sprotty/lib";
+import { getAbsolutePosition } from "../../lib/utils/viewpoint-util";
 import { CreateConnectionOperationAction, CreateNodeOperationAction } from "../operation/operation-actions";
 import {
-    HideEdgeCreationToolFeedbackAction, HideNodeCreationToolFeedbackAction, ShowEdgeCreationSelectSourceFeedbackAction, //
+    FeedbackEdgeEndMovingMouseListener, HideEdgeCreationToolFeedbackAction, HideNodeCreationToolFeedbackAction, ShowEdgeCreationSelectSourceFeedbackAction, //
     ShowEdgeCreationSelectTargetFeedbackAction, ShowNodeCreationToolFeedbackAction
 } from "../tool-feedback/creation-tool-feedback";
 import { EnableStandardToolsAction, Tool } from "../tool-manager/tool";
@@ -76,6 +77,7 @@ export class EdgeCreationTool implements Tool {
     static ID = "glsp.edgecreationtool";
     public elementTypeId: string = "unknown";
     protected creationToolMouseListener: EdgeCreationToolMouseListener;
+    protected feedbackEndMovingMouseListener: FeedbackEdgeEndMovingMouseListener;
 
     constructor(@inject(MouseTool) protected mouseTool: MouseTool,
         @inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher) { }
@@ -87,11 +89,14 @@ export class EdgeCreationTool implements Tool {
     enable() {
         this.creationToolMouseListener = new EdgeCreationToolMouseListener(this.elementTypeId);
         this.mouseTool.register(this.creationToolMouseListener);
+        this.feedbackEndMovingMouseListener = new FeedbackEdgeEndMovingMouseListener();
+        this.mouseTool.register(this.feedbackEndMovingMouseListener);
         this.actionDispatcher.dispatch(new ShowEdgeCreationSelectSourceFeedbackAction(this.elementTypeId));
     }
 
     disable() {
         this.mouseTool.deregister(this.creationToolMouseListener);
+        this.mouseTool.deregister(this.feedbackEndMovingMouseListener);
         this.actionDispatcher.dispatch(new HideEdgeCreationToolFeedbackAction(this.elementTypeId));
     }
 
@@ -153,42 +158,5 @@ export class EdgeCreationToolMouseListener extends MouseListener {
         }
 
         return result;
-    }
-}
-
-/**
- * Return the position corresponding to this mouse event (Browser coordinates)
- * in the diagram coordinates system (i.e. relative to the Diagram's 0;0 point)
- *
- * This functions takes into account the following transformations:
- * - Location of the Diagram Canvas inside of the browser's page
- * - Current viewport Scroll and Zoom
- *
- * @param target
- *  An element from the diagram
- * @param mouseEvent
- *  A mouseEvent
- */
-export function getAbsolutePosition(target: SModelElement, mouseEvent: MouseEvent): Point {
-    let xPos = mouseEvent.pageX, yPos = mouseEvent.pageY;
-    const canvasBounds = target.root.canvasBounds;
-    xPos -= canvasBounds.x;
-    yPos -= canvasBounds.y;
-
-    const viewport: Viewport | undefined = findParentByFeature(target, isViewport);
-    const zoom = viewport ? viewport.zoom : 1;
-    if (viewport) {
-        const scroll: Point = { x: viewport.scroll.x, y: viewport.scroll.y }
-        xPos += scroll.x * zoom;
-        yPos += scroll.y * zoom;
-
-        xPos /= zoom;
-        yPos /= zoom;
-    }
-    xPos
-
-    return {
-        x: xPos,
-        y: yPos
     }
 }
