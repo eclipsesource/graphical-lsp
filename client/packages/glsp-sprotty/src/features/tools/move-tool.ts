@@ -15,6 +15,7 @@ import { inject, injectable } from "inversify";
 import { Action, ElementAndBounds, findParentByFeature, isBoundsAware, isMoveable, isViewport, MouseListener, MouseTool, Point, SModelElement } from "sprotty/lib";
 import { forEachElement, isSelectedBoundsAware } from "../../lib/utils/smodel-util";
 import { ChangeBoundsOperationAction } from "../operation/operation-actions";
+import { FeedbackMoveMouseListener } from "../tool-feedback/move-tool-feedback";
 import { Tool } from "../tool-manager/tool";
 
 /**
@@ -23,6 +24,8 @@ import { Tool } from "../tool-manager/tool";
  * only at the end of the interaction.
  * This is differnet from Sprotty's implementation of the move, as it
  * sends client-side live updates with `ChangeBoundsAction`.
+ * To provide visual feedback, we install the `FeedbackMoveMouseListener`,
+ * which updates the bounds by sending `MoveAction`s.
  */
 @injectable()
 export class MoveTool implements Tool {
@@ -31,16 +34,20 @@ export class MoveTool implements Tool {
     readonly id = MoveTool.ID;
 
     protected moveMouseListener: MoveMouseListener;
+    protected feedbackMoveMouseListener: FeedbackMoveMouseListener;
 
     constructor(@inject(MouseTool) protected mouseTool: MouseTool) { }
 
     enable() {
+        this.feedbackMoveMouseListener = new FeedbackMoveMouseListener();
+        this.mouseTool.register(this.feedbackMoveMouseListener);
         this.moveMouseListener = new MoveMouseListener();
         this.mouseTool.register(this.moveMouseListener);
     }
 
     disable() {
         this.mouseTool.deregister(this.moveMouseListener);
+        this.mouseTool.deregister(this.feedbackMoveMouseListener);
     }
 
 }
@@ -76,8 +83,7 @@ class MoveMouseListener extends MouseListener {
             return [];
         }
 
-        // rely on the Sprotty move tool to update the element bounds and simply collect the selected elements
-        // if the Sprotty move tool is not used at some point, we need to update the bounds with the position delta
+        // rely on the FeedbackMoveMouseListener to update the element bounds and simply collect the selected elements
         const newBounds: ElementAndBounds[] = [];
         forEachElement(target, isSelectedBoundsAware, element => newBounds.push({
             elementId: element.id,
@@ -88,6 +94,7 @@ class MoveMouseListener extends MouseListener {
                 height: element.bounds.height
             }
         }));
+
         this.resetPosition();
         return [new ChangeBoundsOperationAction(newBounds)];
     }
