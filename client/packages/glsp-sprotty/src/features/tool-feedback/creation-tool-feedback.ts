@@ -70,6 +70,7 @@ export class ShowEdgeCreationSelectSourceFeedbackCommand extends FeedbackCommand
 }
 
 export class FeedbackEdgeEnd extends SDanglingAnchor {
+    type = 'feedback-edge-end';
     constructor(readonly sourceId: string,
         readonly elementTypeId: string,
         public feedbackEdge: Routable | undefined = undefined) {
