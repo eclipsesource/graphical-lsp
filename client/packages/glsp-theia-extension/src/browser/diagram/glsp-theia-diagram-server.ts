@@ -10,7 +10,7 @@
  ******************************************************************************/
 import { Emitter, Event } from "@theia/core/lib/common";
 // tslint:disable-next-line:max-line-length
-import { Action, ActionHandlerRegistry, ActionMessage, ExecuteServerCommandAction, IActionDispatcher, ICommand, ILogger, ModelSource, OperationKind, RequestOperationsAction, SaveModelAction, SetOperationsAction, SModelStorage, SwitchEditModeCommand, TYPES, ViewerOptions } from "glsp-sprotty/lib";
+import { Action, ActionHandlerRegistry, ActionMessage, CommandStack, ExecuteServerCommandAction, IActionDispatcher, ICommand, ILogger, ModelSource, ObservableCommandStack, OperationKind, RequestBoundsCommand, RequestOperationsAction, SaveModelAction, SetModelAction, SetModelCommand, SetOperationsAction, SModelStorage, SwitchEditModeCommand, TYPES, UpdateModelAction, UpdateModelCommand, ViewerOptions } from "glsp-sprotty/lib";
 import { inject, injectable } from "inversify";
 import { TheiaDiagramServer } from "theia-glsp/lib";
 
@@ -23,7 +23,8 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         @inject(TYPES.ActionHandlerRegistry) actionHandlerRegistry: ActionHandlerRegistry,
         @inject(TYPES.ViewerOptions) viewerOptions: ViewerOptions,
         @inject(TYPES.SModelStorage) storage: SModelStorage,
-        @inject(TYPES.ILogger) logger: ILogger
+        @inject(TYPES.ILogger) logger: ILogger,
+        @inject(TYPES.ICommandStack) protected readonly commandStack: CommandStack
     ) {
         super(actionDispatcher, actionHandlerRegistry, viewerOptions, storage, logger)
     }
@@ -47,6 +48,13 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
     messageReceived(message: ActionMessage) {
         if (message.action instanceof SetOperationsAction) {
             this.actionDispatcher.dispatch(message.action)
+        } else if (message.action.kind === RequestBoundsCommand.KIND ||
+            message.action.kind === SetModelCommand.KIND ||
+            message.action.kind === UpdateModelCommand.KIND) {
+            if (this.commandStack instanceof ObservableCommandStack)
+                this.commandStack.serverSideUpdate = true
+        } else if (message.action instanceof SetModelAction ||
+            message.action instanceof UpdateModelAction) {
         }
         super.messageReceived(message)
     }
