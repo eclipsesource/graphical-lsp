@@ -15,6 +15,8 @@ export * from './features/operation/operation-actions';
 export * from './features/operation/set-operations';
 export * from './features/save/model';
 export * from './features/save/save';
+export * from './features/tool-feedback/creation-tool-feedback';
+export * from './features/tool-feedback/model';
 export * from './features/tool-manager/tool';
 export * from './features/tool-manager/tool-manager';
 export * from './features/tools/creation-tool';
@@ -25,10 +27,11 @@ export * from './features/tools/move-tool';
 export * from './features/tools/resize-tool';
 export * from './lib/model';
 export * from './types';
-export { saveModule, toolManagerModule, executeModule };
+export { saveModule, toolManagerModule, executeModule, toolFeedbackModule };
 
 
 import executeModule from './features/execute/di.config';
 import saveModule from './features/save/di.config';
+import toolFeedbackModule from './features/tool-feedback/di.config';
 import toolManagerModule from './features/tool-manager/di.config';
 

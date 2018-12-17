@@ -17,9 +17,9 @@ export class WorkflowModelFactory extends SGraphFactory {
         if (this.isTaskNodeSchema(schema)) {
             return this.initializeChild(new TaskNode(), schema, parent);
         } else if (this.isWeightedEdgeSchema(schema)) {
-            return this.initializeChild(new WeightedEdge(), schema, parent)
+            return this.initializeChild(new WeightedEdge(), schema, parent);
         } else if (this.isActivityNodeSchema(schema)) {
-            return this.initializeChild(new ActivityNode(), schema, parent)
+            return this.initializeChild(new ActivityNode(), schema, parent);
         } else {
             return super.createElement(schema, parent);
         }

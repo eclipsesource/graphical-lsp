@@ -11,8 +11,16 @@
  ******************************************************************************/
 
 import { inject, injectable } from "inversify";
-import { Action, findParentByFeature, isCtrlOrCmd, isViewport, MouseListener, MouseTool, Point, SModelElement, SModelRoot, Viewport } from "sprotty/lib";
+import {
+    Action, IActionDispatcher, isCtrlOrCmd, MouseListener, //
+    MouseTool, SModelElement, SModelRoot, TYPES
+} from "sprotty/lib";
+import { getAbsolutePosition } from "../../lib/utils/viewpoint-util";
 import { CreateConnectionOperationAction, CreateNodeOperationAction } from "../operation/operation-actions";
+import {
+    FeedbackEdgeEndMovingMouseListener, HideEdgeCreationToolFeedbackAction, HideNodeCreationToolFeedbackAction, ShowEdgeCreationSelectSourceFeedbackAction, //
+    ShowEdgeCreationSelectTargetFeedbackAction, ShowNodeCreationToolFeedbackAction
+} from "../tool-feedback/creation-tool-feedback";
 import { EnableStandardToolsAction, Tool } from "../tool-manager/tool";
 
 
@@ -22,7 +30,8 @@ export class NodeCreationTool implements Tool {
     public elementTypeId: string = "unknown";
     protected creationToolMouseListener: NodeCreationToolMouseListener;
 
-    constructor(@inject(MouseTool) protected mouseTool: MouseTool) { }
+    constructor(@inject(MouseTool) protected mouseTool: MouseTool,
+        @inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher) { }
 
     get id() {
         return `${NodeCreationTool.ID}.${this.elementTypeId}`;
@@ -31,10 +40,12 @@ export class NodeCreationTool implements Tool {
     enable() {
         this.creationToolMouseListener = new NodeCreationToolMouseListener(this.elementTypeId);
         this.mouseTool.register(this.creationToolMouseListener);
+        this.actionDispatcher.dispatch(new ShowNodeCreationToolFeedbackAction(this.elementTypeId));
     }
 
     disable() {
         this.mouseTool.deregister(this.creationToolMouseListener);
+        this.actionDispatcher.dispatch(new HideNodeCreationToolFeedbackAction(this.elementTypeId));
     }
 
 }
@@ -46,7 +57,7 @@ export class NodeCreationToolMouseListener extends MouseListener {
     }
 
     mouseUp(target: SModelElement, event: MouseEvent): Action[] {
-        const location = getAbsolutePosition1(target, event);
+        const location = getAbsolutePosition(target, event);
         const containerId: string | undefined = target instanceof SModelRoot ? undefined : target.id;
         const result: Action[] = [];
         result.push(new CreateNodeOperationAction(this.elementTypeId, location, containerId));
@@ -66,8 +77,10 @@ export class EdgeCreationTool implements Tool {
     static ID = "glsp.edgecreationtool";
     public elementTypeId: string = "unknown";
     protected creationToolMouseListener: EdgeCreationToolMouseListener;
+    protected feedbackEndMovingMouseListener: FeedbackEdgeEndMovingMouseListener;
 
-    constructor(@inject(MouseTool) protected mouseTool: MouseTool) { }
+    constructor(@inject(MouseTool) protected mouseTool: MouseTool,
+        @inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher) { }
 
     get id() {
         return `${EdgeCreationTool.ID}.${this.elementTypeId}`;
@@ -76,10 +89,15 @@ export class EdgeCreationTool implements Tool {
     enable() {
         this.creationToolMouseListener = new EdgeCreationToolMouseListener(this.elementTypeId);
         this.mouseTool.register(this.creationToolMouseListener);
+        this.feedbackEndMovingMouseListener = new FeedbackEdgeEndMovingMouseListener();
+        this.mouseTool.register(this.feedbackEndMovingMouseListener);
+        this.actionDispatcher.dispatch(new ShowEdgeCreationSelectSourceFeedbackAction(this.elementTypeId));
     }
 
     disable() {
         this.mouseTool.deregister(this.creationToolMouseListener);
+        this.mouseTool.deregister(this.feedbackEndMovingMouseListener);
+        this.actionDispatcher.dispatch(new HideEdgeCreationToolFeedbackAction(this.elementTypeId));
     }
 
 }
@@ -109,6 +127,7 @@ export class EdgeCreationToolMouseListener extends MouseListener {
             this.isMouseMove = true;
             this.source = undefined;
             this.target = undefined;
+            return [new ShowEdgeCreationSelectSourceFeedbackAction(this.elementTypeId)];
         }
         return [];
     }
@@ -124,6 +143,7 @@ export class EdgeCreationToolMouseListener extends MouseListener {
 
         if (this.source == null) {
             this.source = target.id;
+            result.push(new ShowEdgeCreationSelectTargetFeedbackAction(this.elementTypeId, this.source));
         } else {
             this.target = target.id;
             if (this.source != null && this.target != null) {
@@ -138,42 +158,5 @@ export class EdgeCreationToolMouseListener extends MouseListener {
         }
 
         return result;
-    }
-}
-
-/**
- * Return the position corresponding to this mouse event (Browser coordinates)
- * in the diagram coordinates system (i.e. relative to the Diagram's 0;0 point)
- *
- * This functions takes into account the following transformations:
- * - Location of the Diagram Canvas inside of the browser's page
- * - Current viewport Scroll and Zoom
- *
- * @param target
- *  An element from the diagram
- * @param mouseEvent
- *  A mouseEvent
- */
-export function getAbsolutePosition1(target: SModelElement, mouseEvent: MouseEvent): Point {
-    let xPos = mouseEvent.pageX, yPos = mouseEvent.pageY;
-    const canvasBounds = target.root.canvasBounds;
-    xPos -= canvasBounds.x;
-    yPos -= canvasBounds.y;
-
-    const viewport: Viewport | undefined = findParentByFeature(target, isViewport);
-    const zoom = viewport ? viewport.zoom : 1;
-    if (viewport) {
-        const scroll: Point = { x: viewport.scroll.x, y: viewport.scroll.y }
-        xPos += scroll.x * zoom;
-        yPos += scroll.y * zoom;
-
-        xPos /= zoom;
-        yPos /= zoom;
-    }
-    xPos
-
-    return {
-        x: xPos,
-        y: yPos
     }
 }

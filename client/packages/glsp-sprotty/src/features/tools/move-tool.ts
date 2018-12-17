@@ -13,9 +13,9 @@
 import { inject, injectable } from "inversify";
 // tslint:disable-next-line:max-line-length
 import { Action, ElementAndBounds, findParentByFeature, isBoundsAware, isMoveable, isViewport, MouseListener, MouseTool, Point, SModelElement } from "sprotty/lib";
+import { forEachElement, isSelectedBoundsAware } from "../../lib/utils/smodel-util";
 import { ChangeBoundsOperationAction } from "../operation/operation-actions";
 import { Tool } from "../tool-manager/tool";
-import { forEachElement, isSelectedBoundsAware } from "./../../utils/smodel-util";
 
 /**
  * A mouse tool that is optimized for Client/Server operation.
