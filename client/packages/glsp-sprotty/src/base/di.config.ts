@@ -16,7 +16,8 @@ const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) =>
     if (isBound(TYPES.ICommandStack)) {
         unbind(TYPES.ICommandStack)
     }
-    bind(TYPES.ICommandStack).to(ObservableCommandStack).inSingletonScope()
+    bind(ObservableCommandStack).toSelf().inSingletonScope()
+    bind(TYPES.ICommandStack).toService(ObservableCommandStack)
 
 })
 

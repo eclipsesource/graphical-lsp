@@ -10,8 +10,7 @@
  ******************************************************************************/
 
 // tslint:disable-next-line:max-line-length
-import { boundsModule, buttonModule, CenterCommand, CenterKeyboardListener, configureModelElement, ConsoleLogger, defaultGLSPModule, defaultModule, DiamondNodeView, ExpandButtonView, expandModule, exportModule, fadeModule, FitToScreenCommand, GLSPGraph, hoverModule, HtmlRoot, HtmlRootView, LogLevel, modelSourceModule, moveModule, openModule, overrideViewerOptions, PreRenderedElement, PreRenderedView, RectangularNode, RectangularNodeView, saveModule, SButton, SCompartment, SCompartmentView, ScrollMouseListener, SEdge, selectModule, SGraphView, SLabel, SLabelView, SRoutingHandle, SRoutingHandleView, toolManagerModule, TYPES, undoRedoModule, ViewportCommand } from "glsp-sprotty/lib";
-import { boundsModule, buttonModule, CenterCommand, CenterKeyboardListener, configureModelElement, ConsoleLogger, defaultModule, DiamondNodeView, ExpandButtonView, expandModule, exportModule, fadeModule, FitToScreenCommand, GLSPGraph, hoverModule, HtmlRoot, HtmlRootView, LogLevel, modelSourceModule, moveModule, openModule, overrideViewerOptions, PreRenderedElement, PreRenderedView, RectangularNode, RectangularNodeView, saveModule, SButton, SCompartment, SCompartmentView, ScrollMouseListener, SEdge, selectModule, SGraphView, SLabel, SLabelView, SRoutingHandle, SRoutingHandleView, toolFeedbackModule, toolManagerModule, TYPES, undoRedoModule, ViewportCommand } from "glsp-sprotty/lib";
+import { boundsModule, buttonModule, CenterCommand, CenterKeyboardListener, configureModelElement, ConsoleLogger, defaultGLSPModule, defaultModule, DiamondNodeView, ExpandButtonView, expandModule, exportModule, fadeModule, FitToScreenCommand, GLSPGraph, hoverModule, HtmlRoot, HtmlRootView, LogLevel, modelSourceModule, moveModule, openModule, overrideViewerOptions, PreRenderedElement, PreRenderedView, RectangularNode, RectangularNodeView, saveModule, SButton, SCompartment, SCompartmentView, ScrollMouseListener, SEdge, selectModule, SGraphView, SLabel, SLabelView, SRoutingHandle, SRoutingHandleView, toolFeedbackModule, toolManagerModule, TYPES, undoRedoModule, ViewportCommand } from "glsp-sprotty/lib";
 import executeCommandModule from "glsp-sprotty/lib/features/execute/di.config";
 import { Container, ContainerModule } from "inversify";
 import { ActivityNode, Icon, TaskNode, WeightedEdge } from "./model";
@@ -61,7 +60,7 @@ export default function createContainer(widgetId: string): Container {
 
     container.load(defaultModule, defaultGLSPModule, selectModule, moveModule, boundsModule, undoRedoModule, workflowViewportModule,
         hoverModule, fadeModule, exportModule, expandModule, openModule, buttonModule, modelSourceModule,
-        workflowDiagramModule, saveModule, executeCommandModule, toolManagerModule, toolFeedbackModule);
+        workflowDiagramModule, saveModule, executeCommandModule, toolManagerModule, toolFeedbackModule, defaultGLSPModule);
 
     overrideViewerOptions(container, {
         needsClientLayout: true,
