@@ -6,7 +6,8 @@
     "src"
   ],
   "dependencies": {
-   "sprotty" :"next"
+    "autocompleter": "^4.0.2",
+    "sprotty": "next"
   },
   "devDependencies": {
     "rimraf": "latest",
@@ -16,7 +17,7 @@
     "prepare": "yarn run clean && yarn run build",
     "clean": "rimraf lib",
     "build": "tsc && yarn run lint",
-    "lint" : "tslint -c ../../configs/tslint.json --project ./tsconfig.json",
+    "lint": "tslint -c ../../configs/tslint.json --project ./tsconfig.json",
     "watch": "tsc -w"
   }
 }

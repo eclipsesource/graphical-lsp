@@ -186,3 +186,44 @@ polygon.sprotty-node {
     stroke: #112;
     stroke-width: 1;
 }
+
+/* Command palette */
+
+.command-palette {
+    transition: opacity 0.3s linear;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.command-palette-suggestions {
+    background: rgb(52, 52, 52);
+    z-index: 1000;
+    overflow: auto;
+    box-sizing: border-box;
+    border: 1px solid rgba(50, 50, 50, 0.6);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.command-palette-suggestions * {
+    font: inherit;
+    color: #fff;
+}
+
+.command-palette-suggestions > div {
+    padding: 0 4px;
+}
+
+.command-palette-suggestions .group {
+    background: rgb(54, 54, 54);
+}
+
+.command-palette-suggestions > div:hover:not(.group),
+.command-palette-suggestions > div.selected {
+    cursor: pointer;
+}
+
+.command-palette-suggestions > div:hover:not(.group) {
+    background: rgb(60, 60, 60);
+}
+.command-palette-suggestions > div.selected {
+    background: #1976d2;
+}

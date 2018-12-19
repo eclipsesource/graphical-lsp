@@ -10,10 +10,14 @@
  ******************************************************************************/
 export * from 'sprotty/lib';
 export * from './base/command-stack';
+export * from './features/command-palette/action-provider';
+export * from './features/command-palette/command-palette';
 export * from './features/execute/execute-command';
 export * from './features/execute/model';
 export * from './features/hints/action-definition';
 export * from './features/hints/element-type-hints-service';
+export * from './features/model-access/model-access';
+export * from './features/nameable/model';
 export * from './features/operation/operation-actions';
 export * from './features/operation/set-operations';
 export * from './features/resize/model';
@@ -33,13 +37,15 @@ export * from './types';
 export * from './utils/array-utils';
 export * from './utils/smodel-util';
 export * from './utils/viewpoint-util';
-export { saveModule, toolManagerModule, executeModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule, resizeCommandModule };
+export { saveModule, toolManagerModule, executeModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule, resizeCommandModule, modelAccessModule, commandPaletteModule };
 
 
 import defaultGLSPModule from './base/di.config';
+import commandPaletteModule from './features/command-palette/di.config';
 import executeModule from './features/execute/di.config';
 import modelHintsModule from './features/hints/di.config';
 import resizeCommandModule from './features/resize/di.config';
+import modelAccessModule from './features/model-access/di.config';
 import saveModule from './features/save/di.config';
 import toolFeedbackModule from './features/tool-feedback/di.config';
 import toolManagerModule from './features/tool-manager/di.config';

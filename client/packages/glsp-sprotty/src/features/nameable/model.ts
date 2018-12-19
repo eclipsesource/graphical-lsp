@@ -8,12 +8,22 @@
  * Contributors:
  * 	Philip Langer - initial API and implementation
  ******************************************************************************/
+import { SModelElement, SModelExtension } from "sprotty/lib";
 
-export const GLSP_TYPES = {
-    ToolManager: Symbol.for("ToolManager"),
-    ICommandPaletteActionProvider: Symbol.for("ICommandPaletteActionProvider"),
-    ICommandPaletteActionProviderRegistry: Symbol.for("ICommandPaletteActionProviderRegistry"),
-    ToolFactory: Symbol.for("Factory<Tool>"),
-    TypeHintsService: Symbol.for("TypeHintsService"),
-    IModelAccessProvider: Symbol.for("IModelAccessProvider")
+export const nameFeature = Symbol('nameableFeature');
+
+export interface Nameable extends SModelExtension {
+    name: string
+}
+
+export function isNameable(element: SModelElement): element is SModelElement & Nameable {
+    return element.hasFeature(nameFeature);
+}
+
+export function name(element: SModelElement): string {
+    if (isNameable(element)) {
+        return element.name;
+    } else {
+        return 'unnamed';
+    }
 }

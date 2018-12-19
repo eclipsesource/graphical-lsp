@@ -9,11 +9,20 @@
  * 	Philip Langer - initial API and implementation
  ******************************************************************************/
 
-export const GLSP_TYPES = {
-    ToolManager: Symbol.for("ToolManager"),
-    ICommandPaletteActionProvider: Symbol.for("ICommandPaletteActionProvider"),
-    ICommandPaletteActionProviderRegistry: Symbol.for("ICommandPaletteActionProviderRegistry"),
-    ToolFactory: Symbol.for("Factory<Tool>"),
-    TypeHintsService: Symbol.for("TypeHintsService"),
-    IModelAccessProvider: Symbol.for("IModelAccessProvider")
+import { injectable } from "inversify";
+import { CommandStack, SModelRoot } from "sprotty/lib";
+
+export interface IModelAccess {
+    readonly model: Promise<SModelRoot>;
+}
+
+export type IModelAccessProvider = () => Promise<IModelAccess>;
+
+@injectable()
+export class ModelProvidingCommandStack extends CommandStack implements IModelAccess {
+    get model(): Promise<SModelRoot> {
+        return this.currentPromise.then(
+            state => state.root
+        );
+    }
 }
