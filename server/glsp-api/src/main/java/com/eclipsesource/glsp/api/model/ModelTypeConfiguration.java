@@ -10,47 +10,49 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.model;
 
-import java.util.Collections;
-import java.util.Map;
-
 import org.eclipse.sprotty.SModelElement;
-import org.eclipse.sprotty.server.json.EnumTypeAdapter;
 
-import com.eclipsesource.glsp.api.json.SModelElementTypeAdapter;
-import com.google.gson.GsonBuilder;
+import com.eclipsesource.glsp.api.types.ElementTypeHint;
 
-/**
- * This configuration class provides the information necessary to determine the
- * corresponding Java class for a SModelElement. For this the type property is
- * used.
- * 
- * @author Tobias Ortmayr
- *
- */
-public interface ModelTypeConfiguration {
+public  class ModelTypeConfiguration {
 
-	/**
-	 * Returns a map which enables the identification of the corresponding Java
-	 * class for each SModelElement based on its type property. This mappings will
-	 * be reused by GSON for proper JSON-to-Java conversion.
-	 */
-	Map<String, Class<? extends SModelElement>> getModelTypes();
+	private String elementTypeId;
+	private Class<? extends SModelElement> javaClassRepresentation;
+	private ElementTypeHint elementTypeHint;
 
-	default GsonBuilder configureGSON() {
-		GsonBuilder builder = new GsonBuilder();
-		builder.registerTypeAdapterFactory(new SModelElementTypeAdapter.Factory(getModelTypes()))
-				.registerTypeAdapterFactory(new EnumTypeAdapter.Factory());
-		return builder;
-
+	public ModelTypeConfiguration() {
 	}
 
-	public static final class NullImpl implements ModelTypeConfiguration {
+	public ModelTypeConfiguration(String elementTypeId, Class<? extends SModelElement> javaClassRepresentation,
+			ElementTypeHint elementTypeHint) {
+		super();
+		this.elementTypeId = elementTypeId;
+		this.javaClassRepresentation = javaClassRepresentation;
+		this.elementTypeHint = elementTypeHint;
+	}
 
-		@Override
-		public Map<String, Class<? extends SModelElement>> getModelTypes() {
-			return Collections.emptyMap();
-		}
+	public String getElementTypeId() {
+		return elementTypeId;
+	}
 
+	public void setElementTypeId(String elementTypeId) {
+		this.elementTypeId = elementTypeId;
+	}
+
+	public Class<? extends SModelElement> getJavaClassRepresentation() {
+		return javaClassRepresentation;
+	}
+
+	public void setJavaClassRepresentation(Class<? extends SModelElement> javaClassRepresentation) {
+		this.javaClassRepresentation = javaClassRepresentation;
+	}
+
+	public ElementTypeHint getElementTypeHint() {
+		return elementTypeHint;
+	}
+
+	public void setElementTypeHint(ElementTypeHint elementTypeHint) {
+		this.elementTypeHint = elementTypeHint;
 	}
 
 }

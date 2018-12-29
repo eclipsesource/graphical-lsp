@@ -24,7 +24,7 @@ import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.SaveModelAction;
 import com.eclipsesource.glsp.api.model.ModelState;
-import com.eclipsesource.glsp.api.model.ModelTypeConfiguration;
+import com.eclipsesource.glsp.api.provider.ModelTypeConfigurationProvider;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 
@@ -33,7 +33,7 @@ public class SaveModelActionHandler extends AbstractActionHandler {
 	private static final String FILE_PREFIX = "file://";
 
 	@Inject
-	ModelTypeConfiguration modelTypeConfiguration;
+	ModelTypeConfigurationProvider modelTypeConfigurationProvider;
 
 	@Override
 	protected Collection<Action> handleableActionsKinds() {
@@ -54,7 +54,7 @@ public class SaveModelActionHandler extends AbstractActionHandler {
 	private void saveModelState(ModelState modelState) {
 		convertToFile(modelState).ifPresent(file -> {
 			try {
-				Gson gson = modelTypeConfiguration.configureGSON().create();
+				Gson gson = modelTypeConfigurationProvider.configureGSON().create();
 				FileUtils.writeStringToFile(file, gson.toJson(modelState.getCurrentModel(), SModelRoot.class), "UTF8");
 			} catch (IOException e) {
 				LOG.error(e);

@@ -66,9 +66,8 @@ public abstract class Action {
 		public static final String COLLAPSE_EXPAND_ALL = "collapseExpandAll";
 		public static final String COMPUTED_BOUNDS = "computedBounds";
 		public static final String EXECUTE_OPERATION = "executeOperation";
-		public static final String REQUEST_BOUNDS_CHANGE_HINTS = "requestBoundsChangeHints";
-		public static final String SET_BOUNDS_CHANGE_HINTS = "setBoundsChangeHints";
-		public static final String REQUEST_MOVE_HINTS = "requestMoveHints";
+		public static final String REQUEST_TYPE_HINTS = "requestTypeHints";
+		public static final String SET_TYPE_HINTS = "setTypeHints";
 		public static final String SET_MOVE_HINTS = "setMoveHints";
 		public static final String EXPORT_SVG = "exportSvg";
 		public static final String FIT_TO_SCREEN = "fit";

@@ -10,7 +10,7 @@
  ******************************************************************************/
 import { Emitter, Event } from "@theia/core/lib/common";
 // tslint:disable-next-line:max-line-length
-import { Action, ActionHandlerRegistry, ActionMessage, ExecuteServerCommandAction, IActionDispatcher, ICommand, ILogger, ModelSource, ObservableCommandStack, OperationKind, RequestBoundsCommand, RequestOperationsAction, SaveModelAction, SetModelCommand, SetOperationsAction, SModelStorage, SwitchEditModeCommand, TYPES, UpdateModelCommand, ViewerOptions } from "glsp-sprotty/lib";
+import { Action, ActionHandlerRegistry, ActionMessage, ExecuteServerCommandAction, GLSP_TYPES, IActionDispatcher, ICommand, ILogger, isSetTypeHintsAction, ModelSource, ObservableCommandStack, OperationKind, RequestBoundsCommand, RequestOperationsAction, RequestTypeHintsAction, SaveModelAction, SetModelCommand, SetTypeHintsAction, SModelStorage, SwitchEditModeCommand, TypeHintsService, TYPES, UpdateModelCommand, ViewerOptions } from "glsp-sprotty/lib";
 import { inject, injectable } from "inversify";
 import { TheiaDiagramServer } from "theia-glsp/lib";
 
@@ -24,7 +24,9 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         @inject(TYPES.ViewerOptions) viewerOptions: ViewerOptions,
         @inject(TYPES.SModelStorage) storage: SModelStorage,
         @inject(TYPES.ILogger) logger: ILogger,
-        @inject(ObservableCommandStack) protected commandStack: ObservableCommandStack
+        @inject(ObservableCommandStack) protected commandStack: ObservableCommandStack,
+        @inject(GLSP_TYPES.TypeHintsService) protected typeHintsService: TypeHintsService
+
     ) {
         super(actionDispatcher, actionHandlerRegistry, viewerOptions, storage, logger)
     }
@@ -39,6 +41,8 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         registry.register(OperationKind.CHANGE_BOUNDS, this)
         registry.register(OperationKind.DELETE_ELEMENT, this)
         registry.register(ExecuteServerCommandAction.KIND, this)
+        registry.register(RequestTypeHintsAction.KIND, this)
+        registry.register(SetTypeHintsAction.KIND, this)
         // Register an empty handler for SwitchEditMode, to avoid runtime exceptions.
         // We don't want to support SwitchEditMode, but sprotty still sends some corresponding
         // actions.
@@ -46,9 +50,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
     }
 
     messageReceived(message: ActionMessage) {
-        if (message.action instanceof SetOperationsAction) {
-            this.actionDispatcher.dispatch(message.action)
-        } else if (message.action.kind === RequestBoundsCommand.KIND ||
+        if (message.action.kind === RequestBoundsCommand.KIND ||
             message.action.kind === SetModelCommand.KIND ||
             message.action.kind === UpdateModelCommand.KIND) {
             this.commandStack.serverSideUpdate = true;
@@ -66,7 +68,11 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
 
     handle(action: Action): void | ICommand {
         this.handledActionEventEmitter.fire(action);
-        return super.handle(action);
+        if (isSetTypeHintsAction(action)) {
+            this.typeHintsService.initialize(action)
+        } else {
+            return super.handle(action)
+        }
     }
 
 }

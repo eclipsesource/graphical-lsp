@@ -15,7 +15,7 @@ import {
     Action, IActionDispatcher, isCtrlOrCmd, MouseListener, //
     MouseTool, SModelElement, SModelRoot, TYPES
 } from "sprotty/lib";
-import { getAbsolutePosition } from "../../lib/utils/viewpoint-util";
+import { getAbsolutePosition } from "../../utils/viewpoint-util";
 import { CreateConnectionOperationAction, CreateNodeOperationAction } from "../operation/operation-actions";
 import {
     FeedbackEdgeEndMovingMouseListener, HideEdgeCreationToolFeedbackAction, HideNodeCreationToolFeedbackAction, ShowEdgeCreationSelectSourceFeedbackAction, //

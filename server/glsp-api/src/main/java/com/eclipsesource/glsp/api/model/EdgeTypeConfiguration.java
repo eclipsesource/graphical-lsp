@@ -8,14 +8,21 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-package com.eclipsesource.glsp.api.action.kind;
+package com.eclipsesource.glsp.api.model;
 
-import com.eclipsesource.glsp.api.action.Action;
+import org.eclipse.sprotty.SEdge;
 
-public class RequestBoundsChangeHintsAction extends Action {
+import com.eclipsesource.glsp.api.types.EdgeTypeHint;
 
-	public RequestBoundsChangeHintsAction() {
-		super(Action.Kind.REQUEST_BOUNDS_CHANGE_HINTS);
+public class EdgeTypeConfiguration extends ModelTypeConfiguration{
+
+	public EdgeTypeConfiguration() {
+		super();
 	}
 
+	public EdgeTypeConfiguration(String elementTypeId, Class<? extends SEdge> javaClassRepresentation,
+			EdgeTypeHint edgeTypeHint) {
+		super(elementTypeId, javaClassRepresentation, edgeTypeHint);
+		
+	}
 }

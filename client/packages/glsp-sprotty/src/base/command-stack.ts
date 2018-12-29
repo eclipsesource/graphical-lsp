@@ -10,6 +10,7 @@
  ******************************************************************************/
 import { inject, injectable } from "inversify";
 import { AnimationFrameSyncer, CommandExecutionContext, CommandResult, CommandStack, CommandStackOptions, ICommand, ILogger, IModelFactory, IViewerProvider, SetModelCommand, SModelRoot, TYPES, UpdateModelCommand } from "sprotty/lib";
+import { distinctAdd, remove } from "../utils/array-utils";
 
 
 export interface CommandStackObserver {
@@ -31,19 +32,10 @@ export class ObservableCommandStack extends CommandStack {
     }
 
     registerObserver(observer: CommandStackObserver): boolean | void {
-        if (this.observers.indexOf(observer) < 0) {
-            this.observers.push(observer)
-            return true
-        }
-        return false
+        return distinctAdd(this.observers, observer)
     }
     deregisterObserver(observer: CommandStackObserver): boolean | void {
-        const index = this.observers.indexOf(observer)
-        if (index >= 0) {
-            this.observers.splice(index, 1)
-            return true
-        }
-        return false
+        return remove(this.observers, observer)
     }
     async update(model: SModelRoot): Promise<void> {
         if (this.viewer === undefined)
