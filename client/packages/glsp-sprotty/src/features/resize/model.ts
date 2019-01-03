@@ -8,7 +8,7 @@
  * Contributors:
  *  Martin Fleck - initial API and implementation
  ******************************************************************************/
-import { BoundsAware, Hoverable, hoverFeedbackFeature, isBoundsAware, SChildElement, SModelElement, SParentElement } from "sprotty/lib";
+import { BoundsAware, Hoverable, hoverFeedbackFeature, isBoundsAware, isSelectable, SChildElement, SModelElement, SParentElement } from "sprotty/lib";
 
 export const resizeFeature = Symbol('resizeFeature');
 
@@ -20,7 +20,7 @@ export enum ResizeHandleLocation {
 }
 
 export function isResizeable(element: SModelElement): element is SParentElement & BoundsAware {
-    return element.hasFeature(resizeFeature) && isBoundsAware(element) && element instanceof SParentElement;
+    return element.hasFeature(resizeFeature) && isBoundsAware(element) && isSelectable(element) && element instanceof SParentElement;
 }
 
 export class SResizeHandle extends SChildElement implements Hoverable {

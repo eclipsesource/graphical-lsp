@@ -10,15 +10,18 @@
  *  Philip Langer - migration to tool manager API
  *  Martin Fleck - migration to use of change bounds action
  ******************************************************************************/
-import { inject, injectable } from "inversify";
-// tslint:disable-next-line:max-line-length
-import { Action, Bounds, BoundsAware, ElementAndBounds, findParentByFeature, isViewport, MouseListener, MouseTool, Point, SetBoundsAction, SModelElement, SModelRoot, SParentElement } from "sprotty/lib";
+import { inject, injectable, optional } from "inversify";
+import {
+    Action, Bounds, BoundsAware, ButtonHandlerRegistry, ElementAndBounds, findParentByFeature, isViewport, KeyTool, MouseTool, Point, //
+    SetBoundsAction, SModelElement, SModelRoot, SParentElement
+} from "sprotty/lib";
 import { CommandStackObserver, ObservableCommandStack } from "../../base/command-stack";
 import { forEachElement, getIndex, isSelectedBoundsAware } from "../../utils/smodel-util";
 import { isBoundsAwareMoveable } from "../change-bounds/model";
 import { ChangeBoundsOperationAction } from "../operation/operation-actions";
 import { isResizeable, ResizeHandleLocation, SResizeHandle } from "../resize/model";
 import { addResizeHandles, SwitchResizeModeAction } from "../resize/resize";
+import { SelectionTracker } from "../select/selection-tracker";
 import { FeedbackMoveMouseListener } from "../tool-feedback/move-tool-feedback";
 import { Tool } from "../tool-manager/tool";
 
@@ -33,7 +36,7 @@ import { Tool } from "../tool-manager/tool";
  * | Resize    | SetBoundsAction  | ChangeBoundsOperationAction
  *
  * To provide a visual client updates during move we install the `FeedbackMoveMouseListener` and to provide visual client updates during resize
- * and send the server updates we install the `ChangeBoundsMouseListener`.
+ * and send the server updates we install the `ChangeBoundsListener`.
  */
 @injectable()
 export class ChangeBoundsTool implements Tool {
@@ -42,30 +45,35 @@ export class ChangeBoundsTool implements Tool {
     readonly id = ChangeBoundsTool.ID;
 
     protected feedbackMoveMouseListener: FeedbackMoveMouseListener;
-    protected changeBoundsMouseListener: ChangeBoundsMouseListener;
+    protected changeBoundsListener: ChangeBoundsListener;
+    protected selectionTracker: SelectionTracker;
 
     constructor(@inject(MouseTool) protected mouseTool: MouseTool,
-        @inject(ObservableCommandStack) protected commandStack: ObservableCommandStack) { }
+        @inject(KeyTool) protected keyTool: KeyTool,
+        @inject(ObservableCommandStack) protected commandStack: ObservableCommandStack,
+        @inject(ButtonHandlerRegistry) @optional() protected buttonHandlerRegistry: ButtonHandlerRegistry) { }
 
     enable() {
         // install feedback move mouse listener for client-side move updates
         this.feedbackMoveMouseListener = new FeedbackMoveMouseListener();
         this.mouseTool.register(this.feedbackMoveMouseListener);
 
-        // instlal change bounds mouse listener for client-side resize updates and server-side updates
-        this.changeBoundsMouseListener = new ChangeBoundsMouseListener();
-        this.mouseTool.register(this.changeBoundsMouseListener);
-        this.commandStack.registerObserver(this.changeBoundsMouseListener);
+        // instlal change bounds listener for client-side resize updates and server-side updates
+        this.changeBoundsListener = new ChangeBoundsListener(this.buttonHandlerRegistry);
+        this.mouseTool.register(this.changeBoundsListener);
+        this.commandStack.registerObserver(this.changeBoundsListener);
+        this.keyTool.register(this.changeBoundsListener);
     }
 
     disable() {
-        this.mouseTool.deregister(this.changeBoundsMouseListener);
+        this.mouseTool.deregister(this.changeBoundsListener);
+        this.commandStack.deregisterObserver(this.changeBoundsListener);
+        this.keyTool.deregister(this.changeBoundsListener);
         this.mouseTool.deregister(this.feedbackMoveMouseListener);
     }
-
 }
 
-class ChangeBoundsMouseListener extends MouseListener implements CommandStackObserver {
+class ChangeBoundsListener extends SelectionTracker implements CommandStackObserver {
     // members for calculating the correct position change
     private lastDragPosition: Point | undefined = undefined;
     private positionDelta: Point = { x: 0, y: 0 };
@@ -74,7 +82,12 @@ class ChangeBoundsMouseListener extends MouseListener implements CommandStackObs
     private activeResizeElementId: string | undefined = undefined;
     private activeResizeHandle: SResizeHandle | undefined = undefined;
 
+    constructor(buttonHandlerRegistry: ButtonHandlerRegistry) {
+        super(buttonHandlerRegistry);
+    }
+
     mouseDown(target: SModelElement, event: MouseEvent): Action[] {
+        super.mouseDown(target, event);
         const actions: Action[] = [];
         if (event.button === 0) {
             let active: boolean = false;
@@ -87,7 +100,7 @@ class ChangeBoundsMouseListener extends MouseListener implements CommandStackObs
                 const moveableElement = findParentByFeature(target, isBoundsAwareMoveable);
 
                 // check if we have a resizeable element (only single-selection)
-                const action = createSwitchResizeModeAction(target);
+                const action = createSwitchResizeModeAction(target, this.getSelectedElementIDs());
                 this.activeResizeElementId = action.elementsToActivate.length > 0 ? action.elementsToActivate[0] : undefined;
                 actions.push(action);
 
@@ -112,6 +125,7 @@ class ChangeBoundsMouseListener extends MouseListener implements CommandStackObs
     }
 
     mouseUp(target: SModelElement, event: MouseEvent): Action[] {
+        super.mouseUp(target, event);
         if (!this.hasPositionDelta()) {
             return [];
         }
@@ -134,6 +148,18 @@ class ChangeBoundsMouseListener extends MouseListener implements CommandStackObs
             }
         }
         this.resetPosition();
+        return actions;
+    }
+
+    keyDown(element: SModelElement, event: KeyboardEvent): Action[] {
+        const actions: Action[] = [];
+        if (this.activeResizeElementId) {
+            super.keyDown(element, event);
+            if (this.isMultiSelection()) {
+                // no element should be in resize mode
+                actions.push(createSwitchResizeModeAction(element, this.getSelectedElementIDs()));
+            }
+        }
         return actions;
     }
 
@@ -221,14 +247,19 @@ class ChangeBoundsMouseListener extends MouseListener implements CommandStackObs
     }
 }
 
-function createSwitchResizeModeAction(target: SModelElement): SwitchResizeModeAction {
+function createSwitchResizeModeAction(target: SModelElement, selectedElements: Set<string>): SwitchResizeModeAction {
     // all elements are deactivated by default
     const unresizeable: string[] = [];
     getIndex(target).all().forEach(element => unresizeable.push(element.id));
 
     // mark single resizeable element active if possible
-    const resizeableElement = findParentByFeature(target, isResizeable);
-    const resizeable: string[] = resizeableElement ? [resizeableElement.id] : [];
+    const resizeable: string[] = [];
+    if (selectedElements.size === 1) {
+        const resizeableElement = findParentByFeature(target, isResizeable);
+        if (resizeableElement && selectedElements.has(resizeableElement.id)) {
+            resizeable.push(resizeableElement.id);
+        }
+    }
     return new SwitchResizeModeAction(resizeable, unresizeable);
 }
 
