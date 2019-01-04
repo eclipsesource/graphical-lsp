@@ -32,7 +32,7 @@ export class DefaultTypeHintsService implements TypeHintsService {
     protected nodeTypeHints: Map<string, NodeTypeHint> = new Map
     protected edgeTypeHints: Map<string, EdgeTypeHint> = new Map
     initialize(action: SetTypeHintsAction): void {
-        this.nodeTypeHints = new Map()
+        this.nodeTypeHints = new Map
         this.edgeTypeHints = new Map
         action.nodeHints.forEach(hint => {
             this.typeHints.set(hint.elementTypeId, hint)

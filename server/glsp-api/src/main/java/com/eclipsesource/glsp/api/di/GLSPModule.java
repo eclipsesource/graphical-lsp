@@ -54,8 +54,6 @@ public abstract class GLSPModule extends AbstractModule {
 		configureMultibindings();
 	}
 
-
-
 	protected void configureMultibindings() {
 		actionHandlerBinder = Multibinder.newSetBinder(binder(), ActionHandler.class);
 		serverCommandHandler = Multibinder.newSetBinder(binder(), ServerCommandHandler.class);

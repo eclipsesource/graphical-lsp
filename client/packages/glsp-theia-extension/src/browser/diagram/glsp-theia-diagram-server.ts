@@ -16,7 +16,6 @@ import { TheiaDiagramServer } from "theia-glsp/lib";
 
 @injectable()
 export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements NotifyingModelSource {
-
     readonly handledActionEventEmitter: Emitter<Action> = new Emitter<Action>();
 
     constructor(@inject(TYPES.IActionDispatcher) public actionDispatcher: IActionDispatcher,
@@ -25,9 +24,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         @inject(TYPES.SModelStorage) storage: SModelStorage,
         @inject(TYPES.ILogger) logger: ILogger,
         @inject(ObservableCommandStack) protected commandStack: ObservableCommandStack,
-        @inject(GLSP_TYPES.TypeHintsService) protected typeHintsService: TypeHintsService
-
-    ) {
+        @inject(GLSP_TYPES.TypeHintsService) protected typeHintsService: TypeHintsService) {
         super(actionDispatcher, actionHandlerRegistry, viewerOptions, storage, logger)
     }
 

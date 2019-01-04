@@ -17,7 +17,4 @@ public class RequestOperationsAction extends Action {
 	public RequestOperationsAction() {
 		super(Action.Kind.REQUEST_OPERATIONS);
 	}
-	
-	
-
 }
