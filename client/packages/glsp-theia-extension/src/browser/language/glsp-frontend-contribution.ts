@@ -11,13 +11,13 @@
 import { ContributionProvider } from "@theia/core";
 import { FrontendApplication, FrontendApplicationContribution } from "@theia/core/lib/browser";
 import { inject, injectable, named } from "inversify";
-import { GraphicalLanguageClientContribution } from "./graphical-langauge-client-contribution";
+import { GLSPClientContribution } from "./glsp-client-contribution";
 
 @injectable()
-export class GraphicalLanguagesFrontendContribution implements FrontendApplicationContribution {
+export class GLSPFrontendContribution implements FrontendApplicationContribution {
     constructor(
-        @inject(ContributionProvider) @named(GraphicalLanguageClientContribution)
-        protected readonly contributions: ContributionProvider<GraphicalLanguageClientContribution>
+        @inject(ContributionProvider) @named(GLSPClientContribution)
+        protected readonly contributions: ContributionProvider<GLSPClientContribution>
     ) { }
 
     onStart(app: FrontendApplication): void {

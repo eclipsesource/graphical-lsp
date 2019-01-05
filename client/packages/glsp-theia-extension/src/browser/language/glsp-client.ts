@@ -14,7 +14,7 @@ import { CloseAction, ConnectionCloseHandler, ConnectionErrorHandler, ErrorActio
 import { LanguageContribution } from "@theia/languages/lib/common";
 import { inject, injectable } from "inversify";
 import { Message, NotificationType } from "vscode-jsonrpc";
-import { Connection, ConnectionProvider, createConnection, GraphicalLanguageClient, GraphicalLanguageClientOptions } from "./graphical-language-client-services";
+import { Connection, ConnectionProvider, createConnection, GLSPClient, GLSPClientOptions } from "./glsp-client-services";
 
 enum ClientState {
     Initial,
@@ -24,7 +24,7 @@ enum ClientState {
     Stopping,
     Stopped
 }
-export class BaseGraphcialLanguageClient implements GraphicalLanguageClient {
+export class BaseGLSPClient implements GLSPClient {
     private id: string;
     private name: string;
     protected readonly connectionProvider: ConnectionProvider;
@@ -32,12 +32,12 @@ export class BaseGraphcialLanguageClient implements GraphicalLanguageClient {
     private resolvedConnection: Connection | undefined;
     private state: ClientState
     private _outputChannel: OutputChannel;
-    private clientOptions: GraphicalLanguageClientOptions;
+    private clientOptions: GLSPClientOptions;
     private onStop: Thenable<void> | undefined;
     private _onReady: Promise<void>;
 
 
-    constructor({ id, name, clientOptions, connectionProvider }: GraphicalLanguageClient.Options) {
+    constructor({ id, name, clientOptions, connectionProvider }: GLSPClient.Options) {
         this.connectionProvider = connectionProvider;
         this.id = id;
         this.name = name;
@@ -122,13 +122,13 @@ export class BaseGraphcialLanguageClient implements GraphicalLanguageClient {
 
     onNotification<P, RO>(type: NotificationType<P, RO>, handler: NotificationHandler<P>): void {
         if (!this.isConnectionActive()) {
-            throw new Error('Graphical Language client is not ready yet');
+            throw new Error('GLSP client is not ready yet');
         }
         this.resolvedConnection!.onNotification(type, handler);
     }
     sendNotification<P, RO>(type: NotificationType<P, RO>, params?: P): void {
         if (!this.isConnectionActive()) {
-            throw new Error('Graphical Language client is not ready yet');
+            throw new Error('GLSP client is not ready yet');
         }
         this.resolvedConnection!.sendNotification(type, params);
     }
@@ -139,13 +139,13 @@ export class BaseGraphcialLanguageClient implements GraphicalLanguageClient {
 }
 
 @injectable()
-export class GraphicalLanguageClientFactory {
+export class GLSPClientFactory {
 
     constructor(
         @inject(WebSocketConnectionProvider) protected readonly connectionProvider: WebSocketConnectionProvider
     ) { }
 
-    get(contribution: LanguageContribution, clientOptions: GraphicalLanguageClientOptions): GraphicalLanguageClient {
+    get(contribution: LanguageContribution, clientOptions: GLSPClientOptions): GLSPClient {
 
         if (!clientOptions.errorHandler) {
             clientOptions.errorHandler = {
@@ -154,7 +154,7 @@ export class GraphicalLanguageClientFactory {
             };
         }
 
-        const client = new BaseGraphcialLanguageClient({
+        const client = new BaseGLSPClient({
             name: contribution.name,
             id: contribution.id,
             clientOptions: clientOptions,

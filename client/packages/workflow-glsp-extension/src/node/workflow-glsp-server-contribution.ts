@@ -9,7 +9,7 @@
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
 import { IConnection } from "@theia/languages/lib/node";
-import { BaseGraphicalLanguageServerContribution } from 'glsp-theia-extension/lib/node';
+import { BaseGLSPServerContribution } from 'glsp-theia-extension/lib/node';
 import { injectable } from "inversify";
 import * as net from 'net';
 import { createSocketConnection } from 'vscode-ws-jsonrpc/lib/server';
@@ -24,7 +24,7 @@ function getPort(): number | undefined {
     }
 }
 @injectable()
-export class WorkflowGLServerContribution extends BaseGraphicalLanguageServerContribution {
+export class WorkflowGLServerContribution extends BaseGLSPServerContribution {
     readonly id = WorkflowLanguage.Id
     readonly name = WorkflowLanguage.Name
 
@@ -47,7 +47,7 @@ export class WorkflowGLServerContribution extends BaseGraphicalLanguageServerCon
             this.forward(clientConnection, serverConnection)
             socket.connect(socketPort)
         } else {
-            console.error("Error when trying to connect to Workflow graphical language server")
+            console.error("Error when trying to connect to Workflow GLSP server")
         }
     }
 

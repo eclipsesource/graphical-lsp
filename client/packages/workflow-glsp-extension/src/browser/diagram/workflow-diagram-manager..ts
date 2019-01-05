@@ -9,11 +9,11 @@
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
 import { EditorManager } from "@theia/editor/lib/browser";
-import { GLSPDiagramManager, GLSPPaletteContribution, GLSPTheiaSprottyConnector, GraphicalLanguageClientContribution } from "glsp-theia-extension/lib/browser";
+import { GLSPClientContribution, GLSPDiagramManager, GLSPPaletteContribution, GLSPTheiaSprottyConnector } from "glsp-theia-extension/lib/browser";
 import { inject, injectable } from "inversify";
 import { DiagramWidgetRegistry, TheiaFileSaver } from "theia-glsp/lib";
 import { WorkflowLanguage } from "../../common/workflow-language";
-import { WorkflowGLClientContribution } from "../language/workflow-gl-client-contribution";
+import { WorkflowGLSPClientContribution } from "../language/workflow-glsp-client-contribution";
 import { ThemeManager } from "./thememanager";
 
 
@@ -27,8 +27,8 @@ export class WorkflowDiagramManager extends GLSPDiagramManager {
     private _diagramConnector: GLSPTheiaSprottyConnector;
 
     constructor(
-        @inject(WorkflowGLClientContribution)
-        readonly languageClientContribution: GraphicalLanguageClientContribution,
+        @inject(WorkflowGLSPClientContribution)
+        readonly languageClientContribution: GLSPClientContribution,
         @inject(TheiaFileSaver)
         readonly theiaFileSaver: TheiaFileSaver,
         @inject(EditorManager)

@@ -13,38 +13,38 @@ import { FrontendApplication } from "@theia/core/lib/browser";
 import { Commands, Disposable } from '@theia/languages/lib/browser';
 import { LanguageContribution } from "@theia/languages/lib/common";
 import { inject, injectable } from "inversify";
-import { GraphicalLanguageClientFactory } from "./graphical-language-client";
-import { GraphicalLanguageClient, GraphicalLanguageClientOptions } from "./graphical-language-client-services";
+import { GLSPClientFactory } from "./glsp-client";
+import { GLSPClient, GLSPClientOptions } from "./glsp-client-services";
 
-export const GraphicalLanguageClientContribution = Symbol('GraphicalLanguageClientContribution')
-export interface GraphicalLanguageClientContribution extends LanguageContribution {
-    readonly languageClient: Promise<GraphicalLanguageClient>;
+export const GLSPClientContribution = Symbol.for('GLSPClientContribution')
+export interface GLSPClientContribution extends LanguageContribution {
+    readonly languageClient: Promise<GLSPClient>;
     activate(app: FrontendApplication): Disposable;
     waitForActivation(app: FrontendApplication): Promise<void>;
 }
 
 @injectable()
-export abstract class BaseGraphicalLanguageClientContribution implements GraphicalLanguageClientContribution, Commands {
+export abstract class BaseGLSPClientContribution implements GLSPClientContribution, Commands {
     abstract readonly id: string;
     abstract readonly name: string;
 
-    protected _languageClient: GraphicalLanguageClient | undefined;
+    protected _languageClient: GLSPClient | undefined;
 
-    protected resolveReady: (languageClient: GraphicalLanguageClient) => void;
-    protected ready: Promise<GraphicalLanguageClient>;
+    protected resolveReady: (languageClient: GLSPClient) => void;
+    protected ready: Promise<GLSPClient>;
 
 
     @inject(CommandRegistry) protected readonly registry: CommandRegistry;
-    constructor(@inject(GraphicalLanguageClientFactory) protected readonly languageClientFactory: GraphicalLanguageClientFactory) {
+    constructor(@inject(GLSPClientFactory) protected readonly languageClientFactory: GLSPClientFactory) {
         this.waitForReady()
     }
 
-    get languageClient(): Promise<GraphicalLanguageClient> {
+    get languageClient(): Promise<GLSPClient> {
         return this._languageClient ? Promise.resolve(this._languageClient) : this.ready;
     }
 
     protected waitForReady(): void {
-        this.ready = new Promise<GraphicalLanguageClient>(resolve =>
+        this.ready = new Promise<GLSPClient>(resolve =>
             this.resolveReady = resolve
         );
     }
@@ -58,22 +58,22 @@ export abstract class BaseGraphicalLanguageClientContribution implements Graphic
     waitForActivation(app: FrontendApplication): Promise<any> {
         return Promise.resolve()
     }
-    protected onWillStart(languageClient: GraphicalLanguageClient): void {
+    protected onWillStart(languageClient: GLSPClient): void {
         languageClient.onReady().then(() => this.onReady(languageClient));
     }
 
-    protected onReady(languageClient: GraphicalLanguageClient): void {
+    protected onReady(languageClient: GLSPClient): void {
         this._languageClient = languageClient;
         this.resolveReady(this._languageClient);
         this.waitForReady();
     }
 
-    protected createLanguageClient(): GraphicalLanguageClient {
+    protected createLanguageClient(): GLSPClient {
         const clientOptions = this.createOptions();
         return this.languageClientFactory.get(this, clientOptions);
     }
 
-    protected createOptions(): GraphicalLanguageClientOptions {
+    protected createOptions(): GLSPClientOptions {
         return {
             commands: this
         };

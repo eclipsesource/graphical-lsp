@@ -10,19 +10,19 @@
  ******************************************************************************/
 import { CommandContribution, MenuContribution } from "@theia/core";
 import { FrontendApplicationContribution, OpenHandler } from "@theia/core/lib/browser";
-import { GLSPPaletteContribution, GraphicalLanguageClientContribution } from "glsp-theia-extension/lib/browser";
+import { GLSPClientContribution, GLSPPaletteContribution } from "glsp-theia-extension/lib/browser";
 import { ContainerModule, interfaces } from "inversify";
 import { DiagramConfiguration, DiagramManager, DiagramManagerProvider } from "theia-glsp/lib";
 import { WorkflowLanguage } from "../common/workflow-language";
 import { WorkflowDiagramConfiguration } from "./diagram/di.config";
 import { ThemeManager } from "./diagram/thememanager";
 import { WorkflowDiagramManager } from "./diagram/workflow-diagram-manager.";
-import { WorkflowGLClientContribution } from "./language/workflow-gl-client-contribution";
+import { WorkflowGLSPClientContribution } from "./language/workflow-glsp-client-contribution";
 
 
 export default new ContainerModule((bind: interfaces.Bind, unbind: interfaces.Unbind, isBound: interfaces.IsBound, rebind: interfaces.Rebind) => {
-    bind(WorkflowGLClientContribution).toSelf().inSingletonScope()
-    bind(GraphicalLanguageClientContribution).toDynamicValue(ctx => ctx.container.get(WorkflowGLClientContribution)).inSingletonScope();
+    bind(WorkflowGLSPClientContribution).toSelf().inSingletonScope()
+    bind(GLSPClientContribution).toDynamicValue(ctx => ctx.container.get(WorkflowGLSPClientContribution)).inSingletonScope();
 
     bind(DiagramConfiguration).to(WorkflowDiagramConfiguration).inSingletonScope()
     bind(DiagramManagerProvider).toProvider<DiagramManager>(context => {

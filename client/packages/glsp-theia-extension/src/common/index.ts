@@ -8,4 +8,5 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-export * from "./graphical-language-server-protocol";
+export * from "./protocol";
+
