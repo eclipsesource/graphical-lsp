@@ -19,14 +19,13 @@ import { GLSPClientProvider, GLSPClientProviderImpl } from "./language/glsp-clie
 import { GLSPFrontendContribution } from "./language/glsp-frontend-contribution";
 
 export default new ContainerModule(bind => {
-
     bind(GLSPClientFactory).toSelf().inSingletonScope();
 
     bindContributionProvider(bind, GLSPClientContribution);
     bind(FrontendApplicationContribution).to(GLSPFrontendContribution);
 
     bind(GLSPClientProviderImpl).toSelf().inSingletonScope();
-    bind(GLSPClientProvider).toDynamicValue(ctx => ctx.container.get(GLSPClientProviderImpl)).inSingletonScope()
+    bind(GLSPClientProvider).toService(GLSPClientProviderImpl)
 
     bind(GLSPTheiaSprottyConnector).toSelf().inSingletonScope();
 

@@ -22,7 +22,7 @@ import { WorkflowGLSPClientContribution } from "./language/workflow-glsp-client-
 
 export default new ContainerModule((bind: interfaces.Bind, unbind: interfaces.Unbind, isBound: interfaces.IsBound, rebind: interfaces.Rebind) => {
     bind(WorkflowGLSPClientContribution).toSelf().inSingletonScope()
-    bind(GLSPClientContribution).toDynamicValue(ctx => ctx.container.get(WorkflowGLSPClientContribution)).inSingletonScope();
+    bind(GLSPClientContribution).toService(WorkflowGLSPClientContribution);
 
     bind(DiagramConfiguration).to(WorkflowDiagramConfiguration).inSingletonScope()
     bind(DiagramManagerProvider).toProvider<DiagramManager>(context => {
@@ -34,12 +34,11 @@ export default new ContainerModule((bind: interfaces.Bind, unbind: interfaces.Un
     }).whenTargetNamed(WorkflowLanguage.DiagramType)
 
     bind(WorkflowDiagramManager).toSelf().inSingletonScope()
-    bind(FrontendApplicationContribution).toDynamicValue(context =>
-        context.container.get(WorkflowDiagramManager))
-    bind(OpenHandler).toDynamicValue(context => context.container.get(WorkflowDiagramManager))
+    bind(FrontendApplicationContribution).toService(WorkflowDiagramManager)
+    bind(OpenHandler).toService(WorkflowDiagramManager)
     bind(ThemeManager).toSelf().inSingletonScope()
     bind(GLSPPaletteContribution).toSelf().inSingletonScope()
-    bind(MenuContribution).toDynamicValue(ctx => ctx.container.get(GLSPPaletteContribution)).inSingletonScope()
-    bind(CommandContribution).toDynamicValue(ctx => ctx.container.get(GLSPPaletteContribution)).inSingletonScope()
+    bind(MenuContribution).toService(GLSPPaletteContribution)
+    bind(CommandContribution).toService(GLSPPaletteContribution)
 })
 

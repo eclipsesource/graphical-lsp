@@ -13,7 +13,6 @@ import { inject, injectable, named } from "inversify";
 import { GLSPClientContribution } from "./glsp-client-contribution";
 import { GLSPClient } from "./glsp-client-services";
 
-
 export const GLSPClientProvider = Symbol.for('GLSPClientProvider')
 
 export interface GLSPClientProvider {

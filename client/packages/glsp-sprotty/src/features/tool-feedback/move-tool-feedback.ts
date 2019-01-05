@@ -22,7 +22,6 @@ import {
  * (see also `tools/MoveTool`).
  */
 export class FeedbackMoveMouseListener extends MouseListener {
-
     hasDragged = false;
     lastDragPosition: Point | undefined;
 

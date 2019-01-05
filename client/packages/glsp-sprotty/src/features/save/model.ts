@@ -10,7 +10,7 @@
  ******************************************************************************/
 import { SModelElement, SModelExtension, SModelRoot } from "sprotty/lib";
 
-export const saveFeature = Symbol('saveFeature');
+export const saveFeature = Symbol.for('saveFeature');
 
 export interface Saveable extends SModelExtension {
     dirty: boolean;

@@ -16,8 +16,6 @@ import { WorkflowLanguage } from "../../common/workflow-language";
 import { WorkflowGLSPClientContribution } from "../language/workflow-glsp-client-contribution";
 import { ThemeManager } from "./thememanager";
 
-
-
 @injectable()
 export class WorkflowDiagramManager extends GLSPDiagramManager {
     readonly diagramType = WorkflowLanguage.DiagramType;

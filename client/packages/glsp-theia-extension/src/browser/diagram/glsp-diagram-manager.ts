@@ -15,7 +15,6 @@ import { GLSPDiagramWidget } from "./glsp-diagram-widget";
 
 @injectable()
 export abstract class GLSPDiagramManager extends DiagramManagerImpl {
-
     @inject(EditorPreferences)
     protected readonly editorPreferences: EditorPreferences;
 

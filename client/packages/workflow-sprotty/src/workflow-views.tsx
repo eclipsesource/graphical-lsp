@@ -68,7 +68,6 @@ export class WeightedEdgeView extends WorkflowEdgeView {
 }
 
 export class IconView implements IView {
-
     render(element: Icon, context: RenderingContext): VNode {
         const radius = this.getRadius();
         return <g>

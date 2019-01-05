@@ -13,7 +13,8 @@ import { Disposable, Message, MessageConnection, NotificationHandler, Notificati
 import { ExitNotification, ShutdownRequest } from "../../common";
 
 
-export const GLSPClient = Symbol.for('GLSPClient');
+export const GLSPClient = Symbol.for('GLSPClient')
+
 export interface GLSPClient {
     createDefaultErrorHandler(): ErrorHandler
     onReady(): Promise<void>
@@ -39,6 +40,7 @@ export interface GLSPClientOptions {
 }
 
 export const Connection = Symbol.for('Connection')
+
 export interface Connection {
     listen(): void
     onNotification<P, RO>(type: NotificationType<P, RO>, handler: NotificationHandler<P>): void;
@@ -49,6 +51,7 @@ export interface Connection {
 }
 
 export const ConnectionProvider = Symbol.for("ConnectionProvider")
+
 export interface ConnectionProvider {
     get(errorHandler: ConnectionErrorHandler, closeHandler: ConnectionCloseHandler, outputChannel: OutputChannel | undefined): Thenable<Connection>;
 }

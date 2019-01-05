@@ -17,6 +17,7 @@ import { GLSPClientFactory } from "./glsp-client";
 import { GLSPClient, GLSPClientOptions } from "./glsp-client-services";
 
 export const GLSPClientContribution = Symbol.for('GLSPClientContribution')
+
 export interface GLSPClientContribution extends LanguageContribution {
     readonly languageClient: Promise<GLSPClient>;
     activate(app: FrontendApplication): Disposable;

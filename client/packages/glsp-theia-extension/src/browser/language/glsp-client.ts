@@ -36,7 +36,6 @@ export class BaseGLSPClient implements GLSPClient {
     private onStop: Thenable<void> | undefined;
     private _onReady: Promise<void>;
 
-
     constructor({ id, name, clientOptions, connectionProvider }: GLSPClient.Options) {
         this.connectionProvider = connectionProvider;
         this.id = id;
@@ -90,7 +89,6 @@ export class BaseGLSPClient implements GLSPClient {
         return new DefaultErrorHandler(this.name);
     }
 
-
     private resolveConnection(): Thenable<Connection> {
         if (!this.connectionPromise) {
             this.connectionPromise = this.doCreateConnection();
@@ -98,13 +96,11 @@ export class BaseGLSPClient implements GLSPClient {
         return this.connectionPromise;
     }
 
-
     protected doCreateConnection(): Thenable<Connection> {
         const errorHandler = (this as any).handleConnectionError.bind(this);
         const closeHandler = this.handleConnectionClosed.bind(this);
         return this.connectionProvider.get(errorHandler, closeHandler, undefined);
     }
-
 
     private handleConnectionError(error: Error, message: Message, count: number) {
         const action = this.clientOptions.errorHandler!.error(error, message, count);
@@ -140,10 +136,8 @@ export class BaseGLSPClient implements GLSPClient {
 
 @injectable()
 export class GLSPClientFactory {
-
     constructor(
-        @inject(WebSocketConnectionProvider) protected readonly connectionProvider: WebSocketConnectionProvider
-    ) { }
+        @inject(WebSocketConnectionProvider) protected readonly connectionProvider: WebSocketConnectionProvider) { }
 
     get(contribution: LanguageContribution, clientOptions: GLSPClientOptions): GLSPClient {
 
@@ -178,12 +172,9 @@ export class GLSPClientFactory {
         const defaultErrorHandler = client.createDefaultErrorHandler();
         return client
     }
-
-
 }
 
 class DefaultErrorHandler implements ErrorHandler {
-
     private restarts: number[];
 
     constructor(private name: string) {

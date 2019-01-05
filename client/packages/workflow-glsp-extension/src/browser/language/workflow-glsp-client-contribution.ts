@@ -11,6 +11,7 @@
 import { BaseGLSPClientContribution } from "glsp-theia-extension/lib/browser";
 import { injectable } from "inversify";
 import { WorkflowLanguage } from "../../common/workflow-language";
+
 @injectable()
 export class WorkflowGLSPClientContribution extends BaseGLSPClientContribution {
     readonly id = WorkflowLanguage.Id

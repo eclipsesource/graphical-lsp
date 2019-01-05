@@ -15,7 +15,6 @@ import { DelKeyDeleteTool, MouseDeleteTool } from "./delete-tool";
 import { MoveTool } from "./move-tool";
 import { ResizeTool } from "./resize-tool";
 
-
 export function registerDefaultTools(container: interfaces.Container) {
     const toolManager: ToolManager = container.get(GLSP_TYPES.ToolManager);
     toolManager.registerStandardTools(
@@ -24,5 +23,4 @@ export function registerDefaultTools(container: interfaces.Container) {
         container.resolve(DelKeyDeleteTool));
     toolManager.registerTools(container.resolve(MouseDeleteTool));
     toolManager.enableStandardTools();
-
 }

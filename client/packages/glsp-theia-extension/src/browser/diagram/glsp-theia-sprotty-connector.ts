@@ -19,7 +19,6 @@ import { GLSPPaletteContribution } from "./glsp-palette-contribution";
 import { GLSPTheiaDiagramServer } from "./glsp-theia-diagram-server";
 
 export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
-
     private servers: TheiaDiagramServer[] = []
 
     constructor(private glspClientContribution: GLSPClientContribution,
@@ -93,5 +92,4 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
             element.messageReceived(message)
         })
     }
-
 }

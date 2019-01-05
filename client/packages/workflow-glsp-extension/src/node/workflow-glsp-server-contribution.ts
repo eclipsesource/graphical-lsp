@@ -23,6 +23,7 @@ function getPort(): number | undefined {
         return Number.parseInt(arg.substring('--WORKFLOW_LSP='.length), 10)
     }
 }
+
 @injectable()
 export class WorkflowGLServerContribution extends BaseGLSPServerContribution {
     readonly id = WorkflowLanguage.Id
@@ -50,6 +51,4 @@ export class WorkflowGLServerContribution extends BaseGLSPServerContribution {
             console.error("Error when trying to connect to Workflow GLSP server")
         }
     }
-
-
 }

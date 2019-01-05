@@ -17,7 +17,6 @@ const lightTheme = require('workflow-sprotty/css/light/light.useable.css')
 
 @injectable()
 export class ThemeManager implements Disposable {
-
     private disposable: Disposable;
 
     initialize() {
