@@ -10,7 +10,7 @@
  ******************************************************************************/
 import { LanguageServerContribution } from "@theia/languages/lib/node";
 import { ContainerModule } from "inversify";
-import { WorkflowGLServerContribution } from "./workflow-gl-server-contribution";
+import { WorkflowGLServerContribution } from "./workflow-glsp-server-contribution";
 
 export default new ContainerModule(bind => {
     bind(LanguageServerContribution).to(WorkflowGLServerContribution).inSingletonScope()

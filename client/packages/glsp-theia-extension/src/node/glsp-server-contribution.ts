@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2018 EclipseSource Services GmbH.
+ * Copyright (c) 2018 EclipseSource Services GmbH and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -8,11 +8,12 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { BaseGraphicalLanguageClientContribution } from "glsp-theia-extension/lib/browser";
-import { injectable } from "inversify";
-import { WorkflowLanguage } from "../../common/workflow-language";
+import { BaseLanguageServerContribution, LanguageServerContribution } from '@theia/languages/lib/node';
+import { injectable } from 'inversify';
+export const GLSPServerContribution = Symbol.for('GLSPServerContribution')
+export interface GLSPServerContribution extends LanguageServerContribution { }
+
 @injectable()
-export class WorkflowGLClientContribution extends BaseGraphicalLanguageClientContribution {
-    readonly id = WorkflowLanguage.Id
-    readonly name = WorkflowLanguage.Name
+export abstract class BaseGLSPServerContribution extends BaseLanguageServerContribution implements GLSPServerContribution {
+
 }

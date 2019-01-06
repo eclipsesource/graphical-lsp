@@ -10,12 +10,9 @@
  ******************************************************************************/
 
 /** @jsx svg */
-import { svg } from 'snabbdom-jsx';
-
+import { svg } from 'snabbdom-jsx'; 
 import { VNode } from "snabbdom/vnode";
 import { IView, ORIGIN_POINT, Point, RenderingContext, SModelElement } from "sprotty/lib";
-
-
 
 /**
 * This view is used for the invisible end of the feedback edge.

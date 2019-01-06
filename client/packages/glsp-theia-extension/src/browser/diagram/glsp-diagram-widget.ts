@@ -17,7 +17,6 @@ import { DiagramWidget, DiagramWidgetOptions } from "theia-glsp/lib";
 import { NotifyingModelSource } from "./glsp-theia-diagram-server";
 
 export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
-
     saveable = new SaveableGLSPModelSource(this.actionDispatcher, this.modelSource);
 
     constructor(options: DiagramWidgetOptions, readonly editorPreferences: EditorPreferences) {
@@ -42,11 +41,9 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         this.actionDispatcher.dispatch(new RequestOperationsAction());
         this.actionDispatcher.dispatch(new RequestTypeHintsAction());
     }
-
 }
 
 export class SaveableGLSPModelSource implements Saveable, Disposable {
-
     isAutoSave: "on" | "off" = "on";
     autoSaveDelay: number = 500;
 
@@ -121,7 +118,6 @@ export class SaveableGLSPModelSource implements Saveable, Disposable {
         this.autoSaveJobs.dispose();
         this.dirtyChangedEmitter.dispose();
     }
-
 }
 
 function isModelManipulation(action: Action): boolean {

@@ -9,8 +9,13 @@
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
 import { Emitter, Event } from "@theia/core/lib/common";
-// tslint:disable-next-line:max-line-length
-import { Action, ActionHandlerRegistry, ActionMessage, ExecuteServerCommandAction, GLSP_TYPES, IActionDispatcher, ICommand, ILogger, isSetTypeHintsAction, ModelSource, ObservableCommandStack, OperationKind, RequestBoundsCommand, RequestOperationsAction, RequestTypeHintsAction, SaveModelAction, SetModelCommand, SetTypeHintsAction, SModelStorage, SwitchEditModeCommand, TypeHintsService, TYPES, UpdateModelCommand, ViewerOptions } from "glsp-sprotty/lib";
+import {
+Action, ActionHandlerRegistry, ActionMessage, ExecuteServerCommandAction, //
+    GLSP_TYPES, IActionDispatcher, ICommand, ILogger, isSetTypeHintsAction, //
+    ModelSource, ObservableCommandStack, OperationKind, RequestBoundsCommand, //
+    RequestOperationsAction, RequestTypeHintsAction, SaveModelAction, SetModelCommand, //
+     SetTypeHintsAction, SModelStorage, SwitchEditModeCommand, TypeHintsService, TYPES, UpdateModelCommand, ViewerOptions
+} from "glsp-sprotty/lib";
 import { inject, injectable } from "inversify";
 import { TheiaDiagramServer } from "theia-glsp/lib";
 

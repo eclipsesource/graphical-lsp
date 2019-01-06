@@ -11,8 +11,10 @@
  *  Martin Fleck - migration to use of change bounds action
  ******************************************************************************/
 import { inject, injectable } from "inversify";
-// tslint:disable-next-line:max-line-length
-import { Action, ElementAndBounds, findParentByFeature, isBoundsAware, isMoveable, isViewport, MouseListener, MouseTool, Point, SModelElement } from "sprotty/lib";
+import {
+    Action, ElementAndBounds, findParentByFeature, isBoundsAware, isMoveable, isViewport, MouseListener, //
+    MouseTool, Point, SModelElement
+} from "sprotty/lib";
 import { forEachElement, isSelectedBoundsAware } from "../../utils/smodel-util";
 import { ChangeBoundsOperationAction } from "../operation/operation-actions";
 import { FeedbackMoveMouseListener } from "../tool-feedback/move-tool-feedback";
@@ -29,7 +31,6 @@ import { Tool } from "../tool-manager/tool";
  */
 @injectable()
 export class MoveTool implements Tool {
-
     static ID = "glsp.movetool";
     readonly id = MoveTool.ID;
 
@@ -53,7 +54,6 @@ export class MoveTool implements Tool {
 }
 
 class MoveMouseListener extends MouseListener {
-
     private lastDragPosition: Point | undefined;
     private positionDelta: Point = { x: 0, y: 0 };
 

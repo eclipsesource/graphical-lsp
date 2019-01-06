@@ -19,7 +19,6 @@ import { EnableStandardToolsAction, Tool } from "../tool-manager/tool";
  */
 @injectable()
 export class DelKeyDeleteTool implements Tool {
-
     static ID = "glsp.delete-keyboard";
     readonly id = DelKeyDeleteTool.ID;
 

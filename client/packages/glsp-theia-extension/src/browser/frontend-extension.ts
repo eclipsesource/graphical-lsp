@@ -13,20 +13,19 @@ import { bindContributionProvider } from "@theia/core";
 import { FrontendApplicationContribution } from "@theia/core/lib/browser";
 import { ContainerModule } from "inversify";
 import { GLSPTheiaSprottyConnector } from "./diagram/glsp-theia-sprotty-connector";
-import { GraphicalLanguageClientContribution } from "./language/graphical-langauge-client-contribution";
-import { GraphicalLanguageClientFactory } from "./language/graphical-language-client";
-import { GraphicalLanguageClientProvider, GraphicalLanguageClientProviderImpl } from "./language/graphical-language-client-provider";
-import { GraphicalLanguagesFrontendContribution } from "./language/graphical-languages-frontend-contribution";
+import { GLSPClientFactory } from "./language/glsp-client";
+import { GLSPClientContribution } from "./language/glsp-client-contribution";
+import { GLSPClientProvider, GLSPClientProviderImpl } from "./language/glsp-client-provider";
+import { GLSPFrontendContribution } from "./language/glsp-frontend-contribution";
 
 export default new ContainerModule(bind => {
+    bind(GLSPClientFactory).toSelf().inSingletonScope();
 
-    bind(GraphicalLanguageClientFactory).toSelf().inSingletonScope();
+    bindContributionProvider(bind, GLSPClientContribution);
+    bind(FrontendApplicationContribution).to(GLSPFrontendContribution);
 
-    bindContributionProvider(bind, GraphicalLanguageClientContribution);
-    bind(FrontendApplicationContribution).to(GraphicalLanguagesFrontendContribution);
-
-    bind(GraphicalLanguageClientProviderImpl).toSelf().inSingletonScope();
-    bind(GraphicalLanguageClientProvider).toDynamicValue(ctx => ctx.container.get(GraphicalLanguageClientProviderImpl)).inSingletonScope()
+    bind(GLSPClientProviderImpl).toSelf().inSingletonScope();
+    bind(GLSPClientProvider).toService(GLSPClientProviderImpl)
 
     bind(GLSPTheiaSprottyConnector).toSelf().inSingletonScope();
 

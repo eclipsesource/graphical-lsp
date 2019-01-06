@@ -10,22 +10,21 @@
  ******************************************************************************/
 import { ContributionProvider } from "@theia/core";
 import { inject, injectable, named } from "inversify";
-import { GraphicalLanguageClientContribution } from "./graphical-langauge-client-contribution";
-import { GraphicalLanguageClient } from "./graphical-language-client-services";
+import { GLSPClientContribution } from "./glsp-client-contribution";
+import { GLSPClient } from "./glsp-client-services";
 
+export const GLSPClientProvider = Symbol.for('GLSPClientProvider')
 
-export const GraphicalLanguageClientProvider = Symbol('GraphicalLanguageClientProvider')
-
-export interface GraphicalLanguageClientProvider {
-    getLanguageClient(languageId: string): Promise<GraphicalLanguageClient | undefined>
+export interface GLSPClientProvider {
+    getLanguageClient(languageId: string): Promise<GLSPClient | undefined>
 }
 
 @injectable()
-export class GraphicalLanguageClientProviderImpl implements GraphicalLanguageClientProvider {
-    @inject(ContributionProvider) @named(GraphicalLanguageClientContribution)
-    private readonly contributions: ContributionProvider<GraphicalLanguageClientContribution>
+export class GLSPClientProviderImpl implements GLSPClientProvider {
+    @inject(ContributionProvider) @named(GLSPClientContribution)
+    private readonly contributions: ContributionProvider<GLSPClientContribution>
 
-    async getLanguageClient(languageId: string): Promise<GraphicalLanguageClient | undefined> {
+    async getLanguageClient(languageId: string): Promise<GLSPClient | undefined> {
         const contribution = this.getLanguageContribution(languageId);
         if (contribution) {
             return contribution.languageClient;
@@ -33,7 +32,7 @@ export class GraphicalLanguageClientProviderImpl implements GraphicalLanguageCli
         return undefined
     }
 
-    protected getLanguageContribution(languageId: string): GraphicalLanguageClientContribution | undefined {
+    protected getLanguageContribution(languageId: string): GLSPClientContribution | undefined {
         const contributions = this.contributions.getContributions();
         if (contributions) {
             for (const contribution of contributions) {

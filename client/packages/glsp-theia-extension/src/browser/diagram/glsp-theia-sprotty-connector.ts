@@ -14,22 +14,21 @@ import { Workspace } from "@theia/languages/lib/browser";
 import { ActionMessage, ExportSvgAction, ServerStatusAction } from "glsp-sprotty/lib";
 import { DiagramWidgetRegistry, OpenInTextEditorMessage, TheiaDiagramServer, TheiaFileSaver, TheiaSprottyConnector } from "theia-glsp/lib";
 import { ActionMessageNotification } from "../../common/";
-import { GraphicalLanguageClientContribution } from "../language/graphical-langauge-client-contribution";
+import { GLSPClientContribution } from "../language/glsp-client-contribution";
 import { GLSPPaletteContribution } from "./glsp-palette-contribution";
 import { GLSPTheiaDiagramServer } from "./glsp-theia-diagram-server";
 
 export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
-
     private servers: TheiaDiagramServer[] = []
 
-    constructor(private graphicalLanguageClientContribution: GraphicalLanguageClientContribution,
+    constructor(private glspClientContribution: GLSPClientContribution,
         private fileSaver: TheiaFileSaver,
         private editorManager: EditorManager,
         private diagramWidgetRegistry: DiagramWidgetRegistry,
         private paletteContribution: GLSPPaletteContribution,
         readonly workspace?: Workspace) {
 
-        this.graphicalLanguageClientContribution.languageClient.then(
+        this.glspClientContribution.languageClient.then(
             lc => {
                 lc.onNotification(ActionMessageNotification.type, this.onMessageReceived.bind(this))
             }
@@ -49,7 +48,7 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
         if (index >= 0)
             this.servers.splice(index, 0)
         diagramServer.disconnect()
-        this.graphicalLanguageClientContribution.languageClient.then(lc => lc.stop())
+        this.glspClientContribution.languageClient.then(lc => lc.stop())
     }
 
     save(uri: string, action: ExportSvgAction): void {
@@ -85,7 +84,7 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
     }
 
     sendMessage(message: ActionMessage): void {
-        this.graphicalLanguageClientContribution.languageClient.then(lc => lc.sendNotification(ActionMessageNotification.type, message))
+        this.glspClientContribution.languageClient.then(lc => lc.sendNotification(ActionMessageNotification.type, message))
     }
 
     onMessageReceived(message: ActionMessage): void {
@@ -93,5 +92,4 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
             element.messageReceived(message)
         })
     }
-
 }

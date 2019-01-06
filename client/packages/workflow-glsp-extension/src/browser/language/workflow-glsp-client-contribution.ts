@@ -8,5 +8,12 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-export * from './glsp-server-contribution';
+import { BaseGLSPClientContribution } from "glsp-theia-extension/lib/browser";
+import { injectable } from "inversify";
+import { WorkflowLanguage } from "../../common/workflow-language";
 
+@injectable()
+export class WorkflowGLSPClientContribution extends BaseGLSPClientContribution {
+    readonly id = WorkflowLanguage.Id
+    readonly name = WorkflowLanguage.Name
+}

@@ -9,14 +9,17 @@
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
 import { inject, injectable } from "inversify";
-import { AnimationFrameSyncer, CommandExecutionContext, CommandResult, CommandStack, CommandStackOptions, ICommand, ILogger, IModelFactory, IViewerProvider, SetModelCommand, SModelRoot, TYPES, UpdateModelCommand } from "sprotty/lib";
+import {
+    AnimationFrameSyncer, CommandExecutionContext, CommandResult, CommandStack, CommandStackOptions, //
+    ICommand, ILogger, IModelFactory, IViewerProvider, SetModelCommand, SModelRoot, TYPES, UpdateModelCommand
+} from "sprotty/lib";
 import { distinctAdd, remove } from "../utils/array-utils";
-
 
 export interface CommandStackObserver {
     /*Is called before an update model request from the server is applied*/
     beforeServerUpdate(model: SModelRoot): void
 }
+
 @injectable()
 export class ObservableCommandStack extends CommandStack {
     protected observers: CommandStackObserver[] = []

@@ -15,13 +15,10 @@ import { inject, injectable } from "inversify";
 import { DiagramCommandHandler } from "theia-glsp/lib";
 import { GLSPTheiaDiagramServer } from "./glsp-theia-diagram-server";
 
-
-
 export namespace DiagramMenus {
     export const PALETTE: MenuPath = MAIN_MENU_BAR.concat("3_glsp_palette")
     export const CREATE_NODE: MenuPath = PALETTE.concat("1_create_node");
     export const CREATE_CONNECTION: MenuPath = PALETTE.concat("2_create_connection");
-
 }
 
 export namespace PaletteCommands {

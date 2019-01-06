@@ -21,6 +21,7 @@ export namespace ActivityNodeSchema {
         export const UNDEFINED = "undefined"
     }
 }
+
 export interface TaskNodeSchema extends SNodeSchema {
     name?: string
     duration?: number

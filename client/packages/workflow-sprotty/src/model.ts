@@ -8,8 +8,11 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-// tslint:disable-next-line:max-line-length
-import { Bounds, boundsFeature, CommandExecutor, DiamondNode, executeCommandFeature, Expandable, expandFeature, fadeFeature, layoutableChildFeature, LayoutContainer, layoutContainerFeature, RectangularNode, SEdge, SShapeElement } from "glsp-sprotty/lib";
+
+import {
+    Bounds, boundsFeature, CommandExecutor, DiamondNode, executeCommandFeature, Expandable, expandFeature, //
+    fadeFeature, layoutableChildFeature, LayoutContainer, layoutContainerFeature, RectangularNode, SEdge, SShapeElement
+} from "glsp-sprotty/lib";
 import { ActivityNodeSchema } from "./model-schema";
 
 export class TaskNode extends RectangularNode implements Expandable {
