@@ -1,5 +1,3 @@
-package com.eclipsesource.glsp.api.provider;
-
 /*******************************************************************************
 
  * Copyright (c) 2018 EclipseSource Services GmbH and others.
@@ -11,6 +9,9 @@ package com.eclipsesource.glsp.api.provider;
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
+package com.eclipsesource.glsp.api.provider;
+
+
 import java.util.Collections;
 import java.util.Set;
 

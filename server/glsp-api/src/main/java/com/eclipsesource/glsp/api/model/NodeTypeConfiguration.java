@@ -8,13 +8,21 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-package com.eclipsesource.glsp.api.action.kind;
+package com.eclipsesource.glsp.api.model;
 
-import com.eclipsesource.glsp.api.action.Action;
+import org.eclipse.sprotty.SNode;
 
-public class RequestOperationsAction extends Action {
+import com.eclipsesource.glsp.api.types.NodeTypeHint;
 
-	public RequestOperationsAction() {
-		super(Action.Kind.REQUEST_OPERATIONS);
+public class NodeTypeConfiguration extends ModelTypeConfiguration {
+
+	public NodeTypeConfiguration() {
+		super();
 	}
+
+	public NodeTypeConfiguration(String elementTypeId, Class<? extends SNode> javaClassRepresentation,
+			NodeTypeHint nodeTypeHint) {
+		super(elementTypeId, javaClassRepresentation, nodeTypeHint);
+	}
+
 }

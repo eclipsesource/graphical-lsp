@@ -21,10 +21,10 @@ import com.eclipsesource.glsp.api.jsonrpc.GraphicalLanguageServer;
 import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
 import com.eclipsesource.glsp.api.model.ModelExpansionListener;
 import com.eclipsesource.glsp.api.model.ModelSelectionListener;
-import com.eclipsesource.glsp.api.model.ModelTypeConfiguration;
 import com.eclipsesource.glsp.api.operations.OperationConfiguration;
 import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
 import com.eclipsesource.glsp.api.provider.ActionProvider;
+import com.eclipsesource.glsp.api.provider.ModelTypeConfigurationProvider;
 import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
 import com.eclipsesource.glsp.api.provider.ServerCommandHandlerProvider;
 import com.google.inject.AbstractModule;
@@ -46,11 +46,11 @@ public abstract class GLSPModule extends AbstractModule {
 		bind(ModelElementOpenListener.class).to(bindModelElementOpenListener());
 		bind(ILayoutEngine.class).to(bindLayoutEngine());
 		bind(OperationConfiguration.class).to(bindOperationConfiguration());
-		bind(ModelTypeConfiguration.class).to(bindModelTypeConfiguration());
 		bind(ActionProvider.class).to(bindActionProvider());
 		bind(ActionHandlerProvider.class).to(bindActionHandlerProvider());
 		bind(OperationHandlerProvider.class).to(bindOperatioHandlerProvider());
 		bind(ServerCommandHandlerProvider.class).to(bindServerCommandHandlerProvider());
+		bind(ModelTypeConfigurationProvider.class).to(bindModelTypesConfigurationProvider());
 		configureMultibindings();
 	}
 
@@ -68,6 +68,7 @@ public abstract class GLSPModule extends AbstractModule {
 	protected abstract void multiBindServerCommandHandlers();
 
 	protected abstract void multiBindActionHandlers();
+	
 
 	protected final LinkedBindingBuilder<ActionHandler> bindActionHandler() {
 		return actionHandlerBinder.addBinding();
@@ -82,7 +83,7 @@ public abstract class GLSPModule extends AbstractModule {
 	}
 
 	protected abstract Class<? extends GraphicalLanguageServer> bindGraphicalLanguageServer();
-
+	protected abstract Class<? extends ModelTypeConfigurationProvider> bindModelTypesConfigurationProvider();
 	protected Class<? extends ActionProvider> bindActionProvider() {
 		return ActionProvider.NullImpl.class;
 	}
@@ -121,10 +122,6 @@ public abstract class GLSPModule extends AbstractModule {
 
 	protected Class<? extends ILayoutEngine> bindLayoutEngine() {
 		return ILayoutEngine.NullImpl.class;
-	}
-
-	protected Class<? extends ModelTypeConfiguration> bindModelTypeConfiguration() {
-		return ModelTypeConfiguration.NullImpl.class;
 	}
 
 	protected Class<? extends ServerCommandHandlerProvider> bindServerCommandHandlerProvider() {

@@ -12,7 +12,7 @@
 import { Saveable, SaveableSource } from "@theia/core/lib/browser";
 import { Disposable, DisposableCollection, Emitter, Event, MaybePromise } from "@theia/core/lib/common";
 import { EditorPreferences } from "@theia/editor/lib/browser";
-import { Action, IActionDispatcher, ModelSource, OperationKind, RequestModelAction, RequestOperationsAction, SaveModelAction } from "glsp-sprotty/lib";
+import { Action, IActionDispatcher, ModelSource, OperationKind, RequestModelAction, RequestOperationsAction, RequestTypeHintsAction, SaveModelAction } from "glsp-sprotty/lib";
 import { DiagramWidget, DiagramWidgetOptions } from "theia-glsp/lib";
 import { NotifyingModelSource } from "./glsp-theia-diagram-server";
 
@@ -34,12 +34,13 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     }
 
     protected sendInitialRequestMessages() {
-        this.modelSource.handle(new RequestModelAction({
+        this.actionDispatcher.dispatch(new RequestModelAction({
             sourceUri: decodeURIComponent(this.uri.toString()),
             diagramType: this.diagramType,
             needsClientLayout: 'true'
         }))
-        this.modelSource.handle(new RequestOperationsAction());
+        this.actionDispatcher.dispatch(new RequestOperationsAction());
+        this.actionDispatcher.dispatch(new RequestTypeHintsAction());
     }
 
 }

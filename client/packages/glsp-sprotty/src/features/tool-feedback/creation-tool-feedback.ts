@@ -14,7 +14,7 @@ import {
     findParentByFeature, isBoundsAware, isConnectable, isRoutable, MouseListener, MoveAction, //
     Routable, SChildElement, SConnectableElement, SDanglingAnchor, SModelElement, SModelRoot
 } from "sprotty/lib";
-import { getAbsolutePosition } from "../../lib/utils/viewpoint-util";
+import { getAbsolutePosition } from "../../utils/viewpoint-util";
 import { applyCssClassesToRoot, FeedbackCommand, unapplyCssClassesToRoot } from "./model";
 
 const NODE_CREATION_CSS_CLASS = 'node-creation-tool-mode';

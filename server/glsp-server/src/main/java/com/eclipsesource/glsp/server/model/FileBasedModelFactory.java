@@ -20,7 +20,7 @@ import org.eclipse.sprotty.SModelRoot;
 
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
-import com.eclipsesource.glsp.api.model.ModelTypeConfiguration;
+import com.eclipsesource.glsp.api.provider.ModelTypeConfigurationProvider;
 import com.eclipsesource.glsp.api.utils.ModelOptions;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
@@ -32,12 +32,12 @@ import com.google.inject.Inject;
  * @author Tobias Ortmayr
  *
  */
-public  class FileBasedModelFactory implements ModelFactory {
+public class FileBasedModelFactory implements ModelFactory {
 	private static Logger LOGGER = Logger.getLogger(FileBasedModelFactory.class);
 	private static final String FILE_PREFIX = "file://";
 
 	@Inject
-	private ModelTypeConfiguration modelTypeConfiguration;
+	private ModelTypeConfigurationProvider modelTypeConfigurationProvider;
 	private SModelRoot modelRoot;
 
 	@Override
@@ -47,7 +47,7 @@ public  class FileBasedModelFactory implements ModelFactory {
 			File modelFile = convertToFile(sourceURI);
 			if (modelFile != null && modelFile.exists()) {
 				String json = FileUtils.readFileToString(modelFile, "UTF8");
-				Gson gson = modelTypeConfiguration.configureGSON().create();
+				Gson gson = modelTypeConfigurationProvider.configureGSON().create();
 				modelRoot = gson.fromJson(json, SGraph.class);
 			}
 		} catch (IOException e) {
