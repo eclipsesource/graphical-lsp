@@ -15,7 +15,7 @@ import {
     Action, ElementAndBounds, findParentByFeature, isBoundsAware, isMoveable, isViewport, MouseListener, //
     MouseTool, Point, SModelElement
 } from "sprotty/lib";
-import { forEachElement, isSelectedBoundsAware } from "../../lib/utils/smodel-util";
+import { forEachElement, isSelectedBoundsAware } from "../../utils/smodel-util";
 import { ChangeBoundsOperationAction } from "../operation/operation-actions";
 import { FeedbackMoveMouseListener } from "../tool-feedback/move-tool-feedback";
 import { Tool } from "../tool-manager/tool";

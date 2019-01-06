@@ -14,8 +14,8 @@ import com.eclipsesource.glsp.api.factory.PopupModelFactory;
 import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
 import com.eclipsesource.glsp.api.model.ModelExpansionListener;
 import com.eclipsesource.glsp.api.model.ModelSelectionListener;
-import com.eclipsesource.glsp.api.model.ModelTypeConfiguration;
 import com.eclipsesource.glsp.api.operations.OperationConfiguration;
+import com.eclipsesource.glsp.api.provider.ModelTypeConfigurationProvider;
 import com.eclipsesource.glsp.example.workflow.handler.CreateAutomatedTaskHandler;
 import com.eclipsesource.glsp.example.workflow.handler.CreateDecisionNodeHandler;
 import com.eclipsesource.glsp.example.workflow.handler.CreateEdgeHandler;
@@ -31,8 +31,8 @@ import com.eclipsesource.glsp.server.operationhandler.DeleteHandler;
 public class WorkflowServerRuntimeModule extends ServerModule {
 
 	@Override
-	public Class<? extends ModelTypeConfiguration> bindModelTypeConfiguration() {
-		return WorkflowModelTypeConfiguration.class;
+	protected Class<? extends ModelTypeConfigurationProvider> bindModelTypesConfigurationProvider() {
+		return WorkflowModelTypeConfigurationProvider.class;
 	}
 
 	@Override
