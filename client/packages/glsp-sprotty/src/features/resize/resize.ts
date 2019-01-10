@@ -13,7 +13,6 @@ import { Action, Command, CommandExecutionContext, CommandResult, SModelElement,
 import { isNotUndefined } from "../../utils/smodel-util";
 import { isResizeable, ResizeHandleLocation, SResizeHandle } from "./model";
 
-
 export class SwitchResizeModeAction implements Action {
     kind = SwitchResizeModeCommand.KIND;
 

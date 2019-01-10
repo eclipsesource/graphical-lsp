@@ -40,7 +40,6 @@ import { Tool } from "../tool-manager/tool";
  */
 @injectable()
 export class ChangeBoundsTool implements Tool {
-
     static ID = "glsp.change-bounds-tool";
     readonly id = ChangeBoundsTool.ID;
 

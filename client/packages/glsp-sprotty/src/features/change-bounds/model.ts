@@ -19,13 +19,11 @@ export function isBoundsAwareMoveable(element: SModelElement): element is SModel
 export class SResizeHandle extends SChildElement implements Hoverable {
     type: string = 'resize-handle';
     hoverFeedback: boolean = false;
-    location: ResizeHandleLocation;
+    location?: ResizeHandleLocation;
 
     constructor(location?: ResizeHandleLocation) {
         super();
-        if (location) {
-            this.location = location;
-        }
+        this.location = location;
     }
 
     hasFeature(feature: symbol): boolean {
