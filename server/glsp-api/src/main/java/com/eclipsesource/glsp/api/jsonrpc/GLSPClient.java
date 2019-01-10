@@ -14,7 +14,7 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonNotification;
 
 import com.eclipsesource.glsp.api.action.ActionMessage;
 
-public interface GraphicalLanguageClient {
+public interface GLSPClient {
 
 	@JsonNotification("process")
 	void process(ActionMessage message);

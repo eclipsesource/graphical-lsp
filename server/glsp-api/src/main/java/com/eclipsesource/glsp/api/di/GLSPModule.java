@@ -17,7 +17,7 @@ import com.eclipsesource.glsp.api.factory.PopupModelFactory;
 import com.eclipsesource.glsp.api.handler.ActionHandler;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
-import com.eclipsesource.glsp.api.jsonrpc.GraphicalLanguageServer;
+import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
 import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
 import com.eclipsesource.glsp.api.model.ModelExpansionListener;
 import com.eclipsesource.glsp.api.model.ModelSelectionListener;
@@ -38,7 +38,7 @@ public abstract class GLSPModule extends AbstractModule {
 
 	@Override
 	protected final void configure() {
-		bind(GraphicalLanguageServer.class).to(bindGraphicalLanguageServer());
+		bind(GLSPServer.class).to(bindGLSPServer());
 		bind(PopupModelFactory.class).to(bindPopupModelFactory());
 		bind(ModelFactory.class).to(bindModelFactory());
 		bind(ModelSelectionListener.class).to(bindModelSelectionListener());
@@ -82,7 +82,7 @@ public abstract class GLSPModule extends AbstractModule {
 		return operationHandler.addBinding();
 	}
 
-	protected abstract Class<? extends GraphicalLanguageServer> bindGraphicalLanguageServer();
+	protected abstract Class<? extends GLSPServer> bindGLSPServer();
 	protected abstract Class<? extends ModelTypeConfigurationProvider> bindModelTypesConfigurationProvider();
 	protected Class<? extends ActionProvider> bindActionProvider() {
 		return ActionProvider.NullImpl.class;

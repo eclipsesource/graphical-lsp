@@ -23,22 +23,22 @@ import org.eclipse.sprotty.ServerStatus;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.ActionMessage;
 import com.eclipsesource.glsp.api.action.ActionRegistry;
-import com.eclipsesource.glsp.api.jsonrpc.GraphicalLanguageClient;
-import com.eclipsesource.glsp.api.jsonrpc.GraphicalLanguageServer;
+import com.eclipsesource.glsp.api.jsonrpc.GLSPClient;
+import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
 import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.server.model.ModelStateImpl;
 
-public class DefaultGraphicalLanguageServer implements GraphicalLanguageServer {
+public class DefaultGLSPServer implements GLSPServer {
 
-	static Logger log = Logger.getLogger(DefaultGraphicalLanguageServer.class);
+	static Logger log = Logger.getLogger(DefaultGLSPServer.class);
 
 	private ServerStatus status;
 	private ActionRegistry actionRegistry;
-	private GraphicalLanguageClient clientProxy;
+	private GLSPClient clientProxy;
 	private Map<String, ModelState> clientModelStates;
 
 	@Inject
-	public DefaultGraphicalLanguageServer(ActionRegistry actionRegistry) {
+	public DefaultGLSPServer(ActionRegistry actionRegistry) {
 		this.actionRegistry = actionRegistry;
 		clientModelStates = new ConcurrentHashMap<>();
 	}
@@ -48,7 +48,7 @@ public class DefaultGraphicalLanguageServer implements GraphicalLanguageServer {
 	}
 
 	@Override
-	public void connect(GraphicalLanguageClient clientProxy) {
+	public void connect(GLSPClient clientProxy) {
 		this.clientProxy = clientProxy;
 	}
 

@@ -10,6 +10,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.jsonrpc;
 
-public interface GraphicalLanguageClientAware {
-	void connect(GraphicalLanguageClient client);
+public interface GLSPClientAware {
+	void connect(GLSPClient client);
 }

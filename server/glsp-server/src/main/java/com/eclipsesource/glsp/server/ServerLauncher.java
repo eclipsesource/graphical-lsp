@@ -28,8 +28,8 @@ import org.eclipse.lsp4j.jsonrpc.Launcher;
 import org.eclipse.lsp4j.jsonrpc.MessageConsumer;
 
 import com.eclipsesource.glsp.api.json.GsonConfigurator;
-import com.eclipsesource.glsp.api.jsonrpc.GraphicalLanguageClient;
-import com.eclipsesource.glsp.api.jsonrpc.GraphicalLanguageServer;
+import com.eclipsesource.glsp.api.jsonrpc.GLSPClient;
+import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
 import com.google.gson.GsonBuilder;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -62,9 +62,9 @@ public class ServerLauncher {
 			Function<MessageConsumer, MessageConsumer> wrapper = (MessageConsumer it) -> {
 				return it;
 			};
-			GraphicalLanguageServer languageServer = injector.getInstance(GraphicalLanguageServer.class);
-			Launcher<GraphicalLanguageClient> launcher = Launcher.createIoLauncher(languageServer,
-					GraphicalLanguageClient.class, in, out, threadPool, wrapper, configureGson);
+			GLSPServer languageServer = injector.getInstance(GLSPServer.class);
+			Launcher<GLSPClient> launcher = Launcher.createIoLauncher(languageServer,
+					GLSPClient.class, in, out, threadPool, wrapper, configureGson);
 
 			languageServer.connect(launcher.getRemoteProxy());
 			launcher.startListening();
