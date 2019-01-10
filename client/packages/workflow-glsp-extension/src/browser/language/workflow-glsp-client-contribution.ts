@@ -16,4 +16,5 @@ import { WorkflowLanguage } from "../../common/workflow-language";
 export class WorkflowGLSPClientContribution extends BaseGLSPClientContribution {
     readonly id = WorkflowLanguage.Id
     readonly name = WorkflowLanguage.Name
+    readonly fileExtensions = [WorkflowLanguage.FileExtension]
 }

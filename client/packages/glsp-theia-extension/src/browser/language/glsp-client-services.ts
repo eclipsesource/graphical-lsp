@@ -8,7 +8,7 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { Commands, ConnectionCloseHandler, ConnectionErrorHandler, ErrorHandler, OutputChannel } from "@theia/languages/lib/browser";
+import { Commands, ConnectionCloseHandler, ConnectionErrorHandler, ErrorHandler, OutputChannel, InitializationFailedHandler } from "@theia/languages/lib/browser";
 import { Disposable, Message, MessageConnection, NotificationHandler, NotificationType } from "vscode-jsonrpc";
 import { ExitNotification, ShutdownRequest } from "../../common";
 
@@ -16,7 +16,6 @@ import { ExitNotification, ShutdownRequest } from "../../common";
 export const GLSPClient = Symbol.for('GLSPClient')
 
 export interface GLSPClient {
-    createDefaultErrorHandler(): ErrorHandler
     onReady(): Promise<void>
     start(): Disposable;
     stop(): Thenable<void> | undefined
@@ -35,8 +34,8 @@ export namespace GLSPClient {
 
 export interface GLSPClientOptions {
     commands?: Commands
+    initializationFailedHandler?: InitializationFailedHandler;
     errorHandler?: ErrorHandler;
-    outputChannelName?: string
 }
 
 export const Connection = Symbol.for('Connection')

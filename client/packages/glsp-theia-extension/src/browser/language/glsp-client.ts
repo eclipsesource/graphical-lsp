@@ -13,8 +13,9 @@ import { Disposable } from "@theia/core/lib/common/disposable";
 import { CloseAction, ConnectionCloseHandler, ConnectionErrorHandler, ErrorAction, ErrorHandler, NotificationHandler, OutputChannel } from '@theia/languages/lib/browser';
 import { LanguageContribution } from "@theia/languages/lib/common";
 import { inject, injectable } from "inversify";
-import { Message, NotificationType } from "vscode-jsonrpc";
+import { Message, NotificationType, MessageConnection } from "vscode-jsonrpc";
 import { Connection, ConnectionProvider, createConnection, GLSPClient, GLSPClientOptions } from "./glsp-client-services";
+import { MaybePromise } from "@theia/core";
 
 enum ClientState {
     Initial,
@@ -85,9 +86,6 @@ export class BaseGLSPClient implements GLSPClient {
     onReady(): Promise<void> {
         return this._onReady;
     }
-    createDefaultErrorHandler(): ErrorHandler {
-        return new DefaultErrorHandler(this.name);
-    }
 
     private resolveConnection(): Thenable<Connection> {
         if (!this.connectionPromise) {
@@ -139,67 +137,25 @@ export class GLSPClientFactory {
     constructor(
         @inject(WebSocketConnectionProvider) protected readonly connectionProvider: WebSocketConnectionProvider) { }
 
-    get(contribution: LanguageContribution, clientOptions: GLSPClientOptions): GLSPClient {
+    get(contribution: LanguageContribution, clientOptions: GLSPClientOptions, connectionProvider: MessageConnection | (() => MaybePromise<MessageConnection>)): GLSPClient {
 
         if (!clientOptions.errorHandler) {
             clientOptions.errorHandler = {
                 error: () => ErrorAction.Continue,
-                closed: () => defaultErrorHandler.closed()
+                closed: () => CloseAction.DoNotRestart
             };
         }
 
-        const client = new BaseGLSPClient({
+        return new BaseGLSPClient({
             name: contribution.name,
             id: contribution.id,
             clientOptions: clientOptions,
             connectionProvider: {
-                get: (errorHandler: ConnectionErrorHandler, closeHandler: ConnectionCloseHandler) =>
-                    new Promise(resolve => {
-                        this.connectionProvider.listen({
-                            path: LanguageContribution.getPath(contribution),
-                            onConnection: messageConnection => {
-                                const connection = createConnection(messageConnection, errorHandler, closeHandler);
-                                resolve(connection);
-                            },
-                        },
-                            { reconnecting: false }
-                        );
-                    })
+                get: async (errorHandler, closeHandler) => {
+                    const connection = typeof connectionProvider === 'function' ? await connectionProvider() : connectionProvider;
+                    return createConnection(connection, errorHandler, closeHandler);
+                }
             }
-
         });
-
-        const defaultErrorHandler = client.createDefaultErrorHandler();
-        return client
-    }
-}
-
-class DefaultErrorHandler implements ErrorHandler {
-    private restarts: number[];
-
-    constructor(private name: string) {
-        this.restarts = [];
-    }
-
-    public error(_error: Error, _message: Message, count: number): ErrorAction {
-        if (count && count <= 3) {
-            return ErrorAction.Continue;
-        }
-        return ErrorAction.Shutdown;
-    }
-    public closed(): CloseAction {
-        this.restarts.push(Date.now());
-        if (this.restarts.length < 5) {
-            return CloseAction.Restart;
-        } else {
-            const diff = this.restarts[this.restarts.length - 1] - this.restarts[0];
-            if (diff <= 3 * 60 * 1000) {
-                alert(`The ${this.name} server crashed 5 times in the last 3 minutes. The server will not be restarted.`);
-                return CloseAction.DoNotRestart;
-            } else {
-                this.restarts.shift();
-                return CloseAction.Restart;
-            }
-        }
     }
 }

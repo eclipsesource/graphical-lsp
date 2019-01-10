@@ -27,7 +27,7 @@ export class GLSPClientProviderImpl implements GLSPClientProvider {
     async getLanguageClient(languageId: string): Promise<GLSPClient | undefined> {
         const contribution = this.getLanguageContribution(languageId);
         if (contribution) {
-            return contribution.languageClient;
+            return contribution.glspClient;
         }
         return undefined
     }
