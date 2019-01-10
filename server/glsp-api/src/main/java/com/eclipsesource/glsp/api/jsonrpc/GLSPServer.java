@@ -19,10 +19,10 @@ import org.eclipse.sprotty.ServerStatus;
 import com.eclipsesource.glsp.api.action.ActionMessage;
 import com.eclipsesource.glsp.api.model.ModelStateProvider;
 
-public interface GraphicalLanguageServer extends GraphicalLanguageClientAware,ModelStateProvider {
+public interface GLSPServer extends GLSPClientAware,ModelStateProvider {
 
 	public interface Provider {
-		GraphicalLanguageServer getGraphicalLanguageServer(String clientId);
+		GLSPServer getGraphicalLanguageServer(String clientId);
 	}
 
 	void initialize();

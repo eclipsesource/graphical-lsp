@@ -12,7 +12,7 @@ package com.eclipsesource.glsp.server;
 
 import com.eclipsesource.glsp.api.di.GLSPModule;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
-import com.eclipsesource.glsp.api.jsonrpc.GraphicalLanguageServer;
+import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
 import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
 import com.eclipsesource.glsp.api.provider.ActionProvider;
 import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
@@ -70,8 +70,8 @@ public abstract class ServerModule extends GLSPModule {
 	}
 
 	@Override
-	protected Class<? extends GraphicalLanguageServer> bindGraphicalLanguageServer() {
-		return DefaultGraphicalLanguageServer.class;
+	protected Class<? extends GLSPServer> bindGLSPServer() {
+		return DefaultGLSPServer.class;
 	}
 
 	@Override
