@@ -11,15 +11,13 @@
 import { interfaces } from "inversify";
 import { GLSP_TYPES } from "../../types";
 import { ToolManager } from "../tool-manager/tool-manager";
+import { ChangeBoundsTool } from "./change-bounds-tool";
 import { DelKeyDeleteTool, MouseDeleteTool } from "./delete-tool";
-import { MoveTool } from "./move-tool";
-import { ResizeTool } from "./resize-tool";
 
 export function registerDefaultTools(container: interfaces.Container) {
     const toolManager: ToolManager = container.get(GLSP_TYPES.ToolManager);
     toolManager.registerStandardTools(
-        container.resolve(MoveTool),
-        container.resolve(ResizeTool),
+        container.resolve(ChangeBoundsTool),
         container.resolve(DelKeyDeleteTool));
     toolManager.registerTools(container.resolve(MouseDeleteTool));
     toolManager.enableStandardTools();

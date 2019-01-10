@@ -10,11 +10,12 @@
  ******************************************************************************/
 import { Emitter, Event } from "@theia/core/lib/common";
 import {
-Action, ActionHandlerRegistry, ActionMessage, ExecuteServerCommandAction, //
+    Action, ActionHandlerRegistry, ActionMessage, ExecuteServerCommandAction, //
     GLSP_TYPES, IActionDispatcher, ICommand, ILogger, isSetTypeHintsAction, //
     ModelSource, ObservableCommandStack, OperationKind, RequestBoundsCommand, //
     RequestOperationsAction, RequestTypeHintsAction, SaveModelAction, SetModelCommand, //
-     SetTypeHintsAction, SModelStorage, SwitchEditModeCommand, TypeHintsService, TYPES, UpdateModelCommand, ViewerOptions
+    SetTypeHintsAction, SModelStorage, SwitchEditModeCommand, SwitchResizeModeCommand, //
+    TypeHintsService, TYPES, UpdateModelCommand, ViewerOptions
 } from "glsp-sprotty/lib";
 import { inject, injectable } from "inversify";
 import { TheiaDiagramServer } from "theia-glsp/lib";
@@ -35,6 +36,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
 
     initialize(registry: ActionHandlerRegistry): void {
         super.initialize(registry);
+        registry.registerCommand(SwitchResizeModeCommand)
         // register actions
         registry.register(RequestOperationsAction.KIND, this)
         registry.register(SaveModelAction.KIND, this)
