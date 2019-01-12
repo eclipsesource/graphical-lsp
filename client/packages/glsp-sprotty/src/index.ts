@@ -28,7 +28,6 @@ export * from './features/tools/change-bounds-tool';
 export * from './features/tools/creation-tool';
 export * from './features/tools/default-tools';
 export * from './features/tools/delete-tool';
-export * from './features/tools/key-tool';
 export * from './lib/model';
 export * from './types';
 export * from './utils/array-utils';

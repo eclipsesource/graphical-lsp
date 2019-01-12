@@ -38,6 +38,10 @@ export class SelectionTracker extends MouseListener implements KeyListener {
         return this.handleResult(this.selectKeyboardListener.keyDown(element, event));
     }
 
+    keyUp(element: SModelElement, event: KeyboardEvent): Action[] {
+        return [];
+    }
+
     private handleResult(result: Action[]): Action[] {
         for (const action of result.filter(isSelectAction).map(asSelectAction)) {
             this.handleSelectAction(action);
