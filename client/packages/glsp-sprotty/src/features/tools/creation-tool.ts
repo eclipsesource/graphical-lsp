@@ -12,15 +12,17 @@
 
 import { inject, injectable } from "inversify";
 import {
-    Action, IActionDispatcher, isCtrlOrCmd, MouseListener, //
-    MouseTool, SModelElement, SModelRoot, TYPES
+    Action, isCtrlOrCmd, MouseListener, //
+    MouseTool, SModelElement, SModelRoot
 } from "sprotty/lib";
+import { GLSP_TYPES } from "../../types";
 import { getAbsolutePosition } from "../../utils/viewpoint-util";
 import { CreateConnectionOperationAction, CreateNodeOperationAction } from "../operation/operation-actions";
 import {
     FeedbackEdgeEndMovingMouseListener, HideEdgeCreationToolFeedbackAction, HideNodeCreationToolFeedbackAction, ShowEdgeCreationSelectSourceFeedbackAction, //
     ShowEdgeCreationSelectTargetFeedbackAction, ShowNodeCreationToolFeedbackAction
 } from "../tool-feedback/creation-tool-feedback";
+import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
 import { EnableStandardToolsAction, Tool } from "../tool-manager/tool";
 
 
@@ -31,7 +33,7 @@ export class NodeCreationTool implements Tool {
     protected creationToolMouseListener: NodeCreationToolMouseListener;
 
     constructor(@inject(MouseTool) protected mouseTool: MouseTool,
-        @inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher) { }
+        @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher) { }
 
     get id() {
         return `${NodeCreationTool.ID}.${this.elementTypeId}`;
@@ -40,14 +42,13 @@ export class NodeCreationTool implements Tool {
     enable() {
         this.creationToolMouseListener = new NodeCreationToolMouseListener(this.elementTypeId);
         this.mouseTool.register(this.creationToolMouseListener);
-        this.actionDispatcher.dispatch(new ShowNodeCreationToolFeedbackAction(this.elementTypeId));
+        this.feedbackDispatcher.registerFeedback(this, [new ShowNodeCreationToolFeedbackAction(this.elementTypeId)])
     }
 
     disable() {
         this.mouseTool.deregister(this.creationToolMouseListener);
-        this.actionDispatcher.dispatch(new HideNodeCreationToolFeedbackAction(this.elementTypeId));
+        this.feedbackDispatcher.deregisterFeedback(this, [new HideNodeCreationToolFeedbackAction(this.elementTypeId)])
     }
-
 }
 
 @injectable()
@@ -80,24 +81,28 @@ export class EdgeCreationTool implements Tool {
     protected feedbackEndMovingMouseListener: FeedbackEdgeEndMovingMouseListener;
 
     constructor(@inject(MouseTool) protected mouseTool: MouseTool,
-        @inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher) { }
+        @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher) { }
 
     get id() {
         return `${EdgeCreationTool.ID}.${this.elementTypeId}`;
     };
 
     enable() {
-        this.creationToolMouseListener = new EdgeCreationToolMouseListener(this.elementTypeId);
+        this.creationToolMouseListener = new EdgeCreationToolMouseListener(this.elementTypeId, this);
         this.mouseTool.register(this.creationToolMouseListener);
         this.feedbackEndMovingMouseListener = new FeedbackEdgeEndMovingMouseListener();
         this.mouseTool.register(this.feedbackEndMovingMouseListener);
-        this.actionDispatcher.dispatch(new ShowEdgeCreationSelectSourceFeedbackAction(this.elementTypeId));
+        this.dispatchFeedback([new ShowEdgeCreationSelectSourceFeedbackAction(this.elementTypeId)]);
     }
 
     disable() {
         this.mouseTool.deregister(this.creationToolMouseListener);
         this.mouseTool.deregister(this.feedbackEndMovingMouseListener);
-        this.actionDispatcher.dispatch(new HideEdgeCreationToolFeedbackAction(this.elementTypeId));
+        this.feedbackDispatcher.deregisterFeedback(this, [new HideEdgeCreationToolFeedbackAction(this.elementTypeId)]);
+    }
+
+    dispatchFeedback(actions: Action[]) {
+        this.feedbackDispatcher.registerFeedback(this, actions);
     }
 
 }
@@ -110,7 +115,7 @@ export class EdgeCreationToolMouseListener extends MouseListener {
     private isMouseDown: boolean = false;
     private isMouseMove: boolean;
 
-    constructor(protected elementTypeId: string) {
+    constructor(protected elementTypeId: string, protected tool: EdgeCreationTool) {
         super();
     }
 
@@ -125,11 +130,15 @@ export class EdgeCreationToolMouseListener extends MouseListener {
             // In that case, we're dragging something, and shouldn't create
             // a connection
             this.isMouseMove = true;
-            this.source = undefined;
-            this.target = undefined;
-            return [new ShowEdgeCreationSelectSourceFeedbackAction(this.elementTypeId)];
+            this.reinitialize();
         }
         return [];
+    }
+
+    private reinitialize() {
+        this.source = undefined;
+        this.target = undefined;
+        this.tool.dispatchFeedback([new ShowEdgeCreationSelectSourceFeedbackAction(this.elementTypeId)]);
     }
 
     mouseUp(target: SModelElement, event: MouseEvent): Action[] {
@@ -143,7 +152,7 @@ export class EdgeCreationToolMouseListener extends MouseListener {
 
         if (this.source == null) {
             this.source = target.id;
-            result.push(new ShowEdgeCreationSelectTargetFeedbackAction(this.elementTypeId, this.source));
+            this.tool.dispatchFeedback([new ShowEdgeCreationSelectTargetFeedbackAction(this.elementTypeId, this.source)]);
         } else {
             this.target = target.id;
             if (this.source != null && this.target != null) {
@@ -153,6 +162,8 @@ export class EdgeCreationToolMouseListener extends MouseListener {
 
                 if (!isCtrlOrCmd(event)) {
                     result.push(new EnableStandardToolsAction());
+                } else {
+                    this.reinitialize();
                 }
             }
         }
