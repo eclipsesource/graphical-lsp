@@ -29,7 +29,7 @@ public class WorkflowPopupFactory implements PopupModelFactory {
 	}
 
 	private String generateBody(TaskNode task) {
-		return String.format("Properties:" + NL + "Type: %s" + NL + "Duration: %s" + NL + " Reference: %s" + NL,
+		return String.format( NL + "Type: %s" + NL + "Duration: %s" + NL + " Reference: %s" + NL,
 				task.getTaskType(), task.getDuration(), task.getReference());
 	}
 
