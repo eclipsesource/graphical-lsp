@@ -20,12 +20,24 @@ export interface CommandStackObserver {
     beforeServerUpdate(model: SModelRoot): void
 }
 
-@injectable()
-export class ObservableCommandStack extends CommandStack {
-    protected observers: CommandStackObserver[] = []
+export interface IModelUpdateNotifier {
+    registerObserver(observer: CommandStackObserver): boolean | void;
+    deregisterObserver(observer: CommandStackObserver): boolean | void;
+}
 
+export interface IModelAccess {
+    readonly model: Promise<SModelRoot>;
+}
+
+export type IModelAccessProvider = () => Promise<IModelAccess>;
+
+@injectable()
+export class GLSPCommandStack extends CommandStack implements IModelAccess, IModelUpdateNotifier {
+
+    protected observers: CommandStackObserver[] = []
     private notifyObservers = false
     public serverSideUpdate: boolean = false
+
     constructor(@inject(TYPES.IModelFactory) protected modelFactory: IModelFactory,
         @inject(TYPES.IViewerProvider) protected viewerProvider: IViewerProvider,
         @inject(TYPES.ILogger) protected logger: ILogger,
@@ -37,9 +49,11 @@ export class ObservableCommandStack extends CommandStack {
     registerObserver(observer: CommandStackObserver): boolean | void {
         return distinctAdd(this.observers, observer)
     }
+
     deregisterObserver(observer: CommandStackObserver): boolean | void {
         return remove(this.observers, observer)
     }
+
     async update(model: SModelRoot): Promise<void> {
         if (this.viewer === undefined)
             this.viewer = await this.viewerProvider();
@@ -59,6 +73,12 @@ export class ObservableCommandStack extends CommandStack {
             this.notifyObservers = true
         }
         super.handleCommand(command, operation, beforeResolve)
+    }
+
+    get model(): Promise<SModelRoot> {
+        return this.currentPromise.then(
+            state => state.root
+        );
     }
 
 }

@@ -16,5 +16,6 @@ export const GLSP_TYPES = {
     IFeedbackActionDispatcher: Symbol.for("IFeedbackActionDispatcher"),
     ToolFactory: Symbol.for("Factory<Tool>"),
     TypeHintsService: Symbol.for("TypeHintsService"),
+    IModelUpdateNotifier: Symbol.for("IModelUpdateNotifier"),
     IModelAccessProvider: Symbol.for("IModelAccessProvider")
 }

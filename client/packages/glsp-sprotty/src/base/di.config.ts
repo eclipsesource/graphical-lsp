@@ -10,15 +10,23 @@
  ******************************************************************************/
 import { ContainerModule } from "inversify";
 import { TYPES } from "sprotty/lib";
-import { ObservableCommandStack } from "./command-stack";
+import { GLSP_TYPES } from "../types";
+import { GLSPCommandStack, IModelAccess } from "./command-stack";
 
 const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     if (isBound(TYPES.ICommandStack)) {
-        unbind(TYPES.ICommandStack)
+        unbind(TYPES.ICommandStack);
     }
-    bind(ObservableCommandStack).toSelf().inSingletonScope()
-    bind(TYPES.ICommandStack).toService(ObservableCommandStack)
-
+    bind(GLSPCommandStack).toSelf().inSingletonScope();
+    bind(TYPES.ICommandStack).toService(GLSPCommandStack);
+    bind(GLSP_TYPES.IModelUpdateNotifier).toService(GLSPCommandStack);
+    bind(GLSP_TYPES.IModelAccessProvider).toProvider<IModelAccess>((context) => {
+        return () => {
+            return new Promise<IModelAccess>((resolve) => {
+                resolve(context.container.get<IModelAccess>(TYPES.ICommandStack));
+            });
+        };
+    });
 })
 
 export default defaultGLSPModule;

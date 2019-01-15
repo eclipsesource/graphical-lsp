@@ -15,7 +15,8 @@ import {
     Action, Bounds, BoundsAware, ButtonHandlerRegistry, ElementAndBounds, findParentByFeature, isViewport, KeyTool, MouseTool, Point, //
     SetBoundsAction, SModelElement, SModelRoot, SParentElement
 } from "sprotty/lib";
-import { CommandStackObserver, ObservableCommandStack } from "../../base/command-stack";
+import { CommandStackObserver, IModelUpdateNotifier } from "../../base/command-stack";
+import { GLSP_TYPES } from "../../types";
 import { forEachElement, getIndex, isSelectedBoundsAware } from "../../utils/smodel-util";
 import { isBoundsAwareMoveable } from "../change-bounds/model";
 import { ChangeBoundsOperationAction } from "../operation/operation-actions";
@@ -49,7 +50,7 @@ export class ChangeBoundsTool implements Tool {
 
     constructor(@inject(MouseTool) protected mouseTool: MouseTool,
         @inject(KeyTool) protected keyTool: KeyTool,
-        @inject(ObservableCommandStack) protected commandStack: ObservableCommandStack,
+        @inject(GLSP_TYPES.IModelUpdateNotifier) protected modelUpdateNotifier: IModelUpdateNotifier,
         @inject(ButtonHandlerRegistry) @optional() protected buttonHandlerRegistry: ButtonHandlerRegistry) { }
 
     enable() {
@@ -60,13 +61,13 @@ export class ChangeBoundsTool implements Tool {
         // instlal change bounds listener for client-side resize updates and server-side updates
         this.changeBoundsListener = new ChangeBoundsListener(this.buttonHandlerRegistry);
         this.mouseTool.register(this.changeBoundsListener);
-        this.commandStack.registerObserver(this.changeBoundsListener);
+        this.modelUpdateNotifier.registerObserver(this.changeBoundsListener);
         this.keyTool.register(this.changeBoundsListener);
     }
 
     disable() {
         this.mouseTool.deregister(this.changeBoundsListener);
-        this.commandStack.deregisterObserver(this.changeBoundsListener);
+        this.modelUpdateNotifier.deregisterObserver(this.changeBoundsListener);
         this.keyTool.deregister(this.changeBoundsListener);
         this.mouseTool.deregister(this.feedbackMoveMouseListener);
     }

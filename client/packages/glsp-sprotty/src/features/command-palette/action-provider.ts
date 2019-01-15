@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2018 EclipseSource
+ * Copyright (c) 2019 EclipseSource
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -12,8 +12,8 @@
 import { inject, injectable, multiInject, optional } from "inversify";
 import { CenterAction, ILogger, SelectAction, SModelElement, SModelRoot, TYPES } from "sprotty/lib";
 import { toArray } from "sprotty/lib/utils/iterable";
+import { IModelAccessProvider } from "../../base/command-stack";
 import { GLSP_TYPES } from "../../types";
-import { IModelAccessProvider } from "../model-access/model-access";
 import { isNameable, name } from "../nameable/model";
 import { LabeledAction } from "./command-palette";
 
