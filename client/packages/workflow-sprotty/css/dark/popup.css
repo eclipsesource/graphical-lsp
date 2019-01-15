@@ -7,19 +7,31 @@
 
 .sprotty-popup {
     position: absolute;
-    background: #FFE9BE;
+    background: #CCCCCC;
+    opacity: 0.8;
     border-radius: 0px;
     border: none;
     max-width: initial;
     min-width: initial;
+    z-index: 1;
+    padding: 8px;
 }
 
 .sprotty-infoRow {
-    display: flex;
     font-size: small;
+    margin-bottom: 8px;
 }
 
 .sprotty-infoTitle {
-    width: 130px;
+    display: block;
     font-weight: bold;
+}
+
+.sprotty-popup-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.sprotty-popup-body > p {
+    margin-bottom: 2px;
 }

@@ -172,15 +172,6 @@ polygon.sprotty-node {
     stroke-width: 1pt;
 }
 
-.sprotty-popup-title {
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.sprotty-popup-body > p {
-    margin-bottom: 2px;
-}
-
 .sprotty-node.selected {
     stroke-width: 5;
 }
