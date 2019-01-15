@@ -28,7 +28,7 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
         private paletteContribution: GLSPPaletteContribution,
         readonly workspace?: Workspace) {
 
-        this.glspClientContribution.languageClient.then(
+        this.glspClientContribution.glspClient.then(
             lc => {
                 lc.onNotification(ActionMessageNotification.type, this.onMessageReceived.bind(this))
             }
@@ -48,7 +48,7 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
         if (index >= 0)
             this.servers.splice(index, 0)
         diagramServer.disconnect()
-        this.glspClientContribution.languageClient.then(lc => lc.stop())
+        this.glspClientContribution.glspClient.then(lc => lc.stop())
     }
 
     save(uri: string, action: ExportSvgAction): void {
@@ -84,7 +84,7 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
     }
 
     sendMessage(message: ActionMessage): void {
-        this.glspClientContribution.languageClient.then(lc => lc.sendNotification(ActionMessageNotification.type, message))
+        this.glspClientContribution.glspClient.then(lc => lc.sendNotification(ActionMessageNotification.type, message))
     }
 
     onMessageReceived(message: ActionMessage): void {
