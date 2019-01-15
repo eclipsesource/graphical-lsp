@@ -12,6 +12,13 @@
     height: 100%;
 }
 
+.sprotty-hidden {
+    display: block;
+    position: absolute;
+    width: 0px;
+    height: 0px;
+}
+
 .sprotty-graph {
     font-size: 15pt;
     background: rgb(245, 252, 255);

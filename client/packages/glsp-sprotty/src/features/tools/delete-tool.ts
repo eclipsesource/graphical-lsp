@@ -22,7 +22,7 @@ export class DelKeyDeleteTool implements Tool {
     static ID = "glsp.delete-keyboard";
     readonly id = DelKeyDeleteTool.ID;
 
-    protected deleteKeyListener: DeleteKeyListener = new DeleteKeyListener();;
+    protected deleteKeyListener: DeleteKeyListener = new DeleteKeyListener();
 
     constructor(@inject(KeyTool) protected readonly keytool: KeyTool) { }
 

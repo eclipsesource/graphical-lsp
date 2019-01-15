@@ -11,14 +11,18 @@
 
 import { ContainerModule } from "inversify";
 import { LocationDecorator, MoveCommand, TYPES } from "sprotty/lib";
+import { GLSP_TYPES } from "../../types";
 import {
     FeedbackEdgeEnd, HideEdgeCreationToolFeedbackCommand, HideNodeCreationToolFeedbackCommand, //
     ShowEdgeCreationSelectSourceFeedbackCommand, ShowEdgeCreationSelectTargetFeedbackCommand, //
     ShowNodeCreationToolFeedbackCommand
 } from "./creation-tool-feedback";
+import { FeedbackActionDispatcher } from "./feedback-action-dispatcher";
 import { FeedbackEdgeEndView } from "./view";
 
 const toolFeedbackModule = new ContainerModule(bind => {
+    bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
+
     // create node and edge tool feedback
     bind(TYPES.ICommand).toConstructor(ShowNodeCreationToolFeedbackCommand);
     bind(TYPES.ICommand).toConstructor(HideNodeCreationToolFeedbackCommand);
