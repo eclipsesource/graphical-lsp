@@ -35,7 +35,8 @@
     cursor: copy;
 }
 
-.edge-creation-select-source-mode {
+.edge-creation-select-source-mode,
+.edge-reconnect-select-source-mode {
     cursor: pointer;
 }
 

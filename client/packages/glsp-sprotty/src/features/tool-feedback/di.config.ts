@@ -25,6 +25,10 @@ import {
     ShowNodeCreationToolFeedbackCommand
 } from "./creation-tool-feedback";
 import { FeedbackActionDispatcher } from "./feedback-action-dispatcher";
+import {
+    HideEdgeReconnectHandlesFeedbackCommand, HideEdgeReconnectToolFeedbackCommand, // 
+    ShowEdgeReconnectHandlesFeedbackCommand, ShowEdgeReconnectSelectSourceFeedbackCommand
+} from "./reconnect-tool-feedback";
 import { FeedbackEdgeEndView, SResizeHandleView } from "./view";
 
 const toolFeedbackModule = new ContainerModule((bind, _unbind, isBound) => {
@@ -46,6 +50,12 @@ const toolFeedbackModule = new ContainerModule((bind, _unbind, isBound) => {
     configureCommand({ bind, isBound }, ShowChangeBoundsToolResizeFeedbackCommand);
     configureCommand({ bind, isBound }, HideChangeBoundsToolResizeFeedbackCommand);
     configureView({ bind, isBound }, SResizeHandle.TYPE, SResizeHandleView);
+
+    // reconnect edge tool feedback
+    configureCommand({ bind, isBound }, ShowEdgeReconnectHandlesFeedbackCommand);
+    configureCommand({ bind, isBound }, HideEdgeReconnectHandlesFeedbackCommand);
+    configureCommand({ bind, isBound }, ShowEdgeReconnectSelectSourceFeedbackCommand);
+    configureCommand({ bind, isBound }, HideEdgeReconnectToolFeedbackCommand);
 
     bind(TYPES.IVNodeDecorator).to(LocationDecorator);
     bind(TYPES.HiddenVNodeDecorator).to(LocationDecorator);

@@ -138,11 +138,11 @@ export class FeedbackEdgeEndMovingMouseListener extends MouseListener {
     }
 }
 
-function feedbackEdgeId(root: SModelRoot): string {
+export function feedbackEdgeId(root: SModelRoot): string {
     return root.id + '_feedback_edge';
 }
 
-function feedbackEdgeEndId(root: SModelRoot): string {
+export function feedbackEdgeEndId(root: SModelRoot): string {
     return root.id + '_feedback_anchor';
 }
 
