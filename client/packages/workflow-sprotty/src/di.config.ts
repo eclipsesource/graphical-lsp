@@ -10,10 +10,11 @@
  ******************************************************************************/
 
 import {
-    boundsModule, buttonModule, configureModelElement, ConsoleLogger, defaultGLSPModule, defaultModule, DiamondNodeView, ExpandButtonView, expandModule, //
-    exportModule, fadeModule, GLSPGraph, hoverModule, HtmlRoot, HtmlRootView, LogLevel, modelHintsModule, modelSourceModule, openModule, overrideViewerOptions, //
-    PreRenderedElement, PreRenderedView, RectangularNode, RectangularNodeView, resizeCommandModule, saveModule, SButton, SCompartment, SCompartmentView, SEdge, //
-    selectModule, SGraphView, SLabel, SLabelView, SResizeHandle, SRoutingHandle, SRoutingHandleView, toolFeedbackModule, toolManagerModule, TYPES, undoRedoModule, viewportModule
+    boundsModule, buttonModule, commandPaletteModule, configureModelElement, ConsoleLogger, defaultGLSPModule, defaultModule, DiamondNodeView, ExpandButtonView, //
+    expandModule, exportModule, fadeModule, GLSPGraph, hoverModule, HtmlRoot, HtmlRootView, LogLevel, modelHintsModule, modelSourceModule, //
+    openModule, overrideViewerOptions, PreRenderedElement, PreRenderedView, RectangularNode, RectangularNodeView, resizeCommandModule, saveModule, SButton, //
+    SCompartment, SCompartmentView, SEdge, selectModule, SGraphView, SLabel, SLabelView, SResizeHandle, SRoutingHandle, SRoutingHandleView, toolFeedbackModule, //
+    toolManagerModule, TYPES, undoRedoModule, viewportModule
 } from "glsp-sprotty/lib";
 import executeCommandModule from "glsp-sprotty/lib/features/execute/di.config";
 import { Container, ContainerModule } from "inversify";
@@ -53,7 +54,7 @@ export default function createContainer(widgetId: string): Container {
     container.load(defaultModule, selectModule, boundsModule, undoRedoModule, viewportModule,
         hoverModule, fadeModule, exportModule, expandModule, openModule, buttonModule, modelSourceModule,
         workflowDiagramModule, saveModule, executeCommandModule, toolManagerModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule,
-        resizeCommandModule);
+        resizeCommandModule, commandPaletteModule);
 
     overrideViewerOptions(container, {
         needsClientLayout: true,

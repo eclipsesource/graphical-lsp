@@ -12,20 +12,19 @@
 import {
     Bounds, boundsFeature, CommandExecutor, DiamondNode, executeCommandFeature, Expandable, expandFeature, //
     fadeFeature, layoutableChildFeature, LayoutContainer, layoutContainerFeature, RectangularNode, resizeFeature, //
-    SEdge, SShapeElement
+    SEdge, SShapeElement, Nameable, nameFeature
 } from "glsp-sprotty/lib";
 import { ActivityNodeSchema } from "./model-schema";
 
-export class TaskNode extends RectangularNode implements Expandable {
+export class TaskNode extends RectangularNode implements Expandable, Nameable {
     expanded: boolean
     name: string = ""
     duration?: number;
     taskType?: string;
     reference?: string;
 
-
     hasFeature(feature: symbol) {
-        return feature === expandFeature || super.hasFeature(feature) || feature === resizeFeature;
+        return feature === expandFeature || feature === resizeFeature || feature === nameFeature || super.hasFeature(feature);
     }
 }
 

@@ -15,17 +15,46 @@ import {
 } from "sprotty/lib";
 import { distinctAdd, remove } from "../utils/array-utils";
 
-export interface CommandStackObserver {
+export interface IModelUpdateObserver {
     /*Is called before an update model request from the server is applied*/
     beforeServerUpdate(model: SModelRoot): void
 }
 
-@injectable()
-export class ObservableCommandStack extends CommandStack {
-    protected observers: CommandStackObserver[] = []
+export interface IModelUpdateNotifier {
+    registerObserver(observer: IModelUpdateObserver): boolean | void;
+    deregisterObserver(observer: IModelUpdateObserver): boolean | void;
+}
 
-    private notifyObservers = false
-    public serverSideUpdate: boolean = false
+/**
+ * Provides access to the current `SModelRoot` instance.
+ *
+ * This is useful if you need to query the model for some tasks,
+ *  e.g., determine the list of elements, etc.
+ *
+ * Note that this provider will only return a copy of the current instance.
+ * Thus, changes to the returned `SModelRoot` won't have any effect.
+ * Changes of the `SModelRoot` should be performed inside a command.
+ */
+export interface IReadonlyModelAccess {
+    /**
+     * The current `SModelRoot` instance.
+     *
+     * Note that this is a copy of the current instance.
+     * Thus, changes to the returned `SModelRoot` won't have any effect.
+     * Changes of the `SModelRoot` should be performed inside a command.
+     */
+    readonly model: Promise<SModelRoot>;
+}
+
+export type IReadonlyModelAccessProvider = () => Promise<IReadonlyModelAccess>;
+
+@injectable()
+export class GLSPCommandStack extends CommandStack implements IReadonlyModelAccess, IModelUpdateNotifier {
+
+    protected observers: IModelUpdateObserver[] = [];
+    private notifyObservers = false;
+    public serverSideUpdate: boolean = false;
+
     constructor(@inject(TYPES.IModelFactory) protected modelFactory: IModelFactory,
         @inject(TYPES.IViewerProvider) protected viewerProvider: IViewerProvider,
         @inject(TYPES.ILogger) protected logger: ILogger,
@@ -34,19 +63,21 @@ export class ObservableCommandStack extends CommandStack {
         super(modelFactory, viewerProvider, logger, syncer, options);
     }
 
-    registerObserver(observer: CommandStackObserver): boolean | void {
-        return distinctAdd(this.observers, observer)
+    registerObserver(observer: IModelUpdateObserver): boolean | void {
+        return distinctAdd(this.observers, observer);
     }
-    deregisterObserver(observer: CommandStackObserver): boolean | void {
-        return remove(this.observers, observer)
+
+    deregisterObserver(observer: IModelUpdateObserver): boolean | void {
+        return remove(this.observers, observer);
     }
+
     async update(model: SModelRoot): Promise<void> {
         if (this.viewer === undefined)
             this.viewer = await this.viewerProvider();
         if (this.notifyObservers && this.serverSideUpdate) {
-            this.observers.forEach(obs => obs.beforeServerUpdate(model))
-            this.notifyObservers = false
-            this.serverSideUpdate = false
+            this.observers.forEach(obs => obs.beforeServerUpdate(model));
+            this.notifyObservers = false;
+            this.serverSideUpdate = false;
         }
         this.viewer.update(model);
     }
@@ -56,13 +87,19 @@ export class ObservableCommandStack extends CommandStack {
         beforeResolve: (command: ICommand, context: CommandExecutionContext) => void) {
 
         if (isObservedCommand) {
-            this.notifyObservers = true
+            this.notifyObservers = true;
         }
-        super.handleCommand(command, operation, beforeResolve)
+        super.handleCommand(command, operation, beforeResolve);
+    }
+
+    get model(): Promise<SModelRoot> {
+        return this.currentPromise.then(
+            state => this.modelFactory.createRoot(state.root)
+        );
     }
 
 }
 
 function isObservedCommand(command: ICommand) {
-    return (command instanceof SetModelCommand || command instanceof UpdateModelCommand)
+    return (command instanceof SetModelCommand || command instanceof UpdateModelCommand);
 }

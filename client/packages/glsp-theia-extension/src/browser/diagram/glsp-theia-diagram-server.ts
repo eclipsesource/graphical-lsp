@@ -10,10 +10,10 @@
  ******************************************************************************/
 import { Emitter, Event } from "@theia/core/lib/common";
 import {
-    Action, ActionHandlerRegistry, ActionMessage, ExecuteServerCommandAction, //
+    Action, ActionHandlerRegistry, ActionMessage, ExecuteServerCommandAction, GLSPCommandStack, //
     GLSP_TYPES, IActionDispatcher, ICommand, ILogger, isSetTypeHintsAction, //
-    ModelSource, ObservableCommandStack, OperationKind, RequestBoundsCommand, //
-    RequestOperationsAction, RequestTypeHintsAction, SaveModelAction, SetModelCommand, //
+    ModelSource, OperationKind, RequestBoundsCommand, RequestOperationsAction, //
+    RequestTypeHintsAction, SaveModelAction, SetModelCommand, //
     SetTypeHintsAction, SModelStorage, SwitchEditModeCommand, SwitchResizeModeCommand, //
     TypeHintsService, TYPES, UpdateModelCommand, ViewerOptions
 } from "glsp-sprotty/lib";
@@ -29,7 +29,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         @inject(TYPES.ViewerOptions) viewerOptions: ViewerOptions,
         @inject(TYPES.SModelStorage) storage: SModelStorage,
         @inject(TYPES.ILogger) logger: ILogger,
-        @inject(ObservableCommandStack) protected commandStack: ObservableCommandStack,
+        @inject(GLSPCommandStack) protected commandStack: GLSPCommandStack,
         @inject(GLSP_TYPES.TypeHintsService) protected typeHintsService: TypeHintsService) {
         super(actionDispatcher, actionHandlerRegistry, viewerOptions, storage, logger)
     }
