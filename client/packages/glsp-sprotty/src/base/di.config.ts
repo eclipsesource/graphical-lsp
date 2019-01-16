@@ -11,7 +11,7 @@
 import { ContainerModule } from "inversify";
 import { TYPES } from "sprotty/lib";
 import { GLSP_TYPES } from "../types";
-import { GLSPCommandStack, IModelAccess } from "./command-stack";
+import { GLSPCommandStack, IReadonlyModelAccess } from "./command-stack";
 
 const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     if (isBound(TYPES.ICommandStack)) {
@@ -20,10 +20,10 @@ const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) =>
     bind(GLSPCommandStack).toSelf().inSingletonScope();
     bind(TYPES.ICommandStack).toService(GLSPCommandStack);
     bind(GLSP_TYPES.IModelUpdateNotifier).toService(GLSPCommandStack);
-    bind(GLSP_TYPES.IModelAccessProvider).toProvider<IModelAccess>((context) => {
+    bind(GLSP_TYPES.IReadonlyModelAccessProvider).toProvider<IReadonlyModelAccess>((context) => {
         return () => {
-            return new Promise<IModelAccess>((resolve) => {
-                resolve(context.container.get<IModelAccess>(TYPES.ICommandStack));
+            return new Promise<IReadonlyModelAccess>((resolve) => {
+                resolve(context.container.get<IReadonlyModelAccess>(TYPES.ICommandStack));
             });
         };
     });

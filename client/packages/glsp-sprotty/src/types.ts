@@ -17,5 +17,5 @@ export const GLSP_TYPES = {
     ToolFactory: Symbol.for("Factory<Tool>"),
     TypeHintsService: Symbol.for("TypeHintsService"),
     IModelUpdateNotifier: Symbol.for("IModelUpdateNotifier"),
-    IModelAccessProvider: Symbol.for("IModelAccessProvider")
+    IReadonlyModelAccessProvider: Symbol.for("IReadonlyModelAccessProvider")
 }

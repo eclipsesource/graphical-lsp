@@ -12,7 +12,7 @@
 import { inject, injectable, multiInject, optional } from "inversify";
 import { CenterAction, ILogger, SelectAction, SModelElement, SModelRoot, TYPES } from "sprotty/lib";
 import { toArray } from "sprotty/lib/utils/iterable";
-import { IModelAccessProvider } from "../../base/command-stack";
+import { IReadonlyModelAccessProvider } from "../../base/command-stack";
 import { GLSP_TYPES } from "../../types";
 import { isNameable, name } from "../nameable/model";
 import { LabeledAction } from "./command-palette";
@@ -44,7 +44,7 @@ export class CommandPaletteActionProviderRegistry implements ICommandPaletteActi
 export class NavigationCommandPaletteActionProvider implements ICommandPaletteActionProvider {
 
     constructor(
-        @inject(GLSP_TYPES.IModelAccessProvider) protected modelAccessProvider: IModelAccessProvider,
+        @inject(GLSP_TYPES.IReadonlyModelAccessProvider) protected modelAccessProvider: IReadonlyModelAccessProvider,
         @inject(TYPES.ILogger) protected logger: ILogger) { }
 
     getActions(selectedElements: SModelElement[]): Promise<LabeledAction[]> {

@@ -25,14 +25,31 @@ export interface IModelUpdateNotifier {
     deregisterObserver(observer: IModelUpdateObserver): boolean | void;
 }
 
-export interface IModelAccess {
+/**
+ * Provides access to the current `SModelRoot` instance.
+ *
+ * This is useful if you need to query the model for some tasks,
+ *  e.g., determine the list of elements, etc.
+ *
+ * Note that this provider will only return a copy of the current instance.
+ * Thus, changes to the returned `SModelRoot` won't have any effect.
+ * Changes of the `SModelRoot` should be performed inside a command.
+ */
+export interface IReadonlyModelAccess {
+    /**
+     * The current `SModelRoot` instance.
+     *
+     * Note that this is a copy of the current instance.
+     * Thus, changes to the returned `SModelRoot` won't have any effect.
+     * Changes of the `SModelRoot` should be performed inside a command.
+     */
     readonly model: Promise<SModelRoot>;
 }
 
-export type IModelAccessProvider = () => Promise<IModelAccess>;
+export type IReadonlyModelAccessProvider = () => Promise<IReadonlyModelAccess>;
 
 @injectable()
-export class GLSPCommandStack extends CommandStack implements IModelAccess, IModelUpdateNotifier {
+export class GLSPCommandStack extends CommandStack implements IReadonlyModelAccess, IModelUpdateNotifier {
 
     protected observers: IModelUpdateObserver[] = [];
     private notifyObservers = false;
@@ -77,7 +94,7 @@ export class GLSPCommandStack extends CommandStack implements IModelAccess, IMod
 
     get model(): Promise<SModelRoot> {
         return this.currentPromise.then(
-            state => state.root
+            state => this.modelFactory.createRoot(state.root)
         );
     }
 
