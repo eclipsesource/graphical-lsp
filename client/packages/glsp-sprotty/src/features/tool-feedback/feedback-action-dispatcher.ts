@@ -10,7 +10,7 @@
  ******************************************************************************/
 import { inject, injectable } from "inversify";
 import { Action, IActionDispatcher, ILogger, SModelRoot, TYPES } from "sprotty/lib";
-import { CommandStackObserver, IModelUpdateNotifier } from "../../base/command-stack";
+import { IModelUpdateNotifier, IModelUpdateObserver } from "../../base/command-stack";
 import { GLSP_TYPES } from "../../types";
 
 export interface IFeedbackEmitter { }
@@ -42,7 +42,7 @@ export interface IFeedbackActionDispatcher {
 }
 
 @injectable()
-export class FeedbackActionDispatcher implements IFeedbackActionDispatcher, CommandStackObserver {
+export class FeedbackActionDispatcher implements IFeedbackActionDispatcher, IModelUpdateObserver {
 
     protected feedbackEmitters: Map<IFeedbackEmitter, Action[]> = new Map;
 

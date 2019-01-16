@@ -15,14 +15,14 @@ import {
 } from "sprotty/lib";
 import { distinctAdd, remove } from "../utils/array-utils";
 
-export interface CommandStackObserver {
+export interface IModelUpdateObserver {
     /*Is called before an update model request from the server is applied*/
     beforeServerUpdate(model: SModelRoot): void
 }
 
 export interface IModelUpdateNotifier {
-    registerObserver(observer: CommandStackObserver): boolean | void;
-    deregisterObserver(observer: CommandStackObserver): boolean | void;
+    registerObserver(observer: IModelUpdateObserver): boolean | void;
+    deregisterObserver(observer: IModelUpdateObserver): boolean | void;
 }
 
 export interface IModelAccess {
@@ -34,9 +34,9 @@ export type IModelAccessProvider = () => Promise<IModelAccess>;
 @injectable()
 export class GLSPCommandStack extends CommandStack implements IModelAccess, IModelUpdateNotifier {
 
-    protected observers: CommandStackObserver[] = []
-    private notifyObservers = false
-    public serverSideUpdate: boolean = false
+    protected observers: IModelUpdateObserver[] = [];
+    private notifyObservers = false;
+    public serverSideUpdate: boolean = false;
 
     constructor(@inject(TYPES.IModelFactory) protected modelFactory: IModelFactory,
         @inject(TYPES.IViewerProvider) protected viewerProvider: IViewerProvider,
@@ -46,21 +46,21 @@ export class GLSPCommandStack extends CommandStack implements IModelAccess, IMod
         super(modelFactory, viewerProvider, logger, syncer, options);
     }
 
-    registerObserver(observer: CommandStackObserver): boolean | void {
-        return distinctAdd(this.observers, observer)
+    registerObserver(observer: IModelUpdateObserver): boolean | void {
+        return distinctAdd(this.observers, observer);
     }
 
-    deregisterObserver(observer: CommandStackObserver): boolean | void {
-        return remove(this.observers, observer)
+    deregisterObserver(observer: IModelUpdateObserver): boolean | void {
+        return remove(this.observers, observer);
     }
 
     async update(model: SModelRoot): Promise<void> {
         if (this.viewer === undefined)
             this.viewer = await this.viewerProvider();
         if (this.notifyObservers && this.serverSideUpdate) {
-            this.observers.forEach(obs => obs.beforeServerUpdate(model))
-            this.notifyObservers = false
-            this.serverSideUpdate = false
+            this.observers.forEach(obs => obs.beforeServerUpdate(model));
+            this.notifyObservers = false;
+            this.serverSideUpdate = false;
         }
         this.viewer.update(model);
     }
@@ -70,9 +70,9 @@ export class GLSPCommandStack extends CommandStack implements IModelAccess, IMod
         beforeResolve: (command: ICommand, context: CommandExecutionContext) => void) {
 
         if (isObservedCommand) {
-            this.notifyObservers = true
+            this.notifyObservers = true;
         }
-        super.handleCommand(command, operation, beforeResolve)
+        super.handleCommand(command, operation, beforeResolve);
     }
 
     get model(): Promise<SModelRoot> {
@@ -84,5 +84,5 @@ export class GLSPCommandStack extends CommandStack implements IModelAccess, IMod
 }
 
 function isObservedCommand(command: ICommand) {
-    return (command instanceof SetModelCommand || command instanceof UpdateModelCommand)
+    return (command instanceof SetModelCommand || command instanceof UpdateModelCommand);
 }

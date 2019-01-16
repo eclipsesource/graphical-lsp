@@ -15,7 +15,7 @@ import {
     Action, Bounds, BoundsAware, ButtonHandlerRegistry, ElementAndBounds, findParentByFeature, isViewport, KeyTool, MouseTool, Point, //
     SetBoundsAction, SModelElement, SModelRoot, SParentElement
 } from "sprotty/lib";
-import { CommandStackObserver, IModelUpdateNotifier } from "../../base/command-stack";
+import { IModelUpdateNotifier, IModelUpdateObserver } from "../../base/command-stack";
 import { GLSP_TYPES } from "../../types";
 import { forEachElement, getIndex, isSelectedBoundsAware } from "../../utils/smodel-util";
 import { isBoundsAwareMoveable } from "../change-bounds/model";
@@ -73,7 +73,7 @@ export class ChangeBoundsTool implements Tool {
     }
 }
 
-class ChangeBoundsListener extends SelectionTracker implements CommandStackObserver {
+class ChangeBoundsListener extends SelectionTracker implements IModelUpdateObserver {
     // members for calculating the correct position change
     private lastDragPosition: Point | undefined = undefined;
     private positionDelta: Point = { x: 0, y: 0 };
