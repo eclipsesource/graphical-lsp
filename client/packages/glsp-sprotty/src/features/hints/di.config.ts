@@ -9,11 +9,14 @@
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
 import { ContainerModule } from "inversify";
+import { TYPES } from "sprotty/lib";
 import { GLSP_TYPES } from "../../types";
-import { DefaultTypeHintsService } from "./element-type-hints-service";
+import { TypeHintsActionIntializer } from "./type-hints-action-initializer";
 
 const modelHintsModule = new ContainerModule(bind => {
-    bind(GLSP_TYPES.TypeHintsService).to(DefaultTypeHintsService).inSingletonScope()
+    bind(TypeHintsActionIntializer).toSelf().inSingletonScope()
+    bind(TYPES.IActionHandlerInitializer).toService(TypeHintsActionIntializer)
+    bind(GLSP_TYPES.IModelUpdateObserver).toService(TypeHintsActionIntializer)
 })
 
 export default modelHintsModule;
