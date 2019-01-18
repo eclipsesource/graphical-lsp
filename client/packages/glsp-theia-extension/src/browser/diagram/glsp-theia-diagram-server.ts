@@ -10,12 +10,10 @@
  ******************************************************************************/
 import { Emitter, Event } from "@theia/core/lib/common";
 import {
-    Action, ActionHandlerRegistry, ActionMessage, ExecuteServerCommandAction, GLSPCommandStack, //
-    GLSP_TYPES, IActionDispatcher, ICommand, ILogger, isSetTypeHintsAction, //
+    Action, ActionHandlerRegistry, ActionMessage, ExecuteServerCommandAction, GLSPCommandStack, IActionDispatcher, ICommand, ILogger, //
     ModelSource, OperationKind, RequestBoundsCommand, RequestOperationsAction, //
     RequestTypeHintsAction, SaveModelAction, SetModelCommand, //
-    SetTypeHintsAction, SModelStorage, SwitchEditModeCommand, SwitchResizeModeCommand, //
-    TypeHintsService, TYPES, UpdateModelCommand, ViewerOptions
+    SetTypeHintsAction, SModelStorage, SwitchEditModeCommand, SwitchResizeModeCommand, TYPES, UpdateModelCommand, ViewerOptions
 } from "glsp-sprotty/lib";
 import { inject, injectable } from "inversify";
 import { TheiaDiagramServer } from "theia-glsp/lib";
@@ -29,8 +27,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         @inject(TYPES.ViewerOptions) viewerOptions: ViewerOptions,
         @inject(TYPES.SModelStorage) storage: SModelStorage,
         @inject(TYPES.ILogger) logger: ILogger,
-        @inject(GLSPCommandStack) protected commandStack: GLSPCommandStack,
-        @inject(GLSP_TYPES.TypeHintsService) protected typeHintsService: TypeHintsService) {
+        @inject(GLSPCommandStack) protected commandStack: GLSPCommandStack) {
         super(actionDispatcher, actionHandlerRegistry, viewerOptions, storage, logger)
     }
 
@@ -72,11 +69,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
 
     handle(action: Action): void | ICommand {
         this.handledActionEventEmitter.fire(action);
-        if (isSetTypeHintsAction(action)) {
-            this.typeHintsService.initialize(action)
-        } else {
-            return super.handle(action)
-        }
+        return super.handle(action)
     }
 
 }

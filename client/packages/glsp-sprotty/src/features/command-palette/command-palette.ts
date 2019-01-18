@@ -12,7 +12,7 @@
 import { AutocompleteResult, AutocompleteSettings } from "autocompleter";
 import { inject, injectable } from "inversify";
 import {
-    Action, ActionHandlerRegistry, CommandExecutionContext, CommandResult, findParentByFeature, IActionDispatcher, //
+    Action, ActionHandlerRegistry, CommandExecutionContext, CommandResult, findParentByFeature, IActionDispatcherProvider, //
     IActionHandler, IActionHandlerInitializer, ICommand, ILogger, isBoundsAware, isSelectable, isViewport, KeyListener, //
     SModelElement, SystemCommand, TYPES, ViewerOptions
 } from "sprotty/lib";
@@ -61,9 +61,6 @@ export class HideCommandPaletteAction implements Action {
 export class LabeledAction {
     constructor(readonly label: string, readonly actions: Action[]) { }
 }
-
-// TODO can be removed after https://github.com/eclipse/sprotty/pull/32 is merged
-export type IActionDispatcherProvider = () => Promise<IActionDispatcher>;
 
 @injectable()
 export class CommandPalette {

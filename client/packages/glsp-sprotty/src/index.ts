@@ -10,12 +10,13 @@
  ******************************************************************************/
 export * from 'sprotty/lib';
 export * from './base/command-stack';
+export * from './base/edit-config/edit-config';
 export * from './features/command-palette/action-provider';
 export * from './features/command-palette/command-palette';
 export * from './features/execute/execute-command';
 export * from './features/execute/model';
 export * from './features/hints/action-definition';
-export * from './features/hints/element-type-hints-service';
+export * from './features/hints/type-hints-action-initializer';
 export * from './features/nameable/model';
 export * from './features/operation/operation-actions';
 export * from './features/operation/set-operations';

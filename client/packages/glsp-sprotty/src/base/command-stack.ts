@@ -8,11 +8,12 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { inject, injectable } from "inversify";
+import { inject, injectable, multiInject, optional } from "inversify";
 import {
     AnimationFrameSyncer, CommandExecutionContext, CommandResult, CommandStack, CommandStackOptions, //
     ICommand, ILogger, IModelFactory, IViewerProvider, SetModelCommand, SModelRoot, TYPES, UpdateModelCommand
 } from "sprotty/lib";
+import { GLSP_TYPES } from "../types";
 import { distinctAdd, remove } from "../utils/array-utils";
 
 export interface IModelUpdateObserver {
@@ -51,7 +52,6 @@ export type IReadonlyModelAccessProvider = () => Promise<IReadonlyModelAccess>;
 @injectable()
 export class GLSPCommandStack extends CommandStack implements IReadonlyModelAccess, IModelUpdateNotifier {
 
-    protected observers: IModelUpdateObserver[] = [];
     private notifyObservers = false;
     public serverSideUpdate: boolean = false;
 
@@ -59,7 +59,8 @@ export class GLSPCommandStack extends CommandStack implements IReadonlyModelAcce
         @inject(TYPES.IViewerProvider) protected viewerProvider: IViewerProvider,
         @inject(TYPES.ILogger) protected logger: ILogger,
         @inject(TYPES.AnimationFrameSyncer) protected syncer: AnimationFrameSyncer,
-        @inject(TYPES.CommandStackOptions) protected options: CommandStackOptions) {
+        @inject(TYPES.CommandStackOptions) protected options: CommandStackOptions,
+        @multiInject(GLSP_TYPES.IModelUpdateObserver) @optional() protected observers: IModelUpdateObserver[] = []) {
         super(modelFactory, viewerProvider, logger, syncer, options);
     }
 
