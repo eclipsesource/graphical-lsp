@@ -8,9 +8,8 @@
  * Contributors:
  *  Martin Fleck - initial API and implementation
  ******************************************************************************/
-import { BoundsAware, Hoverable, hoverFeedbackFeature, isBoundsAware, isSelectable, SChildElement, SModelElement, SParentElement } from "sprotty/lib";
-
-export const resizeFeature = Symbol('resizeFeature');
+import { BoundsAware, Hoverable, hoverFeedbackFeature, isBoundsAware, isSelectable, SChildElement, Selectable, SModelElement, SNode, SParentElement } from "sprotty/lib";
+import { isConfigurableNode, NodeEditConfig } from "../../base/edit-config/edit-config";
 
 export enum ResizeHandleLocation {
     TopLeft = "top-left",
@@ -19,8 +18,8 @@ export enum ResizeHandleLocation {
     BottomRight = "bottom-right"
 }
 
-export function isResizeable(element: SModelElement): element is SParentElement & BoundsAware {
-    return element.hasFeature(resizeFeature) && isBoundsAware(element) && isSelectable(element) && element instanceof SParentElement;
+export function isResizeable(element: SModelElement): element is SNode & SParentElement & BoundsAware & Selectable & NodeEditConfig {
+    return isConfigurableNode(element) && element.resizable && isBoundsAware(element) && isSelectable(element) && element instanceof SParentElement;
 }
 
 export class SResizeHandle extends SChildElement implements Hoverable {
