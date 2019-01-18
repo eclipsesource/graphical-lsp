@@ -10,9 +10,9 @@
  ******************************************************************************/
 
 import {
-    boundsModule, buttonModule, commandPaletteModule, configureModelElement, ConsoleLogger, defaultGLSPModule, defaultModule, DiamondNodeView, ExpandButtonView, //
-    expandModule, exportModule, fadeModule, GLSPGraph, hoverModule, HtmlRoot, HtmlRootView, LogLevel, modelHintsModule, modelSourceModule, //
-    openModule, overrideViewerOptions, PreRenderedElement, PreRenderedView, RectangularNode, RectangularNodeView, resizeCommandModule, saveModule, SButton, //
+    boundsModule, buttonModule, changeBoundsCommandModule, commandPaletteModule, configureModelElement, ConsoleLogger, defaultGLSPModule, defaultModule, DiamondNodeView, //
+    ExpandButtonView, expandModule, exportModule, fadeModule, GLSPGraph, hoverModule, HtmlRoot, HtmlRootView, LogLevel, modelHintsModule, modelSourceModule, //
+    openModule, overrideViewerOptions, PreRenderedElement, PreRenderedView, RectangularNode, RectangularNodeView, saveModule, SButton, //
     SCompartment, SCompartmentView, SEdge, selectModule, SGraphView, SLabel, SLabelView, SResizeHandle, SRoutingHandle, SRoutingHandleView, toolFeedbackModule, //
     toolManagerModule, TYPES, undoRedoModule, viewportModule
 } from "glsp-sprotty/lib";
@@ -54,7 +54,7 @@ export default function createContainer(widgetId: string): Container {
     container.load(defaultModule, selectModule, boundsModule, undoRedoModule, viewportModule,
         hoverModule, fadeModule, exportModule, expandModule, openModule, buttonModule, modelSourceModule,
         workflowDiagramModule, saveModule, executeCommandModule, toolManagerModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule,
-        resizeCommandModule, commandPaletteModule);
+        changeBoundsCommandModule, commandPaletteModule);
 
     overrideViewerOptions(container, {
         needsClientLayout: true,

@@ -8,9 +8,22 @@
  * Contributors:
  *  Martin Fleck - initial API and implementation
  ******************************************************************************/
-import { BoundsAware, Hoverable, hoverFeedbackFeature, isBoundsAware, isMoveable, Locateable, SChildElement, SModelElement } from "sprotty/lib";
-import { ResizeHandleLocation } from "../resize/model";
+import {
+    BoundsAware, Hoverable, hoverFeedbackFeature, isBoundsAware, isMoveable, isSelectable, Locateable, SChildElement, Selectable, SModelElement, //
+    SNode, SParentElement
+} from "sprotty/lib";
+import { isConfigurableNode, NodeEditConfig } from "../../base/edit-config/edit-config";
 
+export enum ResizeHandleLocation {
+    TopLeft = "top-left",
+    TopRight = "top-right",
+    BottomLeft = "bottom-left",
+    BottomRight = "bottom-right"
+}
+
+export function isResizeable(element: SModelElement): element is SNode & SParentElement & BoundsAware & Selectable & NodeEditConfig {
+    return isConfigurableNode(element) && element.resizable && isBoundsAware(element) && isSelectable(element) && element instanceof SParentElement;
+}
 
 export function isBoundsAwareMoveable(element: SModelElement): element is SModelElement & Locateable & BoundsAware {
     return isMoveable(element) && isBoundsAware(element);
