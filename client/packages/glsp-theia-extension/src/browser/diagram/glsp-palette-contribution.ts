@@ -68,25 +68,25 @@ export class GLSPPaletteContribution implements MenuContribution, CommandContrib
 
         commands.registerHandler(PaletteCommands.CREATE_AUTOMATED_TASK.id,
             new DiagramCommandHandler(this.shell, widget =>
-                widget.actionDispatcher.dispatch(new EnableToolsAction([`${NodeCreationTool.ID}.wf-automated-task`]))
+                widget.actionDispatcher.dispatch(new EnableToolsAction([`${NodeCreationTool.ID}.task:automated`]))
             )
         )
 
         commands.registerHandler(PaletteCommands.CREATE_MANUAL_TASK.id,
             new DiagramCommandHandler(this.shell, widget =>
-                widget.actionDispatcher.dispatch(new EnableToolsAction([`${NodeCreationTool.ID}.wf-manual-task`]))
+                widget.actionDispatcher.dispatch(new EnableToolsAction([`${NodeCreationTool.ID}.task:manual`]))
             )
         )
 
         commands.registerHandler(PaletteCommands.CREATE_DECISION_NODE.id,
             new DiagramCommandHandler(this.shell, widget =>
-                widget.actionDispatcher.dispatch(new EnableToolsAction([`${NodeCreationTool.ID}.wf-decision-node`]))
+                widget.actionDispatcher.dispatch(new EnableToolsAction([`${NodeCreationTool.ID}.activityNode:decision`]))
             )
         )
 
         commands.registerHandler(PaletteCommands.CREATE_MERGE_NODE.id,
             new DiagramCommandHandler(this.shell, widget =>
-                widget.actionDispatcher.dispatch(new EnableToolsAction([`${NodeCreationTool.ID}.wf-merge-node`]))
+                widget.actionDispatcher.dispatch(new EnableToolsAction([`${NodeCreationTool.ID}.activityNode:merge`]))
             )
         )
 
@@ -98,13 +98,13 @@ export class GLSPPaletteContribution implements MenuContribution, CommandContrib
 
         commands.registerHandler(PaletteCommands.CREATE_WEIGHTED_EDGE.id,
             new DiagramCommandHandler(this.shell, widget =>
-                widget.actionDispatcher.dispatch(new EnableToolsAction([`${EdgeCreationTool.ID}.wf-weighted-edge`]))
+                widget.actionDispatcher.dispatch(new EnableToolsAction([`${EdgeCreationTool.ID}.edge:weighted`]))
             )
         )
 
         commands.registerHandler(PaletteCommands.CREATE_EDGE.id,
             new DiagramCommandHandler(this.shell, widget =>
-                widget.actionDispatcher.dispatch(new EnableToolsAction([`${EdgeCreationTool.ID}.wf-edge`]))
+                widget.actionDispatcher.dispatch(new EnableToolsAction([`${EdgeCreationTool.ID}.edge`]))
             )
         )
     }

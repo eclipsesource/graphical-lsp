@@ -10,6 +10,8 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.handler;
 
+import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.WEIGHTED_EDGE;
+
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
@@ -17,21 +19,22 @@ import org.eclipse.sprotty.SModelElement;
 import org.eclipse.sprotty.SModelRoot;
 import org.eclipse.sprotty.SNode;
 
-import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
+import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
-import com.eclipsesource.glsp.example.workflow.WorkflowOperationConfiguration;
+import com.eclipsesource.glsp.example.workflow.schema.ModelTypes;
 import com.eclipsesource.glsp.example.workflow.schema.WeightedEdge;
 
 public class CreateWeightedEdgeHandler implements OperationHandler {
-	private static Logger log= Logger.getLogger(CreateWeightedEdgeHandler.class);
+	private static Logger log = Logger.getLogger(CreateWeightedEdgeHandler.class);
+
 	@Override
 	public boolean handles(AbstractOperationAction execAction) {
 		if (execAction instanceof CreateConnectionOperationAction) {
 			CreateConnectionOperationAction action = (CreateConnectionOperationAction) execAction;
-			return WorkflowOperationConfiguration.WEIGHTED_EDGE_ID.equals(action.getElementTypeId());
+			return ModelTypes.WEIGHTED_EDGE.equals(action.getElementTypeId());
 		}
 		return false;
 	}
@@ -71,9 +74,9 @@ public class CreateWeightedEdgeHandler implements OperationHandler {
 		WeightedEdge edge = new WeightedEdge();
 		edge.setSourceId(source.getId());
 		edge.setTargetId(target.getId());
-		edge.setType("edge:weighted");
-		int newID = index.getTypeCount("edge:weighted");
-		edge.setId("edge:weighted" + newID);
+		edge.setType(WEIGHTED_EDGE);
+		int newID = index.getTypeCount(WEIGHTED_EDGE);
+		edge.setId(WEIGHTED_EDGE + newID);
 		edge.setProbability("high");
 
 		currentModel.getChildren().add(edge);

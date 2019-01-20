@@ -13,10 +13,9 @@ package com.eclipsesource.glsp.example.workflow.schema;
 import org.eclipse.sprotty.SEdge;
 
 public class WeightedEdge extends SEdge {
-	public static final String TYPE = "edge:weighted";
 
 	public WeightedEdge() {
-		setType(WeightedEdge.TYPE);
+		setType(ModelTypes.WEIGHTED_EDGE);
 	}
 
 	private String probability;

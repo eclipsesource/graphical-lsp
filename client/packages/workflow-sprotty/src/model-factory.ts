@@ -26,11 +26,11 @@ export class WorkflowModelFactory extends SGraphFactory {
     }
 
     isTaskNodeSchema(schema: SModelElementSchema): schema is TaskNodeSchema {
-        return getBasicType(schema) === 'node' && getSubType(schema) === 'task'
+        return getBasicType(schema) === 'task'
     }
 
     isActivityNodeSchema(schema: SModelElementSchema): schema is ActivityNodeSchema {
-        return getBasicType(schema) === 'node' && getSubType(schema) === 'activity'
+        return getBasicType(schema) === 'activityNode'
     }
     isWeightedEdgeSchema(schema: SModelElementSchema): schema is WeightedEdgeSchema {
         return getBasicType(schema) === 'edge' && getSubType(schema) === 'weighted'
