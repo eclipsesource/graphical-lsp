@@ -13,7 +13,6 @@ package com.eclipsesource.glsp.example.workflow.schema;
 import org.eclipse.sprotty.SNode;
 
 public class TaskNode extends SNode {
-	public static final String TYPE="node:task";
 	private String name;
 	private boolean expanded;
 	private int duration;
@@ -21,7 +20,6 @@ public class TaskNode extends SNode {
 	private String reference;
 
 	public TaskNode() {
-		setType(TaskNode.TYPE);
 	}
 
 	public boolean isExpanded() {
@@ -31,8 +29,6 @@ public class TaskNode extends SNode {
 	public void setExpanded(boolean expanded) {
 		this.expanded = expanded;
 	}
-
-
 
 	public String getName() {
 		return name;

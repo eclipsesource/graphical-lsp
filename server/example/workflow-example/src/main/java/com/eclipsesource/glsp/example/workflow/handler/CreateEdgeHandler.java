@@ -10,6 +10,8 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.handler;
 
+import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.EDGE;
+
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
@@ -18,20 +20,19 @@ import org.eclipse.sprotty.SModelElement;
 import org.eclipse.sprotty.SModelRoot;
 import org.eclipse.sprotty.SNode;
 
-import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
+import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
-import com.eclipsesource.glsp.example.workflow.WorkflowOperationConfiguration;
-
+import com.eclipsesource.glsp.example.workflow.schema.ModelTypes;
 public class CreateEdgeHandler implements OperationHandler {
 	private static Logger log= Logger.getLogger(CreateEdgeHandler.class);
 	@Override
 	public boolean handles(AbstractOperationAction execAction) {
 		if (execAction instanceof CreateConnectionOperationAction) {
 			CreateConnectionOperationAction action = (CreateConnectionOperationAction) execAction;
-			return WorkflowOperationConfiguration.EDGE_ID.equals(action.getElementTypeId());
+			return ModelTypes.EDGE.equals(action.getElementTypeId());
 		}
 		return false;
 	}
@@ -71,13 +72,13 @@ public class CreateEdgeHandler implements OperationHandler {
 		SEdge edge = new SEdge();
 		edge.setSourceId(source.getId());
 		edge.setTargetId(target.getId());
-		String type = "edge";
-		edge.setType(type);
-		int newID = index.getTypeCount(type);
-		while (index.get(type + newID) != null) {
+	
+		edge.setType(EDGE);
+		int newID = index.getTypeCount(EDGE);
+		while (index.get(EDGE + newID) != null) {
 			newID++;
 		}
-		edge.setId(type + newID);
+		edge.setId(EDGE + newID);
 
 		currentModel.getChildren().add(edge);
 		index.addToIndex(edge, currentModel);

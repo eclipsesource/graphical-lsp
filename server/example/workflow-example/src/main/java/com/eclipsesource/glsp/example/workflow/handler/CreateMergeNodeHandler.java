@@ -16,11 +16,11 @@ import java.util.function.Function;
 import org.eclipse.sprotty.Point;
 import org.eclipse.sprotty.SModelElement;
 
-import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
+import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
-import com.eclipsesource.glsp.example.workflow.WorkflowOperationConfiguration;
 import com.eclipsesource.glsp.example.workflow.schema.ActivityNode;
+import com.eclipsesource.glsp.example.workflow.schema.ModelTypes;
 import com.eclipsesource.glsp.server.operationhandler.CreateNodeOperationHandler;
 
 public class CreateMergeNodeHandler extends CreateNodeOperationHandler {
@@ -29,7 +29,7 @@ public class CreateMergeNodeHandler extends CreateNodeOperationHandler {
 	public boolean handles(AbstractOperationAction execAction) {
 		if (execAction instanceof CreateNodeOperationAction) {
 			CreateNodeOperationAction action = (CreateNodeOperationAction) execAction;
-			return WorkflowOperationConfiguration.MERGE_NODE_ID.equals(action.getElementTypeId());
+			return ModelTypes.MERGE_NODE.equals(action.getElementTypeId());
 		}
 		return false;
 	}
@@ -38,6 +38,7 @@ public class CreateMergeNodeHandler extends CreateNodeOperationHandler {
 	protected SModelElement createNode(Optional<Point> point, SModelIndex index) {
 		ActivityNode result = new ActivityNode();
 		result.setNodeType("mergeNode");
+		result.setType(ModelTypes.DECISION_NODE);
 		point.ifPresent(result::setPosition);
 
 		Function<Integer, String> idProvider = i -> "activityNode" + i;

@@ -13,10 +13,10 @@ package com.eclipsesource.glsp.example.workflow.schema;
 import org.eclipse.sprotty.SNode;
 
 public class ActivityNode extends SNode {
-	public static final String TYPE = "node:activity";
-
+	public static final String BASE_TYPE = "activityNode";
+	
 	public ActivityNode() {
-		setType(ActivityNode.TYPE);
+		setType(ActivityNode.BASE_TYPE);
 	}
 
 	private String nodeType;
@@ -27,6 +27,7 @@ public class ActivityNode extends SNode {
 
 	public void setNodeType(String nodeType) {
 		this.nodeType = nodeType;
+		setType(BASE_TYPE+":"+nodeType);
 	}
 
 }
