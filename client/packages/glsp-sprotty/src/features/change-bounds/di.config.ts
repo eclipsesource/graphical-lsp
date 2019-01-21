@@ -12,8 +12,8 @@ import { ContainerModule } from "inversify";
 import { TYPES } from "sprotty/lib";
 import { SwitchResizeModeCommand } from "./resize";
 
-const resizeCommandModule = new ContainerModule(bind => {
+const changeBoundsCommandModule = new ContainerModule(bind => {
     bind(TYPES.ICommand).toConstructor(SwitchResizeModeCommand);
 })
 
-export default resizeCommandModule;
+export default changeBoundsCommandModule;

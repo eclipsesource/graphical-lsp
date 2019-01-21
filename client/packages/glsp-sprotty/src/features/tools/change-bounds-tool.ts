@@ -18,10 +18,9 @@ import {
 import { IModelUpdateNotifier, IModelUpdateObserver } from "../../base/command-stack";
 import { GLSP_TYPES } from "../../types";
 import { forEachElement, getIndex, isSelectedBoundsAware } from "../../utils/smodel-util";
-import { isBoundsAwareMoveable } from "../change-bounds/model";
+import { isBoundsAwareMoveable, isResizeable, ResizeHandleLocation, SResizeHandle } from "../change-bounds/model";
+import { addResizeHandles, SwitchResizeModeAction } from "../change-bounds/resize";
 import { ChangeBoundsOperationAction } from "../operation/operation-actions";
-import { isResizeable, ResizeHandleLocation, SResizeHandle } from "../resize/model";
-import { addResizeHandles, SwitchResizeModeAction } from "../resize/resize";
 import { SelectionTracker } from "../select/selection-tracker";
 import { FeedbackMoveMouseListener } from "../tool-feedback/move-tool-feedback";
 import { Tool } from "../tool-manager/tool";
