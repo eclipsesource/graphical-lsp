@@ -17,6 +17,7 @@ const modelHintsModule = new ContainerModule(bind => {
     bind(TypeHintsActionIntializer).toSelf().inSingletonScope()
     bind(TYPES.IActionHandlerInitializer).toService(TypeHintsActionIntializer)
     bind(GLSP_TYPES.IModelUpdateObserver).toService(TypeHintsActionIntializer)
+    bind(GLSP_TYPES.IEditConfigProvider).toService(TypeHintsActionIntializer)
 })
 
 export default modelHintsModule;

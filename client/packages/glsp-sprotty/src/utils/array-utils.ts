@@ -11,6 +11,7 @@
  ******************************************************************************/
 
 export function contains<T>(array: T[], value: T): boolean {
+    if (value === undefined) return false
     return array.indexOf(value) >= 0
 }
 
