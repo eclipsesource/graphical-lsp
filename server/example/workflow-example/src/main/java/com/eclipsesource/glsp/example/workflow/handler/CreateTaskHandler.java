@@ -28,15 +28,16 @@ import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.eclipsesource.glsp.example.workflow.schema.Icon;
 import com.eclipsesource.glsp.example.workflow.schema.TaskNode;
 import com.eclipsesource.glsp.server.operationhandler.CreateNodeOperationHandler;
+
 public abstract class CreateTaskHandler extends CreateNodeOperationHandler {
 
 	private String taskType;
 	private Function<Integer, String> labelProvider;
 	private String type;
 
-	public CreateTaskHandler(String type,String taskType, Function<Integer, String> labelProvider) {
+	public CreateTaskHandler(String type, String taskType, Function<Integer, String> labelProvider) {
 		this.taskType = taskType;
-		this.type=type;
+		this.type = type;
 		this.labelProvider = labelProvider;
 	}
 
