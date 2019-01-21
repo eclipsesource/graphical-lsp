@@ -10,6 +10,7 @@
  ******************************************************************************/
 export * from 'sprotty/lib';
 export * from './base/command-stack';
+export * from './base/diagram-ui-extension/diagram-ui-extension';
 export * from './base/edit-config/edit-config';
 export * from './features/change-bounds/model';
 export * from './features/change-bounds/resize';
@@ -39,7 +40,6 @@ export * from './utils/smodel-util';
 export * from './utils/viewpoint-util';
 export { saveModule, toolManagerModule, executeModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule, changeBoundsCommandModule, commandPaletteModule };
 
-
 import defaultGLSPModule from './base/di.config';
 import changeBoundsCommandModule from './features/change-bounds/di.config';
 import commandPaletteModule from './features/command-palette/di.config';
@@ -48,5 +48,7 @@ import modelHintsModule from './features/hints/di.config';
 import saveModule from './features/save/di.config';
 import toolFeedbackModule from './features/tool-feedback/di.config';
 import toolManagerModule from './features/tool-manager/di.config';
+
+
 
 

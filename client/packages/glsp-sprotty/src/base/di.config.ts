@@ -12,6 +12,7 @@ import { ContainerModule } from "inversify";
 import { TYPES } from "sprotty/lib";
 import { GLSP_TYPES } from "../types";
 import { GLSPCommandStack, IReadonlyModelAccess } from "./command-stack";
+import { DiagramUIExtensionRegistry } from "./diagram-ui-extension/diagram-ui-extension-registry";
 
 const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     if (isBound(TYPES.ICommandStack)) {
@@ -27,6 +28,9 @@ const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) =>
             });
         };
     });
+
+    bind(DiagramUIExtensionRegistry).toSelf().inSingletonScope();
+    bind(TYPES.IActionHandlerInitializer).toService(DiagramUIExtensionRegistry)
 })
 
 export default defaultGLSPModule;

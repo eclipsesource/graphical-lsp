@@ -13,11 +13,11 @@ import { ContainerModule } from "inversify";
 import { TYPES } from "sprotty/lib";
 import { GLSP_TYPES } from "../../types";
 import { CommandPaletteActionProviderRegistry, ICommandPaletteActionProvider, NavigationCommandPaletteActionProvider } from "./action-provider";
-import { CommandPalette, CommandPaletteActionHandlerInitializer, CommandPaletteKeyListener } from "./command-palette";
+import { CommandPalette, CommandPaletteKeyListener } from "./command-palette";
 
 const commandPaletteModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     bind(CommandPalette).toSelf().inSingletonScope();
-    bind(TYPES.IActionHandlerInitializer).to(CommandPaletteActionHandlerInitializer);
+    bind(GLSP_TYPES.IDiagramUIExtension).toService(CommandPalette)
     bind(TYPES.KeyListener).to(CommandPaletteKeyListener);
     bind(CommandPaletteActionProviderRegistry).toSelf().inSingletonScope();
     bind(GLSP_TYPES.ICommandPaletteActionProviderRegistry).toProvider<ICommandPaletteActionProvider>((context) => {
