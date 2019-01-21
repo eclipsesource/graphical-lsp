@@ -29,7 +29,8 @@ const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind
     rebind(TYPES.IModelFactory).to(WorkflowModelFactory).inSingletonScope()
     const context = { bind, unbind, isBound, rebind };
     configureModelElement(context, 'graph', GLSPGraph, SGraphView);
-    configureModelElement(context, 'node:task', TaskNode, TaskNodeView);
+    configureModelElement(context, 'task:automated', TaskNode, TaskNodeView);
+    configureModelElement(context, 'task:manual', TaskNode, TaskNodeView);
     configureModelElement(context, 'label:heading', SLabel, SLabelView);
     configureModelElement(context, 'label:text', SLabel, SLabelView);
     configureModelElement(context, 'comp:comp', SCompartment, SCompartmentView);
@@ -44,7 +45,8 @@ const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind
     configureModelElement(context, 'edge:weighted', WeightedEdge, WeightedEdgeView)
     configureModelElement(context, 'resize-handle', SResizeHandle, SResizeHandleView);
     configureModelElement(context, 'icon', Icon, IconView);
-    configureModelElement(context, 'node:activity', ActivityNode, DiamondNodeView)
+    configureModelElement(context, 'activityNode:merge', ActivityNode, DiamondNodeView)
+    configureModelElement(context, 'activityNode:decision', ActivityNode, DiamondNodeView)
     configureModelElement(context, 'node', RectangularNode, RectangularNodeView)
 });
 

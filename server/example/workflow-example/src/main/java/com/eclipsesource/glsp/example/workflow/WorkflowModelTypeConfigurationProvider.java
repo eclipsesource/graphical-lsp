@@ -10,6 +10,22 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow;
 
+import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.AUTOMATED_TASK;
+import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.COMP_COMP;
+import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.COMP_HEADER;
+import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.DECISION_NODE;
+import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.EDGE;
+import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.GRAPH;
+import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.HTML;
+import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.ICON;
+import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.LABEL_HEADING;
+import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.LABEL_ICON;
+import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.LABEL_TEXT;
+import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.MANUAL_TASK;
+import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.MERGE_NODE;
+import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.PRE_RENDERED;
+import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.WEIGHTED_EDGE;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -36,37 +52,40 @@ public class WorkflowModelTypeConfigurationProvider implements ModelTypeConfigur
 	@Override
 	public Map<String, Class<? extends SModelElement>> getTypeToClassMappings() {
 		Map<String, Class<? extends SModelElement>> mapping = new HashMap<>();
-		mapping.put("graph", SGraph.class);
-		mapping.put("label:heading", SLabel.class);
-		mapping.put("label:text", SLabel.class);
-		mapping.put("comp:comp", SCompartment.class);
-		mapping.put("comp:header", SCompartment.class);
-		mapping.put("label:icon", SLabel.class);
-		mapping.put("edge", SEdge.class);
-		mapping.put("html", HtmlRoot.class);
-		mapping.put("pre-rendered", PreRenderedElement.class);
-		mapping.put(WeightedEdge.TYPE, WeightedEdge.class);
-		mapping.put(Icon.TYPE, Icon.class);
-		mapping.put(ActivityNode.TYPE, ActivityNode.class);
-		mapping.put(TaskNode.TYPE, TaskNode.class);
+		mapping.put(GRAPH, SGraph.class);
+		mapping.put(LABEL_HEADING, SLabel.class);
+		mapping.put(LABEL_TEXT, SLabel.class);
+		mapping.put(COMP_COMP, SCompartment.class);
+		mapping.put(COMP_HEADER, SCompartment.class);
+		mapping.put(LABEL_ICON, SLabel.class);
+		mapping.put(EDGE, SEdge.class);
+		mapping.put(HTML, HtmlRoot.class);
+		mapping.put(PRE_RENDERED, PreRenderedElement.class);
+		mapping.put(WEIGHTED_EDGE, WeightedEdge.class);
+		mapping.put(ICON, Icon.class);
+		mapping.put(MERGE_NODE, ActivityNode.class);
+		mapping.put(DECISION_NODE, ActivityNode.class);
+		mapping.put(MANUAL_TASK, TaskNode.class);
+		mapping.put(AUTOMATED_TASK, TaskNode.class);
 		return mapping;
 	}
 
 	@Override
 	public List<NodeTypeHint> getNodeTypeHints() {
-		return Arrays.asList(createDefaultNodeTypeHint(ActivityNode.TYPE), createDefaultNodeTypeHint(TaskNode.TYPE));
+		return Arrays.asList(createDefaultNodeTypeHint(DECISION_NODE), createDefaultNodeTypeHint(MERGE_NODE),
+				createDefaultNodeTypeHint(MANUAL_TASK), createDefaultNodeTypeHint(AUTOMATED_TASK));
 	}
 
 	@Override
 	public EdgeTypeHint createDefaultEdgeTypeHint(String elementId) {
 		EdgeTypeHint hint = ModelTypeConfigurationProvider.super.createDefaultEdgeTypeHint(elementId);
-		hint.setSourceElementTypeIds(Arrays.asList(TaskNode.TYPE, ActivityNode.TYPE));
-		hint.setTargetElementTypeIds(Arrays.asList(TaskNode.TYPE, ActivityNode.TYPE));
+		hint.setSourceElementTypeIds(Arrays.asList(MANUAL_TASK, AUTOMATED_TASK, DECISION_NODE, MERGE_NODE));
+		hint.setTargetElementTypeIds(Arrays.asList(MANUAL_TASK, AUTOMATED_TASK, DECISION_NODE, MERGE_NODE));
 		return hint;
 	}
 
 	@Override
 	public List<EdgeTypeHint> getEdgeTypeHints() {
-		return Arrays.asList(createDefaultEdgeTypeHint(WeightedEdge.TYPE), createDefaultEdgeTypeHint("edge"));
+		return Arrays.asList(createDefaultEdgeTypeHint(WEIGHTED_EDGE), createDefaultEdgeTypeHint(EDGE));
 	}
 }

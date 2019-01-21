@@ -10,6 +10,10 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.handler;
 
+import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.COMP_HEADER;
+import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.LABEL_HEADING;
+import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.LABEL_ICON;
+
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.function.Function;
@@ -29,16 +33,18 @@ public abstract class CreateTaskHandler extends CreateNodeOperationHandler {
 
 	private String taskType;
 	private Function<Integer, String> labelProvider;
+	private String type;
 
-	public CreateTaskHandler(String taskType, Function<Integer, String> labelProvider) {
+	public CreateTaskHandler(String type, String taskType, Function<Integer, String> labelProvider) {
 		this.taskType = taskType;
+		this.type = type;
 		this.labelProvider = labelProvider;
 	}
 
 	@Override
 	protected SModelElement createNode(Optional<Point> point, SModelIndex index) {
 		TaskNode taskNode = new TaskNode();
-		String type = taskNode.getType();
+		taskNode.setType(type);
 		Function<Integer, String> idProvider = i -> "task" + i;
 		int nodeCounter = getCounter(index, type, idProvider);
 		taskNode.setId(idProvider.apply(nodeCounter));
@@ -55,7 +61,7 @@ public abstract class CreateTaskHandler extends CreateNodeOperationHandler {
 
 		SCompartment compHeader = new SCompartment();
 		compHeader.setId("task" + nodeCounter + "_header");
-		compHeader.setType("comp:header");
+		compHeader.setType(COMP_HEADER);
 		compHeader.setLayout("hbox");
 		compHeader.setChildren(new ArrayList<SModelElement>());
 		Icon icon = new Icon();
@@ -68,14 +74,14 @@ public abstract class CreateTaskHandler extends CreateNodeOperationHandler {
 		icon.setLayoutOptions(layoutOptions);
 		icon.setChildren(new ArrayList<SModelElement>());
 		SLabel iconLabel = new SLabel();
-		iconLabel.setType("label:icon");
+		iconLabel.setType(LABEL_ICON);
 		iconLabel.setId("task" + nodeCounter + "_ticon");
 		iconLabel.setText("" + taskNode.getTaskType().toUpperCase().charAt(0));
 		icon.getChildren().add(iconLabel);
 
 		SLabel heading = new SLabel();
 		heading.setId("task" + nodeCounter + "_classname");
-		heading.setType("label:heading");
+		heading.setType(LABEL_HEADING);
 		heading.setText(labelProvider.apply(nodeCounter));
 		compHeader.getChildren().add(icon);
 		compHeader.getChildren().add(heading);

@@ -13,7 +13,7 @@
         "x": 10.0,
         "y": 200.0
       },
-      "type": "node:task",
+      "type": "task:manual",
       "id": "task1",
       "children": [
         {
@@ -62,7 +62,7 @@
         "x": 200.0,
         "y": 200.0
       },
-      "type": "node:task",
+      "type": "task:automated",
       "id": "task2",
       "children": [
         {
@@ -110,7 +110,7 @@
         "x": 400.0,
         "y": 150.0
       },
-      "type": "node:task",
+      "type": "task:manual",
       "id": "task3",
       "children": [
         {
@@ -159,7 +159,7 @@
         "x": 400.0,
         "y": 250.0
       },
-      "type": "node:task",
+      "type": "task:manual",
       "id": "task4",
       "children": [
         {
@@ -208,7 +208,7 @@
         "x": 600.0,
         "y": 200.0
       },
-      "type": "node:task",
+      "type": "task:manual",
       "id": "task5",
       "children": [
         {
@@ -257,7 +257,7 @@
         "x": 493.0,
         "y": 349.0
       },
-      "type": "node:task",
+      "type": "task:manual",
       "id": "task6",
       "children": [
         {
@@ -306,7 +306,7 @@
         "x": 600.0,
         "y": 500.0
       },
-      "type": "node:task",
+      "type": "task:manual",
       "id": "task7",
       "children": [
         {
@@ -355,7 +355,7 @@
         "x": 400.0,
         "y": 450.0
       },
-      "type": "node:task",
+      "type": "task:manual",
       "id": "task8",
       "children": [
         {
@@ -399,7 +399,7 @@
         "x": 350.0,
         "y": 216.0
       },
-      "type": "node:activity",
+      "type": "activityNode:decision",
       "id": "activityNode9"
     },
     {
@@ -408,7 +408,7 @@
         "x": 650.0,
         "y": 316.0
       },
-      "type": "node:activity",
+      "type": "activityNode:decision",
       "id": "activityNode11"
     },
     {
@@ -417,7 +417,7 @@
         "x": 550.0,
         "y": 216.0
       },
-      "type": "node:activity",
+      "type": "activityNode:merge",
       "id": "activityNode10"
     },
     {
@@ -426,7 +426,7 @@
         "x": 550.0,
         "y": 466.0
       },
-      "type": "node:activity",
+      "type": "activityNode:merge",
       "id": "activityNode12"
     },
     {
