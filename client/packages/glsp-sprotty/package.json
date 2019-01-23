@@ -3,7 +3,8 @@
   "version": "0.4.4",
   "files": [
     "lib",
-    "src"
+    "src",
+    "css"
   ],
   "dependencies": {
     "autocompleter": "^4.0.2",
