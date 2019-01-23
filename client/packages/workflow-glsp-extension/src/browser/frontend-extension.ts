@@ -15,7 +15,6 @@ import { ContainerModule, interfaces } from "inversify";
 import { DiagramConfiguration, DiagramManager, DiagramManagerProvider } from "theia-glsp/lib";
 import { WorkflowLanguage } from "../common/workflow-language";
 import { WorkflowDiagramConfiguration } from "./diagram/di.config";
-import { ThemeManager } from "./diagram/thememanager";
 import { WorkflowDiagramManager } from "./diagram/workflow-diagram-manager.";
 import { WorkflowGLSPClientContribution } from "./language/workflow-glsp-client-contribution";
 
@@ -36,7 +35,6 @@ export default new ContainerModule((bind: interfaces.Bind, unbind: interfaces.Un
     bind(WorkflowDiagramManager).toSelf().inSingletonScope()
     bind(FrontendApplicationContribution).toService(WorkflowDiagramManager)
     bind(OpenHandler).toService(WorkflowDiagramManager)
-    bind(ThemeManager).toSelf().inSingletonScope()
     bind(GLSPPaletteContribution).toSelf().inSingletonScope()
     bind(MenuContribution).toService(GLSPPaletteContribution)
     bind(CommandContribution).toService(GLSPPaletteContribution)
