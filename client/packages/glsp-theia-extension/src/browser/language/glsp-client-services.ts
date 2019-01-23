@@ -8,7 +8,7 @@
  * Contributors:
  * 	Tobias Ortmayr - initial API and implementation
  ******************************************************************************/
-import { Commands, ConnectionCloseHandler, ConnectionErrorHandler, ErrorHandler, OutputChannel, InitializationFailedHandler } from "@theia/languages/lib/browser";
+import { Commands, ConnectionCloseHandler, ConnectionErrorHandler, ErrorHandler, InitializationFailedHandler, OutputChannel } from "@theia/languages/lib/browser";
 import { Disposable, Message, MessageConnection, NotificationHandler, NotificationType } from "vscode-jsonrpc";
 import { ExitNotification, ShutdownRequest } from "../../common";
 

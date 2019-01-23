@@ -28,7 +28,7 @@ export function isConfigurableNode(element: SModelElement): element is SNode & N
 export interface EditConfig {
     deletable: boolean
     repositionable: boolean
-    configType?:symbol
+    configType?: symbol
 }
 
 export interface NodeEditConfig extends EditConfig {

@@ -27,7 +27,7 @@ export function isSetTypeHintsAction(action: Action): action is SetTypeHintsActi
 }
 
 export interface TypeHint {
-    /** 
+    /**
     The id of the element.
     */
     readonly elementTypeId: string;

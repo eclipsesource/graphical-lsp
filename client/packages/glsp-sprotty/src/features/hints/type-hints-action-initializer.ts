@@ -51,8 +51,8 @@ export function createNodeEditConfig(hint: NodeTypeHint): NodeEditConfig {
         repositionable: hint.repositionable,
         resizable: hint.resizable,
         configType: nodeEditConfig,
-        isContainableElement: (element) => { return hint.containableElementTypeIds?  contains(hint.containableElementTypeIds, element.type):false},
-        isContainer: () => { return hint.containableElementTypeIds? hint.containableElementTypeIds.length > 0 :false}
+        isContainableElement: (element) => { return hint.containableElementTypeIds ? contains(hint.containableElementTypeIds, element.type) : false },
+        isContainer: () => { return hint.containableElementTypeIds ? hint.containableElementTypeIds.length > 0 : false }
     }
 }
 
