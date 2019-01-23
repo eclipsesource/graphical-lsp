@@ -18,10 +18,11 @@ import {
 } from "glsp-sprotty/lib";
 import executeCommandModule from "glsp-sprotty/lib/features/execute/di.config";
 import { Container, ContainerModule } from "inversify";
+import "theia-glsp/css/theia-sprotty.css";
+import "../css/diagram.css";
 import { ActivityNode, Icon, TaskNode, WeightedEdge } from "./model";
 import { WorkflowModelFactory } from "./model-factory";
 import { IconView, SResizeHandleView, TaskNodeView, WeightedEdgeView, WorkflowEdgeView } from "./workflow-views";
-
 
 const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope()
