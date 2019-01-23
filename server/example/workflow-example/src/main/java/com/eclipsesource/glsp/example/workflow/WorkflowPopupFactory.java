@@ -25,30 +25,30 @@ import com.eclipsesource.glsp.example.workflow.schema.TaskNode;
 public class WorkflowPopupFactory implements PopupModelFactory {
 
 	private String generateTitle(TaskNode task) {
-		return String.format("Task %s", task.getName());
+		return  task.getName();
 	}
 
 	private String generateBody(TaskNode task) {
-		return String.format( NL + "Type: %s" + NL + "Duration: %s" + NL + " Reference: %s" + NL,
-				task.getTaskType(), task.getDuration(), task.getReference());
+		return String.format(NL + "Type: %s" + NL + "Duration: %s" + NL + " Reference: %s" + NL, task.getTaskType(),
+				task.getDuration(), task.getReference());
 	}
 
 	private static final String NL = "<br>";
 
 	@Override
 	public SModelRoot createPopuModel(SModelElement element, RequestPopupModelAction action) {
-		if (element != null && element.getType().equals("node:task")) {
+		if (element != null && element.getType().startsWith("task:")) {
 			TaskNode task = (TaskNode) element;
 			HtmlRoot root = new HtmlRoot();
 			root.setCanvasBounds(action.getBounds());
 			root.setType("html");
-			root.setId("popup");
+			root.setId("sprotty-popup");
 			root.setChildren(new ArrayList<SModelElement>());
 			PreRenderedElement p1 = new PreRenderedElement();
 			p1.setType("pre-rendered");
 			p1.setId("popup-title");
 			p1.setCode("<div class=\"sprotty-popup-title\">" + generateTitle(task) + "</div>");
-			
+
 			PreRenderedElement p2 = new PreRenderedElement();
 			p2.setType("pre-rendered");
 			p2.setId("popup-body");
