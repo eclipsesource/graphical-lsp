@@ -61,7 +61,7 @@ export class MouseDeleteTool implements Tool {
     static ID = "glsp.delete-mouse";
     readonly id = MouseDeleteTool.ID;
 
-    protected deleteToolMouseListener: DeleteToolMouseListener = new DeleteToolMouseListener();;
+    protected deleteToolMouseListener: DeleteToolMouseListener = new DeleteToolMouseListener();
 
     constructor(@inject(MouseTool) protected readonly mouseTool: MouseTool) { }
 
