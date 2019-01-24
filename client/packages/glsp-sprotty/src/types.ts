@@ -21,5 +21,6 @@ export const GLSP_TYPES = {
     IToolFactory: Symbol.for("Factory<Tool>"),
     IModelUpdateNotifier: Symbol.for("IModelUpdateNotifier"),
     IModelUpdateObserver: Symbol.for("IModelUpdateObserver"),
-    IReadonlyModelAccessProvider: Symbol.for("IReadonlyModelAccessProvider")
+    IReadonlyModelAccessProvider: Symbol.for("IReadonlyModelAccessProvider"),
+    IDiagramUIExtension: Symbol.for("DiagramUIExtension")
 }

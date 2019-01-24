@@ -18,6 +18,7 @@ import { TYPES } from "sprotty/lib";
 import "../../css/glsp-sprotty.css";
 import { GLSP_TYPES } from "../types";
 import { GLSPCommandStack, IReadonlyModelAccess } from "./command-stack";
+import { DiagramUIExtensionActionHandlerInitializer, DiagramUIExtensionRegistry } from "./diagram-ui-extension/diagram-ui-extension-registry";
 import { Tool } from "./tool-manager/tool";
 import { createToolFactory, DefaultToolsEnablingKeyListener, GLSPToolManagerActionHandlerInitializer, ToolManager } from "./tool-manager/tool-manager";
 
@@ -35,6 +36,9 @@ const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) =>
             });
         };
     });
+
+    bind(DiagramUIExtensionRegistry).toSelf().inSingletonScope();
+    bind(TYPES.IActionHandlerInitializer).to(DiagramUIExtensionActionHandlerInitializer)
 
 
     // Tool manager initialization ------------------------------------

@@ -18,9 +18,9 @@ import { inject, injectable, multiInject, optional } from "inversify";
 import { CenterAction, ILogger, SelectAction, SModelElement, SModelRoot, TYPES } from "sprotty/lib";
 import { toArray } from "sprotty/lib/utils/iterable";
 import { IReadonlyModelAccessProvider } from "../../base/command-stack";
+import { LabeledAction } from "../../base/diagram-ui-extension/diagram-ui-extension";
 import { GLSP_TYPES } from "../../types";
 import { isNameable, name } from "../nameable/model";
-import { LabeledAction } from "./command-palette";
 
 export interface ICommandPaletteActionProvider {
     getActions(selectedElements: SModelElement[]): Promise<LabeledAction[]>;
