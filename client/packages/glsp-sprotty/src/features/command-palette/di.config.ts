@@ -16,6 +16,7 @@
 
 import { ContainerModule } from "inversify";
 import { TYPES } from "sprotty/lib";
+import "../../../css/command-palette.css";
 import { GLSP_TYPES } from "../../types";
 import { CommandPaletteActionProviderRegistry, ICommandPaletteActionProvider, NavigationCommandPaletteActionProvider } from "./action-provider";
 import { CommandPalette, CommandPaletteActionHandlerInitializer, CommandPaletteKeyListener } from "./command-palette";

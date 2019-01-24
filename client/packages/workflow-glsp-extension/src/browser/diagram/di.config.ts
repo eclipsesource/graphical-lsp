@@ -17,10 +17,10 @@ import { SelectionService } from "@theia/core";
 import { registerDefaultTools, TYPES } from "glsp-sprotty/lib";
 import { GLSPTheiaDiagramServer } from 'glsp-theia-extension/lib/browser';
 import { Container, inject, injectable } from "inversify";
+import "theia-glsp/css/theia-sprotty.css";
 import { DiagramConfiguration, SprottySelectionForwardingInitializer } from "theia-glsp/lib";
 import { createWorkflowDiagramContainer } from "workflow-sprotty/lib";
 import { WorkflowLanguage } from "../../common/workflow-language";
-
 @injectable()
 export class WorkflowDiagramConfiguration implements DiagramConfiguration {
     @inject(SelectionService) protected selectionService: SelectionService

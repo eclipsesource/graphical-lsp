@@ -15,6 +15,7 @@
  ********************************************************************************/
 import { ContainerModule } from "inversify";
 import { TYPES } from "sprotty/lib";
+import "../../css/glsp-sprotty.css";
 import { GLSP_TYPES } from "../types";
 import { GLSPCommandStack, IReadonlyModelAccess } from "./command-stack";
 import { Tool } from "./tool-manager/tool";
