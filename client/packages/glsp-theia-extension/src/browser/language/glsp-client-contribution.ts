@@ -1,18 +1,23 @@
-/*******************************************************************************
- * Copyright (c) 2018 EclipseSource Services GmbH.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v20.html
+/********************************************************************************
+ * Copyright (c) 2019 EclipseSource and others.
  *
- * Contributors:
- * 	Tobias Ortmayr - initial API and implementation
- ******************************************************************************/
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
 import { CommandRegistry, DisposableCollection, MaybePromise, MessageService } from "@theia/core";
 import { FrontendApplication, WebSocketConnectionProvider, WebSocketOptions } from "@theia/core/lib/browser";
 import { Deferred } from "@theia/core/lib/common/promise-util";
 import { EditorManager } from "@theia/editor/lib/browser";
-import { Commands, Disposable, State, InitializeParams } from '@theia/languages/lib/browser';
+import { Commands, Disposable, InitializeParams, State } from '@theia/languages/lib/browser';
 import { LanguageContribution } from "@theia/languages/lib/common";
 import { WorkspaceService } from "@theia/workspace/lib/browser";
 import { inject, injectable } from "inversify";
@@ -35,7 +40,7 @@ export interface GLSPClientContribution extends LanguageContribution {
 export abstract class BaseGLSPClientContribution implements GLSPClientContribution, Commands {
     abstract readonly id: string
     abstract readonly name: string
-    abstract readonly fileExtensions:string[]
+    abstract readonly fileExtensions: string[]
 
     protected _glspClient: GLSPClient | undefined
 
@@ -126,7 +131,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         this.deactivate();
         this.activate();
     }
-    
+
     protected onWillStart(languageClient: GLSPClient): void {
         languageClient.onReady().then(() => this.onReady(languageClient));
     }
@@ -154,7 +159,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         const { id } = this;
         return {
             initializationFailedHandler: err => this.handleInitializationFailed(err),
-    
+
         };
     }
 
@@ -197,7 +202,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
 
 
     protected stop = Promise.resolve();
- 
+
 
     registerCommand(id: string, callback: (...args: any[]) => any, thisArg?: any): Disposable {
         const execute = callback.bind(thisArg);
