@@ -14,18 +14,31 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
-/** @jsx svg */
-import { svg } from 'snabbdom-jsx'; 
-import { VNode } from "snabbdom/vnode";
-import { IView, ORIGIN_POINT, Point, RenderingContext, SModelElement } from "sprotty/lib";
+import { Action } from "sprotty/lib";
 
 /**
-* This view is used for the invisible end of the feedback edge.
-* A feedback edge is shown as a visual feedback when creating edges.
-*/
-export class FeedbackEdgeEndView implements IView {
-    render(model: Readonly<SModelElement>, context: RenderingContext): VNode {
-        const position: Point = (model as any).position || ORIGIN_POINT;
-        return <g x={position.x} y={position.y} />;
-    }
+ * Action to enable the tools of the specified `toolIds`.
+ */
+export class EnableToolsAction implements Action {
+    static KIND = "enable-tools";
+    readonly kind = EnableToolsAction.KIND;
+    constructor(public readonly toolIds: string[]) { }
 }
+
+/**
+ * Action to disable the currently active tools and enable the default tools instead.
+ */
+export class EnableDefaultToolsAction implements Action {
+    static KIND = "enable-default-tools";
+    readonly kind = EnableDefaultToolsAction.KIND;
+}
+
+/** A tool that can be managed by a `ToolManager`. */
+export interface Tool {
+    readonly id: string;
+    /* Notifies the tool to become active. */
+    enable(): void;
+    /* Notifies the tool to become inactive. */
+    disable(): void;
+}
+

@@ -1,20 +1,26 @@
-/*******************************************************************************
- * Copyright (c) 2018 EclipseSource Services GmbH and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v20.html
+/********************************************************************************
+ * Copyright (c) 2019 EclipseSource and others.
  *
- * Contributors:
- *  Camille Letavernier - initial API and implementation
- *  Philip Langer - migration to tool manager API
- ******************************************************************************/
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
 
 import { inject, injectable } from "inversify";
 import {
     Action, isCtrlOrCmd, MouseListener, //
     MouseTool, SModelElement, SModelRoot
 } from "sprotty/lib";
+import { TypeAware } from "src/base/tool-manager/tool-manager";
+import { EnableDefaultToolsAction, Tool } from "../../base/tool-manager/tool";
 import { GLSP_TYPES } from "../../types";
 import { getAbsolutePosition } from "../../utils/viewpoint-util";
 import { CreateConnectionOperationAction, CreateNodeOperationAction } from "../operation/operation-actions";
@@ -23,11 +29,10 @@ import {
     ShowEdgeCreationSelectTargetFeedbackAction, ShowNodeCreationToolFeedbackAction
 } from "../tool-feedback/creation-tool-feedback";
 import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
-import { EnableStandardToolsAction, Tool } from "../tool-manager/tool";
 
 
 @injectable()
-export class NodeCreationTool implements Tool {
+export class NodeCreationTool implements Tool, TypeAware {
     static ID = "glsp.nodecreationtool";
     public elementTypeId: string = "unknown";
     protected creationToolMouseListener: NodeCreationToolMouseListener;
@@ -63,7 +68,7 @@ export class NodeCreationToolMouseListener extends MouseListener {
         const result: Action[] = [];
         result.push(new CreateNodeOperationAction(this.elementTypeId, location, containerId));
         if (!isCtrlOrCmd(event)) {
-            result.push(new EnableStandardToolsAction());
+            result.push(new EnableDefaultToolsAction());
         }
         return result;
     }
@@ -74,7 +79,7 @@ export class NodeCreationToolMouseListener extends MouseListener {
  * Tool to create connections in a Diagram, by selecting a source and target node.
  */
 @injectable()
-export class EdgeCreationTool implements Tool {
+export class EdgeCreationTool implements Tool, TypeAware {
     static ID = "glsp.edgecreationtool";
     public elementTypeId: string = "unknown";
     protected creationToolMouseListener: EdgeCreationToolMouseListener;
@@ -161,7 +166,7 @@ export class EdgeCreationToolMouseListener extends MouseListener {
                 this.target = undefined;
 
                 if (!isCtrlOrCmd(event)) {
-                    result.push(new EnableStandardToolsAction());
+                    result.push(new EnableDefaultToolsAction());
                 } else {
                     this.reinitialize();
                 }
