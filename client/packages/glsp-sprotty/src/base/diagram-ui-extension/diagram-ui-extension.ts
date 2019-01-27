@@ -31,9 +31,8 @@ export interface IDiagramUIExtension {
 @injectable()
 export abstract class BaseDiagramUIExtension implements IDiagramUIExtension {
     abstract readonly id: string;
-    abstract readonly containerDivId: string
-    abstract readonly containerDivClass: string
-    protected containerElement: HTMLDivElement;
+    abstract readonly containerClass: string
+    protected containerElement: HTMLElement;
 
     constructor(
         @inject(TYPES.ViewerOptions) protected options: ViewerOptions,
@@ -46,13 +45,16 @@ export abstract class BaseDiagramUIExtension implements IDiagramUIExtension {
             const initializeSuccessful = this.initialize();
             if (!initializeSuccessful) return;
         }
-
         this.updatePosition(selectedElements);
         this.setContainerVisible(true)
     }
 
     hide(): void {
         this.setContainerVisible(false)
+        this.restoreFocus()
+    }
+
+    protected restoreFocus() {
         // restore focus of sprotty's svg element
         // _sprotty: svg container id as specified in DiagramManagerImpl
         const sprottyDiv = document.getElementById(this.options.baseDiv + "_sprotty");
@@ -67,15 +69,22 @@ export abstract class BaseDiagramUIExtension implements IDiagramUIExtension {
             this.logger.warn(this, 'Could not obtain sprotty base container for showing command palette');
             return false;
         }
-        this.containerElement = document.createElement('div');
-        this.containerElement.id = `${this.options.baseDiv}_${this.containerDivId}`;
-        this.containerElement.classList.add(this.containerDivClass);
-        this.containerElement.style.position = 'absolute';
+        this.containerElement = this.getOrCreateContainer()
         this.createUIElements()
         if (baseDiv) {
             baseDiv.insertBefore(this.containerElement, baseDiv.firstChild);
         }
         return true
+    }
+
+    protected getOrCreateContainer(): HTMLElement {
+        let container = document.getElementById(this.id)
+        if (container === null) {
+            container = document.createElement('div');
+            container.id = this.id
+            container.classList.add(this.containerClass)
+        }
+        return container
     }
 
     /**

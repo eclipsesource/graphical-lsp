@@ -48,3 +48,8 @@ export function isSetOperationsAction(action: Action): action is SetOperationsAc
     return action !== undefined && (action.kind === SetOperationsAction.KIND)
         && (<SetOperationsAction>action).operations !== undefined
 }
+
+export function deriveOperationId(operationKind: string, elementTypeId?: string) {
+    const elementTypeSuffix = elementTypeId ? '_' + elementTypeId : "";
+    return `${operationKind}${elementTypeSuffix}`
+}

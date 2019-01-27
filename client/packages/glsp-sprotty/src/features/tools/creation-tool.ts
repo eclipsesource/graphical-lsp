@@ -24,16 +24,21 @@ import { EnableDefaultToolsAction, Tool } from "../../base/tool-manager/tool";
 import { GLSP_TYPES } from "../../types";
 import { getAbsolutePosition } from "../../utils/viewpoint-util";
 import { CreateConnectionOperationAction, CreateNodeOperationAction } from "../operation/operation-actions";
+import { deriveOperationId, OperationKind } from "../operation/set-operations";
 import {
     FeedbackEdgeEndMovingMouseListener, HideEdgeCreationToolFeedbackAction, HideNodeCreationToolFeedbackAction, ShowEdgeCreationSelectSourceFeedbackAction, //
     ShowEdgeCreationSelectTargetFeedbackAction, ShowNodeCreationToolFeedbackAction
 } from "../tool-feedback/creation-tool-feedback";
 import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
 
+export const TOOL_ID_PREFIX = "tool"
+
+export function deriveToolId(operationKind: string, elementTypeId?: string) {
+    return `${TOOL_ID_PREFIX}_${deriveOperationId(operationKind, elementTypeId)}`
+}
 
 @injectable()
 export class NodeCreationTool implements Tool, TypeAware {
-    static ID = "glsp.nodecreationtool";
     public elementTypeId: string = "unknown";
     protected creationToolMouseListener: NodeCreationToolMouseListener;
 
@@ -41,7 +46,7 @@ export class NodeCreationTool implements Tool, TypeAware {
         @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher) { }
 
     get id() {
-        return `${NodeCreationTool.ID}.${this.elementTypeId}`;
+        return deriveToolId(OperationKind.CREATE_NODE, this.elementTypeId)
     };
 
     enable() {
@@ -80,7 +85,6 @@ export class NodeCreationToolMouseListener extends MouseListener {
  */
 @injectable()
 export class EdgeCreationTool implements Tool, TypeAware {
-    static ID = "glsp.edgecreationtool";
     public elementTypeId: string = "unknown";
     protected creationToolMouseListener: EdgeCreationToolMouseListener;
     protected feedbackEndMovingMouseListener: FeedbackEdgeEndMovingMouseListener;
@@ -89,7 +93,7 @@ export class EdgeCreationTool implements Tool, TypeAware {
         @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher) { }
 
     get id() {
-        return `${EdgeCreationTool.ID}.${this.elementTypeId}`;
+        return deriveToolId(OperationKind.CREATE_CONNECTION, this.elementTypeId)
     };
 
     enable() {

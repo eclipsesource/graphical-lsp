@@ -30,7 +30,6 @@ export type ICommandPaletteActionProviderRegistry = () => Promise<ICommandPalett
 
 @injectable()
 export class CommandPaletteActionProviderRegistry implements ICommandPaletteActionProvider {
-
     public actionProvider: ICommandPaletteActionProvider[] = [];
 
     constructor(@multiInject(GLSP_TYPES.ICommandPaletteActionProvider) @optional() protected registeredActionProviders: ICommandPaletteActionProvider[] = []) {

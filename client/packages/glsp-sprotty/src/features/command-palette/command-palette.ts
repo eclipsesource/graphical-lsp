@@ -46,10 +46,10 @@ export class CommandPaletteKeyListener extends KeyListener {
 
 @injectable()
 export class CommandPalette extends BaseDiagramUIExtension {
-    static readonly ID = "glsp-command-palette"
+    static readonly ID = "glsp_command_palette"
     readonly id = CommandPalette.ID
-    readonly containerDivId = "command_palette"
-    readonly containerDivClass = "command-palette"
+
+    readonly containerClass = "command-palette"
     readonly xOffset = 20;
     readonly yOffset = 30;
     readonly defaultWidth = 400;
@@ -75,6 +75,7 @@ export class CommandPalette extends BaseDiagramUIExtension {
     }
 
     protected createUIElements() {
+        this.containerElement.style.position = "absolute"
         this.inputElement = document.createElement('input');
         this.inputElement.style.width = '100%';
         this.containerElement.appendChild(this.inputElement);

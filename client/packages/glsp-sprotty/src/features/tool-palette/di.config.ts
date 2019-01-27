@@ -13,16 +13,15 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import { ContainerModule } from "inversify";
+import { TYPES } from "sprotty/lib";
+import { GLSP_TYPES } from "../../types";
+import { ToolPalette, ToolPaletteActionInitializer } from "./tool-palette";
 
-//diagram export
-export * from './diagram/glsp-diagram-manager';
-export * from './diagram/glsp-diagram-widget';
-export * from './diagram/glsp-theia-diagram-server';
-export * from "./diagram/glsp-theia-sprotty-connector";
-export * from './language/glsp-client';
-// language export
-export * from './language/glsp-client-contribution';
-export * from './language/glsp-client-provider';
-export * from './language/glsp-client-services';
-export * from './language/glsp-frontend-contribution';
+const toolPaletteModule = new ContainerModule((bind) => {
+    bind(ToolPalette).toSelf().inSingletonScope();
+    bind(GLSP_TYPES.IDiagramUIExtension).toService(ToolPalette)
+    bind(TYPES.IActionHandlerInitializer).to(ToolPaletteActionInitializer)
+});
 
+export default toolPaletteModule;

@@ -13,16 +13,13 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-
-//diagram export
-export * from './diagram/glsp-diagram-manager';
-export * from './diagram/glsp-diagram-widget';
-export * from './diagram/glsp-theia-diagram-server';
-export * from "./diagram/glsp-theia-sprotty-connector";
-export * from './language/glsp-client';
-// language export
-export * from './language/glsp-client-contribution';
-export * from './language/glsp-client-provider';
-export * from './language/glsp-client-services';
-export * from './language/glsp-frontend-contribution';
-
+export function createElementFromHTML(html: string): HTMLElement | undefined {
+    const template = document.createElement('template');
+    html = html.trim(); // Never return a text node of whitespace as the result
+    template.innerHTML = html;
+    const node = template.content.firstChild
+    if (node && node instanceof HTMLElement) {
+        return node as HTMLElement
+    }
+    return undefined;
+}

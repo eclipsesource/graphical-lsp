@@ -26,6 +26,7 @@ const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) =>
     if (isBound(TYPES.ICommandStack)) {
         unbind(TYPES.ICommandStack);
     }
+    // GLSP Commandstack  initialization ------------------------------------
     bind(GLSPCommandStack).toSelf().inSingletonScope();
     bind(TYPES.ICommandStack).toService(GLSPCommandStack);
     bind(GLSP_TYPES.IModelUpdateNotifier).toService(GLSPCommandStack);
@@ -37,9 +38,9 @@ const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) =>
         };
     });
 
+    // DiagramUIExtension registry initialization ------------------------------------
     bind(DiagramUIExtensionRegistry).toSelf().inSingletonScope();
     bind(TYPES.IActionHandlerInitializer).to(DiagramUIExtensionActionHandlerInitializer)
-
 
     // Tool manager initialization ------------------------------------
     bind(GLSP_TYPES.IToolManager).to(ToolManager).inSingletonScope();

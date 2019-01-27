@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { EditorManager } from "@theia/editor/lib/browser";
-import { GLSPClientContribution, GLSPDiagramManager, GLSPPaletteContribution, GLSPTheiaSprottyConnector } from "glsp-theia-extension/lib/browser";
+import { GLSPClientContribution, GLSPDiagramManager, GLSPTheiaSprottyConnector } from "glsp-theia-extension/lib/browser";
 import { inject, injectable } from "inversify";
 import { DiagramWidgetRegistry, TheiaFileSaver } from "theia-glsp/lib";
 import { WorkflowLanguage } from "../../common/workflow-language";
@@ -36,8 +36,7 @@ export class WorkflowDiagramManager extends GLSPDiagramManager {
         @inject(EditorManager)
         readonly editorManager: EditorManager,
         @inject(DiagramWidgetRegistry)
-        readonly diagramWidgetRegistry: DiagramWidgetRegistry,
-        @inject(GLSPPaletteContribution) readonly paletteContribution: GLSPPaletteContribution) {
+        readonly diagramWidgetRegistry: DiagramWidgetRegistry) {
         super();
 
     }
@@ -48,8 +47,7 @@ export class WorkflowDiagramManager extends GLSPDiagramManager {
                 this.languageClientContribution,
                 this.theiaFileSaver,
                 this.editorManager,
-                this.diagramWidgetRegistry,
-                this.paletteContribution)
+                this.diagramWidgetRegistry)
         }
         return this._diagramConnector
     }

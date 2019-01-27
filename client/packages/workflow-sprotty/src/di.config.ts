@@ -15,14 +15,14 @@
  ********************************************************************************/
 
 import {
-    boundsModule, buttonModule, changeBoundsCommandModule, commandPaletteModule, configureModelElement, ConsoleLogger, defaultGLSPModule, defaultModule, DiamondNodeView, //
-    ExpandButtonView, expandModule, exportModule, fadeModule, GLSPGraph, hoverModule, HtmlRoot, HtmlRootView, LogLevel, modelHintsModule, modelSourceModule, //
-    openModule, overrideViewerOptions, PreRenderedElement, PreRenderedView, RectangularNode, RectangularNodeView, saveModule, SButton, //
-    SCompartment, SCompartmentView, SEdge, selectModule, SGraphView, SLabel, SLabelView, SResizeHandle, SRoutingHandle, SRoutingHandleView, toolFeedbackModule, TYPES, undoRedoModule, viewportModule
+    boundsModule, buttonModule, changeBoundsCommandModule, commandPaletteModule, configureModelElement, ConsoleLogger, defaultGLSPModule, defaultModule, //
+    DiamondNodeView, ExpandButtonView, expandModule, exportModule, fadeModule, GLSPGraph, hoverModule, HtmlRoot, HtmlRootView, LogLevel, modelHintsModule, //
+    modelSourceModule, openModule, overrideViewerOptions, paletteModule, PreRenderedElement, PreRenderedView, RectangularNode, RectangularNodeView, //
+    saveModule, SButton, SCompartment, SCompartmentView, SEdge, selectModule, SGraphView, SLabel, SLabelView, SResizeHandle, SRoutingHandle, SRoutingHandleView, //
+    toolFeedbackModule, TYPES, undoRedoModule, viewportModule
 } from "glsp-sprotty/lib";
 import executeCommandModule from "glsp-sprotty/lib/features/execute/di.config";
 import { Container, ContainerModule } from "inversify";
-import "theia-glsp/css/theia-sprotty.css";
 import "../css/diagram.css";
 import { ActivityNode, Icon, TaskNode, WeightedEdge } from "./model";
 import { WorkflowModelFactory } from "./model-factory";
@@ -61,7 +61,7 @@ export default function createContainer(widgetId: string): Container {
     container.load(defaultModule, selectModule, boundsModule, undoRedoModule, viewportModule,
         hoverModule, fadeModule, exportModule, expandModule, openModule, buttonModule, modelSourceModule,
         workflowDiagramModule, saveModule, executeCommandModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule,
-        changeBoundsCommandModule, commandPaletteModule);
+        changeBoundsCommandModule, commandPaletteModule, paletteModule);
 
     overrideViewerOptions(container, {
         needsClientLayout: true,
