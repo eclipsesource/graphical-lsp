@@ -19,6 +19,7 @@ import {
     SetBoundsAction, SModelElement, SModelRoot, SParentElement
 } from "sprotty/lib";
 import { IModelUpdateNotifier, IModelUpdateObserver } from "../../base/command-stack";
+import { Tool } from "../../base/tool-manager/tool";
 import { GLSP_TYPES } from "../../types";
 import { forEachElement, getIndex, isSelectedBoundsAware } from "../../utils/smodel-util";
 import { isBoundsAwareMoveable, isResizeable, ResizeHandleLocation, SResizeHandle } from "../change-bounds/model";
@@ -26,7 +27,6 @@ import { addResizeHandles, SwitchResizeModeAction } from "../change-bounds/resiz
 import { ChangeBoundsOperationAction } from "../operation/operation-actions";
 import { SelectionTracker } from "../select/selection-tracker";
 import { FeedbackMoveMouseListener } from "../tool-feedback/move-tool-feedback";
-import { Tool } from "../tool-manager/tool";
 
 /**
  * The change bounds tool has the license to move multiple elements or resize a single element by implementing the ChangeBounds operation.

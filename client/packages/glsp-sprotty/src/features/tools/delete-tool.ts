@@ -16,8 +16,8 @@
 import { inject, injectable } from "inversify";
 import { Action, isCtrlOrCmd, isSelectable, KeyListener, KeyTool, MouseListener, MouseTool, SModelElement, SModelRoot } from "sprotty/lib";
 import { matchesKeystroke } from "sprotty/lib/utils/keyboard";
+import { EnableDefaultToolsAction, Tool } from "../../base/tool-manager/tool";
 import { DeleteElementOperationAction } from "../operation/operation-actions";
-import { EnableStandardToolsAction, Tool } from "../tool-manager/tool";
 
 /**
  * Deletes selected elements when hitting the `Del` key.
@@ -84,7 +84,7 @@ export class DeleteToolMouseListener extends MouseListener {
         const result: Action[] = [];
         result.push(new DeleteElementOperationAction([target.id]));
         if (!isCtrlOrCmd(event)) {
-            result.push(new EnableStandardToolsAction());
+            result.push(new EnableDefaultToolsAction());
         }
         return result;
     }
