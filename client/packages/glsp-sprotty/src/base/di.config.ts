@@ -17,6 +17,8 @@ import { ContainerModule } from "inversify";
 import { TYPES } from "sprotty/lib";
 import { GLSP_TYPES } from "../types";
 import { GLSPCommandStack, IReadonlyModelAccess } from "./command-stack";
+import { Tool } from "./tool-manager/tool";
+import { createToolFactory, DefaultToolsEnablingKeyListener, GLSPToolManagerActionHandlerInitializer, ToolManager } from "./tool-manager/tool-manager";
 
 const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     if (isBound(TYPES.ICommandStack)) {
@@ -32,6 +34,13 @@ const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) =>
             });
         };
     });
+
+
+    // Tool manager initialization ------------------------------------
+    bind(GLSP_TYPES.IToolManager).to(ToolManager).inSingletonScope();
+    bind(TYPES.KeyListener).to(DefaultToolsEnablingKeyListener);
+    bind(TYPES.IActionHandlerInitializer).to(GLSPToolManagerActionHandlerInitializer);
+    bind(GLSP_TYPES.IToolFactory).toFactory<Tool>((createToolFactory()));
 })
 
 export default defaultGLSPModule;

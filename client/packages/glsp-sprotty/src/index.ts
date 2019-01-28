@@ -16,6 +16,8 @@
 export * from 'sprotty/lib';
 export * from './base/command-stack';
 export * from './base/edit-config/edit-config';
+export * from './base/tool-manager/tool';
+export * from './base/tool-manager/tool-manager';
 export * from './features/change-bounds/model';
 export * from './features/change-bounds/resize';
 export * from './features/command-palette/action-provider';
@@ -31,8 +33,6 @@ export * from './features/save/model';
 export * from './features/save/save';
 export * from './features/tool-feedback/creation-tool-feedback';
 export * from './features/tool-feedback/model';
-export * from './features/tool-manager/tool';
-export * from './features/tool-manager/tool-manager';
 export * from './features/tools/change-bounds-tool';
 export * from './features/tools/creation-tool';
 export * from './features/tools/default-tools';
@@ -42,7 +42,7 @@ export * from './types';
 export * from './utils/array-utils';
 export * from './utils/smodel-util';
 export * from './utils/viewpoint-util';
-export { saveModule, toolManagerModule, executeModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule, changeBoundsCommandModule, commandPaletteModule };
+export { saveModule, executeModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule, changeBoundsCommandModule, commandPaletteModule };
 
 
 import defaultGLSPModule from './base/di.config';
@@ -52,6 +52,5 @@ import executeModule from './features/execute/di.config';
 import modelHintsModule from './features/hints/di.config';
 import saveModule from './features/save/di.config';
 import toolFeedbackModule from './features/tool-feedback/di.config';
-import toolManagerModule from './features/tool-manager/di.config';
 
 

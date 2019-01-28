@@ -14,16 +14,16 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { interfaces } from "inversify";
+import { ToolManager } from "../../base/tool-manager/tool-manager";
 import { GLSP_TYPES } from "../../types";
-import { ToolManager } from "../tool-manager/tool-manager";
 import { ChangeBoundsTool } from "./change-bounds-tool";
 import { DelKeyDeleteTool, MouseDeleteTool } from "./delete-tool";
 
 export function registerDefaultTools(container: interfaces.Container) {
-    const toolManager: ToolManager = container.get(GLSP_TYPES.ToolManager);
-    toolManager.registerStandardTools(
+    const toolManager: ToolManager = container.get(GLSP_TYPES.IToolManager);
+    toolManager.registerDefaultTools(
         container.resolve(ChangeBoundsTool),
         container.resolve(DelKeyDeleteTool));
     toolManager.registerTools(container.resolve(MouseDeleteTool));
-    toolManager.enableStandardTools();
+    toolManager.enableDefaultTools();
 }

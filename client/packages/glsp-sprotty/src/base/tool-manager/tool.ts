@@ -14,17 +14,31 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
-import { ContainerModule } from "inversify";
-import { TYPES } from "sprotty/lib";
-import { GLSP_TYPES } from "../../types";
-import { createToolFactory, Tool } from "./tool";
-import { DefaultToolManager, StandardToolsEnablingKeyListener, ToolManagerActionHandlerInitializer } from "./tool-manager";
+import { Action } from "sprotty/lib";
 
-const toolManagerModule = new ContainerModule((bind, unbind, isBound, rebind) => {
-    bind(GLSP_TYPES.ToolFactory).toFactory<Tool>(createToolFactory());
-    bind(GLSP_TYPES.ToolManager).to(DefaultToolManager).inSingletonScope();
-    bind(TYPES.KeyListener).to(StandardToolsEnablingKeyListener);
-    bind(TYPES.IActionHandlerInitializer).to(ToolManagerActionHandlerInitializer);
-});
+/**
+ * Action to enable the tools of the specified `toolIds`.
+ */
+export class EnableToolsAction implements Action {
+    static KIND = "enable-tools";
+    readonly kind = EnableToolsAction.KIND;
+    constructor(public readonly toolIds: string[]) { }
+}
 
-export default toolManagerModule;
+/**
+ * Action to disable the currently active tools and enable the default tools instead.
+ */
+export class EnableDefaultToolsAction implements Action {
+    static KIND = "enable-default-tools";
+    readonly kind = EnableDefaultToolsAction.KIND;
+}
+
+/** A tool that can be managed by a `ToolManager`. */
+export interface Tool {
+    readonly id: string;
+    /* Notifies the tool to become active. */
+    enable(): void;
+    /* Notifies the tool to become inactive. */
+    disable(): void;
+}
+

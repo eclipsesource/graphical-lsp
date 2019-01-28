@@ -19,6 +19,8 @@ import {
     Action, isCtrlOrCmd, MouseListener, //
     MouseTool, SModelElement, SModelRoot
 } from "sprotty/lib";
+import { TypeAware } from "src/base/tool-manager/tool-manager";
+import { EnableDefaultToolsAction, Tool } from "../../base/tool-manager/tool";
 import { GLSP_TYPES } from "../../types";
 import { getAbsolutePosition } from "../../utils/viewpoint-util";
 import { CreateConnectionOperationAction, CreateNodeOperationAction } from "../operation/operation-actions";
@@ -27,11 +29,10 @@ import {
     ShowEdgeCreationSelectTargetFeedbackAction, ShowNodeCreationToolFeedbackAction
 } from "../tool-feedback/creation-tool-feedback";
 import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
-import { EnableStandardToolsAction, Tool } from "../tool-manager/tool";
 
 
 @injectable()
-export class NodeCreationTool implements Tool {
+export class NodeCreationTool implements Tool, TypeAware {
     static ID = "glsp.nodecreationtool";
     public elementTypeId: string = "unknown";
     protected creationToolMouseListener: NodeCreationToolMouseListener;
@@ -67,7 +68,7 @@ export class NodeCreationToolMouseListener extends MouseListener {
         const result: Action[] = [];
         result.push(new CreateNodeOperationAction(this.elementTypeId, location, containerId));
         if (!isCtrlOrCmd(event)) {
-            result.push(new EnableStandardToolsAction());
+            result.push(new EnableDefaultToolsAction());
         }
         return result;
     }
@@ -78,7 +79,7 @@ export class NodeCreationToolMouseListener extends MouseListener {
  * Tool to create connections in a Diagram, by selecting a source and target node.
  */
 @injectable()
-export class EdgeCreationTool implements Tool {
+export class EdgeCreationTool implements Tool, TypeAware {
     static ID = "glsp.edgecreationtool";
     public elementTypeId: string = "unknown";
     protected creationToolMouseListener: EdgeCreationToolMouseListener;
@@ -165,7 +166,7 @@ export class EdgeCreationToolMouseListener extends MouseListener {
                 this.target = undefined;
 
                 if (!isCtrlOrCmd(event)) {
-                    result.push(new EnableStandardToolsAction());
+                    result.push(new EnableDefaultToolsAction());
                 } else {
                     this.reinitialize();
                 }
