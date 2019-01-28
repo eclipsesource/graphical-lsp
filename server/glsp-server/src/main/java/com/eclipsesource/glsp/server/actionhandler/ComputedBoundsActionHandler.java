@@ -46,7 +46,7 @@ public class ComputedBoundsActionHandler extends AbstractActionHandler {
 				SModelRoot model = modelState.getCurrentModel();
 				if (model != null && model.getRevision() == computedBoundsAction.getRevision()) {
 					LayoutUtil.applyBounds(model, computedBoundsAction);
-					return submissionHandler.handleSubmission(model, true, modelState);
+					return submissionHandler.doSubmitModel(model, true, modelState);
 				}
 			}
 		}

@@ -24,6 +24,7 @@ import java.util.Optional;
 public final class ModelOptions {
 
 	public static final String NEEDS_CLIENT_LAYOUT = "needsClientLayout";
+	public static final String NEEDS_SERVER_LAYOUT = "needsServerLayout";
 	public static final String SOURCE_URI = "sourceUri";
 
 	private ModelOptions() {
@@ -35,10 +36,12 @@ public final class ModelOptions {
 
 	public static class ParsedModelOptions {
 		boolean needsClientLayout;
+		boolean needsServerLayout;
 		Optional<String> sourceUri;
 
 		private ParsedModelOptions(Map<String, String> options) {
 			needsClientLayout = getBoolValue(options, NEEDS_CLIENT_LAYOUT);
+			needsServerLayout= getBoolValue(options, NEEDS_SERVER_LAYOUT);
 			sourceUri = getValue(options, SOURCE_URI);
 		}
 
@@ -48,6 +51,10 @@ public final class ModelOptions {
 
 		public Optional<String> getSourceUri() {
 			return sourceUri;
+		}
+		
+		public boolean needsServerLayout() {
+			return needsServerLayout;
 		}
 
 	}
