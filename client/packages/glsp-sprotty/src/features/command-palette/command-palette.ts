@@ -67,6 +67,7 @@ export class LabeledAction {
     constructor(readonly label: string, readonly actions: Action[]) { }
 }
 
+
 @injectable()
 export class CommandPalette {
 
