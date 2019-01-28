@@ -44,11 +44,10 @@ public class RequestModelActionHandler extends AbstractActionHandler {
 		if (action instanceof RequestModelAction) {
 			RequestModelAction requestAction = (RequestModelAction) action;
 			ParsedModelOptions options = ModelOptions.parse(requestAction.getOptions());
-			modelState.setNeedsClientLayout(options.needsClientLayout());
 			SModelRoot model = modelFactory.loadModel(requestAction);
 			modelState.setCurrentModel(model);
 			modelState.setOptions(options);
-			return submissionHandler.handleSubmission(model, false, modelState);
+			return submissionHandler.submit(model, false, modelState);
 		}
 		return Optional.empty();
 	}

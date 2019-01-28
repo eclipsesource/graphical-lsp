@@ -36,33 +36,30 @@ public class ModelSubmissionHandler {
 	private String lastSubmittedModelType;
 	private int revision = 0;
 
-	public Optional<Action> handleSubmission(SModelRoot root, boolean update, ModelState modelState) {
-		lastSubmittedModelType = root.getType();
-		modelState.setCurrentModel(root);
-		if (modelState.needsClientLayout()) {
-			return Optional.of(new RequestBoundsAction(root));
+	public Optional<Action> submit(SModelRoot newRoot, boolean update, ModelState modelState) {
+		if (modelState.getOptions().needsClientLayout()) {
+			return Optional.of(new RequestBoundsAction(newRoot));
 		} else {
-			return createSubmissionAction(root, update);
+			return doSubmitModel(newRoot, update, modelState);
 		}
-
 	}
 
-	private Optional<Action> createSubmissionAction(SModelRoot root, boolean update) {
-
-		if (layoutEngine != null) {
-			layoutEngine.layout(root);
+	public Optional<Action> doSubmitModel(SModelRoot newRoot, boolean update, ModelState modelState) {
+		if (modelState.getOptions().needsServerLayout()) {
+			if (layoutEngine != null) {
+				layoutEngine.layout(newRoot);
+			}
 		}
 		synchronized (modelLock) {
-			if (root.getRevision() == revision) {
-				String modelType = root.getType();
-				lastSubmittedModelType = modelType;
+			if (newRoot.getRevision() == revision) {
+				String modelType = newRoot.getType();
 				if (update && modelType != null && modelType.equals(lastSubmittedModelType)) {
-					return Optional.of(new UpdateModelAction(root, null, true));
+					return Optional.of(new UpdateModelAction(newRoot, true));
 				} else {
-					return Optional.of(new SetModelAction(root));
+					lastSubmittedModelType = modelType;
+					return Optional.of(new SetModelAction(newRoot));
 				}
 			}
-
 		}
 		return Optional.empty();
 	}
