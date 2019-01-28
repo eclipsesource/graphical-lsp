@@ -27,7 +27,6 @@
     "lib",
     "src",
     "build",
-    "css",
-    "icons"
+    "css"
   ]
 }

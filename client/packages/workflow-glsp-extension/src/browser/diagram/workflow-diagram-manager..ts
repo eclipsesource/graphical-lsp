@@ -19,7 +19,6 @@ import { inject, injectable } from "inversify";
 import { DiagramWidgetRegistry, TheiaFileSaver } from "theia-glsp/lib";
 import { WorkflowLanguage } from "../../common/workflow-language";
 import { WorkflowGLSPClientContribution } from "../language/workflow-glsp-client-contribution";
-import { ThemeManager } from "./thememanager";
 
 @injectable()
 export class WorkflowDiagramManager extends GLSPDiagramManager {
@@ -38,8 +37,6 @@ export class WorkflowDiagramManager extends GLSPDiagramManager {
         readonly editorManager: EditorManager,
         @inject(DiagramWidgetRegistry)
         readonly diagramWidgetRegistry: DiagramWidgetRegistry,
-        @inject(ThemeManager)
-        readonly themeManager: ThemeManager,
         @inject(GLSPPaletteContribution) readonly paletteContribution: GLSPPaletteContribution) {
         super();
 
@@ -53,8 +50,6 @@ export class WorkflowDiagramManager extends GLSPDiagramManager {
                 this.editorManager,
                 this.diagramWidgetRegistry,
                 this.paletteContribution)
-            this.themeManager.initialize();
-
         }
         return this._diagramConnector
     }
