@@ -35,12 +35,18 @@
     padding: 0.4em;
     text-align: left;
     font-size: 1.15em;
+    font-weight: bold;
     background:#CCCCCC;
     border: 1px solid rgba(60, 60, 60, 0.6);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.header-icon i{
+    margin-right: 0.2em
+}
+
 .header-tools i{
+    border: 1px solid #CCCCCC;
     padding: 0.2em;
     margin-right:0.2em;
 }
@@ -50,7 +56,7 @@
  }
   
 .header-tools .clicked{
-    background: #B0C3C8; 
+    background: #BDDAEF; 
     border: 1px solid rgba(60, 60, 60, 0.6);
 }
 
@@ -68,11 +74,11 @@
 }
 
 .group-header{
+    font-weight: bold;
     background:#CCCCCC;
 }
 
 .group-header i{
-    font-size: 1.1em;
     padding:0.4em; 
 }
 

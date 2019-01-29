@@ -15,6 +15,7 @@
  ********************************************************************************/
 import { ContainerModule } from "inversify";
 import { TYPES } from "sprotty/lib";
+import "../../../css/tool-palette.css";
 import { GLSP_TYPES } from "../../types";
 import { ToolPalette, ToolPaletteActionInitializer } from "./tool-palette";
 

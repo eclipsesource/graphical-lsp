@@ -18,7 +18,6 @@ import {
     Action, ActionHandlerRegistry, IActionDispatcherProvider, IActionHandler, IActionHandlerInitializer, ICommand, ILogger, //
     TYPES, ViewerOptions
 } from "sprotty/lib";
-import "../../../css/tool-palette.css";
 import { BaseDiagramUIExtension } from "../../base/diagram-ui-extension/diagram-ui-extension";
 import { ShowDiagramUIExtensionAction } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
 import { EnableDefaultToolsAction, EnableToolsAction } from "../../base/tool-manager/tool";
@@ -77,10 +76,15 @@ export class ToolPalette extends BaseDiagramUIExtension {
         this.containerElement.appendChild(bodyDiv)
     }
     protected createHeader(): void {
-        const header = document.createElement("div")
-        header.classList.add("palette-header")
-        header.appendChild(createIcon(["fa", "fa-palette"], "Palette"));
+        const headerCompartment = document.createElement("div")
+        headerCompartment.classList.add("palette-header")
 
+        // Title header
+        const header = document.createElement("div")
+        header.classList.add("header-icon")
+        header.appendChild(createIcon(["fa", "fa-palette"]));
+        header.insertAdjacentText("beforeend", "Palette")
+        headerCompartment.append(header)
         // Header Tools Compartment
         const headerTools = document.createElement("div")
         headerTools.classList.add("header-tools")
@@ -88,35 +92,34 @@ export class ToolPalette extends BaseDiagramUIExtension {
         // Create button for DefaultTools
         this.defaultToolsButton = createIcon(["fas", "fa-mouse-pointer", "fa-xs", "clicked"])
         this.defaultToolsButton.id = "btn_default_tools"
-        this.defaultToolsButton.onclick = (ev) => {
-            this.executeAction(new EnableDefaultToolsAction())
-            this.changeActiveButton()
-        }
+        this.defaultToolsButton.onclick = this.onClickToolButton(this.defaultToolsButton)
         headerTools.appendChild(this.defaultToolsButton)
         this.lastActivebutton = this.defaultToolsButton
 
         // Create button for MouseDeleteTool
         const deleteToolButton = createIcon(["fas", "fa-eraser", "fa-xs"])
-        deleteToolButton.onclick = (ev) => {
-            this.executeAction(new EnableToolsAction([MouseDeleteTool.ID]))
-            this.changeActiveButton(deleteToolButton)
-        }
+        deleteToolButton.onclick = this.onClickToolButton(deleteToolButton, MouseDeleteTool.ID)
         headerTools.appendChild(deleteToolButton)
 
-        header.appendChild(headerTools)
-        this.containerElement.appendChild(header)
+        headerCompartment.appendChild(headerTools)
+        this.containerElement.appendChild(headerCompartment)
     }
 
     protected createToolButton(operation: Operation): HTMLElement {
         const button = document.createElement("div")
         button.classList.add("tool-button")
         button.innerHTML = operation.label
-        button.onclick = (ev) => {
-            this.executeAction(new EnableToolsAction([deriveToolId(operation.operationKind, operation.elementTypeId)]))
+        button.onclick = this.onClickToolButton(button, deriveToolId(operation.operationKind, operation.elementTypeId))
+        return button;
+    }
+
+    protected onClickToolButton(button: HTMLElement, toolId?: string) {
+        return (ev: MouseEvent) => {
+            const action = toolId ? new EnableToolsAction([toolId]) : new EnableDefaultToolsAction()
+            this.executeAction(action)
             this.changeActiveButton(button)
             this.restoreFocus()
         }
-        return button;
     }
 
     setOperations(operations: Operation[]) {
@@ -137,12 +140,9 @@ export class ToolPalette extends BaseDiagramUIExtension {
     }
 }
 
-function createIcon(cssClasses: string[], label?: string) {
+function createIcon(cssClasses: string[]) {
     const icon = document.createElement("i")
     icon.classList.add(...cssClasses)
-    if (label) {
-        icon.innerText = " " + label
-    }
     return icon
 }
 
@@ -152,7 +152,8 @@ function createToolGroup(label: string, groupId: string): HTMLElement {
     group.id = groupId
     const header = document.createElement("div")
     header.classList.add("group-header")
-    header.appendChild(createIcon(["fas", "fa-hammer"], label))
+    header.appendChild(createIcon(["fas", "fa-hammer"]))
+    header.insertAdjacentText('beforeend', label)
     group.appendChild(header)
     return group;
 }

@@ -135,15 +135,18 @@
      text-anchor: middle;
  }
  
- .sprotty-edge.weighted.low {
+ .sprotty-edge.weighted.low,
+ .sprotty-edge.weighted.low .arrow {
      stroke: lightblue
  }
  
- .sprotty-edge.weighted.medium {
+ .sprotty-edge.weighted.medium,
+ .sprotty-edge.weighted.medium .arrow  {
      stroke: blue
  }
  
- .sprotty-edge.weighted.high {
+ .sprotty-edge.weighted.high,
+ .sprotty-edge.weighted.high .arrow  {
      stroke: darkblue
  }
  
@@ -156,3 +159,9 @@
  .sprotty-node.selected {
      stroke-width: 5;
  }
+
+ svg {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #bbb;
+}
