@@ -72,20 +72,8 @@ public class ModelStateImpl implements ModelState {
 	@Override
 	public void setOptions(ParsedModelOptions options) {
 		this.options = options;
-
 	}
-
-	@Override
-	public boolean needsClientLayout() {
-		return needsClientLayout;
-	}
-
-	@Override
-	public void setNeedsClientLayout(boolean value) {
-		this.needsClientLayout = value;
-
-	}
-
+	
 	@Override
 	public void setExpandedElements(Set<String> expandedElements) {
 		this.expandedElements = expandedElements;
@@ -93,7 +81,7 @@ public class ModelStateImpl implements ModelState {
 	}
 
 	@Override
-	public void setSelectedElemetns(Set<String> selectedElements) {
+	public void setSelectedElements(Set<String> selectedElements) {
 		this.selectedElements = selectedElements;
 	}
 

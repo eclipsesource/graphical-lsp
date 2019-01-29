@@ -64,10 +64,9 @@ public class OperationActionHandler extends AbstractActionHandler {
 			OperationHandler handler = operationHandlerProvider.getHandler(action).get();
 			Optional<SModelRoot> modelRoot = handler.execute(action, modelState);
 			if (modelRoot.isPresent()) {
-				return submissionHandler.handleSubmission(modelRoot.get(), false, modelState);
+				return submissionHandler.submit(modelRoot.get(), true, modelState);
 			}
 		}
-
 		return Optional.empty();
 	}
 

@@ -38,13 +38,9 @@ public interface ModelState {
 
 	void setExpandedElements(Set<String> expandedElements);
 
-	void setSelectedElemetns(Set<String> selectedElements);
+	void setSelectedElements(Set<String> selectedElements);
 
 	void setOptions(ParsedModelOptions options);
-
-	boolean needsClientLayout();
-
-	void setNeedsClientLayout(boolean value);
 
 	SModelIndex getCurrentModelIndex();
 
