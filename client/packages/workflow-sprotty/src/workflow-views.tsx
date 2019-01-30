@@ -50,7 +50,7 @@ export class WorkflowEdgeView extends PolylineEdgeView {
         const p1 = segments[segments.length - 2];
         const p2 = segments[segments.length - 1];
         return [
-            <path class-sprotty-edge={true} class-arrow={true} d="M 2,0 L 10,-4 L 10,4 Z"
+            <path class-sprotty-edge={true} class-arrow={true} d="M 1.5,0 L 10,-4 L 10,4 Z"
                 transform={`rotate(${toDegrees(angleOfPoint({ x: p1.x - p2.x, y: p1.y - p2.y }))} ${p2.x} ${p2.y}) translate(${p2.x} ${p2.y})`} />
         ];
     }

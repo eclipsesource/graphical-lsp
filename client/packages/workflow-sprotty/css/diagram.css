@@ -75,6 +75,10 @@
      stroke:black;
      stroke-width: 2px;
  }
+
+ .sprotty-edge.arrow {
+     fill: black;
+ }
  
  .sprotty-edge.selected {
      stroke: #844;
@@ -139,15 +143,27 @@
  .sprotty-edge.weighted.low .arrow {
      stroke: lightblue
  }
+
+ .sprotty-edge.weighted.low .arrow {
+     fill: lightblue;
+ }
  
  .sprotty-edge.weighted.medium,
  .sprotty-edge.weighted.medium .arrow  {
      stroke: blue
  }
+
+ .sprotty-edge.weighted.medium .arrow {
+    fill: blue;
+}
  
  .sprotty-edge.weighted.high,
  .sprotty-edge.weighted.high .arrow  {
      stroke: darkblue
+ }
+
+ .sprotty-edge.weighted.high .arrow {
+     fill: darkblue;
  }
  
  polygon.sprotty-node {
