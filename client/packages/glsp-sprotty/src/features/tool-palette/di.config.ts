@@ -13,15 +13,16 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-export const GLSP_TYPES = {
-    IToolManager: Symbol.for("ToolManager"),
-    ICommandPaletteActionProvider: Symbol.for("ICommandPaletteActionProvider"),
-    ICommandPaletteActionProviderRegistry: Symbol.for("ICommandPaletteActionProviderRegistry"),
-    IFeedbackActionDispatcher: Symbol.for("IFeedbackActionDispatcher"),
-    IToolFactory: Symbol.for("Factory<Tool>"),
-    IModelUpdateNotifier: Symbol.for("IModelUpdateNotifier"),
-    IModelUpdateObserver: Symbol.for("IModelUpdateObserver"),
-    IReadonlyModelAccessProvider: Symbol.for("IReadonlyModelAccessProvider"),
-    IDiagramUIExtension: Symbol.for("DiagramUIExtension"),
-    IEditConfigProvider: Symbol.for("IEditConfigProvider")
-}
+import { ContainerModule } from "inversify";
+import { TYPES } from "sprotty/lib";
+import "../../../css/tool-palette.css";
+import { GLSP_TYPES } from "../../types";
+import { ToolPalette, ToolPaletteActionInitializer } from "./tool-palette";
+
+const toolPaletteModule = new ContainerModule((bind) => {
+    bind(ToolPalette).toSelf().inSingletonScope();
+    bind(GLSP_TYPES.IDiagramUIExtension).toService(ToolPalette)
+    bind(TYPES.IActionHandlerInitializer).to(ToolPaletteActionInitializer)
+});
+
+export default toolPaletteModule;

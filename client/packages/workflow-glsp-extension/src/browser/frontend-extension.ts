@@ -13,9 +13,8 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { CommandContribution, MenuContribution } from "@theia/core";
 import { FrontendApplicationContribution, OpenHandler } from "@theia/core/lib/browser";
-import { GLSPClientContribution, GLSPPaletteContribution } from "glsp-theia-extension/lib/browser";
+import { GLSPClientContribution } from "glsp-theia-extension/lib/browser";
 import { ContainerModule, interfaces } from "inversify";
 import { DiagramConfiguration, DiagramManager, DiagramManagerProvider } from "theia-glsp/lib";
 import { WorkflowLanguage } from "../common/workflow-language";
@@ -40,8 +39,5 @@ export default new ContainerModule((bind: interfaces.Bind, unbind: interfaces.Un
     bind(WorkflowDiagramManager).toSelf().inSingletonScope()
     bind(FrontendApplicationContribution).toService(WorkflowDiagramManager)
     bind(OpenHandler).toService(WorkflowDiagramManager)
-    bind(GLSPPaletteContribution).toSelf().inSingletonScope()
-    bind(MenuContribution).toService(GLSPPaletteContribution)
-    bind(CommandContribution).toService(GLSPPaletteContribution)
 })
 

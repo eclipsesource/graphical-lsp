@@ -17,7 +17,6 @@
 //diagram export
 export * from './diagram/glsp-diagram-manager';
 export * from './diagram/glsp-diagram-widget';
-export * from './diagram/glsp-palette-contribution';
 export * from './diagram/glsp-theia-diagram-server';
 export * from "./diagram/glsp-theia-sprotty-connector";
 export * from './language/glsp-client';

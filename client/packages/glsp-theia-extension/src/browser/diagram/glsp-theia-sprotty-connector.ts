@@ -20,8 +20,6 @@ import { ActionMessage, ExportSvgAction, ServerStatusAction } from "glsp-sprotty
 import { DiagramWidgetRegistry, OpenInTextEditorMessage, TheiaDiagramServer, TheiaFileSaver, TheiaSprottyConnector } from "theia-glsp/lib";
 import { ActionMessageNotification } from "../../common/";
 import { GLSPClientContribution } from "../language/glsp-client-contribution";
-import { GLSPPaletteContribution } from "./glsp-palette-contribution";
-import { GLSPTheiaDiagramServer } from "./glsp-theia-diagram-server";
 
 export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
     private servers: TheiaDiagramServer[] = []
@@ -30,7 +28,6 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
         private fileSaver: TheiaFileSaver,
         private editorManager: EditorManager,
         private diagramWidgetRegistry: DiagramWidgetRegistry,
-        private paletteContribution: GLSPPaletteContribution,
         readonly workspace?: Workspace) {
 
         this.glspClientContribution.glspClient.then(
@@ -43,7 +40,6 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
     }
 
     connect(diagramServer: TheiaDiagramServer): void {
-        this.paletteContribution.register(diagramServer as GLSPTheiaDiagramServer);
         this.servers.push(diagramServer)
         diagramServer.connect(this)
     }

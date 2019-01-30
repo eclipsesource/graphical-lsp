@@ -13,148 +13,155 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-@import "../../../node_modules/glsp-sprotty/css/glsp-sprotty.css" ;
-@import "../../../node_modules/glsp-sprotty/css/command-palette.css"; 
+ 
+ .sprotty-graph {
+     font-size: 15pt;
+     background: rgb(179, 196, 202);
+     height: 100%;
+ }
+ .sprotty-popup{
+     z-index: 1;
+ }
+ .sprotty-text {
+     font-size: 12pt;
+     text-anchor: middle
+ }
+ 
+ .sprotty-node {
+     fill: #cdc;
+     stroke: #152;
+     stroke-width: 0;
+     font-weight: bold;
+ }
+ 
+ .sprotty-node.mouseover:not(.selected) {
+     stroke-width: 3;
+ }
+ 
+ .sprotty-comp {
+     line-height: 3px;
+     font-weight: normal;
+     text-align: left;
+ }
+ 
+ .sprotty-label {
+     stroke-width: 0;
+     fill: #000;
+     font-weight: inherit;
+     text-align: inherit;
+     font-size: 100%;
+ }
+ 
+ .sprotty-label.heading {
+     font-weight: bold;
+ }
+ 
+ .sprotty-icon {
+     fill: black;
+     stroke-width: 0;
+ }
+ 
+ .sprotty-label.icon {
+     fill: #fff;
+ }
+ 
+ .sprotty-button {
+     fill: #152;
+     stroke-width: 0;
+ }
+ 
+ .sprotty-edge {
+     fill: none;
+     stroke:black;
+     stroke-width: 2px;
+ }
+ 
+ .sprotty-edge.selected {
+     stroke: #844;
+     stroke-width: 4px;
+ }
+ 
+ .sprotty-edge.mouseover:not(.selected) {
+     stroke-width: 3px;
+ }
+ 
+ .sprotty-edge>.sprotty-routing-handle {
+     r: 7px;
+     fill: #884;
+     stroke: none;
+     z-index: 1000;
+ }
+ 
+ .sprotty-edge>.sprotty-routing-handle[data-kind='line'] {
+     opacity: 0.35;
+ }
+ 
+ .sprotty-edge>.sprotty-routing-handle.selected {
+     fill: #66a;
+ }
+ 
+ .sprotty-edge>.sprotty-routing-handle.mouseover {
+     stroke: #112;
+     stroke-width: 1;
+ }
+ 
+ .sprotty-missing {
+     stroke-width: 1;
+     stroke: #f00;
+     fill: #f00;
+     font-size: 14pt;
+     text-anchor: middle;
+ }
+ 
+ .sprotty-node.task {
+     stroke-width: 1px;
+     stroke: black;
+ }
+ 
+ .sprotty-node.task.automated {
+     fill: gray;
+ }
+ 
+ .sprotty-node.task.manual {
+     fill: lightblue;
+ }
+ 
+ text {
+     stroke-width: 0;
+     stroke: #000;
+     fill: #000;
+     font-family: sans-serif;
+     font-size: 8pt;
+     text-anchor: middle;
+ }
+ 
+ .sprotty-edge.weighted.low,
+ .sprotty-edge.weighted.low .arrow {
+     stroke: lightblue
+ }
+ 
+ .sprotty-edge.weighted.medium,
+ .sprotty-edge.weighted.medium .arrow  {
+     stroke: blue
+ }
+ 
+ .sprotty-edge.weighted.high,
+ .sprotty-edge.weighted.high .arrow  {
+     stroke: darkblue
+ }
+ 
+ polygon.sprotty-node {
+     fill: white;
+     stroke: black;
+     stroke-width: 1pt;
+ }
+ 
+ .sprotty-node.selected {
+     stroke-width: 5;
+ }
 
-.sprotty-graph {
-    font-size: 15pt;
-    background: rgb(179, 196, 202);
-    height: 100%;
-}
-.sprotty-popup{
-    z-index: 1;
-}
-.sprotty-text {
-    font-size: 12pt;
-    text-anchor: middle
-}
-
-.sprotty-node {
-    fill: #cdc;
-    stroke: #152;
-    stroke-width: 0;
-    font-weight: bold;
-}
-
-.sprotty-node.mouseover:not(.selected) {
-    stroke-width: 3;
-}
-
-.sprotty-comp {
-    line-height: 3px;
-    font-weight: normal;
-    text-align: left;
-}
-
-.sprotty-label {
-    stroke-width: 0;
-    fill: #000;
-    font-weight: inherit;
-    text-align: inherit;
-    font-size: 100%;
-}
-
-.sprotty-label.heading {
-    font-weight: bold;
-}
-
-.sprotty-icon {
-    fill: black;
-    stroke-width: 0;
-}
-
-.sprotty-label.icon {
-    fill: #fff;
-}
-
-.sprotty-button {
-    fill: #152;
-    stroke-width: 0;
-}
-
-.sprotty-edge {
-    fill: none;
-    stroke:black;
-    stroke-width: 2px;
-}
-
-.sprotty-edge.selected {
-    stroke: #844;
-    stroke-width: 4px;
-}
-
-.sprotty-edge.mouseover:not(.selected) {
-    stroke-width: 3px;
-}
-
-.sprotty-edge>.sprotty-routing-handle {
-    r: 7px;
-    fill: #884;
-    stroke: none;
-    z-index: 1000;
-}
-
-.sprotty-edge>.sprotty-routing-handle[data-kind='line'] {
-    opacity: 0.35;
-}
-
-.sprotty-edge>.sprotty-routing-handle.selected {
-    fill: #66a;
-}
-
-.sprotty-edge>.sprotty-routing-handle.mouseover {
-    stroke: #112;
-    stroke-width: 1;
-}
-
-.sprotty-missing {
-    stroke-width: 1;
-    stroke: #f00;
-    fill: #f00;
-    font-size: 14pt;
-    text-anchor: middle;
-}
-
-.sprotty-node.task {
-    stroke-width: 1px;
-    stroke: black;
-}
-
-.sprotty-node.task.automated {
-    fill: gray;
-}
-
-.sprotty-node.task.manual {
-    fill: lightblue;
-}
-
-text {
-    stroke-width: 0;
-    stroke: #000;
-    fill: #000;
-    font-family: sans-serif;
-    font-size: 8pt;
-    text-anchor: middle;
-}
-
-.sprotty-edge.weighted.low {
-    stroke: lightblue
-}
-
-.sprotty-edge.weighted.medium {
-    stroke: blue
-}
-
-.sprotty-edge.weighted.high {
-    stroke: darkblue
-}
-
-polygon.sprotty-node {
-    fill: white;
-    stroke: black;
-    stroke-width: 1pt;
-}
-
-.sprotty-node.selected {
-    stroke-width: 5;
+ svg {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #bbb;
 }

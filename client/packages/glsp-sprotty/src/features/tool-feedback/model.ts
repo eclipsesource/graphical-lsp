@@ -15,6 +15,7 @@
  ********************************************************************************/
 
 import { Command, CommandExecutionContext, CommandResult, SModelRoot } from "sprotty/lib";
+import { addCssClasses, removeCssClasses } from "../../utils/smodel-util";
 
 export abstract class FeedbackCommand extends Command {
 
@@ -41,25 +42,3 @@ export function unapplyCssClassesToRoot(context: CommandExecutionContext, cssCla
     return root;
 }
 
-function addCssClasses(root: SModelRoot, cssClasses: string[]) {
-    if (root.cssClasses === undefined) {
-        root.cssClasses = [];
-    }
-    for (const cssClass of cssClasses) {
-        if (root.cssClasses.indexOf(cssClass) < 0) {
-            root.cssClasses.push(cssClass);
-        }
-    }
-}
-
-function removeCssClasses(root: SModelRoot, cssClasses: string[]) {
-    if (root.cssClasses === undefined || root.cssClasses.length === 0) {
-        return;
-    }
-    for (const cssClass of cssClasses) {
-        const index = root.cssClasses.indexOf(cssClass);
-        if (index !== -1) {
-            root.cssClasses.splice(root.cssClasses.indexOf(cssClass), 1);
-        }
-    }
-}

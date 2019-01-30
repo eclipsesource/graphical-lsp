@@ -13,15 +13,13 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-export const GLSP_TYPES = {
-    IToolManager: Symbol.for("ToolManager"),
-    ICommandPaletteActionProvider: Symbol.for("ICommandPaletteActionProvider"),
-    ICommandPaletteActionProviderRegistry: Symbol.for("ICommandPaletteActionProviderRegistry"),
-    IFeedbackActionDispatcher: Symbol.for("IFeedbackActionDispatcher"),
-    IToolFactory: Symbol.for("Factory<Tool>"),
-    IModelUpdateNotifier: Symbol.for("IModelUpdateNotifier"),
-    IModelUpdateObserver: Symbol.for("IModelUpdateObserver"),
-    IReadonlyModelAccessProvider: Symbol.for("IReadonlyModelAccessProvider"),
-    IDiagramUIExtension: Symbol.for("DiagramUIExtension"),
-    IEditConfigProvider: Symbol.for("IEditConfigProvider")
+export function createElementFromHTML(html: string): HTMLElement | undefined {
+    const template = document.createElement('template');
+    html = html.trim(); // Never return a text node of whitespace as the result
+    template.innerHTML = html;
+    const node = template.content.firstChild
+    if (node && node instanceof HTMLElement) {
+        return node as HTMLElement
+    }
+    return undefined;
 }

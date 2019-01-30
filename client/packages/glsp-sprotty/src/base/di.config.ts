@@ -15,8 +15,10 @@
  ********************************************************************************/
 import { ContainerModule } from "inversify";
 import { TYPES } from "sprotty/lib";
+import "../../css/glsp-sprotty.css";
 import { GLSP_TYPES } from "../types";
 import { GLSPCommandStack, IReadonlyModelAccess } from "./command-stack";
+import { DiagramUIExtensionActionHandlerInitializer, DiagramUIExtensionRegistry } from "./diagram-ui-extension/diagram-ui-extension-registry";
 import { Tool } from "./tool-manager/tool";
 import { createToolFactory, DefaultToolsEnablingKeyListener, GLSPToolManagerActionHandlerInitializer, ToolManager } from "./tool-manager/tool-manager";
 
@@ -24,6 +26,7 @@ const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) =>
     if (isBound(TYPES.ICommandStack)) {
         unbind(TYPES.ICommandStack);
     }
+    // GLSP Commandstack  initialization ------------------------------------
     bind(GLSPCommandStack).toSelf().inSingletonScope();
     bind(TYPES.ICommandStack).toService(GLSPCommandStack);
     bind(GLSP_TYPES.IModelUpdateNotifier).toService(GLSPCommandStack);
@@ -35,6 +38,9 @@ const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) =>
         };
     });
 
+    // DiagramUIExtension registry initialization ------------------------------------
+    bind(DiagramUIExtensionRegistry).toSelf().inSingletonScope();
+    bind(TYPES.IActionHandlerInitializer).to(DiagramUIExtensionActionHandlerInitializer)
 
     // Tool manager initialization ------------------------------------
     bind(GLSP_TYPES.IToolManager).to(ToolManager).inSingletonScope();
