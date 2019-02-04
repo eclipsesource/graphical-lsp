@@ -15,8 +15,7 @@
  ********************************************************************************/
 import { inject, injectable } from "inversify";
 import { Action, IActionDispatcher, ILogger, SModelRoot, TYPES } from "sprotty/lib";
-import { IModelUpdateNotifier, IModelUpdateObserver } from "../../base/command-stack";
-import { GLSP_TYPES } from "../../types";
+import { IModelUpdateObserver } from "../../base/model/model-update-observer-registry";
 
 export interface IFeedbackEmitter { }
 
@@ -52,10 +51,8 @@ export class FeedbackActionDispatcher implements IFeedbackActionDispatcher, IMod
     protected feedbackEmitters: Map<IFeedbackEmitter, Action[]> = new Map;
 
     constructor(
-        @inject(GLSP_TYPES.IModelUpdateNotifier) protected modelUpdateNotifier: IModelUpdateNotifier,
         @inject(TYPES.IActionDispatcherProvider) protected actionDispatcher: () => Promise<IActionDispatcher>,
         @inject(TYPES.ILogger) protected logger: ILogger) {
-        this.modelUpdateNotifier.registerObserver(this);
     }
 
     registerFeedback(feedbackEmitter: IFeedbackEmitter, actions: Action[]): void {

@@ -14,29 +14,27 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { injectable } from "inversify";
-import { Action, ActionHandlerRegistry, IActionHandler, IActionHandlerInitializer, ICommand, SModelElement, SModelElementSchema, SModelRoot } from "sprotty/lib";
-import { IModelUpdateObserver } from "../../base/command-stack";
+import { Action, ICommand, SModelElement, SModelElementSchema, SModelRoot } from "sprotty/lib";
+import { SelfInitializingActionHandler } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
 import {
     EdgeEditConfig, edgeEditConfig, EditConfig, IEditConfigProvider, isEdgeEditConfig, //
     isNodeEditConfig, NodeEditConfig, nodeEditConfig
 } from "../../base/edit-config/edit-config";
+import { IModelUpdateObserver } from "../../base/model/model-update-observer-registry";
 import { contains } from "../../utils/array-utils";
 import { EdgeTypeHint, isSetTypeHintsAction, NodeTypeHint, SetTypeHintsAction } from "./action-definition";
 
 
 @injectable()
-export class TypeHintsActionIntializer implements IActionHandlerInitializer, IActionHandler, IModelUpdateObserver, IEditConfigProvider {
-
+export class TypeHintsActionHandler extends SelfInitializingActionHandler implements IModelUpdateObserver, IEditConfigProvider {
     protected editConfigs: Map<string, EditConfig> = new Map
+    readonly handledActionKinds = [SetTypeHintsAction.KIND]
+
     handle(action: Action): ICommand | Action | void {
         if (isSetTypeHintsAction(action)) {
             action.nodeHints.forEach(hint => this.editConfigs.set(hint.elementTypeId, createNodeEditConfig(hint)))
             action.edgeHints.forEach(hint => this.editConfigs.set(hint.elementTypeId, createEdgeEditConfig(hint)))
         }
-    }
-
-    initialize(registry: ActionHandlerRegistry): void {
-        registry.register(SetTypeHintsAction.KIND, this)
     }
 
     beforeServerUpdate(model: SModelRoot) {

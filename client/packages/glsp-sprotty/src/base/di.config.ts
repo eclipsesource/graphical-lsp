@@ -19,17 +19,17 @@ import "../../css/glsp-sprotty.css";
 import { GLSP_TYPES } from "../types";
 import { GLSPCommandStack, IReadonlyModelAccess } from "./command-stack";
 import { DiagramUIExtensionActionHandlerInitializer, DiagramUIExtensionRegistry } from "./diagram-ui-extension/diagram-ui-extension-registry";
+import { ModelUpdateActionInitializer, ModelUpdateObserverRegistry } from "./model/model-update-observer-registry";
 import { Tool } from "./tool-manager/tool";
 import { createToolFactory, DefaultToolsEnablingKeyListener, GLSPToolManagerActionHandlerInitializer, ToolManager } from "./tool-manager/tool-manager";
 
 const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) => {
+    // GLSP Commandstack  initialization ------------------------------------
     if (isBound(TYPES.ICommandStack)) {
         unbind(TYPES.ICommandStack);
     }
-    // GLSP Commandstack  initialization ------------------------------------
     bind(GLSPCommandStack).toSelf().inSingletonScope();
     bind(TYPES.ICommandStack).toService(GLSPCommandStack);
-    bind(GLSP_TYPES.IModelUpdateNotifier).toService(GLSPCommandStack);
     bind(GLSP_TYPES.IReadonlyModelAccessProvider).toProvider<IReadonlyModelAccess>((context) => {
         return () => {
             return new Promise<IReadonlyModelAccess>((resolve) => {
@@ -39,7 +39,7 @@ const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) =>
     });
 
     // DiagramUIExtension registry initialization ------------------------------------
-    bind(DiagramUIExtensionRegistry).toSelf().inSingletonScope();
+    bind(GLSP_TYPES.DiagramUIExtensionRegistry).to(DiagramUIExtensionRegistry).inSingletonScope();
     bind(TYPES.IActionHandlerInitializer).to(DiagramUIExtensionActionHandlerInitializer)
 
     // Tool manager initialization ------------------------------------
@@ -47,6 +47,10 @@ const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) =>
     bind(TYPES.KeyListener).to(DefaultToolsEnablingKeyListener);
     bind(TYPES.IActionHandlerInitializer).to(GLSPToolManagerActionHandlerInitializer);
     bind(GLSP_TYPES.IToolFactory).toFactory<Tool>((createToolFactory()));
+
+    // Model update initialization ------------------------------------
+    bind(GLSP_TYPES.ModelUpdateObserverRegistry).to(ModelUpdateObserverRegistry).inSingletonScope();
+    bind(TYPES.IActionHandlerInitializer).to(ModelUpdateActionInitializer)
 })
 
 export default defaultGLSPModule;

@@ -17,6 +17,7 @@ export * from 'sprotty/lib';
 export * from './base/command-stack';
 export * from './base/diagram-ui-extension/diagram-ui-extension';
 export * from './base/edit-config/edit-config';
+export * from './base/model/model-update-observer-registry';
 export * from './base/tool-manager/tool';
 export * from './base/tool-manager/tool-manager';
 export * from './features/change-bounds/model';
