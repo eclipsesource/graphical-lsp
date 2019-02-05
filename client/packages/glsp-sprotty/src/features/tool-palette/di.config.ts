@@ -17,12 +17,12 @@ import { ContainerModule } from "inversify";
 import { TYPES } from "sprotty/lib";
 import "../../../css/tool-palette.css";
 import { GLSP_TYPES } from "../../types";
-import { ToolPalette, ToolPaletteActionInitializer } from "./tool-palette";
+import { ToolPalette, ToolPaletteActionHandler } from "./tool-palette";
 
 const toolPaletteModule = new ContainerModule((bind) => {
     bind(ToolPalette).toSelf().inSingletonScope();
     bind(GLSP_TYPES.IDiagramUIExtension).toService(ToolPalette)
-    bind(TYPES.IActionHandlerInitializer).to(ToolPaletteActionInitializer)
+    bind(TYPES.IActionHandlerInitializer).to(ToolPaletteActionHandler)
 });
 
 export default toolPaletteModule;

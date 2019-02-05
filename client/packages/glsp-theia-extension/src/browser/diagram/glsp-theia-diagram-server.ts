@@ -15,10 +15,10 @@
  ********************************************************************************/
 import { Emitter, Event } from "@theia/core/lib/common";
 import {
-    Action, ActionHandlerRegistry, ActionMessage, ExecuteServerCommandAction, GLSPCommandStack, IActionDispatcher, ICommand, ILogger, //
-    ModelSource, OperationKind, RequestBoundsCommand, RequestOperationsAction, //
-    RequestTypeHintsAction, SaveModelAction, SetModelCommand, //
-    SetTypeHintsAction, SModelStorage, SwitchEditModeCommand, SwitchResizeModeCommand, TYPES, UpdateModelCommand, ViewerOptions
+    Action, ActionHandlerRegistry, CollapseExpandAction, CollapseExpandAllAction, ComputedBoundsAction, ExecuteServerCommandAction, ExportSvgAction, IActionDispatcher, ICommand, ILogger, IModelFactory, //
+    ModelSource, OpenAction, OperationKind, RequestBoundsCommand, RequestModelAction, RequestOperationsAction, RequestPopupModelAction, //
+    RequestTypeHintsAction, SaveModelAction, SelectCommand, ServerStatusAction, //
+    SetTypeHintsAction, SModelStorage, SwitchEditModeCommand, SwitchResizeModeCommand, TYPES, ViewerOptions
 } from "glsp-sprotty/lib";
 import { inject, injectable } from "inversify";
 import { TheiaDiagramServer } from "theia-glsp/lib";
@@ -32,14 +32,16 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         @inject(TYPES.ViewerOptions) viewerOptions: ViewerOptions,
         @inject(TYPES.SModelStorage) storage: SModelStorage,
         @inject(TYPES.ILogger) logger: ILogger,
-        @inject(GLSPCommandStack) protected commandStack: GLSPCommandStack) {
+        @inject(TYPES.IModelFactory) protected modelFactory: IModelFactory) {
         super(actionDispatcher, actionHandlerRegistry, viewerOptions, storage, logger)
     }
 
     initialize(registry: ActionHandlerRegistry): void {
-        super.initialize(registry);
+        // Register model manipulation commands
+        registry.register(SelectCommand.KIND, this)
         registry.registerCommand(SwitchResizeModeCommand)
         // register actions
+
         registry.register(RequestOperationsAction.KIND, this)
         registry.register(SaveModelAction.KIND, this)
         registry.register(OperationKind.CREATE_CONNECTION, this)
@@ -49,20 +51,22 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         registry.register(ExecuteServerCommandAction.KIND, this)
         registry.register(RequestTypeHintsAction.KIND, this)
         registry.register(SetTypeHintsAction.KIND, this)
+        registry.register(ComputedBoundsAction.KIND, this);
+        registry.register(RequestBoundsCommand.KIND, this);
+        registry.register(RequestPopupModelAction.KIND, this);
+        registry.register(CollapseExpandAction.KIND, this);
+        registry.register(CollapseExpandAllAction.KIND, this);
+        registry.register(OpenAction.KIND, this);
+        registry.register(ServerStatusAction.KIND, this);
+        registry.register(RequestModelAction.KIND, this);
+        registry.register(ExportSvgAction.KIND, this);
+
         // Register an empty handler for SwitchEditMode, to avoid runtime exceptions.
         // We don't want to support SwitchEditMode, but sprotty still sends some corresponding
         // actions.
         registry.register(SwitchEditModeCommand.KIND, { handle: action => undefined })
     }
 
-    messageReceived(message: ActionMessage) {
-        if (message.action.kind === RequestBoundsCommand.KIND ||
-            message.action.kind === SetModelCommand.KIND ||
-            message.action.kind === UpdateModelCommand.KIND) {
-            this.commandStack.serverSideUpdate = true;
-        }
-        super.messageReceived(message)
-    }
 
     public getSourceURI(): string {
         return this.sourceUri

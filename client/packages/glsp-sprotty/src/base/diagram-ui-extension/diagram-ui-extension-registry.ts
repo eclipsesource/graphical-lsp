@@ -23,6 +23,20 @@ import { GLSP_TYPES } from "../../types";
 import { IDiagramUIExtension } from "./diagram-ui-extension";
 
 /**
+ * Convinience class for classes that implement both `IActionHandler` and `IActionHandlerInitializer`
+ */
+@injectable()
+export abstract class SelfInitializingActionHandler implements IActionHandler, IActionHandlerInitializer {
+
+    initialize(registry: ActionHandlerRegistry) {
+        this.handledActionKinds.forEach(kind => registry.register(kind, this))
+    }
+
+    abstract handle(action: Action): ICommand | Action | void
+    abstract handledActionKinds: string[]
+
+}
+/**
  * Action requesting to show the diagram UI extension with specified id.
  */
 export class ShowDiagramUIExtensionAction implements Action {
@@ -57,13 +71,10 @@ export class DiagramUIExtensionRegistry extends InstanceRegistry<IDiagramUIExten
  * Initalizer and handler for DiagramUIExension actions.
  */
 @injectable()
-export class DiagramUIExtensionActionHandlerInitializer implements IActionHandlerInitializer, IActionHandler {
-    @inject(DiagramUIExtensionRegistry) protected readonly registry: DiagramUIExtensionRegistry
+export class DiagramUIExtensionActionHandlerInitializer extends SelfInitializingActionHandler {
+    @inject(GLSP_TYPES.DiagramUIExtensionRegistry) protected readonly registry: DiagramUIExtensionRegistry
 
-    initialize(registry: ActionHandlerRegistry): void {
-        registry.register(ShowDiagramUIExtensionAction.KIND, this)
-        registry.register(HideDiagramUIExtensionAction.KIND, this)
-    }
+    readonly handledActionKinds = [ShowDiagramUIExtensionAction.KIND, HideDiagramUIExtensionAction.KIND]
 
     handle(action: Action): void | ICommand | Action {
         if (action instanceof ShowDiagramUIExtensionAction) {
