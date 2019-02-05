@@ -51,4 +51,8 @@ export class WorkflowDiagramManager extends GLSPDiagramManager {
         }
         return this._diagramConnector
     }
+
+    get fileExtensions() {
+        return [WorkflowLanguage.FileExtension]
+    }
 }
