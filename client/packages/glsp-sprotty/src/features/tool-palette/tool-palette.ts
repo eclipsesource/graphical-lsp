@@ -15,11 +15,11 @@
  ********************************************************************************/
 import { inject, injectable } from "inversify";
 import {
-    Action, ActionHandlerRegistry, IActionDispatcherProvider, IActionHandler, IActionHandlerInitializer, ICommand, ILogger, //
+    Action, IActionDispatcherProvider, ICommand, ILogger, //
     TYPES, ViewerOptions
 } from "sprotty/lib";
 import { BaseDiagramUIExtension } from "../../base/diagram-ui-extension/diagram-ui-extension";
-import { ShowDiagramUIExtensionAction } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
+import { SelfInitializingActionHandler, ShowDiagramUIExtensionAction } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
 import { EnableDefaultToolsAction, EnableToolsAction } from "../../base/tool-manager/tool";
 import { isSetOperationsAction, Operation, OperationKind, SetOperationsAction } from "../operation/set-operations";
 import { deriveToolId } from "../tools/creation-tool";
@@ -159,13 +159,10 @@ function createToolGroup(label: string, groupId: string): HTMLElement {
 }
 
 @injectable()
-export class ToolPaletteActionInitializer implements IActionHandler, IActionHandlerInitializer {
+export class ToolPaletteActionHandler extends SelfInitializingActionHandler {
     @inject(ToolPalette) protected readonly toolPalette: ToolPalette
 
-    initialize(registry: ActionHandlerRegistry): void {
-        registry.register(SetOperationsAction.KIND, this)
-        registry.register(EnableDefaultToolsAction.KIND, this)
-    }
+    readonly handledActionKinds = [SetOperationsAction.KIND, EnableDefaultToolsAction.KIND]
 
     handle(action: Action): ICommand | Action | void {
         if (isSetOperationsAction(action)) {

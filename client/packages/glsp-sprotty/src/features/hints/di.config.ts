@@ -16,13 +16,13 @@
 import { ContainerModule } from "inversify";
 import { TYPES } from "sprotty/lib";
 import { GLSP_TYPES } from "../../types";
-import { TypeHintsActionIntializer } from "./type-hints-action-initializer";
+import { TypeHintsActionHandler } from "./type-hints-action-initializer";
 
 const modelHintsModule = new ContainerModule(bind => {
-    bind(TypeHintsActionIntializer).toSelf().inSingletonScope()
-    bind(TYPES.IActionHandlerInitializer).toService(TypeHintsActionIntializer)
-    bind(GLSP_TYPES.IModelUpdateObserver).toService(TypeHintsActionIntializer)
-    bind(GLSP_TYPES.IEditConfigProvider).toService(TypeHintsActionIntializer)
+    bind(TypeHintsActionHandler).toSelf().inSingletonScope()
+    bind(TYPES.IActionHandlerInitializer).toService(TypeHintsActionHandler)
+    bind(GLSP_TYPES.IModelUpdateObserver).toService(TypeHintsActionHandler)
+    bind(GLSP_TYPES.IEditConfigProvider).toService(TypeHintsActionHandler)
 })
 
 export default modelHintsModule;

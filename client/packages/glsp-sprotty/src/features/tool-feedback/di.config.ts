@@ -27,6 +27,7 @@ import { FeedbackEdgeEndView } from "./view";
 
 const toolFeedbackModule = new ContainerModule(bind => {
     bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
+    bind(GLSP_TYPES.IModelUpdateObserver).toService(GLSP_TYPES.IFeedbackActionDispatcher)
 
     // create node and edge tool feedback
     bind(TYPES.ICommand).toConstructor(ShowNodeCreationToolFeedbackCommand);
