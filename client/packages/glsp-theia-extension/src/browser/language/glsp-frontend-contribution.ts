@@ -20,6 +20,9 @@ import { GLSPClientContribution } from "./glsp-client-contribution";
 
 @injectable()
 export class GLSPFrontendContribution implements FrontendApplicationContribution {
+    @inject(FrontendApplication)
+    protected readonly app: FrontendApplication;
+
     constructor(
         @inject(ContributionProvider) @named(GLSPClientContribution)
         protected readonly contributions: ContributionProvider<GLSPClientContribution>

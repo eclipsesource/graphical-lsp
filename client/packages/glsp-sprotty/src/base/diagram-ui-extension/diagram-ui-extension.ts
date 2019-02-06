@@ -69,7 +69,7 @@ export abstract class BaseDiagramUIExtension implements IDiagramUIExtension {
             this.logger.warn(this, 'Could not obtain sprotty base container for showing command palette');
             return false;
         }
-        this.containerElement = this.getOrCreateContainer()
+        this.containerElement = this.getOrCreateContainer(baseDiv.id)
         this.createUIElements()
         if (baseDiv) {
             baseDiv.insertBefore(this.containerElement, baseDiv.firstChild);
@@ -77,11 +77,11 @@ export abstract class BaseDiagramUIExtension implements IDiagramUIExtension {
         return true
     }
 
-    protected getOrCreateContainer(): HTMLElement {
+    protected getOrCreateContainer(baseDivId: string): HTMLElement {
         let container = document.getElementById(this.id)
         if (container === null) {
             container = document.createElement('div');
-            container.id = this.id
+            container.id = baseDivId + "_" + this.id
             container.classList.add(this.containerClass)
         }
         return container

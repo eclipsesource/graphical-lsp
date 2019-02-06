@@ -15,12 +15,13 @@
  ********************************************************************************/
 
 //diagram export
+export * from './diagram/glsp-diagram-client';
 export * from './diagram/glsp-diagram-manager';
 export * from './diagram/glsp-diagram-widget';
 export * from './diagram/glsp-theia-diagram-server';
-export * from "./diagram/glsp-theia-sprotty-connector";
-export * from './language/glsp-client';
+export * from './diagram/glsp-theia-sprotty-connector';
 // language export
+export * from './language/glsp-client';
 export * from './language/glsp-client-contribution';
 export * from './language/glsp-client-provider';
 export * from './language/glsp-client-services';

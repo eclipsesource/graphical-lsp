@@ -12,14 +12,14 @@
     "vscode": "^1.25"
   },
   "dependencies": {
-    "@theia/core": "latest",
-    "@theia/editor": "latest",
-    "@theia/filesystem": "latest",
-    "@theia/languages": "latest",
-    "@theia/monaco": "latest",
+    "@theia/core": "next",
+    "@theia/editor": "next",
+    "@theia/filesystem": "next",
+    "@theia/languages": "next",
+    "@theia/monaco": "next",
     "@types/node": "^8.0.14",
     "glsp-sprotty": "0.4.4",
-    "theia-glsp": "0.1.22"
+    "sprotty-theia": "0.3.0"
   },
   "devDependencies": {
     "vscode": "^1.1.18"
@@ -28,12 +28,12 @@
     "prepare": "yarn run clean && yarn run build",
     "clean": "rimraf lib",
     "build": "tsc && yarn run lint",
-    "lint" : "tslint -c ../../configs/tslint.json --project ./tsconfig.json",
+    "lint": "tslint -c ../../configs/tslint.json --project ./tsconfig.json",
     "watch": "tsc -w"
   },
   "theiaExtensions": [
     {
-      "frontend": "lib/browser/frontend-extension"
+      "frontend": "lib/browser/frontend-module"
     }
   ]
 }

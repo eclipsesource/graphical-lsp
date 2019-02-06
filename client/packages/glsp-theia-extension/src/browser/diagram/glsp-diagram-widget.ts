@@ -16,15 +16,20 @@
 import { Saveable, SaveableSource } from "@theia/core/lib/browser";
 import { Disposable, DisposableCollection, Emitter, Event, MaybePromise } from "@theia/core/lib/common";
 import { EditorPreferences } from "@theia/editor/lib/browser";
-import { Action, IActionDispatcher, ModelSource, OperationKind, RequestModelAction, RequestOperationsAction, RequestTypeHintsAction, SaveModelAction } from "glsp-sprotty/lib";
-import { DiagramWidget, DiagramWidgetOptions } from "theia-glsp/lib";
-import { NotifyingModelSource } from "./glsp-theia-diagram-server";
+import {
+    Action, DiagramServer, IActionDispatcher, ModelSource, OperationKind, RequestModelAction, RequestOperationsAction, //
+    RequestTypeHintsAction, SaveModelAction, TYPES
+} from "glsp-sprotty/lib";
+import { Container } from "inversify";
+import { DiagramWidget, DiagramWidgetOptions, TheiaSprottyConnector } from "sprotty-theia/lib";
+import { GLSPTheiaDiagramServer, NotifyingModelSource } from "./glsp-theia-diagram-server";
 
 export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
-    saveable = new SaveableGLSPModelSource(this.actionDispatcher, this.modelSource);
+    saveable = new SaveableGLSPModelSource(this.actionDispatcher, this.diContainer.get<ModelSource>(TYPES.ModelSource));
 
-    constructor(options: DiagramWidgetOptions, readonly editorPreferences: EditorPreferences) {
-        super(options);
+    constructor(options: DiagramWidgetOptions, readonly id: string, readonly diContainer: Container,
+        readonly editorPreferences: EditorPreferences, readonly connector?: TheiaSprottyConnector) {
+        super(options, id, diContainer, connector);
         this.updateSaveable();
         const prefUpdater = editorPreferences.onPreferenceChanged(() => this.updateSaveable());
         this.toDispose.push(prefUpdater);
@@ -36,14 +41,23 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         this.saveable.autoSaveDelay = this.editorPreferences['editor.autoSaveDelay'];
     }
 
-    protected sendInitialRequestMessages() {
-        this.actionDispatcher.dispatch(new RequestTypeHintsAction());
+    protected initializeSprotty() {
+        const modelSource = this.diContainer.get<ModelSource>(TYPES.ModelSource)
+        if (modelSource instanceof DiagramServer)
+            modelSource.clientId = this.id
+        if (modelSource instanceof GLSPTheiaDiagramServer && this.connector)
+            this.connector.connect(modelSource)
+        this.disposed.connect(() => {
+            if (modelSource instanceof GLSPTheiaDiagramServer && this.connector)
+                this.connector.disconnect(modelSource)
+        })
         this.actionDispatcher.dispatch(new RequestModelAction({
-            sourceUri: decodeURIComponent(this.uri.toString()),
-            diagramType: this.diagramType,
+            sourceUri: this.options.uri,
+            diagramType: this.options.diagramType,
             needsClientLayout: 'true'
         }))
         this.actionDispatcher.dispatch(new RequestOperationsAction());
+        this.actionDispatcher.dispatch(new RequestTypeHintsAction());
     }
 }
 
