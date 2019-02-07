@@ -97,6 +97,7 @@ public class DefaultGLSPServer implements GLSPServer {
 		ModelState modelState = clientModelStates.get(clientId);
 		if (modelState == null) {
 			modelState = new ModelStateImpl();
+			modelState.setClientId(clientId);
 			clientModelStates.put(clientId, modelState);
 		}
 		return modelState;

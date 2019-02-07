@@ -13,13 +13,13 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { FrontendApplicationContribution, OpenHandler } from "@theia/core/lib/browser";
+import { FrontendApplicationContribution, OpenHandler, WidgetFactory } from "@theia/core/lib/browser";
 import { GLSPClientContribution } from "glsp-theia-extension/lib/browser";
 import { ContainerModule, interfaces } from "inversify";
-import { DiagramConfiguration, DiagramManager, DiagramManagerProvider } from "theia-glsp/lib";
-import { WorkflowLanguage } from "../common/workflow-language";
-import { WorkflowDiagramConfiguration } from "./diagram/di.config";
-import { WorkflowDiagramManager } from "./diagram/workflow-diagram-manager.";
+import { DiagramConfiguration, DiagramManager, DiagramManagerProvider } from "sprotty-theia/lib";
+import { WorkflowDiagramConfiguration } from "./diagram/workflow-diagram-configuration";
+import { WorkflowDiagramManager } from "./diagram/workflow-diagram-manager";
+import { WorkflowGLSPDiagramClient } from "./diagram/workflow-glsp-diagram-client";
 import { WorkflowGLSPClientContribution } from "./language/workflow-glsp-client-contribution";
 
 
@@ -27,17 +27,20 @@ export default new ContainerModule((bind: interfaces.Bind, unbind: interfaces.Un
     bind(WorkflowGLSPClientContribution).toSelf().inSingletonScope()
     bind(GLSPClientContribution).toService(WorkflowGLSPClientContribution);
 
-    bind(DiagramConfiguration).to(WorkflowDiagramConfiguration).inSingletonScope()
-    bind(DiagramManagerProvider).toProvider<DiagramManager>(context => {
-        return () => {
-            return new Promise<DiagramManager>((resolve) =>
-                resolve(context.container.get(WorkflowDiagramManager))
-            )
-        }
-    }).whenTargetNamed(WorkflowLanguage.DiagramType)
+    bind(WorkflowGLSPDiagramClient).toSelf().inSingletonScope()
 
+    bind(DiagramConfiguration).to(WorkflowDiagramConfiguration).inSingletonScope()
     bind(WorkflowDiagramManager).toSelf().inSingletonScope()
     bind(FrontendApplicationContribution).toService(WorkflowDiagramManager)
     bind(OpenHandler).toService(WorkflowDiagramManager)
+    bind(WidgetFactory).toService(WorkflowDiagramManager);
+    bind(DiagramManagerProvider).toProvider<DiagramManager>((context) => {
+        return () => {
+            return new Promise<DiagramManager>((resolve) => {
+                const diagramManager = context.container.get<WorkflowDiagramManager>(WorkflowDiagramManager);
+                resolve(diagramManager);
+            });
+        };
+    });
 })
 

@@ -17,6 +17,7 @@
  .sprotty-graph {
      font-size: 15pt;
      background: rgb(179, 196, 202);
+     border: none;
      height: 100%;
  }
  .sprotty-popup{

@@ -13,12 +13,13 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import { WidgetManager } from "@theia/core/lib/browser";
 import { EditorManager } from "@theia/editor/lib/browser";
-import { GLSPClientContribution, GLSPDiagramManager, GLSPTheiaSprottyConnector } from "glsp-theia-extension/lib/browser";
+import { GLSPDiagramManager, GLSPTheiaSprottyConnector } from "glsp-theia-extension/lib/browser";
 import { inject, injectable } from "inversify";
-import { DiagramWidgetRegistry, TheiaFileSaver } from "theia-glsp/lib";
+import { TheiaFileSaver } from "sprotty-theia/lib";
 import { WorkflowLanguage } from "../../common/workflow-language";
-import { WorkflowGLSPClientContribution } from "../language/workflow-glsp-client-contribution";
+import { WorkflowGLSPDiagramClient } from "./workflow-glsp-diagram-client";
 
 @injectable()
 export class WorkflowDiagramManager extends GLSPDiagramManager {
@@ -29,30 +30,18 @@ export class WorkflowDiagramManager extends GLSPDiagramManager {
     private _diagramConnector: GLSPTheiaSprottyConnector;
 
     constructor(
-        @inject(WorkflowGLSPClientContribution)
-        readonly languageClientContribution: GLSPClientContribution,
-        @inject(TheiaFileSaver)
-        readonly theiaFileSaver: TheiaFileSaver,
-        @inject(EditorManager)
-        readonly editorManager: EditorManager,
-        @inject(DiagramWidgetRegistry)
-        readonly diagramWidgetRegistry: DiagramWidgetRegistry) {
+        @inject(WorkflowGLSPDiagramClient) diagramClient: WorkflowGLSPDiagramClient,
+        @inject(TheiaFileSaver) fileSaver: TheiaFileSaver,
+        @inject(WidgetManager) widgetManager: WidgetManager,
+        @inject(EditorManager) editorManager: EditorManager) {
         super();
-
-    }
-
-    get diagramConnector() {
-        if (!this._diagramConnector) {
-            this._diagramConnector = new GLSPTheiaSprottyConnector(
-                this.languageClientContribution,
-                this.theiaFileSaver,
-                this.editorManager,
-                this.diagramWidgetRegistry)
-        }
-        return this._diagramConnector
+        this._diagramConnector = new GLSPTheiaSprottyConnector({ diagramClient, fileSaver, editorManager, widgetManager, diagramManager: this })
     }
 
     get fileExtensions() {
         return [WorkflowLanguage.FileExtension]
+    }
+    get diagramConnector() {
+        return this._diagramConnector;
     }
 }

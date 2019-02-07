@@ -21,7 +21,7 @@ import {
     SetTypeHintsAction, SModelStorage, SwitchEditModeCommand, SwitchResizeModeCommand, TYPES, ViewerOptions
 } from "glsp-sprotty/lib";
 import { inject, injectable } from "inversify";
-import { TheiaDiagramServer } from "theia-glsp/lib";
+import { TheiaDiagramServer } from "sprotty-theia/lib";
 
 @injectable()
 export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements NotifyingModelSource {

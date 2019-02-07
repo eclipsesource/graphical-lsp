@@ -9,11 +9,11 @@
     "src"
   ],
   "dependencies": {
-    "@theia/core": "latest",
-    "@theia/editor": "latest",
-    "@theia/filesystem": "latest",
-    "@theia/languages": "latest",
-    "@theia/monaco": "latest",
+    "@theia/core": "next",
+    "@theia/editor": "next",
+    "@theia/filesystem": "next",
+    "@theia/languages": "next",
+    "@theia/monaco": "next",
     "@types/node": "^8.0.14",
     "workflow-sprotty": "0.1.0",
     "glsp-theia-extension": "0.1.7"
@@ -25,14 +25,14 @@
   "scripts": {
     "prepare": "yarn run clean && yarn run build",
     "clean": "rimraf lib",
-  	"build": "tsc && yarn run lint",
-    "lint" : "tslint -c ../../configs/tslint.json --project ./tsconfig.json",
+    "build": "tsc && yarn run lint",
+    "lint": "tslint -c ../../configs/tslint.json --project ./tsconfig.json",
     "watch": "tsc -w"
   },
   "theiaExtensions": [
     {
-      "frontend": "lib/browser/frontend-extension",
-      "backend": "lib/node/backend-extension"
+      "frontend": "lib/browser/frontend-module",
+      "backend": "lib/node/backend-module"
     }
   ]
 }

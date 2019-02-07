@@ -13,24 +13,16 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { ContributionProvider } from "@theia/core";
-import { FrontendApplication, FrontendApplicationContribution } from "@theia/core/lib/browser";
-import { inject, injectable, named } from "inversify";
-import { GLSPClientContribution } from "./glsp-client-contribution";
+import { EditorManager } from "@theia/editor/lib/browser";
+import { GLSPDiagramClient } from "glsp-theia-extension/lib/browser";
+import { inject, injectable } from "inversify";
+import { WorkflowGLSPClientContribution } from "../language/workflow-glsp-client-contribution";
 
 @injectable()
-export class GLSPFrontendContribution implements FrontendApplicationContribution {
-    @inject(FrontendApplication)
-    protected readonly app: FrontendApplication;
-
+export class WorkflowGLSPDiagramClient extends GLSPDiagramClient {
     constructor(
-        @inject(ContributionProvider) @named(GLSPClientContribution)
-        protected readonly contributions: ContributionProvider<GLSPClientContribution>
-    ) { }
-
-    onStart(app: FrontendApplication): void {
-        for (const contribution of this.contributions.getContributions()) {
-            contribution.activate(app)
-        }
+        @inject(WorkflowGLSPClientContribution) glspCLientContribution: WorkflowGLSPClientContribution,
+        @inject(EditorManager) editorManager: EditorManager) {
+        super(glspCLientContribution, editorManager)
     }
 }

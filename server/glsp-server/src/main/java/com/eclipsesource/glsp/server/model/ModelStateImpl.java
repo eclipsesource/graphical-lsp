@@ -30,7 +30,6 @@ public class ModelStateImpl implements ModelState {
 	private SModelRoot currentModel;
 	private Set<String> expandedElements;
 	private Set<String> selectedElements;
-	private boolean needsClientLayout;
 	private SModelIndex currentModelIndex;
 
 	public ModelStateImpl() {
@@ -41,6 +40,11 @@ public class ModelStateImpl implements ModelState {
 	@Override
 	public ParsedModelOptions getOptions() {
 		return options;
+	}
+
+	@Override
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
 	}
 
 	@Override
@@ -56,7 +60,7 @@ public class ModelStateImpl implements ModelState {
 	@Override
 	public void setCurrentModel(SModelRoot newRoot) {
 		this.currentModel = newRoot;
-		this.currentModelIndex= new SModelIndex(newRoot);
+		this.currentModelIndex = new SModelIndex(newRoot);
 	}
 
 	@Override
@@ -73,7 +77,7 @@ public class ModelStateImpl implements ModelState {
 	public void setOptions(ParsedModelOptions options) {
 		this.options = options;
 	}
-	
+
 	@Override
 	public void setExpandedElements(Set<String> expandedElements) {
 		this.expandedElements = expandedElements;

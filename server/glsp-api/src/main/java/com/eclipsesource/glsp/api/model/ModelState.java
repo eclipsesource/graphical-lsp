@@ -27,6 +27,8 @@ public interface ModelState {
 	ParsedModelOptions getOptions();
 
 	String getClientId();
+	
+	void setClientId(String clientId);
 
 	SModelRoot getCurrentModel();
 

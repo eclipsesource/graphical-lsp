@@ -13,84 +13,69 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import URI from "@theia/core/lib/common/uri";
+import { WidgetManager } from "@theia/core/lib/browser";
 import { EditorManager } from "@theia/editor/lib/browser";
-import { Workspace } from "@theia/languages/lib/browser";
 import { ActionMessage, ExportSvgAction, ServerStatusAction } from "glsp-sprotty/lib";
-import { DiagramWidgetRegistry, OpenInTextEditorMessage, TheiaDiagramServer, TheiaFileSaver, TheiaSprottyConnector } from "theia-glsp/lib";
-import { ActionMessageNotification } from "../../common/";
-import { GLSPClientContribution } from "../language/glsp-client-contribution";
+import { DiagramManager, DiagramWidget, TheiaDiagramServer, TheiaFileSaver, TheiaSprottyConnector } from "sprotty-theia/lib";
+import { GLSPClient } from "../language/glsp-client-services";
+import { GLSPDiagramClient } from "./glsp-diagram-client";
 
-export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector {
-    private servers: TheiaDiagramServer[] = []
+export interface GLSPTheiaSprottyConnectorServices {
+    readonly diagramClient: GLSPDiagramClient,
+    readonly fileSaver: TheiaFileSaver,
+    readonly editorManager: EditorManager,
+    readonly widgetManager: WidgetManager,
+    readonly diagramManager: DiagramManager
+}
 
-    constructor(private glspClientContribution: GLSPClientContribution,
-        private fileSaver: TheiaFileSaver,
-        private editorManager: EditorManager,
-        private diagramWidgetRegistry: DiagramWidgetRegistry,
-        readonly workspace?: Workspace) {
+export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPTheiaSprottyConnectorServices {
+    private servers: Map<String, TheiaDiagramServer> = new Map
 
-        this.glspClientContribution.glspClient.then(
-            lc => {
-                lc.onNotification(ActionMessageNotification.type, this.onMessageReceived.bind(this))
-            }
-        ).catch(
-            err => console.error(err)
-        )
+    readonly diagramClient: GLSPDiagramClient
+    readonly fileSaver: TheiaFileSaver
+    readonly editorManager: EditorManager
+    readonly widgetManager: WidgetManager
+    readonly diagramManager: DiagramManager
+
+    constructor(services: GLSPTheiaSprottyConnectorServices) {
+        Object.assign(this, services)
+        this.diagramClient.connect(this)
     }
 
-    connect(diagramServer: TheiaDiagramServer): void {
-        this.servers.push(diagramServer)
+    connect(diagramServer: TheiaDiagramServer) {
+        this.servers.set(diagramServer.clientId, diagramServer)
         diagramServer.connect(this)
     }
 
-    disconnect(diagramServer: TheiaDiagramServer): void {
-        const index = this.servers.indexOf(diagramServer)
-        if (index >= 0)
-            this.servers.splice(index, 0)
+    disconnect(diagramServer: TheiaDiagramServer) {
+        this.servers.delete(diagramServer.clientId)
         diagramServer.disconnect()
-        this.glspClientContribution.glspClient.then(lc => lc.stop())
+        this.diagramClient.didClose(diagramServer.clientId)
     }
 
     save(uri: string, action: ExportSvgAction): void {
         this.fileSaver.save(uri, action)
     }
 
-    openInTextEditor(message: OpenInTextEditorMessage): void {
-        const uri = new URI(message.location.uri)
-        if (!message.forceOpen) {
-            this.editorManager.all.forEach(editorWidget => {
-                const currentTextEditor = editorWidget.editor
-                if (editorWidget.isVisible && uri.toString() === currentTextEditor.uri.toString()) {
-                    currentTextEditor.cursor = message.location.range.start
-                    currentTextEditor.revealRange(message.location.range)
-                    currentTextEditor.selection = message.location.range
-                }
-            })
-        } else {
-            this.editorManager.open(uri).then(
-                editorWidget => {
-                    const editor = editorWidget.editor
-                    editor.cursor = message.location.range.start
-                    editor.revealRange(message.location.range)
-                    editor.selection = message.location.range
-                })
-        }
-    }
-
     showStatus(widgetId: string, status: ServerStatusAction): void {
-        const widget = this.diagramWidgetRegistry.getWidgetById(widgetId)
-        if (widget)
+        const widget = this.widgetManager.getWidgets(this.diagramManager.id).find(w => w.id === widgetId)
+        if (widget instanceof DiagramWidget)
             widget.setStatus(status)
     }
 
-    sendMessage(message: ActionMessage): void {
-        this.glspClientContribution.glspClient.then(lc => lc.sendNotification(ActionMessageNotification.type, message))
+    sendMessage(message: ActionMessage) {
+        this.diagramClient.sendThroughLsp(message)
+    }
+
+
+    getGLSPClient(): Promise<GLSPClient> {
+        return this.diagramClient.glspClient
     }
 
     onMessageReceived(message: ActionMessage): void {
-        this.servers.forEach(element => {
-            element.messageReceived(message)
-        })
+        const diagramServer = this.servers.get(message.clientId)
+        if (diagramServer) {
+            diagramServer.messageReceived(message)
+        }
     }
 }

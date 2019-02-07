@@ -20,7 +20,8 @@ import { EditorManager } from "@theia/editor/lib/browser";
 import { Commands, Disposable, InitializeParams, State } from '@theia/languages/lib/browser';
 import { LanguageContribution } from "@theia/languages/lib/common";
 import { WorkspaceService } from "@theia/workspace/lib/browser";
-import { inject, injectable } from "inversify";
+import { inject, injectable, multiInject } from "inversify";
+import { DiagramManagerProvider } from "sprotty-theia/lib";
 import { MessageConnection, ResponseError } from "vscode-jsonrpc";
 import { GLSPClientFactory } from "./glsp-client";
 import { GLSPClient, GLSPClientOptions } from "./glsp-client-services";
@@ -53,6 +54,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
     @inject(GLSPClientFactory) protected readonly languageClientFactory: GLSPClientFactory
     @inject(CommandRegistry) protected readonly registry: CommandRegistry
     @inject(EditorManager) protected readonly editorManager: EditorManager
+    @multiInject(DiagramManagerProvider) protected diagramManagerProviders: DiagramManagerProvider[]
     constructor() {
         this.waitForReady()
     }
@@ -71,7 +73,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         if (fileExtensions) {
             activationPromises.push(this.waitForOpenDocument(fileExtensions));
         }
-
+        activationPromises.push(this.waitForOpenDiagrams())
         if (activationPromises.length !== 0) {
             return Promise.all([
                 this.ready,
@@ -88,6 +90,18 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         return this.ready
     }
 
+    protected waitForOpenDiagrams(): Promise<any> {
+        return Promise.race(this.diagramManagerProviders.map(diagramManagerProvider => {
+            return diagramManagerProvider().then(diagramManager => {
+                return new Promise<void>((resolve) => {
+                    const disposable = diagramManager.onCreated((widget) => {
+                        disposable.dispose()
+                        resolve()
+                    });
+                })
+            })
+        }))
+    }
     protected readonly toDeactivate = new DisposableCollection();
     activate(): Disposable {
         if (this.toDeactivate.disposed) {
