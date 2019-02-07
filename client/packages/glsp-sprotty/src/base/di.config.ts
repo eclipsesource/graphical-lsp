@@ -14,14 +14,13 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { ContainerModule } from "inversify";
-import { TYPES } from "sprotty/lib";
+import { Tool, TYPES } from "sprotty/lib";
 import "../../css/glsp-sprotty.css";
 import { GLSP_TYPES } from "../types";
 import { GLSPCommandStack, IReadonlyModelAccess } from "./command-stack";
 import { DiagramUIExtensionActionHandlerInitializer, DiagramUIExtensionRegistry } from "./diagram-ui-extension/diagram-ui-extension-registry";
 import { ModelUpdateActionInitializer, ModelUpdateObserverRegistry } from "./model/model-update-observer-registry";
-import { Tool } from "./tool-manager/tool";
-import { createToolFactory, DefaultToolsEnablingKeyListener, GLSPToolManagerActionHandlerInitializer, ToolManager } from "./tool-manager/tool-manager";
+import { createToolFactory, ToolManagerActionHandler } from "./tool-manager/tool-manager-action-handler";
 
 const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     // GLSP Commandstack  initialization ------------------------------------
@@ -43,9 +42,8 @@ const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) =>
     bind(TYPES.IActionHandlerInitializer).to(DiagramUIExtensionActionHandlerInitializer)
 
     // Tool manager initialization ------------------------------------
-    bind(GLSP_TYPES.IToolManager).to(ToolManager).inSingletonScope();
-    bind(TYPES.KeyListener).to(DefaultToolsEnablingKeyListener);
-    bind(TYPES.IActionHandlerInitializer).to(GLSPToolManagerActionHandlerInitializer);
+
+    bind(TYPES.IActionHandlerInitializer).to(ToolManagerActionHandler);
     bind(GLSP_TYPES.IToolFactory).toFactory<Tool>((createToolFactory()));
 
     // Model update initialization ------------------------------------

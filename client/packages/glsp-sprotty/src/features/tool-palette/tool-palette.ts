@@ -15,12 +15,11 @@
  ********************************************************************************/
 import { inject, injectable } from "inversify";
 import {
-    Action, IActionDispatcherProvider, ICommand, ILogger, //
+    Action, EnableDefaultToolsAction, EnableToolsAction, IActionDispatcherProvider, ICommand, ILogger, //
     TYPES, ViewerOptions
 } from "sprotty/lib";
 import { BaseDiagramUIExtension } from "../../base/diagram-ui-extension/diagram-ui-extension";
 import { SelfInitializingActionHandler, ShowDiagramUIExtensionAction } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
-import { EnableDefaultToolsAction, EnableToolsAction } from "../../base/tool-manager/tool";
 import { isSetOperationsAction, Operation, OperationKind, SetOperationsAction } from "../operation/set-operations";
 import { deriveToolId } from "../tools/creation-tool";
 import { MouseDeleteTool } from "../tools/delete-tool";

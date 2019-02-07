@@ -16,11 +16,10 @@
 
 import { inject, injectable } from "inversify";
 import {
-    Action, isCtrlOrCmd, MouseListener, //
-    MouseTool, SModelElement, SModelRoot
+    Action, EnableDefaultToolsAction, isCtrlOrCmd, MouseListener, //
+    MouseTool, SModelElement, SModelRoot, Tool
 } from "sprotty/lib";
-import { TypeAware } from "src/base/tool-manager/tool-manager";
-import { EnableDefaultToolsAction, Tool } from "../../base/tool-manager/tool";
+import { TypeAware } from "../../base/tool-manager/tool-manager-action-handler";
 import { GLSP_TYPES } from "../../types";
 import { getAbsolutePosition } from "../../utils/viewpoint-util";
 import { CreateConnectionOperationAction, CreateNodeOperationAction } from "../operation/operation-actions";

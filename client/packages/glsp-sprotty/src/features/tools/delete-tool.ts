@@ -14,9 +14,8 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { inject, injectable } from "inversify";
-import { Action, isCtrlOrCmd, isSelectable, KeyListener, KeyTool, MouseListener, MouseTool, SModelElement, SModelRoot } from "sprotty/lib";
+import { Action, EnableDefaultToolsAction, isCtrlOrCmd, isSelectable, KeyListener, KeyTool, MouseListener, MouseTool, SModelElement, SModelRoot, Tool } from "sprotty/lib";
 import { matchesKeystroke } from "sprotty/lib/utils/keyboard";
-import { EnableDefaultToolsAction, Tool } from "../../base/tool-manager/tool";
 import { DeleteElementOperationAction } from "../operation/operation-actions";
 
 /**
