@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { injectable } from "inversify";
-import { Action, ICommand, SModelElement, SModelElementSchema, SModelRoot } from "sprotty/lib";
+import { Action, Command, ICommand, SModelElement, SModelElementSchema, SModelRoot } from "sprotty/lib";
 import { SelfInitializingActionHandler } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
 import {
     EdgeEditConfig, edgeEditConfig, EditConfig, IEditConfigProvider, isEdgeEditConfig, //
@@ -34,6 +34,14 @@ export class TypeHintsActionHandler extends SelfInitializingActionHandler implem
         if (isSetTypeHintsAction(action)) {
             action.nodeHints.forEach(hint => this.editConfigs.set(hint.elementTypeId, createNodeEditConfig(hint)))
             action.edgeHints.forEach(hint => this.editConfigs.set(hint.elementTypeId, createEdgeEditConfig(hint)))
+            return <Command>{
+                undo: (context) => { return context.root },
+                redo: (context) => { return context.root },
+                execute: (context) => {
+                    this.applyConfig(context.root)
+                    return context.root
+                }
+            }
         }
     }
 

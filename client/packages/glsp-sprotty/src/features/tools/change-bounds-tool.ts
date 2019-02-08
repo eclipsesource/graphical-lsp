@@ -16,10 +16,9 @@
 import { inject, injectable, optional } from "inversify";
 import {
     Action, Bounds, BoundsAware, ButtonHandlerRegistry, ElementAndBounds, findParentByFeature, isViewport, KeyTool, MouseTool, Point, //
-    SetBoundsAction, SModelElement, SModelRoot, SParentElement
+    SetBoundsAction, SModelElement, SModelRoot, SParentElement, Tool
 } from "sprotty/lib";
 import { IModelUpdateObserver, ModelUpdateObserverRegistry } from "../../base/model/model-update-observer-registry";
-import { Tool } from "../../base/tool-manager/tool";
 import { GLSP_TYPES } from "../../types";
 import { forEachElement, getIndex, isSelectedBoundsAware } from "../../utils/smodel-util";
 import { isBoundsAwareMoveable, isResizeable, ResizeHandleLocation, SResizeHandle } from "../change-bounds/model";

@@ -29,7 +29,7 @@ export class WorkflowDiagramConfiguration implements DiagramConfiguration {
 
     createContainer(widgetId: string): Container {
         const container = createWorkflowDiagramContainer(widgetId);
-        container.bind(TYPES.ModelSource).to(GLSPTheiaDiagramServer)
+        container.bind(TYPES.ModelSource).to(GLSPTheiaDiagramServer).inSingletonScope()
         container.bind(TheiaDiagramServer).toService(GLSPTheiaDiagramServer);
         // container.rebind(KeyTool).to(TheiaKeyTool).inSingletonScope()
         container.bind(TYPES.IActionHandlerInitializer).to(TheiaSprottySelectionForwarder)

@@ -17,8 +17,8 @@ import { Emitter, Event } from "@theia/core/lib/common";
 import {
     Action, ActionHandlerRegistry, CollapseExpandAction, CollapseExpandAllAction, ComputedBoundsAction, ExecuteServerCommandAction, ExportSvgAction, IActionDispatcher, ICommand, ILogger, IModelFactory, //
     ModelSource, OpenAction, OperationKind, RequestBoundsCommand, RequestModelAction, RequestOperationsAction, RequestPopupModelAction, //
-    RequestTypeHintsAction, SaveModelAction, SelectCommand, ServerStatusAction, //
-    SetTypeHintsAction, SModelStorage, SwitchEditModeCommand, SwitchResizeModeCommand, TYPES, ViewerOptions
+    RequestTypeHintsAction, SaveModelAction, ServerStatusAction, //
+    SetTypeHintsAction, SModelStorage, SwitchEditModeCommand, TYPES, ViewerOptions
 } from "glsp-sprotty/lib";
 import { inject, injectable } from "inversify";
 import { TheiaDiagramServer } from "sprotty-theia/lib";
@@ -37,11 +37,6 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
     }
 
     initialize(registry: ActionHandlerRegistry): void {
-        // Register model manipulation commands
-        registry.register(SelectCommand.KIND, this)
-        registry.registerCommand(SwitchResizeModeCommand)
-        // register actions
-
         registry.register(RequestOperationsAction.KIND, this)
         registry.register(SaveModelAction.KIND, this)
         registry.register(OperationKind.CREATE_CONNECTION, this)

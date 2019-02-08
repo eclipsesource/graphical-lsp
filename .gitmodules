@@ -1,3 +1,0 @@
-[submodule "client/packages/sprotty-theia"]
-	path = client/packages/sprotty-theia
-	url = git@github.com:eclipsesource/sprotty-theia.git

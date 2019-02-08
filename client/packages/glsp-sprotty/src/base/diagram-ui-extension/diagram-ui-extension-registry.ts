@@ -103,6 +103,7 @@ export type CommandEffect = (context: CommandExecutionContext) => void;
 /**
  * A system command that doesn't change the model but just performs a specified `effect`.
  */
+@injectable()
 export class DiagramUIExtensionActionCommand extends SystemCommand {
 
     constructor(readonly effect: CommandEffect) {
