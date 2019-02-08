@@ -13,8 +13,8 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { injectable } from "inversify";
-import { Action, Command, CommandExecutionContext, CommandResult, SModelElement, SModelRoot, SParentElement } from "sprotty/lib";
+import { inject, injectable } from "inversify";
+import { Action, Command, CommandExecutionContext, CommandResult, SModelElement, SModelRoot, SParentElement, TYPES } from "sprotty/lib";
 import { isNotUndefined } from "../../utils/smodel-util";
 import { isResizeable, ResizeHandleLocation, SResizeHandle } from "./model";
 
@@ -34,7 +34,7 @@ export class SwitchResizeModeCommand extends Command {
     protected elementsToActivate: SModelElement[] = [];
     protected elementsToDeactivate: SModelElement[] = [];
 
-    constructor(public action: SwitchResizeModeAction) {
+    constructor(@inject(TYPES.Action) public action: SwitchResizeModeAction) {
         super();
     }
 

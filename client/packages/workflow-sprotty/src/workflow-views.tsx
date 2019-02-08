@@ -17,12 +17,14 @@ import {
     angleOfPoint, isResizeable, IView, Point, PolylineEdgeView, RectangularNodeView, RenderingContext, ResizeHandleLocation, SEdge, setAttr, SResizeHandle, SShapeElement, //
     toDegrees
 } from "glsp-sprotty/lib";
+import { injectable } from "inversify";
 import * as snabbdom from "snabbdom-jsx";
 import { VNode } from "snabbdom/vnode";
 import { Icon, TaskNode, WeightedEdge } from "./model";
 
 const JSX = { createElement: snabbdom.svg }
 
+@injectable()
 export class TaskNodeView extends RectangularNodeView {
     render(node: TaskNode, context: RenderingContext): VNode {
         const rcr = this.getRoundedCornerRadius(node)
@@ -45,6 +47,7 @@ export class TaskNodeView extends RectangularNodeView {
     }
 }
 
+@injectable()
 export class WorkflowEdgeView extends PolylineEdgeView {
     protected renderAdditionals(edge: SEdge, segments: Point[], context: RenderingContext): VNode[] {
         const p1 = segments[segments.length - 2];
@@ -56,6 +59,7 @@ export class WorkflowEdgeView extends PolylineEdgeView {
     }
 }
 
+@injectable()
 export class WeightedEdgeView extends WorkflowEdgeView {
     render(edge: Readonly<WeightedEdge>, context: RenderingContext): VNode {
         const route = edge.route();
@@ -75,6 +79,7 @@ export class WeightedEdgeView extends WorkflowEdgeView {
     }
 }
 
+@injectable()
 export class IconView implements IView {
     render(element: Icon, context: RenderingContext): VNode {
         const radius = this.getRadius();
@@ -89,6 +94,7 @@ export class IconView implements IView {
     }
 }
 
+@injectable()
 export class SResizeHandleView implements IView {
     render(handle: SResizeHandle, context: RenderingContext): VNode {
         const position = this.getPosition(handle);

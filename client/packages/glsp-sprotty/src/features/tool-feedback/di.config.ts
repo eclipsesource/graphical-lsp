@@ -15,7 +15,7 @@
  ********************************************************************************/
 
 import { ContainerModule } from "inversify";
-import { LocationDecorator, MoveCommand, TYPES } from "sprotty/lib";
+import { configureCommand, configureView, LocationDecorator, MoveCommand, TYPES } from "sprotty/lib";
 import { GLSP_TYPES } from "../../types";
 import {
     FeedbackEdgeEnd, HideEdgeCreationToolFeedbackCommand, HideNodeCreationToolFeedbackCommand, //
@@ -25,20 +25,20 @@ import {
 import { FeedbackActionDispatcher } from "./feedback-action-dispatcher";
 import { FeedbackEdgeEndView } from "./view";
 
-const toolFeedbackModule = new ContainerModule(bind => {
+const toolFeedbackModule = new ContainerModule((bind, _unbind, isBound) => {
     bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
     bind(GLSP_TYPES.IModelUpdateObserver).toService(GLSP_TYPES.IFeedbackActionDispatcher)
 
     // create node and edge tool feedback
-    bind(TYPES.ICommand).toConstructor(ShowNodeCreationToolFeedbackCommand);
-    bind(TYPES.ICommand).toConstructor(HideNodeCreationToolFeedbackCommand);
-    bind(TYPES.ICommand).toConstructor(ShowEdgeCreationSelectSourceFeedbackCommand);
-    bind(TYPES.ICommand).toConstructor(ShowEdgeCreationSelectTargetFeedbackCommand);
-    bind(TYPES.ICommand).toConstructor(HideEdgeCreationToolFeedbackCommand);
-    bind(TYPES.ViewRegistration).toConstantValue({ type: FeedbackEdgeEnd.TYPE, constr: () => new FeedbackEdgeEndView() });
+    configureCommand({ bind, isBound }, ShowNodeCreationToolFeedbackCommand);
+    configureCommand({ bind, isBound }, HideNodeCreationToolFeedbackCommand);
+    configureCommand({ bind, isBound }, ShowEdgeCreationSelectSourceFeedbackCommand);
+    configureCommand({ bind, isBound }, ShowEdgeCreationSelectTargetFeedbackCommand);
+    configureCommand({ bind, isBound }, HideEdgeCreationToolFeedbackCommand);
 
+    configureView({ bind, isBound }, FeedbackEdgeEnd.TYPE, FeedbackEdgeEndView)
     // move tool feedback: we use sprotties MoveCommand as client-side visual feedback
-    bind(TYPES.ICommand).toConstructor(MoveCommand);
+    configureCommand({ bind, isBound }, MoveCommand);
     bind(TYPES.IVNodeDecorator).to(LocationDecorator);
     bind(TYPES.HiddenVNodeDecorator).to(LocationDecorator);
 });

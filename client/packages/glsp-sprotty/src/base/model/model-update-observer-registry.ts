@@ -66,11 +66,7 @@ export class ModelUpdateActionInitializer extends SelfInitializingActionHandler 
                 // all observers have applied their modifications
                 const updatedSchema = this.modelFactory.createSchema(model)
 
-                if (action.kind === (SetModelCommand.KIND)) {
-                    return new SetModelCommand(new SetModelAction(updatedSchema))
-                } else {
-                    return new UpdateModelCommand(new UpdateModelAction(updatedSchema, true))
-                }
+                return new UpdateModelCommand(new UpdateModelAction(updatedSchema, true))
             }
         }
     }

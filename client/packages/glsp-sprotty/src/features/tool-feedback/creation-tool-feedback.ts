@@ -14,10 +14,11 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
+import { inject, injectable } from "inversify";
 import {
     Action, center, CommandExecutionContext, euclideanDistance, findChildrenAtPosition, //
     findParentByFeature, isBoundsAware, isConnectable, isRoutable, MouseListener, MoveAction, //
-    Routable, SChildElement, SConnectableElement, SDanglingAnchor, SModelElement, SModelRoot
+    Routable, SChildElement, SConnectableElement, SDanglingAnchor, SModelElement, SModelRoot, TYPES
 } from "sprotty/lib";
 import { getAbsolutePosition } from "../../utils/viewpoint-util";
 import { applyCssClassesToRoot, FeedbackCommand, unapplyCssClassesToRoot } from "./model";
@@ -34,6 +35,7 @@ export class HideNodeCreationToolFeedbackAction implements Action {
     constructor(readonly elementTypeId: string) { }
 }
 
+@injectable()
 export class ShowNodeCreationToolFeedbackCommand extends FeedbackCommand {
     static readonly KIND = 'glsp.nodecreationtool.feedback.show';
     execute(context: CommandExecutionContext): SModelRoot {
@@ -41,6 +43,7 @@ export class ShowNodeCreationToolFeedbackCommand extends FeedbackCommand {
     }
 }
 
+@injectable()
 export class HideNodeCreationToolFeedbackCommand extends FeedbackCommand {
     static readonly KIND = 'glsp.nodecreationtool.feedback.hide';
     execute(context: CommandExecutionContext): SModelRoot {
@@ -66,6 +69,7 @@ export class HideEdgeCreationToolFeedbackAction implements Action {
     constructor(readonly elementTypeId: string) { }
 }
 
+@injectable()
 export class ShowEdgeCreationSelectSourceFeedbackCommand extends FeedbackCommand {
     static readonly KIND = 'glsp.edgecreationtool.selectsource.feedback.show';
     execute(context: CommandExecutionContext): SModelRoot {
@@ -84,10 +88,11 @@ export class FeedbackEdgeEnd extends SDanglingAnchor {
     }
 }
 
+@injectable()
 export class ShowEdgeCreationSelectTargetFeedbackCommand extends FeedbackCommand {
     static readonly KIND = 'glsp.edgecreationtool.selecttarget.feedback.show';
 
-    constructor(protected action: ShowEdgeCreationSelectTargetFeedbackAction) {
+    constructor(@inject(TYPES.Action) protected action: ShowEdgeCreationSelectTargetFeedbackAction) {
         super();
     }
 
@@ -98,6 +103,7 @@ export class ShowEdgeCreationSelectTargetFeedbackCommand extends FeedbackCommand
     }
 }
 
+@injectable()
 export class HideEdgeCreationToolFeedbackCommand extends FeedbackCommand {
     static readonly KIND = 'glsp.edgecreationtool.feedback.hide';
     execute(context: CommandExecutionContext): SModelRoot {

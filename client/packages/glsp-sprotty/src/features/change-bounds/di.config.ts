@@ -14,11 +14,11 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { ContainerModule } from "inversify";
-import { TYPES } from "sprotty/lib";
+import { configureCommand } from "sprotty/lib";
 import { SwitchResizeModeCommand } from "./resize";
 
-const changeBoundsCommandModule = new ContainerModule(bind => {
-    bind(TYPES.ICommand).toConstructor(SwitchResizeModeCommand);
+const changeBoundsCommandModule = new ContainerModule((bind, _unbind, isBound) => {
+    configureCommand({ bind, isBound }, SwitchResizeModeCommand)
 })
 
 export default changeBoundsCommandModule;
