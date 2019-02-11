@@ -14,52 +14,16 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { inject, injectable, multiInject, optional } from "inversify";
-import {
-    Action, ActionHandlerRegistry, CommandExecutionContext, CommandResult, IActionHandler, IActionHandlerInitializer, ICommand, //
-    InstanceRegistry, SystemCommand
-} from "sprotty/lib";
+import { Action, CommandExecutionContext, CommandResult, InstanceRegistry, SystemCommand, TYPES } from "sprotty/lib";
 import { toArray } from "sprotty/lib/utils/iterable";
 import { GLSP_TYPES } from "../../types";
 import { IDiagramUIExtension } from "./diagram-ui-extension";
 
 /**
- * Convinience class for classes that implement both `IActionHandler` and `IActionHandlerInitializer`
- */
-@injectable()
-export abstract class SelfInitializingActionHandler implements IActionHandler, IActionHandlerInitializer {
-
-    initialize(registry: ActionHandlerRegistry) {
-        this.handledActionKinds.forEach(kind => registry.register(kind, this))
-    }
-
-    abstract handle(action: Action): ICommand | Action | void
-    abstract handledActionKinds: string[]
-
-}
-/**
- * Action requesting to show the diagram UI extension with specified id.
- */
-export class ShowDiagramUIExtensionAction implements Action {
-    static KIND = "showDiagramUIExtension";
-    readonly kind = ShowDiagramUIExtensionAction.KIND;
-    constructor(public readonly extensionId: string, public readonly selectedElementIds: string[]) { }
-}
-
-/**
- * Action requesting to hide the diagram UI extension with specified id.
- */
-export class HideDiagramUIExtensionAction implements Action {
-    static KIND = "hideDiagramUIExtension";
-    readonly kind = HideDiagramUIExtensionAction.KIND;
-    constructor(public readonly extensionId: string) { }
-}
-
-/**
- * The diagram UI extension registry maintains all available diagram UI extensions and makes them retrievable by id
+ * The diagram UI extension registry maintains all available diagram UI extensions and makes them retrievable by id.
  */
 @injectable()
 export class DiagramUIExtensionRegistry extends InstanceRegistry<IDiagramUIExtension>  {
-
     constructor(@multiInject(GLSP_TYPES.IDiagramUIExtension) @optional() extensions: (IDiagramUIExtension)[] = []) {
         super();
         extensions.forEach(
@@ -67,60 +31,72 @@ export class DiagramUIExtensionRegistry extends InstanceRegistry<IDiagramUIExten
         );
     }
 }
+
 /**
- * Initalizer and handler for DiagramUIExension actions.
+ * Action requesting to show the diagram UI extension with specified id.
  */
+export class ShowDiagramUIExtensionAction implements Action {
+    readonly kind = ShowDiagramUIExtensionCommand.KIND;
+    constructor(public readonly extensionId: string, public readonly selectedElementIds: string[]) { }
+}
+
+/**
+ * Action requesting to hide the diagram UI extension with specified id.
+ */
+export class HideDiagramUIExtensionAction implements Action {
+    readonly kind = HideDiagramUIExtensionCommand.KIND;
+    constructor(public readonly extensionId: string) { }
+}
+
+abstract class DiagramUiExtensionCommand extends SystemCommand {
+    execute(context: CommandExecutionContext): CommandResult {
+        this.doExecute(context);
+        return context.root;
+    }
+    undo(context: CommandExecutionContext): CommandResult {
+        return context.root;
+    }
+    redo(context: CommandExecutionContext): CommandResult {
+        return context.root;
+    }
+    abstract doExecute(context: CommandExecutionContext): void;
+}
+
 @injectable()
-export class DiagramUIExtensionActionHandlerInitializer extends SelfInitializingActionHandler {
-    @inject(GLSP_TYPES.DiagramUIExtensionRegistry) protected readonly registry: DiagramUIExtensionRegistry
+export class ShowDiagramUIExtensionCommand extends DiagramUiExtensionCommand {
 
-    readonly handledActionKinds = [ShowDiagramUIExtensionAction.KIND, HideDiagramUIExtensionAction.KIND]
+    static KIND = "showDiagramUIExtension";
 
-    handle(action: Action): void | ICommand | Action {
-        if (action instanceof ShowDiagramUIExtensionAction) {
-            return new DiagramUIExtensionActionCommand((context) => {
-                const index = context.root.index;
-                const selectedElements = toArray(index.all()
-                    .filter(e => action.selectedElementIds.indexOf(e.id) >= 0))
-                const extension = this.registry.get(action.extensionId)
-                if (extension) {
-                    extension.show(selectedElements)
-                }
-            });
-        } else if (action instanceof HideDiagramUIExtensionAction) {
-            return new DiagramUIExtensionActionCommand((context) => {
-                const extension = this.registry.get(action.extensionId)
-                if (extension) {
-                    extension.hide()
-                }
-            });
+    constructor(@inject(TYPES.Action) protected action: ShowDiagramUIExtensionAction,
+        @inject(GLSP_TYPES.DiagramUIExtensionRegistry) protected readonly registry: DiagramUIExtensionRegistry) {
+        super();
+    }
+
+    doExecute(context: CommandExecutionContext) {
+        const index = context.root.index;
+        const selectedElements = toArray(index.all()
+            .filter(e => this.action.selectedElementIds.indexOf(e.id) >= 0));
+        const extension = this.registry.get(this.action.extensionId);
+        if (extension) {
+            extension.show(selectedElements);
         }
     }
 }
 
-export type CommandEffect = (context: CommandExecutionContext) => void;
-
-/**
- * A system command that doesn't change the model but just performs a specified `effect`.
- */
 @injectable()
-export class DiagramUIExtensionActionCommand extends SystemCommand {
+export class HideDiagramUIExtensionCommand extends DiagramUiExtensionCommand {
 
-    constructor(readonly effect: CommandEffect) {
+    static KIND = "hideDiagramUIExtension";
+
+    constructor(@inject(TYPES.Action) protected action: ShowDiagramUIExtensionAction,
+        @inject(GLSP_TYPES.DiagramUIExtensionRegistry) protected readonly registry: DiagramUIExtensionRegistry) {
         super();
     }
 
-    execute(context: CommandExecutionContext): CommandResult {
-        this.effect(context);
-        context.root.index
-        return context.root;
-    }
-
-    undo(context: CommandExecutionContext): CommandResult {
-        return context.root;
-    }
-
-    redo(context: CommandExecutionContext): CommandResult {
-        return context.root;
+    doExecute(context: CommandExecutionContext) {
+        const extension = this.registry.get(this.action.extensionId);
+        if (extension) {
+            extension.hide();
+        }
     }
 }

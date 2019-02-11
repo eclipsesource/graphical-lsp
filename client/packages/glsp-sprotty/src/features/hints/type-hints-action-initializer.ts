@@ -15,12 +15,12 @@
  ********************************************************************************/
 import { injectable } from "inversify";
 import { Action, Command, ICommand, SModelElement, SModelElementSchema, SModelRoot } from "sprotty/lib";
-import { SelfInitializingActionHandler } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
 import {
     EdgeEditConfig, edgeEditConfig, EditConfig, IEditConfigProvider, isEdgeEditConfig, //
     isNodeEditConfig, NodeEditConfig, nodeEditConfig
 } from "../../base/edit-config/edit-config";
 import { IModelUpdateObserver } from "../../base/model/model-update-observer-registry";
+import { SelfInitializingActionHandler } from "../../base/self-initializing-action-handler";
 import { contains } from "../../utils/array-utils";
 import { EdgeTypeHint, isSetTypeHintsAction, NodeTypeHint, SetTypeHintsAction } from "./action-definition";
 

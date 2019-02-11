@@ -17,7 +17,7 @@ import { inject, injectable, multiInject, optional } from "inversify";
 import { Action, ICommand, IModelFactory, SetModelAction, SetModelCommand, SModelRoot, TYPES, UpdateModelAction, UpdateModelCommand } from "sprotty/lib";
 import { GLSP_TYPES } from "../../types";
 import { distinctAdd, remove } from "../../utils/array-utils";
-import { SelfInitializingActionHandler } from "../diagram-ui-extension/diagram-ui-extension-registry";
+import { SelfInitializingActionHandler } from "../self-initializing-action-handler";
 
 export interface IModelUpdateObserver {
     /*Is called before an update model request from the server is applied*/

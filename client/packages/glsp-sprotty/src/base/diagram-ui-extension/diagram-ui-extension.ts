@@ -17,7 +17,7 @@ import { inject, injectable } from "inversify";
 import { Action, IActionDispatcherProvider, ILogger, SModelElement, TYPES, ViewerOptions } from "sprotty/lib";
 
 /**
- * An extension with togglable visbility  that can display additional (UI) information on top of a sprotty diagram
+ * An extension with togglable visbility that can display additional (UI) information on top of a sprotty diagram.
  */
 export interface IDiagramUIExtension {
     readonly id: string

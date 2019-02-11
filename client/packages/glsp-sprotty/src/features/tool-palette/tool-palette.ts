@@ -19,7 +19,8 @@ import {
     TYPES, ViewerOptions
 } from "sprotty/lib";
 import { BaseDiagramUIExtension } from "../../base/diagram-ui-extension/diagram-ui-extension";
-import { SelfInitializingActionHandler, ShowDiagramUIExtensionAction } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
+import { ShowDiagramUIExtensionAction } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
+import { SelfInitializingActionHandler } from "../../base/self-initializing-action-handler";
 import { isSetOperationsAction, Operation, OperationKind, SetOperationsAction } from "../operation/set-operations";
 import { deriveToolId } from "../tools/creation-tool";
 import { MouseDeleteTool } from "../tools/delete-tool";
