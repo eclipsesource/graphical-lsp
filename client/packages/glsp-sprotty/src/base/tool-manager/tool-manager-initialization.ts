@@ -14,39 +14,33 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { inject, injectable, interfaces } from "inversify";
-import { Action, ICommand, Tool, ToolManager, TYPES } from "sprotty/lib";
-import { isSetOperationsAction, OperationKind, SetOperationsAction } from "../../features/operation/set-operations";
+import { CommandExecutionContext, Tool, ToolManager, TYPES } from "sprotty/lib";
+import { OperationKind, SetOperationsAction } from "../../features/operation/set-operations";
 import { EdgeCreationTool, NodeCreationTool } from "../../features/tools/creation-tool";
 import { MouseDeleteTool } from "../../features/tools/delete-tool";
+import { ControlCommand } from "../../lib/commands";
 import { GLSP_TYPES } from "../../types";
-import { SelfInitializingActionHandler } from "../self-initializing-action-handler";
 
 const UNDEFINED_TOOL_ID = "undefined-tool"
 
 @injectable()
-export class ToolManagerActionHandler extends SelfInitializingActionHandler {
-
-    @inject(GLSP_TYPES.IToolFactory) readonly toolFactory: (operationKind: string) => Tool
-    @inject(TYPES.IToolManager) readonly toolManager: ToolManager
-
-    readonly handledActionKinds = [SetOperationsAction.KIND]
-
-    handle(action: Action): void | ICommand | Action {
-        if (isSetOperationsAction(action)) {
-            this.configure(action)
-        }
+export class SetOperationsActionInToolManagerCommand extends ControlCommand {
+    static KIND = SetOperationsAction.KIND;
+    constructor(@inject(TYPES.Action) protected action: SetOperationsAction,
+        @inject(GLSP_TYPES.IToolFactory) readonly toolFactory: (operationKind: string) => Tool,
+        @inject(TYPES.IToolManager) readonly toolManager: ToolManager) {
+        super();
     }
 
-    configure(action: SetOperationsAction): any {
-        const configuredTools = action.operations.map(op => {
+    doExecute(context: CommandExecutionContext) {
+        const configuredTools = this.action.operations.map(op => {
             const tool = this.toolFactory(op.operationKind)
             if (isTypeAware(tool) && op.elementTypeId) {
                 tool.elementTypeId = op.elementTypeId;
             }
-
             return tool;
-        }).filter(tool => tool.id !== UNDEFINED_TOOL_ID)
-        this.toolManager.registerTools(...configuredTools)
+        }).filter(tool => tool.id !== UNDEFINED_TOOL_ID);
+        this.toolManager.registerTools(...configuredTools);
     }
 }
 

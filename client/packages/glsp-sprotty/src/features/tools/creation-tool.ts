@@ -19,7 +19,7 @@ import {
     Action, EnableDefaultToolsAction, isCtrlOrCmd, MouseListener, //
     MouseTool, SModelElement, SModelRoot, Tool
 } from "sprotty/lib";
-import { TypeAware } from "../../base/tool-manager/tool-manager-action-handler";
+import { TypeAware } from "../../base/tool-manager/tool-manager-initialization";
 import { GLSP_TYPES } from "../../types";
 import { getAbsolutePosition } from "../../utils/viewpoint-util";
 import { CreateConnectionOperationAction, CreateNodeOperationAction } from "../operation/operation-actions";

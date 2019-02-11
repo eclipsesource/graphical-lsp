@@ -20,7 +20,7 @@ import { GLSP_TYPES } from "../types";
 import { GLSPCommandStack, IReadonlyModelAccess } from "./command-stack";
 import { DiagramUIExtensionRegistry, HideDiagramUIExtensionCommand, ShowDiagramUIExtensionCommand } from "./diagram-ui-extension/diagram-ui-extension-registry";
 import { ModelUpdateActionInitializer, ModelUpdateObserverRegistry } from "./model/model-update-observer-registry";
-import { createToolFactory, ToolManagerActionHandler } from "./tool-manager/tool-manager-action-handler";
+import { createToolFactory, SetOperationsActionInToolManagerCommand } from "./tool-manager/tool-manager-initialization";
 
 const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     // GLSP Commandstack  initialization ------------------------------------
@@ -43,8 +43,7 @@ const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) =>
     configureCommand({ bind, isBound }, HideDiagramUIExtensionCommand);
 
     // Tool manager initialization ------------------------------------
-
-    bind(TYPES.IActionHandlerInitializer).to(ToolManagerActionHandler);
+    configureCommand({ bind, isBound }, SetOperationsActionInToolManagerCommand);
     bind(GLSP_TYPES.IToolFactory).toFactory<Tool>((createToolFactory()));
 
     // Model update initialization ------------------------------------
