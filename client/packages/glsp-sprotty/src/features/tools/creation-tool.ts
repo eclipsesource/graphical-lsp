@@ -16,7 +16,7 @@
 
 import { inject, injectable } from "inversify";
 import {
-    Action, EnableDefaultToolsAction, isCtrlOrCmd, MouseListener, //
+    Action, EnableDefaultToolsAction, isCtrlOrCmd, //
     MouseTool, SModelElement, SModelRoot, Tool
 } from "sprotty/lib";
 import { TypeAware } from "../../base/tool-manager/tool-manager-action-handler";
@@ -29,6 +29,7 @@ import {
     ShowEdgeCreationSelectTargetFeedbackAction, ShowNodeCreationToolFeedbackAction
 } from "../tool-feedback/creation-tool-feedback";
 import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
+import { DragAwareMouseListener } from "./drag-aware-mouse-listener";
 
 export const TOOL_ID_PREFIX = "tool"
 
@@ -61,12 +62,13 @@ export class NodeCreationTool implements Tool, TypeAware {
 }
 
 @injectable()
-export class NodeCreationToolMouseListener extends MouseListener {
+export class NodeCreationToolMouseListener extends DragAwareMouseListener {
+
     constructor(protected elementTypeId: string) {
         super();
     }
 
-    mouseUp(target: SModelElement, event: MouseEvent): Action[] {
+    nonDraggingMouseUp(target: SModelElement, event: MouseEvent): Action[] {
         const location = getAbsolutePosition(target, event);
         const containerId: string | undefined = target instanceof SModelRoot ? undefined : target.id;
         const result: Action[] = [];
@@ -116,30 +118,13 @@ export class EdgeCreationTool implements Tool, TypeAware {
 }
 
 @injectable()
-export class EdgeCreationToolMouseListener extends MouseListener {
+export class EdgeCreationToolMouseListener extends DragAwareMouseListener {
+
     private source?: string;
     private target?: string;
 
-    private isMouseDown: boolean = false;
-    private isMouseMove: boolean;
-
     constructor(protected elementTypeId: string, protected tool: EdgeCreationTool) {
         super();
-    }
-
-    mouseDown(target: SModelElement, event: MouseEvent): Action[] {
-        this.isMouseDown = true;
-        return [];
-    }
-
-    mouseMove(target: SModelElement, event: MouseEvent): Action[] {
-        if (this.isMouseDown) {
-            // Detect that the mouse moved while the button was pressed
-            // In that case, we're dragging something, and shouldn't create
-            // a connection
-            this.isMouseMove = true;
-        }
-        return [];
     }
 
     private reinitialize() {
@@ -150,13 +135,7 @@ export class EdgeCreationToolMouseListener extends MouseListener {
             new ShowEdgeCreationSelectSourceFeedbackAction(this.elementTypeId)]);
     }
 
-    mouseUp(element: SModelElement, event: MouseEvent): Action[] {
-        this.isMouseDown = false;
-        if (this.isMouseMove) {
-            this.isMouseMove = false;
-            return [];
-        }
-
+    nonDraggingMouseUp(element: SModelElement, event: MouseEvent): Action[] {
         const result: Action[] = [];
 
         if (this.source === undefined) {
