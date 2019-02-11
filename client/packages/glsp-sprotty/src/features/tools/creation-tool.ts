@@ -138,7 +138,6 @@ export class EdgeCreationToolMouseListener extends MouseListener {
             // In that case, we're dragging something, and shouldn't create
             // a connection
             this.isMouseMove = true;
-            this.reinitialize();
         }
         return [];
     }
@@ -146,10 +145,12 @@ export class EdgeCreationToolMouseListener extends MouseListener {
     private reinitialize() {
         this.source = undefined;
         this.target = undefined;
-        this.tool.dispatchFeedback([new ShowEdgeCreationSelectSourceFeedbackAction(this.elementTypeId)]);
+        this.tool.dispatchFeedback([
+            new HideEdgeCreationToolFeedbackAction(this.elementTypeId),
+            new ShowEdgeCreationSelectSourceFeedbackAction(this.elementTypeId)]);
     }
 
-    mouseUp(target: SModelElement, event: MouseEvent): Action[] {
+    mouseUp(element: SModelElement, event: MouseEvent): Action[] {
         this.isMouseDown = false;
         if (this.isMouseMove) {
             this.isMouseMove = false;
@@ -158,16 +159,13 @@ export class EdgeCreationToolMouseListener extends MouseListener {
 
         const result: Action[] = [];
 
-        if (this.source == null) {
-            this.source = target.id;
+        if (this.source === undefined) {
+            this.source = element.id;
             this.tool.dispatchFeedback([new ShowEdgeCreationSelectTargetFeedbackAction(this.elementTypeId, this.source)]);
         } else {
-            this.target = target.id;
-            if (this.source != null && this.target != null) {
+            this.target = element.id;
+            if (this.source !== undefined && this.target !== undefined) {
                 result.push(new CreateConnectionOperationAction(this.elementTypeId, this.source, this.target));
-                this.source = undefined;
-                this.target = undefined;
-
                 if (!isCtrlOrCmd(event)) {
                     result.push(new EnableDefaultToolsAction());
                 } else {
