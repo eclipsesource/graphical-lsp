@@ -15,13 +15,13 @@
  ********************************************************************************/
 import { inject, injectable } from "inversify";
 import {
-    Action, EnableDefaultToolsAction, EnableToolsAction, IActionDispatcherProvider, ICommand, ILogger, //
+    CommandExecutionContext, EnableDefaultToolsAction, EnableToolsAction, IActionDispatcherProvider, ILogger, //
     TYPES, ViewerOptions
 } from "sprotty/lib";
 import { BaseDiagramUIExtension } from "../../base/diagram-ui-extension/diagram-ui-extension";
 import { ShowDiagramUIExtensionAction } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
-import { SelfInitializingActionHandler } from "../../base/self-initializing-action-handler";
-import { isSetOperationsAction, Operation, OperationKind, SetOperationsAction } from "../operation/set-operations";
+import { ControlCommand } from "../../lib/commands";
+import { Operation, OperationKind, SetOperationsAction } from "../operation/set-operations";
 import { deriveToolId } from "../tools/creation-tool";
 import { MouseDeleteTool } from "../tools/delete-tool";
 
@@ -75,6 +75,7 @@ export class ToolPalette extends BaseDiagramUIExtension {
         bodyDiv.appendChild(edgeGroup)
         this.containerElement.appendChild(bodyDiv)
     }
+
     protected createHeader(): void {
         const headerCompartment = document.createElement("div")
         headerCompartment.classList.add("palette-header")
@@ -159,17 +160,32 @@ function createToolGroup(label: string, groupId: string): HTMLElement {
 }
 
 @injectable()
-export class ToolPaletteActionHandler extends SelfInitializingActionHandler {
-    @inject(ToolPalette) protected readonly toolPalette: ToolPalette
+export class SetOperationsInToolPaletteCommand extends ControlCommand {
+    static KIND = SetOperationsAction.KIND;
 
-    readonly handledActionKinds = [SetOperationsAction.KIND, EnableDefaultToolsAction.KIND]
+    constructor(@inject(TYPES.Action) protected action: SetOperationsAction,
+        @inject(ToolPalette) protected readonly toolPalette: ToolPalette,
+        @inject(TYPES.IActionDispatcherProvider) protected readonly actionDispatcher: IActionDispatcherProvider) {
+        super();
+    }
 
-    handle(action: Action): ICommand | Action | void {
-        if (isSetOperationsAction(action)) {
-            this.toolPalette.setOperations(action.operations)
-            return new ShowDiagramUIExtensionAction(ToolPalette.ID, [])
-        } else if (action instanceof EnableDefaultToolsAction) {
-            this.toolPalette.changeActiveButton();
-        }
+    doExecute(context: CommandExecutionContext) {
+        this.toolPalette.setOperations(this.action.operations)
+        this.actionDispatcher().then(dispatcher =>
+            dispatcher.dispatch(new ShowDiagramUIExtensionAction(ToolPalette.ID, [])));
+    }
+}
+
+@injectable()
+export class EnableDefaultToolsInToolPaletteCommand extends ControlCommand {
+    static KIND = EnableDefaultToolsAction.KIND;
+
+    constructor(@inject(TYPES.Action) protected action: EnableDefaultToolsAction,
+        @inject(ToolPalette) protected readonly toolPalette: ToolPalette) {
+        super();
+    }
+
+    doExecute(context: CommandExecutionContext) {
+        this.toolPalette.changeActiveButton();
     }
 }

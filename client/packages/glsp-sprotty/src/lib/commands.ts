@@ -13,17 +13,21 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { ContainerModule } from "inversify";
-import { configureCommand } from "sprotty/lib";
-import "../../../css/tool-palette.css";
-import { GLSP_TYPES } from "../../types";
-import { EnableDefaultToolsInToolPaletteCommand, SetOperationsInToolPaletteCommand, ToolPalette } from "./tool-palette";
+import { CommandExecutionContext, CommandResult, SystemCommand } from "sprotty/lib";
 
-const toolPaletteModule = new ContainerModule((bind, unbind, isBound) => {
-    bind(ToolPalette).toSelf().inSingletonScope();
-    bind(GLSP_TYPES.IDiagramUIExtension).toService(ToolPalette)
-    configureCommand({ bind, isBound }, SetOperationsInToolPaletteCommand);
-    configureCommand({ bind, isBound }, EnableDefaultToolsInToolPaletteCommand);
-});
-
-export default toolPaletteModule;
+/**
+ * A system command for controlling side effects without affecting the model.
+ */
+export abstract class ControlCommand extends SystemCommand {
+    execute(context: CommandExecutionContext): CommandResult {
+        this.doExecute(context);
+        return context.root;
+    }
+    undo(context: CommandExecutionContext): CommandResult {
+        return context.root;
+    }
+    redo(context: CommandExecutionContext): CommandResult {
+        return context.root;
+    }
+    abstract doExecute(context: CommandExecutionContext): void;
+}

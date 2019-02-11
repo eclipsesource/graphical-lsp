@@ -95,7 +95,6 @@ export function createNodeEditConfig(hint: NodeTypeHint): NodeEditConfig {
     }
 }
 
-
 export function createEdgeEditConfig(hint: EdgeTypeHint): EdgeEditConfig {
     return <EdgeEditConfig>{
         elementTypeId: hint.elementTypeId,

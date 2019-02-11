@@ -14,8 +14,9 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { inject, injectable, multiInject, optional } from "inversify";
-import { Action, CommandExecutionContext, CommandResult, InstanceRegistry, SystemCommand, TYPES } from "sprotty/lib";
+import { Action, CommandExecutionContext, InstanceRegistry, TYPES } from "sprotty/lib";
 import { toArray } from "sprotty/lib/utils/iterable";
+import { ControlCommand } from "../../lib/commands";
 import { GLSP_TYPES } from "../../types";
 import { IDiagramUIExtension } from "./diagram-ui-extension";
 
@@ -48,22 +49,8 @@ export class HideDiagramUIExtensionAction implements Action {
     constructor(public readonly extensionId: string) { }
 }
 
-abstract class DiagramUiExtensionCommand extends SystemCommand {
-    execute(context: CommandExecutionContext): CommandResult {
-        this.doExecute(context);
-        return context.root;
-    }
-    undo(context: CommandExecutionContext): CommandResult {
-        return context.root;
-    }
-    redo(context: CommandExecutionContext): CommandResult {
-        return context.root;
-    }
-    abstract doExecute(context: CommandExecutionContext): void;
-}
-
 @injectable()
-export class ShowDiagramUIExtensionCommand extends DiagramUiExtensionCommand {
+export class ShowDiagramUIExtensionCommand extends ControlCommand {
 
     static KIND = "showDiagramUIExtension";
 
@@ -84,7 +71,7 @@ export class ShowDiagramUIExtensionCommand extends DiagramUiExtensionCommand {
 }
 
 @injectable()
-export class HideDiagramUIExtensionCommand extends DiagramUiExtensionCommand {
+export class HideDiagramUIExtensionCommand extends ControlCommand {
 
     static KIND = "hideDiagramUIExtension";
 
