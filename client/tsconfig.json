@@ -10,14 +10,11 @@
       "glsp-sprotty": [
         "packages/glsp-sprotty/src/*"
       ],
-      "sprotty-theia": [
-        "packages/sprotty-theia/src/*"
-      ],
       "workflow-glsp-extension": [
-        "examples/workflow-glsp-extension/src/*"
+        "examples/workflow/workflow-glsp-extension/src/*"
       ],
       "workflow-sprotty": [
-        "examples/workflow-sprotty/src/*"
+        "examples/workflow/workflow-sprotty/src/*"
       ]
     },
     "plugins": [

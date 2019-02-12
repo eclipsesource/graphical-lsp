@@ -28,7 +28,6 @@
   },
   "workspaces": [
     "packages/*",
-    "examples/*",
-    "packages/glsp-sprotty/client/"
+    "examples/workflow/*"
   ]
 }
