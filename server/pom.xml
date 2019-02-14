@@ -4,7 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.eclipsesource.glsp</groupId>
 	<artifactId>glsp-parent</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<name>glsp-parent</name>
+	<description>parent for all glsp modules</description>
+	<version>0.2.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<repositories>
 		<repository>
@@ -13,6 +15,7 @@
 			<url>https://oss.sonatype.org/content/groups/public</url>
 		</repository>
 	</repositories>
+	<url>https://github.com/eclipsesource/graphical-lsp</url>
 	<licenses>
 		<license>
 			<name>Eclipse Public License - v 2.0</name>
@@ -20,6 +23,27 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
+
+	<developers>
+		<developer>
+			<name>Philip Langer</name>
+			<email>planger@eclipsesource.com</email>
+			<organization>EclipseSource</organization>
+			<organizationUrl>http://www.eclipsesource.com</organizationUrl>
+		</developer>
+		<developer>
+			<name>Tobias Ortmayr</name>
+			<email>tortmayr@eclipsesource.com</email>
+			<organization>EclipseSource</organization>
+			<organizationUrl>http://www.eclipsesource.com</organizationUrl>
+		</developer>
+		<developer>
+			<name>Martin Fleck</name>
+			<email>mfleck@eclipsesource.com</email>
+			<organization>EclipseSource</organization>
+			<organizationUrl>http://www.eclipsesource.com</organizationUrl>
+		</developer>
+	</developers>
 
 	<scm>
 		<url>https://github.com/eclipsesource/graphical-lsp</url>
@@ -93,9 +117,9 @@
 						<version>1.6.8</version>
 						<extensions>true</extensions>
 						<configuration>
-							<serverid>ossrh</serverid>
-							<nexusurl>https://oss.sonatype.org/</nexusurl>
-							<autoreleaseafterclose>true</autoreleaseafterclose>
+							<serverId>ossrh</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<autoreleaseafterclose>false</autoreleaseafterclose>
 						</configuration>
 					</plugin>
 					<!-- To generate javadoc -->
