@@ -15,10 +15,10 @@
  ********************************************************************************/
 
 import {
-    boundsModule, buttonModule, changeBoundsCommandModule, commandPaletteModule, configureModelElement, ConsoleLogger, defaultGLSPModule, defaultModule, //
+    boundsModule, buttonModule, commandPaletteModule, configureModelElement, ConsoleLogger, defaultGLSPModule, defaultModule, //
     DiamondNodeView, ExpandButtonView, expandModule, exportModule, fadeModule, GLSPGraph, hoverModule, HtmlRoot, HtmlRootView, LogLevel, modelHintsModule, //
     modelSourceModule, openModule, overrideViewerOptions, paletteModule, PreRenderedElement, PreRenderedView, RectangularNode, RectangularNodeView, //
-    saveModule, SButton, SCompartment, SCompartmentView, SEdge, selectModule, SGraphView, SLabel, SLabelView, SResizeHandle, SRoutingHandle, SRoutingHandleView, //
+    saveModule, SButton, SCompartment, SCompartmentView, SEdge, selectModule, SGraphView, SLabel, SLabelView, SRoutingHandle, SRoutingHandleView, //
     toolFeedbackModule, TYPES, viewportModule
 } from "glsp-sprotty/lib";
 import executeCommandModule from "glsp-sprotty/lib/features/execute/di.config";
@@ -26,7 +26,7 @@ import { Container, ContainerModule } from "inversify";
 import "../css/diagram.css";
 import { ActivityNode, Icon, TaskNode, WeightedEdge } from "./model";
 import { WorkflowModelFactory } from "./model-factory";
-import { IconView, SResizeHandleView, TaskNodeView, WeightedEdgeView, WorkflowEdgeView } from "./workflow-views";
+import { IconView, TaskNodeView, WeightedEdgeView, WorkflowEdgeView } from "./workflow-views";
 
 const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope()
@@ -48,7 +48,6 @@ const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind
     configureModelElement(context, 'volatile-routing-point', SRoutingHandle, SRoutingHandleView);
     configureModelElement(context, 'edge', SEdge, WorkflowEdgeView)
     configureModelElement(context, 'edge:weighted', WeightedEdge, WeightedEdgeView)
-    configureModelElement(context, 'resize-handle', SResizeHandle, SResizeHandleView);
     configureModelElement(context, 'icon', Icon, IconView);
     configureModelElement(context, 'activityNode:merge', ActivityNode, DiamondNodeView)
     configureModelElement(context, 'activityNode:decision', ActivityNode, DiamondNodeView)
@@ -61,7 +60,7 @@ export default function createContainer(widgetId: string): Container {
     container.load(defaultModule, defaultGLSPModule, selectModule, boundsModule, viewportModule,
         hoverModule, fadeModule, exportModule, expandModule, openModule, buttonModule, modelSourceModule,
         workflowDiagramModule, saveModule, executeCommandModule, toolFeedbackModule, modelHintsModule,
-        changeBoundsCommandModule, commandPaletteModule, paletteModule);
+        commandPaletteModule, paletteModule);
 
     overrideViewerOptions(container, {
         needsClientLayout: true,

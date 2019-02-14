@@ -18,7 +18,8 @@
 import { injectable } from 'inversify';
 import { svg } from 'snabbdom-jsx';
 import { VNode } from "snabbdom/vnode";
-import { IView, ORIGIN_POINT, Point, RenderingContext, SModelElement } from "sprotty/lib";
+import { IView, ORIGIN_POINT, Point, RenderingContext, setAttr, SModelElement } from "sprotty/lib";
+import { isResizeable, ResizeHandleLocation, SResizeHandle } from '../change-bounds/model';
 
 /**
 * This view is used for the invisible end of the feedback edge.
@@ -29,5 +30,36 @@ export class FeedbackEdgeEndView implements IView {
     render(model: Readonly<SModelElement>, context: RenderingContext): VNode {
         const position: Point = (model as any).position || ORIGIN_POINT;
         return <g x={position.x} y={position.y} />;
+    }
+}
+
+@injectable()
+export class SResizeHandleView implements IView {
+    render(handle: SResizeHandle, context: RenderingContext): VNode {
+        const position = this.getPosition(handle);
+        if (position !== undefined) {
+            const node = <circle class-sprotty-resize-handle={true} class-mouseover={handle.hoverFeedback}
+                cx={position.x} cy={position.y} />;   // Radius must be specified via CSS
+            setAttr(node, 'data-kind', handle.location);
+            return node;
+        }
+        // Fallback: Create an empty group
+        return <g />;
+    }
+
+    protected getPosition(handle: SResizeHandle): Point | undefined {
+        const parent = handle.parent;
+        if (isResizeable(parent)) {
+            if (handle.location === ResizeHandleLocation.TopLeft) {
+                return { x: 0, y: 0 };
+            } else if (handle.location === ResizeHandleLocation.TopRight) {
+                return { x: parent.bounds.width, y: 0 };
+            } else if (handle.location === ResizeHandleLocation.BottomLeft) {
+                return { x: 0, y: parent.bounds.height };
+            } else if (handle.location === ResizeHandleLocation.BottomRight) {
+                return { x: parent.bounds.width, y: parent.bounds.height };
+            }
+        }
+        return undefined;
     }
 }
