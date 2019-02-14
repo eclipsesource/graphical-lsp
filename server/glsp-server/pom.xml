@@ -5,10 +5,47 @@
 	<parent>
 		<groupId>com.eclipsesource.glsp</groupId>
 		<artifactId>glsp-parent</artifactId>
-		<version>0.0.2-SNAPSHOT</version>
+		<version>0.2.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>glsp-server</artifactId>
-	<name>GLSP Server</name>
+	<name>glsp-server</name>
+	<description>Generic server component for GLSP</description>
+	<url>https://github.com/eclipsesource/graphical-lsp</url>
+	<licenses>
+		<license>
+			<name>Eclipse Public License - v 2.0</name>
+			<url>http://www.eclipse.org/legal/epl-v20.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Philip Langer</name>
+			<email>planger@eclipsesource.com</email>
+			<organization>EclipseSource</organization>
+			<organizationUrl>http://www.eclipsesource.com</organizationUrl>
+		</developer>
+		<developer>
+			<name>Tobias Ortmayr</name>
+			<email>tortmayr@eclipsesource.com</email>
+			<organization>EclipseSource</organization>
+			<organizationUrl>http://www.eclipsesource.com</organizationUrl>
+		</developer>
+		<developer>
+			<name>Martin Fleck</name>
+			<email>mfleck@eclipsesource.com</email>
+			<organization>EclipseSource</organization>
+			<organizationUrl>http://www.eclipsesource.com</organizationUrl>
+		</developer>
+	</developers>
+
+	<scm>
+		<url>https://github.com/eclipsesource/graphical-lsp</url>
+		<connection>scm:git@github.com:eclipsesource/graphical-lsp.git</connection>
+		<developerConnection>scm:git@github.com:eclipsesource/graphical-lsp.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
 	<build>
 		<resources>
 			<resource>
@@ -24,7 +61,7 @@
 		<dependency>
 			<groupId>com.eclipsesource.glsp</groupId>
 			<artifactId>glsp-api</artifactId>
-			<version>0.0.2-SNAPSHOT</version>
+			<version>0.2.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject</groupId>
