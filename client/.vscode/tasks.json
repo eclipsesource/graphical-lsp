@@ -7,7 +7,7 @@
             "label": "Workflow Example: Watch browser-app",
             "type": "shell",
             "group": "build",
-            "command": "cd examples/browser-app && yarn watch",
+            "command": "cd examples/workflow/browser-app && yarn watch",
             "presentation": {
                 "reveal": "always",
                 "panel": "new"
@@ -28,7 +28,7 @@
         {
             "label": "Workflow Example: Start in Browser",
             "type": "shell",
-            "command": "cd examples/browser-app && yarn start:debug",
+            "command": "cd examples/workflow/browser-app && yarn start:debug",
             "presentation": {
                 "reveal": "always",
                 "panel": "new"
