@@ -13,11 +13,64 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import { inject, injectable } from "inversify";
 import { VNode } from "snabbdom/vnode";
 import {
-    Action, ElementMove, findParentByFeature, isMoveable, isSelectable, //
-    isViewport, MouseListener, MoveAction, Point, SModelElement, SModelRoot
+    Action, CommandExecutionContext, ElementMove, findParentByFeature, isMoveable, isSelectable, //
+    isViewport, MouseListener, MoveAction, Point, SModelElement, SModelRoot, TYPES
 } from "sprotty/lib";
+import { isNotUndefined } from "../../utils/smodel-util";
+import { addResizeHandles, isResizeable, removeResizeHandles } from "../change-bounds/model";
+import { FeedbackCommand } from "./model";
+
+export class ShowChangeBoundsToolResizeFeedbackAction implements Action {
+    kind = ShowChangeBoundsToolResizeFeedbackCommand.KIND;
+    constructor(readonly elementTypeId?: string) { }
+}
+
+export class HideChangeBoundsToolResizeFeedbackAction implements Action {
+    kind = HideChangeBoundsToolResizeFeedbackCommand.KIND;
+    constructor() { }
+}
+
+@injectable()
+export class ShowChangeBoundsToolResizeFeedbackCommand extends FeedbackCommand {
+    static readonly KIND = 'glsp.changeboundstools.resize.feedback.show';
+
+    constructor(@inject(TYPES.Action) protected action: ShowChangeBoundsToolResizeFeedbackAction) {
+        super();
+    }
+
+    execute(context: CommandExecutionContext): SModelRoot {
+        const index = context.root.index;
+        index.all().filter(isResizeable).forEach(removeResizeHandles);
+
+        if (isNotUndefined(this.action.elementTypeId)) {
+            const resizeElement = index.getById(this.action.elementTypeId);
+            if (isNotUndefined(resizeElement) && isResizeable(resizeElement)) {
+                addResizeHandles(resizeElement);
+            }
+        }
+
+        return context.root;
+    }
+}
+
+@injectable()
+export class HideChangeBoundsToolResizeFeedbackCommand extends FeedbackCommand {
+    static readonly KIND = 'glsp.changeboundstools.resize.feedback.hide';
+
+    constructor(@inject(TYPES.Action) protected action: HideChangeBoundsToolResizeFeedbackAction) {
+        super();
+    }
+
+    execute(context: CommandExecutionContext): SModelRoot {
+        const index = context.root.index;
+        index.all().filter(isResizeable).forEach(removeResizeHandles);
+        return context.root;
+    }
+}
+
 
 /**
  * This mouse listener provides visual feedback for moving by sending client-side

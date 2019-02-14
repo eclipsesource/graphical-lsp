@@ -16,16 +16,15 @@
 import { inject, injectable, optional } from "inversify";
 import {
     Action, Bounds, BoundsAware, ButtonHandlerRegistry, ElementAndBounds, findParentByFeature, isViewport, KeyTool, MouseTool, Point, //
-    SetBoundsAction, SModelElement, SModelRoot, SParentElement, Tool
+    SetBoundsAction, SModelElement, SParentElement, Tool
 } from "sprotty/lib";
-import { IModelUpdateObserver, ModelUpdateObserverRegistry } from "../../base/model/model-update-observer-registry";
 import { GLSP_TYPES } from "../../types";
-import { forEachElement, getIndex, isSelectedBoundsAware } from "../../utils/smodel-util";
+import { forEachElement, isSelectedBoundsAware } from "../../utils/smodel-util";
 import { isBoundsAwareMoveable, isResizeable, ResizeHandleLocation, SResizeHandle } from "../change-bounds/model";
-import { addResizeHandles, SwitchResizeModeAction } from "../change-bounds/resize";
 import { ChangeBoundsOperationAction } from "../operation/operation-actions";
 import { SelectionTracker } from "../select/selection-tracker";
-import { FeedbackMoveMouseListener } from "../tool-feedback/move-tool-feedback";
+import { FeedbackMoveMouseListener, HideChangeBoundsToolResizeFeedbackAction, ShowChangeBoundsToolResizeFeedbackAction } from "../tool-feedback/change-bounds-tool-feedback";
+import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
 
 /**
  * The change bounds tool has the license to move multiple elements or resize a single element by implementing the ChangeBounds operation.
@@ -51,8 +50,8 @@ export class ChangeBoundsTool implements Tool {
 
     constructor(@inject(MouseTool) protected mouseTool: MouseTool,
         @inject(KeyTool) protected keyTool: KeyTool,
-        @inject(GLSP_TYPES.ModelUpdateObserverRegistry) protected modelUpdateObserverRegistry: ModelUpdateObserverRegistry,
-        @inject(ButtonHandlerRegistry) @optional() protected buttonHandlerRegistry: ButtonHandlerRegistry) { }
+        @inject(ButtonHandlerRegistry) @optional() protected buttonHandlerRegistry: ButtonHandlerRegistry,
+        @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher) { }
 
     enable() {
         // install feedback move mouse listener for client-side move updates
@@ -60,21 +59,25 @@ export class ChangeBoundsTool implements Tool {
         this.mouseTool.register(this.feedbackMoveMouseListener);
 
         // instlal change bounds listener for client-side resize updates and server-side updates
-        this.changeBoundsListener = new ChangeBoundsListener(this.buttonHandlerRegistry);
+        this.changeBoundsListener = new ChangeBoundsListener(this.buttonHandlerRegistry, this);
         this.mouseTool.register(this.changeBoundsListener);
-        this.modelUpdateObserverRegistry.register(this.changeBoundsListener);
         this.keyTool.register(this.changeBoundsListener);
+        this.feedbackDispatcher.registerFeedback(this, [new ShowChangeBoundsToolResizeFeedbackAction])
     }
 
     disable() {
         this.mouseTool.deregister(this.changeBoundsListener);
-        this.modelUpdateObserverRegistry.deregister(this.changeBoundsListener);
         this.keyTool.deregister(this.changeBoundsListener);
         this.mouseTool.deregister(this.feedbackMoveMouseListener);
+        this.feedbackDispatcher.deregisterFeedback(this, [new HideChangeBoundsToolResizeFeedbackAction])
+    }
+
+    dispatchFeedback(actions: Action[]) {
+        this.feedbackDispatcher.registerFeedback(this, actions);
     }
 }
 
-class ChangeBoundsListener extends SelectionTracker implements IModelUpdateObserver {
+class ChangeBoundsListener extends SelectionTracker {
     // members for calculating the correct position change
     private lastDragPosition: Point | undefined = undefined;
     private positionDelta: Point = { x: 0, y: 0 };
@@ -83,7 +86,7 @@ class ChangeBoundsListener extends SelectionTracker implements IModelUpdateObser
     private activeResizeElementId: string | undefined = undefined;
     private activeResizeHandle: SResizeHandle | undefined = undefined;
 
-    constructor(buttonHandlerRegistry: ButtonHandlerRegistry) {
+    constructor(buttonHandlerRegistry: ButtonHandlerRegistry, protected tool: ChangeBoundsTool) {
         super(buttonHandlerRegistry);
     }
 
@@ -101,10 +104,13 @@ class ChangeBoundsListener extends SelectionTracker implements IModelUpdateObser
                 const moveableElement = findParentByFeature(target, isBoundsAwareMoveable);
 
                 // check if we have a resizeable element (only single-selection)
-                const action = createSwitchResizeModeAction(target, this.getSelectedElementIDs());
-                this.activeResizeElementId = action.elementsToActivate.length > 0 ? action.elementsToActivate[0] : undefined;
-                actions.push(action);
-
+                if (this.isSingleSelection()) {
+                    this.activeResizeElementId = this.getSelectedElementIDs().values().next().value;
+                    this.tool.dispatchFeedback([new ShowChangeBoundsToolResizeFeedbackAction(this.activeResizeElementId)]);
+                } else {
+                    this.activeResizeElementId = undefined;
+                    this.tool.dispatchFeedback([new HideChangeBoundsToolResizeFeedbackAction()]);
+                }
                 active = moveableElement !== undefined || this.activeResizeElementId !== undefined;
             }
             if (active) {
@@ -159,15 +165,10 @@ class ChangeBoundsListener extends SelectionTracker implements IModelUpdateObser
             super.keyDown(element, event);
             if (this.isMultiSelection()) {
                 // no element should be in resize mode
-                actions.push(createSwitchResizeModeAction(element, this.getSelectedElementIDs()));
+                this.tool.dispatchFeedback([new HideChangeBoundsToolResizeFeedbackAction()]);
             }
         }
         return actions;
-    }
-
-    beforeServerUpdate(model: SModelRoot): void {
-        const isResizeElement = (element: SModelElement): element is SModelElement => this.isActiveResizeElement(element);
-        forEachElement(model, isResizeElement, addResizeHandles);
     }
 
     private isActiveResizeElement(element: SModelElement | undefined): element is SParentElement & BoundsAware {
@@ -247,22 +248,6 @@ class ChangeBoundsListener extends SelectionTracker implements IModelUpdateObser
         }
         return actions;
     }
-}
-
-function createSwitchResizeModeAction(target: SModelElement, selectedElements: Set<string>): SwitchResizeModeAction {
-    // all elements are deactivated by default
-    const unresizeable: string[] = [];
-    getIndex(target).all().forEach(element => unresizeable.push(element.id));
-
-    // mark single resizeable element active if possible
-    const resizeable: string[] = [];
-    if (selectedElements.size === 1) {
-        const resizeableElement = findParentByFeature(target, isResizeable);
-        if (resizeableElement && selectedElements.has(resizeableElement.id)) {
-            resizeable.push(resizeableElement.id);
-        }
-    }
-    return new SwitchResizeModeAction(resizeable, unresizeable);
 }
 
 function createChangeBoundsAction(element: SModelElement & BoundsAware): Action[] {

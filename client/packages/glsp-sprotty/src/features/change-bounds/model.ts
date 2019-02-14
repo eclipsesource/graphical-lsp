@@ -35,7 +35,8 @@ export function isBoundsAwareMoveable(element: SModelElement): element is SModel
 }
 
 export class SResizeHandle extends SChildElement implements Hoverable {
-    type: string = 'resize-handle';
+    static readonly TYPE = 'resize-handle';
+    type: string = SResizeHandle.TYPE;
     hoverFeedback: boolean = false;
     location?: ResizeHandleLocation;
 
@@ -47,4 +48,16 @@ export class SResizeHandle extends SChildElement implements Hoverable {
     hasFeature(feature: symbol): boolean {
         return feature === hoverFeedbackFeature;
     }
+}
+
+export function addResizeHandles(element: SParentElement) {
+    removeResizeHandles(element);
+    element.add(new SResizeHandle(ResizeHandleLocation.TopLeft));
+    element.add(new SResizeHandle(ResizeHandleLocation.TopRight));
+    element.add(new SResizeHandle(ResizeHandleLocation.BottomLeft));
+    element.add(new SResizeHandle(ResizeHandleLocation.BottomRight));
+}
+
+export function removeResizeHandles(element: SParentElement) {
+    element.removeAll(child => child instanceof SResizeHandle);
 }

@@ -17,13 +17,15 @@
 import { ContainerModule } from "inversify";
 import { configureCommand, configureView, LocationDecorator, MoveCommand, TYPES } from "sprotty/lib";
 import { GLSP_TYPES } from "../../types";
+import { SResizeHandle } from "../change-bounds/model";
+import { HideChangeBoundsToolResizeFeedbackCommand, ShowChangeBoundsToolResizeFeedbackCommand } from "./change-bounds-tool-feedback";
 import {
     FeedbackEdgeEnd, HideEdgeCreationToolFeedbackCommand, HideNodeCreationToolFeedbackCommand, //
     ShowEdgeCreationSelectSourceFeedbackCommand, ShowEdgeCreationSelectTargetFeedbackCommand, //
     ShowNodeCreationToolFeedbackCommand
 } from "./creation-tool-feedback";
 import { FeedbackActionDispatcher } from "./feedback-action-dispatcher";
-import { FeedbackEdgeEndView } from "./view";
+import { FeedbackEdgeEndView, SResizeHandleView } from "./view";
 
 const toolFeedbackModule = new ContainerModule((bind, _unbind, isBound) => {
     bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
@@ -39,6 +41,12 @@ const toolFeedbackModule = new ContainerModule((bind, _unbind, isBound) => {
     configureView({ bind, isBound }, FeedbackEdgeEnd.TYPE, FeedbackEdgeEndView)
     // move tool feedback: we use sprotties MoveCommand as client-side visual feedback
     configureCommand({ bind, isBound }, MoveCommand);
+
+    // resize tool feedback
+    configureCommand({ bind, isBound }, ShowChangeBoundsToolResizeFeedbackCommand);
+    configureCommand({ bind, isBound }, HideChangeBoundsToolResizeFeedbackCommand);
+    configureView({ bind, isBound }, SResizeHandle.TYPE, SResizeHandleView);
+
     bind(TYPES.IVNodeDecorator).to(LocationDecorator);
     bind(TYPES.HiddenVNodeDecorator).to(LocationDecorator);
 });
