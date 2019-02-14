@@ -43,7 +43,7 @@ It's recommended to clone the repository recursively. Otherwise submodules have 
 The example server can be started by executing the main method of the class [ExampleServerLauncher.java](https://github.com/eclipsesource/graphical-lsp/blob/master/server/example/workflow-example/src/main/java/com/eclipsesource/glsp/example/workflow/ExampleServerLauncher.java) in the module `server/example/workflow-example`.
 
 ### 2. Starting the theia client
-	cd client/examples/browser-app
+	cd client/examples/workspace/browser-app
 	yarn start
 and then open http://localhost:3000 in the browser.
 

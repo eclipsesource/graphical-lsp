@@ -1,11 +1,25 @@
 {
   "name": "glsp-sprotty",
   "version": "0.4.4",
+  "description": "A sprotty-based client for GLSP",
+  "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
+   "keywords": [
+    "eclipse",
+    "graphics",
+    "diagram",
+    "modeling",
+    "visualization",
+    "glsp",
+    "diagram editor"
+  ],
   "files": [
     "lib",
     "src",
     "css"
   ],
+  "author": {
+    "name": "EclipseSource"
+  },
   "dependencies": {
     "autocompleter": "^4.0.2",
     "sprotty": "next"

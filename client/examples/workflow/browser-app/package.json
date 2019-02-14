@@ -16,7 +16,6 @@
     "@theia/monaco": "next",
     "@theia/typescript": "next",
     "@theia/messages": "next",
-    "glsp-theia-extension":"0.1.7",
     "workflow-glsp-extension": "0.0.0"
   },
   "devDependencies": {
