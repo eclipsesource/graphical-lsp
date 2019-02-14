@@ -128,6 +128,7 @@ class ChangeBoundsListener extends SelectionTracker implements IModelUpdateObser
     mouseUp(target: SModelElement, event: MouseEvent): Action[] {
         super.mouseUp(target, event);
         if (!this.hasPositionDelta()) {
+            this.resetPosition();
             return [];
         }
 
