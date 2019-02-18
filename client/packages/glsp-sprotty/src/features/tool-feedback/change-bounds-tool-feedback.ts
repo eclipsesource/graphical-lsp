@@ -25,7 +25,7 @@ import { FeedbackCommand } from "./model";
 
 export class ShowChangeBoundsToolResizeFeedbackAction implements Action {
     kind = ShowChangeBoundsToolResizeFeedbackCommand.KIND;
-    constructor(readonly elementTypeId?: string) { }
+    constructor(readonly elementId?: string) { }
 }
 
 export class HideChangeBoundsToolResizeFeedbackAction implements Action {
@@ -45,8 +45,8 @@ export class ShowChangeBoundsToolResizeFeedbackCommand extends FeedbackCommand {
         const index = context.root.index;
         index.all().filter(isResizeable).forEach(removeResizeHandles);
 
-        if (isNotUndefined(this.action.elementTypeId)) {
-            const resizeElement = index.getById(this.action.elementTypeId);
+        if (isNotUndefined(this.action.elementId)) {
+            const resizeElement = index.getById(this.action.elementId);
             if (isNotUndefined(resizeElement) && isResizeable(resizeElement)) {
                 addResizeHandles(resizeElement);
             }
