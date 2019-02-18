@@ -152,12 +152,12 @@ class ReconnectEdgeListener extends SelectionTracker {
                 this.setEdgeSelected(edge);
             } else if (this.isReconnecting()) {
                 // PHASE 3: Select new connectable (target or source) for reconnecting the selected edge
+                // if no connectable was selected, do nothing, allow clicking on other elements and empty area during this phase
                 const connectable = findParentByFeature(target, isConnectable);
                 if (connectable) {
                     this.setNewConnectable(connectable);
                 }
-            }
-            if (!this.isEdgeSelected() && !this.isReconnecting()) {
+            } else {
                 this.reset();
             }
         }
