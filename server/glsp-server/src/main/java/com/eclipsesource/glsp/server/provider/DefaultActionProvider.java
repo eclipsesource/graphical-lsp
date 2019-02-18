@@ -33,6 +33,7 @@ import com.eclipsesource.glsp.api.action.kind.ExportSVGAction;
 import com.eclipsesource.glsp.api.action.kind.FitToScreenAction;
 import com.eclipsesource.glsp.api.action.kind.OpenAction;
 import com.eclipsesource.glsp.api.action.kind.RequestBoundsAction;
+import com.eclipsesource.glsp.api.action.kind.RequestCommandPaletteActions;
 import com.eclipsesource.glsp.api.action.kind.RequestTypeHints;
 import com.eclipsesource.glsp.api.action.kind.RequestExportSvgAction;
 import com.eclipsesource.glsp.api.action.kind.RequestLayersAction;
@@ -92,6 +93,7 @@ public class DefaultActionProvider implements ActionProvider {
 		defaultActions.add(new ToogleLayerAction());
 		defaultActions.add(new UpdateModelAction());
 		defaultActions.add(new ExecuteServerCommandAction());
+		defaultActions.add(new RequestCommandPaletteActions());
 	}
 
 	@Override

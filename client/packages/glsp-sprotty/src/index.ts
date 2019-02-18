@@ -20,6 +20,7 @@ export * from './base/edit-config/edit-config';
 export * from './base/model/model-update-observer-registry';
 export * from './base/tool-manager/tool-manager-action-handler';
 export * from './features/change-bounds/model';
+export * from './features/command-palette/action-definitions';
 export * from './features/command-palette/action-provider';
 export * from './features/command-palette/command-palette';
 export * from './features/execute/execute-command';

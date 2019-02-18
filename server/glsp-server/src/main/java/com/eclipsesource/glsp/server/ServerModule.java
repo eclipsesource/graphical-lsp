@@ -27,6 +27,7 @@ import com.eclipsesource.glsp.server.actionhandler.ComputedBoundsActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.ExecuteServerCommandActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.OpenActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.OperationActionHandler;
+import com.eclipsesource.glsp.server.actionhandler.RequestCommandPaletteActionsHandler;
 import com.eclipsesource.glsp.server.actionhandler.RequestElementTypeHintsActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.RequestModelActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.RequestOperationsHandler;
@@ -92,6 +93,7 @@ public abstract class ServerModule extends GLSPModule {
 		bindActionHandler().to(SelectActionHandler.class);
 		bindActionHandler().to(ExecuteServerCommandActionHandler.class);
 		bindActionHandler().to(RequestElementTypeHintsActionHandler.class);
+		bindActionHandler().to(RequestCommandPaletteActionsHandler.class);
 	}
 
 }

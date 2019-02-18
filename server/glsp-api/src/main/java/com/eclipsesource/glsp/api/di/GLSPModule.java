@@ -29,6 +29,7 @@ import com.eclipsesource.glsp.api.model.ModelSelectionListener;
 import com.eclipsesource.glsp.api.operations.OperationConfiguration;
 import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
 import com.eclipsesource.glsp.api.provider.ActionProvider;
+import com.eclipsesource.glsp.api.provider.CommandPaletteActionProvider;
 import com.eclipsesource.glsp.api.provider.ModelTypeConfigurationProvider;
 import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
 import com.eclipsesource.glsp.api.provider.ServerCommandHandlerProvider;
@@ -56,6 +57,7 @@ public abstract class GLSPModule extends AbstractModule {
 		bind(OperationHandlerProvider.class).to(bindOperatioHandlerProvider());
 		bind(ServerCommandHandlerProvider.class).to(bindServerCommandHandlerProvider());
 		bind(ModelTypeConfigurationProvider.class).to(bindModelTypesConfigurationProvider());
+		bind(CommandPaletteActionProvider.class).to(bindCommandPaletteActionProvider());
 		configureMultibindings();
 	}
 
@@ -89,6 +91,11 @@ public abstract class GLSPModule extends AbstractModule {
 
 	protected abstract Class<? extends GLSPServer> bindGLSPServer();
 	protected abstract Class<? extends ModelTypeConfigurationProvider> bindModelTypesConfigurationProvider();
+	
+	protected Class<? extends CommandPaletteActionProvider> bindCommandPaletteActionProvider() {
+		return CommandPaletteActionProvider.NullImpl.class;
+	}
+
 	protected Class<? extends ActionProvider> bindActionProvider() {
 		return ActionProvider.NullImpl.class;
 	}
