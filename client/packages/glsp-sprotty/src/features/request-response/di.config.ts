@@ -13,16 +13,14 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-export const GLSP_TYPES = {
-    ICommandPaletteActionProvider: Symbol.for("ICommandPaletteActionProvider"),
-    ICommandPaletteActionProviderRegistry: Symbol.for("ICommandPaletteActionProviderRegistry"),
-    IFeedbackActionDispatcher: Symbol.for("IFeedbackActionDispatcher"),
-    IToolFactory: Symbol.for("Factory<Tool>"),
-    IModelUpdateObserver: Symbol.for("IModelUpdateObserver"),
-    ModelUpdateObserverRegistry: Symbol.for("ModelUpdateObserverRegistry"),
-    IReadonlyModelAccessProvider: Symbol.for("IReadonlyModelAccessProvider"),
-    IDiagramUIExtension: Symbol.for("IDiagramUIExtension"),
-    DiagramUIExtensionRegistry: Symbol.for("DiagramUIExtensionRegistry"),
-    IEditConfigProvider: Symbol.for("IEditConfigProvider"),
-    RequestResponseSupport: Symbol.for("RequestResponseSupport")
-}
+
+import { ContainerModule } from "inversify";
+import { GLSP_TYPES } from "../../types";
+import { RequestResponseSupport } from "./support";
+
+const requestResponseModule = new ContainerModule((bind, unbind, isBound, rebind) => {
+    bind(RequestResponseSupport).toSelf().inSingletonScope();
+    bind(GLSP_TYPES.RequestResponseSupport).to(RequestResponseSupport).inSingletonScope();
+});
+
+export default requestResponseModule;

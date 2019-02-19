@@ -101,6 +101,8 @@ public abstract class Action {
 		public static final String EXECUTE_SERVER_COMMAND = "executeServerCommand";
 		public static final String REQUEST_COMMAND_PALETTE_ACTIONS = "requestCommandPaletteActions";
 		public static final String SET_COMMAND_PALETTE_ACTIONS = "setCommandPaletteActions";
+		public static final String IDENTIFIABLE_REQUEST_ACTION = "identifiableRequestAction";
+		public static final String IDENTIFIABLE_RESPONSE_ACTION = "identifiableResponseAction";
 	}
 
 }

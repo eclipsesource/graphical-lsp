@@ -28,6 +28,8 @@ import org.eclipse.sprotty.ServerStatus;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.ActionMessage;
 import com.eclipsesource.glsp.api.action.ActionRegistry;
+import com.eclipsesource.glsp.api.action.kind.IdentifiableRequestAction;
+import com.eclipsesource.glsp.api.action.kind.IdentifiableResponseAction;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPClient;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
 import com.eclipsesource.glsp.api.model.ModelState;
@@ -64,11 +66,19 @@ public class DefaultGLSPServer implements GLSPServer {
 		ModelState modelState = getModelState(clientId);
 
 		Action requestAction = message.getAction();
+		Optional<String> requestId = Optional.empty();
+		if (requestAction instanceof IdentifiableRequestAction) {
+			// unwrap identifiable request
+			requestId = Optional.of(((IdentifiableRequestAction) requestAction).getId());
+			requestAction = ((IdentifiableRequestAction) requestAction).getAction();
+		}	
 		if (actionRegistry.hasHandler(requestAction)) {
 			Optional<Action> responseOpt = actionRegistry.delegateToHandler(requestAction, modelState);
 			if (responseOpt.isPresent()) {
-				ActionMessage response = new ActionMessage(clientId, responseOpt.get());
-				clientProxy.process(response);
+				// wrap identifiable response if necessary
+				Action response = requestId.<Action>map(id -> new IdentifiableResponseAction(id, responseOpt.get())).orElse(responseOpt.get());
+				ActionMessage responseMessage = new ActionMessage(clientId, response);
+				clientProxy.process(responseMessage);
 			}
 		} else {
 			log.warn("No action handler registered for action kind: \"" + message.getAction().getKind() + "\"");
@@ -79,7 +89,6 @@ public class DefaultGLSPServer implements GLSPServer {
 	@Override
 	public void setStatus(ServerStatus status) {
 		this.status = status;
-
 	}
 
 	@Override

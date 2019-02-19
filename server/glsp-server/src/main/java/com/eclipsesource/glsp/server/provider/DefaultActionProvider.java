@@ -31,6 +31,7 @@ import com.eclipsesource.glsp.api.action.kind.DeleteElementOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ExecuteServerCommandAction;
 import com.eclipsesource.glsp.api.action.kind.ExportSVGAction;
 import com.eclipsesource.glsp.api.action.kind.FitToScreenAction;
+import com.eclipsesource.glsp.api.action.kind.IdentifiableRequestAction;
 import com.eclipsesource.glsp.api.action.kind.OpenAction;
 import com.eclipsesource.glsp.api.action.kind.RequestBoundsAction;
 import com.eclipsesource.glsp.api.action.kind.RequestCommandPaletteActions;
@@ -94,6 +95,7 @@ public class DefaultActionProvider implements ActionProvider {
 		defaultActions.add(new UpdateModelAction());
 		defaultActions.add(new ExecuteServerCommandAction());
 		defaultActions.add(new RequestCommandPaletteActions());
+		defaultActions.add(new IdentifiableRequestAction());
 	}
 
 	@Override
