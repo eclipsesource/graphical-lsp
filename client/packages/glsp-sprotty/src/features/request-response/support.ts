@@ -15,7 +15,7 @@
  ********************************************************************************/
 
 import { inject, injectable } from "inversify";
-import { Action, ActionHandlerRegistry, IActionDispatcher, TYPES } from "sprotty/lib";
+import { Action, ActionHandlerRegistry, IActionDispatcher, ILogger, TYPES } from "sprotty/lib";
 import { v4 as uuid } from 'uuid';
 import { IdentifiableRequestAction, IdentifiableResponseAction, isIdentifiableResponseAction } from "./action-definitions";
 
@@ -24,7 +24,8 @@ export class RequestResponseSupport {
     private requestedResponses = new Map<string, Action | undefined>();
 
     constructor(@inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher,
-        @inject(TYPES.ActionHandlerRegistry) protected registry: ActionHandlerRegistry) {
+        @inject(TYPES.ActionHandlerRegistry) protected registry: ActionHandlerRegistry,
+        @inject(TYPES.ILogger) protected logger: ILogger) {
         registry.register(IdentifiableResponseAction.KIND, this);
     }
 
@@ -34,7 +35,7 @@ export class RequestResponseSupport {
             if (this.requestedResponses.has(responseId)) {
                 this.requestedResponses.set(responseId, response.action);
             } else {
-                console.log("[RequestResponse] " + responseId + ": Response without request, ignore.")
+                this.logger.log(this, "[RequestResponse] " + responseId + ": Response without request, ignore.")
             }
         }
     }
@@ -47,7 +48,7 @@ export class RequestResponseSupport {
         this.requestedResponses.set(requestAction.id, undefined);
 
         await this.actionDispatcher.dispatch(requestAction);
-        console.log("[RequestResponse] " + requestId + ": Request for " + JSON.stringify(requestAction.action) + " dispatched.");
+        this.logger.log(this, "[RequestResponse] " + requestId + ": Request for " + JSON.stringify(requestAction.action) + " dispatched.");
 
         let timeout: NodeJS.Timeout;
         let responseInterval: NodeJS.Timeout;
@@ -56,7 +57,7 @@ export class RequestResponseSupport {
             responseInterval = setInterval(() => {
                 const responseAction = this.requestedResponses.get(requestId);
                 if (responseAction) {
-                    console.log("[RequestResponse] " + requestId + ": Response for request received.");
+                    this.logger.log(this, "[RequestResponse] " + requestId + ": Response for request received.");
 
                     // cleanup
                     clearTimeout(timeout);
@@ -73,7 +74,7 @@ export class RequestResponseSupport {
 
         const timeoutPromise = new Promise<T>((resolve, reject) => {
             timeout = setTimeout(() => {
-                console.warn("[RequestResponse] " + requestId + ": No response received after " + timeoutMs + "ms.");
+                this.logger.warn(this, "[RequestResponse] " + requestId + ": No response received after " + timeoutMs + "ms.");
 
                 // cleanup
                 clearTimeout(timeout);
