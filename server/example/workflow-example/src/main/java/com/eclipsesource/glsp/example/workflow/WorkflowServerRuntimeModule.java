@@ -20,6 +20,7 @@ import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
 import com.eclipsesource.glsp.api.model.ModelExpansionListener;
 import com.eclipsesource.glsp.api.model.ModelSelectionListener;
 import com.eclipsesource.glsp.api.operations.OperationConfiguration;
+import com.eclipsesource.glsp.api.provider.CommandPaletteActionProvider;
 import com.eclipsesource.glsp.api.provider.ModelTypeConfigurationProvider;
 import com.eclipsesource.glsp.example.workflow.handler.CreateAutomatedTaskHandler;
 import com.eclipsesource.glsp.example.workflow.handler.CreateDecisionNodeHandler;
@@ -63,6 +64,11 @@ public class WorkflowServerRuntimeModule extends ServerModule {
 	@Override
 	public Class<? extends OperationConfiguration> bindOperationConfiguration() {
 		return WorkflowOperationConfiguration.class;
+	}
+	
+	@Override
+	protected Class<? extends CommandPaletteActionProvider> bindCommandPaletteActionProvider() {
+		return WorkflowCommandPaletteActionProvider.class;
 	}
 
 	@Override

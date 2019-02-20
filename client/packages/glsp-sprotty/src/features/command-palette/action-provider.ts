@@ -13,14 +13,15 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-
 import { inject, injectable, multiInject, optional } from "inversify";
-import { CenterAction, ILogger, SelectAction, SModelElement, SModelRoot, TYPES } from "sprotty/lib";
+import { Action, ActionHandlerRegistry, CenterAction, ILogger, SelectAction, SModelElement, SModelRoot, TYPES } from "sprotty/lib";
 import { toArray } from "sprotty/lib/utils/iterable";
 import { IReadonlyModelAccessProvider } from "../../base/command-stack";
 import { LabeledAction } from "../../base/diagram-ui-extension/diagram-ui-extension";
 import { GLSP_TYPES } from "../../types";
 import { isNameable, name } from "../nameable/model";
+import { RequestResponseSupport } from "../request-response/support";
+import { isSetCommandPaletteActionsAction, RequestCommandPaletteActions } from "./action-definitions";
 
 export interface ICommandPaletteActionProvider {
     getActions(selectedElements: SModelElement[]): Promise<LabeledAction[]>;
@@ -40,7 +41,7 @@ export class CommandPaletteActionProviderRegistry implements ICommandPaletteActi
 
     getActions(selectedElements: SModelElement[]): Promise<LabeledAction[]> {
         const actionLists = this.actionProvider.map(provider => provider.getActions(selectedElements));
-        return Promise.all(actionLists).then(p => p.reduce((acc, promise) => acc.concat(promise)));
+        return Promise.all(actionLists).then(p => p.reduce((acc, promise) => promise !== undefined ? acc.concat(promise) : acc));
     }
 }
 
@@ -65,5 +66,27 @@ export class NavigationCommandPaletteActionProvider implements ICommandPaletteAc
         return toArray(modelRoot.index.all()
             .filter(element => isNameable(element))
             .map(nameable => new LabeledAction(`Select ${name(nameable)}`, [new SelectAction([nameable.id]), new CenterAction([nameable.id])])));
+    }
+}
+
+@injectable()
+export class ServerCommandPaletteActionProvider implements ICommandPaletteActionProvider {
+    constructor(@inject(GLSP_TYPES.RequestResponseSupport) protected requestResponseSupport: RequestResponseSupport,
+        @inject(TYPES.ActionHandlerRegistry) protected registry: ActionHandlerRegistry) {
+    }
+
+    getActions(selectedElements: SModelElement[]): Promise<LabeledAction[]> {
+        const selectedElementIDs = selectedElements.map(e => e.id);
+        const requestAction = new RequestCommandPaletteActions(selectedElementIDs);
+        const responseHandler = this.getPaletteActionsFromResponse;
+        const promise = this.requestResponseSupport.dispatchRequest(requestAction, responseHandler);
+        return promise;
+    }
+
+    getPaletteActionsFromResponse(action: Action): LabeledAction[] {
+        if (isSetCommandPaletteActionsAction(action)) {
+            return action.actions;
+        }
+        return [];
     }
 }

@@ -57,6 +57,9 @@ export class CommandPalette extends BaseDiagramUIExtension {
     protected inputElement: HTMLInputElement;
     protected autoCompleteResult: AutocompleteResult;
 
+    protected paletteContext?: SModelElement[];
+    protected contextActions?: LabeledAction[];
+
     constructor(
         @inject(TYPES.ViewerOptions) protected options: ViewerOptions,
         @inject(TYPES.IActionDispatcherProvider) protected actionDispatcherProvider: IActionDispatcherProvider,
@@ -110,10 +113,18 @@ export class CommandPalette extends BaseDiagramUIExtension {
             className: "command-palette-suggestions",
             minLength: -1,
             fetch: (text: string, update: (items: LabeledAction[]) => void) => {
-                this.actionProvider()
-                    .then(provider => provider.getActions(selectedElements))
-                    .then(actions => update(this.filterActions(text, actions)))
-                    .catch((reason) => this.logger.error(this, "Failed to obtain actions from command palette action providers", reason));
+                if (this.paletteContext === selectedElements && this.contextActions) {
+                    update(this.filterActions(text, this.contextActions));
+                } else {
+                    this.paletteContext = selectedElements;
+                    this.actionProvider()
+                        .then(provider => provider.getActions(selectedElements))
+                        .then(actions => {
+                            this.contextActions = actions;
+                            update(this.filterActions(text, actions));
+                        })
+                        .catch((reason) => this.logger.error(this, "Failed to obtain actions from command palette action providers", reason));
+                }
             },
             onSelect: (item: LabeledAction) => {
                 this.executeAction(item);
@@ -138,6 +149,8 @@ export class CommandPalette extends BaseDiagramUIExtension {
 
     hide() {
         super.hide()
+        this.paletteContext = undefined;
+        this.contextActions = undefined;
         if (this.autoCompleteResult) {
             this.autoCompleteResult.destroy();
         }

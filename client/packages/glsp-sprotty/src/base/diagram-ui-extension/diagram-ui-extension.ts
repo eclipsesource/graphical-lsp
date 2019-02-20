@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { inject, injectable } from "inversify";
-import { Action, IActionDispatcherProvider, ILogger, SModelElement, TYPES, ViewerOptions } from "sprotty/lib";
+import { Action, IActionDispatcherProvider, ILogger, isAction, SModelElement, TYPES, ViewerOptions } from "sprotty/lib";
 
 /**
  * An extension with togglable visbility  that can display additional (UI) information on top of a sprotty diagram
@@ -109,6 +109,7 @@ export abstract class BaseDiagramUIExtension implements IDiagramUIExtension {
     }
 
     protected executeAction(input: LabeledAction | Action[] | Action) {
+        console.log("EXEC: " + JSON.stringify(input));
         this.actionDispatcherProvider()
             .then((actionDispatcher) => actionDispatcher.dispatchAll(toActionArray(input)))
             .catch((reason) => this.logger.error(this, 'No action dispatcher available to execute diagram ui extension  action', reason));
@@ -116,11 +117,12 @@ export abstract class BaseDiagramUIExtension implements IDiagramUIExtension {
 }
 
 function toActionArray(input: LabeledAction | Action[] | Action): Action[] {
-    if (input instanceof LabeledAction) {
-        return input.actions
-    } else {
-        return [...input]
+    if (isLabeledAction(input)) {
+        return input.actions;
+    } else if (isAction(input)) {
+        return [input];
     }
+    return [];
 }
 
 /**
@@ -128,4 +130,10 @@ function toActionArray(input: LabeledAction | Action[] | Action): Action[] {
  */
 export class LabeledAction {
     constructor(readonly label: string, readonly actions: Action[]) { }
+}
+
+export function isLabeledAction(element: any): element is LabeledAction {
+    return element !== undefined
+        && (<LabeledAction>element).label !== undefined
+        && (<LabeledAction>element).actions !== undefined;
 }

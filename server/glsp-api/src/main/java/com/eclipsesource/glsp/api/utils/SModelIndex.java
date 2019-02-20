@@ -15,16 +15,20 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.utils;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.sprotty.SEdge;
 import org.eclipse.sprotty.SModelElement;
 
 public class SModelIndex {
+	private SModelElement parent;
 	private final Map<String, SModelElement> idToElement;
 	private final Map<String, Set<SModelElement>> typeToElements;
 	private final Map<SModelElement, SModelElement> childToParent;
@@ -36,6 +40,7 @@ public class SModelIndex {
 	 * included recursively.
 	 */
 	public SModelIndex(SModelElement parent) {
+		this.parent = parent;
 		idToElement = new HashMap<>();
 		typeToElements = new HashMap<>();
 		childToParent = new HashMap<>();
@@ -121,6 +126,12 @@ public class SModelIndex {
 	public SModelElement get(String elementId) {
 		return idToElement.get(elementId);
 	}
+	
+	public Set<SModelElement> getAll(String... elementIds) {
+		return Arrays.stream(elementIds)
+			.map(this::get)
+			.collect(Collectors.toSet());
+	}
 
 	public Set<SModelElement> getAllByType(String type) {
 		return typeToElements.get(type);
@@ -128,6 +139,24 @@ public class SModelIndex {
 
 	public int getTypeCount(String type) {
 		return typeToElements.computeIfAbsent(type, t -> new HashSet<>()).size();
+	}
+
+	public Collection<SEdge> getIncomingEdges(SModelElement nodeToDelete) {
+		return incomingEdges.computeIfAbsent(nodeToDelete, n -> new HashSet<>());
+	}
+
+	public Collection<SEdge> getOutgoingEdges(SModelElement nodeToDelete) {
+		return outgoingEdges.computeIfAbsent(nodeToDelete, n -> new HashSet<>());
+	}
+
+	public void removeFromIndex(SModelElement element) {
+		idToElement.remove(element.getId());
+		typeToElements.get(element.getType()).remove(element);
+		childToParent.remove(element);
+	}
+	
+	public <T extends SModelElement> Set<T> getAllByClass(Class<T> type) {
+		return findAll(this.parent, type);
 	}
 
 	/**
@@ -149,19 +178,22 @@ public class SModelIndex {
 		}
 		return null;
 	}
-
-	public Collection<SEdge> getIncomingEdges(SModelElement nodeToDelete) {
-		return incomingEdges.computeIfAbsent(nodeToDelete, n -> new HashSet<>());
+	
+	public static <T extends SModelElement> Set<T> findAll(SModelElement parent, Class<T> type) {
+		return getStream(parent)
+			.flatMap(SModelIndex::getStream)
+			.filter(type::isInstance)
+			.map(type::cast)
+			.collect(Collectors.toSet());
 	}
-
-	public Collection<SEdge> getOutgoingEdges(SModelElement nodeToDelete) {
-		return outgoingEdges.computeIfAbsent(nodeToDelete, n -> new HashSet<>());
+	
+	private static Stream<SModelElement> getStream(SModelElement element) {
+		if(element == null) {
+			return Stream.empty();
+		}
+		if(element.getChildren() == null) {
+			return Stream.of(element);
+		}
+		return Stream.concat(Stream.of(element), element.getChildren().stream());
 	}
-
-	public void removeFromIndex(SModelElement element) {
-		idToElement.remove(element.getId());
-		typeToElements.get(element.getType()).remove(element);
-		childToParent.remove(element);
-	}
-
 }
