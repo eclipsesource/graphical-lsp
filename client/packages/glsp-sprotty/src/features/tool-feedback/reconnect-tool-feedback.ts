@@ -16,8 +16,8 @@
 
 import { inject, injectable } from "inversify";
 import {
-    Action, center, CommandExecutionContext, euclideanDistance, findChildrenAtPosition, findParentByFeature, isBoundsAware, //
-    isConnectable, MouseListener, MoveAction, SConnectableElement, SModelElement, SModelRoot, TYPES
+    Action, AnchorComputerRegistry, center, CommandExecutionContext, euclideanDistance, findChildrenAtPosition, findParentByFeature, isBoundsAware, //
+    isConnectable, MouseListener, MoveAction, PolylineEdgeRouter, SConnectableElement, SModelElement, SModelRoot, TYPES
 } from "sprotty/lib";
 import { isNotUndefined } from "../../utils/smodel-util";
 import { getAbsolutePosition } from "../../utils/viewpoint-util";
@@ -140,9 +140,16 @@ export class HideEdgeReconnectToolFeedbackCommand extends FeedbackCommand {
  */
 
 export class FeedbackEdgeTargetMovingMouseListener extends FeedbackEdgeEndMovingMouseListener {
+    constructor(protected anchorRegistry: AnchorComputerRegistry) {
+        super(anchorRegistry);
+    }
 }
 
 export class FeedbackEdgeSourceMovingMouseListener extends MouseListener {
+    constructor(protected anchorRegistry: AnchorComputerRegistry) {
+        super();
+    }
+
     mouseMove(target: SModelElement, event: MouseEvent): Action[] {
         const root = target.root;
         const edgeEnd = root.index.getById(feedbackEdgeEndId(root));
@@ -156,7 +163,8 @@ export class FeedbackEdgeSourceMovingMouseListener extends MouseListener {
             .find(e => isConnectable(e) && e.canConnect(edge, 'source'));
 
         if (endAtMousePosition instanceof SConnectableElement && edge.target && isBoundsAware(edge.target)) {
-            const anchor = endAtMousePosition.getAnchor(center(edge.target.bounds));
+            const anchorComputer = this.anchorRegistry.get(PolylineEdgeRouter.KIND, endAtMousePosition.anchorKind);
+            const anchor = anchorComputer.getAnchor(endAtMousePosition, center(edge.target.bounds));
             if (euclideanDistance(anchor, edgeEnd.position) > 1) {
                 return [new MoveAction([{ elementId: edgeEnd.id, toPosition: anchor }], false)];
             }

@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { inject, injectable, multiInject, optional } from "inversify";
-import { Action, ActionHandlerRegistry, CenterAction, ILogger, SelectAction, SModelElement, SModelRoot, TYPES } from "sprotty/lib";
+import { Action, CenterAction, ILogger, SelectAction, SModelElement, SModelRoot, TYPES } from "sprotty/lib";
 import { toArray } from "sprotty/lib/utils/iterable";
 import { IReadonlyModelAccessProvider } from "../../base/command-stack";
 import { LabeledAction } from "../../base/diagram-ui-extension/diagram-ui-extension";
@@ -71,8 +71,7 @@ export class NavigationCommandPaletteActionProvider implements ICommandPaletteAc
 
 @injectable()
 export class ServerCommandPaletteActionProvider implements ICommandPaletteActionProvider {
-    constructor(@inject(GLSP_TYPES.RequestResponseSupport) protected requestResponseSupport: RequestResponseSupport,
-        @inject(TYPES.ActionHandlerRegistry) protected registry: ActionHandlerRegistry) {
+    constructor(@inject(GLSP_TYPES.RequestResponseSupport) protected requestResponseSupport: RequestResponseSupport) {
     }
 
     getActions(selectedElements: SModelElement[]): Promise<LabeledAction[]> {
