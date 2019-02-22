@@ -48,8 +48,8 @@ export class EdgeReconnectTool implements Tool {
         this.mouseTool.register(this.reconnectEdgeListener);
 
         // install feedback move mouse listener for client-side move updates
-        this.feedbackEdgeSourceMovingListener = new FeedbackEdgeSourceMovingMouseListener(anchorRegistry);
-        this.feedbackEdgeTargetMovingListener = new FeedbackEdgeTargetMovingMouseListener(anchorRegistry);
+        this.feedbackEdgeSourceMovingListener = new FeedbackEdgeSourceMovingMouseListener(this.anchorRegistry);
+        this.feedbackEdgeTargetMovingListener = new FeedbackEdgeTargetMovingMouseListener(this.anchorRegistry);
         this.mouseTool.register(this.feedbackEdgeSourceMovingListener);
         this.mouseTool.register(this.feedbackEdgeTargetMovingListener);
     }

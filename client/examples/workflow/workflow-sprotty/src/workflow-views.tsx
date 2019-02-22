@@ -62,7 +62,8 @@ export class WorkflowEdgeView extends PolylineEdgeView {
 @injectable()
 export class WeightedEdgeView extends WorkflowEdgeView {
     render(edge: Readonly<WeightedEdge>, context: RenderingContext): VNode {
-        const route = edge.route();
+        const router = this.edgeRouterRegistry.get(edge.routerKind);
+        const route = router.route(edge);
         if (route.length === 0)
             return this.renderDanglingEdge("Cannot compute route", edge, context);
 
