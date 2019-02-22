@@ -15,26 +15,17 @@
  ********************************************************************************/
 import { Emitter, Event } from "@theia/core/lib/common";
 import {
-    Action, ActionHandlerRegistry, CollapseExpandAction, CollapseExpandAllAction, ComputedBoundsAction, ExecuteServerCommandAction, ExportSvgAction, IActionDispatcher, ICommand, IdentifiableRequestAction, ILogger, IModelFactory, //
+    Action, ActionHandlerRegistry, CollapseExpandAction, CollapseExpandAllAction, ComputedBoundsAction, ExecuteServerCommandAction, ExportSvgAction, IdentifiableRequestAction, //
     ModelSource, OpenAction, OperationKind, RequestBoundsCommand, RequestCommandPaletteActions, RequestModelAction, RequestOperationsAction, RequestPopupModelAction, //
     RequestTypeHintsAction, SaveModelAction, ServerStatusAction, //
-    SetTypeHintsAction, SModelStorage, SwitchEditModeCommand, TYPES, ViewerOptions
+    SetTypeHintsAction, SwitchEditModeCommand
 } from "glsp-sprotty/lib";
-import { inject, injectable } from "inversify";
+import { injectable } from "inversify";
 import { TheiaDiagramServer } from "sprotty-theia/lib";
 
 @injectable()
 export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements NotifyingModelSource {
     readonly handledActionEventEmitter: Emitter<Action> = new Emitter<Action>();
-
-    constructor(@inject(TYPES.IActionDispatcher) public actionDispatcher: IActionDispatcher,
-        @inject(TYPES.ActionHandlerRegistry) actionHandlerRegistry: ActionHandlerRegistry,
-        @inject(TYPES.ViewerOptions) viewerOptions: ViewerOptions,
-        @inject(TYPES.SModelStorage) storage: SModelStorage,
-        @inject(TYPES.ILogger) logger: ILogger,
-        @inject(TYPES.IModelFactory) protected modelFactory: IModelFactory) {
-        super(actionDispatcher, actionHandlerRegistry, viewerOptions, storage, logger)
-    }
 
     initialize(registry: ActionHandlerRegistry): void {
         registry.register(RequestOperationsAction.KIND, this)
@@ -73,7 +64,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         return this.handledActionEventEmitter.event;
     }
 
-    handle(action: Action): void | ICommand {
+    handle(action: Action) {
         this.handledActionEventEmitter.fire(action);
         return super.handle(action)
     }

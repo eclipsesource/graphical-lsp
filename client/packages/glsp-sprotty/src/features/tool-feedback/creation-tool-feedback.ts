@@ -16,11 +16,12 @@
 
 import { inject, injectable } from "inversify";
 import {
-    Action, center, CommandExecutionContext, euclideanDistance, findChildrenAtPosition, //
-    findParentByFeature, isBoundsAware, isConnectable, isRoutable, MouseListener, MoveAction, //
-    Routable, SChildElement, SConnectableElement, SDanglingAnchor, SModelElement, SModelRoot, TYPES
+    Action, AnchorComputerRegistry, center, CommandExecutionContext, euclideanDistance, findChildrenAtPosition, //
+    findParentByFeature, isBoundsAware, isConnectable, MouseListener, MoveAction, PolylineEdgeRouter, //
+    SChildElement, SConnectableElement, SDanglingAnchor, SModelElement, SModelRoot, SRoutableElement, TYPES
 } from "sprotty/lib";
 import { getAbsolutePosition } from "../../utils/viewpoint-util";
+import { isRoutable } from "../reconnect/model";
 import { applyCssClassesToRoot, FeedbackCommand, unapplyCssClassesToRoot } from "./model";
 
 const NODE_CREATION_CSS_CLASS = 'node-creation-tool-mode';
@@ -83,7 +84,7 @@ export class FeedbackEdgeEnd extends SDanglingAnchor {
     type = FeedbackEdgeEnd.TYPE;
     constructor(readonly sourceId: string,
         readonly elementTypeId: string,
-        public feedbackEdge: Routable | undefined = undefined) {
+        public feedbackEdge: SRoutableElement | undefined = undefined) {
         super();
     }
 }
@@ -113,6 +114,10 @@ export class HideEdgeCreationToolFeedbackCommand extends FeedbackCommand {
 }
 
 export class FeedbackEdgeEndMovingMouseListener extends MouseListener {
+    constructor(protected anchorRegistry: AnchorComputerRegistry) {
+        super();
+    }
+
     mouseMove(target: SModelElement, event: MouseEvent): Action[] {
         const root = target.root;
         const edgeEnd = root.index.getById(feedbackEdgeEndId(root));
@@ -126,7 +131,8 @@ export class FeedbackEdgeEndMovingMouseListener extends MouseListener {
             .find(e => isConnectable(e) && e.canConnect(edge, 'target'));
 
         if (endAtMousePosition instanceof SConnectableElement && edge.source && isBoundsAware(edge.source)) {
-            const anchor = endAtMousePosition.getAnchor(center(edge.source.bounds));
+            const anchorComputer = this.anchorRegistry.get(PolylineEdgeRouter.KIND, endAtMousePosition.anchorKind);
+            const anchor = anchorComputer.getAnchor(endAtMousePosition, center(edge.source.bounds));
             if (euclideanDistance(anchor, edgeEnd.position) > 1) {
                 return [new MoveAction([{ elementId: edgeEnd.id, toPosition: anchor }], false)];
             }

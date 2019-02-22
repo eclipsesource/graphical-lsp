@@ -13,8 +13,8 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { inject, injectable } from "inversify";
-import { AnimationFrameSyncer, CommandStack, CommandStackOptions, ILogger, IModelFactory, IViewerProvider, SModelRoot, TYPES } from "sprotty/lib";
+import { injectable } from "inversify";
+import { CommandStack, SModelRoot } from "sprotty/lib";
 
 /**
  * Provides access to the current `SModelRoot` instance.
@@ -42,13 +42,6 @@ export type IReadonlyModelAccessProvider = () => Promise<IReadonlyModelAccess>;
 @injectable()
 export class GLSPCommandStack extends CommandStack implements IReadonlyModelAccess {
 
-    constructor(@inject(TYPES.IModelFactory) protected modelFactory: IModelFactory,
-        @inject(TYPES.IViewerProvider) protected viewerProvider: IViewerProvider,
-        @inject(TYPES.ILogger) protected logger: ILogger,
-        @inject(TYPES.AnimationFrameSyncer) protected syncer: AnimationFrameSyncer,
-        @inject(TYPES.CommandStackOptions) protected options: CommandStackOptions) {
-        super(modelFactory, viewerProvider, logger, syncer, options);
-    }
     get model(): Promise<SModelRoot> {
         return this.currentPromise.then(
             state => this.modelFactory.createRoot(state.root)

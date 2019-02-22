@@ -13,8 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { inject, optional } from "inversify";
-import { Action, ButtonHandlerRegistry, KeyListener, MouseListener, SelectAction, SelectKeyboardListener, SelectMouseListener, SModelElement } from "sprotty/lib";
+import { Action, KeyListener, MouseListener, SelectAction, SelectKeyboardListener, SelectMouseListener, SModelElement } from "sprotty/lib";
 
 /**
  * A mouse and key listener that tracks the currently selected elements in an accessible manner by extending the selection implementation of Sprotty.
@@ -24,9 +23,9 @@ export class SelectionTracker extends MouseListener implements KeyListener {
     private selectKeyboardListener: SelectKeyboardListener;
     private selectedElementIDs: Set<string> = new Set();
 
-    constructor(@inject(ButtonHandlerRegistry) @optional() protected buttonHandlerRegistry: ButtonHandlerRegistry) {
+    constructor() {
         super();
-        this.selectMouseListener = new SelectMouseListener(buttonHandlerRegistry);
+        this.selectMouseListener = new SelectMouseListener();
         this.selectKeyboardListener = new SelectKeyboardListener();
     }
 

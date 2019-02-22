@@ -16,7 +16,7 @@
 
 import { inject, injectable } from "inversify";
 import {
-    Action, EnableDefaultToolsAction, isCtrlOrCmd, //
+    Action, AnchorComputerRegistry, EnableDefaultToolsAction, isCtrlOrCmd, //
     MouseTool, SModelElement, SModelRoot, Tool
 } from "sprotty/lib";
 import { TypeAware } from "../../base/tool-manager/tool-manager-action-handler";
@@ -91,7 +91,8 @@ export class EdgeCreationTool implements Tool, TypeAware {
     protected feedbackEndMovingMouseListener: FeedbackEdgeEndMovingMouseListener;
 
     constructor(@inject(MouseTool) protected mouseTool: MouseTool,
-        @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher) { }
+        @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher,
+        @inject(AnchorComputerRegistry) protected anchorRegistry: AnchorComputerRegistry) { }
 
     get id() {
         return deriveToolId(OperationKind.CREATE_CONNECTION, this.elementTypeId)
@@ -100,7 +101,7 @@ export class EdgeCreationTool implements Tool, TypeAware {
     enable() {
         this.creationToolMouseListener = new EdgeCreationToolMouseListener(this.elementTypeId, this);
         this.mouseTool.register(this.creationToolMouseListener);
-        this.feedbackEndMovingMouseListener = new FeedbackEdgeEndMovingMouseListener();
+        this.feedbackEndMovingMouseListener = new FeedbackEdgeEndMovingMouseListener(this.anchorRegistry);
         this.mouseTool.register(this.feedbackEndMovingMouseListener);
         this.dispatchFeedback([new ShowEdgeCreationSelectSourceFeedbackAction(this.elementTypeId)]);
     }

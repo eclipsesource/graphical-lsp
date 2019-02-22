@@ -13,14 +13,14 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { inject, injectable, optional } from "inversify";
+import { inject, injectable } from "inversify";
 import {
-    Action, ButtonHandlerRegistry, Connectable, DeleteElementAction, findParentByFeature, isConnectable, isRoutable, MouseTool, Routable, //
-    SModelElement, SRoutingHandle, Tool
+    Action, AnchorComputerRegistry, Connectable, DeleteElementAction, findParentByFeature, isConnectable, MouseTool, //
+    SModelElement, SRoutableElement, SRoutingHandle, Tool
 } from "sprotty/lib";
 import { GLSP_TYPES } from "../../types";
 import { CreateConnectionOperationAction } from "../operation/operation-actions";
-import { isReconnectHandle, isSourceRoutingHandle, isTargetRoutingHandle } from "../reconnect/model";
+import { isReconnectHandle, isRoutable, isSourceRoutingHandle, isTargetRoutingHandle } from "../reconnect/model";
 import { SelectionTracker } from "../select/selection-tracker";
 import { feedbackEdgeId } from "../tool-feedback/creation-tool-feedback";
 import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
@@ -40,7 +40,7 @@ export class EdgeReconnectTool implements Tool {
 
     constructor(@inject(MouseTool) protected mouseTool: MouseTool,
         @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher,
-        @inject(ButtonHandlerRegistry) @optional() public buttonHandlerRegistry: ButtonHandlerRegistry) {
+        @inject(AnchorComputerRegistry) protected anchorRegistry: AnchorComputerRegistry) {
     }
 
     enable(): void {
@@ -48,8 +48,8 @@ export class EdgeReconnectTool implements Tool {
         this.mouseTool.register(this.reconnectEdgeListener);
 
         // install feedback move mouse listener for client-side move updates
-        this.feedbackEdgeSourceMovingListener = new FeedbackEdgeSourceMovingMouseListener();
-        this.feedbackEdgeTargetMovingListener = new FeedbackEdgeTargetMovingMouseListener();
+        this.feedbackEdgeSourceMovingListener = new FeedbackEdgeSourceMovingMouseListener(this.anchorRegistry);
+        this.feedbackEdgeTargetMovingListener = new FeedbackEdgeTargetMovingMouseListener(this.anchorRegistry);
         this.mouseTool.register(this.feedbackEdgeSourceMovingListener);
         this.mouseTool.register(this.feedbackEdgeTargetMovingListener);
     }
@@ -82,14 +82,14 @@ class ReconnectEdgeListener extends SelectionTracker {
     private newConnectable?: SModelElement & Connectable;
 
     constructor(protected tool: EdgeReconnectTool) {
-        super(tool.buttonHandlerRegistry);
+        super();
     }
 
-    private isValidEdge(edge?: SModelElement & Routable): edge is SModelElement & Routable {
+    private isValidEdge(edge?: SRoutableElement): edge is SRoutableElement {
         return edge !== undefined && edge.id !== feedbackEdgeId(edge.root);
     }
 
-    private setEdgeSelected(edge: SModelElement & Routable) {
+    private setEdgeSelected(edge: SRoutableElement) {
         if (this.edgeId && this.edgeId !== edge.id) {
             // reset from a previously selected edge
             this.reset();
@@ -106,7 +106,7 @@ class ReconnectEdgeListener extends SelectionTracker {
         return this.edgeId !== undefined && this.edgeTypeId !== undefined;
     }
 
-    private setReconnectHandleSelected(edge: SModelElement & Routable, reconnectHandle: SModelElement & SRoutingHandle) {
+    private setReconnectHandleSelected(edge: SRoutableElement, reconnectHandle: SRoutingHandle) {
         if (this.edgeTypeId && this.edgeSourceId && this.edgeTargetId) {
             if (isSourceRoutingHandle(edge, reconnectHandle)) {
                 this.tool.dispatchFeedback([new HideEdgeReconnectHandlesFeedbackAction(), new ShowEdgeReconnectSelectSourceFeedbackAction(this.edgeTypeId, this.edgeTargetId)]);

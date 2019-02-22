@@ -15,12 +15,14 @@
  ********************************************************************************/
 
 import { ContainerModule } from "inversify";
+import { TYPES } from "sprotty";
 import { GLSP_TYPES } from "../../types";
 import { RequestResponseSupport } from "./support";
 
 const requestResponseModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     bind(RequestResponseSupport).toSelf().inSingletonScope();
-    bind(GLSP_TYPES.RequestResponseSupport).to(RequestResponseSupport).inSingletonScope();
+    bind(GLSP_TYPES.RequestResponseSupport).toService(RequestResponseSupport);
+    bind(TYPES.IActionHandlerInitializer).toService(RequestResponseSupport);
 });
 
 export default requestResponseModule;

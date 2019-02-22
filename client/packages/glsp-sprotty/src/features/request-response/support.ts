@@ -15,17 +15,19 @@
  ********************************************************************************/
 
 import { inject, injectable } from "inversify";
-import { Action, ActionHandlerRegistry, IActionDispatcher, ILogger, TYPES } from "sprotty/lib";
+import { Action, ActionHandlerRegistry, IActionDispatcher, IActionHandlerInitializer, ILogger, TYPES } from "sprotty/lib";
 import { v4 as uuid } from 'uuid';
 import { IdentifiableRequestAction, IdentifiableResponseAction, isIdentifiableResponseAction } from "./action-definitions";
 
 @injectable()
-export class RequestResponseSupport {
+export class RequestResponseSupport implements IActionHandlerInitializer {
     private requestedResponses = new Map<string, Action | undefined>();
 
-    constructor(@inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher,
-        @inject(TYPES.ActionHandlerRegistry) protected registry: ActionHandlerRegistry,
-        @inject(TYPES.ILogger) protected logger: ILogger) {
+    @inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher;
+    @inject(TYPES.ActionHandlerRegistryProvider) protected registry: ActionHandlerRegistry;
+    @inject(TYPES.ILogger) protected logger: ILogger;
+
+    initialize(registry: ActionHandlerRegistry): void {
         registry.register(IdentifiableResponseAction.KIND, this);
     }
 

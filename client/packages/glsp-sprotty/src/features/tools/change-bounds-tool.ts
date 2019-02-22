@@ -13,9 +13,9 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { inject, injectable, optional } from "inversify";
+import { inject, injectable } from "inversify";
 import {
-    Action, Bounds, BoundsAware, ButtonHandlerRegistry, ElementAndBounds, findParentByFeature, isViewport, KeyTool, MouseTool, Point, //
+    Action, Bounds, BoundsAware, ElementAndBounds, findParentByFeature, isViewport, KeyTool, MouseTool, Point, //
     SetBoundsAction, SModelElement, SParentElement, Tool
 } from "sprotty/lib";
 import { GLSP_TYPES } from "../../types";
@@ -50,7 +50,6 @@ export class ChangeBoundsTool implements Tool {
 
     constructor(@inject(MouseTool) protected mouseTool: MouseTool,
         @inject(KeyTool) protected keyTool: KeyTool,
-        @inject(ButtonHandlerRegistry) @optional() protected buttonHandlerRegistry: ButtonHandlerRegistry,
         @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher) { }
 
     enable() {
@@ -59,7 +58,7 @@ export class ChangeBoundsTool implements Tool {
         this.mouseTool.register(this.feedbackMoveMouseListener);
 
         // instlal change bounds listener for client-side resize updates and server-side updates
-        this.changeBoundsListener = new ChangeBoundsListener(this.buttonHandlerRegistry, this);
+        this.changeBoundsListener = new ChangeBoundsListener(this);
         this.mouseTool.register(this.changeBoundsListener);
         this.keyTool.register(this.changeBoundsListener);
         this.feedbackDispatcher.registerFeedback(this, [new ShowChangeBoundsToolResizeFeedbackAction])
@@ -86,8 +85,8 @@ class ChangeBoundsListener extends SelectionTracker {
     private activeResizeElementId: string | undefined = undefined;
     private activeResizeHandle: SResizeHandle | undefined = undefined;
 
-    constructor(buttonHandlerRegistry: ButtonHandlerRegistry, protected tool: ChangeBoundsTool) {
-        super(buttonHandlerRegistry);
+    constructor(protected tool: ChangeBoundsTool) {
+        super();
     }
 
     mouseDown(target: SModelElement, event: MouseEvent): Action[] {
