@@ -21,8 +21,8 @@ import { RequestResponseSupport } from "./support";
 
 const requestResponseModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     bind(RequestResponseSupport).toSelf().inSingletonScope();
-    bind(GLSP_TYPES.RequestResponseSupport).to(RequestResponseSupport).inSingletonScope();
-    bind(TYPES.IActionHandlerInitializer).to(RequestResponseSupport);
+    bind(GLSP_TYPES.RequestResponseSupport).toService(RequestResponseSupport);
+    bind(TYPES.IActionHandlerInitializer).toService(RequestResponseSupport);
 });
 
 export default requestResponseModule;
