@@ -9,6 +9,8 @@ Below is a screenshot of a small example diagram being edited in the GLSP client
 
 [![Screenshot of GLSP Client with Server Log](documentation/glsp-reduced-teaser.png)](documentation/glsp-animated-reduced.gif)
 
+For more information, you can also watch the [EclipseCon Europe 2018 talk](https://www.youtube.com/watch?v=snb1UTSH3Zw) or look at [the slides of this talk](https://docs.google.com/presentation/d/e/2PACX-1vS6VlDFPTNGTt7QdwgLZSgF2swXV_qkl9zCXb43dgPYPQRhP-a83eC-Sta54ETMTzhook3S32clXpL9/pub?start=false&loop=false&delayms=3000&slide=id.g120ca87e56_0_4).
+
 ## Getting started
 ### Prerequisites
 You’ll need node in version 8:
@@ -40,11 +42,19 @@ It's recommended to clone the repository recursively. Otherwise submodules have 
 	mvn clean install
 	
 ### 1. Starting the GLSP Server
-The example server can be started by executing the main method of the class [ExampleServerLauncher.java](https://github.com/eclipsesource/graphical-lsp/blob/master/server/example/workflow-example/src/main/java/com/eclipsesource/glsp/example/workflow/ExampleServerLauncher.java) in the module `server/example/workflow-example`.
+Once the server is built, you should have the jar file `server/example/workflow-example/target/workflow-example-X.X.X-SNAPSHOT-glsp.jar` whereas `X.X.X` is the current version. You can now start the server by executing the following commands:
+
+	cd server/example/workflow-example/target
+	java -jar workflow-example-X.X.X-SNAPSHOT-glsp.jar com.eclipsesource.glsp.example.workflow.ExampleServerLauncher
+
+To start the example server from within your IDE, run the main method of the class [ExampleServerLauncher.java](https://github.com/eclipsesource/graphical-lsp/blob/master/server/example/workflow-example/src/main/java/com/eclipsesource/glsp/example/workflow/ExampleServerLauncher.java) in the module `server/example/workflow-example`.
 
 ### 2. Starting the theia client
+Once the server is running, you can go ahead and start the theia client:
+
 	cd client/examples/workflow/browser-app
 	yarn start
+
 and then open http://localhost:3000 in the browser.
 
 ### Testing the example
