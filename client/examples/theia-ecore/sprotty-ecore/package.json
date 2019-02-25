@@ -1,0 +1,37 @@
+{
+  "name": "sprotty-ecore",
+  "version": "0.2.0",
+  "description": "sprotty diagrams for Ecore",
+  "author": "EclipseSource Muenchen GmbH",
+  "license": "Apache-2.0",
+  "keywords": [
+    "sprotty",
+    "workflow",
+    "diagram"
+  ],
+  "dependencies": {
+    "sprotty": "next"
+  },
+  "devDependencies": {
+    "css-loader": "^1.0.1",
+    "rimraf": "latest",
+    "ts-loader": "^5.3.0",
+    "typescript": "^2.9.2",
+    "webpack": "^4.23.1"
+  },
+  "scripts": {
+    "prepare": "yarn run clean && yarn run build",
+    "clean": "rimraf lib",
+   "build": "tsc && yarn run lint",
+    "lint" : "tslint -c ../../../configs/tslint.json --project ./tsconfig.json",
+    "watch": "tsc -w",
+    "bundle": "webpack --progress --config ./configs/webpack.config.js"
+  },
+  "files": [
+    "lib",
+    "src",
+    "build",
+    "css",
+    "icons"
+  ]
+}

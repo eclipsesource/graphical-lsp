@@ -28,6 +28,8 @@
   },
   "workspaces": [
     "packages/*",
-    "examples/workflow/*"
+    "examples/workflow/*",
+    "examples/browser-app",
+    "examples/theia-ecore/*"
   ]
 }

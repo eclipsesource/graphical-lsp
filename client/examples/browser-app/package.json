@@ -16,16 +16,17 @@
     "@theia/monaco": "next",
     "@theia/typescript": "next",
     "@theia/messages": "next",
-    "workflow-glsp-extension": "0.0.0"
+    "workflow-glsp-extension": "0.0.0",
+    "theia-ecore": "0.0.0"
   },
   "devDependencies": {
     "@theia/cli": "next"
   },
   "scripts": {
-    "prepare": "theia build --mode development",
-    "start": "theia start --WORKFLOW_LSP=5007 --root-dir=../workspace",
-    "start:debug": "theia start --WORKFLOW_LSP=5007 --root-dir=../workspace --loglevel=debug",
-    "watch": "theia build --watch --mode development"
+    "prepare": "theia build",
+    "start": "theia start --WORKFLOW_LSP=5007 --ECORE_LSP=5008 --root-dir=../workspace",
+    "start:debug": "yarn start --log-level=debug",
+    "watch": "theia build --watch"
   },
   "theia": {
     "target": "browser"

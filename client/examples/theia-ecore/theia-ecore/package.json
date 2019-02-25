@@ -1,0 +1,33 @@
+{
+  "name": "theia-ecore",
+  "keywords": [
+    "theia-extension"
+  ],
+  "version": "0.0.0",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+    "@theia/core": "next",
+    "sprotty-ecore": "0.2.0",
+    "glsp-theia-extension": "0.1.7"
+  },
+  "devDependencies": {
+    "rimraf": "latest",
+    "typescript": "^2.9.0"
+  },
+  "scripts": {
+    "prepare": "yarn run clean && yarn run build",
+    "clean": "rimraf lib",
+    "build": "tsc && yarn run lint",
+    "lint": "tslint -c ../../../configs/tslint.json --project ./tsconfig.json",
+    "watch": "tsc -w"
+  },
+  "theiaExtensions": [
+    {
+      "frontend": "lib/browser/frontend-extension",
+      "backend": "lib/node/backend-extension"
+    }
+  ]
+}

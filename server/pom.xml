@@ -57,6 +57,7 @@
 		<module>glsp-api</module>
 		<module>example/workflow-example</module>
 		<module>glsp-server</module>
+		<module>example/glsp-ecore</module>
 	</modules>
 
 	<dependencies>

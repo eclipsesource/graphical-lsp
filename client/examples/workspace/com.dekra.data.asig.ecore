@@ -1,0 +1,2421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="asig" nsURI="com.dekra.data.asig" nsPrefix="asig">
+  <eAnnotations source="com.eclipsesource.icat.schemaxml">
+    <details key="Application"/>
+    <details key="Deleted" value="false"/>
+    <details key="Parent"/>
+    <details key="Schema"/>
+    <details key="Table"/>
+    <details key="Unit" value="DDB"/>
+  </eAnnotations>
+  <eAnnotations source="com.eclipsesource.icat.schemaxml">
+    <details key="Application"/>
+    <details key="Deleted" value="false"/>
+    <details key="Parent"/>
+    <details key="Schema" value="ZPA_ASIG"/>
+    <details key="Table" value="K4_TEMPLATES"/>
+    <details key="Unit" value="DDB"/>
+  </eAnnotations>
+  <eAnnotations source="com.eclipsesource.icat.schemaxml">
+    <details key="Application"/>
+    <details key="Deleted" value="false"/>
+    <details key="Parent"/>
+    <details key="Schema" value="ZPA_ASIG"/>
+    <details key="Table" value="K2_ELEMENTS"/>
+    <details key="Unit" value="DDB"/>
+  </eAnnotations>
+  <eAnnotations source="com.eclipsesource.icat.schemaxml">
+    <details key="Application"/>
+    <details key="Deleted" value="false"/>
+    <details key="Parent"/>
+    <details key="Schema" value="ZPA_ASIG"/>
+    <details key="Table" value="K4_K2_ELEMENTS"/>
+    <details key="Unit"/>
+  </eAnnotations>
+  <eAnnotations source="com.eclipsesource.icat.schemaxml">
+    <details key="Application"/>
+    <details key="Deleted" value="false"/>
+    <details key="Parent"/>
+    <details key="Schema" value="ZPA_ASIG"/>
+    <details key="Table" value="K4_KEYWORDS"/>
+    <details key="Unit"/>
+  </eAnnotations>
+  <eAnnotations source="com.eclipsesource.icat.schemaxml">
+    <details key="Application"/>
+    <details key="Deleted" value="false"/>
+    <details key="Parent"/>
+    <details key="Schema" value="ZPA_ASIG"/>
+    <details key="Table" value="K1_MEASURES"/>
+    <details key="Unit"/>
+  </eAnnotations>
+  <eAnnotations source="com.eclipsesource.icat.schemaxml">
+    <details key="Application"/>
+    <details key="Deleted" value="false"/>
+    <details key="Parent"/>
+    <details key="Schema" value="ZPA_ASIG"/>
+    <details key="Table" value="K1_MEASUREKEYWORDS"/>
+    <details key="Unit"/>
+  </eAnnotations>
+  <eAnnotations source="com.eclipsesource.icat.schemaxml">
+    <details key="Application"/>
+    <details key="Deleted" value="false"/>
+    <details key="Parent"/>
+    <details key="Schema"/>
+    <details key="Table"/>
+    <details key="Unit" value="DDB"/>
+  </eAnnotations>
+  <eAnnotations source="com.eclipsesource.icat.schemaxml">
+    <details key="Application"/>
+    <details key="Deleted" value="false"/>
+    <details key="Parent"/>
+    <details key="Schema" value="ZPA_ASIG"/>
+    <details key="Table" value="K1_CATALOGTYPES"/>
+    <details key="Unit" value="DDB"/>
+  </eAnnotations>
+  <eAnnotations source="com.eclipsesource.icat.schemaxml">
+    <details key="Application"/>
+    <details key="Deleted" value="false"/>
+    <details key="Parent"/>
+    <details key="Schema" value="ZPA_ASIG"/>
+    <details key="Table" value="K1_CATEGORIES1"/>
+    <details key="Unit"/>
+  </eAnnotations>
+  <eAnnotations source="com.eclipsesource.icat.schemaxml">
+    <details key="Application"/>
+    <details key="Deleted" value="false"/>
+    <details key="Parent"/>
+    <details key="Schema" value="ZPA_ASIG"/>
+    <details key="Table" value="K1_CATEGORIES2"/>
+    <details key="Unit"/>
+  </eAnnotations>
+  <eAnnotations source="com.eclipsesource.icat.schemaxml">
+    <details key="Application"/>
+    <details key="Deleted" value="false"/>
+    <details key="Parent"/>
+    <details key="Schema" value="ZPA_ASIG"/>
+    <details key="Table" value="K1_CATEGORY2REMARKS"/>
+    <details key="Unit"/>
+  </eAnnotations>
+  <eAnnotations source="com.eclipsesource.icat.schemaxml">
+    <details key="Application"/>
+    <details key="Deleted" value="false"/>
+    <details key="Parent"/>
+    <details key="Schema" value="ZPA_ASIG"/>
+    <details key="Table" value="K1_CAT2REMIMAGES"/>
+    <details key="Unit"/>
+  </eAnnotations>
+  <eAnnotations source="com.eclipsesource.icat.schemaxml">
+    <details key="Application"/>
+    <details key="Deleted" value="false"/>
+    <details key="Parent"/>
+    <details key="Schema" value="ZPA_ASIG"/>
+    <details key="Table" value="KEYWORDS"/>
+    <details key="Unit" value="DDB"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="DOTemplates">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Templates" upperBound="-1"
+        eType="#//DOTemplate" unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="0"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation" value="1_M"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DOTemplate">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Abbreviation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="ABBREVIATION"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="30"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Abbreviation"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="DELETED"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="1"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Deleted"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="DESCRIPTION"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="500"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Description"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Keyword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="KEYWORD"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="1000"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Keyword"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="NAME"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="100"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Name"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="OID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="23"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="true"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Oid"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="CHANGE_ID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="-127"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Version"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="K2Elements" upperBound="-1"
+        eType="#//DOK2Element" unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="0"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation" value="1_M"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="K2Elements"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="K4K2Relations" upperBound="-1"
+        eType="#//DOK4K2Relation" unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType" value="MERGE,REFRESH,PERSIST,REMOVE"/>
+        <details key="Column"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="0"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey" value="MYK4_TEMPLATE"/>
+        <details key="JoinSrcKey" value="OID"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation" value="1_M"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="K4K2Relations"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Keywords" upperBound="-1"
+        eType="#//DOTemplateKeyword" unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType" value="MERGE,REFRESH,PERSIST,REMOVE"/>
+        <details key="Column"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="0"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey" value="MYK4_TEMPLATE"/>
+        <details key="JoinSrcKey" value="OID"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation" value="1_M"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Keywords"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DOK2Element">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat1Abbreviation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="0"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Cat1Abbreviation"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat1Name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="0"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Cat1Name"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat1SortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="CAT1_SORTNR"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="4"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Cat1SortNr"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat1oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="CAT1_OID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="23"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Cat1oid"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat1origSortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="CAT1_ORIGSORTNR"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="4"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Cat1origSortNr"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat2Abbreviation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="0"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Cat2Abbreviation"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat2Name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="0"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Cat2Name"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat2SortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="CAT2_SORTNR"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="4"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Cat2SortNr"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat2oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="CAT2_OID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="23"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Cat2oid"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat2origSortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="CAT2_ORIGSORTNR"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="4"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Cat2origSortNr"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="CatalogOid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="CATALOG_OID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="23"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="CatalogOid"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="DELETED"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="1"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Deleted"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MeasureOid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="MEASURE_OID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="23"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="MeasureOid"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MeasureOrigSortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="MEASURE_ORIGSORTNR"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="4"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="MeasureOrigSortNr"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MeasureSortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="MEASURE_SORTNR"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="4"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="MeasureSortNr"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="OID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="23"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="true"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Oid"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="CHANGE_ID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="-127"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Version"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DOK4K2Relation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="DELETED"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="1"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Deleted"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="K2ElementOid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="K2OID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="23"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="K2ElementOid"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MyTemplate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="MYK4_TEMPLATE"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="23"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="MyTemplate"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="OID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="23"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="true"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Oid"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="CHANGE_ID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="-127"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Version"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DOTemplateKeyword">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="DELETED"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="1"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Deleted"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Keyword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="KEYWORD"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="50"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Keyword"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MyTemplate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="MYK4_TEMPLATE"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="23"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="MyTemplate"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="OID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="23"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="true"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Oid"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="CHANGE_ID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="-127"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Version"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DOMeasure">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="DELETED"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="1"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Deleted"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="DESCRIPTION"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="4000"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Description"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Keyword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="KEYWORD"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="1000"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Keyword"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="OID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="23"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="true"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Oid"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrigDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="ORIGDESCRIPTION"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="4000"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="OrigDescription"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrigSortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="0"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="OrigSortNr"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="SortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="0"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="SortNr"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="CHANGE_ID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="-127"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Version"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="MeasureKeywords" upperBound="-1"
+        eType="#//DOMeasureKeyword" unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType" value="MERGE,REFRESH,PERSIST,REMOVE"/>
+        <details key="Column"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="0"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey" value="MYMEASURE"/>
+        <details key="JoinSrcKey" value="OID"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation" value="1_M"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="MeasureKeywords"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DOMeasureKeyword">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="DELETED"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="1"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Deleted"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Keyword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="KEYWORD"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="50"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Keyword"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MyMeasure" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="MYMEASURE"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="23"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="MyMeasure"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="OID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="23"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="true"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Oid"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="CHANGE_ID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="-127"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Version"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DOCatalogTypes">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="CatalogTypes" upperBound="-1"
+        eType="#//DOCatalogType" unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="0"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation" value="1_M"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DOCatalogType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="DELETED"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="1"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Deleted"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="DESCRIPTION"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="255"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Description"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="LawSector" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="LAWSECTOR"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="255"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="LawSector"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MaterialNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="MATERIALNR"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="6"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="MaterialNr"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="NAME"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="50"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Name"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="OID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="23"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="true"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Oid"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Picture" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EByteArray"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="PICTURE"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="2004"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="4000"/>
+        <details key="Lob" value="true"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Picture"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="CHANGE_ID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="-127"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Version"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Categories1" upperBound="-1"
+        eType="#//DOCategory1" unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="0"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation" value="1_M"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Categories1"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DOCategory1">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Abbreviation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="ABBREVIATION"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="30"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Abbreviation"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="DELETED"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="1"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Deleted"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="NAME"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="4000"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Name"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="OID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="23"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="true"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Oid"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrigName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="ORIGNAME"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="4000"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="OrigName"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrigSortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="0"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="OrigSortNr"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Picture" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EByteArray"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="PICTURE"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="2004"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="4000"/>
+        <details key="Lob" value="true"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Picture"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="SortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="0"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="SortNr"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="CHANGE_ID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="-127"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Version"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Categories2" upperBound="-1"
+        eType="#//DOCategory2" unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="0"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation" value="1_M"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Categories2"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DOCategory2">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Abbreviation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="ABBREVIATION"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="30"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Abbreviation"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="DELETED"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="1"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Deleted"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="DESCRIPTION"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="4000"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Description"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="NAME"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="4000"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Name"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="OID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="23"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="true"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Oid"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrigName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="ORIGNAME"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="4000"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="OrigName"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrigSortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="0"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="OrigSortNr"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ShortDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="SHORTDESCRIPTION"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="4000"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="ShortDescription"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="SortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="0"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="SortNr"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="CHANGE_ID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="-127"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Version"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Measures" upperBound="-1"
+        eType="#//DOMeasure" unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType" value="MERGE,REFRESH,PERSIST,REMOVE"/>
+        <details key="Column"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="0"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation" value="1_M"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Measures"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Remarks" upperBound="-1"
+        eType="#//DOCategory2Remark" unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType" value="MERGE,REFRESH,PERSIST,REMOVE"/>
+        <details key="Column"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="0"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey" value="MYCATEGORY2"/>
+        <details key="JoinSrcKey" value="OID"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation" value="1_M"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Remarks"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DOCategory2Remark">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="DELETED"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="1"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Deleted"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MyCategory2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="MYCATEGORY2"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="23"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="MyCategory2"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="OID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="23"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="true"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Oid"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrigRemark" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="ORIGREMARK"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="4000"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="OrigRemark"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrigSortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="ORIGSORTNR"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="3"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="OrigSortNr"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Remark" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="REMARK"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="4000"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Remark"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="SortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="SORTNR"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="3"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="SortNr"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="CHANGE_ID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="-127"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Version"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Images" upperBound="-1"
+        eType="#//DOCat2RemImage" unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType" value="MERGE,REFRESH,PERSIST,REMOVE"/>
+        <details key="Column"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="0"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey" value="MYCAT2REMARK"/>
+        <details key="JoinSrcKey" value="OID"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation" value="1_M"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Images"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DOCat2RemImage">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="DELETED"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="1"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Deleted"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MyCat2Remark" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="MYCAT2REMARK"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="23"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="MyCat2Remark"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="OID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="23"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="true"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Oid"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Picture" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EByteArray"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="PICTURE"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="2004"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="4000"/>
+        <details key="Lob" value="true"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Picture"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="SortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="SORTNR"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="3"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="SortNr"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="false"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="CHANGE_ID"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="3"/>
+        <details key="Digit" value="-127"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="0"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="false"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Version"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DOKeywords">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Keyword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true">
+      <eAnnotations source="com.eclipsesource.icat.schemaxml">
+        <details key="Bk" value="true"/>
+        <details key="CascadeType"/>
+        <details key="Column" value="KEYWORD"/>
+        <details key="CustomType"/>
+        <details key="DbType" value="12"/>
+        <details key="Digit" value="0"/>
+        <details key="Fk" value="false"/>
+        <details key="Insertable" value="true"/>
+        <details key="JoinDstKey"/>
+        <details key="JoinSrcKey"/>
+        <details key="JoinTable"/>
+        <details key="Length" value="100"/>
+        <details key="Lob" value="false"/>
+        <details key="MappedBy"/>
+        <details key="Pk" value="true"/>
+        <details key="Relation"/>
+        <details key="XmlAttribute" value="false"/>
+        <details key="XmlName" value="Keyword"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+</ecore:EPackage>
