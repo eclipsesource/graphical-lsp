@@ -17,9 +17,13 @@ package com.eclipsesource.glsp.server;
 
 import com.eclipsesource.glsp.api.di.GLSPModule;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
+import com.eclipsesource.glsp.api.handler.ActionHandler;
+import com.eclipsesource.glsp.api.handler.OperationHandler;
+import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
 import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
 import com.eclipsesource.glsp.api.provider.ActionProvider;
+import com.eclipsesource.glsp.api.provider.ModelTypeConfigurationProvider;
 import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
 import com.eclipsesource.glsp.api.provider.ServerCommandHandlerProvider;
 import com.eclipsesource.glsp.server.actionhandler.CollapseExpandActionHandler;
@@ -36,12 +40,36 @@ import com.eclipsesource.glsp.server.actionhandler.RequestPopupModelActionHandle
 import com.eclipsesource.glsp.server.actionhandler.SaveModelActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.SelectActionHandler;
 import com.eclipsesource.glsp.server.model.FileBasedModelFactory;
+import com.eclipsesource.glsp.server.model.IModelLoader;
 import com.eclipsesource.glsp.server.provider.DefaultActionHandlerProvider;
 import com.eclipsesource.glsp.server.provider.DefaultActionProvider;
 import com.eclipsesource.glsp.server.provider.DefaultOperationHandlerProvider;
 import com.eclipsesource.glsp.server.provider.DefaultServerCommandHandlerProvider;
+import com.google.inject.binder.LinkedBindingBuilder;
+import com.google.inject.multibindings.Multibinder;
 
 public abstract class ServerModule extends GLSPModule {
+	private Multibinder<IModelLoader> modelLoader;
+
+	protected final LinkedBindingBuilder<IModelLoader> bindModelLoader() {
+		return modelLoader.addBinding();
+	}
+
+	protected void multiBindModelLoaders() {
+	}
+
+	@Override
+	protected void configureMultibindings() {
+		super.configureMultibindings();
+		modelLoader = Multibinder.newSetBinder(binder(), IModelLoader.class);
+		multiBindModelLoaders();
+	}
+
+	@Override
+	protected Class<? extends ModelTypeConfigurationProvider> bindModelTypesConfigurationProvider() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	protected Class<? extends ActionProvider> bindActionProvider() {

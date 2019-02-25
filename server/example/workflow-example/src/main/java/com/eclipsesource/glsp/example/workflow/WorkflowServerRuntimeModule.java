@@ -96,6 +96,11 @@ public class WorkflowServerRuntimeModule extends ServerModule {
 	}
 
 	@Override
+	protected void multiBindModelLoaders() {
+		bindModelLoader().to(WorkflowModelLoader.class);
+	}
+
+	@Override
 	protected Class<? extends ModelValidator> bindModelValidator() {
 		return WorkflowModelValidator.class;
 	}

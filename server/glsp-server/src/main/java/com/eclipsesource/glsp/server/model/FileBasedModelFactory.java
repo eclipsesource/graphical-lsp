@@ -15,57 +15,54 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.model;
 
-import java.io.File;
-import java.io.IOException;
+import java.net.URI;
+import java.util.Comparator;
+import java.util.Optional;
+import java.util.Set;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
 import org.eclipse.sprotty.SGraph;
 import org.eclipse.sprotty.SModelRoot;
 
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
-import com.eclipsesource.glsp.api.provider.ModelTypeConfigurationProvider;
 import com.eclipsesource.glsp.api.utils.ModelOptions;
-import com.google.gson.Gson;
 import com.google.inject.Inject;
 
 /**
- * A base class which can be used for all modelfactories that load an SModel
- * from a file (typically .json)
+ * A model factory for models that are persisted as files. Delegates the the
+ * corresponding registered IModelLoader for the fileExtension (if present)
  * 
- * @author Tobias Ortmayr
+ * @author Tobias Ortmayr<tortmayr@eclipsesource.com>
  *
  */
 public class FileBasedModelFactory implements ModelFactory {
-	private static Logger LOGGER = Logger.getLogger(FileBasedModelFactory.class);
-	private static final String FILE_PREFIX = "file://";
+	static SModelRoot emptyRoot() {
+		SModelRoot root = new SGraph();
+		root.setType("graph");
+		root.setId("graph");
+		return root;
+	}
+
+	private Set<IModelLoader> modelLoaders;
 
 	@Inject
-	private ModelTypeConfigurationProvider modelTypeConfigurationProvider;
-	private SModelRoot modelRoot;
+	public FileBasedModelFactory(Set<IModelLoader> modelLoaders) {
+		this.modelLoaders = modelLoaders;
+	}
 
 	@Override
 	public SModelRoot loadModel(RequestModelAction action) {
-		String sourceURI = action.getOptions().get(ModelOptions.SOURCE_URI);
-		try {
-			File modelFile = convertToFile(sourceURI);
-			if (modelFile != null && modelFile.exists()) {
-				String json = FileUtils.readFileToString(modelFile, "UTF8");
-				Gson gson = modelTypeConfigurationProvider.configureGSON().create();
-				modelRoot = gson.fromJson(json, SGraph.class);
+		String uri = action.getOptions().get(ModelOptions.SOURCE_URI);
+		if (uri != null) {
+			URI sourceURI = URI.create(uri);
+			Optional<IModelLoader> loader = modelLoaders.stream()
+					.sorted(Comparator.comparing(IModelLoader::getPriority)).filter(ml -> ml.handles(sourceURI))
+					.findFirst();
+			if (loader.isPresent()) {
+				return loader.get().generate(sourceURI);
 			}
-		} catch (IOException e) {
-			LOGGER.error(e);
 		}
-		return modelRoot;
-	}
+		return emptyRoot();
 
-	private File convertToFile(String sourceURI) {
-		if (sourceURI != null && sourceURI.startsWith(FILE_PREFIX)) {
-			return new File(sourceURI.replace(FILE_PREFIX, ""));
-		}
-		return null;
 	}
-
 }
