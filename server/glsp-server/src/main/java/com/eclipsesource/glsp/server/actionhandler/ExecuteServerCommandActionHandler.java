@@ -29,7 +29,7 @@ import com.google.inject.Inject;
 
 public class ExecuteServerCommandActionHandler extends AbstractActionHandler {
 	@Inject
-	ServerCommandHandlerProvider commandHandlerProvider;
+	protected ServerCommandHandlerProvider commandHandlerProvider;
 
 	@Override
 	protected Collection<Action> handleableActionsKinds() {

@@ -31,12 +31,10 @@ import com.eclipsesource.glsp.api.utils.ModelOptions.ParsedModelOptions;
 import com.google.inject.Inject;
 
 public class RequestModelActionHandler extends AbstractActionHandler {
-
 	@Inject
-	private ModelFactory modelFactory;
-
+	protected ModelFactory modelFactory;
 	@Inject
-	private ModelSubmissionHandler submissionHandler;
+	protected ModelSubmissionHandler submissionHandler;
 
 	@Override
 	public Optional<Action> execute(Action action, ModelState modelState) {

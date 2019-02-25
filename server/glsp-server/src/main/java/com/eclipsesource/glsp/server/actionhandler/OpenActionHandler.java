@@ -29,7 +29,7 @@ import com.eclipsesource.glsp.api.model.ModelState;
 
 public class OpenActionHandler extends AbstractActionHandler {
 	@Inject
-	private ModelElementOpenListener modelElementOpenListener;
+	protected ModelElementOpenListener modelElementOpenListener;
 
 	@Override
 	protected Collection<Action> handleableActionsKinds() {

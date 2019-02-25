@@ -30,7 +30,7 @@ import com.google.inject.Inject;
 
 public class RequestOperationsHandler extends AbstractActionHandler {
 	@Inject
-	private OperationConfiguration operationConfiguration;
+	protected OperationConfiguration operationConfiguration;
 
 	@Override
 	protected Collection<Action> handleableActionsKinds() {

@@ -38,9 +38,9 @@ import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
 
 public class OperationActionHandler extends AbstractActionHandler {
 	@Inject
-	private OperationHandlerProvider operationHandlerProvider;
+	protected OperationHandlerProvider operationHandlerProvider;
 	@Inject
-	private ModelSubmissionHandler submissionHandler;
+	protected ModelSubmissionHandler submissionHandler;
 
 	@Override
 	protected Collection<Action> handleableActionsKinds() {

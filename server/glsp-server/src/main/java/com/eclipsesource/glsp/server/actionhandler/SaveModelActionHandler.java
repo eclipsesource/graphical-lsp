@@ -38,7 +38,7 @@ public class SaveModelActionHandler extends AbstractActionHandler {
 	private static final String FILE_PREFIX = "file://";
 
 	@Inject
-	ModelTypeConfigurationProvider modelTypeConfigurationProvider;
+	protected ModelTypeConfigurationProvider modelTypeConfigurationProvider;
 
 	@Override
 	protected Collection<Action> handleableActionsKinds() {

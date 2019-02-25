@@ -31,7 +31,7 @@ import com.google.inject.Singleton;
 @Singleton
 public class ModelSubmissionHandler {
 	@Inject
-	ILayoutEngine layoutEngine;
+	protected ILayoutEngine layoutEngine;
 	private Object modelLock = new Object();
 	private String lastSubmittedModelType;
 	private int revision = 0;

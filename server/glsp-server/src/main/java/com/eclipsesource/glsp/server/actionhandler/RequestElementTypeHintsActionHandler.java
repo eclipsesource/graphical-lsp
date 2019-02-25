@@ -29,7 +29,7 @@ import com.google.inject.Inject;
 
 public class RequestElementTypeHintsActionHandler extends AbstractActionHandler {
 	@Inject
-	private ModelTypeConfigurationProvider typeConfigurationProvider;
+	protected ModelTypeConfigurationProvider typeConfigurationProvider;
 
 	@Override
 	protected Collection<Action> handleableActionsKinds() {

@@ -33,8 +33,8 @@ import com.google.inject.Inject;
 
 public class RequestPopupModelActionHandler extends AbstractActionHandler {
 	@Inject
-	private PopupModelFactory popupModelFactory;
-
+	protected PopupModelFactory popupModelFactory;
+	
 	@Override
 	protected Collection<Action> handleableActionsKinds() {
 		return Arrays.asList(new RequestPopupModelAction());

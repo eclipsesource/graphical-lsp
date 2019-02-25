@@ -30,7 +30,7 @@ import com.google.inject.Inject;
 
 public class ComputedBoundsActionHandler extends AbstractActionHandler {
 	@Inject
-	private ModelSubmissionHandler submissionHandler;
+	protected ModelSubmissionHandler submissionHandler;
 
 	@Override
 	protected Collection<Action> handleableActionsKinds() {
