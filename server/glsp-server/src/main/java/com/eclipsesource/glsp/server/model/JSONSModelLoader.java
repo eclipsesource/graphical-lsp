@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.sprotty.SGraph;
 import org.eclipse.sprotty.SModelRoot;
 
-import com.eclipsesource.glsp.api.provider.ModelTypeConfigurationProvider;
+import com.eclipsesource.glsp.api.provider.IModelTypeConfigurationProvider;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 
@@ -40,7 +40,7 @@ public abstract class JSONSModelLoader implements IModelLoader {
 	private static Logger LOGGER = Logger.getLogger(FileBasedModelFactory.class);
 
 	@Inject
-	protected ModelTypeConfigurationProvider modelTypeConfigurationProvider;
+	protected IModelTypeConfigurationProvider modelTypeConfigurationProvider;
 
 	public abstract List<String> getExtensions();
 

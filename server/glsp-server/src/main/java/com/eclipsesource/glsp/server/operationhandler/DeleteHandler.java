@@ -35,7 +35,7 @@ import com.eclipsesource.glsp.api.utils.SModelIndex;
 /**
  * Generic handler implementation for {@link DeleteElementOperationAction}
  */
-public class DeleteHandler implements OperationHandler {
+public class DeleteHandler implements IOperationHandler {
 	private static Logger log = Logger.getLogger(DeleteHandler.class);
 
 	@Override
@@ -44,7 +44,7 @@ public class DeleteHandler implements OperationHandler {
 	}
 
 	@Override
-	public Optional<SModelRoot> execute(AbstractOperationAction execAction, ModelState modelState) {
+	public Optional<SModelRoot> execute(AbstractOperationAction execAction, IModelState modelState) {
 		DeleteElementOperationAction action = (DeleteElementOperationAction) execAction;
 		String elementIds[] = action.getElementIds();
 		if (elementIds == null || elementIds.length == 0) {
@@ -62,7 +62,7 @@ public class DeleteHandler implements OperationHandler {
 		return Optional.of(currentModel);
 	}
 
-	protected boolean delete(String elementId, SModelIndex index, ModelState modelState) {
+	protected boolean delete(String elementId, SModelIndex index, IModelState modelState) {
 		SModelElement element = index.get(elementId);
 
 		if (element == null) {
@@ -85,7 +85,7 @@ public class DeleteHandler implements OperationHandler {
 		return true;
 	}
 
-	protected void delete(SModelElement element, ModelState modelState) {
+	protected void delete(SModelElement element, IModelState modelState) {
 		SModelElement parent = modelState.getCurrentModelIndex().getParent(element);
 		modelState.getCurrentModelIndex().removeFromIndex(element);
 
@@ -95,7 +95,7 @@ public class DeleteHandler implements OperationHandler {
 		parent.getChildren().remove(element);
 	}
 
-	protected void collectDependents(Set<SModelElement> dependents, SModelElement nodeToDelete, ModelState modelState) {
+	protected void collectDependents(Set<SModelElement> dependents, SModelElement nodeToDelete, IModelState modelState) {
 		if (dependents.contains(nodeToDelete)) {
 			return;
 		}

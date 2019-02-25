@@ -13,14 +13,15 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.jsonrpc;
+package com.eclipsesource.glsp.api.handler;
 
-import org.eclipse.lsp4j.jsonrpc.services.JsonNotification;
+import java.util.Optional;
 
-import com.eclipsesource.glsp.api.action.ActionMessage;
+import com.eclipsesource.glsp.api.action.Action;
+import com.eclipsesource.glsp.api.model.IModelState;
 
-public interface GLSPClient {
+public interface IActionHandler extends IHandler<Action> {
 
-	@JsonNotification("process")
-	void process(ActionMessage message);
+	public Optional<Action> execute(Action action, IModelState modelState);
+
 }

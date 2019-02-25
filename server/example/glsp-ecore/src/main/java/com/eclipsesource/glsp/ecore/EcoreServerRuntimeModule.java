@@ -12,17 +12,16 @@ package com.eclipsesource.glsp.ecore;
 
 import org.eclipse.sprotty.ILayoutEngine;
 
-import com.eclipsesource.glsp.api.factory.ModelFactory;
-import com.eclipsesource.glsp.api.factory.PopupModelFactory;
-import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
-import com.eclipsesource.glsp.api.model.ModelExpansionListener;
-import com.eclipsesource.glsp.api.model.ModelSelectionListener;
-import com.eclipsesource.glsp.api.provider.ModelTypeConfigurationProvider;
+import com.eclipsesource.glsp.api.factory.IModelFactory;
+import com.eclipsesource.glsp.api.factory.IPopupModelFactory;
+import com.eclipsesource.glsp.api.model.IModelElementOpenListener;
+import com.eclipsesource.glsp.api.model.IModelExpansionListener;
+import com.eclipsesource.glsp.api.model.IModelSelectionListener;
+import com.eclipsesource.glsp.api.provider.IModelTypeConfigurationProvider;
 import com.eclipsesource.glsp.ecore.diagram.EcoreLayoutEngine;
 import com.eclipsesource.glsp.ecore.diagram.EcoreModelFactory;
 import com.eclipsesource.glsp.server.ServerModule;
 import com.eclipsesource.glsp.server.actionhandler.CollapseExpandActionHandler;
-import com.eclipsesource.glsp.server.actionhandler.ComputedBoundsActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.ExecuteServerCommandActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.OpenActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.OperationActionHandler;
@@ -36,33 +35,33 @@ import com.eclipsesource.glsp.server.actionhandler.SelectActionHandler;
 public class EcoreServerRuntimeModule extends ServerModule {
 
 	@Override
-	public Class<? extends ModelFactory> bindModelFactory() {
+	public Class<? extends IModelFactory> bindModelFactory() {
 //		return EcoreSprottyFileModelFactory.class;
 		return EcoreModelFactory.class;
 	}
 
 	@Override
-	public Class<? extends PopupModelFactory> bindPopupModelFactory() {
+	public Class<? extends IPopupModelFactory> bindPopupModelFactory() {
 		return EcorePopupFactory.class;
 	}
 
 	@Override
-	public Class<? extends ModelSelectionListener> bindModelSelectionListener() {
+	public Class<? extends IModelSelectionListener> bindModelSelectionListener() {
 		return EcoreServerListener.class;
 	}
 
 	@Override
-	public Class<? extends ModelElementOpenListener> bindModelElementOpenListener() {
+	public Class<? extends IModelElementOpenListener> bindModelElementOpenListener() {
 		return EcoreServerListener.class;
 	}
 
 	@Override
-	public Class<? extends ModelExpansionListener> bindModelExpansionListener() {
+	public Class<? extends IModelExpansionListener> bindModelExpansionListener() {
 		return EcoreServerListener.class;
 	}
 
 	@Override
-	protected Class<? extends ModelTypeConfigurationProvider> bindModelTypesConfigurationProvider() {
+	protected Class<? extends IModelTypeConfigurationProvider> bindModelTypesConfigurationProvider() {
 		return EcoreModelTypeConfigurationProvider.class;
 	}
 

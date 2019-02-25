@@ -24,7 +24,7 @@ import org.eclipse.sprotty.SGraph;
 import org.eclipse.sprotty.SModelRoot;
 
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
-import com.eclipsesource.glsp.api.factory.ModelFactory;
+import com.eclipsesource.glsp.api.factory.IModelFactory;
 import com.eclipsesource.glsp.api.utils.ModelOptions;
 import com.google.inject.Inject;
 
@@ -35,7 +35,7 @@ import com.google.inject.Inject;
  * @author Tobias Ortmayr<tortmayr@eclipsesource.com>
  *
  */
-public class FileBasedModelFactory implements ModelFactory {
+public class FileBasedModelFactory implements IModelFactory {
 	static SModelRoot emptyRoot() {
 		SModelRoot root = new SGraph();
 		root.setType("graph");

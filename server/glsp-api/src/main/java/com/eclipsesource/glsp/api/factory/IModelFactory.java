@@ -13,25 +13,23 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.model;
+package com.eclipsesource.glsp.api.factory;
 
-import com.eclipsesource.glsp.api.action.kind.CollapseExpandAction;
-import com.eclipsesource.glsp.api.action.kind.CollapseExpandAllAction;
+import org.eclipse.sprotty.SModelRoot;
 
-public interface ModelExpansionListener {
-	void expansionChanged(CollapseExpandAction action);
+import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
 
-	void expansionChanged(CollapseExpandAllAction action);
+public interface IModelFactory {
 
-	public static class NullImpl implements ModelExpansionListener {
+	SModelRoot loadModel(RequestModelAction action);
 
-		@Override
-		public void expansionChanged(CollapseExpandAction action) {
-		}
+	public static class NullImpl implements IModelFactory {
 
 		@Override
-		public void expansionChanged(CollapseExpandAllAction action) {
+		public SModelRoot loadModel(RequestModelAction action) {
+			return null;
 		}
 
 	}
+
 }

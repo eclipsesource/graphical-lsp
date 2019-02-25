@@ -13,37 +13,24 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.model;
+package com.eclipsesource.glsp.api.provider;
 
+import java.util.Collections;
 import java.util.Set;
 
-import org.eclipse.sprotty.SModelRoot;
+import com.eclipsesource.glsp.api.action.Action;
 
-import com.eclipsesource.glsp.api.utils.ModelOptions.ParsedModelOptions;
-import com.eclipsesource.glsp.api.utils.SModelIndex;
+public interface IActionProvider {
 
-public interface ModelState {
+	Set<Action> getActions();
 
-	ParsedModelOptions getOptions();
+	public static class NullImpl implements IActionProvider {
 
-	String getClientId();
+		@Override
+		public Set<Action> getActions() {
+			return Collections.emptySet();
+		}
 
-	void setClientId(String clientId);
-
-	SModelRoot getCurrentModel();
-
-	void setCurrentModel(SModelRoot newRoot);
-
-	Set<String> getExpandedElements();
-
-	Set<String> getSelectedElements();
-
-	void setExpandedElements(Set<String> expandedElements);
-
-	void setSelectedElements(Set<String> selectedElements);
-
-	void setOptions(ParsedModelOptions options);
-
-	SModelIndex getCurrentModelIndex();
+	}
 
 }

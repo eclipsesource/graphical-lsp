@@ -41,37 +41,37 @@ import com.eclipsesource.glsp.server.operationhandler.DeleteHandler;
 public class WorkflowServerRuntimeModule extends ServerModule {
 
 	@Override
-	protected Class<? extends ModelTypeConfigurationProvider> bindModelTypesConfigurationProvider() {
+	protected Class<? extends IModelTypeConfigurationProvider> bindModelTypesConfigurationProvider() {
 		return WorkflowModelTypeConfigurationProvider.class;
 	}
 
 	@Override
-	public Class<? extends PopupModelFactory> bindPopupModelFactory() {
+	public Class<? extends IPopupModelFactory> bindPopupModelFactory() {
 		return WorkflowPopupFactory.class;
 	}
 
 	@Override
-	public Class<? extends ModelSelectionListener> bindModelSelectionListener() {
+	public Class<? extends IModelSelectionListener> bindModelSelectionListener() {
 		return WorkflowServerListener.class;
 	}
 
 	@Override
-	public Class<? extends ModelElementOpenListener> bindModelElementOpenListener() {
+	public Class<? extends IModelElementOpenListener> bindModelElementOpenListener() {
 		return WorkflowServerListener.class;
 	}
 
 	@Override
-	public Class<? extends ModelExpansionListener> bindModelExpansionListener() {
+	public Class<? extends IModelExpansionListener> bindModelExpansionListener() {
 		return WorkflowServerListener.class;
 	}
 
 	@Override
-	public Class<? extends OperationConfiguration> bindOperationConfiguration() {
+	public Class<? extends IOperationConfiguration> bindOperationConfiguration() {
 		return WorkflowOperationConfiguration.class;
 	}
 
 	@Override
-	protected Class<? extends CommandPaletteActionProvider> bindCommandPaletteActionProvider() {
+	protected Class<? extends ICommandPaletteActionProvider> bindCommandPaletteActionProvider() {
 		return WorkflowCommandPaletteActionProvider.class;
 	}
 

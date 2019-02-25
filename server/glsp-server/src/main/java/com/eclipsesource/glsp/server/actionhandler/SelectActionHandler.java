@@ -24,14 +24,14 @@ import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.SelectAction;
 import com.eclipsesource.glsp.api.action.kind.SelectAllAction;
-import com.eclipsesource.glsp.api.model.ModelSelectionListener;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.IModelSelectionListener;
+import com.eclipsesource.glsp.api.model.IModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.google.inject.Inject;
 
 public class SelectActionHandler extends AbstractActionHandler {
 	@Inject
-	protected ModelSelectionListener modelSelectionListener;
+	protected IModelSelectionListener modelSelectionListener;
 
 	@Override
 	protected Collection<Action> handleableActionsKinds() {

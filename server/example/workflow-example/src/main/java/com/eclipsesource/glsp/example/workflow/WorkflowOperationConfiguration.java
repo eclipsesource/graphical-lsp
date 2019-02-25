@@ -28,7 +28,7 @@ import com.eclipsesource.glsp.api.operations.Operation;
 import com.eclipsesource.glsp.api.operations.Group;
 import com.eclipsesource.glsp.api.operations.OperationConfiguration;
 
-public class WorkflowOperationConfiguration implements OperationConfiguration {
+public class WorkflowOperationConfiguration implements IOperationConfiguration {
 
 	@Override
 	public Operation[] getOperations(RequestOperationsAction action) {

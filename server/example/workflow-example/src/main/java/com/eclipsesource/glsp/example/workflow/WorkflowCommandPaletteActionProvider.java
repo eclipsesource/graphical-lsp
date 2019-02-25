@@ -26,7 +26,7 @@ import org.eclipse.sprotty.SNode;
 import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
 import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
 import com.eclipsesource.glsp.api.action.kind.DeleteElementOperationAction;
-import com.eclipsesource.glsp.api.provider.CommandPaletteActionProvider;
+import com.eclipsesource.glsp.api.provider.ICommandPaletteActionProvider;
 import com.eclipsesource.glsp.api.types.LabeledAction;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.eclipsesource.glsp.example.workflow.schema.ModelTypes;

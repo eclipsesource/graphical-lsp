@@ -13,25 +13,28 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.provider;
+package com.eclipsesource.glsp.api.handler;
 
-import java.util.Comparator;
 import java.util.Optional;
-import java.util.Set;
 
-import com.eclipsesource.glsp.api.handler.Handler;
+import org.eclipse.sprotty.SModelRoot;
 
-public interface HandlerProvider<E extends Handler<T>, T> {
+import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
+import com.eclipsesource.glsp.api.model.IModelState;
 
-	Set<E> getHandlers();
+public interface IOperationHandler extends IHandler<AbstractOperationAction> {
 
-	default boolean isHandled(T object) {
-		return getHandler(object).isPresent();
+	Optional<SModelRoot> execute(AbstractOperationAction action, IModelState modelState);
+
+	@Override
+	default boolean handles(AbstractOperationAction action) {
+		return Optional.ofNullable(handlesActionType()) //
+				.map(cl -> cl.isInstance(action)) //
+				.orElse(false);
 	}
 
-	default Optional<E> getHandler(T object) {
-		return getHandlers().stream().sorted(Comparator.comparing(Handler::getPriority))
-				.filter(ha -> ha.handles(object)).findFirst();
+	default Class<?> handlesActionType() {
+		return null;
 	}
 
 }

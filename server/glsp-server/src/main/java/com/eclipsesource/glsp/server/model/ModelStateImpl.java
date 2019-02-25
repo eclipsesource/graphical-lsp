@@ -20,11 +20,11 @@ import java.util.Set;
 
 import org.eclipse.sprotty.SModelRoot;
 
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.IModelState;
 import com.eclipsesource.glsp.api.utils.ModelOptions.ParsedModelOptions;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 
-public class ModelStateImpl implements ModelState {
+public class ModelStateImpl implements IModelState {
 	private ParsedModelOptions options;
 	private String clientId;
 	private SModelRoot currentModel;

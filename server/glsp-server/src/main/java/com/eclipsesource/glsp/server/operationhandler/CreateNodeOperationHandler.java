@@ -29,7 +29,7 @@ import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 
-public abstract class CreateNodeOperationHandler implements OperationHandler {
+public abstract class CreateNodeOperationHandler implements IOperationHandler {
 
 	@Override
 	public boolean handles(AbstractOperationAction action) {
@@ -37,7 +37,7 @@ public abstract class CreateNodeOperationHandler implements OperationHandler {
 	}
 
 	@Override
-	public Optional<SModelRoot> execute(AbstractOperationAction action, ModelState modelState) {
+	public Optional<SModelRoot> execute(AbstractOperationAction action, IModelState modelState) {
 		CreateNodeOperationAction executeAction = (CreateNodeOperationAction) action;
 
 		SModelIndex index = modelState.getCurrentModelIndex();

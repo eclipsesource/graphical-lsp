@@ -44,7 +44,7 @@ import org.eclipse.sprotty.SGraph;
 import org.eclipse.sprotty.SLabel;
 import org.eclipse.sprotty.SModelElement;
 
-import com.eclipsesource.glsp.api.provider.ModelTypeConfigurationProvider;
+import com.eclipsesource.glsp.api.provider.IModelTypeConfigurationProvider;
 import com.eclipsesource.glsp.api.types.EdgeTypeHint;
 import com.eclipsesource.glsp.api.types.NodeTypeHint;
 import com.eclipsesource.glsp.example.workflow.schema.ActivityNode;
@@ -52,7 +52,7 @@ import com.eclipsesource.glsp.example.workflow.schema.Icon;
 import com.eclipsesource.glsp.example.workflow.schema.TaskNode;
 import com.eclipsesource.glsp.example.workflow.schema.WeightedEdge;
 
-public class WorkflowModelTypeConfigurationProvider implements ModelTypeConfigurationProvider {
+public class WorkflowModelTypeConfigurationProvider implements IModelTypeConfigurationProvider {
 
 	@Override
 	public Map<String, Class<? extends SModelElement>> getTypeToClassMappings() {
@@ -83,7 +83,7 @@ public class WorkflowModelTypeConfigurationProvider implements ModelTypeConfigur
 
 	@Override
 	public EdgeTypeHint createDefaultEdgeTypeHint(String elementId) {
-		EdgeTypeHint hint = ModelTypeConfigurationProvider.super.createDefaultEdgeTypeHint(elementId);
+		EdgeTypeHint hint = IModelTypeConfigurationProvider.super.createDefaultEdgeTypeHint(elementId);
 		hint.setSourceElementTypeIds(Arrays.asList(MANUAL_TASK, AUTOMATED_TASK, DECISION_NODE, MERGE_NODE));
 		hint.setTargetElementTypeIds(Arrays.asList(MANUAL_TASK, AUTOMATED_TASK, DECISION_NODE, MERGE_NODE));
 		return hint;

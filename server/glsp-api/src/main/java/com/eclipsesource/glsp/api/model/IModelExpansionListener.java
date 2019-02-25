@@ -13,20 +13,25 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.provider;
+package com.eclipsesource.glsp.api.model;
 
-import java.util.Collections;
-import java.util.Set;
+import com.eclipsesource.glsp.api.action.kind.CollapseExpandAction;
+import com.eclipsesource.glsp.api.action.kind.CollapseExpandAllAction;
 
-import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
-
-public interface ServerCommandHandlerProvider extends HandlerProvider<ServerCommandHandler, String> {
-
-	final static class NullImpl implements ServerCommandHandlerProvider {
+public interface IModelExpansionListener {
+	void expansionChanged(CollapseExpandAction action);
+	void expansionChanged(CollapseExpandAllAction action);
+	
+	public static class NullImpl implements IModelExpansionListener{
 
 		@Override
-		public Set<ServerCommandHandler> getHandlers() {
-			return Collections.emptySet();
+		public void expansionChanged(CollapseExpandAction action) {
 		}
+
+		@Override
+		public void expansionChanged(CollapseExpandAllAction action) {	
+		}
+
+		
 	}
 }

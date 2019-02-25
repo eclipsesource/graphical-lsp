@@ -37,8 +37,8 @@ import org.eclipse.sprotty.SModelRoot;
 import org.eclipse.sprotty.SNode;
 
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
-import com.eclipsesource.glsp.api.factory.ModelFactory;
-import com.eclipsesource.glsp.api.provider.ModelTypeConfigurationProvider;
+import com.eclipsesource.glsp.api.factory.IModelFactory;
+import com.eclipsesource.glsp.api.provider.IModelTypeConfigurationProvider;
 import com.eclipsesource.glsp.api.utils.ModelOptions;
 import com.eclipsesource.glsp.ecore.model.ClassNode;
 import com.eclipsesource.glsp.ecore.model.EcoreEdge;
@@ -47,14 +47,14 @@ import com.eclipsesource.glsp.ecore.model.Icon;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 
-public class EcoreModelFactory implements ModelFactory {
+public class EcoreModelFactory implements IModelFactory {
 	private static Logger LOGGER = Logger.getLogger(EcoreModelFactory.class);
 	private static String ECORE_EXTENSION = ".ecore";
 	private static String DIAGRAM_EXTENSION = ".ecorediagram";
 	private static final String FILE_PREFIX = "file://";
 	
 	@Inject
-	private ModelTypeConfigurationProvider modelTypeConfigurationProvider;
+	private IModelTypeConfigurationProvider modelTypeConfigurationProvider;
 
 	@Override
 	public SModelRoot loadModel(RequestModelAction action) {

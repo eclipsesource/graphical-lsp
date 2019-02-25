@@ -13,20 +13,23 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.operations;
+package com.eclipsesource.glsp.api.provider;
 
-import com.eclipsesource.glsp.api.action.kind.RequestOperationsAction;
+import java.util.Collections;
+import java.util.Set;
 
-public interface OperationConfiguration {
+import org.eclipse.sprotty.SModelRoot;
 
-	Operation[] getOperations(RequestOperationsAction action);
+import com.eclipsesource.glsp.api.types.LabeledAction;
 
-	final class NullOperationConfiguration implements OperationConfiguration {
-
+@FunctionalInterface
+public interface ICommandPaletteActionProvider {
+	Set<LabeledAction> getActions(SModelRoot model, String[] selectedElementsIDs);
+	
+	public static class NullImpl implements ICommandPaletteActionProvider {
 		@Override
-		public Operation[] getOperations(RequestOperationsAction action) {
-			return new Operation[0];
+		public Set<LabeledAction> getActions(SModelRoot model, String[] selectedElementsIDs) {
+			return Collections.emptySet();
 		}
-
 	}
 }

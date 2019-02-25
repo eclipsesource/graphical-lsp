@@ -24,14 +24,14 @@ import org.eclipse.sprotty.SGraph;
 import org.eclipse.sprotty.SLabel;
 import org.eclipse.sprotty.SModelElement;
 
-import com.eclipsesource.glsp.api.provider.ModelTypeConfigurationProvider;
+import com.eclipsesource.glsp.api.provider.IModelTypeConfigurationProvider;
 import com.eclipsesource.glsp.api.types.EdgeTypeHint;
 import com.eclipsesource.glsp.api.types.NodeTypeHint;
 import com.eclipsesource.glsp.ecore.model.ClassNode;
 import com.eclipsesource.glsp.ecore.model.EcoreEdge;
 import com.eclipsesource.glsp.ecore.model.Icon;
 
-public class EcoreModelTypeConfigurationProvider implements ModelTypeConfigurationProvider {
+public class EcoreModelTypeConfigurationProvider implements IModelTypeConfigurationProvider {
 
 	@Override
 	public List<EdgeTypeHint> getEdgeTypeHints() {

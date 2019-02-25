@@ -33,8 +33,8 @@ import org.eclipse.lsp4j.jsonrpc.Launcher;
 import org.eclipse.lsp4j.jsonrpc.MessageConsumer;
 
 import com.eclipsesource.glsp.api.json.GsonConfigurator;
-import com.eclipsesource.glsp.api.jsonrpc.GLSPClient;
-import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
+import com.eclipsesource.glsp.api.jsonrpc.IGLSPClient;
+import com.eclipsesource.glsp.api.jsonrpc.IGLSPServer;
 import com.google.gson.GsonBuilder;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -67,9 +67,9 @@ public class ServerLauncher {
 			Function<MessageConsumer, MessageConsumer> wrapper = (MessageConsumer it) -> {
 				return it;
 			};
-			GLSPServer languageServer = injector.getInstance(GLSPServer.class);
-			Launcher<GLSPClient> launcher = Launcher.createIoLauncher(languageServer, GLSPClient.class, in, out,
-					threadPool, wrapper, configureGson);
+			IGLSPServer languageServer = injector.getInstance(IGLSPServer.class);
+			Launcher<IGLSPClient> launcher = Launcher.createIoLauncher(languageServer,
+					IGLSPClient.class, in, out, threadPool, wrapper, configureGson);
 
 			languageServer.connect(launcher.getRemoteProxy());
 			launcher.startListening();

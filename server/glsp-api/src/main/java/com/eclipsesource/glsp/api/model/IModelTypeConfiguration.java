@@ -19,16 +19,16 @@ import org.eclipse.sprotty.SModelElement;
 
 import com.eclipsesource.glsp.api.types.ElementTypeHint;
 
-public class ModelTypeConfiguration {
+public class IModelTypeConfiguration {
 
 	private String elementTypeId;
 	private Class<? extends SModelElement> javaClassRepresentation;
 	private ElementTypeHint elementTypeHint;
 
-	public ModelTypeConfiguration() {
+	public IModelTypeConfiguration() {
 	}
 
-	public ModelTypeConfiguration(String elementTypeId, Class<? extends SModelElement> javaClassRepresentation,
+	public IModelTypeConfiguration(String elementTypeId, Class<? extends SModelElement> javaClassRepresentation,
 			ElementTypeHint elementTypeHint) {
 		super();
 		this.elementTypeId = elementTypeId;

@@ -17,20 +17,20 @@ package com.eclipsesource.glsp.server.provider;
 
 import java.util.Set;
 
-import com.eclipsesource.glsp.api.handler.OperationHandler;
-import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
+import com.eclipsesource.glsp.api.handler.IOperationHandler;
+import com.eclipsesource.glsp.api.provider.IOperationHandlerProvider;
 import com.google.inject.Inject;
 
-public class DefaultOperationHandlerProvider implements OperationHandlerProvider {
-	private Set<OperationHandler> handlers;
+public class DefaultOperationHandlerProvider implements IOperationHandlerProvider {
+	private Set<IOperationHandler> handlers;
 
 	@Inject
-	public DefaultOperationHandlerProvider(Set<OperationHandler> handlers) {
+	public DefaultOperationHandlerProvider(Set<IOperationHandler> handlers) {
 		this.handlers = handlers;
 	}
 
 	@Override
-	public Set<OperationHandler> getHandlers() {
+	public Set<IOperationHandler> getHandlers() {
 		return handlers;
 	}
 

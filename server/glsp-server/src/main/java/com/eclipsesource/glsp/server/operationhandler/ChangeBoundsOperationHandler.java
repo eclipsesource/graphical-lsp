@@ -35,7 +35,7 @@ import com.eclipsesource.glsp.api.utils.SModelIndex;
 /**
  * Generic handler implementation for {@link ChangeBoundsOperationAction}
  */
-public class ChangeBoundsOperationHandler implements OperationHandler {
+public class ChangeBoundsOperationHandler implements IOperationHandler {
 
 	private static Logger log = Logger.getLogger(ChangeBoundsOperationHandler.class);
 
@@ -45,7 +45,7 @@ public class ChangeBoundsOperationHandler implements OperationHandler {
 	}
 
 	@Override
-	public Optional<SModelRoot> execute(AbstractOperationAction action, ModelState modelState) {
+	public Optional<SModelRoot> execute(AbstractOperationAction action, IModelState modelState) {
 		ChangeBoundsOperationAction changeBoundsAction = (ChangeBoundsOperationAction) action;
 		for (ElementAndBounds element : changeBoundsAction.getNewBounds()) {
 			changeElementBounds(element.getElementId(), element.getNewBounds(), modelState);
@@ -54,7 +54,7 @@ public class ChangeBoundsOperationHandler implements OperationHandler {
 		return Optional.of(currentModel);
 	}
 
-	private Optional<SNode> changeElementBounds(String elementId, Bounds newBounds, ModelState modelState) {
+	private Optional<SNode> changeElementBounds(String elementId, Bounds newBounds, IModelState modelState) {
 		if (elementId == null || newBounds == null) {
 			log.warn("Invalid ChangeBounds Action; missing mandatory arguments");
 			return Optional.empty();
@@ -66,7 +66,7 @@ public class ChangeBoundsOperationHandler implements OperationHandler {
 		return nodeToUpdate;
 	}
 
-	private static Optional<SNode> findMovableNode(ModelState modelState, String elementId) {
+	private static Optional<SNode> findMovableNode(IModelState modelState, String elementId) {
 		SModelIndex index = modelState.getCurrentModelIndex();
 		SModelElement element = index.get(elementId);
 		if (element == null) {

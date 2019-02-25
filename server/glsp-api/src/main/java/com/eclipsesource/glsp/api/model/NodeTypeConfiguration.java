@@ -19,7 +19,7 @@ import org.eclipse.sprotty.SNode;
 
 import com.eclipsesource.glsp.api.types.NodeTypeHint;
 
-public class NodeTypeConfiguration extends ModelTypeConfiguration {
+public class NodeTypeConfiguration extends IModelTypeConfiguration {
 
 	public NodeTypeConfiguration() {
 		super();

@@ -28,8 +28,8 @@ import org.eclipse.sprotty.SModelRoot;
 import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.SaveModelAction;
-import com.eclipsesource.glsp.api.model.ModelState;
-import com.eclipsesource.glsp.api.provider.ModelTypeConfigurationProvider;
+import com.eclipsesource.glsp.api.model.IModelState;
+import com.eclipsesource.glsp.api.provider.IModelTypeConfigurationProvider;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 
@@ -38,7 +38,7 @@ public class SaveModelActionHandler extends AbstractActionHandler {
 	private static final String FILE_PREFIX = "file://";
 
 	@Inject
-	protected ModelTypeConfigurationProvider modelTypeConfigurationProvider;
+	protected IModelTypeConfigurationProvider modelTypeConfigurationProvider;
 
 	@Override
 	protected Collection<Action> handleableActionsKinds() {
@@ -46,7 +46,7 @@ public class SaveModelActionHandler extends AbstractActionHandler {
 	}
 
 	@Override
-	public Optional<Action> execute(Action action, ModelState modelState) {
+	public Optional<Action> execute(Action action, IModelState modelState) {
 		if (action instanceof SaveModelAction) {
 			SaveModelAction saveAction = (SaveModelAction) action;
 			if (saveAction != null) {
@@ -56,7 +56,7 @@ public class SaveModelActionHandler extends AbstractActionHandler {
 		return Optional.empty();
 	}
 
-	private void saveModelState(ModelState modelState) {
+	private void saveModelState(IModelState modelState) {
 		convertToFile(modelState).ifPresent(file -> {
 			try {
 				Gson gson = modelTypeConfigurationProvider.configureGSON().create();
@@ -67,14 +67,14 @@ public class SaveModelActionHandler extends AbstractActionHandler {
 		});
 	}
 
-	private Optional<String> getSourceUri(ModelState modelState) {
+	private Optional<String> getSourceUri(IModelState modelState) {
 		if (modelState.getOptions() != null) {
 			return modelState.getOptions().getSourceUri();
 		}
 		return Optional.empty();
 	}
 
-	private Optional<File> convertToFile(ModelState modelState) {
+	private Optional<File> convertToFile(IModelState modelState) {
 		Optional<String> sourceUriOpt = getSourceUri(modelState);
 		if (sourceUriOpt.isPresent()) {
 			String uri = sourceUriOpt.get();

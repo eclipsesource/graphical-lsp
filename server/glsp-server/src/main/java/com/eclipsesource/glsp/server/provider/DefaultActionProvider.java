@@ -55,9 +55,9 @@ import com.eclipsesource.glsp.api.action.kind.SetOperationsAction;
 import com.eclipsesource.glsp.api.action.kind.SetPopupModelAction;
 import com.eclipsesource.glsp.api.action.kind.ToogleLayerAction;
 import com.eclipsesource.glsp.api.action.kind.UpdateModelAction;
-import com.eclipsesource.glsp.api.provider.ActionProvider;
+import com.eclipsesource.glsp.api.provider.IActionProvider;
 
-public class DefaultActionProvider implements ActionProvider {
+public class DefaultActionProvider implements IActionProvider {
 	Set<Action> defaultActions;
 
 	public DefaultActionProvider() {

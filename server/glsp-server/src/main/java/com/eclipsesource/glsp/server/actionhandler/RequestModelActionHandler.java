@@ -24,20 +24,20 @@ import org.eclipse.sprotty.SModelRoot;
 import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
-import com.eclipsesource.glsp.api.factory.ModelFactory;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.factory.IModelFactory;
+import com.eclipsesource.glsp.api.model.IModelState;
 import com.eclipsesource.glsp.api.utils.ModelOptions;
 import com.eclipsesource.glsp.api.utils.ModelOptions.ParsedModelOptions;
 import com.google.inject.Inject;
 
 public class RequestModelActionHandler extends AbstractActionHandler {
 	@Inject
-	protected ModelFactory modelFactory;
+	protected IModelFactory modelFactory;
 	@Inject
 	protected ModelSubmissionHandler submissionHandler;
 
 	@Override
-	public Optional<Action> execute(Action action, ModelState modelState) {
+	public Optional<Action> execute(Action action, IModelState modelState) {
 		if (action instanceof RequestModelAction) {
 			RequestModelAction requestAction = (RequestModelAction) action;
 			ParsedModelOptions options = ModelOptions.parse(requestAction.getOptions());

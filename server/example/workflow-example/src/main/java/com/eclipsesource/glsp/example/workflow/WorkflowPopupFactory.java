@@ -24,10 +24,10 @@ import org.eclipse.sprotty.SModelElement;
 import org.eclipse.sprotty.SModelRoot;
 
 import com.eclipsesource.glsp.api.action.kind.RequestPopupModelAction;
-import com.eclipsesource.glsp.api.factory.PopupModelFactory;
+import com.eclipsesource.glsp.api.factory.IPopupModelFactory;
 import com.eclipsesource.glsp.example.workflow.schema.TaskNode;
 
-public class WorkflowPopupFactory implements PopupModelFactory {
+public class WorkflowPopupFactory implements IPopupModelFactory {
 
 	private String generateTitle(TaskNode task) {
 		return task.getName();

@@ -30,22 +30,22 @@ import com.eclipsesource.glsp.api.action.ActionMessage;
 import com.eclipsesource.glsp.api.action.ActionRegistry;
 import com.eclipsesource.glsp.api.action.kind.IdentifiableRequestAction;
 import com.eclipsesource.glsp.api.action.kind.IdentifiableResponseAction;
-import com.eclipsesource.glsp.api.jsonrpc.GLSPClient;
-import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.jsonrpc.IGLSPClient;
+import com.eclipsesource.glsp.api.jsonrpc.IGLSPServer;
+import com.eclipsesource.glsp.api.model.IModelState;
 import com.eclipsesource.glsp.server.model.ModelStateImpl;
 
-public class DefaultGLSPServer implements GLSPServer {
+public class GLSPServer implements IGLSPServer {
 
-	static Logger log = Logger.getLogger(DefaultGLSPServer.class);
+	static Logger log = Logger.getLogger(GLSPServer.class);
 
 	private ServerStatus status;
 	private ActionRegistry actionRegistry;
-	private GLSPClient clientProxy;
-	private Map<String, ModelState> clientModelStates;
+	private IGLSPClient clientProxy;
+	private Map<String, IModelState> clientModelStates;
 
 	@Inject
-	public DefaultGLSPServer(ActionRegistry actionRegistry) {
+	public GLSPServer(ActionRegistry actionRegistry) {
 		this.actionRegistry = actionRegistry;
 		clientModelStates = new ConcurrentHashMap<>();
 	}
@@ -55,7 +55,7 @@ public class DefaultGLSPServer implements GLSPServer {
 	}
 
 	@Override
-	public void connect(GLSPClient clientProxy) {
+	public void connect(IGLSPClient clientProxy) {
 		this.clientProxy = clientProxy;
 	}
 
@@ -63,7 +63,7 @@ public class DefaultGLSPServer implements GLSPServer {
 	public void process(ActionMessage message) {
 		log.debug("process " + message);
 		String clientId = message.getClientId();
-		ModelState modelState = getModelState(clientId);
+		IModelState modelState = getModelState(clientId);
 
 		Action requestAction = message.getAction();
 		Optional<String> requestId = Optional.empty();
@@ -103,8 +103,8 @@ public class DefaultGLSPServer implements GLSPServer {
 	}
 
 	@Override
-	public synchronized ModelState getModelState(String clientId) {
-		ModelState modelState = clientModelStates.get(clientId);
+	public synchronized IModelState getModelState(String clientId) {
+		IModelState modelState = clientModelStates.get(clientId);
 		if (modelState == null) {
 			modelState = new ModelStateImpl();
 			modelState.setClientId(clientId);

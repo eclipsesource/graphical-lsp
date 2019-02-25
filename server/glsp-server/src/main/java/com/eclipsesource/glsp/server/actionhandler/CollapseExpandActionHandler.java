@@ -24,14 +24,14 @@ import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.CollapseExpandAction;
 import com.eclipsesource.glsp.api.action.kind.CollapseExpandAllAction;
-import com.eclipsesource.glsp.api.model.ModelExpansionListener;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.IModelExpansionListener;
+import com.eclipsesource.glsp.api.model.IModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.google.inject.Inject;
 
 public class CollapseExpandActionHandler extends AbstractActionHandler {
 	@Inject
-	protected ModelExpansionListener expansionListener;
+	protected IModelExpansionListener expansionListener;
 
 	@Override
 	protected Collection<Action> handleableActionsKinds() {
@@ -39,7 +39,7 @@ public class CollapseExpandActionHandler extends AbstractActionHandler {
 	}
 
 	@Override
-	public Optional<Action> execute(Action action, ModelState modelState) {
+	public Optional<Action> execute(Action action, IModelState modelState) {
 		switch (action.getKind()) {
 		case Action.Kind.COLLAPSE_EXPAND:
 			return handleCollapseExpandAction((CollapseExpandAction) action, modelState);
@@ -50,7 +50,7 @@ public class CollapseExpandActionHandler extends AbstractActionHandler {
 		}
 	}
 
-	private Optional<Action> handleCollapseExpandAllAction(CollapseExpandAllAction action, ModelState modelState) {
+	private Optional<Action> handleCollapseExpandAllAction(CollapseExpandAllAction action, IModelState modelState) {
 		Set<String> expandedElements = modelState.getExpandedElements();
 		expandedElements.clear();
 		if (action.isExpand()) {
@@ -62,7 +62,7 @@ public class CollapseExpandActionHandler extends AbstractActionHandler {
 		return Optional.empty();
 	}
 
-	private Optional<Action> handleCollapseExpandAction(CollapseExpandAction action, ModelState modelState) {
+	private Optional<Action> handleCollapseExpandAction(CollapseExpandAction action, IModelState modelState) {
 		Set<String> expandedElements = modelState.getExpandedElements();
 		if (action.getCollapseIds() != null) {
 			expandedElements.removeAll(Arrays.asList(action.getCollapseIds()));

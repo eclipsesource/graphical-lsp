@@ -13,23 +13,8 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.factory;
+package com.eclipsesource.glsp.api.jsonrpc;
 
-import org.eclipse.sprotty.SModelRoot;
-
-import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
-
-public interface ModelFactory {
-
-	SModelRoot loadModel(RequestModelAction action);
-
-	public static class NullImpl implements ModelFactory {
-
-		@Override
-		public SModelRoot loadModel(RequestModelAction action) {
-			return null;
-		}
-
-	}
-
+public interface IGLSPClientAware {
+	void connect(IGLSPClient client);
 }

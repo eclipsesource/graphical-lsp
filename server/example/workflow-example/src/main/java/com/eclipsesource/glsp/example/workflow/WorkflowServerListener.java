@@ -22,12 +22,12 @@ import com.eclipsesource.glsp.api.action.kind.CollapseExpandAllAction;
 import com.eclipsesource.glsp.api.action.kind.OpenAction;
 import com.eclipsesource.glsp.api.action.kind.SelectAction;
 import com.eclipsesource.glsp.api.action.kind.SelectAllAction;
-import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
-import com.eclipsesource.glsp.api.model.ModelExpansionListener;
-import com.eclipsesource.glsp.api.model.ModelSelectionListener;
+import com.eclipsesource.glsp.api.model.IModelElementOpenListener;
+import com.eclipsesource.glsp.api.model.IModelExpansionListener;
+import com.eclipsesource.glsp.api.model.IModelSelectionListener;
 
 public class WorkflowServerListener
-		implements ModelSelectionListener, ModelExpansionListener, ModelElementOpenListener {
+		implements IModelSelectionListener, IModelExpansionListener, IModelElementOpenListener {
 	private static Logger log = Logger.getLogger(WorkflowServerListener.class);
 
 	@Override

@@ -18,10 +18,10 @@ package com.eclipsesource.glsp.api.action;
 import java.util.Collection;
 import java.util.Optional;
 
-import com.eclipsesource.glsp.api.handler.ActionHandler;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.handler.IActionHandler;
+import com.eclipsesource.glsp.api.model.IModelState;
 
-public abstract class AbstractActionHandler implements ActionHandler {
+public abstract class AbstractActionHandler implements IActionHandler {
 
 	protected abstract Collection<Action> handleableActionsKinds();
 

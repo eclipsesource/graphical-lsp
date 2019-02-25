@@ -16,16 +16,16 @@
 package com.eclipsesource.glsp.server;
 
 import com.eclipsesource.glsp.api.di.GLSPModule;
-import com.eclipsesource.glsp.api.factory.ModelFactory;
-import com.eclipsesource.glsp.api.handler.ActionHandler;
-import com.eclipsesource.glsp.api.handler.OperationHandler;
-import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
-import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
-import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
-import com.eclipsesource.glsp.api.provider.ActionProvider;
-import com.eclipsesource.glsp.api.provider.ModelTypeConfigurationProvider;
-import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
-import com.eclipsesource.glsp.api.provider.ServerCommandHandlerProvider;
+import com.eclipsesource.glsp.api.factory.IModelFactory;
+import com.eclipsesource.glsp.api.handler.IActionHandler;
+import com.eclipsesource.glsp.api.handler.IOperationHandler;
+import com.eclipsesource.glsp.api.handler.IServerCommandHandler;
+import com.eclipsesource.glsp.api.jsonrpc.IGLSPServer;
+import com.eclipsesource.glsp.api.provider.IActionHandlerProvider;
+import com.eclipsesource.glsp.api.provider.IActionProvider;
+import com.eclipsesource.glsp.api.provider.IModelTypeConfigurationProvider;
+import com.eclipsesource.glsp.api.provider.IOperationHandlerProvider;
+import com.eclipsesource.glsp.api.provider.IServerCommandHandlerProvider;
 import com.eclipsesource.glsp.server.actionhandler.CollapseExpandActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.ComputedBoundsActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.ExecuteServerCommandActionHandler;
@@ -66,28 +66,28 @@ public abstract class ServerModule extends GLSPModule {
 	}
 
 	@Override
-	protected Class<? extends ModelTypeConfigurationProvider> bindModelTypesConfigurationProvider() {
+	protected Class<? extends IModelTypeConfigurationProvider> bindModelTypesConfigurationProvider() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected Class<? extends ActionProvider> bindActionProvider() {
+	protected Class<? extends IActionProvider> bindActionProvider() {
 		return DefaultActionProvider.class;
 	}
 
 	@Override
-	protected Class<? extends ActionHandlerProvider> bindActionHandlerProvider() {
+	protected Class<? extends IActionHandlerProvider> bindActionHandlerProvider() {
 		return DefaultActionHandlerProvider.class;
 	}
 
 	@Override
-	protected Class<? extends OperationHandlerProvider> bindOperatioHandlerProvider() {
+	protected Class<? extends IOperationHandlerProvider> bindOperatioHandlerProvider() {
 		return DefaultOperationHandlerProvider.class;
 	}
 
 	@Override
-	protected Class<? extends ServerCommandHandlerProvider> bindServerCommandHandlerProvider() {
+	protected Class<? extends IServerCommandHandlerProvider> bindServerCommandHandlerProvider() {
 		return DefaultServerCommandHandlerProvider.class;
 	}
 
@@ -100,13 +100,13 @@ public abstract class ServerModule extends GLSPModule {
 	}
 
 	@Override
-	protected Class<? extends ModelFactory> bindModelFactory() {
+	protected Class<? extends IModelFactory> bindModelFactory() {
 		return FileBasedModelFactory.class;
 	}
 
 	@Override
-	protected Class<? extends GLSPServer> bindGLSPServer() {
-		return DefaultGLSPServer.class;
+	protected Class<? extends IGLSPServer> bindGLSPServer() {
+		return GLSPServer.class;
 	}
 
 	@Override

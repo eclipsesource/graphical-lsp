@@ -23,10 +23,10 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import com.eclipsesource.glsp.api.handler.ActionHandler;
-import com.eclipsesource.glsp.api.model.ModelState;
-import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
-import com.eclipsesource.glsp.api.provider.ActionProvider;
+import com.eclipsesource.glsp.api.handler.IActionHandler;
+import com.eclipsesource.glsp.api.model.IModelState;
+import com.eclipsesource.glsp.api.provider.IActionHandlerProvider;
+import com.eclipsesource.glsp.api.provider.IActionProvider;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -36,7 +36,7 @@ public class ActionRegistry {
 
 	private Set<Action> registeredActions;
 	private Map<String, Class<? extends Action>> actions;
-	private Map<String, ActionHandler> actionHandlers;
+	private Map<String, IActionHandler> actionHandlers;
 
 	@Inject
 	public ActionRegistry(ActionProvider registeredActionProvider, ActionHandlerProvider registeredHandlerProvider) {
@@ -47,8 +47,8 @@ public class ActionRegistry {
 
 	}
 
-	private void initializeMaps(ActionProvider registeredActionProvider,
-			ActionHandlerProvider registeredHandlerProvider) {
+	private void initializeMaps(IActionProvider registeredActionProvider,
+			IActionHandlerProvider registeredHandlerProvider) {
 		// sort providers by priority
 
 		registeredActionProvider.getActions().forEach(action -> {
@@ -56,7 +56,7 @@ public class ActionRegistry {
 				actions.put(action.getKind(), action.getClass());
 				registeredActions.add(action);
 				if (registeredHandlerProvider.isHandled(action)) {
-					ActionHandler handler = registeredHandlerProvider.getHandler(action).get();
+					IActionHandler handler = registeredHandlerProvider.getHandler(action).get();
 					actionHandlers.put(action.getKind(), handler);
 				}
 			}
@@ -84,8 +84,8 @@ public class ActionRegistry {
 	 * @param action Action which should be processed
 	 * @return true if a registered consumer was found and the action was accepted
 	 */
-	public Optional<Action> delegateToHandler(Action action, ModelState modelState) {
-		ActionHandler handler = actionHandlers.get(action.getKind());
+	public Optional<Action> delegateToHandler(Action action, IModelState modelState) {
+		IActionHandler handler = actionHandlers.get(action.getKind());
 		if (handler != null) {
 			return handler.execute(action, modelState);
 		}

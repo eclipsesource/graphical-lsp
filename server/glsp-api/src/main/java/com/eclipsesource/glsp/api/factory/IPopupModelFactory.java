@@ -13,8 +13,22 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.jsonrpc;
+package com.eclipsesource.glsp.api.factory;
 
-public interface GLSPClientAware {
-	void connect(GLSPClient client);
+import org.eclipse.sprotty.SModelElement;
+import org.eclipse.sprotty.SModelRoot;
+
+import com.eclipsesource.glsp.api.action.kind.RequestPopupModelAction;
+
+public interface IPopupModelFactory {
+	SModelRoot createPopuModel(SModelElement element, RequestPopupModelAction action);
+
+	public static class NullImpl implements IPopupModelFactory {
+
+		@Override
+		public SModelRoot createPopuModel(SModelElement element, RequestPopupModelAction action) {
+			return null;
+		}
+
+	}
 }

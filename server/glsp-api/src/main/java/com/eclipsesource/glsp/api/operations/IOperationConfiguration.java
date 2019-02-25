@@ -13,28 +13,20 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.handler;
+package com.eclipsesource.glsp.api.operations;
 
-import java.util.Optional;
+import com.eclipsesource.glsp.api.action.kind.RequestOperationsAction;
 
-import org.eclipse.sprotty.SModelRoot;
+public interface IOperationConfiguration {
 
-import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
-import com.eclipsesource.glsp.api.model.ModelState;
+	Operation[] getOperations(RequestOperationsAction action);
 
-public interface OperationHandler extends Handler<AbstractOperationAction> {
+	final class NullOperationConfiguration implements IOperationConfiguration {
 
-	Optional<SModelRoot> execute(AbstractOperationAction action, ModelState modelState);
+		@Override
+		public Operation[] getOperations(RequestOperationsAction action) {
+			return new Operation[0];
+		}
 
-	@Override
-	default boolean handles(AbstractOperationAction action) {
-		return Optional.ofNullable(handlesActionType()) //
-				.map(cl -> cl.isInstance(action)) //
-				.orElse(false);
 	}
-
-	default Class<?> handlesActionType() {
-		return null;
-	}
-
 }

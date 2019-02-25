@@ -13,19 +13,20 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.model;
+package com.eclipsesource.glsp.api.handler;
 
-import com.eclipsesource.glsp.api.action.kind.OpenAction;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Optional;
 
-public interface ModelElementOpenListener {
+import com.eclipsesource.glsp.api.action.Action;
+import com.eclipsesource.glsp.api.model.IModelState;
 
-	void elementOpened(OpenAction action);
+public interface IServerCommandHandler extends IHandler<String> {
 
-	public static class NullImpl implements ModelElementOpenListener {
-
-		@Override
-		public void elementOpened(OpenAction action) {
-		}
-
+	default public void execute(String commandId, IModelState modelState) {
+		execute(commandId, Collections.emptyMap(), modelState);
 	}
+
+	public Optional<Action> execute(String commandId, Map<String, String> options, IModelState modelState);
 }

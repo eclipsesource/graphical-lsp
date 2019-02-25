@@ -14,9 +14,9 @@ import org.eclipse.sprotty.SModelElement;
 import org.eclipse.sprotty.SModelRoot;
 
 import com.eclipsesource.glsp.api.action.kind.RequestPopupModelAction;
-import com.eclipsesource.glsp.api.factory.PopupModelFactory;
+import com.eclipsesource.glsp.api.factory.IPopupModelFactory;
 
-public class EcorePopupFactory implements PopupModelFactory {
+public class EcorePopupFactory implements IPopupModelFactory {
 
 //	private String generateTitle(TaskNode task) {
 //		return String.format("Task %s", task.getName());

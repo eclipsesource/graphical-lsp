@@ -13,33 +13,22 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.jsonrpc;
+package com.eclipsesource.glsp.api.provider;
 
-import java.util.concurrent.CompletableFuture;
+import java.util.Collections;
+import java.util.Set;
 
-import org.eclipse.lsp4j.jsonrpc.services.JsonNotification;
-import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
-import org.eclipse.sprotty.ServerStatus;
+import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
+import com.eclipsesource.glsp.api.handler.IOperationHandler;
 
-import com.eclipsesource.glsp.api.action.ActionMessage;
-import com.eclipsesource.glsp.api.model.ModelStateProvider;
+public interface IOperationHandlerProvider extends IHandlerProvider<IOperationHandler, AbstractOperationAction> {
 
-public interface GLSPServer extends GLSPClientAware, ModelStateProvider {
+	final static class NullImpl implements IOperationHandlerProvider {
 
-	public interface Provider {
-		GLSPServer getGraphicalLanguageServer(String clientId);
+		@Override
+		public Set<IOperationHandler> getHandlers() {
+			return Collections.emptySet();
+		}
 	}
 
-	void initialize();
-
-	@JsonNotification("process")
-	void process(ActionMessage message);
-
-	@JsonRequest("shutdown")
-	CompletableFuture<Object> shutdown();
-
-	@JsonNotification("exit")
-	void exit();
-
-	void setStatus(ServerStatus serverStatus);
 }

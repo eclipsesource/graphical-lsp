@@ -13,26 +13,13 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.model;
+package com.eclipsesource.glsp.api.handler;
 
-import com.eclipsesource.glsp.api.action.kind.SelectAction;
-import com.eclipsesource.glsp.api.action.kind.SelectAllAction;
-
-public interface ModelSelectionListener {
-	void selectionChanged(SelectAction acion);
-
-	void selectionChanged(SelectAllAction action);
-
-	public static class NullImpl implements ModelSelectionListener {
-
-		@Override
-		public void selectionChanged(SelectAction action) {
-		}
-
-		@Override
-		public void selectionChanged(SelectAllAction action) {
-		}
-
+public interface IHandler<T> {
+	default int getPriority() {
+		return 0;
 	}
+
+	boolean handles(T object);
 
 }

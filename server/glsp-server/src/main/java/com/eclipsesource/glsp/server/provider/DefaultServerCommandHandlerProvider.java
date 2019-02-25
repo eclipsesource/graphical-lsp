@@ -17,21 +17,21 @@ package com.eclipsesource.glsp.server.provider;
 
 import java.util.Set;
 
-import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
-import com.eclipsesource.glsp.api.provider.ServerCommandHandlerProvider;
+import com.eclipsesource.glsp.api.handler.IServerCommandHandler;
+import com.eclipsesource.glsp.api.provider.IServerCommandHandlerProvider;
 import com.google.inject.Inject;
 
-public class DefaultServerCommandHandlerProvider implements ServerCommandHandlerProvider {
+public class DefaultServerCommandHandlerProvider implements IServerCommandHandlerProvider {
 	@Inject
-	private Set<ServerCommandHandler> handlers;
+	private Set<IServerCommandHandler> handlers;
 
 	@Inject
-	public DefaultServerCommandHandlerProvider(Set<ServerCommandHandler> handlers) {
+	public DefaultServerCommandHandlerProvider(Set<IServerCommandHandler> handlers) {
 		this.handlers = handlers;
 	}
 
 	@Override
-	public Set<ServerCommandHandler> getHandlers() {
+	public Set<IServerCommandHandler> getHandlers() {
 		return handlers;
 	}
 

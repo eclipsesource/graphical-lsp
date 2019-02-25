@@ -26,7 +26,7 @@ import com.eclipsesource.glsp.api.types.EdgeTypeHint;
 import com.eclipsesource.glsp.api.types.NodeTypeHint;
 import com.google.gson.GsonBuilder;
 
-public interface ModelTypeConfigurationProvider {
+public interface IModelTypeConfigurationProvider {
 
 	Map<String, Class<? extends SModelElement>> getTypeToClassMappings();
 
