@@ -18,61 +18,52 @@ package com.eclipsesource.glsp.server.model;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
-import org.eclipse.sprotty.SGraph;
-import org.eclipse.sprotty.SModelRoot;
 
 import com.eclipsesource.glsp.api.language.IGraphicaLanguage;
+import com.eclipsesource.glsp.api.model.IModelState;
+import com.eclipsesource.glsp.api.model.IModelStateProvider;
+import com.eclipsesource.glsp.api.model.ISaveModelDelegator;
 import com.eclipsesource.glsp.api.provider.IModelTypeConfigurationProvider;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 
-/**
- * A abstract extension handler for SModels that are persisted in JSON format.
- * 
- * @author Tobias Ortmayr<tortmayr@eclipsesource.com>
- *
- */
-public class JSONSModelLoader implements IFileExtensionLoader<SModelRoot> {
+public class JSONSavemodelDelegator implements ISaveModelDelegator {
 	private static final String SCHEME_FILE = "file";
-	private static Logger LOGGER = Logger.getLogger(FileBasedModelFactory.class);
-
+	private static Logger LOGGER = Logger.getLogger(JSONSavemodelDelegator.class);
+	@Inject
+	protected IModelStateProvider modelStateProvider;
 	@Inject
 	protected IModelTypeConfigurationProvider modelTypeConfigurationProvider;
 	@Inject
 	protected IGraphicaLanguage graphicalLanguage;
 
 	@Override
-	public List<String> getExtensions() {
-		return graphicalLanguage.getFileExtensions();
-	}
-
-	@Override
-	public Optional<SModelRoot> loadFromFile(String fileURI) {
-		URI uri = URI.create(fileURI);
+	public void save(String clientId) {
+		IModelState modelState = modelStateProvider.getModelState(clientId);
+		URI uri = URI.create(modelState.getOptions().getSourceUri().get());
 		if (uri.getScheme().equalsIgnoreCase(SCHEME_FILE)) {
 			try {
-				File modelFile = new File(uri.getSchemeSpecificPart());
-				if (modelFile != null && modelFile.exists()) {
-					String json = FileUtils.readFileToString(modelFile, "UTF8");
-					Gson gson = modelTypeConfigurationProvider.configureGSON().create();
-					return Optional.of(gson.fromJson(json, SGraph.class));
+
+				File file = new File(uri.getSchemeSpecificPart());
+				String extension = FilenameUtils.getExtension(file.getName());
+				if (!graphicalLanguage.getFileExtensions().contains(extension)) {
+					file = new File(replaceExtension(file.getPath(), graphicalLanguage.getFileExtensions().get(0)));
 				}
+				Gson gson = modelTypeConfigurationProvider.configureGSON().create();
+				FileUtils.writeStringToFile(file, gson.toJson(modelState.getCurrentModel(), GLSPGraph.class), "UTF8");
 			} catch (IOException e) {
 				LOGGER.error(e);
 			}
 		}
-		return Optional.empty();
 	}
 
-	@Override
-	public SModelRoot generate(SModelRoot sourceModel) {
-		return sourceModel;
+	public static String replaceExtension(String filePath, String extension) {
+		String baseFilePath = filePath.substring(0, filePath.lastIndexOf("."));
+		return baseFilePath + "." + extension;
 	}
 
 }

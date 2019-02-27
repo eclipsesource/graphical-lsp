@@ -17,10 +17,8 @@ package com.eclipsesource.glsp.server;
 
 import com.eclipsesource.glsp.api.di.GLSPModule;
 import com.eclipsesource.glsp.api.factory.IModelFactory;
-import com.eclipsesource.glsp.api.handler.IActionHandler;
-import com.eclipsesource.glsp.api.handler.IOperationHandler;
-import com.eclipsesource.glsp.api.handler.IServerCommandHandler;
 import com.eclipsesource.glsp.api.jsonrpc.IGLSPServer;
+import com.eclipsesource.glsp.api.model.IModelStateProvider;
 import com.eclipsesource.glsp.api.provider.IActionHandlerProvider;
 import com.eclipsesource.glsp.api.provider.IActionProvider;
 import com.eclipsesource.glsp.api.provider.IModelTypeConfigurationProvider;
@@ -40,29 +38,40 @@ import com.eclipsesource.glsp.server.actionhandler.RequestPopupModelActionHandle
 import com.eclipsesource.glsp.server.actionhandler.SaveModelActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.SelectActionHandler;
 import com.eclipsesource.glsp.server.model.FileBasedModelFactory;
-import com.eclipsesource.glsp.server.model.IModelLoader;
+import com.eclipsesource.glsp.server.model.IFileExtensionLoader;
 import com.eclipsesource.glsp.server.provider.DefaultActionHandlerProvider;
 import com.eclipsesource.glsp.server.provider.DefaultActionProvider;
 import com.eclipsesource.glsp.server.provider.DefaultOperationHandlerProvider;
 import com.eclipsesource.glsp.server.provider.DefaultServerCommandHandlerProvider;
+import com.google.inject.TypeLiteral;
 import com.google.inject.binder.LinkedBindingBuilder;
 import com.google.inject.multibindings.Multibinder;
 
 public abstract class ServerModule extends GLSPModule {
-	private Multibinder<IModelLoader> modelLoader;
+	private Multibinder<IFileExtensionLoader<?>> modelExtensionHandler;
+	private Multibinder<String> fileExtension;
 
-	protected final LinkedBindingBuilder<IModelLoader> bindModelLoader() {
-		return modelLoader.addBinding();
+	protected final LinkedBindingBuilder<IFileExtensionLoader<?>> bindFileExtensionLoader() {
+		return modelExtensionHandler.addBinding();
 	}
 
-	protected void multiBindModelLoaders() {
+	protected final LinkedBindingBuilder<String> bindFileExtension() {
+		return fileExtension.addBinding();
+	}
+
+	protected void multiBindFileExtensionLoader() {
+	}
+
+	protected void multiBindFileExtensions() {
 	}
 
 	@Override
 	protected void configureMultibindings() {
 		super.configureMultibindings();
-		modelLoader = Multibinder.newSetBinder(binder(), IModelLoader.class);
-		multiBindModelLoaders();
+		modelExtensionHandler = Multibinder.newSetBinder(binder(), new TypeLiteral<IFileExtensionLoader<?>>() {
+		});
+		multiBindFileExtensionLoader();
+		multiBindFileExtensions();
 	}
 
 	@Override
@@ -106,6 +115,11 @@ public abstract class ServerModule extends GLSPModule {
 
 	@Override
 	protected Class<? extends IGLSPServer> bindGLSPServer() {
+		return GLSPServer.class;
+	}
+
+	@Override
+	protected Class<? extends IModelStateProvider> bindModelStateProvider() {
 		return GLSPServer.class;
 	}
 

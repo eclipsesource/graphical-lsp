@@ -38,11 +38,12 @@ public class ComputedBoundsActionHandler extends AbstractActionHandler {
 	}
 
 	@Override
-	public Optional<Action> execute(Action action, IModelState modelState) {
+	public Optional<Action> execute(Action action, String clientId) {
 		if (action instanceof ComputedBoundsAction) {
 			ComputedBoundsAction computedBoundsAction = (ComputedBoundsAction) action;
 
 			synchronized (submissionHandler.getModelLock()) {
+				IModelState modelState=getModelState(clientId);
 				SModelRoot model = modelState.getCurrentModel();
 				if (model != null && model.getRevision() == computedBoundsAction.getRevision()) {
 					LayoutUtil.applyBounds(model, computedBoundsAction);

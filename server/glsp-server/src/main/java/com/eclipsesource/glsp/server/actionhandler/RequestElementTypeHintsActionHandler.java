@@ -23,7 +23,6 @@ import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestTypeHints;
 import com.eclipsesource.glsp.api.action.kind.SetTypeHintsAction;
-import com.eclipsesource.glsp.api.model.IModelState;
 import com.eclipsesource.glsp.api.provider.IModelTypeConfigurationProvider;
 import com.google.inject.Inject;
 
@@ -37,7 +36,7 @@ public class RequestElementTypeHintsActionHandler extends AbstractActionHandler 
 	}
 
 	@Override
-	public Optional<Action> execute(Action action, IModelState modelState) {
+	public Optional<Action> execute(Action action, String clientId) {
 		if (action instanceof RequestTypeHints) {
 			return Optional.of(new SetTypeHintsAction(typeConfigurationProvider.getNodeTypeHints(),
 					typeConfigurationProvider.getEdgeTypeHints()));

@@ -20,8 +20,17 @@ import java.util.Optional;
 
 import com.eclipsesource.glsp.api.handler.IActionHandler;
 import com.eclipsesource.glsp.api.model.IModelState;
+import com.eclipsesource.glsp.api.model.IModelStateProvider;
+import com.google.inject.Inject;
 
 public abstract class AbstractActionHandler implements IActionHandler {
+
+	@Inject
+	private IModelStateProvider modelStateProvider;
+
+	protected IModelState getModelState(String clientId) {
+		return modelStateProvider.getModelState(clientId);
+	}
 
 	protected abstract Collection<Action> handleableActionsKinds();
 
@@ -35,6 +44,6 @@ public abstract class AbstractActionHandler implements IActionHandler {
 	 * Processes and action and returns the response action which should be send to
 	 * the client. If no response to the client is need a NoOpAction is returned
 	 */
-	public abstract Optional<Action> execute(Action action, ModelState modelState);
+	public abstract Optional<Action> execute(Action action, String clientIdc);
 
 }

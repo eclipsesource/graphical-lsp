@@ -39,12 +39,12 @@ public class CollapseExpandActionHandler extends AbstractActionHandler {
 	}
 
 	@Override
-	public Optional<Action> execute(Action action, IModelState modelState) {
+	public Optional<Action> execute(Action action, String clientId) {
 		switch (action.getKind()) {
 		case Action.Kind.COLLAPSE_EXPAND:
-			return handleCollapseExpandAction((CollapseExpandAction) action, modelState);
+			return handleCollapseExpandAction((CollapseExpandAction) action, getModelState(clientId));
 		case Action.Kind.COLLAPSE_EXPAND_ALL:
-			return handleCollapseExpandAllAction((CollapseExpandAllAction) action, modelState);
+			return handleCollapseExpandAllAction((CollapseExpandAllAction) action, getModelState(clientId));
 		default:
 			return Optional.empty();
 		}
@@ -78,5 +78,6 @@ public class CollapseExpandActionHandler extends AbstractActionHandler {
 		return Optional.empty();
 
 	}
+
 
 }

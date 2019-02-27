@@ -22,6 +22,6 @@ import com.eclipsesource.glsp.api.model.IModelState;
 
 public interface IActionHandler extends IHandler<Action> {
 
-	public Optional<Action> execute(Action action, IModelState modelState);
+	public Optional<Action> execute(Action action, String clientId);
 
 }

@@ -39,7 +39,8 @@ public class SelectActionHandler extends AbstractActionHandler {
 	}
 
 	@Override
-	public Optional<Action> execute(Action action, ModelState modelState) {
+	public Optional<Action> execute(Action action, String clientId) {
+		IModelState modelState = getModelState(clientId);
 		switch (action.getKind()) {
 		case Action.Kind.SELECT:
 			return handleSelectAction((SelectAction) action, modelState);
@@ -51,7 +52,7 @@ public class SelectActionHandler extends AbstractActionHandler {
 
 	}
 
-	private Optional<Action> handleSelectAllAction(SelectAllAction action, ModelState modelState) {
+	private Optional<Action> handleSelectAllAction(SelectAllAction action, IModelState modelState) {
 		Set<String> selectedElements = modelState.getSelectedElements();
 		if (action.isSelect()) {
 			new SModelIndex(modelState.getCurrentModel()).allIds().forEach(id -> selectedElements.add(id));
@@ -63,7 +64,7 @@ public class SelectActionHandler extends AbstractActionHandler {
 		return Optional.empty();
 	}
 
-	private Optional<Action> handleSelectAction(SelectAction action, ModelState modelState) {
+	private Optional<Action> handleSelectAction(SelectAction action, IModelState modelState) {
 		Set<String> selectedElements = modelState.getSelectedElements();
 		if (action.getDeselectedElementsIDs() != null) {
 			selectedElements.removeAll(Arrays.asList(action.getDeselectedElementsIDs()));

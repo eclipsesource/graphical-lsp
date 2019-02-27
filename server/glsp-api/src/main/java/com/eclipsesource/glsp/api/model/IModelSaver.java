@@ -13,32 +13,13 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.server.actionhandler;
+package com.eclipsesource.glsp.api.model;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Optional;
+/**
+ * A saving service to persist the given model T in a file with the given URI
+ * 
+ */
+public interface IModelSaver<T> {
 
-import com.eclipsesource.glsp.api.action.AbstractActionHandler;
-import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.action.kind.SaveModelAction;
-import com.eclipsesource.glsp.api.model.ISaveModelDelegator;
-import com.google.inject.Inject;
-
-public class SaveModelActionHandler extends AbstractActionHandler {
-	@Inject
-	protected ISaveModelDelegator modelStateSaver;
-
-	@Override
-	protected Collection<Action> handleableActionsKinds() {
-		return Arrays.asList(new SaveModelAction());
-	}
-
-	@Override
-	public Optional<Action> execute(Action action, String clientId) {
-		if (action instanceof SaveModelAction) {
-			this.modelStateSaver.save(clientId);
-		}
-		return Optional.empty();
-	}
+	boolean saveModel(String fileURI, T model);
 }

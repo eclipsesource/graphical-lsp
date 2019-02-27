@@ -15,14 +15,15 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow;
 
-import com.eclipsesource.glsp.api.factory.PopupModelFactory;
-import com.eclipsesource.glsp.api.markers.ModelValidator;
-import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
-import com.eclipsesource.glsp.api.model.ModelExpansionListener;
-import com.eclipsesource.glsp.api.model.ModelSelectionListener;
-import com.eclipsesource.glsp.api.operations.OperationConfiguration;
-import com.eclipsesource.glsp.api.provider.CommandPaletteActionProvider;
-import com.eclipsesource.glsp.api.provider.ModelTypeConfigurationProvider;
+import com.eclipsesource.glsp.api.factory.IPopupModelFactory;
+import com.eclipsesource.glsp.api.language.IGraphicaLanguage;
+import com.eclipsesource.glsp.api.model.IModelElementOpenListener;
+import com.eclipsesource.glsp.api.model.IModelExpansionListener;
+import com.eclipsesource.glsp.api.model.IModelSelectionListener;
+import com.eclipsesource.glsp.api.model.ISaveModelDelegator;
+import com.eclipsesource.glsp.api.operations.IOperationConfiguration;
+import com.eclipsesource.glsp.api.provider.ICommandPaletteActionProvider;
+import com.eclipsesource.glsp.api.provider.IModelTypeConfigurationProvider;
 import com.eclipsesource.glsp.example.workflow.handler.CreateAutomatedTaskHandler;
 import com.eclipsesource.glsp.example.workflow.handler.CreateDecisionNodeHandler;
 import com.eclipsesource.glsp.example.workflow.handler.CreateEdgeHandler;
@@ -35,6 +36,8 @@ import com.eclipsesource.glsp.example.workflow.handler.RerouteEdgeHandler;
 import com.eclipsesource.glsp.example.workflow.handler.SimulateCommandHandler;
 import com.eclipsesource.glsp.example.workflow.marker.WorkflowModelValidator;
 import com.eclipsesource.glsp.server.ServerModule;
+import com.eclipsesource.glsp.server.model.JSONSModelLoader;
+import com.eclipsesource.glsp.server.model.JSONSavemodelDelegator;
 import com.eclipsesource.glsp.server.operationhandler.ChangeBoundsOperationHandler;
 import com.eclipsesource.glsp.server.operationhandler.DeleteHandler;
 
@@ -96,13 +99,18 @@ public class WorkflowServerRuntimeModule extends ServerModule {
 	}
 
 	@Override
-	protected void multiBindModelLoaders() {
-		bindModelLoader().to(WorkflowModelLoader.class);
+	protected void multiBindFileExtensionLoader() {
+		bindFileExtensionLoader().to(JSONSModelLoader.class);
 	}
 
 	@Override
-	protected Class<? extends ModelValidator> bindModelValidator() {
-		return WorkflowModelValidator.class;
+	protected Class<? extends ISaveModelDelegator> bindSaveModelDelegator() {
+		return JSONSavemodelDelegator.class;
+	}
+
+	@Override
+	protected Class<? extends IGraphicaLanguage> bindGraphicalLanguage() {
+		return WorkflowLanguage.class;
 	}
 
 }

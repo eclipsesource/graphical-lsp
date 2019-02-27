@@ -18,61 +18,34 @@ package com.eclipsesource.glsp.server.model;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-import org.eclipse.sprotty.SGraph;
 import org.eclipse.sprotty.SModelRoot;
 
-import com.eclipsesource.glsp.api.language.IGraphicaLanguage;
+import com.eclipsesource.glsp.api.model.IModelSaver;
 import com.eclipsesource.glsp.api.provider.IModelTypeConfigurationProvider;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 
-/**
- * A abstract extension handler for SModels that are persisted in JSON format.
- * 
- * @author Tobias Ortmayr<tortmayr@eclipsesource.com>
- *
- */
-public class JSONSModelLoader implements IFileExtensionLoader<SModelRoot> {
+public class SModelSaver implements IModelSaver<SModelRoot> {
 	private static final String SCHEME_FILE = "file";
-	private static Logger LOGGER = Logger.getLogger(FileBasedModelFactory.class);
-
+	private static Logger LOGGER = Logger.getLogger(SModelSaver.class);
 	@Inject
-	protected IModelTypeConfigurationProvider modelTypeConfigurationProvider;
-	@Inject
-	protected IGraphicaLanguage graphicalLanguage;
+	private IModelTypeConfigurationProvider modelTypeConfigurationProvider;
 
 	@Override
-	public List<String> getExtensions() {
-		return graphicalLanguage.getFileExtensions();
-	}
-
-	@Override
-	public Optional<SModelRoot> loadFromFile(String fileURI) {
+	public boolean saveModel(String fileURI, SModelRoot model) {
 		URI uri = URI.create(fileURI);
 		if (uri.getScheme().equalsIgnoreCase(SCHEME_FILE)) {
 			try {
-				File modelFile = new File(uri.getSchemeSpecificPart());
-				if (modelFile != null && modelFile.exists()) {
-					String json = FileUtils.readFileToString(modelFile, "UTF8");
-					Gson gson = modelTypeConfigurationProvider.configureGSON().create();
-					return Optional.of(gson.fromJson(json, SGraph.class));
-				}
+				File file = new File(uri.getSchemeSpecificPart());
+				Gson gson = modelTypeConfigurationProvider.configureGSON().create();
+				FileUtils.writeStringToFile(file, gson.toJson(model, GLSPGraph.class), "UTF8");
 			} catch (IOException e) {
 				LOGGER.error(e);
 			}
 		}
-		return Optional.empty();
+		return false;
 	}
-
-	@Override
-	public SModelRoot generate(SModelRoot sourceModel) {
-		return sourceModel;
-	}
-
 }

@@ -63,7 +63,6 @@ public class GLSPServer implements IGLSPServer {
 	public void process(ActionMessage message) {
 		log.debug("process " + message);
 		String clientId = message.getClientId();
-		IModelState modelState = getModelState(clientId);
 
 		Action requestAction = message.getAction();
 		Optional<String> requestId = Optional.empty();
@@ -73,7 +72,7 @@ public class GLSPServer implements IGLSPServer {
 			requestAction = ((IdentifiableRequestAction) requestAction).getAction();
 		}
 		if (actionRegistry.hasHandler(requestAction)) {
-			Optional<Action> responseOpt = actionRegistry.delegateToHandler(requestAction, modelState);
+			Optional<Action> responseOpt = actionRegistry.delegateToHandler(requestAction, clientId);
 			if (responseOpt.isPresent()) {
 				// wrap identifiable response if necessary
 				Action response = requestId.<Action>map(id -> new IdentifiableResponseAction(id, responseOpt.get()))

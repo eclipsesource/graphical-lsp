@@ -25,6 +25,7 @@ import com.eclipsesource.glsp.api.action.kind.RequestBoundsAction;
 import com.eclipsesource.glsp.api.action.kind.SetModelAction;
 import com.eclipsesource.glsp.api.action.kind.UpdateModelAction;
 import com.eclipsesource.glsp.api.model.IModelState;
+import com.eclipsesource.glsp.server.model.GLSPGraph;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -45,9 +46,10 @@ public class ModelSubmissionHandler {
 	}
 
 	public Optional<Action> doSubmitModel(SModelRoot newRoot, boolean update, IModelState modelState) {
-		if (modelState.getOptions().needsServerLayout()) {
-			if (layoutEngine != null) {
-				layoutEngine.layout(newRoot);
+		if (modelState.getOptions().needsServerLayout() || needsInitialLayout(newRoot)) {
+			layoutEngine.layout(newRoot);
+			if (newRoot instanceof GLSPGraph) {
+				((GLSPGraph) newRoot).setNeedsInitialLayout(false);
 			}
 		}
 		synchronized (modelLock) {
@@ -66,5 +68,12 @@ public class ModelSubmissionHandler {
 
 	public synchronized Object getModelLock() {
 		return modelLock;
+	}
+
+	public static boolean needsInitialLayout(SModelRoot modelRoot) {
+		if (modelRoot instanceof GLSPGraph) {
+			return ((GLSPGraph) modelRoot).isNeedsInitialLayout();
+		}
+		return false;
 	}
 }

@@ -23,7 +23,6 @@ import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.ExecuteServerCommandAction;
 import com.eclipsesource.glsp.api.handler.IServerCommandHandler;
-import com.eclipsesource.glsp.api.model.IModelState;
 import com.eclipsesource.glsp.api.provider.IServerCommandHandlerProvider;
 import com.google.inject.Inject;
 
@@ -37,12 +36,12 @@ public class ExecuteServerCommandActionHandler extends AbstractActionHandler {
 	}
 
 	@Override
-	public Optional<Action> execute(Action action, IModelState modelState) {
+	public Optional<Action> execute(Action action, String clientId) {
 		if (action instanceof ExecuteServerCommandAction) {
 			ExecuteServerCommandAction commandAction = (ExecuteServerCommandAction) action;
 			Optional<IServerCommandHandler> handler = commandHandlerProvider.getHandler(commandAction.getCommandId());
 			if (handler.isPresent()) {
-				return handler.get().execute(commandAction.getCommandId(), commandAction.getOptions(), modelState);
+				return handler.get().execute(commandAction.getCommandId(), commandAction.getOptions(), getModelState(clientId));
 			}
 		}
 		return Optional.empty();

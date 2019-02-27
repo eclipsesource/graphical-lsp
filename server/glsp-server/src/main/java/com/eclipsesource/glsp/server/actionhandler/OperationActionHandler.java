@@ -50,7 +50,7 @@ public class OperationActionHandler extends AbstractActionHandler {
 	}
 
 	@Override
-	public Optional<Action> execute(Action action, IModelState modelState) {
+	public Optional<Action> execute(Action action, String clientId) {
 		switch (action.getKind()) {
 		case Action.Kind.CREATE_NODE_OPERATION:
 		case Action.Kind.CREATE_CONNECTION_OPERATION:
@@ -58,7 +58,7 @@ public class OperationActionHandler extends AbstractActionHandler {
 		case Action.Kind.REROUTE_CONNECTION_OPERATION:
 		case Action.Kind.DELETE_ELEMENT_OPERATION:
 		case Action.Kind.CHANGE_BOUNDS_OPERATION:
-			return doHandle((AbstractOperationAction) action, modelState);
+			return doHandle((AbstractOperationAction) action, getModelState(clientId));
 		default:
 			return Optional.empty();
 		}

@@ -13,32 +13,18 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.server.actionhandler;
+package com.eclipsesource.glsp.server.model;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Optional;
+import org.eclipse.sprotty.SGraph;
 
-import com.eclipsesource.glsp.api.action.AbstractActionHandler;
-import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.action.kind.SaveModelAction;
-import com.eclipsesource.glsp.api.model.ISaveModelDelegator;
-import com.google.inject.Inject;
+public class GLSPGraph extends SGraph {
+	private boolean needsInitialLayout;
 
-public class SaveModelActionHandler extends AbstractActionHandler {
-	@Inject
-	protected ISaveModelDelegator modelStateSaver;
-
-	@Override
-	protected Collection<Action> handleableActionsKinds() {
-		return Arrays.asList(new SaveModelAction());
+	public boolean isNeedsInitialLayout() {
+		return needsInitialLayout;
 	}
 
-	@Override
-	public Optional<Action> execute(Action action, String clientId) {
-		if (action instanceof SaveModelAction) {
-			this.modelStateSaver.save(clientId);
-		}
-		return Optional.empty();
+	public void setNeedsInitialLayout(boolean needsInitialLayout) {
+		this.needsInitialLayout = needsInitialLayout;
 	}
 }

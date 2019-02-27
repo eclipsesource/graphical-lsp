@@ -15,29 +15,38 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.model;
 
-
-import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import org.eclipse.sprotty.SModelRoot;
 
+import com.eclipsesource.glsp.api.handler.IHandler;
+
 /**
- * A generator that can handle files with specific extensions and generate the
- * corresponding SModel from an URI
- * 
+ * A model loader class for files with matching extensions. The file can either
+ * represent an SModel directly or any other related model (semantic, different
+ * notation etc.) from which the SModel can be generated.
+ *
  * @author Tobias Ortmayr<tortmayr@eclipsesource.com>
  *
  */
-public interface IModelLoader {
-	default int getPriority() {
-		return 0;
-	}
+public interface IFileExtensionLoader<T> extends IHandler<String> {
 
-	default boolean handles(URI uri) {
-		return getExtensions().stream().anyMatch(ext -> uri.toString().endsWith(ext));
+	default boolean handles(String sourceURI) {
+		return getExtensions().stream().anyMatch(ext -> sourceURI.endsWith(ext));
 	}
 
 	List<String> getExtensions();
 
-	SModelRoot generate(URI uri);
+	Optional<T> loadFromFile(String fileURI);
+
+	SModelRoot generate(T sourceModel);
+
+	default SModelRoot loadAndGenerate(String fileURI) {
+		Optional<T> model = loadFromFile(fileURI);
+		if (model.isPresent()) {
+			return generate(model.get());
+		}
+		return FileBasedModelFactory.emptyRoot();
+	}
 }

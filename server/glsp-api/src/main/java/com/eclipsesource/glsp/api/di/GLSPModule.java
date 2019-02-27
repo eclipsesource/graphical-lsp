@@ -17,23 +17,25 @@ package com.eclipsesource.glsp.api.di;
 
 import org.eclipse.sprotty.ILayoutEngine;
 
-import com.eclipsesource.glsp.api.factory.ModelFactory;
-import com.eclipsesource.glsp.api.factory.PopupModelFactory;
-import com.eclipsesource.glsp.api.handler.ActionHandler;
-import com.eclipsesource.glsp.api.handler.OperationHandler;
-import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
-import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
-import com.eclipsesource.glsp.api.markers.ModelValidator;
-import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
-import com.eclipsesource.glsp.api.model.ModelExpansionListener;
-import com.eclipsesource.glsp.api.model.ModelSelectionListener;
-import com.eclipsesource.glsp.api.operations.OperationConfiguration;
-import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
-import com.eclipsesource.glsp.api.provider.ActionProvider;
-import com.eclipsesource.glsp.api.provider.CommandPaletteActionProvider;
-import com.eclipsesource.glsp.api.provider.ModelTypeConfigurationProvider;
-import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
-import com.eclipsesource.glsp.api.provider.ServerCommandHandlerProvider;
+import com.eclipsesource.glsp.api.factory.IModelFactory;
+import com.eclipsesource.glsp.api.factory.IPopupModelFactory;
+import com.eclipsesource.glsp.api.handler.IActionHandler;
+import com.eclipsesource.glsp.api.handler.IOperationHandler;
+import com.eclipsesource.glsp.api.handler.IServerCommandHandler;
+import com.eclipsesource.glsp.api.jsonrpc.IGLSPServer;
+import com.eclipsesource.glsp.api.language.IGraphicaLanguage;
+import com.eclipsesource.glsp.api.model.IModelElementOpenListener;
+import com.eclipsesource.glsp.api.model.IModelExpansionListener;
+import com.eclipsesource.glsp.api.model.IModelSelectionListener;
+import com.eclipsesource.glsp.api.model.IModelStateProvider;
+import com.eclipsesource.glsp.api.model.ISaveModelDelegator;
+import com.eclipsesource.glsp.api.operations.IOperationConfiguration;
+import com.eclipsesource.glsp.api.provider.IActionHandlerProvider;
+import com.eclipsesource.glsp.api.provider.IActionProvider;
+import com.eclipsesource.glsp.api.provider.ICommandPaletteActionProvider;
+import com.eclipsesource.glsp.api.provider.IModelTypeConfigurationProvider;
+import com.eclipsesource.glsp.api.provider.IOperationHandlerProvider;
+import com.eclipsesource.glsp.api.provider.IServerCommandHandlerProvider;
 import com.google.inject.AbstractModule;
 import com.google.inject.binder.LinkedBindingBuilder;
 import com.google.inject.multibindings.Multibinder;
@@ -44,7 +46,7 @@ public abstract class GLSPModule extends AbstractModule {
 	private Multibinder<IOperationHandler> operationHandler;
 
 	@Override
-	protected final void configure() {
+	protected void configure() {
 		bind(IGLSPServer.class).to(bindGLSPServer());
 		bind(IPopupModelFactory.class).to(bindPopupModelFactory());
 		bind(IModelFactory.class).to(bindModelFactory());
@@ -52,14 +54,16 @@ public abstract class GLSPModule extends AbstractModule {
 		bind(IModelExpansionListener.class).to(bindModelExpansionListener());
 		bind(IModelElementOpenListener.class).to(bindModelElementOpenListener());
 		bind(ILayoutEngine.class).to(bindLayoutEngine());
-		bind(OperationConfiguration.class).to(bindOperationConfiguration());
-		bind(ActionProvider.class).to(bindActionProvider());
-		bind(ActionHandlerProvider.class).to(bindActionHandlerProvider());
-		bind(OperationHandlerProvider.class).to(bindOperatioHandlerProvider());
-		bind(ServerCommandHandlerProvider.class).to(bindServerCommandHandlerProvider());
-		bind(ModelTypeConfigurationProvider.class).to(bindModelTypesConfigurationProvider());
-		bind(CommandPaletteActionProvider.class).to(bindCommandPaletteActionProvider());
-		bind(ModelValidator.class).to(bindModelValidator());
+		bind(IOperationConfiguration.class).to(bindOperationConfiguration());
+		bind(IActionProvider.class).to(bindActionProvider());
+		bind(IActionHandlerProvider.class).to(bindActionHandlerProvider());
+		bind(IOperationHandlerProvider.class).to(bindOperatioHandlerProvider());
+		bind(IServerCommandHandlerProvider.class).to(bindServerCommandHandlerProvider());
+		bind(IModelTypeConfigurationProvider.class).to(bindModelTypesConfigurationProvider());
+		bind(ICommandPaletteActionProvider.class).to(bindCommandPaletteActionProvider());
+		bind(ISaveModelDelegator.class).to(bindSaveModelDelegator());
+		bind(IModelStateProvider.class).to(bindModelStateProvider()).asEagerSingleton();
+		bind(IGraphicaLanguage.class).to(bindGraphicalLanguage());
 		configureMultibindings();
 	}
 
@@ -77,7 +81,7 @@ public abstract class GLSPModule extends AbstractModule {
 	protected abstract void multiBindServerCommandHandlers();
 
 	protected abstract void multiBindActionHandlers();
-	
+
 	protected final LinkedBindingBuilder<IActionHandler> bindActionHandler() {
 		return actionHandlerBinder.addBinding();
 	}
@@ -90,12 +94,12 @@ public abstract class GLSPModule extends AbstractModule {
 		return operationHandler.addBinding();
 	}
 
-	protected abstract Class<? extends GLSPServer> bindGLSPServer();
+	protected abstract Class<? extends IGLSPServer> bindGLSPServer();
 
-	protected abstract Class<? extends ModelTypeConfigurationProvider> bindModelTypesConfigurationProvider();
+	protected abstract Class<? extends IModelTypeConfigurationProvider> bindModelTypesConfigurationProvider();
 
-	protected Class<? extends CommandPaletteActionProvider> bindCommandPaletteActionProvider() {
-		return CommandPaletteActionProvider.NullImpl.class;
+	protected Class<? extends ICommandPaletteActionProvider> bindCommandPaletteActionProvider() {
+		return ICommandPaletteActionProvider.NullImpl.class;
 	}
 
 	protected Class<? extends IActionProvider> bindActionProvider() {
@@ -141,8 +145,13 @@ public abstract class GLSPModule extends AbstractModule {
 	protected Class<? extends IServerCommandHandlerProvider> bindServerCommandHandlerProvider() {
 		return IServerCommandHandlerProvider.NullImpl.class;
 	}
-	
-	protected Class<? extends ModelValidator> bindModelValidator() {
-		return ModelValidator.NullImpl.class;
+
+	protected Class<? extends ISaveModelDelegator> bindSaveModelDelegator() {
+		return ISaveModelDelegator.NullImpl.class;
 	}
+
+	protected abstract Class<? extends IModelStateProvider> bindModelStateProvider();
+
+	protected abstract Class<? extends IGraphicaLanguage> bindGraphicalLanguage();
+
 }

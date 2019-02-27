@@ -15,7 +15,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.model;
 
-import java.net.URI;
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.Set;
@@ -30,7 +29,8 @@ import com.google.inject.Inject;
 
 /**
  * A model factory for models that are persisted as files. Delegates the the
- * corresponding registered IModelLoader for the fileExtension (if present)
+ * corresponding registered IFileExtensionLoader for the fileExtension (if
+ * present)
  * 
  * @author Tobias Ortmayr<tortmayr@eclipsesource.com>
  *
@@ -43,23 +43,23 @@ public class FileBasedModelFactory implements IModelFactory {
 		return root;
 	}
 
-	private Set<IModelLoader> modelLoaders;
+	private Set<IFileExtensionLoader<?>> fileExtensionLoaders;
 
 	@Inject
-	public FileBasedModelFactory(Set<IModelLoader> modelLoaders) {
-		this.modelLoaders = modelLoaders;
+	public FileBasedModelFactory(Set<IFileExtensionLoader<?>> fileExtensionLoaders) {
+		this.fileExtensionLoaders = fileExtensionLoaders;
 	}
 
 	@Override
 	public SModelRoot loadModel(RequestModelAction action) {
-		String uri = action.getOptions().get(ModelOptions.SOURCE_URI);
-		if (uri != null) {
-			URI sourceURI = URI.create(uri);
-			Optional<IModelLoader> loader = modelLoaders.stream()
-					.sorted(Comparator.comparing(IModelLoader::getPriority)).filter(ml -> ml.handles(sourceURI))
+		String sourceURI = action.getOptions().get(ModelOptions.SOURCE_URI);
+		if (sourceURI != null) {
+
+			Optional<IFileExtensionLoader<?>> extensionHandler = fileExtensionLoaders.stream()
+					.sorted(Comparator.comparing(IFileExtensionLoader::getPriority)).filter(ml -> ml.handles(sourceURI))
 					.findFirst();
-			if (loader.isPresent()) {
-				return loader.get().generate(sourceURI);
+			if (extensionHandler.isPresent()) {
+				return extensionHandler.get().loadAndGenerate(sourceURI);
 			}
 		}
 		return emptyRoot();

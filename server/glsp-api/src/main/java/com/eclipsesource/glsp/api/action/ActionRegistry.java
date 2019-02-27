@@ -84,10 +84,10 @@ public class ActionRegistry {
 	 * @param action Action which should be processed
 	 * @return true if a registered consumer was found and the action was accepted
 	 */
-	public Optional<Action> delegateToHandler(Action action, IModelState modelState) {
+	public Optional<Action> delegateToHandler(Action action, String clientId) {
 		IActionHandler handler = actionHandlers.get(action.getKind());
 		if (handler != null) {
-			return handler.execute(action, modelState);
+			return handler.execute(action, clientId);
 		}
 		return Optional.empty();
 	}
