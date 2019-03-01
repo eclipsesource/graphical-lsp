@@ -18,6 +18,7 @@ import { Action } from "sprotty/lib";
 export namespace OperationKind {
     export const CREATE_NODE = "createNode";
     export const CREATE_CONNECTION = "createConnection";
+    export const RECONNECT_CONNECTION = "reconnectConnection";
     export const DELETE_ELEMENT = "delete";
     export const CHANGE_BOUNDS = "changeBoundsOperation";
     export const CHANGE_CONTAINER = "changeContainer"

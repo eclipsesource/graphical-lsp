@@ -30,6 +30,7 @@ import com.eclipsesource.glsp.api.action.kind.ChangeBoundsOperationAction;
 import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
 import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
 import com.eclipsesource.glsp.api.action.kind.DeleteElementOperationAction;
+import com.eclipsesource.glsp.api.action.kind.ReconnectConnectionOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
@@ -43,7 +44,8 @@ public class OperationActionHandler extends AbstractActionHandler {
 	@Override
 	protected Collection<Action> handleableActionsKinds() {
 		return Arrays.asList(new CreateNodeOperationAction(), new CreateConnectionOperationAction(),
-				new DeleteElementOperationAction(), new ChangeBoundsOperationAction());
+				new DeleteElementOperationAction(), new ChangeBoundsOperationAction(),
+				new ReconnectConnectionOperationAction());
 	}
 
 	@Override
@@ -51,6 +53,7 @@ public class OperationActionHandler extends AbstractActionHandler {
 		switch (action.getKind()) {
 		case Action.Kind.CREATE_NODE_OPERATION:
 		case Action.Kind.CREATE_CONNECTION_OPERATION:
+		case Action.Kind.RECONNECT_CONNECTION_OPERATION:
 		case Action.Kind.DELETE_ELEMENT_OPERATION:
 		case Action.Kind.CHANGE_BOUNDS_OPERATION:
 			return doHandle((AbstractOperationAction) action, modelState);
