@@ -15,11 +15,11 @@
  ********************************************************************************/
 import { inject, injectable } from "inversify";
 import {
-    Action, AnchorComputerRegistry, Connectable, DeleteElementAction, findParentByFeature, isConnectable, MouseTool, //
+    Action, AnchorComputerRegistry, Connectable, findParentByFeature, isConnectable, MouseTool, //
     SModelElement, SRoutableElement, SRoutingHandle, Tool
 } from "sprotty/lib";
 import { GLSP_TYPES } from "../../types";
-import { CreateConnectionOperationAction } from "../operation/operation-actions";
+import { ReconnectConnectionOperationAction } from "../reconnect/action-definitions";
 import { isReconnectHandle, isRoutable, isSourceRoutingHandle, isTargetRoutingHandle } from "../reconnect/model";
 import { SelectionTracker } from "../select/selection-tracker";
 import { feedbackEdgeId } from "../tool-feedback/creation-tool-feedback";
@@ -185,8 +185,7 @@ class ReconnectEdgeListener extends SelectionTracker {
             const sourceId = this.isReconnectingNewSource() ? this.newConnectable.id : this.edgeSourceId;
             const targetId = this.isReconnectingNewSource() ? this.edgeTargetId : this.newConnectable.id;
             if (id && type && sourceId && targetId && this.requiresReconnect(sourceId, targetId)) {
-                result.push(new DeleteElementAction([id]));
-                result.push(new CreateConnectionOperationAction(type, sourceId, targetId));
+                result.push(new ReconnectConnectionOperationAction(id, sourceId, targetId));
             }
         }
         this.reset();

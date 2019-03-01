@@ -24,6 +24,7 @@ public class Operation {
 		public static final String DELETE_ELEMENT = "delete";
 		public static final String CHANGE_CONTAINER = "changeContainer";
 		public static final String GENERIC = "generic";
+		public static final String RECONNECT_CONNECTION = "reconnectConnection";
 	}
 
 	private String label;
