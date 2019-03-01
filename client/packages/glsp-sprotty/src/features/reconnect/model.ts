@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { edgeInProgressID, edgeInProgressTargetHandleID, RoutingHandleKind, SModelElement, SRoutableElement, SRoutingHandle } from "sprotty/lib";
+import { edgeInProgressID, edgeInProgressTargetHandleID, RoutingHandleKind, selectFeature, SModelElement, SRoutableElement, SRoutingHandle } from "sprotty/lib";
 
 const ROUTING_HANDLE_SOURCE_INDEX: number = -2;
 
@@ -21,8 +21,8 @@ export function isRoutable<T extends SModelElement>(element: T): element is T & 
     return element instanceof SRoutableElement && (element as any).routingPoints !== undefined;
 }
 
-export function isReconnectHandle(element: SModelElement | undefined): element is SRoutingHandle {
-    return element !== undefined && element instanceof SRoutingHandle;
+export function isReconnectHandle(element: SModelElement | undefined): element is SReconnectHandle {
+    return element !== undefined && element instanceof SReconnectHandle;
 }
 
 export function addReconnectHandles(element: SRoutableElement) {
@@ -32,19 +32,19 @@ export function addReconnectHandles(element: SRoutableElement) {
 }
 
 export function removeReconnectHandles(element: SRoutableElement) {
-    element.removeAll(child => child instanceof SRoutingHandle);
+    element.removeAll(child => child instanceof SReconnectHandle);
 }
 
-export function isSourceRoutingHandle(edge: SRoutableElement, routingHandle: SRoutingHandle) {
+export function isSourceRoutingHandle(edge: SRoutableElement, routingHandle: SReconnectHandle) {
     return routingHandle.pointIndex === ROUTING_HANDLE_SOURCE_INDEX;
 }
 
-export function isTargetRoutingHandle(edge: SRoutableElement, routingHandle: SRoutingHandle) {
+export function isTargetRoutingHandle(edge: SRoutableElement, routingHandle: SReconnectHandle) {
     return routingHandle.pointIndex === edge.routingPoints.length;
 }
 
-export function createReconnectHandle(edge: SRoutableElement, kind: RoutingHandleKind, routingPointIndex: number): SRoutingHandle {
-    const handle = new SRoutingHandle();
+export function createReconnectHandle(edge: SRoutableElement, kind: RoutingHandleKind, routingPointIndex: number): SReconnectHandle {
+    const handle = new SReconnectHandle();
     handle.kind = kind;
     handle.pointIndex = routingPointIndex;
     handle.type = 'routing-point';
@@ -53,4 +53,10 @@ export function createReconnectHandle(edge: SRoutableElement, kind: RoutingHandl
     }
     edge.add(handle);
     return handle;
+}
+
+export class SReconnectHandle extends SRoutingHandle {
+    hasFeature(feature: symbol): boolean {
+        return feature !== selectFeature && super.hasFeature(feature);
+    }
 }
