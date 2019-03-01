@@ -33,6 +33,7 @@ import com.eclipsesource.glsp.api.action.kind.ExportSVGAction;
 import com.eclipsesource.glsp.api.action.kind.FitToScreenAction;
 import com.eclipsesource.glsp.api.action.kind.IdentifiableRequestAction;
 import com.eclipsesource.glsp.api.action.kind.OpenAction;
+import com.eclipsesource.glsp.api.action.kind.ReconnectConnectionOperationAction;
 import com.eclipsesource.glsp.api.action.kind.RequestBoundsAction;
 import com.eclipsesource.glsp.api.action.kind.RequestCommandPaletteActions;
 import com.eclipsesource.glsp.api.action.kind.RequestTypeHints;
@@ -96,6 +97,7 @@ public class DefaultActionProvider implements ActionProvider {
 		defaultActions.add(new ExecuteServerCommandAction());
 		defaultActions.add(new RequestCommandPaletteActions());
 		defaultActions.add(new IdentifiableRequestAction());
+		defaultActions.add(new ReconnectConnectionOperationAction());
 	}
 
 	@Override

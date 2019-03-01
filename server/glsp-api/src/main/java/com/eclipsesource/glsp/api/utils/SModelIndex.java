@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -114,6 +115,37 @@ public class SModelIndex {
 			childToParent.put(element, findParent(element));
 		}
 		return childToParent.get(element);
+	}
+	
+	/**
+	 * Returns the first element of type clazz starting from the element with the
+	 * given id and walking up the parent hierarchy.
+	 * 
+	 * @param elementId id of the element to start the search from
+	 * @param clazz     class of which the found element should be an instance
+	 * @return an optional with the element of type clazz or an empty optional
+	 */
+	public <T extends SModelElement> Optional<T> findElement(String elementId, Class<T> clazz) {
+		return findElement(get(elementId), clazz);
+	}
+	
+	/**
+	 * Returns the first element of type clazz starting from the given element and
+	 * walking up the parent hierarchy.
+	 * 
+	 * @param element element to start the search from
+	 * @param clazz   class of which the found element should be an instance
+	 * @return an optional with the element of type clazz or an empty optional
+	 */
+	public <T extends SModelElement> Optional<T> findElement(SModelElement element, Class<T> clazz) {
+		if(element == null) {
+			return Optional.empty();
+		}
+		if (clazz.isInstance(element)) {
+			return Optional.of(clazz.cast(element));
+		}
+		SModelElement parent = getParent(element);
+		return parent != null ? findElement(parent, clazz) : Optional.empty();
 	}
 
 	/**

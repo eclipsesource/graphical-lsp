@@ -15,8 +15,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.handler;
 
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.EDGE;
-
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
@@ -25,54 +23,49 @@ import org.eclipse.sprotty.SModelRoot;
 import org.eclipse.sprotty.SNode;
 
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
-import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
+import com.eclipsesource.glsp.api.action.kind.ReconnectConnectionOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
-import com.eclipsesource.glsp.example.workflow.schema.ModelTypes;
-public class CreateEdgeHandler implements OperationHandler {
-	private static Logger log= Logger.getLogger(CreateEdgeHandler.class);
-	@Override
-	public boolean handles(AbstractOperationAction execAction) {
-		if (execAction instanceof CreateConnectionOperationAction) {
-			CreateConnectionOperationAction action = (CreateConnectionOperationAction) execAction;
-			return ModelTypes.EDGE.equals(action.getElementTypeId());
-		}
-		return false;
-	}
 
+public class ReconnectEdgeHandler implements OperationHandler {
+	private static Logger log = Logger.getLogger(ReconnectEdgeHandler.class);
+	
+	@Override
+	public Class<?> handlesActionType() {
+		return ReconnectConnectionOperationAction.class;
+	}
+	
 	@Override
 	public Optional<SModelRoot> execute(AbstractOperationAction operationAction, ModelState modelState) {
-		CreateConnectionOperationAction action = (CreateConnectionOperationAction) operationAction;
-		if (action.getSourceElementId() == null || action.getTargetElementId() == null) {
-			log.warn("Incomplete create connection action");
+		if(!(operationAction instanceof ReconnectConnectionOperationAction)) {
+			log.warn("Unexpected action " + operationAction);
 			return Optional.empty();
 		}
-
+		
+		// check for null-values
+		final ReconnectConnectionOperationAction action =  (ReconnectConnectionOperationAction) operationAction;
+		if (action.getConnectionElementId() == null || action.getSourceElementId() == null || action.getTargetElementId() == null) {
+			log.warn("Incomplete reconnect connection action");
+			return Optional.empty();
+		}
+		
+		// check for existence of matching elements
 		SModelIndex index = modelState.getCurrentModelIndex();
-
+		Optional<SEdge> edge = index.findElement(action.getConnectionElementId(), SEdge.class);
 		Optional<SNode> source = index.findElement(action.getSourceElementId(), SNode.class);
 		Optional<SNode> target = index.findElement(action.getTargetElementId(), SNode.class);
-		if (!source.isPresent() || !target.isPresent()) {
-			log.warn("Invalid source or target for source ID " + action.getSourceElementId() + " and target ID "
-					+ action.getTargetElementId());
+		if (!edge.isPresent() || !source.isPresent() || !target.isPresent()) {
+			log.warn("Invalid edge, source or target ID: edge ID " + action.getConnectionElementId() + ", source ID " 
+					+ action.getSourceElementId() + " and target ID " + action.getTargetElementId());
 			return Optional.empty();
 		}
-
-		SEdge edge = new SEdge();
-		edge.setSourceId(source.get().getId());
-		edge.setTargetId(target.get().getId());
-		edge.setType(EDGE);
-		int newID = index.getTypeCount(EDGE);
-		while (index.get(EDGE + newID) != null) {
-			newID++;
-		}
-		edge.setId(EDGE + newID);
-
+		
+		// reconnect
+		edge.get().setSourceId(source.get().getId());
+		edge.get().setTargetId(target.get().getId());
+		
 		SModelRoot currentModel = modelState.getCurrentModel();
-		currentModel.getChildren().add(edge);
-		index.addToIndex(edge, currentModel);
-
 		return Optional.of(currentModel);
 	}
 }

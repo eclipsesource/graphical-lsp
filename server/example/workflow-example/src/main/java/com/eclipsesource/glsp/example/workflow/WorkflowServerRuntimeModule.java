@@ -29,6 +29,7 @@ import com.eclipsesource.glsp.example.workflow.handler.CreateManualTaskHandler;
 import com.eclipsesource.glsp.example.workflow.handler.CreateMergeNodeHandler;
 import com.eclipsesource.glsp.example.workflow.handler.CreateWeightedEdgeHandler;
 import com.eclipsesource.glsp.example.workflow.handler.DeleteWorkflowElementHandler;
+import com.eclipsesource.glsp.example.workflow.handler.ReconnectEdgeHandler;
 import com.eclipsesource.glsp.example.workflow.handler.SimulateCommandHandler;
 import com.eclipsesource.glsp.server.ServerModule;
 import com.eclipsesource.glsp.server.operationhandler.ChangeBoundsOperationHandler;
@@ -79,6 +80,7 @@ public class WorkflowServerRuntimeModule extends ServerModule {
 		bindOperationHandler().to(CreateMergeNodeHandler.class);
 		bindOperationHandler().to(CreateWeightedEdgeHandler.class);
 		bindOperationHandler().to(CreateEdgeHandler.class);
+		bindOperationHandler().to(ReconnectEdgeHandler.class);
 		bindOperationHandler().to(DeleteWorkflowElementHandler.class);
 		bindOperationHandler().to(ChangeBoundsOperationHandler.class);
 		bindOperationHandler().to(DeleteHandler.class);
