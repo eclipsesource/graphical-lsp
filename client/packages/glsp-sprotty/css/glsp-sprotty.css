@@ -31,15 +31,23 @@
     stroke: #112;
     stroke-width: 1;
 }
-.node-creation-tool-mode {
+.node-creation-mode {
     cursor: copy;
 }
 
-.edge-creation-select-source-mode,
-.edge-reconnect-select-source-mode {
+.edge-modification-not-allowed-mode{
+    cursor:  no-drop;
+}
+
+.edge-creation-select-source-mode {
     cursor: pointer;
 }
 
-.edge-creation-select-target-mode {
+.edge-creation-select-target-mode,
+.edge-reconnect-select-target-mode {
     cursor: crosshair;
+}
+
+.element-deletion-mode{
+    cursor: url("icons/delete.svg"), auto;;
 }

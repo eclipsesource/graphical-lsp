@@ -13,10 +13,30 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { inject, injectable } from "inversify";
-import { Action, EnableDefaultToolsAction, isCtrlOrCmd, isSelectable, KeyListener, KeyTool, MouseListener, MouseTool, SModelElement, SModelRoot, Tool } from "sprotty/lib";
-import { matchesKeystroke } from "sprotty/lib/utils/keyboard";
+import { Action } from "sprotty/lib";
+import { ApplyCursorCSSFeedbackAction } from "../tool-feedback/cursor-feedback";
+import { CursorCSS } from "../tool-feedback/cursor-feedback";
 import { DeleteElementOperationAction } from "../operation/operation-actions";
+import { DragAwareMouseListener } from "./drag-aware-mouse-listener";
+import { EnableDefaultToolsAction } from "sprotty/lib";
+import { GLSP_TYPES } from "../../types";
+import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
+import { KeyListener } from "sprotty/lib";
+import { KeyTool } from "sprotty/lib";
+import { MouseTool } from "sprotty/lib";
+import { SModelElement } from "sprotty/lib";
+import { SModelRoot } from "sprotty/lib";
+import { Tool } from "sprotty/lib";
+
+import { findParent } from "sprotty/lib";
+import { inject } from "inversify";
+import { injectable } from "inversify";
+import { isCtrlOrCmd } from "sprotty/lib";
+import { isDeletionAllowed } from "../../utils/smodel-util";
+import { isSelectable } from "sprotty/lib";
+import { matchesKeystroke } from "sprotty/lib/utils/keyboard";
+
+
 
 /**
  * Deletes selected elements when hitting the `Del` key.
@@ -44,7 +64,7 @@ export class DeleteKeyListener extends KeyListener {
     keyDown(element: SModelElement, event: KeyboardEvent): Action[] {
         if (matchesKeystroke(event, 'Delete')) {
             const deleteElementIds = Array.from(element.root.index.all().filter(e => isSelectable(e) && e.selected)
-                .filter(e => e.id !== e.root.id).map(e => e.id))
+                .filter(e => e.id !== e.root.id && isDeletionAllowed(e)).map(e => e.id))
             return [new DeleteElementOperationAction(deleteElementIds)]
         }
         return [];
@@ -62,29 +82,44 @@ export class MouseDeleteTool implements Tool {
 
     protected deleteToolMouseListener: DeleteToolMouseListener = new DeleteToolMouseListener();
 
-    constructor(@inject(MouseTool) protected readonly mouseTool: MouseTool) { }
+    constructor(@inject(MouseTool) protected readonly mouseTool: MouseTool,
+        @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher) { }
 
     enable() {
         this.mouseTool.register(this.deleteToolMouseListener);
+        this.feedbackDispatcher.registerFeedback(this, [new ApplyCursorCSSFeedbackAction(CursorCSS.ELEMENT_DELETION)])
     }
 
     disable() {
         this.mouseTool.deregister(this.deleteToolMouseListener);
+        this.feedbackDispatcher.registerFeedback(this, [new ApplyCursorCSSFeedbackAction()]);
     }
 }
 
 @injectable()
-export class DeleteToolMouseListener extends MouseListener {
-    mouseUp(target: SModelElement, event: MouseEvent): Action[] {
-        if (target instanceof SModelRoot) {
-            return [];
-        }
+export class DeleteToolMouseListener extends DragAwareMouseListener {
+    private toDelete?: SModelElement
 
+    nonDraggingMouseUp(target: SModelElement, event: MouseEvent): Action[] {
         const result: Action[] = [];
-        result.push(new DeleteElementOperationAction([target.id]));
+        if (this.toDelete) {
+            result.push(new DeleteElementOperationAction([this.toDelete.id]));
+        }
         if (!isCtrlOrCmd(event)) {
             result.push(new EnableDefaultToolsAction());
         }
         return result;
+    }
+
+    mouseOver(target: SModelElement, event: MouseEvent): Action[] {
+        const currentTarget = findParent(target, e => isDeletionAllowed(e));
+        if (this.toDelete !== currentTarget) {
+            this.toDelete = currentTarget;
+            if (this.toDelete || target instanceof SModelRoot) {
+                return [new ApplyCursorCSSFeedbackAction(CursorCSS.ELEMENT_DELETION)]
+            }
+            return [new ApplyCursorCSSFeedbackAction(CursorCSS.OPERATION_NOT_ALLOWED)]
+        }
+        return [];
     }
 }

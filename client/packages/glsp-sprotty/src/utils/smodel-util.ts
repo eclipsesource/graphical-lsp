@@ -14,6 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { BoundsAware, isBoundsAware, isSelectable, Selectable, SModelElement } from "sprotty/lib";
+import { EditConfig, isConfigurableElement, isConfigurableNode } from "../base/edit-config/edit-config";
 
 export function getIndex(element: SModelElement) {
     return element.root.index;
@@ -36,7 +37,6 @@ export function getSelectedElementCount(element: SModelElement): number {
         .forEach(e => selected = selected + 1);
     return selected;
 }
-
 export function isSelected(element: SModelElement): element is SModelElement & Selectable {
     return isSelectable(element) && element.selected
 }
@@ -70,4 +70,12 @@ export function removeCssClasses(root: SModelElement, cssClasses: string[]) {
             root.cssClasses.splice(root.cssClasses.indexOf(cssClass), 1);
         }
     }
+}
+
+export function isDeletionAllowed(element: SModelElement): element is EditConfig & SModelElement {
+    return isConfigurableElement(element) && element.deletable
+}
+
+export function isMovingAllowed(element: SModelElement): element is EditConfig & SModelElement {
+    return isConfigurableNode(element) && element.repositionable
 }

@@ -22,61 +22,16 @@ import {
 } from "sprotty/lib";
 import { getAbsolutePosition } from "../../utils/viewpoint-util";
 import { isRoutable } from "../reconnect/model";
-import { applyCssClassesToRoot, FeedbackCommand, unapplyCssClassesToRoot } from "./model";
+import { FeedbackCommand } from "./model";
 
-const NODE_CREATION_CSS_CLASS = 'node-creation-tool-mode';
-
-export class ShowNodeCreationToolFeedbackAction implements Action {
-    kind = ShowNodeCreationToolFeedbackCommand.KIND;
-    constructor(readonly elementTypeId: string) { }
-}
-
-export class HideNodeCreationToolFeedbackAction implements Action {
-    kind = HideNodeCreationToolFeedbackCommand.KIND;
-    constructor(readonly elementTypeId: string) { }
-}
-
-@injectable()
-export class ShowNodeCreationToolFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.nodecreationtool.feedback.show';
-    execute(context: CommandExecutionContext): SModelRoot {
-        return applyCssClassesToRoot(context, [NODE_CREATION_CSS_CLASS]);
-    }
-}
-
-@injectable()
-export class HideNodeCreationToolFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.nodecreationtool.feedback.hide';
-    execute(context: CommandExecutionContext): SModelRoot {
-        return unapplyCssClassesToRoot(context, [NODE_CREATION_CSS_CLASS]);
-    }
-}
-
-const EDGE_CREATION_SOURCE_CSS_CLASS = 'edge-creation-select-source-mode';
-const EDGE_CREATION_TARGET_CSS_CLASS = 'edge-creation-select-target-mode';
-
-export class ShowEdgeCreationSelectSourceFeedbackAction implements Action {
-    kind = ShowEdgeCreationSelectSourceFeedbackCommand.KIND;
-    constructor(readonly elementTypeId: string) { }
-}
-
-export class ShowEdgeCreationSelectTargetFeedbackAction implements Action {
-    kind = ShowEdgeCreationSelectTargetFeedbackCommand.KIND;
+export class DrawEdgeFeedbackAction implements Action {
+    kind = DrawEdgeFeedbackCommand.KIND;
     constructor(readonly elementTypeId: string, readonly sourceId: string) { }
 }
 
-export class HideEdgeCreationToolFeedbackAction implements Action {
-    kind = HideEdgeCreationToolFeedbackCommand.KIND;
-    constructor(readonly elementTypeId: string) { }
-}
-
-@injectable()
-export class ShowEdgeCreationSelectSourceFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.edgecreationtool.selectsource.feedback.show';
-    execute(context: CommandExecutionContext): SModelRoot {
-        unapplyCssClassesToRoot(context, [EDGE_CREATION_TARGET_CSS_CLASS]);
-        return applyCssClassesToRoot(context, [EDGE_CREATION_SOURCE_CSS_CLASS]);
-    }
+export class RemoveEdgeFeedbackAction implements Action {
+    kind = RemoveEdgeFeedbackCommand.KIND;
+    constructor() { }
 }
 
 export class FeedbackEdgeEnd extends SDanglingAnchor {
@@ -90,26 +45,25 @@ export class FeedbackEdgeEnd extends SDanglingAnchor {
 }
 
 @injectable()
-export class ShowEdgeCreationSelectTargetFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.edgecreationtool.selecttarget.feedback.show';
+export class DrawEdgeFeedbackCommand extends FeedbackCommand {
+    static readonly KIND = 'drawEdgeFeedback';
 
-    constructor(@inject(TYPES.Action) protected action: ShowEdgeCreationSelectTargetFeedbackAction) {
+    constructor(@inject(TYPES.Action) protected action: DrawEdgeFeedbackAction) {
         super();
     }
 
     execute(context: CommandExecutionContext): SModelRoot {
         drawFeedbackEdge(context, this.action.sourceId, this.action.elementTypeId);
-        unapplyCssClassesToRoot(context, [EDGE_CREATION_SOURCE_CSS_CLASS]);
-        return applyCssClassesToRoot(context, [EDGE_CREATION_TARGET_CSS_CLASS]);
+        return context.root;
     }
 }
 
 @injectable()
-export class HideEdgeCreationToolFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.edgecreationtool.feedback.hide';
+export class RemoveEdgeFeedbackCommand extends FeedbackCommand {
+    static readonly KIND = 'removeEdgeFeedback';
     execute(context: CommandExecutionContext): SModelRoot {
         removeFeedbackEdge(context.root);
-        return unapplyCssClassesToRoot(context, [EDGE_CREATION_SOURCE_CSS_CLASS, EDGE_CREATION_TARGET_CSS_CLASS]);
+        return context.root;
     }
 }
 

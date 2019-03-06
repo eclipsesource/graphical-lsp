@@ -14,10 +14,9 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { inject, injectable, multiInject, optional } from "inversify";
-import { Action, ICommand, IModelFactory, SetModelAction, SetModelCommand, SModelRoot, TYPES, UpdateModelAction, UpdateModelCommand } from "sprotty/lib";
+import { Action, CommandExecutionContext, CommandResult, SetModelAction, SetModelCommand, SModelRoot, TYPES, UpdateModelAction, UpdateModelCommand } from "sprotty/lib";
 import { GLSP_TYPES } from "../../types";
 import { distinctAdd, remove } from "../../utils/array-utils";
-import { SelfInitializingActionHandler } from "../diagram-ui-extension/diagram-ui-extension-registry";
 
 export interface IModelUpdateObserver {
     /*Is called before an update model request from the server is applied*/
@@ -47,37 +46,38 @@ export class ModelUpdateObserverRegistry implements IModelUpdateObserver {
     }
 }
 /**
- * Actionhandler that replaces the default action handler for `SetModelAction` and `UpdateModelAction`
- * and allows registered `IModelUpdateObservers` to process and modify the model before the actual update is executed
+ * A special`UpdateModelCommand` that delegegates the `newRoot` to registered `IModelUpdateObserver`s before
+ * performing the update
  */
 @injectable()
-export class ModelUpdateActionInitializer extends SelfInitializingActionHandler {
-    @inject(GLSP_TYPES.ModelUpdateObserverRegistry) protected readonly observerRegistry: ModelUpdateObserverRegistry
-    @inject(TYPES.IModelFactory) protected readonly modelFactory: IModelFactory
-
-    readonly handledActionKinds = [SetModelCommand.KIND, UpdateModelCommand.KIND]
-
-    handle(action: Action): ICommand | Action | void {
-        if (isSetModelAction(action) || isUpdateModelAction(action)) {
-            if (action.newRoot) {
-                const model = this.modelFactory.createRoot(action.newRoot)
-                this.observerRegistry.beforeServerUpdate(model)
-                // Transform the model back into the corresponding schema after
-                // all observers have applied their modifications
-                const updatedSchema = this.modelFactory.createSchema(model)
-
-                return new UpdateModelCommand(new UpdateModelAction(updatedSchema, true))
-            }
-        }
+export class ObserverableUpdateModelCommand extends UpdateModelCommand {
+    constructor(@inject(TYPES.Action) action: UpdateModelAction,
+        @inject(GLSP_TYPES.ModelUpdateObserverRegistry) protected readonly observerRegistry: ModelUpdateObserverRegistry) {
+        super(action)
     }
-}
 
-export function isSetModelAction(action: Action): action is SetModelAction {
-    return action.kind === SetModelCommand.KIND && (<any>action)["newRoot"] !== undefined
+    execute(context: CommandExecutionContext): CommandResult {
+        let newRoot: SModelRoot;
+        if (this.action.newRoot !== undefined) {
+            newRoot = context.modelFactory.createRoot(this.action.newRoot);
+        } else {
+            newRoot = context.modelFactory.createRoot(context.root);
+            if (this.action.matches !== undefined)
+                this.applyMatches(newRoot, this.action.matches, context);
+        }
+        this.oldRoot = context.root;
+        this.newRoot = newRoot;
+        this.observerRegistry.beforeServerUpdate(newRoot)
+        return this.performUpdate(this.oldRoot, this.newRoot, context);
+    }
 }
 
 export function isUpdateModelAction(action: Action): action is UpdateModelAction {
     return action.kind === UpdateModelCommand.KIND &&
         ((<any>action)["newRoot"] !== undefined || (<any>action)["matches"] !== undefined)
         && (<any>action)["animate"] !== undefined
+}
+
+export function isSetModelAction(action: Action): action is SetModelAction {
+    return action.kind === SetModelCommand.KIND && (<any>action)["newRoot"] !== undefined
 }

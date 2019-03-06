@@ -109,7 +109,7 @@ export function createEdgeEditConfig(hint: EdgeTypeHint): EdgeEditConfig {
 }
 
 function getElementTypeId(input: SModelElement | SModelElementSchema | string) {
-    if (typeof (input) === 'string') {
+    if (typeof input === 'string') {
         return <string>input
     } else {
         return <string>(<any>input)["type"]

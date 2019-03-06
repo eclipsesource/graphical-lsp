@@ -13,9 +13,16 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { inject, injectable } from "inversify";
-import { Action, IActionDispatcher, ILogger, SModelRoot, TYPES } from "sprotty/lib";
+import { Action } from "sprotty/lib";
+import { IActionDispatcher } from "sprotty/lib";
+import { ILogger } from "sprotty/lib";
 import { IModelUpdateObserver } from "../../base/model/model-update-observer-registry";
+import { SModelRoot } from "sprotty/lib";
+import { TYPES } from "sprotty/lib";
+
+import { inject } from "inversify";
+import { injectable } from "inversify";
+
 
 export interface IFeedbackEmitter { }
 
@@ -51,7 +58,7 @@ export class FeedbackActionDispatcher implements IFeedbackActionDispatcher, IMod
     protected feedbackEmitters: Map<IFeedbackEmitter, Action[]> = new Map;
 
     constructor(
-        @inject(TYPES.IActionDispatcherProvider) protected actionDispatcher: () => Promise<IActionDispatcher>,
+        @inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher,
         @inject(TYPES.ILogger) protected logger: ILogger) {
     }
 
@@ -66,8 +73,7 @@ export class FeedbackActionDispatcher implements IFeedbackActionDispatcher, IMod
     }
 
     private dispatch(actions: Action[], feedbackEmitter: IFeedbackEmitter) {
-        this.actionDispatcher()
-            .then(dispatcher => dispatcher.dispatchAll(actions))
+        this.actionDispatcher.dispatchAll(actions)
             .then(() => this.logger.info(this, `Dispatched feedback actions for ${feedbackEmitter}`))
             .catch(reason => this.logger.error(this, 'Failed to dispatch feedback actions', reason));
     }
@@ -76,5 +82,4 @@ export class FeedbackActionDispatcher implements IFeedbackActionDispatcher, IMod
         this.feedbackEmitters.forEach((actions, feedbackEmitter) =>
             this.dispatch(actions, feedbackEmitter));
     }
-
 }

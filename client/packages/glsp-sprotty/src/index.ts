@@ -35,6 +35,7 @@ export * from './features/request-response/support';
 export * from './features/save/model';
 export * from './features/save/save';
 export * from './features/tool-feedback/creation-tool-feedback';
+export * from './features/tool-feedback/cursor-feedback';
 export * from './features/tool-feedback/model';
 export * from './features/tool-palette/tool-palette';
 export * from './features/tools/change-bounds-tool';

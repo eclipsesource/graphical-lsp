@@ -15,18 +15,20 @@
  ********************************************************************************/
 import { inject, injectable } from "inversify";
 import {
-    Action, AnchorComputerRegistry, Connectable, findParentByFeature, isConnectable, MouseTool, //
+    Action, AnchorComputerRegistry, Connectable, EnableDefaultToolsAction, findParentByFeature, isConnectable, MouseTool, //
     SModelElement, SRoutableElement, SRoutingHandle, Tool
 } from "sprotty/lib";
+import { isConfigurableEdge } from "../../base/edit-config/edit-config";
 import { GLSP_TYPES } from "../../types";
 import { ReconnectConnectionOperationAction } from "../reconnect/action-definitions";
 import { isReconnectHandle, isRoutable, isSourceRoutingHandle, isTargetRoutingHandle } from "../reconnect/model";
 import { SelectionTracker } from "../select/selection-tracker";
-import { feedbackEdgeId } from "../tool-feedback/creation-tool-feedback";
+import { DrawEdgeFeedbackAction, feedbackEdgeId, RemoveEdgeFeedbackAction } from "../tool-feedback/creation-tool-feedback";
+import { ApplyCursorCSSFeedbackAction, CursorCSS } from "../tool-feedback/cursor-feedback";
 import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
 import {
-    FeedbackEdgeSourceMovingMouseListener, FeedbackEdgeTargetMovingMouseListener, HideEdgeReconnectHandlesFeedbackAction, HideEdgeReconnectToolFeedbackAction, //
-    ShowEdgeReconnectHandlesFeedbackAction, ShowEdgeReconnectSelectSourceFeedbackAction, ShowEdgeReconnectSelectTargetFeedbackAction
+    DrawFeebackEdgeSourceAction, FeedbackEdgeSourceMovingMouseListener, FeedbackEdgeTargetMovingMouseListener, HideEdgeReconnectHandlesFeedbackAction, //
+    ShowEdgeReconnectHandlesFeedbackAction
 } from "../tool-feedback/reconnect-tool-feedback";
 
 @injectable()
@@ -70,10 +72,7 @@ class ReconnectEdgeListener extends SelectionTracker {
     private isMouseDown: boolean;
 
     // active edge data
-    private edgeId?: string;
-    private edgeTypeId?: string;
-    private edgeSourceId?: string;
-    private edgeTargetId?: string;
+    private selectedEdge?: SRoutableElement;
 
     // active reconnect handle data
     private reconnectMode?: 'NEW_SOURCE' | 'NEW_TARGET';
@@ -90,29 +89,26 @@ class ReconnectEdgeListener extends SelectionTracker {
     }
 
     private setEdgeSelected(edge: SRoutableElement) {
-        if (this.edgeId && this.edgeId !== edge.id) {
+        if (this.selectedEdge && this.selectedEdge !== edge) {
             // reset from a previously selected edge
             this.reset();
         }
 
-        this.edgeId = edge.id;
-        this.edgeSourceId = edge.sourceId;
-        this.edgeTargetId = edge.targetId;
-        this.edgeTypeId = edge.type;
-        this.tool.dispatchFeedback([new ShowEdgeReconnectHandlesFeedbackAction(this.edgeId)]);
-    }
-
-    private isEdgeSelected(): boolean {
-        return this.edgeId !== undefined && this.edgeTypeId !== undefined;
+        this.selectedEdge = edge;
+        this.tool.dispatchFeedback([new ShowEdgeReconnectHandlesFeedbackAction(this.selectedEdge.id)]);
     }
 
     private setReconnectHandleSelected(edge: SRoutableElement, reconnectHandle: SRoutingHandle) {
-        if (this.edgeTypeId && this.edgeSourceId && this.edgeTargetId) {
+        if (this.selectedEdge) {
             if (isSourceRoutingHandle(edge, reconnectHandle)) {
-                this.tool.dispatchFeedback([new HideEdgeReconnectHandlesFeedbackAction(), new ShowEdgeReconnectSelectSourceFeedbackAction(this.edgeTypeId, this.edgeTargetId)]);
+                this.tool.dispatchFeedback([new HideEdgeReconnectHandlesFeedbackAction(),
+                new ApplyCursorCSSFeedbackAction(CursorCSS.EDGE_RECONNECT),
+                new DrawFeebackEdgeSourceAction(this.selectedEdge.type, this.selectedEdge.targetId)]);
                 this.reconnectMode = "NEW_SOURCE";
             } else if (isTargetRoutingHandle(edge, reconnectHandle)) {
-                this.tool.dispatchFeedback([new HideEdgeReconnectHandlesFeedbackAction(), new ShowEdgeReconnectSelectTargetFeedbackAction(this.edgeTypeId, this.edgeSourceId)]);
+                this.tool.dispatchFeedback([new HideEdgeReconnectHandlesFeedbackAction(),
+                new ApplyCursorCSSFeedbackAction(CursorCSS.EDGE_CREATION_TARGET),
+                new DrawEdgeFeedbackAction(this.selectedEdge.type, this.selectedEdge.sourceId)]);
                 this.reconnectMode = "NEW_TARGET";
             }
         }
@@ -127,16 +123,16 @@ class ReconnectEdgeListener extends SelectionTracker {
     }
 
     private requiresReconnect(sourceId: string, targetId: string): boolean {
-        return this.edgeSourceId !== sourceId || this.edgeTargetId !== targetId;
-    }
-
-    private setNewConnectable(connectable?: SModelElement & Connectable) {
-        this.newConnectable = connectable;
+        if (this.selectedEdge) {
+            return this.selectedEdge.sourceId !== sourceId || this.selectedEdge.targetId !== targetId
+        }
+        return false;
     }
 
     private isReadyToReconnect() {
-        return this.isEdgeSelected() && this.isReconnecting() && this.newConnectable !== undefined;
+        return this.setEdgeSelected && this.isReconnecting() && this.newConnectable !== undefined;
     }
+
 
     mouseDown(target: SModelElement, event: MouseEvent): Action[] {
         const result: Action[] = [];
@@ -144,32 +140,18 @@ class ReconnectEdgeListener extends SelectionTracker {
         if (event.button === 0) {
             const reconnectHandle = findParentByFeature(target, isReconnectHandle);
             const edge = findParentByFeature(target, isRoutable);
-            if (this.isEdgeSelected() && edge && reconnectHandle) {
+            if (this.selectedEdge && edge && reconnectHandle) {
                 // PHASE 2: Select reconnect handle on selected edge
                 this.setReconnectHandleSelected(edge, reconnectHandle);
             } else if (this.isValidEdge(edge)) {
                 // PHASE 1: Select edge
                 this.setEdgeSelected(edge);
-            } else if (this.isReconnecting()) {
-                // PHASE 3: Select new connectable (target or source) for reconnecting the selected edge
-                // if no connectable was selected, do nothing, allow clicking on other elements and empty area during this phase
-                const connectable = findParentByFeature(target, isConnectable);
-                if (connectable) {
-                    this.setNewConnectable(connectable);
-                }
-            } else {
-                this.reset();
             }
+        } else if (event.button === 2) {
+            // Stop tool execution on right click
+            result.push(new EnableDefaultToolsAction());
         }
         return result;
-    }
-
-    mouseMove(target: SModelElement, event: MouseEvent): Action[] {
-        if (this.isMouseDown) {
-            // reset any selected connectables when we are dragging, maybe the user is just panning
-            this.setNewConnectable(undefined);
-        }
-        return [];
     }
 
     mouseUp(target: SModelElement, event: MouseEvent): Action[] {
@@ -179,17 +161,38 @@ class ReconnectEdgeListener extends SelectionTracker {
         }
 
         const result: Action[] = [];
-        if (this.newConnectable) {
-            const id = this.edgeId;
-            const type = this.edgeTypeId;
-            const sourceId = this.isReconnectingNewSource() ? this.newConnectable.id : this.edgeSourceId;
-            const targetId = this.isReconnectingNewSource() ? this.edgeTargetId : this.newConnectable.id;
-            if (id && type && sourceId && targetId && this.requiresReconnect(sourceId, targetId)) {
-                result.push(new ReconnectConnectionOperationAction(id, sourceId, targetId));
+        if (this.selectedEdge && this.newConnectable) {
+            const sourceId = this.isReconnectingNewSource() ? this.newConnectable.id : this.selectedEdge.sourceId;
+            const targetId = this.isReconnectingNewSource() ? this.selectedEdge.targetId : this.newConnectable.id;
+            if (sourceId && targetId && this.requiresReconnect(sourceId, targetId)) {
+                result.push(new ReconnectConnectionOperationAction(this.selectedEdge.id, sourceId, targetId));
             }
+            this.reset();
         }
         this.reset();
         return result;
+    }
+
+    mouseMove(target: SModelElement, event: MouseEvent): Action[] {
+        if (this.isMouseDown) {
+            // reset any selected connectables when we are dragging, maybe the user is just panning
+            this.newConnectable = undefined
+        }
+        return [];
+    }
+    mouseOver(target: SModelElement, event: MouseEvent): Action[] {
+        if (this.selectedEdge && this.isReconnecting()) {
+            const currentTarget = findParentByFeature(target, isConnectable);
+            if (currentTarget && isConfigurableEdge(this.selectedEdge)) {
+                if ((this.reconnectMode === 'NEW_SOURCE' && this.selectedEdge.isAllowedSource(currentTarget.type)) ||
+                    (this.reconnectMode === 'NEW_TARGET' && this.selectedEdge.isAllowedTarget(currentTarget.type))) {
+                    this.newConnectable = currentTarget;
+                    return [new ApplyCursorCSSFeedbackAction(CursorCSS.EDGE_RECONNECT)]
+                }
+            }
+            return [new ApplyCursorCSSFeedbackAction(CursorCSS.OPERATION_NOT_ALLOWED)]
+        }
+        return [];
     }
 
     public reset() {
@@ -199,16 +202,13 @@ class ReconnectEdgeListener extends SelectionTracker {
 
     private resetData() {
         this.isMouseDown = false;
-        this.edgeId = undefined;
-        this.edgeSourceId = undefined;
-        this.edgeTargetId = undefined;
-        this.edgeTypeId = undefined;
+        this.selectedEdge = undefined;
         this.reconnectMode = undefined;
         this.newConnectable = undefined;
     }
 
     private resetFeedback() {
         this.tool.dispatchFeedback([new HideEdgeReconnectHandlesFeedbackAction()]);
-        this.tool.dispatchFeedback([new HideEdgeReconnectToolFeedbackAction()]);
+        this.tool.dispatchFeedback([new ApplyCursorCSSFeedbackAction(), new RemoveEdgeFeedbackAction()]);
     }
 }

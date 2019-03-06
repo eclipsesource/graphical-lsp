@@ -22,11 +22,8 @@ import {
 import { isNotUndefined } from "../../utils/smodel-util";
 import { getAbsolutePosition } from "../../utils/viewpoint-util";
 import { addReconnectHandles, isRoutable, removeReconnectHandles } from "../reconnect/model";
-import {
-    FeedbackEdgeEnd, feedbackEdgeEndId, FeedbackEdgeEndMovingMouseListener, feedbackEdgeId, HideEdgeCreationToolFeedbackCommand, //
-    ShowEdgeCreationSelectTargetFeedbackAction, ShowEdgeCreationSelectTargetFeedbackCommand
-} from "./creation-tool-feedback";
-import { applyCssClassesToRoot, FeedbackCommand, unapplyCssClassesToRoot } from "./model";
+import { FeedbackEdgeEnd, feedbackEdgeEndId, FeedbackEdgeEndMovingMouseListener, feedbackEdgeId } from "./creation-tool-feedback";
+import { FeedbackCommand } from "./model";
 
 /**
  * RECONNECT HANDLES FEEDBACK
@@ -81,56 +78,25 @@ export class HideEdgeReconnectHandlesFeedbackCommand extends FeedbackCommand {
 }
 
 /**
- * SOURCE AND TARGET EDGE FEEDBACK
+ * SOURCE EDGE FEEDBACK
  */
 
-export class ShowEdgeReconnectSelectSourceFeedbackAction implements Action {
-    kind = ShowEdgeReconnectSelectSourceFeedbackCommand.KIND;
-    constructor(readonly elementTypeId: string, readonly targetId: string) { }
+
+export class DrawFeebackEdgeSourceAction implements Action {
+    kind = DrawFeebackEdgeSourceCommand.KIND;
+    constructor(readonly elementTypeId: string, readonly targetId: string, ) { }
 }
-
-
-export class ShowEdgeReconnectSelectTargetFeedbackAction extends ShowEdgeCreationSelectTargetFeedbackAction {
-    kind = ShowEdgeCreationSelectTargetFeedbackCommand.KIND; // re-use select target feedback from creation tool
-    constructor(readonly elementTypeId: string, readonly sourceId: string) {
-        super(elementTypeId, sourceId);
-    }
-}
-
-export class HideEdgeReconnectToolFeedbackAction implements Action {
-    kind = HideEdgeReconnectToolFeedbackCommand.KIND;
-    constructor() { }
-}
-
-const EDGE_RECONNECT_SOURCE_CSS_CLASS = 'edge-reconnect-select-source-mode';
 
 @injectable()
-export class ShowEdgeReconnectSelectSourceFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.edge-reconnect-tool.selectsource.feedback.show';
+export class DrawFeebackEdgeSourceCommand extends FeedbackCommand {
+    static readonly KIND = 'drawFeedbackEdgeSource';
 
-    constructor(@inject(TYPES.Action) protected action: ShowEdgeReconnectSelectSourceFeedbackAction) {
+    constructor(@inject(TYPES.Action) protected action: DrawFeebackEdgeSourceAction) {
         super();
     }
 
     execute(context: CommandExecutionContext): SModelRoot {
         drawFeedbackEdgeSource(context, this.action.targetId, this.action.elementTypeId);
-        return applyCssClassesToRoot(context, [EDGE_RECONNECT_SOURCE_CSS_CLASS]);
-    }
-}
-
-@injectable()
-export class HideEdgeReconnectToolFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.edge-reconnect-tool.selectsource.feedback.hide';
-    private hideCreationToolFeedbackCommand: HideEdgeCreationToolFeedbackCommand;
-
-    constructor() {
-        super();
-        this.hideCreationToolFeedbackCommand = new HideEdgeCreationToolFeedbackCommand();
-    }
-
-    execute(context: CommandExecutionContext): SModelRoot {
-        this.hideCreationToolFeedbackCommand.execute(context);
-        unapplyCssClassesToRoot(context, [EDGE_RECONNECT_SOURCE_CSS_CLASS])
         return context.root;
     }
 }
