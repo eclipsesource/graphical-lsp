@@ -25,6 +25,7 @@ public class Operation {
 		public static final String CHANGE_CONTAINER = "changeContainer";
 		public static final String GENERIC = "generic";
 		public static final String RECONNECT_CONNECTION = "reconnectConnection";
+		public static final String REROUTE_CONNECTION = "rerouteConnection";
 	}
 
 	private String label;

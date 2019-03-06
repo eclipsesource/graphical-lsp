@@ -25,6 +25,10 @@ export function isReconnectHandle(element: SModelElement | undefined): element i
     return element !== undefined && element instanceof SReconnectHandle;
 }
 
+export function isRoutingHandle(element: SModelElement | undefined): element is SRoutingHandle {
+    return element !== undefined && element instanceof SRoutingHandle;
+}
+
 export function addReconnectHandles(element: SRoutableElement) {
     removeReconnectHandles(element);
     createReconnectHandle(element, 'source', ROUTING_HANDLE_SOURCE_INDEX);

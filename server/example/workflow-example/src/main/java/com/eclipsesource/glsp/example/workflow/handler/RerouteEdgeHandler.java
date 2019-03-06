@@ -15,37 +15,37 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.handler;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.eclipse.sprotty.SEdge;
 import org.eclipse.sprotty.SModelRoot;
-import org.eclipse.sprotty.SNode;
 
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
-import com.eclipsesource.glsp.api.action.kind.ReconnectConnectionOperationAction;
+import com.eclipsesource.glsp.api.action.kind.RerouteConnectionOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 
-public class ReconnectEdgeHandler implements OperationHandler {
-	private static Logger log = Logger.getLogger(ReconnectEdgeHandler.class);
+public class RerouteEdgeHandler  implements OperationHandler {
+	private static Logger log = Logger.getLogger(RerouteEdgeHandler.class);
 	
 	@Override
 	public Class<?> handlesActionType() {
-		return ReconnectConnectionOperationAction.class;
+		return RerouteConnectionOperationAction.class;
 	}
 	
 	@Override
 	public Optional<SModelRoot> execute(AbstractOperationAction operationAction, ModelState modelState) {
-		if(!(operationAction instanceof ReconnectConnectionOperationAction)) {
+		if(!(operationAction instanceof RerouteConnectionOperationAction)) {
 			log.warn("Unexpected action " + operationAction);
 			return Optional.empty();
 		}
 		
 		// check for null-values
-		final ReconnectConnectionOperationAction action =  (ReconnectConnectionOperationAction) operationAction;
-		if (action.getConnectionElementId() == null || action.getSourceElementId() == null || action.getTargetElementId() == null) {
+		final RerouteConnectionOperationAction action =  (RerouteConnectionOperationAction) operationAction;
+		if (action.getConnectionElementId() == null || action.getRoutingPoints() == null) {
 			log.warn("Incomplete reconnect connection action");
 			return Optional.empty();
 		}
@@ -53,18 +53,13 @@ public class ReconnectEdgeHandler implements OperationHandler {
 		// check for existence of matching elements
 		SModelIndex index = modelState.getCurrentModelIndex();
 		Optional<SEdge> edge = index.findElement(action.getConnectionElementId(), SEdge.class);
-		Optional<SNode> source = index.findElement(action.getSourceElementId(), SNode.class);
-		Optional<SNode> target = index.findElement(action.getTargetElementId(), SNode.class);
-		if (!edge.isPresent() || !source.isPresent() || !target.isPresent()) {
-			log.warn("Invalid edge, source or target ID: edge ID " + action.getConnectionElementId() + ", source ID " 
-					+ action.getSourceElementId() + " and target ID " + action.getTargetElementId());
+		if (!edge.isPresent()) {
+			log.warn("Invalid edge: edge ID " + action.getConnectionElementId());
 			return Optional.empty();
 		}
 		
-		// reconnect
-		edge.get().setSourceId(source.get().getId());
-		edge.get().setTargetId(target.get().getId());
-		edge.get().setRoutingPoints(null);
+		// reroute
+		edge.get().setRoutingPoints(Arrays.asList(action.getRoutingPoints()));
 		
 		SModelRoot currentModel = modelState.getCurrentModel();
 		return Optional.of(currentModel);

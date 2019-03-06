@@ -16,7 +16,7 @@
 
 import {
     boundsModule, buttonModule, commandPaletteModule, configureModelElement, ConsoleLogger, defaultGLSPModule, defaultModule, //
-    DiamondNodeView, ExpandButtonView, expandModule, exportModule, fadeModule, GLSPGraph, hoverModule, HtmlRoot, HtmlRootView, LogLevel, modelHintsModule, //
+    DiamondNodeView, edgeEditModule, edgeLayoutModule, ExpandButtonView, expandModule, exportModule, fadeModule, GLSPGraph, hoverModule, HtmlRoot, HtmlRootView, LogLevel, modelHintsModule, //
     modelSourceModule, openModule, overrideViewerOptions, paletteModule, PreRenderedElement, PreRenderedView, RectangularNode, RectangularNodeView, requestResponseModule, //
     routingModule, saveModule, SButton, SCompartment, SCompartmentView, SEdge, selectModule, SGraphView, SLabel, SLabelView, SRoutingHandle, SRoutingHandleView, //
     toolFeedbackModule, TYPES, viewportModule
@@ -60,7 +60,7 @@ export default function createContainer(widgetId: string): Container {
     container.load(defaultModule, defaultGLSPModule, selectModule, boundsModule, viewportModule,
         hoverModule, fadeModule, exportModule, expandModule, openModule, buttonModule, modelSourceModule,
         workflowDiagramModule, saveModule, executeCommandModule, toolFeedbackModule, modelHintsModule,
-        commandPaletteModule, paletteModule, requestResponseModule, routingModule);
+        commandPaletteModule, paletteModule, requestResponseModule, routingModule, edgeEditModule, edgeLayoutModule);
 
     overrideViewerOptions(container, {
         needsClientLayout: true,

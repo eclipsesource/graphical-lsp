@@ -17,13 +17,13 @@ import { interfaces } from "inversify";
 import { ToolManager, TYPES } from "sprotty/lib";
 import { ChangeBoundsTool } from "./change-bounds-tool";
 import { DelKeyDeleteTool, MouseDeleteTool } from "./delete-tool";
-import { EdgeReconnectTool } from "./reconnect-tool";
+import { EdgeEditTool } from "./edge-edit-tool";
 
 export function registerDefaultTools(container: interfaces.Container) {
     const toolManager: ToolManager = container.get(TYPES.IToolManager);
     toolManager.registerDefaultTools(
         container.resolve(ChangeBoundsTool),
-        container.resolve(EdgeReconnectTool),
+        container.resolve(EdgeEditTool),
         container.resolve(DelKeyDeleteTool));
     toolManager.registerTools(container.resolve(MouseDeleteTool));
     toolManager.enableDefaultTools();
