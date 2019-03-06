@@ -13,21 +13,18 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import {
-    angleOfPoint, IView, Point, PolylineEdgeView, RectangularNodeView, RenderingContext, SEdge, SShapeElement, //
-    toDegrees
-} from "glsp-sprotty/lib";
+import { angleOfPoint, IView, Point, PolylineEdgeView, RectangularNodeView, RenderingContext, SEdge, SShapeElement, toDegrees } from "glsp-sprotty/lib";
 import { injectable } from "inversify";
 import * as snabbdom from "snabbdom-jsx";
 import { VNode } from "snabbdom/vnode";
 import { Icon, TaskNode, WeightedEdge } from "./model";
 
-const JSX = { createElement: snabbdom.svg }
+const JSX = { createElement: snabbdom.svg };
 
 @injectable()
 export class TaskNodeView extends RectangularNodeView {
     render(node: TaskNode, context: RenderingContext): VNode {
-        const rcr = this.getRoundedCornerRadius(node)
+        const rcr = this.getRoundedCornerRadius(node);
         const graph = <g>
             <rect class-sprotty-node={true} class-task={true}
                 class-automated={node.taskType === 'automated'}
@@ -37,7 +34,7 @@ export class TaskNodeView extends RectangularNodeView {
                 width={Math.max(0, node.bounds.width)} height={Math.max(0, node.bounds.height)}></rect>
             {context.renderChildren(node)}
         </g>;
-        return graph
+        return graph;
 
 
     }

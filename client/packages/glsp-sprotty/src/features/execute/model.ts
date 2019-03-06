@@ -13,7 +13,8 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { SModelElement, SModelExtension } from "sprotty/lib";
+import { SModelElement } from "sprotty/lib";
+import { SModelExtension } from "sprotty/lib";
 
 export const executeCommandFeature = Symbol('executeFeature');
 
@@ -22,5 +23,5 @@ export interface CommandExecutor extends SModelExtension {
 }
 
 export function isCommandExecutor(element: SModelElement): element is SModelElement & CommandExecutor {
-    return element.hasFeature(executeCommandFeature)
+    return element.hasFeature(executeCommandFeature);
 }

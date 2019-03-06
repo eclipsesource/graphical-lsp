@@ -14,28 +14,31 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
-import { SEdge, SModelElement, SModelElementSchema, SNode } from "sprotty/lib";
+import { SEdge } from "sprotty/lib";
+import { SModelElement } from "sprotty/lib";
+import { SModelElementSchema } from "sprotty/lib";
+import { SNode } from "sprotty/lib";
 
-export const edgeEditConfig = Symbol.for("edgeEditConfiguration")
-export const nodeEditConfig = Symbol.for("nodeEditConfiguration")
+export const edgeEditConfig = Symbol.for("edgeEditConfiguration");
+export const nodeEditConfig = Symbol.for("nodeEditConfiguration");
 
 export function isConfigurableElement(element: SModelElement): element is SModelElement & EditConfig {
-    return (<any>element).configType !== undefined && typeof ((<any>element).configType) === "symbol"
+    return (<any>element).configType !== undefined && typeof ((<any>element).configType) === "symbol";
 }
 
 export function isConfigurableEdge(element: SModelElement): element is SEdge & EdgeEditConfig {
-    return element instanceof SEdge && isConfigurableElement(element) && element.configType === edgeEditConfig
+    return element instanceof SEdge && isConfigurableElement(element) && element.configType === edgeEditConfig;
 }
 export function isConfigurableNode(element: SModelElement): element is SNode & NodeEditConfig {
-    return element instanceof SNode && isConfigurableElement(element) && element.configType === nodeEditConfig
+    return element instanceof SNode && isConfigurableElement(element) && element.configType === nodeEditConfig;
 }
 
 export function isEdgeEditConfig(editConfig: EditConfig): editConfig is EdgeEditConfig {
-    return editConfig.configType === edgeEditConfig
+    return editConfig.configType === edgeEditConfig;
 }
 
 export function isNodeEditConfig(editConfig: EditConfig): editConfig is NodeEditConfig {
-    return editConfig.configType === nodeEditConfig
+    return editConfig.configType === nodeEditConfig;
 }
 
 export interface EditConfig {

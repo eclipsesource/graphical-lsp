@@ -21,7 +21,7 @@ export namespace OperationKind {
     export const RECONNECT_CONNECTION = "reconnectConnection";
     export const DELETE_ELEMENT = "delete";
     export const CHANGE_BOUNDS = "changeBoundsOperation";
-    export const CHANGE_CONTAINER = "changeContainer"
+    export const CHANGE_CONTAINER = "changeContainer";
     export const GENERIC = "generic";
 }
 
@@ -33,24 +33,24 @@ export interface Operation {
 }
 
 export class RequestOperationsAction implements Action {
-    static readonly KIND = 'requestOperations'
-    readonly kind = RequestOperationsAction.KIND
+    static readonly KIND = 'requestOperations';
+    readonly kind = RequestOperationsAction.KIND;
 
     constructor() { }
 }
 
 export class SetOperationsAction implements Action {
-    static readonly KIND = 'setOperations'
-    readonly kind = SetOperationsAction.KIND
+    static readonly KIND = 'setOperations';
+    readonly kind = SetOperationsAction.KIND;
     constructor(public readonly operations: Operation[]) { }
 }
 
 export function isSetOperationsAction(action: Action): action is SetOperationsAction {
     return action !== undefined && (action.kind === SetOperationsAction.KIND)
-        && (<SetOperationsAction>action).operations !== undefined
+        && (<SetOperationsAction>action).operations !== undefined;
 }
 
 export function deriveOperationId(operationKind: string, elementTypeId?: string) {
     const elementTypeSuffix = elementTypeId ? '_' + elementTypeId : "";
-    return `${operationKind}${elementTypeSuffix}`
+    return `${operationKind}${elementTypeSuffix}`;
 }

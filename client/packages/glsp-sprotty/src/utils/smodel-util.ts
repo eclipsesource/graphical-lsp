@@ -13,7 +13,12 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { BoundsAware, isBoundsAware, isSelectable, Selectable, SModelElement } from "sprotty/lib";
+import { BoundsAware } from "sprotty/lib";
+import { Selectable } from "sprotty/lib";
+import { SModelElement } from "sprotty/lib";
+
+import { isBoundsAware } from "sprotty/lib";
+import { isSelectable } from "sprotty/lib";
 
 export function getIndex(element: SModelElement) {
     return element.root.index;
@@ -38,7 +43,7 @@ export function getSelectedElementCount(element: SModelElement): number {
 }
 
 export function isSelected(element: SModelElement): element is SModelElement & Selectable {
-    return isSelectable(element) && element.selected
+    return isSelectable(element) && element.selected;
 }
 
 export function isSelectedBoundsAware(element: SModelElement): element is SModelElement & BoundsAware & Selectable {

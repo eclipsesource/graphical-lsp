@@ -3,7 +3,7 @@
   "version": "0.4.4",
   "description": "A sprotty-based client for GLSP",
   "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
-   "keywords": [
+  "keywords": [
     "eclipse",
     "graphics",
     "diagram",

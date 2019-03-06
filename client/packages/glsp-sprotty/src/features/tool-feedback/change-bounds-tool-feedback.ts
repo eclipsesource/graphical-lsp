@@ -13,15 +13,28 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { inject, injectable } from "inversify";
-import { VNode } from "snabbdom/vnode";
-import {
-    Action, CommandExecutionContext, ElementMove, findParentByFeature, isMoveable, isSelectable, //
-    isViewport, MouseListener, MoveAction, Point, SModelElement, SModelRoot, TYPES
-} from "sprotty/lib";
-import { isNotUndefined } from "../../utils/smodel-util";
-import { addResizeHandles, isResizeable, removeResizeHandles } from "../change-bounds/model";
+import { Action } from "sprotty/lib";
+import { CommandExecutionContext } from "sprotty/lib";
+import { ElementMove } from "sprotty/lib";
 import { FeedbackCommand } from "./model";
+import { MouseListener } from "sprotty/lib";
+import { MoveAction } from "sprotty/lib";
+import { Point } from "sprotty/lib";
+import { SModelElement } from "sprotty/lib";
+import { SModelRoot } from "sprotty/lib";
+import { TYPES } from "sprotty/lib";
+import { VNode } from "snabbdom/vnode";
+
+import { addResizeHandles } from "../change-bounds/model";
+import { findParentByFeature } from "sprotty/lib";
+import { inject } from "inversify";
+import { injectable } from "inversify";
+import { isMoveable } from "sprotty/lib";
+import { isNotUndefined } from "../../utils/smodel-util";
+import { isResizeable } from "../change-bounds/model";
+import { isSelectable } from "sprotty/lib";
+import { isViewport } from "sprotty/lib";
+import { removeResizeHandles } from "../change-bounds/model";
 
 export class ShowChangeBoundsToolResizeFeedbackAction implements Action {
     kind = ShowChangeBoundsToolResizeFeedbackCommand.KIND;

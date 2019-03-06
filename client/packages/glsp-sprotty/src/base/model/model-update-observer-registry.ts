@@ -13,11 +13,24 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { inject, injectable, multiInject, optional } from "inversify";
-import { Action, ICommand, IModelFactory, SetModelAction, SetModelCommand, SModelRoot, TYPES, UpdateModelAction, UpdateModelCommand } from "sprotty/lib";
+import { Action } from "sprotty/lib";
 import { GLSP_TYPES } from "../../types";
-import { distinctAdd, remove } from "../../utils/array-utils";
+import { ICommand } from "sprotty/lib";
+import { IModelFactory } from "sprotty/lib";
 import { SelfInitializingActionHandler } from "../diagram-ui-extension/diagram-ui-extension-registry";
+import { SetModelAction } from "sprotty/lib";
+import { SetModelCommand } from "sprotty/lib";
+import { SModelRoot } from "sprotty/lib";
+import { TYPES } from "sprotty/lib";
+import { UpdateModelAction } from "sprotty/lib";
+import { UpdateModelCommand } from "sprotty/lib";
+
+import { distinctAdd } from "../../utils/array-utils";
+import { inject } from "inversify";
+import { injectable } from "inversify";
+import { multiInject } from "inversify";
+import { optional } from "inversify";
+import { remove } from "../../utils/array-utils";
 
 export interface IModelUpdateObserver {
     /*Is called before an update model request from the server is applied*/
@@ -31,19 +44,19 @@ export interface IModelUpdateObserver {
 export class ModelUpdateObserverRegistry implements IModelUpdateObserver {
 
     constructor(@multiInject(GLSP_TYPES.IModelUpdateObserver) @optional() protected observers: IModelUpdateObserver[] = []) {
-        observers.forEach(observer => this.register(observer))
+        observers.forEach(observer => this.register(observer));
     }
 
     register(observer: IModelUpdateObserver) {
-        distinctAdd(this.observers, observer)
+        distinctAdd(this.observers, observer);
     }
 
     beforeServerUpdate(model: SModelRoot): void {
-        this.observers.forEach(observer => observer.beforeServerUpdate(model))
+        this.observers.forEach(observer => observer.beforeServerUpdate(model));
     }
 
     deregister(observer: IModelUpdateObserver) {
-        remove(this.observers, observer)
+        remove(this.observers, observer);
     }
 }
 /**
@@ -52,32 +65,32 @@ export class ModelUpdateObserverRegistry implements IModelUpdateObserver {
  */
 @injectable()
 export class ModelUpdateActionInitializer extends SelfInitializingActionHandler {
-    @inject(GLSP_TYPES.ModelUpdateObserverRegistry) protected readonly observerRegistry: ModelUpdateObserverRegistry
-    @inject(TYPES.IModelFactory) protected readonly modelFactory: IModelFactory
+    @inject(GLSP_TYPES.ModelUpdateObserverRegistry) protected readonly observerRegistry: ModelUpdateObserverRegistry;
+    @inject(TYPES.IModelFactory) protected readonly modelFactory: IModelFactory;
 
-    readonly handledActionKinds = [SetModelCommand.KIND, UpdateModelCommand.KIND]
+    readonly handledActionKinds = [SetModelCommand.KIND, UpdateModelCommand.KIND];
 
     handle(action: Action): ICommand | Action | void {
         if (isSetModelAction(action) || isUpdateModelAction(action)) {
             if (action.newRoot) {
-                const model = this.modelFactory.createRoot(action.newRoot)
-                this.observerRegistry.beforeServerUpdate(model)
+                const model = this.modelFactory.createRoot(action.newRoot);
+                this.observerRegistry.beforeServerUpdate(model);
                 // Transform the model back into the corresponding schema after
                 // all observers have applied their modifications
-                const updatedSchema = this.modelFactory.createSchema(model)
+                const updatedSchema = this.modelFactory.createSchema(model);
 
-                return new UpdateModelCommand(new UpdateModelAction(updatedSchema, true))
+                return new UpdateModelCommand(new UpdateModelAction(updatedSchema, true));
             }
         }
     }
 }
 
 export function isSetModelAction(action: Action): action is SetModelAction {
-    return action.kind === SetModelCommand.KIND && (<any>action)["newRoot"] !== undefined
+    return action.kind === SetModelCommand.KIND && (<any>action)["newRoot"] !== undefined;
 }
 
 export function isUpdateModelAction(action: Action): action is UpdateModelAction {
     return action.kind === UpdateModelCommand.KIND &&
         ((<any>action)["newRoot"] !== undefined || (<any>action)["matches"] !== undefined)
-        && (<any>action)["animate"] !== undefined
+        && (<any>action)["animate"] !== undefined;
 }

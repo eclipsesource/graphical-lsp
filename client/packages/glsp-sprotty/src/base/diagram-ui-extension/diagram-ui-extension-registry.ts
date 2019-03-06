@@ -13,14 +13,25 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { inject, injectable, multiInject, optional } from "inversify";
-import {
-    Action, ActionHandlerRegistry, CommandExecutionContext, CommandResult, IActionHandler, IActionHandlerInitializer, ICommand, //
-    InstanceRegistry, SystemCommand
-} from "sprotty/lib";
-import { toArray } from "sprotty/lib/utils/iterable";
+import { Action } from "sprotty/lib";
+import { ActionHandlerRegistry } from "sprotty/lib";
+import { CommandExecutionContext } from "sprotty/lib";
+import { CommandResult } from "sprotty/lib";
 import { GLSP_TYPES } from "../../types";
+import { IActionHandler } from "sprotty/lib";
+import { IActionHandlerInitializer } from "sprotty/lib";
+import { ICommand } from "sprotty/lib";
 import { IDiagramUIExtension } from "./diagram-ui-extension";
+import { InstanceRegistry } from "sprotty/lib";
+import { SystemCommand } from "sprotty/lib";
+
+import { inject } from "inversify";
+import { injectable } from "inversify";
+import { multiInject } from "inversify";
+import { optional } from "inversify";
+import { toArray } from "sprotty/lib/utils/iterable";
+
+
 
 /**
  * Convinience class for classes that implement both `IActionHandler` and `IActionHandlerInitializer`
@@ -29,13 +40,13 @@ import { IDiagramUIExtension } from "./diagram-ui-extension";
 export abstract class SelfInitializingActionHandler implements IActionHandler, IActionHandlerInitializer {
 
     initialize(registry: ActionHandlerRegistry) {
-        this.handledActionKinds.forEach(kind => registry.register(kind, this))
+        this.handledActionKinds.forEach(kind => registry.register(kind, this));
     }
 
-    abstract handle(action: Action): ICommand | Action | void
-    abstract handledActionKinds: string[]
-
+    abstract handle(action: Action): ICommand | Action | void;
+    abstract handledActionKinds: string[];
 }
+
 /**
  * Action requesting to show the diagram UI extension with specified id.
  */
@@ -72,26 +83,26 @@ export class DiagramUIExtensionRegistry extends InstanceRegistry<IDiagramUIExten
  */
 @injectable()
 export class DiagramUIExtensionActionHandlerInitializer extends SelfInitializingActionHandler {
-    @inject(GLSP_TYPES.DiagramUIExtensionRegistry) protected readonly registry: DiagramUIExtensionRegistry
+    @inject(GLSP_TYPES.DiagramUIExtensionRegistry) protected readonly registry: DiagramUIExtensionRegistry;
 
-    readonly handledActionKinds = [ShowDiagramUIExtensionAction.KIND, HideDiagramUIExtensionAction.KIND]
+    readonly handledActionKinds = [ShowDiagramUIExtensionAction.KIND, HideDiagramUIExtensionAction.KIND];
 
     handle(action: Action): void | ICommand | Action {
         if (action instanceof ShowDiagramUIExtensionAction) {
             return new DiagramUIExtensionActionCommand((context) => {
                 const index = context.root.index;
                 const selectedElements = toArray(index.all()
-                    .filter(e => action.selectedElementIds.indexOf(e.id) >= 0))
-                const extension = this.registry.get(action.extensionId)
+                    .filter(e => action.selectedElementIds.indexOf(e.id) >= 0));
+                const extension = this.registry.get(action.extensionId);
                 if (extension) {
-                    extension.show(selectedElements)
+                    extension.show(selectedElements);
                 }
             });
         } else if (action instanceof HideDiagramUIExtensionAction) {
             return new DiagramUIExtensionActionCommand((context) => {
-                const extension = this.registry.get(action.extensionId)
+                const extension = this.registry.get(action.extensionId);
                 if (extension) {
-                    extension.hide()
+                    extension.hide();
                 }
             });
         }
@@ -112,7 +123,7 @@ export class DiagramUIExtensionActionCommand extends SystemCommand {
 
     execute(context: CommandExecutionContext): CommandResult {
         this.effect(context);
-        context.root.index
+        context.root.index;
         return context.root;
     }
 

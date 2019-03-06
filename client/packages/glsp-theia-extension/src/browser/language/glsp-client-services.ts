@@ -13,12 +13,22 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Commands, ConnectionCloseHandler, ConnectionErrorHandler, ErrorHandler, InitializationFailedHandler, OutputChannel } from "@theia/languages/lib/browser";
-import { Disposable, Message, MessageConnection, NotificationHandler, NotificationType } from "vscode-jsonrpc";
-import { ExitNotification, ShutdownRequest } from "../../common";
+import { Commands } from "@theia/languages/lib/browser";
+import { ConnectionCloseHandler } from "@theia/languages/lib/browser";
+import { ConnectionErrorHandler } from "@theia/languages/lib/browser";
+import { Disposable } from "vscode-jsonrpc";
+import { ErrorHandler } from "@theia/languages/lib/browser";
+import { ExitNotification } from "../../common";
+import { InitializationFailedHandler } from "@theia/languages/lib/browser";
+import { Message } from "vscode-jsonrpc";
+import { MessageConnection } from "vscode-jsonrpc";
+import { NotificationHandler } from "vscode-jsonrpc";
+import { NotificationType } from "vscode-jsonrpc";
+import { OutputChannel } from "@theia/languages/lib/browser";
+import { ShutdownRequest } from "../../common";
 
 
-export const GLSPClient = Symbol.for('GLSPClient')
+export const GLSPClient = Symbol.for('GLSPClient');
 
 export interface GLSPClient {
     onReady(): Promise<void>
@@ -43,7 +53,7 @@ export interface GLSPClientOptions {
     errorHandler?: ErrorHandler;
 }
 
-export const Connection = Symbol.for('Connection')
+export const Connection = Symbol.for('Connection');
 
 export interface Connection {
     listen(): void
@@ -54,7 +64,7 @@ export interface Connection {
     dispose(): void;
 }
 
-export const ConnectionProvider = Symbol.for("ConnectionProvider")
+export const ConnectionProvider = Symbol.for("ConnectionProvider");
 
 export interface ConnectionProvider {
     get(errorHandler: ConnectionErrorHandler, closeHandler: ConnectionCloseHandler, outputChannel: OutputChannel | undefined): Thenable<Connection>;
@@ -63,7 +73,7 @@ export interface ConnectionProvider {
 export function createConnection(connection: MessageConnection, errorHandler: ConnectionErrorHandler, closeHandler: ConnectionCloseHandler) {
     connection.onError((data: [Error, Message, number]) => { errorHandler(data[0], data[1], data[2]); });
     connection.onClose(closeHandler);
-    connection.onNotification
+    connection.onNotification;
     const result: Connection = {
         listen: () => connection.listen(),
         sendNotification: <P, RO>(type: NotificationType<P, RO>, params?: P): void => connection.sendNotification(type, params),

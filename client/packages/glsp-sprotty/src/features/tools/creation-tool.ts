@@ -14,27 +14,38 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
-import { inject, injectable } from "inversify";
-import {
-    Action, AnchorComputerRegistry, EnableDefaultToolsAction, isCtrlOrCmd, //
-    MouseTool, SModelElement, SModelRoot, Tool
-} from "sprotty/lib";
-import { TypeAware } from "../../base/tool-manager/tool-manager-action-handler";
-import { GLSP_TYPES } from "../../types";
-import { getAbsolutePosition } from "../../utils/viewpoint-util";
-import { CreateConnectionOperationAction, CreateNodeOperationAction } from "../operation/operation-actions";
-import { deriveOperationId, OperationKind } from "../operation/set-operations";
-import {
-    FeedbackEdgeEndMovingMouseListener, HideEdgeCreationToolFeedbackAction, HideNodeCreationToolFeedbackAction, ShowEdgeCreationSelectSourceFeedbackAction, //
-    ShowEdgeCreationSelectTargetFeedbackAction, ShowNodeCreationToolFeedbackAction
-} from "../tool-feedback/creation-tool-feedback";
-import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
+import { Action } from "sprotty/lib";
+import { AnchorComputerRegistry } from "sprotty/lib";
+import { CreateConnectionOperationAction } from "../operation/operation-actions";
+import { CreateNodeOperationAction } from "../operation/operation-actions";
 import { DragAwareMouseListener } from "./drag-aware-mouse-listener";
+import { EnableDefaultToolsAction } from "sprotty/lib";
+import { FeedbackEdgeEndMovingMouseListener } from "../tool-feedback/creation-tool-feedback";
+import { GLSP_TYPES } from "../../types";
+import { HideEdgeCreationToolFeedbackAction } from "../tool-feedback/creation-tool-feedback";
+import { HideNodeCreationToolFeedbackAction } from "../tool-feedback/creation-tool-feedback";
+import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
+import { MouseTool } from "sprotty/lib";
+import { OperationKind } from "../operation/set-operations";
+import { ShowEdgeCreationSelectSourceFeedbackAction } from "../tool-feedback/creation-tool-feedback";
+import { ShowEdgeCreationSelectTargetFeedbackAction } from "../tool-feedback/creation-tool-feedback";
+import { ShowNodeCreationToolFeedbackAction } from "../tool-feedback/creation-tool-feedback";
+import { SModelElement } from "sprotty/lib";
+import { SModelRoot } from "sprotty/lib";
+import { Tool } from "sprotty/lib";
+import { TypeAware } from "../../base/tool-manager/tool-manager-action-handler";
 
-export const TOOL_ID_PREFIX = "tool"
+import { deriveOperationId } from "../operation/set-operations";
+import { getAbsolutePosition } from "../../utils/viewpoint-util";
+import { inject } from "inversify";
+import { injectable } from "inversify";
+import { isCtrlOrCmd } from "sprotty/lib";
+
+
+export const TOOL_ID_PREFIX = "tool";
 
 export function deriveToolId(operationKind: string, elementTypeId?: string) {
-    return `${TOOL_ID_PREFIX}_${deriveOperationId(operationKind, elementTypeId)}`
+    return `${TOOL_ID_PREFIX}_${deriveOperationId(operationKind, elementTypeId)}`;
 }
 
 @injectable()
@@ -46,18 +57,18 @@ export class NodeCreationTool implements Tool, TypeAware {
         @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher) { }
 
     get id() {
-        return deriveToolId(OperationKind.CREATE_NODE, this.elementTypeId)
-    };
+        return deriveToolId(OperationKind.CREATE_NODE, this.elementTypeId);
+    }
 
     enable() {
         this.creationToolMouseListener = new NodeCreationToolMouseListener(this.elementTypeId);
         this.mouseTool.register(this.creationToolMouseListener);
-        this.feedbackDispatcher.registerFeedback(this, [new ShowNodeCreationToolFeedbackAction(this.elementTypeId)])
+        this.feedbackDispatcher.registerFeedback(this, [new ShowNodeCreationToolFeedbackAction(this.elementTypeId)]);
     }
 
     disable() {
         this.mouseTool.deregister(this.creationToolMouseListener);
-        this.feedbackDispatcher.deregisterFeedback(this, [new HideNodeCreationToolFeedbackAction(this.elementTypeId)])
+        this.feedbackDispatcher.deregisterFeedback(this, [new HideNodeCreationToolFeedbackAction(this.elementTypeId)]);
     }
 }
 
@@ -95,8 +106,8 @@ export class EdgeCreationTool implements Tool, TypeAware {
         @inject(AnchorComputerRegistry) protected anchorRegistry: AnchorComputerRegistry) { }
 
     get id() {
-        return deriveToolId(OperationKind.CREATE_CONNECTION, this.elementTypeId)
-    };
+        return deriveToolId(OperationKind.CREATE_CONNECTION, this.elementTypeId);
+    }
 
     enable() {
         this.creationToolMouseListener = new EdgeCreationToolMouseListener(this.elementTypeId, this);

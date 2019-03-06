@@ -13,31 +13,48 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Emitter, Event } from "@theia/core/lib/common";
-import {
-    Action, ActionHandlerRegistry, CollapseExpandAction, CollapseExpandAllAction, ComputedBoundsAction, ExecuteServerCommandAction, ExportSvgAction, IdentifiableRequestAction, //
-    ModelSource, OpenAction, OperationKind, RequestBoundsCommand, RequestCommandPaletteActions, RequestModelAction, RequestOperationsAction, RequestPopupModelAction, //
-    RequestTypeHintsAction, SaveModelAction, ServerStatusAction, //
-    SetTypeHintsAction, SwitchEditModeCommand
-} from "glsp-sprotty/lib";
-import { injectable } from "inversify";
+import { Action } from "glsp-sprotty/lib";
+import { ActionHandlerRegistry } from "glsp-sprotty/lib";
+import { CollapseExpandAction } from "glsp-sprotty/lib";
+import { CollapseExpandAllAction } from "glsp-sprotty/lib";
+import { ComputedBoundsAction } from "glsp-sprotty/lib";
+import { Emitter } from "@theia/core/lib/common";
+import { Event } from "@theia/core/lib/common";
+import { ExecuteServerCommandAction } from "glsp-sprotty/lib";
+import { ExportSvgAction } from "glsp-sprotty/lib";
+import { IdentifiableRequestAction } from "glsp-sprotty/lib";
+import { ModelSource } from "glsp-sprotty/lib";
+import { OpenAction } from "glsp-sprotty/lib";
+import { OperationKind } from "glsp-sprotty/lib";
+import { RequestBoundsCommand } from "glsp-sprotty/lib";
+import { RequestCommandPaletteActions } from "glsp-sprotty/lib";
+import { RequestModelAction } from "glsp-sprotty/lib";
+import { RequestOperationsAction } from "glsp-sprotty/lib";
+import { RequestPopupModelAction } from "glsp-sprotty/lib";
+import { RequestTypeHintsAction } from "glsp-sprotty/lib";
+import { SaveModelAction } from "glsp-sprotty/lib";
+import { ServerStatusAction } from "glsp-sprotty/lib";
+import { SetTypeHintsAction } from "glsp-sprotty/lib";
+import { SwitchEditModeCommand } from "glsp-sprotty/lib";
 import { TheiaDiagramServer } from "sprotty-theia/lib";
+
+import { injectable } from "inversify";
 
 @injectable()
 export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements NotifyingModelSource {
     readonly handledActionEventEmitter: Emitter<Action> = new Emitter<Action>();
 
     initialize(registry: ActionHandlerRegistry): void {
-        registry.register(RequestOperationsAction.KIND, this)
-        registry.register(SaveModelAction.KIND, this)
-        registry.register(OperationKind.CREATE_CONNECTION, this)
-        registry.register(OperationKind.RECONNECT_CONNECTION, this)
-        registry.register(OperationKind.CREATE_NODE, this)
-        registry.register(OperationKind.CHANGE_BOUNDS, this)
-        registry.register(OperationKind.DELETE_ELEMENT, this)
-        registry.register(ExecuteServerCommandAction.KIND, this)
-        registry.register(RequestTypeHintsAction.KIND, this)
-        registry.register(SetTypeHintsAction.KIND, this)
+        registry.register(RequestOperationsAction.KIND, this);
+        registry.register(SaveModelAction.KIND, this);
+        registry.register(OperationKind.CREATE_CONNECTION, this);
+        registry.register(OperationKind.RECONNECT_CONNECTION, this);
+        registry.register(OperationKind.CREATE_NODE, this);
+        registry.register(OperationKind.CHANGE_BOUNDS, this);
+        registry.register(OperationKind.DELETE_ELEMENT, this);
+        registry.register(ExecuteServerCommandAction.KIND, this);
+        registry.register(RequestTypeHintsAction.KIND, this);
+        registry.register(SetTypeHintsAction.KIND, this);
         registry.register(ComputedBoundsAction.KIND, this);
         registry.register(RequestBoundsCommand.KIND, this);
         registry.register(RequestPopupModelAction.KIND, this);
@@ -53,12 +70,12 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         // Register an empty handler for SwitchEditMode, to avoid runtime exceptions.
         // We don't want to support SwitchEditMode, but sprotty still sends some corresponding
         // actions.
-        registry.register(SwitchEditModeCommand.KIND, { handle: action => undefined })
+        registry.register(SwitchEditModeCommand.KIND, { handle: action => undefined });
     }
 
 
     public getSourceURI(): string {
-        return this.sourceUri
+        return this.sourceUri;
     }
 
     get onHandledAction(): Event<Action> {
@@ -67,7 +84,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
 
     handle(action: Action) {
         this.handledActionEventEmitter.fire(action);
-        return super.handle(action)
+        return super.handle(action);
     }
 
 }

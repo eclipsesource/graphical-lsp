@@ -13,14 +13,26 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { MaybePromise } from "@theia/core";
-import { WebSocketConnectionProvider } from "@theia/core/lib/browser";
-import { Disposable } from "@theia/core/lib/common/disposable";
-import { CloseAction, ErrorAction, NotificationHandler, OutputChannel } from '@theia/languages/lib/browser';
-import { LanguageContribution } from "@theia/languages/lib/common";
-import { inject, injectable } from "inversify";
-import { Message, MessageConnection, NotificationType } from "vscode-jsonrpc";
-import { Connection, ConnectionProvider, createConnection, GLSPClient, GLSPClientOptions } from "./glsp-client-services";
+import { CloseAction } from '@theia/languages/lib/browser';
+import { Connection } from './glsp-client-services';
+import { ConnectionProvider } from './glsp-client-services';
+import { Disposable } from '@theia/core/lib/common/disposable';
+import { ErrorAction } from '@theia/languages/lib/browser';
+import { GLSPClient } from './glsp-client-services';
+import { GLSPClientOptions } from './glsp-client-services';
+import { LanguageContribution } from '@theia/languages/lib/common';
+import { MaybePromise } from '@theia/core';
+import { Message } from 'vscode-jsonrpc';
+import { MessageConnection } from 'vscode-jsonrpc';
+import { NotificationHandler } from '@theia/languages/lib/browser';
+import { NotificationType } from 'vscode-jsonrpc';
+import { OutputChannel } from '@theia/languages/lib/browser';
+import { WebSocketConnectionProvider } from '@theia/core/lib/browser';
+
+import { createConnection } from './glsp-client-services';
+import { inject } from 'inversify';
+import { injectable } from 'inversify';
+
 
 enum ClientState {
     Initial,
@@ -36,7 +48,7 @@ export class BaseGLSPClient implements GLSPClient {
     protected readonly connectionProvider: ConnectionProvider;
     private connectionPromise: Thenable<Connection> | undefined;
     private resolvedConnection: Connection | undefined;
-    private state: ClientState
+    private state: ClientState;
     private _outputChannel: OutputChannel;
     private clientOptions: GLSPClientOptions;
     private onStop: Thenable<void> | undefined;
@@ -47,15 +59,15 @@ export class BaseGLSPClient implements GLSPClient {
         this.id = id;
         this.name = name;
         this.clientOptions = clientOptions;
-        this.onStop = undefined
-        this._onReady = Promise.resolve()
-        this.state = ClientState.Initial
+        this.onStop = undefined;
+        this._onReady = Promise.resolve();
+        this.state = ClientState.Initial;
 
     }
     start(): Disposable {
         this.state = ClientState.Starting;
         this.resolveConnection().then((connection) => {
-            connection.listen()
+            connection.listen();
             this.resolvedConnection = connection;
             this.state = ClientState.Running;
         }).then(undefined, (error) => {
@@ -63,7 +75,7 @@ export class BaseGLSPClient implements GLSPClient {
         });
         return {
             dispose: () => this.stop()
-        }
+        };
 
     }
 
@@ -108,7 +120,7 @@ export class BaseGLSPClient implements GLSPClient {
     private handleConnectionError(error: Error, message: Message, count: number) {
         const action = this.clientOptions.errorHandler!.error(error, message, count);
         if (action === ErrorAction.Shutdown) {
-            console.error('Connection to server is erroring. Shutting down server.')
+            console.error('Connection to server is erroring. Shutting down server.');
             this.stop();
         }
     }

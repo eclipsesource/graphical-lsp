@@ -14,16 +14,23 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
-import { ContainerModule } from "inversify";
-import { TYPES } from "sprotty/lib";
 import "../../../css/command-palette.css";
+
+import { CommandPalette } from "./command-palette";
+import { CommandPaletteActionProviderRegistry } from "./action-provider";
+import { CommandPaletteKeyListener } from "./command-palette";
+import { ContainerModule } from "inversify";
 import { GLSP_TYPES } from "../../types";
-import { CommandPaletteActionProviderRegistry, ICommandPaletteActionProvider, NavigationCommandPaletteActionProvider, ServerCommandPaletteActionProvider } from "./action-provider";
-import { CommandPalette, CommandPaletteKeyListener } from "./command-palette";
+import { ICommandPaletteActionProvider } from "./action-provider";
+import { NavigationCommandPaletteActionProvider } from "./action-provider";
+import { ServerCommandPaletteActionProvider } from "./action-provider";
+import { TYPES } from "sprotty/lib";
+
+
 
 const commandPaletteModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     bind(CommandPalette).toSelf().inSingletonScope();
-    bind(GLSP_TYPES.IDiagramUIExtension).toService(CommandPalette)
+    bind(GLSP_TYPES.IDiagramUIExtension).toService(CommandPalette);
     bind(TYPES.KeyListener).to(CommandPaletteKeyListener);
     bind(CommandPaletteActionProviderRegistry).toSelf().inSingletonScope();
     bind(GLSP_TYPES.ICommandPaletteActionProviderRegistry).toProvider<ICommandPaletteActionProvider>((context) => {

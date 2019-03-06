@@ -13,7 +13,13 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action, KeyListener, MouseListener, SelectAction, SelectKeyboardListener, SelectMouseListener, SModelElement } from "sprotty/lib";
+import { Action } from "sprotty/lib";
+import { KeyListener } from "sprotty/lib";
+import { MouseListener } from "sprotty/lib";
+import { SelectAction } from "sprotty/lib";
+import { SelectKeyboardListener } from "sprotty/lib";
+import { SelectMouseListener } from "sprotty/lib";
+import { SModelElement } from "sprotty/lib";
 
 /**
  * A mouse and key listener that tracks the currently selected elements in an accessible manner by extending the selection implementation of Sprotty.

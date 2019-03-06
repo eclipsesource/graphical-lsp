@@ -17,9 +17,9 @@ export function createElementFromHTML(html: string): HTMLElement | undefined {
     const template = document.createElement('template');
     html = html.trim(); // Never return a text node of whitespace as the result
     template.innerHTML = html;
-    const node = template.content.firstChild
+    const node = template.content.firstChild;
     if (node && node instanceof HTMLElement) {
-        return node as HTMLElement
+        return node as HTMLElement;
     }
     return undefined;
 }

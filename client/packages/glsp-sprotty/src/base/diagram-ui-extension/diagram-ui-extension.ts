@@ -13,8 +13,17 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { inject, injectable } from "inversify";
-import { Action, IActionDispatcherProvider, ILogger, isAction, SModelElement, TYPES, ViewerOptions } from "sprotty/lib";
+import { Action } from "sprotty/lib";
+import { IActionDispatcherProvider } from "sprotty/lib";
+import { ILogger } from "sprotty/lib";
+import { SModelElement } from "sprotty/lib";
+import { TYPES } from "sprotty/lib";
+import { ViewerOptions } from "sprotty/lib";
+
+import { inject } from "inversify";
+import { injectable } from "inversify";
+import { isAction } from "sprotty/lib";
+
 
 /**
  * An extension with togglable visbility  that can display additional (UI) information on top of a sprotty diagram
@@ -31,7 +40,7 @@ export interface IDiagramUIExtension {
 @injectable()
 export abstract class BaseDiagramUIExtension implements IDiagramUIExtension {
     abstract readonly id: string;
-    abstract readonly containerClass: string
+    abstract readonly containerClass: string;
     protected containerElement: HTMLElement;
 
     constructor(
@@ -46,12 +55,12 @@ export abstract class BaseDiagramUIExtension implements IDiagramUIExtension {
             if (!initializeSuccessful) return;
         }
         this.updatePosition(selectedElements);
-        this.setContainerVisible(true)
+        this.setContainerVisible(true);
     }
 
     hide(): void {
-        this.setContainerVisible(false)
-        this.restoreFocus()
+        this.setContainerVisible(false);
+        this.restoreFocus();
     }
 
     protected restoreFocus() {
@@ -69,22 +78,22 @@ export abstract class BaseDiagramUIExtension implements IDiagramUIExtension {
             this.logger.warn(this, 'Could not obtain sprotty base container for showing command palette');
             return false;
         }
-        this.containerElement = this.getOrCreateContainer(baseDiv.id)
-        this.createUIElements()
+        this.containerElement = this.getOrCreateContainer(baseDiv.id);
+        this.createUIElements();
         if (baseDiv) {
             baseDiv.insertBefore(this.containerElement, baseDiv.firstChild);
         }
-        return true
+        return true;
     }
 
     protected getOrCreateContainer(baseDivId: string): HTMLElement {
-        let container = document.getElementById(this.id)
+        let container = document.getElementById(this.id);
         if (container === null) {
             container = document.createElement('div');
-            container.id = baseDivId + "_" + this.id
-            container.classList.add(this.containerClass)
+            container.id = baseDivId + "_" + this.id;
+            container.classList.add(this.containerClass);
         }
-        return container
+        return container;
     }
 
     /**
@@ -94,7 +103,7 @@ export abstract class BaseDiagramUIExtension implements IDiagramUIExtension {
         // default: do nothing
     }
 
-    protected abstract createUIElements(): void
+    protected abstract createUIElements(): void;
 
     protected setContainerVisible(value: boolean) {
         if (this.containerElement) {

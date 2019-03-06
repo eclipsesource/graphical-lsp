@@ -13,16 +13,18 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { ContainerModule } from "inversify";
-import { TYPES } from "sprotty/lib";
 import "../../../css/tool-palette.css";
+
+import { ContainerModule } from "inversify";
 import { GLSP_TYPES } from "../../types";
-import { ToolPalette, ToolPaletteActionHandler } from "./tool-palette";
+import { ToolPalette } from "./tool-palette";
+import { ToolPaletteActionHandler } from "./tool-palette";
+import { TYPES } from "sprotty/lib";
 
 const toolPaletteModule = new ContainerModule((bind) => {
     bind(ToolPalette).toSelf().inSingletonScope();
-    bind(GLSP_TYPES.IDiagramUIExtension).toService(ToolPalette)
-    bind(TYPES.IActionHandlerInitializer).to(ToolPaletteActionHandler)
+    bind(GLSP_TYPES.IDiagramUIExtension).toService(ToolPalette);
+    bind(TYPES.IActionHandlerInitializer).to(ToolPaletteActionHandler);
 });
 
 export default toolPaletteModule;

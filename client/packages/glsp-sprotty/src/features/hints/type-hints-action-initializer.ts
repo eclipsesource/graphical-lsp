@@ -13,73 +13,86 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { injectable } from "inversify";
-import { Action, Command, ICommand, SModelElement, SModelElementSchema, SModelRoot } from "sprotty/lib";
-import { SelfInitializingActionHandler } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
-import {
-    EdgeEditConfig, edgeEditConfig, EditConfig, IEditConfigProvider, isEdgeEditConfig, //
-    isNodeEditConfig, NodeEditConfig, nodeEditConfig
-} from "../../base/edit-config/edit-config";
+import { Action } from "sprotty/lib";
+import { Command } from "sprotty/lib";
+import { EdgeEditConfig } from "../../base/edit-config/edit-config";
+import { EdgeTypeHint } from "./action-definition";
+import { EditConfig } from "../../base/edit-config/edit-config";
+import { ICommand } from "sprotty/lib";
+import { IEditConfigProvider } from "../../base/edit-config/edit-config";
 import { IModelUpdateObserver } from "../../base/model/model-update-observer-registry";
+import { NodeEditConfig } from "../../base/edit-config/edit-config";
+import { NodeTypeHint } from "./action-definition";
+import { SelfInitializingActionHandler } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
+import { SetTypeHintsAction } from "./action-definition";
+import { SModelElement } from "sprotty/lib";
+import { SModelElementSchema } from "sprotty/lib";
+import { SModelRoot } from "sprotty/lib";
+
 import { contains } from "../../utils/array-utils";
-import { EdgeTypeHint, isSetTypeHintsAction, NodeTypeHint, SetTypeHintsAction } from "./action-definition";
+import { edgeEditConfig } from "../../base/edit-config/edit-config";
+import { injectable } from "inversify";
+import { isEdgeEditConfig } from "../../base/edit-config/edit-config";
+import { isNodeEditConfig } from "../../base/edit-config/edit-config";
+import { isSetTypeHintsAction } from "./action-definition";
+import { nodeEditConfig } from "../../base/edit-config/edit-config";
 
 
 @injectable()
 export class TypeHintsActionHandler extends SelfInitializingActionHandler implements IModelUpdateObserver, IEditConfigProvider {
-    protected editConfigs: Map<string, EditConfig> = new Map
-    readonly handledActionKinds = [SetTypeHintsAction.KIND]
+    protected editConfigs: Map<string, EditConfig> = new Map;
+    readonly handledActionKinds = [SetTypeHintsAction.KIND];
 
     handle(action: Action): ICommand | Action | void {
         if (isSetTypeHintsAction(action)) {
-            action.nodeHints.forEach(hint => this.editConfigs.set(hint.elementTypeId, createNodeEditConfig(hint)))
-            action.edgeHints.forEach(hint => this.editConfigs.set(hint.elementTypeId, createEdgeEditConfig(hint)))
+            action.nodeHints.forEach(hint => this.editConfigs.set(hint.elementTypeId, createNodeEditConfig(hint)));
+            action.edgeHints.forEach(hint => this.editConfigs.set(hint.elementTypeId, createEdgeEditConfig(hint)));
             return <Command>{
-                undo: (context) => { return context.root },
-                redo: (context) => { return context.root },
+                undo: (context) => { return context.root; },
+                redo: (context) => { return context.root; },
                 execute: (context) => {
-                    this.applyConfig(context.root)
-                    return context.root
+                    this.applyConfig(context.root);
+                    return context.root;
                 }
-            }
+            };
         }
     }
 
     beforeServerUpdate(model: SModelRoot) {
-        this.applyConfig(model)
+        this.applyConfig(model);
     }
 
     applyConfig(model: SModelRoot) {
         model.index.all().forEach(element => {
-            const config = this.editConfigs.get(element.type)
+            const config = this.editConfigs.get(element.type);
             if (config) {
-                Object.keys(config).forEach(key => (<any>element)[key] = (<any>config)[key])
+                Object.keys(config).forEach(key => (<any>element)[key] = (<any>config)[key]);
             }
-        })
+        });
     }
 
     getEditConfig(input: SModelElement | SModelElementSchema | string): EditConfig | undefined {
-        return this.editConfigs.get(getElementTypeId(input))
+        return this.editConfigs.get(getElementTypeId(input));
     }
 
     getAllEdgeEditConfigs(): EdgeEditConfig[] {
-        const configs: EdgeEditConfig[] = []
+        const configs: EdgeEditConfig[] = [];
         this.editConfigs.forEach((value, key) => {
             if (isEdgeEditConfig(value)) {
-                configs.push(value)
+                configs.push(value);
             }
-        })
-        return configs
+        });
+        return configs;
     }
 
     getAllNodeEditConfigs(): NodeEditConfig[] {
-        const configs: NodeEditConfig[] = []
+        const configs: NodeEditConfig[] = [];
         this.editConfigs.forEach((value, key) => {
             if (isNodeEditConfig(value)) {
-                configs.push(value)
+                configs.push(value);
             }
-        })
-        return configs
+        });
+        return configs;
     }
 }
 
@@ -90,9 +103,9 @@ export function createNodeEditConfig(hint: NodeTypeHint): NodeEditConfig {
         repositionable: hint.repositionable,
         resizable: hint.resizable,
         configType: nodeEditConfig,
-        isContainableElement: (element) => { return hint.containableElementTypeIds ? contains(hint.containableElementTypeIds, getElementTypeId(element)) : false },
-        isContainer: () => { return hint.containableElementTypeIds ? hint.containableElementTypeIds.length > 0 : false }
-    }
+        isContainableElement: (element) => { return hint.containableElementTypeIds ? contains(hint.containableElementTypeIds, getElementTypeId(element)) : false; },
+        isContainer: () => { return hint.containableElementTypeIds ? hint.containableElementTypeIds.length > 0 : false; }
+    };
 }
 
 
@@ -103,15 +116,15 @@ export function createEdgeEditConfig(hint: EdgeTypeHint): EdgeEditConfig {
         repositionable: hint.repositionable,
         routable: hint.routable,
         configType: edgeEditConfig,
-        isAllowedSource: (source) => { return contains(hint.sourceElementTypeIds, getElementTypeId(source)) },
-        isAllowedTarget: (target) => { return contains(hint.targetElementTypeIds, getElementTypeId(target)) }
-    }
+        isAllowedSource: (source) => { return contains(hint.sourceElementTypeIds, getElementTypeId(source)); },
+        isAllowedTarget: (target) => { return contains(hint.targetElementTypeIds, getElementTypeId(target)); }
+    };
 }
 
 function getElementTypeId(input: SModelElement | SModelElementSchema | string) {
     if (typeof (input) === 'string') {
-        return <string>input
+        return <string>input;
     } else {
-        return <string>(<any>input)["type"]
+        return <string>(<any>input)["type"];
     }
 }

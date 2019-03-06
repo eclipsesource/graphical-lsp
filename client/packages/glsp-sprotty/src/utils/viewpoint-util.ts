@@ -13,7 +13,12 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { findParentByFeature, isViewport, Point, SModelElement, Viewport } from "sprotty/lib";
+import { Point } from "sprotty/lib";
+import { SModelElement } from "sprotty/lib";
+import { Viewport } from "sprotty/lib";
+
+import { findParentByFeature } from "sprotty/lib";
+import { isViewport } from "sprotty/lib";
 
 /**
  * Return the position corresponding to this mouse event (Browser coordinates)
@@ -37,17 +42,17 @@ export function getAbsolutePosition(target: SModelElement, mouseEvent: MouseEven
     const viewport: Viewport | undefined = findParentByFeature(target, isViewport);
     const zoom = viewport ? viewport.zoom : 1;
     if (viewport) {
-        const scroll: Point = { x: viewport.scroll.x, y: viewport.scroll.y }
+        const scroll: Point = { x: viewport.scroll.x, y: viewport.scroll.y };
         xPos += scroll.x * zoom;
         yPos += scroll.y * zoom;
 
         xPos /= zoom;
         yPos /= zoom;
     }
-    xPos
+    xPos;
 
     return {
         x: xPos,
         y: yPos
-    }
+    };
 }

@@ -13,20 +13,33 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { CommandRegistry, DisposableCollection, MaybePromise, MessageService } from "@theia/core";
-import { FrontendApplication, WebSocketConnectionProvider, WebSocketOptions } from "@theia/core/lib/browser";
-import { Deferred } from "@theia/core/lib/common/promise-util";
-import { EditorManager } from "@theia/editor/lib/browser";
-import { Commands, Disposable, InitializeParams, State } from '@theia/languages/lib/browser';
-import { LanguageContribution } from "@theia/languages/lib/common";
-import { WorkspaceService } from "@theia/workspace/lib/browser";
-import { inject, injectable, multiInject } from "inversify";
-import { DiagramManagerProvider } from "sprotty-theia/lib";
-import { MessageConnection, ResponseError } from "vscode-jsonrpc";
-import { GLSPClientFactory } from "./glsp-client";
-import { GLSPClient, GLSPClientOptions } from "./glsp-client-services";
+import { CommandRegistry } from '@theia/core';
+import { Commands } from '@theia/languages/lib/browser';
+import { Deferred } from '@theia/core/lib/common/promise-util';
+import { DiagramManagerProvider } from 'sprotty-theia/lib';
+import { Disposable } from '@theia/languages/lib/browser';
+import { DisposableCollection } from '@theia/core';
+import { EditorManager } from '@theia/editor/lib/browser';
+import { FrontendApplication } from '@theia/core/lib/browser';
+import { GLSPClient } from './glsp-client-services';
+import { GLSPClientFactory } from './glsp-client';
+import { GLSPClientOptions } from './glsp-client-services';
+import { InitializeParams } from '@theia/languages/lib/browser';
+import { LanguageContribution } from '@theia/languages/lib/common';
+import { MaybePromise } from '@theia/core';
+import { MessageConnection } from 'vscode-jsonrpc';
+import { MessageService } from '@theia/core';
+import { ResponseError } from 'vscode-jsonrpc';
+import { State } from '@theia/languages/lib/browser';
+import { WebSocketConnectionProvider } from '@theia/core/lib/browser';
+import { WebSocketOptions } from '@theia/core/lib/browser';
+import { WorkspaceService } from '@theia/workspace/lib/browser';
 
-export const GLSPClientContribution = Symbol.for('GLSPClientContribution')
+import { inject } from 'inversify';
+import { injectable } from 'inversify';
+import { multiInject } from 'inversify';
+
+export const GLSPClientContribution = Symbol.for('GLSPClientContribution');
 
 export interface GLSPClientContribution extends LanguageContribution {
     readonly running: boolean;
@@ -39,28 +52,28 @@ export interface GLSPClientContribution extends LanguageContribution {
 
 @injectable()
 export abstract class BaseGLSPClientContribution implements GLSPClientContribution, Commands {
-    abstract readonly id: string
-    abstract readonly name: string
-    abstract readonly fileExtensions: string[]
+    abstract readonly id: string;
+    abstract readonly name: string;
+    abstract readonly fileExtensions: string[];
 
-    protected _glspClient: GLSPClient | undefined
+    protected _glspClient: GLSPClient | undefined;
 
-    protected resolveReady: (glspClient: GLSPClient) => void
-    protected ready: Promise<GLSPClient>
+    protected resolveReady: (glspClient: GLSPClient) => void;
+    protected ready: Promise<GLSPClient>;
 
-    @inject(WorkspaceService) protected readonly workspaceService: WorkspaceService
+    @inject(WorkspaceService) protected readonly workspaceService: WorkspaceService;
     @inject(MessageService) protected readonly messageService: MessageService;
-    @inject(WebSocketConnectionProvider) protected readonly connectionProvider: WebSocketConnectionProvider
-    @inject(GLSPClientFactory) protected readonly languageClientFactory: GLSPClientFactory
-    @inject(CommandRegistry) protected readonly registry: CommandRegistry
-    @inject(EditorManager) protected readonly editorManager: EditorManager
-    @multiInject(DiagramManagerProvider) protected diagramManagerProviders: DiagramManagerProvider[]
+    @inject(WebSocketConnectionProvider) protected readonly connectionProvider: WebSocketConnectionProvider;
+    @inject(GLSPClientFactory) protected readonly languageClientFactory: GLSPClientFactory;
+    @inject(CommandRegistry) protected readonly registry: CommandRegistry;
+    @inject(EditorManager) protected readonly editorManager: EditorManager;
+    @multiInject(DiagramManagerProvider) protected diagramManagerProviders: DiagramManagerProvider[];
     constructor() {
-        this.waitForReady()
+        this.waitForReady();
     }
 
     get glspClient(): Promise<GLSPClient> {
-        return this._glspClient ? Promise.resolve(this._glspClient) : this.ready
+        return this._glspClient ? Promise.resolve(this._glspClient) : this.ready;
     }
 
     waitForActivation(app: FrontendApplication): Promise<any> {
@@ -73,7 +86,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         if (fileExtensions) {
             activationPromises.push(this.waitForOpenDocument(fileExtensions));
         }
-        activationPromises.push(this.waitForOpenDiagrams())
+        activationPromises.push(this.waitForOpenDiagrams());
         if (activationPromises.length !== 0) {
             return Promise.all([
                 this.ready,
@@ -87,7 +100,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
                 })))
             ]);
         }
-        return this.ready
+        return this.ready;
     }
 
     protected waitForOpenDiagrams(): Promise<any> {
@@ -95,12 +108,12 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
             return diagramManagerProvider().then(diagramManager => {
                 return new Promise<void>((resolve) => {
                     const disposable = diagramManager.onCreated((widget) => {
-                        disposable.dispose()
-                        resolve()
+                        disposable.dispose();
+                        resolve();
                     });
-                })
-            })
-        }))
+                });
+            });
+        }));
     }
     protected readonly toDeactivate = new DisposableCollection();
     activate(): Disposable {
@@ -160,7 +173,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
     protected waitForReady(): void {
         this.ready = new Promise<GLSPClient>(resolve =>
             this.resolveReady = resolve
-        )
+        );
     }
 
     protected createLanguageClient(connection: MessageConnection | (() => MaybePromise<MessageConnection>)): GLSPClient {
@@ -194,9 +207,9 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
     }
 
     protected async waitForOpenDocument(fileExtensions: string[]): Promise<any> {
-        const currentEditor = this.editorManager.currentEditor
+        const currentEditor = this.editorManager.currentEditor;
         if (currentEditor) {
-            const uri = currentEditor.editor.uri.toString()
+            const uri = currentEditor.editor.uri.toString();
             for (const extension of fileExtensions) {
                 if (uri.endsWith(extension)) {
                     return Promise.resolve();

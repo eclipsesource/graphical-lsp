@@ -14,11 +14,14 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { ContributionProvider } from "@theia/core";
-import { inject, injectable, named } from "inversify";
-import { GLSPClientContribution } from "./glsp-client-contribution";
 import { GLSPClient } from "./glsp-client-services";
+import { GLSPClientContribution } from "./glsp-client-contribution";
 
-export const GLSPClientProvider = Symbol.for('GLSPClientProvider')
+import { inject } from "inversify";
+import { injectable } from "inversify";
+import { named } from "inversify";
+
+export const GLSPClientProvider = Symbol.for('GLSPClientProvider');
 
 export interface GLSPClientProvider {
     getLanguageClient(languageId: string): Promise<GLSPClient | undefined>
@@ -27,14 +30,14 @@ export interface GLSPClientProvider {
 @injectable()
 export class GLSPClientProviderImpl implements GLSPClientProvider {
     @inject(ContributionProvider) @named(GLSPClientContribution)
-    private readonly contributions: ContributionProvider<GLSPClientContribution>
+    private readonly contributions: ContributionProvider<GLSPClientContribution>;
 
     async getLanguageClient(languageId: string): Promise<GLSPClient | undefined> {
         const contribution = this.getLanguageContribution(languageId);
         if (contribution) {
             return contribution.glspClient;
         }
-        return undefined
+        return undefined;
     }
 
     protected getLanguageContribution(languageId: string): GLSPClientContribution | undefined {

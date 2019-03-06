@@ -13,14 +13,18 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Widget } from "@phosphor/widgets";
-import { WidgetOpenerOptions } from "@theia/core/lib/browser";
-import URI from "@theia/core/lib/common/uri";
+import { DiagramManager } from "sprotty-theia/lib";
+import { DiagramWidgetOptions } from "sprotty-theia/lib";
 import { EditorPreferences } from "@theia/editor/lib/browser";
-import { inject, injectable } from "inversify";
-import { DiagramManager, DiagramWidgetOptions } from "sprotty-theia/lib";
 import { GLSPDiagramWidget } from "./glsp-diagram-widget";
 import { GLSPTheiaSprottyConnector } from "./glsp-theia-sprotty-connector";
+import { Widget } from "@phosphor/widgets";
+import { WidgetOpenerOptions } from "@theia/core/lib/browser";
+
+import { inject } from "inversify";
+import { injectable } from "inversify";
+
+import URI from "@theia/core/lib/common/uri";
 
 @injectable()
 export abstract class GLSPDiagramManager extends DiagramManager {
@@ -30,13 +34,13 @@ export abstract class GLSPDiagramManager extends DiagramManager {
 
     async createWidget(options?: any): Promise<Widget> {
         if (DiagramWidgetOptions.is(options)) {
-            const clientId = this.createClientId()
-            const config = this.diagramConfigurationRegistry.get(options.diagramType)
-            const diContainer = config.createContainer(clientId + '_sprotty')
-            const diagramWidget = new GLSPDiagramWidget(options, clientId, diContainer, this.editorPreferences, this.diagramConnector)
+            const clientId = this.createClientId();
+            const config = this.diagramConfigurationRegistry.get(options.diagramType);
+            const diContainer = config.createContainer(clientId + '_sprotty');
+            const diagramWidget = new GLSPDiagramWidget(options, clientId, diContainer, this.editorPreferences, this.diagramConnector);
             return diagramWidget;
         }
-        throw Error('DiagramWidgetFactory needs DiagramWidgetOptions but got ' + JSON.stringify(options))
+        throw Error('DiagramWidgetFactory needs DiagramWidgetOptions but got ' + JSON.stringify(options));
     }
     canHandle(uri: URI, options?: WidgetOpenerOptions | undefined): number {
         for (const extension of this.fileExtensions) {
@@ -44,10 +48,10 @@ export abstract class GLSPDiagramManager extends DiagramManager {
                 return 101;
             }
         }
-        return 0
+        return 0;
     }
 
     get diagramConnector(): GLSPTheiaSprottyConnector | undefined {
-        return undefined
+        return undefined;
     }
 }
