@@ -13,22 +13,42 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { inject, injectable, optional } from "inversify";
-import {
-    Action, AnchorComputerRegistry, Connectable, EdgeRouterRegistry, findParentByFeature, isConnectable, MouseTool, //
-    SModelElement, SRoutableElement, SRoutingHandle, Tool
-} from "sprotty/lib";
-import { GLSP_TYPES } from "../../types";
-import { ReconnectConnectionOperationAction, RerouteConnectionOperationAction } from "../reconnect/action-definitions";
-import { isReconnectHandle, isRoutable, isRoutingHandle, isSourceRoutingHandle, isTargetRoutingHandle, SReconnectHandle } from "../reconnect/model";
-import { SelectionTracker } from "../select/selection-tracker";
+import { Action } from "sprotty/lib";
+import { AnchorComputerRegistry } from "sprotty/lib";
+import { Connectable } from "sprotty/lib";
+import { EdgeRouterRegistry } from "sprotty/lib";
+import { FeedbackEdgeRouteMovingMouseListener } from "../tool-feedback/edge-edit-tool-feedback";
+import { FeedbackEdgeSourceMovingMouseListener } from "../tool-feedback/edge-edit-tool-feedback";
+import { FeedbackEdgeTargetMovingMouseListener } from "../tool-feedback/edge-edit-tool-feedback";
 import { FeedbackMoveMouseListener } from "../tool-feedback/change-bounds-tool-feedback";
-import { feedbackEdgeId } from "../tool-feedback/creation-tool-feedback";
-import {
-    FeedbackEdgeRouteMovingMouseListener, FeedbackEdgeSourceMovingMouseListener, FeedbackEdgeTargetMovingMouseListener, HideEdgeReconnectHandlesFeedbackAction, //
-    HideEdgeReconnectToolFeedbackAction, ShowEdgeReconnectHandlesFeedbackAction, ShowEdgeReconnectSelectSourceFeedbackAction, ShowEdgeReconnectSelectTargetFeedbackAction
-} from "../tool-feedback/edge-edit-tool-feedback";
+import { GLSP_TYPES } from "../../types";
+import { HideEdgeReconnectHandlesFeedbackAction } from "../tool-feedback/edge-edit-tool-feedback";
+import { HideEdgeReconnectToolFeedbackAction } from "../tool-feedback/edge-edit-tool-feedback";
 import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
+import { MouseTool } from "sprotty/lib";
+import { ReconnectConnectionOperationAction } from "../reconnect/action-definitions";
+import { RerouteConnectionOperationAction } from "../reconnect/action-definitions";
+import { SelectionTracker } from "../select/selection-tracker";
+import { ShowEdgeReconnectHandlesFeedbackAction } from "../tool-feedback/edge-edit-tool-feedback";
+import { ShowEdgeReconnectSelectSourceFeedbackAction } from "../tool-feedback/edge-edit-tool-feedback";
+import { ShowEdgeReconnectSelectTargetFeedbackAction } from "../tool-feedback/edge-edit-tool-feedback";
+import { SModelElement } from "sprotty/lib";
+import { SReconnectHandle } from "../reconnect/model";
+import { SRoutableElement } from "sprotty/lib";
+import { SRoutingHandle } from "sprotty/lib";
+import { SwitchEditModeAction } from "sprotty/lib";
+import { Tool } from "sprotty/lib";
+import { feedbackEdgeId } from "../tool-feedback/creation-tool-feedback";
+import { findParentByFeature } from "sprotty/lib";
+import { inject } from "inversify";
+import { injectable } from "inversify";
+import { isConnectable } from "sprotty/lib";
+import { isReconnectHandle } from "../reconnect/model";
+import { isRoutable } from "../reconnect/model";
+import { isRoutingHandle } from "../reconnect/model";
+import { isSourceRoutingHandle } from "../reconnect/model";
+import { isTargetRoutingHandle } from "../reconnect/model";
+import { optional } from "inversify";
 
 @injectable()
 export class EdgeEditTool implements Tool {
@@ -100,7 +120,8 @@ class ReconnectEdgeListener extends SelectionTracker {
         }
 
         this.edge = edge;
-        this.tool.dispatchFeedback([new ShowEdgeReconnectHandlesFeedbackAction(this.edge.id)]);
+        // note: order is important here as we want the reconnect handles to cover the routing handles
+        this.tool.dispatchFeedback([new SwitchEditModeAction([this.edge.id], []), new ShowEdgeReconnectHandlesFeedbackAction(this.edge.id)]);
     }
 
     private isEdgeSelected(): boolean {
@@ -200,16 +221,20 @@ class ReconnectEdgeListener extends SelectionTracker {
             if (this.requiresReconnect(sourceId, targetId)) {
                 result.push(new ReconnectConnectionOperationAction(this.edge.id, sourceId, targetId));
             }
+            this.reset();
         } else if (this.edge && this.routingHandle) {
-            result.push(new RerouteConnectionOperationAction(this.edge.id, this.edge.routingPoints));
+            // we need to re-retrieve the edge as it might have changed due to a server udpate since we do not reset the state between reroute actions
+            const latestEdge = target.index.getById(this.edge.id);
+            if (latestEdge && isRoutable(latestEdge)) {
+                result.push(new RerouteConnectionOperationAction(latestEdge.id, latestEdge.routingPoints));
+            }
         }
-        this.reset();
         return result;
     }
 
     public reset() {
-        this.resetData();
         this.resetFeedback();
+        this.resetData();
     }
 
     private resetData() {
@@ -221,6 +246,9 @@ class ReconnectEdgeListener extends SelectionTracker {
     }
 
     private resetFeedback() {
+        if (this.edge) {
+            this.tool.dispatchFeedback([new SwitchEditModeAction([], [this.edge.id])]);
+        }
         this.tool.dispatchFeedback([new HideEdgeReconnectHandlesFeedbackAction()]);
         this.tool.dispatchFeedback([new HideEdgeReconnectToolFeedbackAction()]);
     }
