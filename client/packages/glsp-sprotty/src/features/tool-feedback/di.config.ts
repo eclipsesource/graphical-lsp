@@ -24,11 +24,11 @@ import {
     ShowEdgeCreationSelectSourceFeedbackCommand, ShowEdgeCreationSelectTargetFeedbackCommand, //
     ShowNodeCreationToolFeedbackCommand
 } from "./creation-tool-feedback";
-import { FeedbackActionDispatcher } from "./feedback-action-dispatcher";
 import {
     HideEdgeReconnectHandlesFeedbackCommand, HideEdgeReconnectToolFeedbackCommand, // 
     ShowEdgeReconnectHandlesFeedbackCommand, ShowEdgeReconnectSelectSourceFeedbackCommand
-} from "./reconnect-tool-feedback";
+} from "./edge-edit-tool-feedback";
+import { FeedbackActionDispatcher } from "./feedback-action-dispatcher";
 import { FeedbackEdgeEndView, SResizeHandleView } from "./view";
 
 const toolFeedbackModule = new ContainerModule((bind, _unbind, isBound) => {

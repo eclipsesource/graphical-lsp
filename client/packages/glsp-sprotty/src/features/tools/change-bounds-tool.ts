@@ -100,15 +100,12 @@ class ChangeBoundsListener extends SelectionTracker {
                 active = true;
             } else {
                 // check if we have a moveable element (multi-selection allowed)
+                this.tool.dispatchFeedback([new HideChangeBoundsToolResizeFeedbackAction()]);
                 const moveableElement = findParentByFeature(target, isBoundsAwareMoveable);
-
-                // check if we have a resizeable element (only single-selection)
-                if (this.isSingleSelection()) {
-                    this.activeResizeElementId = this.getSelectedElementIDs().values().next().value;
+                if (moveableElement) {
+                    // only allow one element to have the element resize handles
+                    this.activeResizeElementId = moveableElement.id;
                     this.tool.dispatchFeedback([new ShowChangeBoundsToolResizeFeedbackAction(this.activeResizeElementId)]);
-                } else {
-                    this.activeResizeElementId = undefined;
-                    this.tool.dispatchFeedback([new HideChangeBoundsToolResizeFeedbackAction()]);
                 }
                 active = moveableElement !== undefined || this.activeResizeElementId !== undefined;
             }

@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action } from "sprotty/lib";
+import { Action, Point } from "sprotty/lib";
 import { OperationKind } from "../operation/set-operations";
 
 export class ReconnectConnectionOperationAction implements Action {
@@ -22,4 +22,12 @@ export class ReconnectConnectionOperationAction implements Action {
     constructor(public readonly connectionElementId: string,
         public readonly sourceElementId: string,
         public readonly targetElementId: string) { }
+}
+
+
+export class RerouteConnectionOperationAction implements Action {
+    readonly kind = OperationKind.REROUTE_CONNECTION;
+
+    constructor(public readonly connectionElementId: string,
+        public readonly routingPoints: Point[]) { }
 }

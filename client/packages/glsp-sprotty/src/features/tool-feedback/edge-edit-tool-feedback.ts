@@ -15,13 +15,14 @@
  ********************************************************************************/
 
 import { inject, injectable } from "inversify";
+import { VNode } from "snabbdom/vnode";
 import {
-    Action, AnchorComputerRegistry, center, CommandExecutionContext, euclideanDistance, findChildrenAtPosition, findParentByFeature, isBoundsAware, //
-    isConnectable, MouseListener, MoveAction, PolylineEdgeRouter, SConnectableElement, SModelElement, SModelRoot, TYPES
+    Action, AnchorComputerRegistry, center, CommandExecutionContext, EdgeRouterRegistry, ElementMove, euclideanDistance, findChildrenAtPosition, findParentByFeature, isBoundsAware, //
+    isConnectable, isViewport, MouseListener, MoveAction, Point, PolylineEdgeRouter, SConnectableElement, SModelElement, SModelRoot, SRoutingHandle, SwitchEditModeAction, TYPES
 } from "sprotty/lib";
-import { isNotUndefined } from "../../utils/smodel-util";
+import { isNotUndefined, isSelected } from "../../utils/smodel-util";
 import { getAbsolutePosition } from "../../utils/viewpoint-util";
-import { addReconnectHandles, isRoutable, removeReconnectHandles } from "../reconnect/model";
+import { addReconnectHandles, isRoutable, isRoutingHandle, removeReconnectHandles } from "../reconnect/model";
 import {
     FeedbackEdgeEnd, feedbackEdgeEndId, FeedbackEdgeEndMovingMouseListener, feedbackEdgeId, HideEdgeCreationToolFeedbackCommand, //
     ShowEdgeCreationSelectTargetFeedbackAction, ShowEdgeCreationSelectTargetFeedbackCommand
@@ -44,7 +45,7 @@ export class HideEdgeReconnectHandlesFeedbackAction implements Action {
 
 @injectable()
 export class ShowEdgeReconnectHandlesFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.edge-reconnect-tool.handles.feedback.show';
+    static readonly KIND = 'glsp.edge-edit-tool.handles.feedback.show';
 
     constructor(@inject(TYPES.Action) protected action: ShowEdgeReconnectHandlesFeedbackAction) {
         super();
@@ -67,7 +68,7 @@ export class ShowEdgeReconnectHandlesFeedbackCommand extends FeedbackCommand {
 
 @injectable()
 export class HideEdgeReconnectHandlesFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.edge-reconnect-tool.handles.feedback.hide';
+    static readonly KIND = 'glsp.edge-edit-tool.handles.feedback.hide';
 
     constructor(@inject(TYPES.Action) protected action: HideEdgeReconnectHandlesFeedbackAction) {
         super();
@@ -102,11 +103,11 @@ export class HideEdgeReconnectToolFeedbackAction implements Action {
     constructor() { }
 }
 
-const EDGE_RECONNECT_SOURCE_CSS_CLASS = 'edge-reconnect-select-source-mode';
+const EDGE_RECONNECT_SOURCE_CSS_CLASS = 'edge-edit-select-source-mode';
 
 @injectable()
 export class ShowEdgeReconnectSelectSourceFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.edge-reconnect-tool.selectsource.feedback.show';
+    static readonly KIND = 'glsp.edge-edit-tool.selectsource.feedback.show';
 
     constructor(@inject(TYPES.Action) protected action: ShowEdgeReconnectSelectSourceFeedbackAction) {
         super();
@@ -120,7 +121,7 @@ export class ShowEdgeReconnectSelectSourceFeedbackCommand extends FeedbackComman
 
 @injectable()
 export class HideEdgeReconnectToolFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.edge-reconnect-tool.selectsource.feedback.hide';
+    static readonly KIND = 'glsp.edge-edit-tool.selectsource.feedback.hide';
     private hideCreationToolFeedbackCommand: HideEdgeCreationToolFeedbackCommand;
 
     constructor() {
@@ -173,6 +174,94 @@ export class FeedbackEdgeSourceMovingMouseListener extends MouseListener {
         }
 
         return [];
+    }
+}
+
+
+export class FeedbackEdgeRouteMovingMouseListener extends MouseListener {
+    hasDragged = false;
+    lastDragPosition: Point | undefined;
+
+    constructor(protected edgeRouterRegistry?: EdgeRouterRegistry) {
+        super();
+    }
+
+    mouseDown(target: SModelElement, event: MouseEvent): Action[] {
+        const result: Action[] = [];
+        if (event.button === 0) {
+            const routingHandle = findParentByFeature(target, isRoutingHandle);
+            if (routingHandle !== undefined) {
+                result.push(new SwitchEditModeAction([target.id], []));
+                this.lastDragPosition = { x: event.pageX, y: event.pageY };
+            } else {
+                this.lastDragPosition = undefined;
+            }
+            this.hasDragged = false;
+        }
+        return result;
+    }
+
+    mouseMove(target: SModelElement, event: MouseEvent): Action[] {
+        const result: Action[] = [];
+        if (event.buttons === 0)
+            this.mouseUp(target, event);
+        else if (this.lastDragPosition) {
+            const viewport = findParentByFeature(target, isViewport);
+            this.hasDragged = true;
+            const zoom = viewport ? viewport.zoom : 1;
+            const dx = (event.pageX - this.lastDragPosition.x) / zoom;
+            const dy = (event.pageY - this.lastDragPosition.y) / zoom;
+            const handleMoves: ElementMove[] = [];
+            target.root.index.all()
+                .filter(element => isSelected(element))
+                .forEach(element => {
+                    if (isRoutingHandle(element)) {
+                        const point = this.getHandlePosition(element);
+                        if (point !== undefined) {
+                            handleMoves.push({
+                                elementId: element.id,
+                                fromPosition: point,
+                                toPosition: {
+                                    x: point.x + dx,
+                                    y: point.y + dy
+                                }
+                            });
+                        }
+                    }
+                });
+            this.lastDragPosition = { x: event.pageX, y: event.pageY };
+            if (handleMoves.length > 0)
+                result.push(new MoveAction(handleMoves, false));
+        }
+        return result;
+    }
+
+    protected getHandlePosition(handle: SRoutingHandle): Point | undefined {
+        if (this.edgeRouterRegistry) {
+            const parent = handle.parent;
+            if (!isRoutable(parent))
+                return undefined;
+            const router = this.edgeRouterRegistry.get(parent.routerKind);
+            const route = router.route(parent);
+            return router.getHandlePosition(parent, route, handle);
+        }
+        return undefined;
+    }
+
+    mouseEnter(target: SModelElement, event: MouseEvent): Action[] {
+        if (target instanceof SModelRoot && event.buttons === 0)
+            this.mouseUp(target, event);
+        return [];
+    }
+
+    mouseUp(target: SModelElement, event: MouseEvent): Action[] {
+        this.hasDragged = false;
+        this.lastDragPosition = undefined;
+        return [];
+    }
+
+    decorate(vnode: VNode, element: SModelElement): VNode {
+        return vnode;
     }
 }
 
