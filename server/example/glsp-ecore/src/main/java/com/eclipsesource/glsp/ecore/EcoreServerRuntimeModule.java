@@ -16,7 +16,6 @@ import java.util.List;
 
 import org.eclipse.sprotty.ILayoutEngine;
 
-import com.eclipsesource.glsp.api.action.kind.RerouteConnectionOperationAction;
 import com.eclipsesource.glsp.api.factory.IPopupModelFactory;
 import com.eclipsesource.glsp.api.handler.IOperationHandler;
 import com.eclipsesource.glsp.api.language.IGraphicaLanguage;
@@ -33,6 +32,7 @@ import com.eclipsesource.glsp.ecore.operationhandler.CreateClassiferOperationHan
 import com.eclipsesource.glsp.ecore.operationhandler.CreateInheritanceHandler;
 import com.eclipsesource.glsp.ecore.operationhandler.CreateReferenceOperationHandler;
 import com.eclipsesource.glsp.ecore.operationhandler.EcoreDeleteOperationHandler;
+import com.eclipsesource.glsp.ecore.operationhandler.EcoreReconnectEdgeHandler;
 import com.eclipsesource.glsp.server.ServerModule;
 import com.eclipsesource.glsp.server.model.IFileExtensionLoader;
 import com.eclipsesource.glsp.server.operationhandler.ChangeBoundsOperationHandler;
@@ -54,6 +54,7 @@ public class EcoreServerRuntimeModule extends ServerModule {
 		 handlers.add(CreateReferenceOperationHandler.class);
 		 handlers.add(CreateInheritanceHandler.class);
 		 handlers.add(RerouteEdgeHandler.class);
+		 handlers.add(EcoreReconnectEdgeHandler.class);
 		 return handlers;
 	}
 
@@ -83,10 +84,10 @@ public class EcoreServerRuntimeModule extends ServerModule {
 		return EcoreModelTypeConfigurationProvider.class;
 	}
 
-	@Override
-	protected Class<? extends ILayoutEngine> bindLayoutEngine() {
-		return EcoreLayoutEngine.class;
-	}
+//	@Override
+//	protected Class<? extends ILayoutEngine> bindLayoutEngine() {
+//		return EcoreLayoutEngine.class;
+//	}
 
 	@Override
 	protected Class<? extends IGraphicaLanguage> bindGraphicalLanguage() {

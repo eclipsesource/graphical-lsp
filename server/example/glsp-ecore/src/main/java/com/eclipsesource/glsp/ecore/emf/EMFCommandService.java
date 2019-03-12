@@ -15,8 +15,7 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.ecore.emf;
 
-import static com.eclipsesource.glsp.ecore.util.ThreadUtil.runDeferred;
-
+import java.util.Arrays;
 import java.util.Collection;
 
 import org.eclipse.emf.common.command.Command;
@@ -32,8 +31,10 @@ public class EMFCommandService {
 	@Inject
 	private ResourceManager resourceManager;
 
+	public void remove(Object owner, Object feature, Object value) {
+		remove(owner,feature,Arrays.asList(value));
+	}
 	public void remove(Object owner, Object feature, Collection<?> values) {
-
 		EditingDomain editingDomain = resourceManager.getEditingDomain();
 		Command cmd = RemoveCommand.create(editingDomain, owner, feature, values);
 		editingDomain.getCommandStack().execute(cmd);
@@ -41,9 +42,11 @@ public class EMFCommandService {
 	}
 
 	public void add(Object owner, Object feature, Object value) {
-
+		add(owner,feature,Arrays.asList(value));
+	}
+	public void add(Object owner, Object feature, Collection<?> values) {
 		EditingDomain editingDomain = resourceManager.getEditingDomain();
-		Command cmd = AddCommand.create(editingDomain, owner, feature, value);
+		Command cmd = AddCommand.create(editingDomain, owner, feature, values);
 		editingDomain.getCommandStack().execute(cmd);
 
 	}
