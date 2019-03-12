@@ -13,8 +13,6 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-
-
 import { ActionHandlerRegistry } from "sprotty/lib";
 import { Command } from "sprotty/lib";
 import { CommandActionHandler } from "sprotty/lib";
@@ -32,15 +30,6 @@ import { UpdateModelCommand } from "sprotty/lib/features/update/update-model";
 import { inject } from "inversify";
 import { injectable } from "inversify";
 import { optional } from "inversify";
-
-
-
-
-
-
-
-
-
 
 
 /**
@@ -90,11 +79,9 @@ export class FeedbackAwareUpdateModelCommand extends UpdateModelCommand {
     }
 }
 
-
 function getPriority(command: Command): number {
     if (command instanceof FeedbackCommand) {
         return command.priority;
     }
     return 0;
 }
-

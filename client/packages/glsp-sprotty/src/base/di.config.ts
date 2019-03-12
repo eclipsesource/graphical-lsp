@@ -30,7 +30,6 @@ import { configureCommand } from "sprotty/lib";
 import { createToolFactory } from "./tool-manager/tool-manager-action-handler";
 
 
-
 const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     // GLSP Commandstack  initialization ------------------------------------
     if (isBound(TYPES.ICommandStack)) {

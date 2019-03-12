@@ -38,12 +38,10 @@ import { findParentByFeature } from "sprotty/lib";
 import { forEachElement } from "../../utils/smodel-util";
 import { inject } from "inversify";
 import { injectable } from "inversify";
-import { isBoundsAware } from "sprotty/lib";
 import { isBoundsAwareMoveable } from "../change-bounds/model";
 import { isResizeable } from "../change-bounds/model";
 import { isSelectedBoundsAware } from "../../utils/smodel-util";
 import { isViewport } from "sprotty/lib";
-
 
 /**
  * The change bounds tool has the license to move multiple elements or resize a single element by implementing the ChangeBounds operation.
@@ -114,7 +112,7 @@ class ChangeBoundsListener extends SelectionTracker {
         if (event.button === 0) {
             let active: boolean = false;
             // check if we have a resize handle (only single-selection)
-            if (target instanceof SResizeHandle && isBoundsAware(target.parent)) {
+            if (target instanceof SResizeHandle) {
                 this.activeResizeHandle = target;
                 active = true;
             } else {

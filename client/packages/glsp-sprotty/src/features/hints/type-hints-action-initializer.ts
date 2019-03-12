@@ -42,7 +42,6 @@ import { isNodeEditConfig } from "../../base/edit-config/edit-config";
 import { isSetTypeHintsAction } from "./action-definition";
 import { nodeEditConfig } from "../../base/edit-config/edit-config";
 
-
 @injectable()
 export class ApplyEditConfigAction implements Action {
     readonly kind = ApplyEditConfigCommand.KIND
@@ -67,6 +66,7 @@ export class ApplyEditConfigCommand extends FeedbackCommand {
         return context.root;
     }
 }
+
 @injectable()
 export class TypeHintsEditConfigProvider extends SelfInitializingActionHandler implements IEditConfigProvider {
     @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackActionDispatcher: IFeedbackActionDispatcher
@@ -117,7 +117,6 @@ export function createNodeEditConfig(hint: NodeTypeHint): NodeEditConfig {
         isContainer: () => { return hint.containableElementTypeIds ? hint.containableElementTypeIds.length > 0 : false }
     }
 }
-
 
 export function createEdgeEditConfig(hint: EdgeTypeHint): EdgeEditConfig {
     return <EdgeEditConfig>{

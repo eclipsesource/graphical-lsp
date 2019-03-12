@@ -14,24 +14,21 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
+import { ApplyCursorCSSFeedbackActionCommand } from "./cursor-feedback";
 import { ContainerModule } from "inversify";
+import { DrawFeedbackEdgeCommand } from "./creation-tool-feedback";
+import { DrawFeedbackEdgeSourceCommand } from "./edge-edit-tool-feedback";
 import { FeedbackActionDispatcher } from "./feedback-action-dispatcher";
 import { FeedbackEdgeEnd } from "./creation-tool-feedback";
 import { FeedbackEdgeEndView } from "./view";
 import { GLSP_TYPES } from "../../types";
 import { HideChangeBoundsToolResizeFeedbackCommand } from "./change-bounds-tool-feedback";
-import { HideEdgeCreationToolFeedbackCommand } from "./creation-tool-feedback";
 import { HideEdgeReconnectHandlesFeedbackCommand } from "./edge-edit-tool-feedback";
-import { HideEdgeReconnectToolFeedbackCommand } from "./edge-edit-tool-feedback";
-import { HideNodeCreationToolFeedbackCommand } from "./creation-tool-feedback";
 import { LocationDecorator } from "sprotty/lib";
 import { MoveCommand } from "sprotty/lib";
+import { RemoveFeedbackEdgeCommand } from "./creation-tool-feedback";
 import { ShowChangeBoundsToolResizeFeedbackCommand } from "./change-bounds-tool-feedback";
-import { ShowEdgeCreationSelectSourceFeedbackCommand } from "./creation-tool-feedback";
-import { ShowEdgeCreationSelectTargetFeedbackCommand } from "./creation-tool-feedback";
 import { ShowEdgeReconnectHandlesFeedbackCommand } from "./edge-edit-tool-feedback";
-import { ShowEdgeReconnectSelectSourceFeedbackCommand } from "./edge-edit-tool-feedback";
-import { ShowNodeCreationToolFeedbackCommand } from "./creation-tool-feedback";
 import { SResizeHandle } from "../change-bounds/model";
 import { SResizeHandleView } from "./view";
 import { TYPES } from "sprotty/lib";
@@ -43,11 +40,9 @@ const toolFeedbackModule = new ContainerModule((bind, _unbind, isBound) => {
     bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
 
     // create node and edge tool feedback
-    configureCommand({ bind, isBound }, ShowNodeCreationToolFeedbackCommand);
-    configureCommand({ bind, isBound }, HideNodeCreationToolFeedbackCommand);
-    configureCommand({ bind, isBound }, ShowEdgeCreationSelectSourceFeedbackCommand);
-    configureCommand({ bind, isBound }, ShowEdgeCreationSelectTargetFeedbackCommand);
-    configureCommand({ bind, isBound }, HideEdgeCreationToolFeedbackCommand);
+    configureCommand({ bind, isBound }, ApplyCursorCSSFeedbackActionCommand);
+    configureCommand({ bind, isBound }, DrawFeedbackEdgeCommand);
+    configureCommand({ bind, isBound }, RemoveFeedbackEdgeCommand);
 
     configureView({ bind, isBound }, FeedbackEdgeEnd.TYPE, FeedbackEdgeEndView)
     // move tool feedback: we use sprotties MoveCommand as client-side visual feedback
@@ -61,8 +56,7 @@ const toolFeedbackModule = new ContainerModule((bind, _unbind, isBound) => {
     // reconnect edge tool feedback
     configureCommand({ bind, isBound }, ShowEdgeReconnectHandlesFeedbackCommand);
     configureCommand({ bind, isBound }, HideEdgeReconnectHandlesFeedbackCommand);
-    configureCommand({ bind, isBound }, ShowEdgeReconnectSelectSourceFeedbackCommand);
-    configureCommand({ bind, isBound }, HideEdgeReconnectToolFeedbackCommand);
+    configureCommand({ bind, isBound }, DrawFeedbackEdgeSourceCommand);
 
     bind(TYPES.IVNodeDecorator).to(LocationDecorator);
     bind(TYPES.HiddenVNodeDecorator).to(LocationDecorator);

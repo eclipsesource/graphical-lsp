@@ -23,15 +23,11 @@ import { ElementMove } from "sprotty/lib";
 import { FeedbackCommand } from "./model";
 import { FeedbackEdgeEnd } from "./creation-tool-feedback";
 import { FeedbackEdgeEndMovingMouseListener } from "./creation-tool-feedback";
-import { HideEdgeCreationToolFeedbackCommand } from "./creation-tool-feedback";
-import { IModelFactory } from "sprotty/lib";
 import { MouseListener } from "sprotty/lib";
 import { MoveAction } from "sprotty/lib";
 import { Point } from "sprotty/lib";
 import { PolylineEdgeRouter } from "sprotty/lib";
 import { SConnectableElement } from "sprotty/lib";
-import { ShowEdgeCreationSelectTargetFeedbackAction } from "./creation-tool-feedback";
-import { ShowEdgeCreationSelectTargetFeedbackCommand } from "./creation-tool-feedback";
 import { SModelElement } from "sprotty/lib";
 import { SModelRoot } from "sprotty/lib";
 import { SRoutingHandle } from "sprotty/lib";
@@ -39,7 +35,6 @@ import { SwitchEditModeAction } from "sprotty/lib";
 import { TYPES } from "sprotty/lib";
 import { VNode } from "snabbdom/vnode";
 
-import { addCssClasses } from "../../utils/smodel-util";
 import { addReconnectHandles } from "../reconnect/model";
 import { center } from "sprotty/lib";
 import { euclideanDistance } from "sprotty/lib";
@@ -57,7 +52,6 @@ import { isRoutable } from "../reconnect/model";
 import { isRoutingHandle } from "../reconnect/model";
 import { isSelected } from "../../utils/smodel-util";
 import { isViewport } from "sprotty/lib";
-import { removeCssClasses } from "../../utils/smodel-util";
 import { removeReconnectHandles } from "../reconnect/model";
 
 /**
@@ -76,7 +70,7 @@ export class HideEdgeReconnectHandlesFeedbackAction implements Action {
 
 @injectable()
 export class ShowEdgeReconnectHandlesFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.edge-edit-tool.handles.feedback.show';
+    static readonly KIND = 'showReconnectHandlesFeedback';
 
     constructor(@inject(TYPES.Action) protected action: ShowEdgeReconnectHandlesFeedbackAction) {
         super();
@@ -98,7 +92,7 @@ export class ShowEdgeReconnectHandlesFeedbackCommand extends FeedbackCommand {
 
 @injectable()
 export class HideEdgeReconnectHandlesFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.edge-edit-tool.handles.feedback.hide';
+    static readonly KIND = 'hideReconnectHandlesFeedback';
 
     constructor(@inject(TYPES.Action) protected action: HideEdgeReconnectHandlesFeedbackAction) {
         super();
@@ -115,59 +109,26 @@ export class HideEdgeReconnectHandlesFeedbackCommand extends FeedbackCommand {
  * SOURCE AND TARGET EDGE FEEDBACK
  */
 
-export class ShowEdgeReconnectSelectSourceFeedbackAction implements Action {
-    kind = ShowEdgeReconnectSelectSourceFeedbackCommand.KIND;
+export class DrawFeedbackEdgeSourceAction implements Action {
+    kind = DrawFeedbackEdgeSourceCommand.KIND;
     constructor(readonly elementTypeId: string, readonly targetId: string) { }
 }
 
 
-export class ShowEdgeReconnectSelectTargetFeedbackAction extends ShowEdgeCreationSelectTargetFeedbackAction {
-    kind = ShowEdgeCreationSelectTargetFeedbackCommand.KIND; // re-use select target feedback from creation tool
-    constructor(readonly elementTypeId: string, readonly sourceId: string) {
-        super(elementTypeId, sourceId);
-    }
-}
-
-export class HideEdgeReconnectToolFeedbackAction implements Action {
-    kind = HideEdgeReconnectToolFeedbackCommand.KIND;
-    constructor() { }
-}
-
-const EDGE_RECONNECT_SOURCE_CSS_CLASS = 'edge-edit-select-source-mode';
-
 @injectable()
-export class ShowEdgeReconnectSelectSourceFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.edge-edit-tool.selectsource.feedback.show';
+export class DrawFeedbackEdgeSourceCommand extends FeedbackCommand {
+    static readonly KIND = 'drawFeedbackEdgeSource';
 
-    constructor(@inject(TYPES.Action) protected action: ShowEdgeReconnectSelectSourceFeedbackAction,
-        @inject(TYPES.IModelFactory) protected modelFactory: IModelFactory) {
+    constructor(@inject(TYPES.Action) protected action: DrawFeedbackEdgeSourceAction) {
         super();
     }
 
-
     execute(context: CommandExecutionContext): CommandResult {
-        drawFeedbackEdgeSource(context.root, this.modelFactory, this.action.targetId, this.action.elementTypeId);
-        addCssClasses(context.root, [EDGE_RECONNECT_SOURCE_CSS_CLASS]);
+        drawFeedbackEdgeSource(context, this.action.targetId, this.action.elementTypeId);
         return context.root;
     }
 }
 
-@injectable()
-export class HideEdgeReconnectToolFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.edge-edit-tool.selectsource.feedback.hide';
-    private hideCreationToolFeedbackCommand: HideEdgeCreationToolFeedbackCommand;
-
-    constructor() {
-        super();
-        this.hideCreationToolFeedbackCommand = new HideEdgeCreationToolFeedbackCommand();
-    }
-
-    execute(context: CommandExecutionContext): CommandResult {
-        this.hideCreationToolFeedbackCommand.execute(context);
-        removeCssClasses(context.root, [EDGE_RECONNECT_SOURCE_CSS_CLASS])
-        return context.root;
-    }
-}
 /**
  * SOURCE AND TARGET MOUSE MOVE LISTENER
  */
@@ -301,7 +262,8 @@ export class FeedbackEdgeRouteMovingMouseListener extends MouseListener {
  * UTILITY FUNCTIONS
  */
 
-function drawFeedbackEdgeSource(root: SModelRoot, modelFactory: IModelFactory, targetId: string, elementTypeId: string) {
+function drawFeedbackEdgeSource(context: CommandExecutionContext, targetId: string, elementTypeId: string) {
+    const root = context.root;
     const targetChild = root.index.getById(targetId);
     if (!targetChild) {
         return;
@@ -324,7 +286,7 @@ function drawFeedbackEdgeSource(root: SModelRoot, modelFactory: IModelFactory, t
         opacity: 0.3
     };
 
-    const feedbackEdge = modelFactory.createElement(feedbackEdgeSchema);
+    const feedbackEdge = context.modelFactory.createElement(feedbackEdgeSchema);
     if (isRoutable(feedbackEdge)) {
         edgeEnd.feedbackEdge = feedbackEdge;
         root.add(edgeEnd);

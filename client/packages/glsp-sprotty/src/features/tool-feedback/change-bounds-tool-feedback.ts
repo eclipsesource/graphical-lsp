@@ -37,8 +37,6 @@ import { isSelectable } from "sprotty/lib";
 import { isViewport } from "sprotty/lib";
 import { removeResizeHandles } from "../change-bounds/model";
 
-
-
 export class ShowChangeBoundsToolResizeFeedbackAction implements Action {
     kind = ShowChangeBoundsToolResizeFeedbackCommand.KIND;
     constructor(readonly elementId?: string) { }
@@ -51,7 +49,7 @@ export class HideChangeBoundsToolResizeFeedbackAction implements Action {
 
 @injectable()
 export class ShowChangeBoundsToolResizeFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.changeboundstools.resize.feedback.show';
+    static readonly KIND = 'showChangeBoundsToolResizeFeedback';
 
     constructor(@inject(TYPES.Action) protected action: ShowChangeBoundsToolResizeFeedbackAction) {
         super();
@@ -73,7 +71,7 @@ export class ShowChangeBoundsToolResizeFeedbackCommand extends FeedbackCommand {
 
 @injectable()
 export class HideChangeBoundsToolResizeFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.changeboundstools.resize.feedback.hide';
+    static readonly KIND = 'hideChangeBoundsToolResizeFeedback';
 
     constructor(@inject(TYPES.Action) protected action: HideChangeBoundsToolResizeFeedbackAction) {
         super();
@@ -85,7 +83,6 @@ export class HideChangeBoundsToolResizeFeedbackCommand extends FeedbackCommand {
         return context.root;
     }
 }
-
 
 /**
  * This mouse listener provides visual feedback for moving by sending client-side
