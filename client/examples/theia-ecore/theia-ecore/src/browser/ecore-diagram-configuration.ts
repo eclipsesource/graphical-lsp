@@ -14,13 +14,14 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { SelectionService } from "@theia/core";
-import { defaultGLSPModule, KeyTool, modelHintsModule, TYPES } from "glsp-sprotty/lib";
-import { GLSPTheiaDiagramServer } from 'glsp-theia-extension/lib/browser';
+import { defaultGLSPModule, KeyTool, modelHintsModule, registerDefaultTools, toolFeedbackModule, TYPES } from "glsp-sprotty/lib";
+import toolPaletteModule from "glsp-sprotty/lib/features/tool-palette/di.config";
 import { Container, inject, injectable } from "inversify";
 import { createEcoreDiagramContainer } from "sprotty-ecore/lib";
 import { TheiaDiagramServer } from "sprotty-theia";
 import { DiagramConfiguration, TheiaKeyTool, TheiaSprottySelectionForwarder } from "sprotty-theia/lib";
 import { EcoreLanguage } from "../common/ecore-language";
+import { EcoreTheiaDiagramServer } from "./ecore-diagram-server";
 
 @injectable()
 export class EcoreDiagramConfiguration implements DiagramConfiguration {
@@ -29,12 +30,14 @@ export class EcoreDiagramConfiguration implements DiagramConfiguration {
 
     createContainer(widgetId: string): Container {
         const container = createEcoreDiagramContainer(widgetId, true, false);
-        container.bind(TYPES.ModelSource).to(GLSPTheiaDiagramServer).inSingletonScope()
+
+        container.bind(TYPES.ModelSource).to(EcoreTheiaDiagramServer).inSingletonScope()
         container.bind(TheiaDiagramServer).toService(TYPES.ModelSource)
         container.rebind(KeyTool).to(TheiaKeyTool).inSingletonScope()
         container.bind(SelectionService).toConstantValue(this.selectionService)
         container.bind(TYPES.IActionHandlerInitializer).to(TheiaSprottySelectionForwarder)
-        container.load(defaultGLSPModule, modelHintsModule)
+        container.load(defaultGLSPModule, modelHintsModule, toolPaletteModule, toolFeedbackModule)
+        registerDefaultTools(container);
         return container;
     }
 

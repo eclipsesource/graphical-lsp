@@ -17,7 +17,7 @@ package com.eclipsesource.glsp.api.action.kind;
 
 import com.eclipsesource.glsp.api.action.Action;
 
-public class CreateConnectionOperationAction extends AbstractOperationAction {
+public class CreateConnectionOperationAction extends Action {
 
 	private String elementTypeId;
 

@@ -21,7 +21,7 @@ import org.eclipse.sprotty.ElementAndBounds;
 
 import com.eclipsesource.glsp.api.action.Action;
 
-public class ChangeBoundsOperationAction extends AbstractOperationAction {
+public class ChangeBoundsOperationAction extends Action {
 	private ElementAndBounds[] newBounds;
 
 	public ChangeBoundsOperationAction() {

@@ -13,24 +13,35 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.action.kind;
+package com.eclipsesource.glsp.server.model;
 
-import com.eclipsesource.glsp.api.action.Action;
+import java.util.HashMap;
+import java.util.Map;
 
-public abstract class AbstractOperationAction extends Action {
+import org.eclipse.sprotty.SModelRoot;
 
-	private String operationKind;
+import com.eclipsesource.glsp.api.model.IModelState;
+import com.eclipsesource.glsp.api.model.IModelStateProvider;
 
-	public AbstractOperationAction(String operationKind) {
-		super(operationKind);
+public class ModelStateProvider implements IModelStateProvider {
+
+	private Map<String, IModelState> modelStates;
+
+	public ModelStateProvider() {
+		modelStates = new HashMap<String, IModelState>();
 	}
 
-	public String getOperationKind() {
-		return operationKind;
+	@Override
+	public synchronized IModelState getModelState(String clientId) {
+		return this.modelStates.get(clientId);
 	}
 
-	public void setOperationKind(String operationKind) {
-		this.operationKind = operationKind;
+	@Override
+	public IModelState registerModel(SModelRoot model, String clientId) {
+		IModelState modelState = new ModelState();
+		modelState.setCurrentModel(model);
+		modelStates.put(clientId, modelState);
+		return modelState;
 	}
 
 }

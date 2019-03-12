@@ -27,7 +27,7 @@ import com.google.inject.Inject;
 
 public class SaveModelActionHandler extends AbstractActionHandler {
 	@Inject
-	protected ISaveModelDelegator modelStateSaver;
+	protected ISaveModelDelegator saveModelDelegator;
 
 	@Override
 	protected Collection<Action> handleableActionsKinds() {
@@ -37,8 +37,12 @@ public class SaveModelActionHandler extends AbstractActionHandler {
 	@Override
 	public Optional<Action> execute(Action action, String clientId) {
 		if (action instanceof SaveModelAction) {
-			this.modelStateSaver.save(clientId);
+			Optional<String> sourceUri = getModelState(clientId).getOptions().getSourceUri();
+			if (sourceUri.isPresent()) {
+				this.saveModelDelegator.save(sourceUri.get(), clientId);
+			}
 		}
+
 		return Optional.empty();
 	}
 }

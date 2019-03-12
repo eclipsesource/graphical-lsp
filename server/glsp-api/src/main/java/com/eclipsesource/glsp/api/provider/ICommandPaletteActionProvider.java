@@ -16,6 +16,7 @@
 package com.eclipsesource.glsp.api.provider;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.sprotty.SModelRoot;
@@ -24,11 +25,11 @@ import com.eclipsesource.glsp.api.types.LabeledAction;
 
 @FunctionalInterface
 public interface ICommandPaletteActionProvider {
-	Set<LabeledAction> getActions(SModelRoot model, String[] selectedElementsIDs);
+	Set<LabeledAction> getActions(SModelRoot model, List<String> selectedElementsIDs);
 	
 	public static class NullImpl implements ICommandPaletteActionProvider {
 		@Override
-		public Set<LabeledAction> getActions(SModelRoot model, String[] selectedElementsIDs) {
+		public Set<LabeledAction> getActions(SModelRoot model, List<String> selectedElementsIDs) {
 			return Collections.emptySet();
 		}
 	}

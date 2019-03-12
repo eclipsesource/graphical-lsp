@@ -15,10 +15,8 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server;
 
-import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.inject.Inject;
 
@@ -32,8 +30,6 @@ import com.eclipsesource.glsp.api.action.kind.IdentifiableRequestAction;
 import com.eclipsesource.glsp.api.action.kind.IdentifiableResponseAction;
 import com.eclipsesource.glsp.api.jsonrpc.IGLSPClient;
 import com.eclipsesource.glsp.api.jsonrpc.IGLSPServer;
-import com.eclipsesource.glsp.api.model.IModelState;
-import com.eclipsesource.glsp.server.model.ModelStateImpl;
 
 public class GLSPServer implements IGLSPServer {
 
@@ -42,12 +38,10 @@ public class GLSPServer implements IGLSPServer {
 	private ServerStatus status;
 	private ActionRegistry actionRegistry;
 	private IGLSPClient clientProxy;
-	private Map<String, IModelState> clientModelStates;
-
+	
 	@Inject
 	public GLSPServer(ActionRegistry actionRegistry) {
 		this.actionRegistry = actionRegistry;
-		clientModelStates = new ConcurrentHashMap<>();
 	}
 
 	@Override
@@ -100,16 +94,4 @@ public class GLSPServer implements IGLSPServer {
 	public void exit() {
 		// TODO Auto-generated method stub
 	}
-
-	@Override
-	public synchronized IModelState getModelState(String clientId) {
-		IModelState modelState = clientModelStates.get(clientId);
-		if (modelState == null) {
-			modelState = new ModelStateImpl();
-			modelState.setClientId(clientId);
-			clientModelStates.put(clientId, modelState);
-		}
-		return modelState;
-	}
-
 }

@@ -19,8 +19,8 @@ import org.eclipse.sprotty.Point;
 
 import com.eclipsesource.glsp.api.action.Action;
 
-public class CreateNodeOperationAction extends AbstractOperationAction {
-
+public class CreateNodeOperationAction extends Action {
+	
 	private String elementTypeId;
 
 	private Point location;

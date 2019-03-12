@@ -10,7 +10,7 @@
 		<version>0.2.0-SNAPSHOT</version>
 	</parent>
 
-	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -22,7 +22,7 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
 		</dependency>
-	<dependency>
+		<dependency>
 			<groupId>org.eclipse.sprotty</groupId>
 			<artifactId>org.eclipse.sprotty.layout</artifactId>
 			<version>0.5.0-SNAPSHOT</version>
@@ -56,6 +56,11 @@
 			<groupId>org.eclipse.emf</groupId>
 			<artifactId>org.eclipse.emf.ecore</artifactId>
 			<version>2.15.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.edit</artifactId>
+			<version>2.14.0</version>
 		</dependency>
 	</dependencies>
 

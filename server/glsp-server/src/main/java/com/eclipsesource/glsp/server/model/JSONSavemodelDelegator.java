@@ -42,9 +42,9 @@ public class JSONSavemodelDelegator implements ISaveModelDelegator {
 	protected IGraphicaLanguage graphicalLanguage;
 
 	@Override
-	public void save(String clientId) {
+	public void save(String fileURI,String clientId) {
 		IModelState modelState = modelStateProvider.getModelState(clientId);
-		URI uri = URI.create(modelState.getOptions().getSourceUri().get());
+		URI uri = URI.create(fileURI);
 		if (uri.getScheme().equalsIgnoreCase(SCHEME_FILE)) {
 			try {
 

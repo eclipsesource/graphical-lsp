@@ -18,7 +18,6 @@ package com.eclipsesource.glsp.server.model;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +27,7 @@ import org.eclipse.sprotty.SGraph;
 import org.eclipse.sprotty.SModelRoot;
 
 import com.eclipsesource.glsp.api.language.IGraphicaLanguage;
+import com.eclipsesource.glsp.api.model.IModelStateProvider;
 import com.eclipsesource.glsp.api.provider.IModelTypeConfigurationProvider;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
@@ -46,6 +46,8 @@ public class JSONSModelLoader implements IFileExtensionLoader<SModelRoot> {
 	protected IModelTypeConfigurationProvider modelTypeConfigurationProvider;
 	@Inject
 	protected IGraphicaLanguage graphicalLanguage;
+	@Inject
+	protected IModelStateProvider modelStateProvider;
 
 	@Override
 	public List<String> getExtensions() {
@@ -53,7 +55,7 @@ public class JSONSModelLoader implements IFileExtensionLoader<SModelRoot> {
 	}
 
 	@Override
-	public Optional<SModelRoot> loadFromFile(String fileURI) {
+	public Optional<SModelRoot> loadFromFile(String fileURI, String clientId) {
 		URI uri = URI.create(fileURI);
 		if (uri.getScheme().equalsIgnoreCase(SCHEME_FILE)) {
 			try {

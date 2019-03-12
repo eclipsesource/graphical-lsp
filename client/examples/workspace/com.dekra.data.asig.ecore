@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="asig" nsURI="com.dekra.data.asig" nsPrefix="asig">
+<?xml version="1.0" encoding="ASCII"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="asig" nsURI="com.dekra.data.asig" nsPrefix="asig">
   <eAnnotations source="com.eclipsesource.icat.schemaxml">
     <details key="Application"/>
     <details key="Deleted" value="false"/>
@@ -114,8 +113,7 @@
     <details key="Unit" value="DDB"/>
   </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="DOTemplates">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="Templates" upperBound="-1"
-        eType="#//DOTemplate" unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Templates" upperBound="-1" eType="//DOTemplate" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -139,8 +137,7 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DOTemplate">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Abbreviation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Abbreviation" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -161,8 +158,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Abbreviation"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -183,9 +181,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Deleted"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Description" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -206,9 +204,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Description"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Keyword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Keyword" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -229,8 +227,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Keyword"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Name">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -251,8 +250,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Name"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -273,9 +273,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Oid"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -296,9 +296,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Version"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="K2Elements" upperBound="-1"
-        eType="#//DOK2Element" unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="K2Elements" upperBound="-1" eType="//DOK2Element" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -320,8 +320,7 @@
         <details key="XmlName" value="K2Elements"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="K4K2Relations" upperBound="-1"
-        eType="#//DOK4K2Relation" unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="K4K2Relations" upperBound="-1" eType="//DOK4K2Relation" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType" value="MERGE,REFRESH,PERSIST,REMOVE"/>
@@ -343,8 +342,7 @@
         <details key="XmlName" value="K4K2Relations"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="Keywords" upperBound="-1"
-        eType="#//DOTemplateKeyword" unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Keywords" upperBound="-1" eType="//DOTemplateKeyword" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType" value="MERGE,REFRESH,PERSIST,REMOVE"/>
@@ -368,8 +366,7 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DOK2Element">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat1Abbreviation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat1Abbreviation" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -390,9 +387,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Cat1Abbreviation"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat1Name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat1Name" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -413,9 +410,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Cat1Name"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat1SortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat1SortNr" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -436,9 +433,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Cat1SortNr"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat1oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat1oid" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -459,9 +456,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Cat1oid"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat1origSortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat1origSortNr" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -482,9 +479,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Cat1origSortNr"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat2Abbreviation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat2Abbreviation" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -505,9 +502,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Cat2Abbreviation"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat2Name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat2Name" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -528,9 +525,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Cat2Name"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat2SortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat2SortNr" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -551,9 +548,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Cat2SortNr"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat2oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat2oid" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -574,9 +571,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Cat2oid"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat2origSortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cat2origSortNr" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -597,9 +594,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Cat2origSortNr"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="CatalogOid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="CatalogOid" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -620,8 +617,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="CatalogOid"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -642,9 +640,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Deleted"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MeasureOid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MeasureOid" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -665,9 +663,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="MeasureOid"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MeasureOrigSortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MeasureOrigSortNr" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -688,9 +686,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="MeasureOrigSortNr"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MeasureSortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MeasureSortNr" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -711,9 +709,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="MeasureSortNr"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -734,9 +732,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Oid"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -757,10 +755,11 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Version"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DOK4K2Relation">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -781,9 +780,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Deleted"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="K2ElementOid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="K2ElementOid" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -804,8 +803,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="K2ElementOid"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MyTemplate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MyTemplate">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -826,8 +826,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="MyTemplate"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -848,9 +849,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Oid"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -871,10 +872,11 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Version"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DOTemplateKeyword">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -895,9 +897,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Deleted"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Keyword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Keyword" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -918,8 +920,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Keyword"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MyTemplate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MyTemplate">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -940,9 +943,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="MyTemplate"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -963,9 +966,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Oid"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -986,10 +989,11 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Version"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DOMeasure">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1010,9 +1014,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Deleted"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Description" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1033,9 +1037,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Description"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Keyword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Keyword" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1056,8 +1060,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Keyword"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1078,9 +1083,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Oid"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrigDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrigDescription" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1101,9 +1106,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="OrigDescription"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrigSortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrigSortNr" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1124,9 +1129,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="OrigSortNr"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="SortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="SortNr" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1147,9 +1152,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="SortNr"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1170,9 +1175,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Version"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="MeasureKeywords" upperBound="-1"
-        eType="#//DOMeasureKeyword" unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="MeasureKeywords" upperBound="-1" eType="//DOMeasureKeyword" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType" value="MERGE,REFRESH,PERSIST,REMOVE"/>
@@ -1196,7 +1201,7 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DOMeasureKeyword">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1217,9 +1222,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Deleted"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Keyword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Keyword" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1240,9 +1245,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Keyword"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MyMeasure" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MyMeasure" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1263,8 +1268,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="MyMeasure"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1285,9 +1291,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Oid"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1308,11 +1314,11 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Version"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DOCatalogTypes">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="CatalogTypes" upperBound="-1"
-        eType="#//DOCatalogType" unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="CatalogTypes" upperBound="-1" eType="//DOCatalogType" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1336,7 +1342,7 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DOCatalogType">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1357,9 +1363,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Deleted"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Description" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1380,9 +1386,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Description"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="LawSector" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="LawSector" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1403,9 +1409,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="LawSector"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MaterialNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MaterialNr" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1426,9 +1432,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="MaterialNr"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Name" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1449,8 +1455,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Name"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1471,9 +1478,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Oid"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Picture" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EByteArray"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Picture" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1494,9 +1501,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Picture"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EByteArray"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1517,9 +1524,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Version"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="Categories1" upperBound="-1"
-        eType="#//DOCategory1" unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Categories1" upperBound="-1" eType="//DOCategory1" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1543,8 +1550,7 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DOCategory1">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Abbreviation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Abbreviation" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1565,8 +1571,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Abbreviation"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1587,9 +1594,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Deleted"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Name" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1610,8 +1617,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Name"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1632,9 +1640,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Oid"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrigName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrigName" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1655,9 +1663,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="OrigName"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrigSortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrigSortNr" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1678,9 +1686,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="OrigSortNr"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Picture" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EByteArray"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Picture" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1701,9 +1709,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Picture"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EByteArray"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="SortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="SortNr" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1724,9 +1732,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="SortNr"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1747,9 +1755,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Version"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="Categories2" upperBound="-1"
-        eType="#//DOCategory2" unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Categories2" upperBound="-1" eType="//DOCategory2" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1773,8 +1781,7 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DOCategory2">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Abbreviation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Abbreviation" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1795,8 +1802,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Abbreviation"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1817,9 +1825,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Deleted"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Description" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1840,9 +1848,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Description"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Name" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1863,8 +1871,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Name"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1885,9 +1894,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Oid"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrigName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrigName" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1908,9 +1917,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="OrigName"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrigSortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrigSortNr" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1931,9 +1940,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="OrigSortNr"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ShortDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ShortDescription" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1954,9 +1963,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="ShortDescription"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="SortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="SortNr" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -1977,9 +1986,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="SortNr"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -2000,9 +2009,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Version"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="Measures" upperBound="-1"
-        eType="#//DOMeasure" unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Measures" upperBound="-1" eType="//DOMeasure" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType" value="MERGE,REFRESH,PERSIST,REMOVE"/>
@@ -2024,8 +2033,7 @@
         <details key="XmlName" value="Measures"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="Remarks" upperBound="-1"
-        eType="#//DOCategory2Remark" unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Remarks" upperBound="-1" eType="//DOCategory2Remark" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType" value="MERGE,REFRESH,PERSIST,REMOVE"/>
@@ -2049,7 +2057,7 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DOCategory2Remark">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -2070,9 +2078,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Deleted"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MyCategory2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MyCategory2" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -2093,8 +2101,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="MyCategory2"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -2115,9 +2124,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Oid"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrigRemark" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrigRemark" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -2138,9 +2147,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="OrigRemark"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrigSortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrigSortNr" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -2161,9 +2170,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="OrigSortNr"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Remark" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Remark" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -2184,9 +2193,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Remark"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="SortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="SortNr" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -2207,9 +2216,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="SortNr"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -2230,9 +2239,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Version"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="Images" upperBound="-1"
-        eType="#//DOCat2RemImage" unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Images" upperBound="-1" eType="//DOCat2RemImage" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType" value="MERGE,REFRESH,PERSIST,REMOVE"/>
@@ -2256,7 +2265,7 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DOCat2RemImage">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Deleted">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -2277,9 +2286,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Deleted"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MyCat2Remark" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MyCat2Remark" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -2300,8 +2309,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="MyCat2Remark"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Oid">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -2322,9 +2332,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Oid"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Picture" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EByteArray"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Picture" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -2345,9 +2355,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Picture"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EByteArray"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="SortNr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="SortNr" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -2368,9 +2378,9 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="SortNr"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Version" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="false"/>
         <details key="CascadeType"/>
@@ -2391,11 +2401,11 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Version"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DOKeywords">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Keyword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        unsettable="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Keyword" unsettable="true">
       <eAnnotations source="com.eclipsesource.icat.schemaxml">
         <details key="Bk" value="true"/>
         <details key="CascadeType"/>
@@ -2416,6 +2426,8 @@
         <details key="XmlAttribute" value="false"/>
         <details key="XmlName" value="Keyword"/>
       </eAnnotations>
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="class14"/>
 </ecore:EPackage>

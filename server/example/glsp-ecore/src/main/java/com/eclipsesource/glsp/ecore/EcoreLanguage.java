@@ -13,13 +13,37 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.example.workflow.handler;
+package com.eclipsesource.glsp.ecore;
 
-import com.eclipsesource.glsp.api.handler.IOperationHandler;
-import com.eclipsesource.glsp.server.operationhandler.DeleteHandler;
+import java.util.Arrays;
+import java.util.List;
 
-public class DeleteWorkflowElementHandler extends DeleteHandler implements IOperationHandler {
+import com.eclipsesource.glsp.api.language.IGraphicaLanguage;
 
-	// Nothing special, yet. Just reuse the default implementation
+public class EcoreLanguage implements IGraphicaLanguage {
+	private String id = "ecore";
+	private String name = "Ecore";
+	private String label = "Ecore diagram";
+	private String diagramType = "ecore-diagram";
+	private List<String> fileExtensions = Arrays.asList("ecorediag");
 
+	public String getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public String getDiagramType() {
+		return diagramType;
+	}
+
+	public List<String> getFileExtensions() {
+		return fileExtensions;
+	}
 }

@@ -19,7 +19,7 @@ import org.eclipse.sprotty.Point;
 
 import com.eclipsesource.glsp.api.action.Action;
 
-public class ChangeContainerOperationAction extends AbstractOperationAction {
+public class ChangeContainerOperationAction extends Action {
 
 	private String elementId;
 	private String targetContainerId;

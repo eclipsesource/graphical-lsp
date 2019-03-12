@@ -16,6 +16,7 @@
 package com.eclipsesource.glsp.example.workflow;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.sprotty.Point;
@@ -47,7 +48,7 @@ public class WorkflowCommandPaletteActionProvider implements CommandPaletteActio
 			CREATE_MANUAL_TASK, CREATE_MERGE_NODE, CREATE_DECISION_NODE);
 
 	@Override
-	public Set<LabeledAction> getActions(SModelRoot root, String[] selectedElementsIDs) {
+	public Set<LabeledAction> getActions(SModelRoot root, List<String> selectedElementsIDs) {
 		Set<LabeledAction> actions = Sets.newLinkedHashSet();
 
 		SModelIndex index = new SModelIndex(root);

@@ -21,7 +21,7 @@ import org.eclipse.sprotty.Point;
 
 import com.eclipsesource.glsp.api.action.Action;
 
-public class RerouteConnectionOperationAction extends AbstractOperationAction {
+public class RerouteConnectionOperationAction extends Action {
 
 	private String connectionElementId;
 	private Point[] routingPoints;

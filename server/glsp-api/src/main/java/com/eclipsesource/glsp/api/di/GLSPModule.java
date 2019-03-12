@@ -15,6 +15,9 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.di;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.eclipse.sprotty.ILayoutEngine;
 
 import com.eclipsesource.glsp.api.factory.IModelFactory;
@@ -27,6 +30,7 @@ import com.eclipsesource.glsp.api.language.IGraphicaLanguage;
 import com.eclipsesource.glsp.api.model.IModelElementOpenListener;
 import com.eclipsesource.glsp.api.model.IModelExpansionListener;
 import com.eclipsesource.glsp.api.model.IModelSelectionListener;
+import com.eclipsesource.glsp.api.model.IModelState;
 import com.eclipsesource.glsp.api.model.IModelStateProvider;
 import com.eclipsesource.glsp.api.model.ISaveModelDelegator;
 import com.eclipsesource.glsp.api.operations.IOperationConfiguration;
@@ -37,6 +41,7 @@ import com.eclipsesource.glsp.api.provider.IModelTypeConfigurationProvider;
 import com.eclipsesource.glsp.api.provider.IOperationHandlerProvider;
 import com.eclipsesource.glsp.api.provider.IServerCommandHandlerProvider;
 import com.google.inject.AbstractModule;
+import com.google.inject.TypeLiteral;
 import com.google.inject.binder.LinkedBindingBuilder;
 import com.google.inject.multibindings.Multibinder;
 
@@ -71,16 +76,18 @@ public abstract class GLSPModule extends AbstractModule {
 		actionHandlerBinder = Multibinder.newSetBinder(binder(), IActionHandler.class);
 		serverCommandHandler = Multibinder.newSetBinder(binder(), IServerCommandHandler.class);
 		operationHandler = Multibinder.newSetBinder(binder(), IOperationHandler.class);
-		multiBindActionHandlers();
-		multiBindServerCommandHandlers();
-		multiBindOperationHandlers();
+		bindActionHandlers().forEach(ha -> bindActionHandler().to(ha));
+		bindServerCommandHandlers().forEach(ha -> bindServerCommandHandler().to(ha));
+		bindOperationsHandlers().forEach(ha -> bindOperationHandler().to(ha));
 	}
 
-	protected abstract void multiBindOperationHandlers();
+	protected abstract List<Class<? extends IOperationHandler>> bindOperationsHandlers();
 
-	protected abstract void multiBindServerCommandHandlers();
+	protected List<Class<? extends IServerCommandHandler>> bindServerCommandHandlers() {
+		return Collections.emptyList();
+	}
 
-	protected abstract void multiBindActionHandlers();
+	protected abstract List<Class<? extends IActionHandler>> bindActionHandlers();
 
 	protected final LinkedBindingBuilder<IActionHandler> bindActionHandler() {
 		return actionHandlerBinder.addBinding();

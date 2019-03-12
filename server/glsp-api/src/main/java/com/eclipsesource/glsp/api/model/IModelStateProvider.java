@@ -15,6 +15,8 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.model;
 
+import org.eclipse.sprotty.SModelRoot;
+
 public interface IModelStateProvider {
 	/**
 	 * Returns the model state for a given clientId. Note that each sprotty diagram
@@ -24,5 +26,7 @@ public interface IModelStateProvider {
 	 * @return the corresponding model state
 	 */
 	IModelState getModelState(String clientId);
+	
+	IModelState registerModel(SModelRoot model,String clientId);
 
 }

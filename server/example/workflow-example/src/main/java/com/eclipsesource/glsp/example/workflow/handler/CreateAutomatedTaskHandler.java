@@ -15,8 +15,9 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.handler;
 
-import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
+import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
+import com.eclipsesource.glsp.api.model.IModelState;
 import com.eclipsesource.glsp.example.workflow.schema.ModelTypes;
 
 public class CreateAutomatedTaskHandler extends CreateTaskHandler {
@@ -26,7 +27,7 @@ public class CreateAutomatedTaskHandler extends CreateTaskHandler {
 	}
 
 	@Override
-	public boolean handles(AbstractOperationAction execAction) {
+	public boolean handles(Action execAction) {
 		if (execAction instanceof CreateNodeOperationAction) {
 			CreateNodeOperationAction action = (CreateNodeOperationAction) execAction;
 			return ModelTypes.AUTOMATED_TASK.equals(action.getElementTypeId());

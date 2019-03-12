@@ -24,7 +24,7 @@ import com.eclipsesource.glsp.api.model.IModelState;
 import com.eclipsesource.glsp.api.utils.ModelOptions.ParsedModelOptions;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 
-public class ModelStateImpl implements IModelState {
+public class ModelState implements IModelState {
 	private ParsedModelOptions options;
 	private String clientId;
 	private SModelRoot currentModel;
@@ -32,7 +32,7 @@ public class ModelStateImpl implements IModelState {
 	private Set<String> selectedElements;
 	private SModelIndex currentModelIndex;
 
-	public ModelStateImpl() {
+	public ModelState() {
 		expandedElements = new HashSet<>();
 		selectedElements = new HashSet<>();
 	}

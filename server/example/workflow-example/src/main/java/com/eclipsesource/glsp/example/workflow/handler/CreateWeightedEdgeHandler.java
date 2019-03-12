@@ -24,7 +24,7 @@ import org.eclipse.sprotty.SModelElement;
 import org.eclipse.sprotty.SModelRoot;
 import org.eclipse.sprotty.SNode;
 
-import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
+import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
 import com.eclipsesource.glsp.api.handler.IOperationHandler;
 import com.eclipsesource.glsp.api.model.IModelState;
@@ -36,7 +36,7 @@ public class CreateWeightedEdgeHandler implements IOperationHandler {
 	private static Logger log = Logger.getLogger(CreateWeightedEdgeHandler.class);
 
 	@Override
-	public boolean handles(AbstractOperationAction execAction) {
+	public boolean handles(Action execAction) {
 		if (execAction instanceof CreateConnectionOperationAction) {
 			CreateConnectionOperationAction action = (CreateConnectionOperationAction) execAction;
 			return ModelTypes.WEIGHTED_EDGE.equals(action.getElementTypeId());
@@ -45,7 +45,7 @@ public class CreateWeightedEdgeHandler implements IOperationHandler {
 	}
 
 	@Override
-	public Optional<SModelRoot> execute(AbstractOperationAction operationAction, IModelState modelState) {
+	public Optional<SModelRoot> execute(Action operationAction, IModelState modelState) {
 		CreateConnectionOperationAction action = (CreateConnectionOperationAction) operationAction;
 		if (action.getSourceElementId() == null || action.getTargetElementId() == null) {
 			log.warn("Incomplete create connection action");

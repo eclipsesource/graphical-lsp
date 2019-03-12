@@ -21,8 +21,9 @@ import java.util.function.Function;
 import org.eclipse.sprotty.Point;
 import org.eclipse.sprotty.SModelElement;
 
-import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
+import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
+import com.eclipsesource.glsp.api.model.IModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.eclipsesource.glsp.example.workflow.schema.ActivityNode;
 import com.eclipsesource.glsp.example.workflow.schema.ModelTypes;
@@ -31,7 +32,7 @@ import com.eclipsesource.glsp.server.operationhandler.CreateNodeOperationHandler
 public class CreateDecisionNodeHandler extends CreateNodeOperationHandler {
 
 	@Override
-	public boolean handles(AbstractOperationAction execAction) {
+	public boolean handles(Action execAction) {
 		if (execAction instanceof CreateNodeOperationAction) {
 			CreateNodeOperationAction action = (CreateNodeOperationAction) execAction;
 			return ModelTypes.DECISION_NODE.equals(action.getElementTypeId());
@@ -40,17 +41,17 @@ public class CreateDecisionNodeHandler extends CreateNodeOperationHandler {
 	}
 
 	@Override
-	protected SModelElement createNode(Optional<Point> point, SModelIndex index) {
-		ActivityNode result = new ActivityNode();
-		result.setNodeType("decisionNode");
-		result.setType(ModelTypes.DECISION_NODE);
-		point.ifPresent(result::setPosition);
-
-		Function<Integer, String> idProvider = i -> "activityNode" + i;
-		int i = getCounter(index, result.getType(), idProvider);
-		result.setId(idProvider.apply(i));
-
-		return result;
+	protected SModelElement createNode(Optional<Point> point,IModelState modelState) {
+    	ActivityNode result = new ActivityNode();
+    	result.setNodeType("decisionNode");
+    	result.setType(ModelTypes.DECISION_NODE);
+    	point.ifPresent(result::setPosition);
+    	
+    	Function<Integer, String> idProvider = i -> "activityNode"+ i;
+    	int i = getCounter(modelState.getCurrentModelIndex(), result.getType(), idProvider);
+    	result.setId(idProvider.apply(i));
+    	
+    	return result;
 	}
 
 }

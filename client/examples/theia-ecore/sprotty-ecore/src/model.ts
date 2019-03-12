@@ -14,10 +14,14 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
-import { boundsFeature, Expandable, expandFeature, fadeFeature, layoutableChildFeature, layoutContainerFeature, RectangularNode, SEdge, SGraph, SLabel, SShapeElement } from "sprotty/lib";
+import { boundsFeature, Expandable, expandFeature, fadeFeature, layoutableChildFeature, layoutContainerFeature, RectangularNode, SEdge, SGraph, SModelRoot, SModelRootSchema, SShapeElement } from "sprotty/lib";
 
 export class EcoreGraph extends SGraph {
     needsInitialLayout: boolean
+}
+
+export function isEcoreGraph(root: SModelRoot | SModelRootSchema): root is EcoreGraph {
+    return (<any>root)["needsInitialLayout"] !== undefined && typeof ((<any>root)["needsInitialLayout"]) === 'boolean'
 }
 
 export class ClassNode extends RectangularNode implements Expandable {
@@ -48,15 +52,5 @@ export class EdgeWithMultiplicty extends SEdge {
 
     hasFeature(feature: symbol) {
         return feature === multiplicitySourceFeature || feature === multiplicityTargetFeature || super.hasFeature(feature);
-    }
-}
-
-export const linkTargetFeature = Symbol('linkTargetFeature');
-
-export class Link extends SLabel {
-    target: string;
-
-    hasFeature(feature: symbol) {
-        return feature === linkTargetFeature || super.hasFeature(feature);
     }
 }

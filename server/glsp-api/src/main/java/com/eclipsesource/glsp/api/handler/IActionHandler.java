@@ -18,7 +18,6 @@ package com.eclipsesource.glsp.api.handler;
 import java.util.Optional;
 
 import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.model.IModelState;
 
 public interface IActionHandler extends IHandler<Action> {
 

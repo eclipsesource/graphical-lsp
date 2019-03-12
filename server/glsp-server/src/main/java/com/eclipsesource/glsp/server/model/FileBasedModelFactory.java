@@ -51,7 +51,7 @@ public class FileBasedModelFactory implements IModelFactory {
 	}
 
 	@Override
-	public SModelRoot loadModel(RequestModelAction action) {
+	public SModelRoot loadModel(RequestModelAction action, String clientId) {
 		String sourceURI = action.getOptions().get(ModelOptions.SOURCE_URI);
 		if (sourceURI != null) {
 
@@ -59,7 +59,7 @@ public class FileBasedModelFactory implements IModelFactory {
 					.sorted(Comparator.comparing(IFileExtensionLoader::getPriority)).filter(ml -> ml.handles(sourceURI))
 					.findFirst();
 			if (extensionHandler.isPresent()) {
-				return extensionHandler.get().loadAndGenerate(sourceURI);
+				return extensionHandler.get().loadAndGenerate(sourceURI, clientId);
 			}
 		}
 		return emptyRoot();

@@ -17,8 +17,8 @@
 import { injectable } from 'inversify';
 import { svg } from 'snabbdom-jsx';
 import { VNode } from "snabbdom/vnode";
-import { IView, Point, PolylineEdgeView, RectangularNodeView, RenderingContext, SEdge, SLabelView, toDegrees } from "sprotty/lib";
-import { ClassNode, EdgeWithMultiplicty, Icon, Link } from './model';
+import { IView, Point, PolylineEdgeView, RectangularNodeView, RenderingContext, SEdge, toDegrees } from "sprotty/lib";
+import { ClassNode, EdgeWithMultiplicty, Icon } from './model';
 
 
 @injectable()
@@ -30,13 +30,6 @@ export class ClassNodeView extends RectangularNodeView {
                 width={Math.max(0, node.bounds.width)} height={Math.max(0, node.bounds.height)} />
             {context.renderChildren(node)}
         </g>;
-    }
-}
-
-@injectable()
-export class LinkView extends SLabelView {
-    render(element: Link, context: RenderingContext): VNode {
-        return <a href={element.target} target="_empty"><text class-sprotty-label={true}>{element.text}</text></a>
     }
 }
 

@@ -22,9 +22,8 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
 import org.eclipse.sprotty.ServerStatus;
 
 import com.eclipsesource.glsp.api.action.ActionMessage;
-import com.eclipsesource.glsp.api.model.IModelStateProvider;
 
-public interface IGLSPServer extends IGLSPClientAware,IModelStateProvider {
+public interface IGLSPServer extends IGLSPClientAware {
 
 	public interface Provider {
 		IGLSPServer getGraphicalLanguageServer(String clientId);

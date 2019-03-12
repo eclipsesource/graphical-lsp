@@ -17,7 +17,7 @@ package com.eclipsesource.glsp.api.action.kind;
 
 import com.eclipsesource.glsp.api.action.Action;
 
-public class ReconnectConnectionOperationAction extends AbstractOperationAction {
+public class ReconnectConnectionOperationAction extends Action {
 
 	private String connectionElementId;
 	private String sourceElementId;

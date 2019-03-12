@@ -15,7 +15,7 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.operationhandler;
 
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -26,34 +26,30 @@ import org.eclipse.sprotty.SModelElement;
 import org.eclipse.sprotty.SModelRoot;
 import org.eclipse.sprotty.SNode;
 
-import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
+import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.DeleteElementOperationAction;
-import com.eclipsesource.glsp.api.handler.OperationHandler;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.handler.IOperationHandler;
+import com.eclipsesource.glsp.api.model.IModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 
 /**
  * Generic handler implementation for {@link DeleteElementOperationAction}
  */
-public class DeleteHandler implements IOperationHandler {
-	private static Logger log = Logger.getLogger(DeleteHandler.class);
+public class DeleteElementOperationHandler implements IOperationHandler {
+	private static Logger log = Logger.getLogger(DeleteElementOperationHandler.class);
 
 	@Override
-	public boolean handles(AbstractOperationAction action) {
+	public boolean handles(Action action) {
 		return action instanceof DeleteElementOperationAction;
 	}
 
 	@Override
-	public Optional<SModelRoot> execute(AbstractOperationAction execAction, IModelState modelState) {
+	public Optional<SModelRoot> execute(Action execAction, IModelState modelState) {
 		DeleteElementOperationAction action = (DeleteElementOperationAction) execAction;
-		String elementIds[] = action.getElementIds();
-		if (elementIds == null || elementIds.length == 0) {
-			log.warn("Elements to delete are not specified");
-			return Optional.empty();
-		}
+
 		SModelIndex index = modelState.getCurrentModelIndex();
 
-		boolean success = Arrays.stream(elementIds).allMatch(eId -> delete(eId, index, modelState));
+		boolean success = action.getElementIds().stream().allMatch(eId -> delete(eId, index, modelState));
 		if (!success) {
 			return Optional.empty();
 		}
@@ -80,22 +76,26 @@ public class DeleteHandler implements IOperationHandler {
 
 		Set<SModelElement> dependents = new LinkedHashSet<>();
 		collectDependents(dependents, nodeToDelete, modelState);
-
-		dependents.forEach(modelElement -> delete(modelElement, modelState));
-		return true;
+		return deleteDependents(dependents, modelState);
+	}
+	
+	protected boolean deleteDependents(Collection<SModelElement> dependents, IModelState modelState) {
+		return dependents.stream().allMatch(element-> delete(element,modelState));
 	}
 
-	protected void delete(SModelElement element, IModelState modelState) {
+	protected boolean delete(SModelElement element, IModelState modelState) {
 		SModelElement parent = modelState.getCurrentModelIndex().getParent(element);
 		modelState.getCurrentModelIndex().removeFromIndex(element);
 
 		if (parent == null || parent.getChildren() == null) {
-			return;
+			return false; 
 		}
 		parent.getChildren().remove(element);
+		return true;
 	}
 
-	protected void collectDependents(Set<SModelElement> dependents, SModelElement nodeToDelete, IModelState modelState) {
+	protected void collectDependents(Set<SModelElement> dependents, SModelElement nodeToDelete,
+			IModelState modelState) {
 		if (dependents.contains(nodeToDelete)) {
 			return;
 		}

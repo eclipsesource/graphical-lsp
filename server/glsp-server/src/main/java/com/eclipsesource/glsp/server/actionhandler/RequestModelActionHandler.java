@@ -26,6 +26,7 @@ import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
 import com.eclipsesource.glsp.api.factory.IModelFactory;
 import com.eclipsesource.glsp.api.model.IModelState;
+import com.eclipsesource.glsp.api.model.IModelStateProvider;
 import com.eclipsesource.glsp.api.utils.ModelOptions;
 import com.eclipsesource.glsp.api.utils.ModelOptions.ParsedModelOptions;
 import com.google.inject.Inject;
@@ -35,16 +36,18 @@ public class RequestModelActionHandler extends AbstractActionHandler {
 	protected IModelFactory modelFactory;
 	@Inject
 	protected ModelSubmissionHandler submissionHandler;
+	@Inject
+	protected IModelStateProvider modelStateProvider;
 
 	@Override
 	public Optional<Action> execute(Action action, String clientId) {
 		if (action instanceof RequestModelAction) {
 			RequestModelAction requestAction = (RequestModelAction) action;
 			ParsedModelOptions options = ModelOptions.parse(requestAction.getOptions());
-			SModelRoot model = modelFactory.loadModel(requestAction);
-			IModelState modelState = getModelState(clientId);
-			modelState.setCurrentModel(model);
+			SModelRoot model = modelFactory.loadModel(requestAction, clientId);
+			IModelState modelState=modelStateProvider.registerModel(model, clientId);
 			modelState.setOptions(options);
+			modelState.setClientId(clientId);
 			return submissionHandler.submit(model, false, modelState);
 		}
 		return Optional.empty();

@@ -38,12 +38,12 @@ public interface IFileExtensionLoader<T> extends IHandler<String> {
 
 	List<String> getExtensions();
 
-	Optional<T> loadFromFile(String fileURI);
+	Optional<T> loadFromFile(String fileURI, String clientId);
 
 	SModelRoot generate(T sourceModel);
 
-	default SModelRoot loadAndGenerate(String fileURI) {
-		Optional<T> model = loadFromFile(fileURI);
+	default SModelRoot loadAndGenerate(String fileURI, String clientId) {
+		Optional<T> model = loadFromFile(fileURI,clientId);
 		if (model.isPresent()) {
 			return generate(model.get());
 		}

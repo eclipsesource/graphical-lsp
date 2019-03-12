@@ -105,6 +105,7 @@ public abstract class Action {
 		public static final String SET_COMMAND_PALETTE_ACTIONS = "setCommandPaletteActions";
 		public static final String IDENTIFIABLE_REQUEST_ACTION = "identifiableRequestAction";
 		public static final String IDENTIFIABLE_RESPONSE_ACTION = "identifiableResponseAction";
+		public static final String RECONNECT_OPERATION_ACTION = "reconnectOperation";
 		public static final String REQUEST_MARKERS = "requestMarkers";
 		public static final String SET_MARKERS = "setMarkers";
 	}

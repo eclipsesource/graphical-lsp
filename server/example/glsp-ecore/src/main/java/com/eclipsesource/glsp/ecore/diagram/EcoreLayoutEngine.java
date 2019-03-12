@@ -25,7 +25,7 @@ public class EcoreLayoutEngine extends ElkLayoutEngine {
 	}
 
 
-	
+
 	protected boolean shouldInclude(SModelElement element, SModelElement sParent, ElkGraphElement elkParent, LayoutContext context) {
 		if (element.getType().equals("label:icon")) {
 			return false;

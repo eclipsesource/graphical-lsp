@@ -25,16 +25,15 @@ import org.eclipse.sprotty.SModelRoot;
 
 import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ChangeBoundsOperationAction;
 import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
 import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
 import com.eclipsesource.glsp.api.action.kind.DeleteElementOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ReconnectConnectionOperationAction;
 import com.eclipsesource.glsp.api.action.kind.RerouteConnectionOperationAction;
-import com.eclipsesource.glsp.api.handler.OperationHandler;
-import com.eclipsesource.glsp.api.model.ModelState;
-import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
+import com.eclipsesource.glsp.api.handler.IOperationHandler;
+import com.eclipsesource.glsp.api.model.IModelState;
+import com.eclipsesource.glsp.api.provider.IOperationHandlerProvider;
 
 public class OperationActionHandler extends AbstractActionHandler {
 	@Inject
@@ -58,13 +57,13 @@ public class OperationActionHandler extends AbstractActionHandler {
 		case Action.Kind.REROUTE_CONNECTION_OPERATION:
 		case Action.Kind.DELETE_ELEMENT_OPERATION:
 		case Action.Kind.CHANGE_BOUNDS_OPERATION:
-			return doHandle((AbstractOperationAction) action, getModelState(clientId));
+			return doHandle((Action) action, getModelState(clientId));
 		default:
 			return Optional.empty();
 		}
 	}
 
-	public Optional<Action> doHandle(AbstractOperationAction action, IModelState modelState) {
+	public Optional<Action> doHandle(Action action, IModelState modelState) {
 		if (operationHandlerProvider.isHandled(action)) {
 			IOperationHandler handler = operationHandlerProvider.getHandler(action).get();
 			Optional<SModelRoot> modelRoot = handler.execute(action, modelState);

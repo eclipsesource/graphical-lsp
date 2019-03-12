@@ -22,12 +22,12 @@ package com.eclipsesource.glsp.api.model;
  *
  */
 public interface ISaveModelDelegator {
-	void save(String clientId);
+	void save(String fileURI,String clientId);
 
 	public static class NullImpl implements ISaveModelDelegator {
 
 		@Override
-		public void save(String clientId) {
+		public void save(String fileURI, String clientId) {
 		}
 
 	}

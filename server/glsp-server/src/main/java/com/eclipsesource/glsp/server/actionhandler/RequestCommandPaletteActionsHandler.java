@@ -17,6 +17,7 @@ package com.eclipsesource.glsp.server.actionhandler;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -44,7 +45,7 @@ public class RequestCommandPaletteActionsHandler extends AbstractActionHandler {
 		if (action instanceof RequestCommandPaletteActions) {
 			RequestCommandPaletteActions paletteAction = (RequestCommandPaletteActions) action;
 			SModelRoot root = getModelState(clientId).getCurrentModel();
-			String[] selectedElementsIDs = paletteAction.getSelectedElementsIDs();
+			List<String>selectedElementsIDs = paletteAction.getSelectedElementsIDs();
 			Set<LabeledAction> commandPaletteActions = commandPaletteActionProvider.getActions(root,
 					selectedElementsIDs);
 			return Optional.of(new SetCommandPaletteActions(commandPaletteActions));

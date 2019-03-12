@@ -29,6 +29,7 @@ import org.eclipse.sprotty.SCompartment;
 import org.eclipse.sprotty.SLabel;
 import org.eclipse.sprotty.SModelElement;
 
+import com.eclipsesource.glsp.api.model.IModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.eclipsesource.glsp.example.workflow.schema.Icon;
 import com.eclipsesource.glsp.example.workflow.schema.TaskNode;
@@ -47,11 +48,11 @@ public abstract class CreateTaskHandler extends CreateNodeOperationHandler {
 	}
 
 	@Override
-	protected SModelElement createNode(Optional<Point> point, SModelIndex index) {
+	protected SModelElement createNode(Optional<Point> point,IModelState modelState) {
 		TaskNode taskNode = new TaskNode();
 		taskNode.setType(type);
 		Function<Integer, String> idProvider = i -> "task" + i;
-		int nodeCounter = getCounter(index, type, idProvider);
+		int nodeCounter = getCounter(modelState.getCurrentModelIndex(), type, idProvider);
 		taskNode.setId(idProvider.apply(nodeCounter));
 		taskNode.setName(labelProvider.apply(nodeCounter));
 		taskNode.setDuration(0);

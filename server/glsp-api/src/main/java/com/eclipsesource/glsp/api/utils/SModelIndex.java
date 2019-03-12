@@ -159,8 +159,8 @@ public class SModelIndex {
 		return idToElement.get(elementId);
 	}
 
-	public Set<SModelElement> getAll(String... elementIds) {
-		return Arrays.stream(elementIds).map(this::get).collect(Collectors.toSet());
+	public Set<SModelElement> getAll(Collection<String> elementIds) {
+		return elementIds.stream().map(this::get).collect(Collectors.toSet());
 	}
 
 	public Set<SModelElement> getAllByType(String type) {

@@ -10,7 +10,7 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.ecore;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +20,6 @@ import org.eclipse.sprotty.PreRenderedElement;
 import org.eclipse.sprotty.SButton;
 import org.eclipse.sprotty.SCompartment;
 import org.eclipse.sprotty.SEdge;
-import org.eclipse.sprotty.SGraph;
 import org.eclipse.sprotty.SLabel;
 import org.eclipse.sprotty.SModelElement;
 
@@ -30,17 +29,27 @@ import com.eclipsesource.glsp.api.types.NodeTypeHint;
 import com.eclipsesource.glsp.ecore.model.ClassNode;
 import com.eclipsesource.glsp.ecore.model.EcoreEdge;
 import com.eclipsesource.glsp.ecore.model.Icon;
+import com.eclipsesource.glsp.ecore.model.ModelTypes;
+import com.eclipsesource.glsp.server.model.GLSPGraph;
 
 public class EcoreModelTypeConfigurationProvider implements IModelTypeConfigurationProvider {
 
 	@Override
 	public List<EdgeTypeHint> getEdgeTypeHints() {
-		return Collections.emptyList();
+		return Arrays.asList(createDefaultEdgeTypeHint(ModelTypes.REFERENCE),
+				createDefaultEdgeTypeHint(ModelTypes.INHERITANCE), createDefaultEdgeTypeHint(ModelTypes.COMPOSITION));
 	}
 
 	@Override
 	public List<NodeTypeHint> getNodeTypeHints() {
-		return Collections.emptyList();
+		return Arrays.asList(createDefaultNodeTypeHint(ModelTypes.ECLASS),
+				createDefaultNodeTypeHint(ModelTypes.COMPOSITION), createDefaultNodeTypeHint(ModelTypes.ENUM));
+	}
+
+	@Override
+	public EdgeTypeHint createDefaultEdgeTypeHint(String elementId) {
+		List<String> allowed = Arrays.asList(ModelTypes.ECLASS, ModelTypes.COMPOSITION);
+		return new EdgeTypeHint(elementId, true, true, true, allowed, allowed);
 	}
 
 	@Override
@@ -48,9 +57,11 @@ public class EcoreModelTypeConfigurationProvider implements IModelTypeConfigurat
 		return new HashMap<String, Class<? extends SModelElement>>() {
 			private static final long serialVersionUID = 1L;
 			{
-				put("graph", SGraph.class);
+				put("graph", GLSPGraph.class);
 				put("label:heading", SLabel.class);
 				put("label:text", SLabel.class);
+				put("label:prop:attr", SLabel.class);
+				put("label:prop:enum", SLabel.class);
 				put("comp:comp", SCompartment.class);
 				put("comp:header", SCompartment.class);
 				put("label:icon", SLabel.class);
@@ -67,11 +78,11 @@ public class EcoreModelTypeConfigurationProvider implements IModelTypeConfigurat
 				put("button:expand", SButton.class);
 
 				// ecore stuff
-				put("node:class", ClassNode.class);
-				put("edge:association", EcoreEdge.class);
-				put("edge:inheritance", SEdge.class);
-				put("edge:aggregation", EcoreEdge.class);
-				put("edge:composition", EcoreEdge.class);
+				put(ModelTypes.ECLASS, ClassNode.class);
+				put(ModelTypes.REFERENCE, EcoreEdge.class);
+				put(ModelTypes.INHERITANCE, SEdge.class);
+				put(ModelTypes.COMPOSITION, EcoreEdge.class);
+				put(ModelTypes.ENUM, ClassNode.class);
 			}
 		};
 	}

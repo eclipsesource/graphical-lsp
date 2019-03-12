@@ -21,12 +21,12 @@ import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
 
 public interface IModelFactory {
 
-	SModelRoot loadModel(RequestModelAction action);
+	SModelRoot loadModel(RequestModelAction action, String cliendId);
 
 	public static class NullImpl implements IModelFactory {
 
 		@Override
-		public SModelRoot loadModel(RequestModelAction action) {
+		public SModelRoot loadModel(RequestModelAction action, String cliendId) {
 			return null;
 		}
 

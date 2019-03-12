@@ -25,6 +25,7 @@ import com.eclipsesource.glsp.api.action.kind.RequestBoundsAction;
 import com.eclipsesource.glsp.api.action.kind.SetModelAction;
 import com.eclipsesource.glsp.api.action.kind.UpdateModelAction;
 import com.eclipsesource.glsp.api.model.IModelState;
+import com.eclipsesource.glsp.api.model.IModelStateProvider;
 import com.eclipsesource.glsp.server.model.GLSPGraph;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
