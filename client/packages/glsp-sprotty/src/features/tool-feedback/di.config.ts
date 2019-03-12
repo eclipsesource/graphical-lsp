@@ -15,25 +15,32 @@
  ********************************************************************************/
 
 import { ContainerModule } from "inversify";
-import { configureCommand, configureView, LocationDecorator, MoveCommand, TYPES } from "sprotty/lib";
-import { GLSP_TYPES } from "../../types";
-import { SResizeHandle } from "../change-bounds/model";
-import { HideChangeBoundsToolResizeFeedbackCommand, ShowChangeBoundsToolResizeFeedbackCommand } from "./change-bounds-tool-feedback";
-import {
-    FeedbackEdgeEnd, HideEdgeCreationToolFeedbackCommand, HideNodeCreationToolFeedbackCommand, //
-    ShowEdgeCreationSelectSourceFeedbackCommand, ShowEdgeCreationSelectTargetFeedbackCommand, //
-    ShowNodeCreationToolFeedbackCommand
-} from "./creation-tool-feedback";
-import {
-    HideEdgeReconnectHandlesFeedbackCommand, HideEdgeReconnectToolFeedbackCommand, // 
-    ShowEdgeReconnectHandlesFeedbackCommand, ShowEdgeReconnectSelectSourceFeedbackCommand
-} from "./edge-edit-tool-feedback";
 import { FeedbackActionDispatcher } from "./feedback-action-dispatcher";
-import { FeedbackEdgeEndView, SResizeHandleView } from "./view";
+import { FeedbackEdgeEnd } from "./creation-tool-feedback";
+import { FeedbackEdgeEndView } from "./view";
+import { GLSP_TYPES } from "../../types";
+import { HideChangeBoundsToolResizeFeedbackCommand } from "./change-bounds-tool-feedback";
+import { HideEdgeCreationToolFeedbackCommand } from "./creation-tool-feedback";
+import { HideEdgeReconnectHandlesFeedbackCommand } from "./edge-edit-tool-feedback";
+import { HideEdgeReconnectToolFeedbackCommand } from "./edge-edit-tool-feedback";
+import { HideNodeCreationToolFeedbackCommand } from "./creation-tool-feedback";
+import { LocationDecorator } from "sprotty/lib";
+import { MoveCommand } from "sprotty/lib";
+import { ShowChangeBoundsToolResizeFeedbackCommand } from "./change-bounds-tool-feedback";
+import { ShowEdgeCreationSelectSourceFeedbackCommand } from "./creation-tool-feedback";
+import { ShowEdgeCreationSelectTargetFeedbackCommand } from "./creation-tool-feedback";
+import { ShowEdgeReconnectHandlesFeedbackCommand } from "./edge-edit-tool-feedback";
+import { ShowEdgeReconnectSelectSourceFeedbackCommand } from "./edge-edit-tool-feedback";
+import { ShowNodeCreationToolFeedbackCommand } from "./creation-tool-feedback";
+import { SResizeHandle } from "../change-bounds/model";
+import { SResizeHandleView } from "./view";
+import { TYPES } from "sprotty/lib";
+
+import { configureCommand } from "sprotty/lib";
+import { configureView } from "sprotty/lib";
 
 const toolFeedbackModule = new ContainerModule((bind, _unbind, isBound) => {
     bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
-    bind(GLSP_TYPES.IModelUpdateObserver).toService(GLSP_TYPES.IFeedbackActionDispatcher)
 
     // create node and edge tool feedback
     configureCommand({ bind, isBound }, ShowNodeCreationToolFeedbackCommand);

@@ -13,16 +13,34 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import { Action } from "sprotty/lib";
+import { AnchorComputerRegistry } from "sprotty/lib";
+import { CommandExecutionContext } from "sprotty/lib";
+import { CommandResult } from "sprotty/lib";
+import { FeedbackCommand } from "./model";
+import { MouseListener } from "sprotty/lib";
+import { MoveAction } from "sprotty/lib";
+import { PolylineEdgeRouter } from "sprotty/lib";
+import { SChildElement } from "sprotty/lib";
+import { SConnectableElement } from "sprotty/lib";
+import { SDanglingAnchor } from "sprotty/lib";
+import { SModelElement } from "sprotty/lib";
+import { SModelRoot } from "sprotty/lib";
+import { SRoutableElement } from "sprotty/lib";
+import { TYPES } from "sprotty/lib";
 
-import { inject, injectable } from "inversify";
-import {
-    Action, AnchorComputerRegistry, center, CommandExecutionContext, euclideanDistance, findChildrenAtPosition, //
-    findParentByFeature, isBoundsAware, isConnectable, MouseListener, MoveAction, PolylineEdgeRouter, //
-    SChildElement, SConnectableElement, SDanglingAnchor, SModelElement, SModelRoot, SRoutableElement, TYPES
-} from "sprotty/lib";
+import { addCssClasses } from "../../utils/smodel-util";
+import { center } from "sprotty/lib";
+import { euclideanDistance } from "sprotty/lib";
+import { findChildrenAtPosition } from "sprotty/lib";
+import { findParentByFeature } from "sprotty/lib";
 import { getAbsolutePosition } from "../../utils/viewpoint-util";
+import { inject } from "inversify";
+import { injectable } from "inversify";
+import { isBoundsAware } from "sprotty/lib";
+import { isConnectable } from "sprotty/lib";
 import { isRoutable } from "../reconnect/model";
-import { applyCssClassesToRoot, FeedbackCommand, unapplyCssClassesToRoot } from "./model";
+import { removeCssClasses } from "../../utils/smodel-util";
 
 const NODE_CREATION_CSS_CLASS = 'node-creation-tool-mode';
 
@@ -31,24 +49,28 @@ export class ShowNodeCreationToolFeedbackAction implements Action {
     constructor(readonly elementTypeId: string) { }
 }
 
+@injectable()
+export class ShowNodeCreationToolFeedbackCommand extends FeedbackCommand {
+    static readonly KIND = 'glsp.nodecreationtool.feedback.show';
+
+    execute(context: CommandExecutionContext): CommandResult {
+        addCssClasses(context.root, [NODE_CREATION_CSS_CLASS]);
+        return context.root
+    }
+}
+
 export class HideNodeCreationToolFeedbackAction implements Action {
     kind = HideNodeCreationToolFeedbackCommand.KIND;
     constructor(readonly elementTypeId: string) { }
 }
 
 @injectable()
-export class ShowNodeCreationToolFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.nodecreationtool.feedback.show';
-    execute(context: CommandExecutionContext): SModelRoot {
-        return applyCssClassesToRoot(context, [NODE_CREATION_CSS_CLASS]);
-    }
-}
-
-@injectable()
 export class HideNodeCreationToolFeedbackCommand extends FeedbackCommand {
     static readonly KIND = 'glsp.nodecreationtool.feedback.hide';
-    execute(context: CommandExecutionContext): SModelRoot {
-        return unapplyCssClassesToRoot(context, [NODE_CREATION_CSS_CLASS]);
+
+    execute(context: CommandExecutionContext): CommandResult {
+        removeCssClasses(context.root, [NODE_CREATION_CSS_CLASS])
+        return context.root;
     }
 }
 
@@ -73,9 +95,11 @@ export class HideEdgeCreationToolFeedbackAction implements Action {
 @injectable()
 export class ShowEdgeCreationSelectSourceFeedbackCommand extends FeedbackCommand {
     static readonly KIND = 'glsp.edgecreationtool.selectsource.feedback.show';
-    execute(context: CommandExecutionContext): SModelRoot {
-        unapplyCssClassesToRoot(context, [EDGE_CREATION_TARGET_CSS_CLASS]);
-        return applyCssClassesToRoot(context, [EDGE_CREATION_SOURCE_CSS_CLASS]);
+
+    execute(context: CommandExecutionContext): CommandResult {
+        removeCssClasses(context.root, [EDGE_CREATION_TARGET_CSS_CLASS]);
+        addCssClasses(context.root, [EDGE_CREATION_SOURCE_CSS_CLASS]);
+        return context.root;
     }
 }
 
@@ -97,19 +121,22 @@ export class ShowEdgeCreationSelectTargetFeedbackCommand extends FeedbackCommand
         super();
     }
 
-    execute(context: CommandExecutionContext): SModelRoot {
+    execute(context: CommandExecutionContext): CommandResult {
         drawFeedbackEdge(context, this.action.sourceId, this.action.elementTypeId);
-        unapplyCssClassesToRoot(context, [EDGE_CREATION_SOURCE_CSS_CLASS]);
-        return applyCssClassesToRoot(context, [EDGE_CREATION_TARGET_CSS_CLASS]);
+        removeCssClasses(context.root, [EDGE_CREATION_SOURCE_CSS_CLASS]);
+        addCssClasses(context.root, [EDGE_CREATION_TARGET_CSS_CLASS]);
+        return context.root;
     }
 }
 
 @injectable()
 export class HideEdgeCreationToolFeedbackCommand extends FeedbackCommand {
     static readonly KIND = 'glsp.edgecreationtool.feedback.hide';
-    execute(context: CommandExecutionContext): SModelRoot {
+
+    execute(context: CommandExecutionContext): CommandResult {
         removeFeedbackEdge(context.root);
-        return unapplyCssClassesToRoot(context, [EDGE_CREATION_SOURCE_CSS_CLASS, EDGE_CREATION_TARGET_CSS_CLASS]);
+        removeCssClasses(context.root, [EDGE_CREATION_SOURCE_CSS_CLASS, EDGE_CREATION_TARGET_CSS_CLASS]);
+        return context.root;
     }
 }
 
@@ -179,7 +206,7 @@ function drawFeedbackEdge(context: CommandExecutionContext, sourceId: string, el
     const feedbackEdge = context.modelFactory.createElement(feedbackEdgeSchema);
     if (isRoutable(feedbackEdge)) {
         edgeEnd.feedbackEdge = feedbackEdge;
-        context.root.add(edgeEnd);
+        root.add(edgeEnd);
         root.add(feedbackEdge);
     }
 }

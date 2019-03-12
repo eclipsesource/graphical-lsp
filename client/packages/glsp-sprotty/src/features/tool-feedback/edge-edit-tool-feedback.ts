@@ -14,20 +14,51 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
-import { inject, injectable } from "inversify";
+import { Action } from "sprotty/lib";
+import { AnchorComputerRegistry } from "sprotty/lib";
+import { CommandExecutionContext } from "sprotty/lib";
+import { CommandResult } from "sprotty/lib";
+import { EdgeRouterRegistry } from "sprotty/lib";
+import { ElementMove } from "sprotty/lib";
+import { FeedbackCommand } from "./model";
+import { FeedbackEdgeEnd } from "./creation-tool-feedback";
+import { FeedbackEdgeEndMovingMouseListener } from "./creation-tool-feedback";
+import { HideEdgeCreationToolFeedbackCommand } from "./creation-tool-feedback";
+import { IModelFactory } from "sprotty/lib";
+import { MouseListener } from "sprotty/lib";
+import { MoveAction } from "sprotty/lib";
+import { Point } from "sprotty/lib";
+import { PolylineEdgeRouter } from "sprotty/lib";
+import { SConnectableElement } from "sprotty/lib";
+import { ShowEdgeCreationSelectTargetFeedbackAction } from "./creation-tool-feedback";
+import { ShowEdgeCreationSelectTargetFeedbackCommand } from "./creation-tool-feedback";
+import { SModelElement } from "sprotty/lib";
+import { SModelRoot } from "sprotty/lib";
+import { SRoutingHandle } from "sprotty/lib";
+import { SwitchEditModeAction } from "sprotty/lib";
+import { TYPES } from "sprotty/lib";
 import { VNode } from "snabbdom/vnode";
-import {
-    Action, AnchorComputerRegistry, center, CommandExecutionContext, EdgeRouterRegistry, ElementMove, euclideanDistance, findChildrenAtPosition, findParentByFeature, isBoundsAware, //
-    isConnectable, isViewport, MouseListener, MoveAction, Point, PolylineEdgeRouter, SConnectableElement, SModelElement, SModelRoot, SRoutingHandle, SwitchEditModeAction, TYPES
-} from "sprotty/lib";
-import { isNotUndefined, isSelected } from "../../utils/smodel-util";
+
+import { addCssClasses } from "../../utils/smodel-util";
+import { addReconnectHandles } from "../reconnect/model";
+import { center } from "sprotty/lib";
+import { euclideanDistance } from "sprotty/lib";
+import { feedbackEdgeEndId } from "./creation-tool-feedback";
+import { feedbackEdgeId } from "./creation-tool-feedback";
+import { findChildrenAtPosition } from "sprotty/lib";
+import { findParentByFeature } from "sprotty/lib";
 import { getAbsolutePosition } from "../../utils/viewpoint-util";
-import { addReconnectHandles, isRoutable, isRoutingHandle, removeReconnectHandles } from "../reconnect/model";
-import {
-    FeedbackEdgeEnd, feedbackEdgeEndId, FeedbackEdgeEndMovingMouseListener, feedbackEdgeId, HideEdgeCreationToolFeedbackCommand, //
-    ShowEdgeCreationSelectTargetFeedbackAction, ShowEdgeCreationSelectTargetFeedbackCommand
-} from "./creation-tool-feedback";
-import { applyCssClassesToRoot, FeedbackCommand, unapplyCssClassesToRoot } from "./model";
+import { inject } from "inversify";
+import { injectable } from "inversify";
+import { isBoundsAware } from "sprotty/lib";
+import { isConnectable } from "sprotty/lib";
+import { isNotUndefined } from "../../utils/smodel-util";
+import { isRoutable } from "../reconnect/model";
+import { isRoutingHandle } from "../reconnect/model";
+import { isSelected } from "../../utils/smodel-util";
+import { isViewport } from "sprotty/lib";
+import { removeCssClasses } from "../../utils/smodel-util";
+import { removeReconnectHandles } from "../reconnect/model";
 
 /**
  * RECONNECT HANDLES FEEDBACK
@@ -51,7 +82,7 @@ export class ShowEdgeReconnectHandlesFeedbackCommand extends FeedbackCommand {
         super();
     }
 
-    execute(context: CommandExecutionContext): SModelRoot {
+    execute(context: CommandExecutionContext): CommandResult {
         const index = context.root.index;
         index.all().filter(isRoutable).forEach(removeReconnectHandles);
 
@@ -61,7 +92,6 @@ export class ShowEdgeReconnectHandlesFeedbackCommand extends FeedbackCommand {
                 addReconnectHandles(routableElement);
             }
         }
-
         return context.root;
     }
 }
@@ -74,7 +104,7 @@ export class HideEdgeReconnectHandlesFeedbackCommand extends FeedbackCommand {
         super();
     }
 
-    execute(context: CommandExecutionContext): SModelRoot {
+    execute(context: CommandExecutionContext): CommandResult {
         const index = context.root.index;
         index.all().filter(isRoutable).forEach(removeReconnectHandles);
         return context.root;
@@ -109,13 +139,16 @@ const EDGE_RECONNECT_SOURCE_CSS_CLASS = 'edge-edit-select-source-mode';
 export class ShowEdgeReconnectSelectSourceFeedbackCommand extends FeedbackCommand {
     static readonly KIND = 'glsp.edge-edit-tool.selectsource.feedback.show';
 
-    constructor(@inject(TYPES.Action) protected action: ShowEdgeReconnectSelectSourceFeedbackAction) {
+    constructor(@inject(TYPES.Action) protected action: ShowEdgeReconnectSelectSourceFeedbackAction,
+        @inject(TYPES.IModelFactory) protected modelFactory: IModelFactory) {
         super();
     }
 
-    execute(context: CommandExecutionContext): SModelRoot {
-        drawFeedbackEdgeSource(context, this.action.targetId, this.action.elementTypeId);
-        return applyCssClassesToRoot(context, [EDGE_RECONNECT_SOURCE_CSS_CLASS]);
+
+    execute(context: CommandExecutionContext): CommandResult {
+        drawFeedbackEdgeSource(context.root, this.modelFactory, this.action.targetId, this.action.elementTypeId);
+        addCssClasses(context.root, [EDGE_RECONNECT_SOURCE_CSS_CLASS]);
+        return context.root;
     }
 }
 
@@ -129,13 +162,12 @@ export class HideEdgeReconnectToolFeedbackCommand extends FeedbackCommand {
         this.hideCreationToolFeedbackCommand = new HideEdgeCreationToolFeedbackCommand();
     }
 
-    execute(context: CommandExecutionContext): SModelRoot {
+    execute(context: CommandExecutionContext): CommandResult {
         this.hideCreationToolFeedbackCommand.execute(context);
-        unapplyCssClassesToRoot(context, [EDGE_RECONNECT_SOURCE_CSS_CLASS])
+        removeCssClasses(context.root, [EDGE_RECONNECT_SOURCE_CSS_CLASS])
         return context.root;
     }
 }
-
 /**
  * SOURCE AND TARGET MOUSE MOVE LISTENER
  */
@@ -269,8 +301,7 @@ export class FeedbackEdgeRouteMovingMouseListener extends MouseListener {
  * UTILITY FUNCTIONS
  */
 
-function drawFeedbackEdgeSource(context: CommandExecutionContext, targetId: string, elementTypeId: string) {
-    const root = context.root;
+function drawFeedbackEdgeSource(root: SModelRoot, modelFactory: IModelFactory, targetId: string, elementTypeId: string) {
     const targetChild = root.index.getById(targetId);
     if (!targetChild) {
         return;
@@ -293,10 +324,10 @@ function drawFeedbackEdgeSource(context: CommandExecutionContext, targetId: stri
         opacity: 0.3
     };
 
-    const feedbackEdge = context.modelFactory.createElement(feedbackEdgeSchema);
+    const feedbackEdge = modelFactory.createElement(feedbackEdgeSchema);
     if (isRoutable(feedbackEdge)) {
         edgeEnd.feedbackEdge = feedbackEdge;
-        context.root.add(edgeEnd);
+        root.add(edgeEnd);
         root.add(feedbackEdge);
     }
 }

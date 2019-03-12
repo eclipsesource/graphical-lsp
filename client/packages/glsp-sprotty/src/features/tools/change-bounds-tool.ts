@@ -13,18 +13,37 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { inject, injectable } from "inversify";
-import {
-    Action, Bounds, BoundsAware, ElementAndBounds, findParentByFeature, isViewport, KeyTool, MouseTool, Point, //
-    SetBoundsAction, SModelElement, SParentElement, Tool
-} from "sprotty/lib";
-import { GLSP_TYPES } from "../../types";
-import { forEachElement, isSelectedBoundsAware } from "../../utils/smodel-util";
-import { isBoundsAwareMoveable, isResizeable, ResizeHandleLocation, SResizeHandle } from "../change-bounds/model";
+import { Action } from "sprotty/lib";
+import { Bounds } from "sprotty/lib";
+import { BoundsAware } from "sprotty/lib";
 import { ChangeBoundsOperationAction } from "../operation/operation-actions";
-import { SelectionTracker } from "../select/selection-tracker";
-import { FeedbackMoveMouseListener, HideChangeBoundsToolResizeFeedbackAction, ShowChangeBoundsToolResizeFeedbackAction } from "../tool-feedback/change-bounds-tool-feedback";
+import { ElementAndBounds } from "sprotty/lib";
+import { FeedbackMoveMouseListener } from "../tool-feedback/change-bounds-tool-feedback";
+import { GLSP_TYPES } from "../../types";
+import { HideChangeBoundsToolResizeFeedbackAction } from "../tool-feedback/change-bounds-tool-feedback";
 import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
+import { KeyTool } from "sprotty/lib";
+import { MouseTool } from "sprotty/lib";
+import { Point } from "sprotty/lib";
+import { ResizeHandleLocation } from "../change-bounds/model";
+import { SelectionTracker } from "../select/selection-tracker";
+import { SetBoundsAction } from "sprotty/lib";
+import { ShowChangeBoundsToolResizeFeedbackAction } from "../tool-feedback/change-bounds-tool-feedback";
+import { SModelElement } from "sprotty/lib";
+import { SParentElement } from "sprotty/lib";
+import { SResizeHandle } from "../change-bounds/model";
+import { Tool } from "sprotty/lib";
+
+import { findParentByFeature } from "sprotty/lib";
+import { forEachElement } from "../../utils/smodel-util";
+import { inject } from "inversify";
+import { injectable } from "inversify";
+import { isBoundsAware } from "sprotty/lib";
+import { isBoundsAwareMoveable } from "../change-bounds/model";
+import { isResizeable } from "../change-bounds/model";
+import { isSelectedBoundsAware } from "../../utils/smodel-util";
+import { isViewport } from "sprotty/lib";
+
 
 /**
  * The change bounds tool has the license to move multiple elements or resize a single element by implementing the ChangeBounds operation.
@@ -95,7 +114,7 @@ class ChangeBoundsListener extends SelectionTracker {
         if (event.button === 0) {
             let active: boolean = false;
             // check if we have a resize handle (only single-selection)
-            if (target instanceof SResizeHandle) {
+            if (target instanceof SResizeHandle && isBoundsAware(target.parent)) {
                 this.activeResizeHandle = target;
                 active = true;
             } else {

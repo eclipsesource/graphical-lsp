@@ -227,6 +227,7 @@ class ReconnectEdgeListener extends SelectionTracker {
             const latestEdge = target.index.getById(this.edge.id);
             if (latestEdge && isRoutable(latestEdge)) {
                 result.push(new RerouteConnectionOperationAction(latestEdge.id, latestEdge.routingPoints));
+                this.routingHandle = undefined;
             }
         }
         return result;
