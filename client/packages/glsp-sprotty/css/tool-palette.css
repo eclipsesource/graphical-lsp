@@ -38,7 +38,6 @@
     font-weight: bold;
     background:#CCCCCC;
     border: 1px solid rgba(60, 60, 60, 0.6);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .header-icon i{
@@ -76,6 +75,7 @@
 .group-header{
     font-weight: bold;
     background:#CCCCCC;
+    border: 1px solid rgba(60, 60, 60, 0.6);
 }
 
 .group-header i{
@@ -93,4 +93,8 @@
 
 .tool-button.clicked {
     background: #BDDAEF;
+}
+
+.tool-button.collapsed{
+    display: none;
 }

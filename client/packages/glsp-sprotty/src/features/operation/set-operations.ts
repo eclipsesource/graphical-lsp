@@ -30,7 +30,30 @@ export interface Operation {
     readonly elementTypeId?: string;
     readonly label: string;
     readonly operationKind: string;
-    isActive?: boolean;
+    readonly group?: Group;
+}
+
+export interface Group {
+    readonly id: string;
+    readonly label: string;
+    readonly parentGroup?: Group;
+}
+
+export const UNGROUPED: Group = { id: "ungrouped", label: "" };
+
+export function parentGroup(operation: Operation): Group {
+    return parent(operation.group);
+}
+
+function parent(group?: Group): Group {
+    if (group) {
+        if (group.parentGroup) {
+            return parent(group.parentGroup)
+        } else {
+            return group;
+        }
+    }
+    return UNGROUPED;
 }
 
 export class RequestOperationsAction implements Action {
