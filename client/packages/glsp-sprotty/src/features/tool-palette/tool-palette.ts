@@ -169,10 +169,9 @@ function createToolGroup(label: string, groupId: string): HTMLElement {
     header.appendChild(createIcon(["fas", "fa-hammer"]))
     header.insertAdjacentText('beforeend', label)
     header.ondblclick = (ev) => {
-        Array.from(group.children).forEach(item => {
-            item.classList.contains("collapsed") ? item.classList.remove("collapsed") :
-                item.classList.add("collapsed");
-        });
+        const css = "collapsed";
+        changeCSSClass(group, css);
+        Array.from(group.children).forEach(item => changeCSSClass(item, css));
         window.getSelection().removeAllRanges();
     };
 
@@ -180,6 +179,10 @@ function createToolGroup(label: string, groupId: string): HTMLElement {
     return group;
 }
 
+function changeCSSClass(element: Element, css: string) {
+    element.classList.contains(css) ? element.classList.remove(css) :
+        element.classList.add(css);
+}
 @injectable()
 export class ToolPaletteActionHandler extends SelfInitializingActionHandler {
     @inject(ToolPalette) protected readonly toolPalette: ToolPalette
