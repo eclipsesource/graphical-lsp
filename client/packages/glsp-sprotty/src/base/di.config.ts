@@ -13,14 +13,22 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { ContainerModule } from "inversify";
-import { Tool, TYPES } from "sprotty/lib";
 import "../../css/glsp-sprotty.css";
+
+import { ContainerModule } from "inversify";
+import { DiagramUIExtensionActionHandlerInitializer } from "./diagram-ui-extension/diagram-ui-extension-registry";
+import { DiagramUIExtensionRegistry } from "./diagram-ui-extension/diagram-ui-extension-registry";
+import { FeedbackAwareUpdateModelCommand } from "./model/update-model-command";
 import { GLSP_TYPES } from "../types";
-import { GLSPCommandStack, IReadonlyModelAccess } from "./command-stack";
-import { DiagramUIExtensionActionHandlerInitializer, DiagramUIExtensionRegistry } from "./diagram-ui-extension/diagram-ui-extension-registry";
-import { ModelUpdateActionInitializer, ModelUpdateObserverRegistry } from "./model/model-update-observer-registry";
-import { createToolFactory, ToolManagerActionHandler } from "./tool-manager/tool-manager-action-handler";
+import { GLSPCommandStack } from "./command-stack";
+import { IReadonlyModelAccess } from "./command-stack";
+import { Tool } from "sprotty/lib";
+import { ToolManagerActionHandler } from "./tool-manager/tool-manager-action-handler";
+import { TYPES } from "sprotty/lib";
+
+import { configureCommand } from "sprotty/lib";
+import { createToolFactory } from "./tool-manager/tool-manager-action-handler";
+
 
 const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     // GLSP Commandstack  initialization ------------------------------------
@@ -47,8 +55,7 @@ const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) =>
     bind(GLSP_TYPES.IToolFactory).toFactory<Tool>((createToolFactory()));
 
     // Model update initialization ------------------------------------
-    bind(GLSP_TYPES.ModelUpdateObserverRegistry).to(ModelUpdateObserverRegistry).inSingletonScope();
-    bind(TYPES.IActionHandlerInitializer).to(ModelUpdateActionInitializer)
+    configureCommand({ bind, isBound }, FeedbackAwareUpdateModelCommand);
 })
 
 export default defaultGLSPModule;

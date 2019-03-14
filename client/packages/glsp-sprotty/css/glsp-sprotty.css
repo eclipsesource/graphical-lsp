@@ -31,15 +31,20 @@
     stroke: #112;
     stroke-width: 1;
 }
-.node-creation-tool-mode {
-    cursor: copy;
-}
 
-.edge-creation-select-source-mode,
-.edge-edit-select-source-mode {
-    cursor: pointer;
-}
-
-.edge-creation-select-target-mode {
-    cursor: crosshair;
-}
+.node-creation-mode { 
+    cursor: copy; 
+} 
+    
+.edge-modification-not-allowed-mode{ 
+    cursor:  no-drop; 
+} 
+    
+.edge-creation-select-source-mode { 
+    cursor: pointer; 
+} 
+    
+.edge-creation-select-target-mode, 
+.edge-reconnect-select-target-mode { 
+    cursor: crosshair; 
+} 
