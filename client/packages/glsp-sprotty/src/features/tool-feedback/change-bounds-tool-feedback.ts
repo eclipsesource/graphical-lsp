@@ -13,15 +13,29 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { inject, injectable } from "inversify";
-import { VNode } from "snabbdom/vnode";
-import {
-    Action, CommandExecutionContext, ElementMove, findParentByFeature, isMoveable, isSelectable, //
-    isViewport, MouseListener, MoveAction, Point, SModelElement, SModelRoot, TYPES
-} from "sprotty/lib";
-import { isNotUndefined } from "../../utils/smodel-util";
-import { addResizeHandles, isResizeable, removeResizeHandles } from "../change-bounds/model";
+import { Action } from "sprotty/lib";
+import { CommandExecutionContext } from "sprotty/lib";
+import { CommandResult } from "sprotty/lib";
+import { ElementMove } from "sprotty/lib";
 import { FeedbackCommand } from "./model";
+import { MouseListener } from "sprotty/lib";
+import { MoveAction } from "sprotty/lib";
+import { Point } from "sprotty/lib";
+import { SModelElement } from "sprotty/lib";
+import { SModelRoot } from "sprotty/lib";
+import { TYPES } from "sprotty/lib";
+import { VNode } from "snabbdom/vnode";
+
+import { addResizeHandles } from "../change-bounds/model";
+import { findParentByFeature } from "sprotty/lib";
+import { inject } from "inversify";
+import { injectable } from "inversify";
+import { isMoveable } from "sprotty/lib";
+import { isNotUndefined } from "../../utils/smodel-util";
+import { isResizeable } from "../change-bounds/model";
+import { isSelectable } from "sprotty/lib";
+import { isViewport } from "sprotty/lib";
+import { removeResizeHandles } from "../change-bounds/model";
 
 export class ShowChangeBoundsToolResizeFeedbackAction implements Action {
     kind = ShowChangeBoundsToolResizeFeedbackCommand.KIND;
@@ -35,13 +49,13 @@ export class HideChangeBoundsToolResizeFeedbackAction implements Action {
 
 @injectable()
 export class ShowChangeBoundsToolResizeFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.changeboundstools.resize.feedback.show';
+    static readonly KIND = 'showChangeBoundsToolResizeFeedback';
 
     constructor(@inject(TYPES.Action) protected action: ShowChangeBoundsToolResizeFeedbackAction) {
         super();
     }
 
-    execute(context: CommandExecutionContext): SModelRoot {
+    execute(context: CommandExecutionContext): CommandResult {
         const index = context.root.index;
         index.all().filter(isResizeable).forEach(removeResizeHandles);
 
@@ -51,26 +65,24 @@ export class ShowChangeBoundsToolResizeFeedbackCommand extends FeedbackCommand {
                 addResizeHandles(resizeElement);
             }
         }
-
         return context.root;
     }
 }
 
 @injectable()
 export class HideChangeBoundsToolResizeFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.changeboundstools.resize.feedback.hide';
+    static readonly KIND = 'hideChangeBoundsToolResizeFeedback';
 
     constructor(@inject(TYPES.Action) protected action: HideChangeBoundsToolResizeFeedbackAction) {
         super();
     }
 
-    execute(context: CommandExecutionContext): SModelRoot {
+    execute(context: CommandExecutionContext): CommandResult {
         const index = context.root.index;
         index.all().filter(isResizeable).forEach(removeResizeHandles);
         return context.root;
     }
 }
-
 
 /**
  * This mouse listener provides visual feedback for moving by sending client-side

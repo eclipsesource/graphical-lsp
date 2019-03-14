@@ -17,7 +17,7 @@ export * from 'sprotty/lib';
 export * from './base/command-stack';
 export * from './base/diagram-ui-extension/diagram-ui-extension';
 export * from './base/edit-config/edit-config';
-export * from './base/model/model-update-observer-registry';
+export * from './base/model/update-model-command';
 export * from './base/tool-manager/tool-manager-action-handler';
 export * from './features/change-bounds/model';
 export * from './features/command-palette/action-definitions';
@@ -48,12 +48,12 @@ export * from './utils/smodel-util';
 export * from './utils/viewpoint-util';
 export { saveModule, executeModule, paletteModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule, commandPaletteModule, requestResponseModule };
 
-import defaultGLSPModule from './base/di.config';
 import commandPaletteModule from './features/command-palette/di.config';
+import defaultGLSPModule from './base/di.config';
 import executeModule from './features/execute/di.config';
 import modelHintsModule from './features/hints/di.config';
+import paletteModule from './features/tool-palette/di.config';
 import requestResponseModule from './features/request-response/di.config';
 import saveModule from './features/save/di.config';
 import toolFeedbackModule from './features/tool-feedback/di.config';
-import paletteModule from './features/tool-palette/di.config';
 

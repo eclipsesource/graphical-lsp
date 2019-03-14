@@ -13,71 +13,69 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import { Action } from "sprotty/lib";
+import { AnchorComputerRegistry } from "sprotty/lib";
+import { CommandExecutionContext } from "sprotty/lib";
+import { CommandResult } from "sprotty/lib";
+import { FeedbackCommand } from "./model";
+import { MouseListener } from "sprotty/lib";
+import { MoveAction } from "sprotty/lib";
+import { PolylineEdgeRouter } from "sprotty/lib";
+import { SChildElement } from "sprotty/lib";
+import { SConnectableElement } from "sprotty/lib";
+import { SDanglingAnchor } from "sprotty/lib";
+import { SModelElement } from "sprotty/lib";
+import { SModelRoot } from "sprotty/lib";
+import { SRoutableElement } from "sprotty/lib";
+import { TYPES } from "sprotty/lib";
 
-import { inject, injectable } from "inversify";
-import {
-    Action, AnchorComputerRegistry, center, CommandExecutionContext, euclideanDistance, findChildrenAtPosition, //
-    findParentByFeature, isBoundsAware, isConnectable, MouseListener, MoveAction, PolylineEdgeRouter, //
-    SChildElement, SConnectableElement, SDanglingAnchor, SModelElement, SModelRoot, SRoutableElement, TYPES
-} from "sprotty/lib";
+import { center } from "sprotty/lib";
+import { euclideanDistance } from "sprotty/lib";
+import { findChildrenAtPosition } from "sprotty/lib";
+import { findParentByFeature } from "sprotty/lib";
 import { getAbsolutePosition } from "../../utils/viewpoint-util";
+import { inject } from "inversify";
+import { injectable } from "inversify";
+import { isBoundsAware } from "sprotty/lib";
+import { isConnectable } from "sprotty/lib";
 import { isRoutable } from "../reconnect/model";
-import { applyCssClassesToRoot, FeedbackCommand, unapplyCssClassesToRoot } from "./model";
 
-const NODE_CREATION_CSS_CLASS = 'node-creation-tool-mode';
 
-export class ShowNodeCreationToolFeedbackAction implements Action {
-    kind = ShowNodeCreationToolFeedbackCommand.KIND;
-    constructor(readonly elementTypeId: string) { }
-}
-
-export class HideNodeCreationToolFeedbackAction implements Action {
-    kind = HideNodeCreationToolFeedbackCommand.KIND;
-    constructor(readonly elementTypeId: string) { }
-}
-
-@injectable()
-export class ShowNodeCreationToolFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.nodecreationtool.feedback.show';
-    execute(context: CommandExecutionContext): SModelRoot {
-        return applyCssClassesToRoot(context, [NODE_CREATION_CSS_CLASS]);
-    }
-}
-
-@injectable()
-export class HideNodeCreationToolFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.nodecreationtool.feedback.hide';
-    execute(context: CommandExecutionContext): SModelRoot {
-        return unapplyCssClassesToRoot(context, [NODE_CREATION_CSS_CLASS]);
-    }
-}
-
-const EDGE_CREATION_SOURCE_CSS_CLASS = 'edge-creation-select-source-mode';
-const EDGE_CREATION_TARGET_CSS_CLASS = 'edge-creation-select-target-mode';
-
-export class ShowEdgeCreationSelectSourceFeedbackAction implements Action {
-    kind = ShowEdgeCreationSelectSourceFeedbackCommand.KIND;
-    constructor(readonly elementTypeId: string) { }
-}
-
-export class ShowEdgeCreationSelectTargetFeedbackAction implements Action {
-    kind = ShowEdgeCreationSelectTargetFeedbackCommand.KIND;
+export class DrawFeedbackEdgeAction implements Action {
+    kind = DrawFeedbackEdgeCommand.KIND;
     constructor(readonly elementTypeId: string, readonly sourceId: string) { }
 }
 
-export class HideEdgeCreationToolFeedbackAction implements Action {
-    kind = HideEdgeCreationToolFeedbackCommand.KIND;
-    constructor(readonly elementTypeId: string) { }
+
+@injectable()
+export class DrawFeedbackEdgeCommand extends FeedbackCommand {
+    static readonly KIND = 'drawFeedbackEdge';
+
+    constructor(@inject(TYPES.Action) protected action: DrawFeedbackEdgeAction) {
+        super();
+    }
+
+    execute(context: CommandExecutionContext): CommandResult {
+        drawFeedbackEdge(context, this.action.sourceId, this.action.elementTypeId);
+        return context.root;
+    }
+}
+
+export class RemoveFeedbackEdgeAction implements Action {
+    kind = RemoveFeedbackEdgeCommand.KIND;
+    constructor() { }
 }
 
 @injectable()
-export class ShowEdgeCreationSelectSourceFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.edgecreationtool.selectsource.feedback.show';
-    execute(context: CommandExecutionContext): SModelRoot {
-        unapplyCssClassesToRoot(context, [EDGE_CREATION_TARGET_CSS_CLASS]);
-        return applyCssClassesToRoot(context, [EDGE_CREATION_SOURCE_CSS_CLASS]);
+export class RemoveFeedbackEdgeCommand extends FeedbackCommand {
+    static readonly KIND = 'removeFeedbackEdgeCommand';
+
+    execute(context: CommandExecutionContext): CommandResult {
+        removeFeedbackEdge(context.root);
+        return context.root;
     }
 }
+
 
 export class FeedbackEdgeEnd extends SDanglingAnchor {
     static readonly TYPE = 'feedback-edge-end';
@@ -88,31 +86,6 @@ export class FeedbackEdgeEnd extends SDanglingAnchor {
         super();
     }
 }
-
-@injectable()
-export class ShowEdgeCreationSelectTargetFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.edgecreationtool.selecttarget.feedback.show';
-
-    constructor(@inject(TYPES.Action) protected action: ShowEdgeCreationSelectTargetFeedbackAction) {
-        super();
-    }
-
-    execute(context: CommandExecutionContext): SModelRoot {
-        drawFeedbackEdge(context, this.action.sourceId, this.action.elementTypeId);
-        unapplyCssClassesToRoot(context, [EDGE_CREATION_SOURCE_CSS_CLASS]);
-        return applyCssClassesToRoot(context, [EDGE_CREATION_TARGET_CSS_CLASS]);
-    }
-}
-
-@injectable()
-export class HideEdgeCreationToolFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.edgecreationtool.feedback.hide';
-    execute(context: CommandExecutionContext): SModelRoot {
-        removeFeedbackEdge(context.root);
-        return unapplyCssClassesToRoot(context, [EDGE_CREATION_SOURCE_CSS_CLASS, EDGE_CREATION_TARGET_CSS_CLASS]);
-    }
-}
-
 export class FeedbackEdgeEndMovingMouseListener extends MouseListener {
     constructor(protected anchorRegistry: AnchorComputerRegistry) {
         super();
@@ -179,7 +152,7 @@ function drawFeedbackEdge(context: CommandExecutionContext, sourceId: string, el
     const feedbackEdge = context.modelFactory.createElement(feedbackEdgeSchema);
     if (isRoutable(feedbackEdge)) {
         edgeEnd.feedbackEdge = feedbackEdge;
-        context.root.add(edgeEnd);
+        root.add(edgeEnd);
         root.add(feedbackEdge);
     }
 }
