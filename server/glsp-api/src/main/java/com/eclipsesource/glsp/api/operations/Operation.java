@@ -31,15 +31,20 @@ public class Operation {
 	private String label;
 	private String elementTypeId;
 	private String operationKind;
+	private Group group;
 
 	public Operation() {
 	}
 
 	public Operation(String label, String elementTypeId, String operationKind) {
+		this(label,elementTypeId,operationKind,null);
+	}
+	public Operation(String label, String elementTypeId, String operationKind, Group group) {
 		super();
 		this.label = label;
 		this.elementTypeId = elementTypeId;
 		this.operationKind = operationKind;
+		this.group=group;
 	}
 
 	public String getLabel() {
@@ -54,11 +59,16 @@ public class Operation {
 		return operationKind;
 	}
 
+	public Group getGroup() {
+		return group;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((elementTypeId == null) ? 0 : elementTypeId.hashCode());
+		result = prime * result + ((group == null) ? 0 : group.hashCode());
 		result = prime * result + ((label == null) ? 0 : label.hashCode());
 		result = prime * result + ((operationKind == null) ? 0 : operationKind.hashCode());
 		return result;
@@ -78,6 +88,11 @@ public class Operation {
 				return false;
 		} else if (!elementTypeId.equals(other.elementTypeId))
 			return false;
+		if (group == null) {
+			if (other.group != null)
+				return false;
+		} else if (!group.equals(other.group))
+			return false;
 		if (label == null) {
 			if (other.label != null)
 				return false;
@@ -90,5 +105,4 @@ public class Operation {
 			return false;
 		return true;
 	}
-
 }
