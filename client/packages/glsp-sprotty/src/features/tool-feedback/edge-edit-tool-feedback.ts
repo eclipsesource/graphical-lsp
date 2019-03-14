@@ -32,6 +32,7 @@ import { SModelElement } from "sprotty/lib";
 import { SModelRoot } from "sprotty/lib";
 import { SRoutingHandle } from "sprotty/lib";
 import { SwitchEditModeAction } from "sprotty/lib";
+import { SwitchEditModeCommand } from "sprotty/lib";
 import { TYPES } from "sprotty/lib";
 import { VNode } from "snabbdom/vnode";
 
@@ -103,6 +104,18 @@ export class HideEdgeReconnectHandlesFeedbackCommand extends FeedbackCommand {
         index.all().filter(isRoutable).forEach(removeReconnectHandles);
         return context.root;
     }
+}
+/**
+ * ROUTING FEEDBACK
+ */
+
+export class SwitchRoutingModeAction extends SwitchEditModeAction {
+    readonly kind = SwitchRoutingModeCommand.KIND;
+}
+@injectable()
+export class SwitchRoutingModeCommand extends SwitchEditModeCommand {
+    static KIND = "switchRoutingMode";
+    constructor(@inject(TYPES.Action) action: SwitchRoutingModeAction) { super(action) }
 }
 
 /**
@@ -184,7 +197,7 @@ export class FeedbackEdgeRouteMovingMouseListener extends MouseListener {
         if (event.button === 0) {
             const routingHandle = findParentByFeature(target, isRoutingHandle);
             if (routingHandle !== undefined) {
-                result.push(new SwitchEditModeAction([target.id], []));
+                result.push(new SwitchRoutingModeAction([target.id], []));
                 this.lastDragPosition = { x: event.pageX, y: event.pageY };
             } else {
                 this.lastDragPosition = undefined;

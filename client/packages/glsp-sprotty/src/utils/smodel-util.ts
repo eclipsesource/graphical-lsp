@@ -13,15 +13,12 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { BoundsAware } from "sprotty/lib";
 import { NodeEditConfig } from "../base/edit-config/edit-config";
 import { Selectable } from "sprotty/lib";
 import { SModelElement } from "sprotty/lib";
 import { SParentElement } from "sprotty/lib";
 
-import { isBoundsAware } from "sprotty/lib";
 import { isConfigurableNode } from "../base/edit-config/edit-config";
-import { isRoutable } from "../features/reconnect/model";
 import { isSelectable } from "sprotty/lib";
 
 export function getIndex(element: SModelElement) {
@@ -48,10 +45,6 @@ export function getSelectedElementCount(element: SModelElement): number {
 
 export function isSelected(element: SModelElement): element is SModelElement & Selectable {
     return isSelectable(element) && element.selected
-}
-
-export function isSelectedBoundsAware(element: SModelElement): element is SModelElement & BoundsAware & Selectable {
-    return isBoundsAware(element) && isSelected(element) && !isRoutable(element);
 }
 
 export function isNotUndefined<T>(element: T | undefined): element is T {

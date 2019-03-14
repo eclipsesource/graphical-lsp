@@ -26,6 +26,7 @@ import { KeyTool } from "sprotty/lib";
 import { MouseTool } from "sprotty/lib";
 import { Point } from "sprotty/lib";
 import { ResizeHandleLocation } from "../change-bounds/model";
+import { Selectable } from "sprotty/lib";
 import { SelectionTracker } from "../select/selection-tracker";
 import { SetBoundsAction } from "sprotty/lib";
 import { ShowChangeBoundsToolResizeFeedbackAction } from "../tool-feedback/change-bounds-tool-feedback";
@@ -38,9 +39,11 @@ import { findParentByFeature } from "sprotty/lib";
 import { forEachElement } from "../../utils/smodel-util";
 import { inject } from "inversify";
 import { injectable } from "inversify";
+import { isBoundsAware } from "sprotty/lib";
 import { isBoundsAwareMoveable } from "../change-bounds/model";
 import { isResizeable } from "../change-bounds/model";
-import { isSelectedBoundsAware } from "../../utils/smodel-util";
+import { isRoutable } from "../reconnect/model";
+import { isSelected } from "../../utils/smodel-util";
 import { isViewport } from "sprotty/lib";
 
 /**
@@ -162,7 +165,7 @@ class ChangeBoundsListener extends SelectionTracker {
         } else {
             // Bounds... Change Bounds.
             const newBounds: ElementAndBounds[] = [];
-            forEachElement(target, isSelectedBoundsAware, element =>
+            forEachElement(target, isNonRoutableSelectedBoundsAware, element =>
                 createElementAndBounds(element).forEach(bounds => newBounds.push(bounds)));
             if (newBounds.length > 0) {
                 actions.push(new ChangeBoundsOperationAction(newBounds));
@@ -297,4 +300,8 @@ function minWidth(element: SModelElement & BoundsAware): number {
 function minHeight(element: SModelElement & BoundsAware): number {
     // currently there are no element-specific constraints
     return 1;
+}
+
+function isNonRoutableSelectedBoundsAware(element: SModelElement): element is SModelElement & BoundsAware & Selectable {
+    return isBoundsAware(element) && isSelected(element) && !isRoutable(element);
 }

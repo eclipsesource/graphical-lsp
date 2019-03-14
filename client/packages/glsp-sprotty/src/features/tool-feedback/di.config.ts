@@ -31,6 +31,7 @@ import { ShowChangeBoundsToolResizeFeedbackCommand } from "./change-bounds-tool-
 import { ShowEdgeReconnectHandlesFeedbackCommand } from "./edge-edit-tool-feedback";
 import { SResizeHandle } from "../change-bounds/model";
 import { SResizeHandleView } from "./view";
+import { SwitchRoutingModeCommand } from "./edge-edit-tool-feedback";
 import { TYPES } from "sprotty/lib";
 
 import { configureCommand } from "sprotty/lib";
@@ -57,6 +58,8 @@ const toolFeedbackModule = new ContainerModule((bind, _unbind, isBound) => {
     configureCommand({ bind, isBound }, ShowEdgeReconnectHandlesFeedbackCommand);
     configureCommand({ bind, isBound }, HideEdgeReconnectHandlesFeedbackCommand);
     configureCommand({ bind, isBound }, DrawFeedbackEdgeSourceCommand);
+
+    configureCommand({ bind, isBound }, SwitchRoutingModeCommand);
 
     bind(TYPES.IVNodeDecorator).to(LocationDecorator);
     bind(TYPES.HiddenVNodeDecorator).to(LocationDecorator);

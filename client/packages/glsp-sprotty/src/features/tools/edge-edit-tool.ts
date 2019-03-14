@@ -38,7 +38,7 @@ import { SModelElement } from "sprotty/lib";
 import { SReconnectHandle } from "../reconnect/model";
 import { SRoutableElement } from "sprotty/lib";
 import { SRoutingHandle } from "sprotty/lib";
-import { SwitchEditModeAction } from "sprotty/lib";
+import { SwitchRoutingModeAction } from "../tool-feedback/edge-edit-tool-feedback";
 import { Tool } from "sprotty/lib";
 
 import { feedbackEdgeId } from "../tool-feedback/creation-tool-feedback";
@@ -125,7 +125,7 @@ class ReconnectEdgeListener extends SelectionTracker {
 
         this.edge = edge;
         // note: order is important here as we want the reconnect handles to cover the routing handles
-        this.tool.dispatchFeedback([new SwitchEditModeAction([this.edge.id], []), new ShowEdgeReconnectHandlesFeedbackAction(this.edge.id)]);
+        this.tool.dispatchFeedback([new SwitchRoutingModeAction([this.edge.id], []), new ShowEdgeReconnectHandlesFeedbackAction(this.edge.id)]);
     }
 
     private isEdgeSelected(): boolean {
@@ -183,7 +183,7 @@ class ReconnectEdgeListener extends SelectionTracker {
         this.isMouseDown = true;
         if (event.button === 0) {
             const reconnectHandle = findParentByFeature(target, isReconnectHandle);
-            const routingHandle = findParentByFeature(target, isRoutingHandle);
+            const routingHandle = !reconnectHandle ? findParentByFeature(target, isRoutingHandle) : undefined;
             const edge = findParentByFeature(target, isRoutable);
             if (this.isEdgeSelected() && edge && reconnectHandle) {
                 // PHASE 2 Reconnect: Select reconnect handle on selected edge
@@ -195,6 +195,8 @@ class ReconnectEdgeListener extends SelectionTracker {
                 // PHASE 1: Select edge
                 this.setEdgeSelected(edge);
             }
+        } else if (event.button === 2) {
+            this.reset();
         }
         return result;
     }
@@ -235,15 +237,18 @@ class ReconnectEdgeListener extends SelectionTracker {
     mouseOver(target: SModelElement, event: MouseEvent): Action[] {
         if (this.edge && this.isReconnecting()) {
             const currentTarget = findParentByFeature(target, isConnectable);
-            if (currentTarget && isConfigurableEdge(this.edge)) {
-                if ((this.reconnectMode === 'NEW_SOURCE' && this.edge.isAllowedSource(currentTarget.type)) ||
-                    (this.reconnectMode === 'NEW_TARGET' && this.edge.isAllowedTarget(currentTarget.type))) {
-                    this.setNewConnectable(currentTarget);
-                    this.tool.dispatchFeedback([new ApplyCursorCSSFeedbackAction(CursorCSS.EDGE_RECONNECT)]);
-                    return [];
+            if (!this.newConnectable || currentTarget !== this.newConnectable) {
+                this.setNewConnectable(currentTarget);
+                if (currentTarget && isConfigurableEdge(this.edge)) {
+                    if ((this.reconnectMode === 'NEW_SOURCE' && this.edge.isAllowedSource(currentTarget.type)) ||
+                        (this.reconnectMode === 'NEW_TARGET' && this.edge.isAllowedTarget(currentTarget.type))) {
+
+                        this.tool.dispatchFeedback([new ApplyCursorCSSFeedbackAction(CursorCSS.EDGE_RECONNECT)]);
+                        return [];
+                    }
                 }
+                this.tool.dispatchFeedback([new ApplyCursorCSSFeedbackAction(CursorCSS.OPERATION_NOT_ALLOWED)]);
             }
-            this.tool.dispatchFeedback([new ApplyCursorCSSFeedbackAction(CursorCSS.OPERATION_NOT_ALLOWED)]);
         }
         return [];
     }
@@ -264,7 +269,7 @@ class ReconnectEdgeListener extends SelectionTracker {
     private resetFeedback() {
         const result: Action[] = [];
         if (this.edge) {
-            result.push(new SwitchEditModeAction([], [this.edge.id]));
+            result.push(new SwitchRoutingModeAction([], [this.edge.id]));
         }
         result.push(...[new HideEdgeReconnectHandlesFeedbackAction(),
         new ApplyCursorCSSFeedbackAction(), new RemoveFeedbackEdgeAction()]);

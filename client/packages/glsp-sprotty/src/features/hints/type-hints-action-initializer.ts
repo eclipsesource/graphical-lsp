@@ -60,7 +60,6 @@ export class ApplyEditConfigCommand extends FeedbackCommand {
             const config = this.action.editConfigs.get(element.type)
             if (config) {
                 Object.assign(element, config);
-
             }
         })
         return context.root;
