@@ -90,6 +90,8 @@ export class MouseDeleteTool implements Tool {
         this.mouseTool.deregister(this.deleteToolMouseListener);
         this.feedbackDispatcher.registerFeedback(this, [new ApplyCursorCSSFeedbackAction()]);
     }
+
+
 }
 
 @injectable()
