@@ -13,33 +13,35 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { CommandRegistry } from "@theia/core";
-import { ApplicationShell } from "@theia/core/lib/browser";
-import { EditorManager } from "@theia/editor/lib/browser";
-import { inject, injectable } from "inversify";
-import { ActionMessageReceiver } from "sprotty-theia/lib/theia/languageserver/diagram-language-client";
 import { ActionMessage } from "sprotty/lib";
 import { ActionMessageNotification } from "../../common";
-import { GLSPClientContribution } from "../language/glsp-client-contribution";
+import { ActionMessageReceiver } from "sprotty-theia/lib/theia/languageserver/diagram-language-client";
+import { ApplicationShell } from "@theia/core/lib/browser";
+import { CommandRegistry } from "@theia/core";
+import { EditorManager } from "@theia/editor/lib/browser";
 import { GLSPClient } from "../language/glsp-client-services";
+import { GLSPClientContribution } from "../language/glsp-client-contribution";
+
+import { inject } from "inversify";
+import { injectable } from "inversify";
 
 @injectable()
 export class GLSPDiagramClient {
 
-    actionMessageReceivers: ActionMessageReceiver[] = []
+    actionMessageReceivers: ActionMessageReceiver[] = [];
 
-    @inject(ApplicationShell) readonly shell: ApplicationShell
-    @inject(CommandRegistry) readonly commandsRegistry: CommandRegistry
+    @inject(ApplicationShell) readonly shell: ApplicationShell;
+    @inject(CommandRegistry) readonly commandsRegistry: CommandRegistry;
 
     constructor(readonly glspClientContribution: GLSPClientContribution,
         readonly editorManager: EditorManager) {
         this.glspClientContribution.glspClient.then(
             gc => {
-                gc.onNotification(ActionMessageNotification.type, this.onMessageReceived.bind(this))
+                gc.onNotification(ActionMessageNotification.type, this.onMessageReceived.bind(this));
             }
         ).catch(
             err => console.error(err)
-        )
+        );
     }
 
     sendThroughLsp(message: ActionMessage) {
@@ -52,12 +54,12 @@ export class GLSPDiagramClient {
 
     onMessageReceived(message: ActionMessage) {
         this.actionMessageReceivers.forEach(client => {
-            client.onMessageReceived(message)
-        })
+            client.onMessageReceived(message);
+        });
     }
 
     get glspClient(): Promise<GLSPClient> {
-        return this.glspClientContribution.glspClient
+        return this.glspClientContribution.glspClient;
     }
 
     didClose(clientId: string) {
@@ -65,13 +67,13 @@ export class GLSPDiagramClient {
     }
 
     connect(client: ActionMessageReceiver) {
-        this.actionMessageReceivers.push(client)
+        this.actionMessageReceivers.push(client);
     }
 
     disconnect(client: ActionMessageReceiver) {
-        const index = this.actionMessageReceivers.indexOf(client)
+        const index = this.actionMessageReceivers.indexOf(client);
         if (index >= 0) {
-            this.actionMessageReceivers.splice(index)
+            this.actionMessageReceivers.splice(index);
         }
     }
 }

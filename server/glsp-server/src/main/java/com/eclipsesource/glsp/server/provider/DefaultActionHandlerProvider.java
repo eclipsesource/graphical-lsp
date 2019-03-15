@@ -23,9 +23,10 @@ import com.google.inject.Inject;
 
 public class DefaultActionHandlerProvider implements ActionHandlerProvider {
 	private Set<ActionHandler> handlers;
+
 	@Inject
 	public DefaultActionHandlerProvider(Set<ActionHandler> handlers) {
-		this.handlers=handlers;
+		this.handlers = handlers;
 	}
 
 	@Override

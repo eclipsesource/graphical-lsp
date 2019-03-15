@@ -20,18 +20,18 @@ import com.eclipsesource.glsp.api.action.kind.CollapseExpandAllAction;
 
 public interface ModelExpansionListener {
 	void expansionChanged(CollapseExpandAction action);
+
 	void expansionChanged(CollapseExpandAllAction action);
-	
-	public static class NullImpl implements ModelExpansionListener{
+
+	public static class NullImpl implements ModelExpansionListener {
 
 		@Override
 		public void expansionChanged(CollapseExpandAction action) {
 		}
 
 		@Override
-		public void expansionChanged(CollapseExpandAllAction action) {	
+		public void expansionChanged(CollapseExpandAllAction action) {
 		}
 
-		
 	}
 }

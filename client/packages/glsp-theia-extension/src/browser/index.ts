@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
-//diagram export
+// diagram export
 export * from './diagram/glsp-diagram-client';
 export * from './diagram/glsp-diagram-manager';
 export * from './diagram/glsp-diagram-widget';

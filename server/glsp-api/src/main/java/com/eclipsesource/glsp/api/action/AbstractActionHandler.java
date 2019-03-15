@@ -23,7 +23,6 @@ import com.eclipsesource.glsp.api.model.ModelState;
 
 public abstract class AbstractActionHandler implements ActionHandler {
 
-
 	protected abstract Collection<Action> handleableActionsKinds();
 
 	public boolean handles(Action action) {
@@ -36,8 +35,6 @@ public abstract class AbstractActionHandler implements ActionHandler {
 	 * Processes and action and returns the response action which should be send to
 	 * the client. If no response to the client is need a NoOpAction is returned
 	 */
-	public abstract Optional<Action> execute(Action action,ModelState modelState);
-
-
+	public abstract Optional<Action> execute(Action action, ModelState modelState);
 
 }

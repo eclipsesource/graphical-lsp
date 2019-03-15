@@ -13,11 +13,15 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action, findParentByFeature, MouseListener, SModelElement } from "sprotty/lib";
+import { Action } from "sprotty/lib";
+import { MouseListener } from "sprotty/lib";
+import { SModelElement } from "sprotty/lib";
+
+import { findParentByFeature } from "sprotty/lib";
 import { isCommandExecutor } from "./model";
 
 export class ExecuteServerCommandAction implements Action {
-    static readonly KIND = "executeServerCommand"
+    static readonly KIND = "executeServerCommand";
     kind = ExecuteServerCommandAction.KIND;
     constructor(public readonly commandId: String, public readonly options?: { [key: string]: string }) { }
 }
@@ -25,7 +29,7 @@ export class ExecuteServerCommandAction implements Action {
 export class ExecuteCommandMouseListener extends MouseListener {
     doubleClick(target: SModelElement, event: WheelEvent): (Action | Promise<Action>)[] {
         const result: Action[] = [];
-        const commandExecutorTarget = findParentByFeature(target, isCommandExecutor)
+        const commandExecutorTarget = findParentByFeature(target, isCommandExecutor);
         if (commandExecutorTarget) {
             result.push(new ExecuteServerCommandAction(commandExecutorTarget.commandId, { invokerId: commandExecutorTarget.id }));
         }

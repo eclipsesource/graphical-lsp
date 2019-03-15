@@ -45,17 +45,17 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
     readonly handledActionEventEmitter: Emitter<Action> = new Emitter<Action>();
 
     initialize(registry: ActionHandlerRegistry): void {
-        registry.register(RequestOperationsAction.KIND, this)
-        registry.register(SaveModelAction.KIND, this)
-        registry.register(OperationKind.CREATE_CONNECTION, this)
-        registry.register(OperationKind.RECONNECT_CONNECTION, this)
-        registry.register(OperationKind.REROUTE_CONNECTION, this)
-        registry.register(OperationKind.CREATE_NODE, this)
-        registry.register(OperationKind.CHANGE_BOUNDS, this)
-        registry.register(OperationKind.DELETE_ELEMENT, this)
-        registry.register(ExecuteServerCommandAction.KIND, this)
-        registry.register(RequestTypeHintsAction.KIND, this)
-        registry.register(SetTypeHintsAction.KIND, this)
+        registry.register(RequestOperationsAction.KIND, this);
+        registry.register(SaveModelAction.KIND, this);
+        registry.register(OperationKind.CREATE_CONNECTION, this);
+        registry.register(OperationKind.RECONNECT_CONNECTION, this);
+        registry.register(OperationKind.REROUTE_CONNECTION, this);
+        registry.register(OperationKind.CREATE_NODE, this);
+        registry.register(OperationKind.CHANGE_BOUNDS, this);
+        registry.register(OperationKind.DELETE_ELEMENT, this);
+        registry.register(ExecuteServerCommandAction.KIND, this);
+        registry.register(RequestTypeHintsAction.KIND, this);
+        registry.register(SetTypeHintsAction.KIND, this);
         registry.register(ComputedBoundsAction.KIND, this);
         registry.register(RequestBoundsCommand.KIND, this);
         registry.register(RequestPopupModelAction.KIND, this);
@@ -71,12 +71,11 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         // Register an empty handler for SwitchEditMode, to avoid runtime exceptions.
         // We don't want to support SwitchEditMode, but sprotty still sends some corresponding
         // actions.
-        registry.register(SwitchEditModeCommand.KIND, { handle: action => undefined })
+        registry.register(SwitchEditModeCommand.KIND, { handle: action => undefined });
     }
 
-
     public getSourceURI(): string {
-        return this.sourceUri
+        return this.sourceUri;
     }
 
     get onHandledAction(): Event<Action> {
@@ -85,7 +84,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
 
     handle(action: Action) {
         this.handledActionEventEmitter.fire(action);
-        return super.handle(action)
+        return super.handle(action);
     }
 
 }

@@ -81,14 +81,14 @@ export class ChangeBoundsTool implements Tool {
         this.changeBoundsListener = new ChangeBoundsListener(this);
         this.mouseTool.register(this.changeBoundsListener);
         this.keyTool.register(this.changeBoundsListener);
-        this.feedbackDispatcher.registerFeedback(this, [new ShowChangeBoundsToolResizeFeedbackAction])
+        this.feedbackDispatcher.registerFeedback(this, [new ShowChangeBoundsToolResizeFeedbackAction]);
     }
 
     disable() {
         this.mouseTool.deregister(this.changeBoundsListener);
         this.keyTool.deregister(this.changeBoundsListener);
         this.mouseTool.deregister(this.feedbackMoveMouseListener);
-        this.feedbackDispatcher.deregisterFeedback(this, [new HideChangeBoundsToolResizeFeedbackAction])
+        this.feedbackDispatcher.deregisterFeedback(this, [new HideChangeBoundsToolResizeFeedbackAction]);
     }
 
     dispatchFeedback(actions: Action[]) {

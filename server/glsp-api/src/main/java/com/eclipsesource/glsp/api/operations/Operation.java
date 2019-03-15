@@ -37,14 +37,15 @@ public class Operation {
 	}
 
 	public Operation(String label, String elementTypeId, String operationKind) {
-		this(label,elementTypeId,operationKind,null);
+		this(label, elementTypeId, operationKind, null);
 	}
+
 	public Operation(String label, String elementTypeId, String operationKind, Group group) {
 		super();
 		this.label = label;
 		this.elementTypeId = elementTypeId;
 		this.operationKind = operationKind;
-		this.group=group;
+		this.group = group;
 	}
 
 	public String getLabel() {

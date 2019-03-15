@@ -40,7 +40,7 @@ public class ActionRegistry {
 
 	@Inject
 	public ActionRegistry(ActionProvider registeredActionProvider, ActionHandlerProvider registeredHandlerProvider) {
-		actions= new HashMap<>();
+		actions = new HashMap<>();
 		actionHandlers = new HashMap<>();
 		registeredActions = new HashSet<>();
 		initializeMaps(registeredActionProvider, registeredHandlerProvider);

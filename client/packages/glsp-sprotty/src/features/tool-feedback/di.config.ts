@@ -45,7 +45,7 @@ const toolFeedbackModule = new ContainerModule((bind, _unbind, isBound) => {
     configureCommand({ bind, isBound }, DrawFeedbackEdgeCommand);
     configureCommand({ bind, isBound }, RemoveFeedbackEdgeCommand);
 
-    configureView({ bind, isBound }, FeedbackEdgeEnd.TYPE, FeedbackEdgeEndView)
+    configureView({ bind, isBound }, FeedbackEdgeEnd.TYPE, FeedbackEdgeEndView);
     // move tool feedback: we use sprotties MoveCommand as client-side visual feedback
     configureCommand({ bind, isBound }, MoveCommand);
 

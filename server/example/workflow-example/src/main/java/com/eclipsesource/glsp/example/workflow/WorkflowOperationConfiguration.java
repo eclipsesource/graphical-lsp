@@ -23,6 +23,7 @@ import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.MERGE_NO
 import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.WEIGHTED_EDGE;
 
 import com.eclipsesource.glsp.api.action.kind.RequestOperationsAction;
+import com.eclipsesource.glsp.api.operations.Group;
 import com.eclipsesource.glsp.api.operations.Operation;
 import com.eclipsesource.glsp.api.operations.Group;
 import com.eclipsesource.glsp.api.operations.OperationConfiguration;
@@ -31,14 +32,17 @@ public class WorkflowOperationConfiguration implements OperationConfiguration {
 
 	@Override
 	public Operation[] getOperations(RequestOperationsAction action) {
-		Group nodeGroup= new Group("workflow.nodes","Nodes");
-		Group edgeGroup= new Group("workflow.edges","Edges");
-		Operation createAutomatedTask = new Operation("Automated Task", AUTOMATED_TASK, Operation.Kind.CREATE_NODE,nodeGroup);
-		Operation createManualTask = new Operation("Manual Task", MANUAL_TASK, Operation.Kind.CREATE_NODE,nodeGroup);
-		Operation createDecisionNode = new Operation("Decision Node", DECISION_NODE, Operation.Kind.CREATE_NODE,nodeGroup);
-		Operation createMergeNode = new Operation("Merge Node", MERGE_NODE, Operation.Kind.CREATE_NODE,nodeGroup);
-		Operation createWeightedEdge = new Operation("Weighted Edge", WEIGHTED_EDGE, Operation.Kind.CREATE_CONNECTION,edgeGroup);
-		Operation createEdge = new Operation("Edge", EDGE, Operation.Kind.CREATE_CONNECTION,edgeGroup);
+		Group nodeGroup = new Group("workflow.nodes", "Nodes");
+		Group edgeGroup = new Group("workflow.edges", "Edges");
+		Operation createAutomatedTask = new Operation("Automated Task", AUTOMATED_TASK, Operation.Kind.CREATE_NODE,
+				nodeGroup);
+		Operation createManualTask = new Operation("Manual Task", MANUAL_TASK, Operation.Kind.CREATE_NODE, nodeGroup);
+		Operation createDecisionNode = new Operation("Decision Node", DECISION_NODE, Operation.Kind.CREATE_NODE,
+				nodeGroup);
+		Operation createMergeNode = new Operation("Merge Node", MERGE_NODE, Operation.Kind.CREATE_NODE, nodeGroup);
+		Operation createWeightedEdge = new Operation("Weighted Edge", WEIGHTED_EDGE, Operation.Kind.CREATE_CONNECTION,
+				edgeGroup);
+		Operation createEdge = new Operation("Edge", EDGE, Operation.Kind.CREATE_CONNECTION, edgeGroup);
 
 		Operation[] operations = { createAutomatedTask, createManualTask, createDecisionNode, createMergeNode,
 				createWeightedEdge, createEdge };

@@ -14,18 +14,31 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
-import { AutocompleteResult, AutocompleteSettings } from "autocompleter";
-import { inject, injectable } from "inversify";
-import {
-    Action, findParentByFeature, IActionDispatcherProvider, ILogger, isBoundsAware, isSelectable, isViewport, KeyListener, //
-    SModelElement, TYPES, ViewerOptions
-} from "sprotty/lib";
-import { toArray } from "sprotty/lib/utils/iterable";
-import { matchesKeystroke } from "sprotty/lib/utils/keyboard";
-import { BaseDiagramUIExtension, LabeledAction } from "../../base/diagram-ui-extension/diagram-ui-extension";
-import { HideDiagramUIExtensionAction, ShowDiagramUIExtensionAction } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
+import { Action } from "sprotty/lib";
+import { AutocompleteResult } from "autocompleter";
+import { AutocompleteSettings } from "autocompleter";
+import { BaseDiagramUIExtension } from "../../base/diagram-ui-extension/diagram-ui-extension";
 import { GLSP_TYPES } from "../../types";
+import { HideDiagramUIExtensionAction } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
+import { IActionDispatcherProvider } from "sprotty/lib";
 import { ICommandPaletteActionProviderRegistry } from "./action-provider";
+import { ILogger } from "sprotty/lib";
+import { KeyListener } from "sprotty/lib";
+import { LabeledAction } from "../../base/diagram-ui-extension/diagram-ui-extension";
+import { ShowDiagramUIExtensionAction } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
+import { SModelElement } from "sprotty/lib";
+import { TYPES } from "sprotty/lib";
+import { ViewerOptions } from "sprotty/lib";
+
+import { findParentByFeature } from "sprotty/lib";
+import { inject } from "inversify";
+import { injectable } from "inversify";
+import { isBoundsAware } from "sprotty/lib";
+import { isSelectable } from "sprotty/lib";
+import { isViewport } from "sprotty/lib";
+import { matchesKeystroke } from "sprotty/lib/utils/keyboard";
+import { toArray } from "sprotty/lib/utils/iterable";
+
 
 // import of function autocomplete(...) doesn't work
 // see also https://github.com/kraaden/autocomplete/issues/13
@@ -46,10 +59,10 @@ export class CommandPaletteKeyListener extends KeyListener {
 
 @injectable()
 export class CommandPalette extends BaseDiagramUIExtension {
-    static readonly ID = "glsp_command_palette"
-    readonly id = CommandPalette.ID
+    static readonly ID = "glsp_command_palette";
+    readonly id = CommandPalette.ID;
 
-    readonly containerClass = "command-palette"
+    readonly containerClass = "command-palette";
     readonly xOffset = 20;
     readonly yOffset = 30;
     readonly defaultWidth = 400;
@@ -69,7 +82,7 @@ export class CommandPalette extends BaseDiagramUIExtension {
     }
 
     show(selectedElements: SModelElement[]) {
-        super.show(selectedElements)
+        super.show(selectedElements);
         if (this.inputElement.value) {
             this.inputElement.setSelectionRange(0, this.inputElement.value.length);
         }
@@ -78,7 +91,7 @@ export class CommandPalette extends BaseDiagramUIExtension {
     }
 
     protected createUIElements() {
-        this.containerElement.style.position = "absolute"
+        this.containerElement.style.position = "absolute";
         this.inputElement = document.createElement('input');
         this.inputElement.style.width = '100%';
         this.containerElement.appendChild(this.inputElement);
@@ -128,7 +141,7 @@ export class CommandPalette extends BaseDiagramUIExtension {
             },
             onSelect: (item: LabeledAction) => {
                 this.executeAction(item);
-                this.hide()
+                this.hide();
             },
             customize: (input: HTMLInputElement, inputRect: ClientRect | DOMRect, container: HTMLDivElement, maxHeight: number) => {
                 // move container into our command palette container as this is already positioned correctly
@@ -148,7 +161,7 @@ export class CommandPalette extends BaseDiagramUIExtension {
     }
 
     hide() {
-        super.hide()
+        super.hide();
         this.paletteContext = undefined;
         this.contextActions = undefined;
         if (this.autoCompleteResult) {

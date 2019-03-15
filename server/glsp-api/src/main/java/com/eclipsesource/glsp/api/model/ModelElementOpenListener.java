@@ -18,14 +18,14 @@ package com.eclipsesource.glsp.api.model;
 import com.eclipsesource.glsp.api.action.kind.OpenAction;
 
 public interface ModelElementOpenListener {
-	
+
 	void elementOpened(OpenAction action);
-	
-	public static class NullImpl implements ModelElementOpenListener{
+
+	public static class NullImpl implements ModelElementOpenListener {
 
 		@Override
 		public void elementOpened(OpenAction action) {
 		}
-		
+
 	}
 }

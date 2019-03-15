@@ -23,4 +23,4 @@ export const GLSP_TYPES = {
     DiagramUIExtensionRegistry: Symbol.for("DiagramUIExtensionRegistry"),
     IEditConfigProvider: Symbol.for("IEditConfigProvider"),
     RequestResponseSupport: Symbol.for("RequestResponseSupport")
-}
+};

@@ -38,13 +38,13 @@ import { toArray } from "sprotty/lib/utils/iterable";
 export abstract class SelfInitializingActionHandler implements IActionHandler, IActionHandlerInitializer {
 
     initialize(registry: ActionHandlerRegistry) {
-        this.handledActionKinds.forEach(kind => registry.register(kind, this))
+        this.handledActionKinds.forEach(kind => registry.register(kind, this));
     }
 
-    abstract handle(action: Action): ICommand | Action | void
-    abstract handledActionKinds: string[]
-
+    abstract handle(action: Action): ICommand | Action | void;
+    abstract handledActionKinds: string[];
 }
+
 /**
  * Action requesting to show the diagram UI extension with specified id.
  */
@@ -81,26 +81,26 @@ export class DiagramUIExtensionRegistry extends InstanceRegistry<IDiagramUIExten
  */
 @injectable()
 export class DiagramUIExtensionActionHandlerInitializer extends SelfInitializingActionHandler {
-    @inject(GLSP_TYPES.DiagramUIExtensionRegistry) protected readonly registry: DiagramUIExtensionRegistry
+    @inject(GLSP_TYPES.DiagramUIExtensionRegistry) protected readonly registry: DiagramUIExtensionRegistry;
 
-    readonly handledActionKinds = [ShowDiagramUIExtensionAction.KIND, HideDiagramUIExtensionAction.KIND]
+    readonly handledActionKinds = [ShowDiagramUIExtensionAction.KIND, HideDiagramUIExtensionAction.KIND];
 
     handle(action: Action): void | ICommand | Action {
         if (action instanceof ShowDiagramUIExtensionAction) {
             return new DiagramUIExtensionActionCommand((context) => {
                 const index = context.root.index;
                 const selectedElements = toArray(index.all()
-                    .filter(e => action.selectedElementIds.indexOf(e.id) >= 0))
-                const extension = this.registry.get(action.extensionId)
+                    .filter(e => action.selectedElementIds.indexOf(e.id) >= 0));
+                const extension = this.registry.get(action.extensionId);
                 if (extension) {
-                    extension.show(selectedElements)
+                    extension.show(selectedElements);
                 }
             });
         } else if (action instanceof HideDiagramUIExtensionAction) {
             return new DiagramUIExtensionActionCommand((context) => {
-                const extension = this.registry.get(action.extensionId)
+                const extension = this.registry.get(action.extensionId);
                 if (extension) {
-                    extension.hide()
+                    extension.hide();
                 }
             });
         }
@@ -121,7 +121,7 @@ export class DiagramUIExtensionActionCommand extends SystemCommand {
 
     execute(context: CommandExecutionContext): CommandResult {
         this.effect(context);
-        context.root.index
+        context.root.index;
         return context.root;
     }
 

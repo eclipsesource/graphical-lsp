@@ -32,7 +32,7 @@ public class SetCommandPaletteActions extends Action {
 		this();
 		this.actions = actions;
 	}
-	
+
 	public Set<LabeledAction> getActions() {
 		return actions;
 	}

@@ -40,7 +40,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 public class ServerLauncher {
-	private static Logger log= Logger.getLogger(ServerLauncher.class);
+	private static Logger log = Logger.getLogger(ServerLauncher.class);
 	private String host;
 	private int port;
 	private ServerModule module;
@@ -68,8 +68,8 @@ public class ServerLauncher {
 				return it;
 			};
 			GLSPServer languageServer = injector.getInstance(GLSPServer.class);
-			Launcher<GLSPClient> launcher = Launcher.createIoLauncher(languageServer,
-					GLSPClient.class, in, out, threadPool, wrapper, configureGson);
+			Launcher<GLSPClient> launcher = Launcher.createIoLauncher(languageServer, GLSPClient.class, in, out,
+					threadPool, wrapper, configureGson);
 
 			languageServer.connect(launcher.getRemoteProxy());
 			launcher.startListening();

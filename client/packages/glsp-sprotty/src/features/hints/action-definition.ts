@@ -16,19 +16,19 @@
 import { Action } from "sprotty/lib";
 
 export class RequestTypeHintsAction implements Action {
-    static readonly KIND = "requestTypeHints"
-    kind = RequestTypeHintsAction.KIND
+    static readonly KIND = "requestTypeHints";
+    kind = RequestTypeHintsAction.KIND;
 }
 
 export class SetTypeHintsAction implements Action {
-    static readonly KIND = "setTypeHints"
-    kind = SetTypeHintsAction.KIND
+    static readonly KIND = "setTypeHints";
+    kind = SetTypeHintsAction.KIND;
     constructor(public readonly nodeHints: NodeTypeHint[], public readonly edgeHints: EdgeTypeHint[]) { }
 }
 
 export function isSetTypeHintsAction(action: Action): action is SetTypeHintsAction {
     return action !== undefined && (action.kind === SetTypeHintsAction.KIND)
-        && (<SetTypeHintsAction>action).nodeHints !== undefined && (<SetTypeHintsAction>action).edgeHints !== undefined
+        && (<SetTypeHintsAction>action).nodeHints !== undefined && (<SetTypeHintsAction>action).edgeHints !== undefined;
 }
 
 export interface TypeHint {

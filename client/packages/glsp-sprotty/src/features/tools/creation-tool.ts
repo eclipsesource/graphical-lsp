@@ -47,10 +47,10 @@ import { injectable } from "inversify";
 import { isConnectable } from "sprotty/lib";
 import { isCtrlOrCmd } from "sprotty/lib";
 
-export const TOOL_ID_PREFIX = "tool"
+export const TOOL_ID_PREFIX = "tool";
 
 export function deriveToolId(operationKind: string, elementTypeId?: string) {
-    return `${TOOL_ID_PREFIX}_${deriveOperationId(operationKind, elementTypeId)}`
+    return `${TOOL_ID_PREFIX}_${deriveOperationId(operationKind, elementTypeId)}`;
 }
 
 @injectable()
@@ -62,18 +62,18 @@ export class NodeCreationTool implements Tool, TypeAware {
         @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher) { }
 
     get id() {
-        return deriveToolId(OperationKind.CREATE_NODE, this.elementTypeId)
-    };
+        return deriveToolId(OperationKind.CREATE_NODE, this.elementTypeId);
+    }
 
     enable() {
         this.creationToolMouseListener = new NodeCreationToolMouseListener(this.elementTypeId, this);
         this.mouseTool.register(this.creationToolMouseListener);
-        this.feedbackDispatcher.registerFeedback(this, [new ApplyCursorCSSFeedbackAction(CursorCSS.NODE_CREATION)])
+        this.feedbackDispatcher.registerFeedback(this, [new ApplyCursorCSSFeedbackAction(CursorCSS.NODE_CREATION)]);
     }
 
     disable() {
         this.mouseTool.deregister(this.creationToolMouseListener);
-        this.feedbackDispatcher.deregisterFeedback(this, [new ApplyCursorCSSFeedbackAction()])
+        this.feedbackDispatcher.deregisterFeedback(this, [new ApplyCursorCSSFeedbackAction()]);
     }
 
     dispatchFeedback(actions: Action[]) {
@@ -136,8 +136,8 @@ export class EdgeCreationTool implements Tool, TypeAware {
         @inject(GLSP_TYPES.IEditConfigProvider) public readonly editConfigProvider: IEditConfigProvider) { }
 
     get id() {
-        return deriveToolId(OperationKind.CREATE_CONNECTION, this.elementTypeId)
-    };
+        return deriveToolId(OperationKind.CREATE_CONNECTION, this.elementTypeId);
+    }
 
     enable() {
         this.creationToolMouseListener = new EdgeCreationToolMouseListener(this.elementTypeId, this);
@@ -217,7 +217,7 @@ export class EdgeCreationToolMouseListener extends DragAwareMouseListener {
                 if (this.allowedTarget) {
                     const action = this.source === undefined ? new ApplyCursorCSSFeedbackAction(CursorCSS.EDGE_CREATION_SOURCE) :
                         new ApplyCursorCSSFeedbackAction(CursorCSS.EDGE_CREATION_TARGET);
-                    return [action]
+                    return [action];
                 }
             }
             return [new ApplyCursorCSSFeedbackAction(CursorCSS.OPERATION_NOT_ALLOWED)];

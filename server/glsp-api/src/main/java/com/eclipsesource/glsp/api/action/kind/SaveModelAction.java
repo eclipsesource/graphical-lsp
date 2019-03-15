@@ -17,10 +17,10 @@ package com.eclipsesource.glsp.api.action.kind;
 
 import com.eclipsesource.glsp.api.action.Action;
 
-public class SaveModelAction extends Action{
+public class SaveModelAction extends Action {
 
 	public SaveModelAction() {
 		super(Action.Kind.SAVE_MODEL);
 	}
-	
+
 }

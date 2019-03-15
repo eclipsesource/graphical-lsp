@@ -18,9 +18,9 @@ package com.eclipsesource.glsp.api.action.kind;
 import com.eclipsesource.glsp.api.action.Action;
 
 public abstract class AbstractOperationAction extends Action {
-	
+
 	private String operationKind;
-	
+
 	public AbstractOperationAction(String operationKind) {
 		super(operationKind);
 	}

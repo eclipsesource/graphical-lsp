@@ -26,6 +26,6 @@ const modelHintsModule = new ContainerModule((bind, _unbind, isBound) => {
     bind(TYPES.IActionHandlerInitializer).toService(TypeHintsEditConfigProvider);
     bind(GLSP_TYPES.IEditConfigProvider).toService(TypeHintsEditConfigProvider);
     configureCommand({ bind, isBound }, ApplyEditConfigCommand);
-})
+});
 
 export default modelHintsModule;

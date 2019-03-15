@@ -13,49 +13,59 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { inject, injectable, interfaces } from "inversify";
-import { Action, ICommand, Tool, ToolManager, TYPES } from "sprotty/lib";
-import { isSetOperationsAction, OperationKind, SetOperationsAction } from "../../features/operation/set-operations";
-import { EdgeCreationTool, NodeCreationTool } from "../../features/tools/creation-tool";
-import { MouseDeleteTool } from "../../features/tools/delete-tool";
+import { Action } from "sprotty/lib";
+import { EdgeCreationTool } from "../../features/tools/creation-tool";
 import { GLSP_TYPES } from "../../types";
+import { ICommand } from "sprotty/lib";
+import { MouseDeleteTool } from "../../features/tools/delete-tool";
+import { NodeCreationTool } from "../../features/tools/creation-tool";
+import { OperationKind } from "../../features/operation/set-operations";
 import { SelfInitializingActionHandler } from "../diagram-ui-extension/diagram-ui-extension-registry";
+import { SetOperationsAction } from "../../features/operation/set-operations";
+import { Tool } from "sprotty/lib";
+import { ToolManager } from "sprotty/lib";
+import { TYPES } from "sprotty/lib";
+
+import { inject } from "inversify";
+import { injectable } from "inversify";
+import { interfaces } from "inversify";
+import { isSetOperationsAction } from "../../features/operation/set-operations";
 
 
 @injectable()
 export class ToolManagerActionHandler extends SelfInitializingActionHandler {
-    @inject(GLSP_TYPES.IToolFactory) readonly toolFactory: (operationKind: string) => Tool
-    @inject(TYPES.IToolManager) readonly toolManager: ToolManager
+    @inject(GLSP_TYPES.IToolFactory) readonly toolFactory: (operationKind: string) => Tool;
+    @inject(TYPES.IToolManager) readonly toolManager: ToolManager;
 
-    readonly handledActionKinds = [SetOperationsAction.KIND]
+    readonly handledActionKinds = [SetOperationsAction.KIND];
 
     handle(action: Action): void | ICommand | Action {
         if (isSetOperationsAction(action)) {
-            this.configure(action)
+            this.configure(action);
         }
     }
     configure(action: SetOperationsAction): any {
         const configuredTools = action.operations.map(op => {
-            const tool = this.toolFactory(op.operationKind)
+            const tool = this.toolFactory(op.operationKind);
             if (isTypeAware(tool) && op.elementTypeId) {
                 tool.elementTypeId = op.elementTypeId;
             }
 
             return tool;
-        }).filter(tool => tool.id !== UNDEFINED_TOOL_ID)
+        }).filter(tool => tool.id !== UNDEFINED_TOOL_ID);
 
-        this.toolManager.registerTools(...configuredTools)
+        this.toolManager.registerTools(...configuredTools);
     }
 }
 
 export function isTypeAware(tool: Tool): tool is Tool & TypeAware {
-    return (<any>tool)["elementTypeId"] !== undefined && typeof (<any>tool)["elementTypeId"] === "string"
+    return (<any>tool)["elementTypeId"] !== undefined && typeof (<any>tool)["elementTypeId"] === "string";
 }
 
 export interface TypeAware {
     elementTypeId: string;
 }
-const UNDEFINED_TOOL_ID = "undefined-tool"
+const UNDEFINED_TOOL_ID = "undefined-tool";
 export function createToolFactory(): interfaces.FactoryCreator<Tool> {
     return (context: interfaces.Context) => {
         return (operationKind: string) => {
@@ -65,14 +75,14 @@ export function createToolFactory(): interfaces.FactoryCreator<Tool> {
                 case OperationKind.CREATE_CONNECTION:
                     return context.container.resolve(EdgeCreationTool);
                 case OperationKind.DELETE_ELEMENT:
-                    return context.container.resolve(MouseDeleteTool)
+                    return context.container.resolve(MouseDeleteTool);
                 default:
                     return {
                         id: UNDEFINED_TOOL_ID,
                         disable() { },
                         enable() { }
-                    }
+                    };
             }
         };
-    }
+    };
 }

@@ -24,7 +24,7 @@ import org.eclipse.sprotty.ServerStatus;
 import com.eclipsesource.glsp.api.action.ActionMessage;
 import com.eclipsesource.glsp.api.model.ModelStateProvider;
 
-public interface GLSPServer extends GLSPClientAware,ModelStateProvider {
+public interface GLSPServer extends GLSPClientAware, ModelStateProvider {
 
 	public interface Provider {
 		GLSPServer getGraphicalLanguageServer(String clientId);
@@ -34,12 +34,12 @@ public interface GLSPServer extends GLSPClientAware,ModelStateProvider {
 
 	@JsonNotification("process")
 	void process(ActionMessage message);
-	
+
 	@JsonRequest("shutdown")
 	CompletableFuture<Object> shutdown();
-	
+
 	@JsonNotification("exit")
 	void exit();
-	
+
 	void setStatus(ServerStatus serverStatus);
 }

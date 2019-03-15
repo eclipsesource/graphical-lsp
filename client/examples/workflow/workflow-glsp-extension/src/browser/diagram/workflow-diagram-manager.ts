@@ -13,13 +13,16 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { WidgetManager } from "@theia/core/lib/browser";
 import { EditorManager } from "@theia/editor/lib/browser";
-import { GLSPDiagramManager, GLSPTheiaSprottyConnector } from "glsp-theia-extension/lib/browser";
-import { inject, injectable } from "inversify";
+import { GLSPDiagramManager } from "glsp-theia-extension/lib/browser";
+import { GLSPTheiaSprottyConnector } from "glsp-theia-extension/lib/browser";
 import { TheiaFileSaver } from "sprotty-theia/lib";
-import { WorkflowLanguage } from "../../common/workflow-language";
+import { WidgetManager } from "@theia/core/lib/browser";
 import { WorkflowGLSPDiagramClient } from "./workflow-glsp-diagram-client";
+import { WorkflowLanguage } from "../../common/workflow-language";
+
+import { inject } from "inversify";
+import { injectable } from "inversify";
 
 @injectable()
 export class WorkflowDiagramManager extends GLSPDiagramManager {
@@ -35,11 +38,11 @@ export class WorkflowDiagramManager extends GLSPDiagramManager {
         @inject(WidgetManager) widgetManager: WidgetManager,
         @inject(EditorManager) editorManager: EditorManager) {
         super();
-        this._diagramConnector = new GLSPTheiaSprottyConnector({ diagramClient, fileSaver, editorManager, widgetManager, diagramManager: this })
+        this._diagramConnector = new GLSPTheiaSprottyConnector({ diagramClient, fileSaver, editorManager, widgetManager, diagramManager: this });
     }
 
     get fileExtensions() {
-        return [WorkflowLanguage.FileExtension]
+        return [WorkflowLanguage.FileExtension];
     }
     get diagramConnector() {
         return this._diagramConnector;

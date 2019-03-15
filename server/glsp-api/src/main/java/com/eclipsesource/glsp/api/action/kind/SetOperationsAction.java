@@ -21,7 +21,7 @@ import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.operations.Operation;
 
 public class SetOperationsAction extends Action {
-	
+
 	private Operation[] operations;
 
 	public SetOperationsAction() {

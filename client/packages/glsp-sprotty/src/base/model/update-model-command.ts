@@ -31,10 +31,9 @@ import { inject } from "inversify";
 import { injectable } from "inversify";
 import { optional } from "inversify";
 
-
 /**
- * A special`UpdateModelCommand` that retrieves all registered `actions` from the `IFeedbackActionDispatcher` (if present) and applies their feedback 
- * to the `newRoot` before performing the update 
+ * A special`UpdateModelCommand` that retrieves all registered `actions` from the `IFeedbackActionDispatcher` (if present) and applies their feedback
+ * to the `newRoot` before performing the update
  */
 @injectable()
 export class FeedbackAwareUpdateModelCommand extends UpdateModelCommand {
@@ -42,7 +41,7 @@ export class FeedbackAwareUpdateModelCommand extends UpdateModelCommand {
         @inject(TYPES.ILogger) protected logger: ILogger,
         @inject(GLSP_TYPES.IFeedbackActionDispatcher) @optional() protected readonly feedbackActionDispatcher: IFeedbackActionDispatcher,
         @inject(TYPES.ActionHandlerRegistryProvider) protected actionHandlerRegistryProvider: () => Promise<ActionHandlerRegistry>) {
-        super(action)
+        super(action);
     }
 
     protected performUpdate(oldRoot: SModelRoot, newRoot: SModelRoot, context: CommandExecutionContext): CommandResult {
@@ -56,11 +55,11 @@ export class FeedbackAwareUpdateModelCommand extends UpdateModelCommand {
                 modelChanged: context.modelChanged,
                 modelFactory: context.modelFactory,
                 syncer: context.syncer
-            }
+            };
             this.actionHandlerRegistryProvider().then(registry => {
                 const feedbackCommands = this.getFeedbackCommands(registry);
                 feedbackCommands.forEach(command => command.execute(tempContext));
-            })
+            });
         }
         return super.performUpdate(oldRoot, newRoot, context);
 
@@ -69,13 +68,13 @@ export class FeedbackAwareUpdateModelCommand extends UpdateModelCommand {
     private getFeedbackCommands(registry: ActionHandlerRegistry): Command[] {
         const result: Command[] = [];
         this.feedbackActionDispatcher.getRegisteredFeedback().forEach(action => {
-            const handler = registry.get(action.kind).find(h => h instanceof CommandActionHandler)
+            const handler = registry.get(action.kind).find(h => h instanceof CommandActionHandler);
             if (handler instanceof CommandActionHandler) {
-                result.push(handler.handle(action))
+                result.push(handler.handle(action));
             }
-        })
+        });
         // sort commands descanding by priority
-        return result.sort((a, b) => getPriority(b) - getPriority(a))
+        return result.sort((a, b) => getPriority(b) - getPriority(a));
     }
 }
 

@@ -15,14 +15,16 @@
  ********************************************************************************/
 import { EditorManager } from "@theia/editor/lib/browser";
 import { GLSPDiagramClient } from "glsp-theia-extension/lib/browser";
-import { inject, injectable } from "inversify";
 import { WorkflowGLSPClientContribution } from "../language/workflow-glsp-client-contribution";
+
+import { inject } from "inversify";
+import { injectable } from "inversify";
 
 @injectable()
 export class WorkflowGLSPDiagramClient extends GLSPDiagramClient {
     constructor(
         @inject(WorkflowGLSPClientContribution) glspCLientContribution: WorkflowGLSPClientContribution,
         @inject(EditorManager) editorManager: EditorManager) {
-        super(glspCLientContribution, editorManager)
+        super(glspCLientContribution, editorManager);
     }
 }

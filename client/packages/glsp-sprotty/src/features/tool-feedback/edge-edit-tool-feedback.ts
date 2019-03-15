@@ -115,7 +115,7 @@ export class SwitchRoutingModeAction extends SwitchEditModeAction {
 @injectable()
 export class SwitchRoutingModeCommand extends SwitchEditModeCommand {
     static KIND = "switchRoutingMode";
-    constructor(@inject(TYPES.Action) action: SwitchRoutingModeAction) { super(action) }
+    constructor(@inject(TYPES.Action) action: SwitchRoutingModeAction) { super(action); }
 }
 
 /**

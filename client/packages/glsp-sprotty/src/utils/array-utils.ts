@@ -15,25 +15,25 @@
  ********************************************************************************/
 
 export function contains<T>(array: T[], value: T): boolean {
-    if (value === undefined) return false
-    return array.indexOf(value) >= 0
+    if (value === undefined) return false;
+    return array.indexOf(value) >= 0;
 }
 
 export function remove<T>(array: T[], value: T): boolean {
-    const index = array.indexOf(value)
+    const index = array.indexOf(value);
     if (index >= 0) {
-        array.splice(index, 1)
-        return true
+        array.splice(index, 1);
+        return true;
     }
-    return false
+    return false;
 }
 
 export function distinctAdd<T>(array: T[], value: T): boolean {
     if (!contains(array, value)) {
-        array.push(value)
-        return true
+        array.push(value);
+        return true;
     }
-    return false
+    return false;
 }
 
 

@@ -19,7 +19,7 @@ import org.eclipse.sprotty.SNode;
 
 public class ActivityNode extends SNode {
 	public static final String BASE_TYPE = "activityNode";
-	
+
 	public ActivityNode() {
 		setType(ActivityNode.BASE_TYPE);
 	}
@@ -32,7 +32,7 @@ public class ActivityNode extends SNode {
 
 	public void setNodeType(String nodeType) {
 		this.nodeType = nodeType;
-		setType(BASE_TYPE+":"+nodeType);
+		setType(BASE_TYPE + ":" + nodeType);
 	}
 
 }

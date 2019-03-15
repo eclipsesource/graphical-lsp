@@ -29,7 +29,6 @@ import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.google.inject.Inject;
 
-
 public class CollapseExpandActionHandler extends AbstractActionHandler {
 	@Inject
 	ModelExpansionListener expansionListener;

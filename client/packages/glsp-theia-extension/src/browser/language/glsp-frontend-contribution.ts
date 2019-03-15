@@ -14,9 +14,14 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { ContributionProvider } from "@theia/core";
-import { FrontendApplication, FrontendApplicationContribution } from "@theia/core/lib/browser";
-import { inject, injectable, named } from "inversify";
+import { FrontendApplication } from "@theia/core/lib/browser";
+import { FrontendApplicationContribution } from "@theia/core/lib/browser";
 import { GLSPClientContribution } from "./glsp-client-contribution";
+
+import { inject } from "inversify";
+import { injectable } from "inversify";
+import { named } from "inversify";
+
 
 @injectable()
 export class GLSPFrontendContribution implements FrontendApplicationContribution {
@@ -30,7 +35,7 @@ export class GLSPFrontendContribution implements FrontendApplicationContribution
 
     onStart(app: FrontendApplication): void {
         for (const contribution of this.contributions.getContributions()) {
-            contribution.activate(app)
+            contribution.activate(app);
         }
     }
 }

@@ -34,7 +34,7 @@ export enum CursorCSS {
 }
 
 export class ApplyCursorCSSFeedbackAction implements Action {
-    kind = ApplyCursorCSSFeedbackActionCommand.KIND
+    kind = ApplyCursorCSSFeedbackActionCommand.KIND;
     constructor(readonly cssClass?: CursorCSS) { }
 }
 
@@ -43,12 +43,12 @@ export class ApplyCursorCSSFeedbackActionCommand extends FeedbackCommand {
     static readonly KIND = 'applyCursorCssFeedback';
 
     constructor(@inject(TYPES.Action) readonly action: ApplyCursorCSSFeedbackAction) {
-        super()
+        super();
     }
     execute(context: CommandExecutionContext): SModelRoot {
-        removeCssClasses(context.root, Object.values(CursorCSS))
+        removeCssClasses(context.root, Object.values(CursorCSS));
         if (this.action.cssClass) {
-            addCssClasses(context.root, [this.action.cssClass])
+            addCssClasses(context.root, [this.action.cssClass]);
         }
         return context.root;
     }

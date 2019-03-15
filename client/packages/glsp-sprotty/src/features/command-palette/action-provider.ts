@@ -13,15 +13,28 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { inject, injectable, multiInject, optional } from "inversify";
-import { Action, CenterAction, ILogger, SelectAction, SModelElement, SModelRoot, TYPES } from "sprotty/lib";
-import { toArray } from "sprotty/lib/utils/iterable";
+import { Action } from "sprotty/lib";
+import { CenterAction } from "sprotty/lib";
+import { GLSP_TYPES } from "../../types";
+import { ILogger } from "sprotty/lib";
 import { IReadonlyModelAccessProvider } from "../../base/command-stack";
 import { LabeledAction } from "../../base/diagram-ui-extension/diagram-ui-extension";
-import { GLSP_TYPES } from "../../types";
-import { isNameable, name } from "../nameable/model";
+import { RequestCommandPaletteActions } from "./action-definitions";
 import { RequestResponseSupport } from "../request-response/support";
-import { isSetCommandPaletteActionsAction, RequestCommandPaletteActions } from "./action-definitions";
+import { SelectAction } from "sprotty/lib";
+import { SModelElement } from "sprotty/lib";
+import { SModelRoot } from "sprotty/lib";
+import { TYPES } from "sprotty/lib";
+
+import { inject } from "inversify";
+import { injectable } from "inversify";
+import { isNameable } from "../nameable/model";
+import { isSetCommandPaletteActionsAction } from "./action-definitions";
+import { multiInject } from "inversify";
+import { name } from "../nameable/model";
+import { optional } from "inversify";
+import { toArray } from "sprotty/lib/utils/iterable";
+
 
 export interface ICommandPaletteActionProvider {
     getActions(selectedElements: SModelElement[]): Promise<LabeledAction[]>;

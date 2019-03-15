@@ -26,8 +26,8 @@ import org.eclipse.sprotty.SModelElement;
 import org.eclipse.sprotty.SModelRoot;
 import org.eclipse.sprotty.SNode;
 
-import com.eclipsesource.glsp.api.action.kind.ChangeBoundsOperationAction;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
+import com.eclipsesource.glsp.api.action.kind.ChangeBoundsOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
@@ -81,7 +81,7 @@ public class ChangeBoundsOperationHandler implements OperationHandler {
 
 		return Optional.of((SNode) element);
 	}
-	
+
 	private static void setBounds(SNode node, Bounds bounds) {
 		Point newPosition = new Point(bounds.getX(), bounds.getY());
 		node.setPosition(newPosition);

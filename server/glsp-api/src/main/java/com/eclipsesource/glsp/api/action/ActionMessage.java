@@ -37,7 +37,5 @@ public class ActionMessage {
 	public String toString() {
 		return "ActionMessage [action=" + action.getKind() + ", clientId=" + clientId + "]";
 	}
-	
-	
 
 }

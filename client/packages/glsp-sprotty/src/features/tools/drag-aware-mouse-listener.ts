@@ -14,13 +14,15 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
-import { Action, MouseListener, SModelElement } from "sprotty/lib";
+import { Action } from "sprotty/lib";
+import { MouseListener } from "sprotty/lib";
+import { SModelElement } from "sprotty/lib";
 
 /**
  * A mouse listener that is aware of prior mouse dragging.
  *
  * Therefore, this listener distinguishes between mouse up events after dragging and
- * mouse up events without prior dragging. Subclasses may override the methods 
+ * mouse up events without prior dragging. Subclasses may override the methods
  * `draggingMouseUp` and/or `nonDraggingMouseUp` to react to only these specific kinds
  * of mouse up events.
  */

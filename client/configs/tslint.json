@@ -10,6 +10,7 @@
       "check-space"
     ],
     "curly": false,
+    "eofline": true,
     "file-header": {
       "options": [
         "[\n\r]+ \\* Copyright \\([cC]\\) \\d{4}(-\\d{4})? .*[\n\r]+"
@@ -85,6 +86,13 @@
     ],
     "prefer-object-spread": true,
     "radix": true,
+    "semicolon": {
+      "options": [
+        "always",
+        "ignore-interfaces"
+      ],
+      "severity": "error"
+    },
     "trailing-comma": true,
     "triple-equals": [
       true,

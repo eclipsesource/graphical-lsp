@@ -75,9 +75,9 @@ import { viewportModule } from "glsp-sprotty/lib";
 import executeCommandModule from "glsp-sprotty/lib/features/execute/di.config";
 
 const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
-    rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope()
-    rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn)
-    rebind(TYPES.IModelFactory).to(WorkflowModelFactory).inSingletonScope()
+    rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
+    rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
+    rebind(TYPES.IModelFactory).to(WorkflowModelFactory).inSingletonScope();
     const context = { bind, unbind, isBound, rebind };
     configureModelElement(context, 'graph', GLSPGraph, SGraphView);
     configureModelElement(context, 'task:automated', TaskNode, TaskNodeView);
@@ -92,12 +92,12 @@ const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind
     configureModelElement(context, 'button:expand', SButton, ExpandButtonView);
     configureModelElement(context, 'routing-point', SRoutingHandle, SRoutingHandleView);
     configureModelElement(context, 'volatile-routing-point', SRoutingHandle, SRoutingHandleView);
-    configureModelElement(context, 'edge', SEdge, WorkflowEdgeView)
-    configureModelElement(context, 'edge:weighted', WeightedEdge, WeightedEdgeView)
+    configureModelElement(context, 'edge', SEdge, WorkflowEdgeView);
+    configureModelElement(context, 'edge:weighted', WeightedEdge, WeightedEdgeView);
     configureModelElement(context, 'icon', Icon, IconView);
-    configureModelElement(context, 'activityNode:merge', ActivityNode, DiamondNodeView)
-    configureModelElement(context, 'activityNode:decision', ActivityNode, DiamondNodeView)
-    configureModelElement(context, 'node', RectangularNode, RectangularNodeView)
+    configureModelElement(context, 'activityNode:merge', ActivityNode, DiamondNodeView);
+    configureModelElement(context, 'activityNode:decision', ActivityNode, DiamondNodeView);
+    configureModelElement(context, 'node', RectangularNode, RectangularNodeView);
 });
 
 export default function createContainer(widgetId: string): Container {
@@ -113,7 +113,7 @@ export default function createContainer(widgetId: string): Container {
         needsServerLayout: false,
         baseDiv: widgetId,
         hiddenDiv: widgetId + "_hidden"
-    })
+    });
 
-    return container
+    return container;
 }

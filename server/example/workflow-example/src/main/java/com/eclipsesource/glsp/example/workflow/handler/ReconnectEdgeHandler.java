@@ -30,42 +30,43 @@ import com.eclipsesource.glsp.api.utils.SModelIndex;
 
 public class ReconnectEdgeHandler implements OperationHandler {
 	private static Logger log = Logger.getLogger(ReconnectEdgeHandler.class);
-	
+
 	@Override
 	public Class<?> handlesActionType() {
 		return ReconnectConnectionOperationAction.class;
 	}
-	
+
 	@Override
 	public Optional<SModelRoot> execute(AbstractOperationAction operationAction, ModelState modelState) {
-		if(!(operationAction instanceof ReconnectConnectionOperationAction)) {
+		if (!(operationAction instanceof ReconnectConnectionOperationAction)) {
 			log.warn("Unexpected action " + operationAction);
 			return Optional.empty();
 		}
-		
+
 		// check for null-values
-		final ReconnectConnectionOperationAction action =  (ReconnectConnectionOperationAction) operationAction;
-		if (action.getConnectionElementId() == null || action.getSourceElementId() == null || action.getTargetElementId() == null) {
+		final ReconnectConnectionOperationAction action = (ReconnectConnectionOperationAction) operationAction;
+		if (action.getConnectionElementId() == null || action.getSourceElementId() == null
+				|| action.getTargetElementId() == null) {
 			log.warn("Incomplete reconnect connection action");
 			return Optional.empty();
 		}
-		
+
 		// check for existence of matching elements
 		SModelIndex index = modelState.getCurrentModelIndex();
 		Optional<SEdge> edge = index.findElement(action.getConnectionElementId(), SEdge.class);
 		Optional<SNode> source = index.findElement(action.getSourceElementId(), SNode.class);
 		Optional<SNode> target = index.findElement(action.getTargetElementId(), SNode.class);
 		if (!edge.isPresent() || !source.isPresent() || !target.isPresent()) {
-			log.warn("Invalid edge, source or target ID: edge ID " + action.getConnectionElementId() + ", source ID " 
+			log.warn("Invalid edge, source or target ID: edge ID " + action.getConnectionElementId() + ", source ID "
 					+ action.getSourceElementId() + " and target ID " + action.getTargetElementId());
 			return Optional.empty();
 		}
-		
+
 		// reconnect
 		edge.get().setSourceId(source.get().getId());
 		edge.get().setTargetId(target.get().getId());
 		edge.get().setRoutingPoints(null);
-		
+
 		SModelRoot currentModel = modelState.getCurrentModel();
 		return Optional.of(currentModel);
 	}

@@ -46,7 +46,8 @@ public class RequestCommandPaletteActionsHandler extends AbstractActionHandler {
 			RequestCommandPaletteActions paletteAction = (RequestCommandPaletteActions) action;
 			SModelRoot root = modelState.getCurrentModel();
 			String[] selectedElementsIDs = paletteAction.getSelectedElementsIDs();
-			Set<LabeledAction> commandPaletteActions = commandPaletteActionProvider.getActions(root, selectedElementsIDs);
+			Set<LabeledAction> commandPaletteActions = commandPaletteActionProvider.getActions(root,
+					selectedElementsIDs);
 			return Optional.of(new SetCommandPaletteActions(commandPaletteActions));
 		}
 		return Optional.empty();

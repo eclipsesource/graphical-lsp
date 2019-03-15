@@ -51,7 +51,7 @@ public class SModelElementTypeAdapter extends PropertyBasedTypeAdapter<SModelEle
 			throw new RuntimeException("Unable to invoke SModelElement constructor", e);
 		}
 	}
-	
+
 	public static class Factory implements TypeAdapterFactory {
 
 		private final Map<String, Class<? extends SModelElement>> modelTypes;

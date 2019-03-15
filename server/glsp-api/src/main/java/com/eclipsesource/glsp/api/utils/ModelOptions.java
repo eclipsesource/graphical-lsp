@@ -41,7 +41,7 @@ public final class ModelOptions {
 
 		private ParsedModelOptions(Map<String, String> options) {
 			needsClientLayout = getBoolValue(options, NEEDS_CLIENT_LAYOUT);
-			needsServerLayout= getBoolValue(options, NEEDS_SERVER_LAYOUT);
+			needsServerLayout = getBoolValue(options, NEEDS_SERVER_LAYOUT);
 			sourceUri = getValue(options, SOURCE_URI);
 		}
 
@@ -52,7 +52,7 @@ public final class ModelOptions {
 		public Optional<String> getSourceUri() {
 			return sourceUri;
 		}
-		
+
 		public boolean needsServerLayout() {
 			return needsServerLayout;
 		}

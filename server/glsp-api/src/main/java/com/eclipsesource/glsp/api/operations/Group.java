@@ -19,19 +19,19 @@ public class Group {
 	private String id;
 	private String label;
 	private Group parentGroup;
-	
+
 	public Group() {
 	}
-	
+
 	public Group(String id, String label) {
-		this(id,label,null);
+		this(id, label, null);
 	}
 
-	public Group(String id, String label,Group parentGroup) {
+	public Group(String id, String label, Group parentGroup) {
 		super();
 		this.id = id;
 		this.parentGroup = parentGroup;
-		this.label=label;
+		this.label = label;
 	}
 
 	public String getId() {

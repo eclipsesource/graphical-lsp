@@ -14,9 +14,9 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 export namespace WorkflowLanguage {
-    export const Id: string = "Workflow"
-    export const Name: string = "Workflow"
-    export const Label: string = "Workflow diagram"
-    export const DiagramType: string = "workflow-diagram"
-    export const FileExtension: string = ".wf"
+    export const Id: string = "Workflow";
+    export const Name: string = "Workflow";
+    export const Label: string = "Workflow diagram";
+    export const DiagramType: string = "workflow-diagram";
+    export const FileExtension: string = ".wf";
 }

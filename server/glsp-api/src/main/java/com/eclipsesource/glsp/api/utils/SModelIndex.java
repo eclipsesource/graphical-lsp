@@ -63,7 +63,7 @@ public class SModelIndex {
 	private void indexId(SModelElement element) {
 		idToElement.put(element.getId(), element);
 	}
-	
+
 	private void indexChildren(SModelElement element) {
 		if (element.getChildren() != null) {
 			for (SModelElement child : element.getChildren()) {
@@ -80,7 +80,7 @@ public class SModelIndex {
 		}
 		return null;
 	}
-	
+
 	public void addToIndex(SModelElement element, SModelElement parent) {
 		addToIndex(element);
 		childToParent.put(element, parent);
@@ -91,7 +91,7 @@ public class SModelIndex {
 		indexType(element);
 		indexChildren(element);
 		if (element instanceof SEdge) {
-			indexSourceAndTarget((SEdge)element);
+			indexSourceAndTarget((SEdge) element);
 		}
 		if (element.getChildren() != null) {
 			for (SModelElement child : element.getChildren()) {
@@ -99,24 +99,24 @@ public class SModelIndex {
 			}
 		}
 	}
-	
+
 	private void indexSourceAndTarget(SEdge edge) {
 		String sourceId = edge.getSourceId();
 		SModelElement source = get(sourceId);
 		outgoingEdges.computeIfAbsent(source, s -> new HashSet<>()).add(edge);
-		
+
 		String targetId = edge.getTargetId();
 		SModelElement target = get(targetId);
 		incomingEdges.computeIfAbsent(target, t -> new HashSet<>()).add(edge);
 	}
 
 	public SModelElement getParent(SModelElement element) {
-		if (! childToParent.containsKey(element)) {
+		if (!childToParent.containsKey(element)) {
 			childToParent.put(element, findParent(element));
 		}
 		return childToParent.get(element);
 	}
-	
+
 	/**
 	 * Returns the first element of type clazz starting from the element with the
 	 * given id and walking up the parent hierarchy.
@@ -128,7 +128,7 @@ public class SModelIndex {
 	public <T extends SModelElement> Optional<T> findElement(String elementId, Class<T> clazz) {
 		return findElement(get(elementId), clazz);
 	}
-	
+
 	/**
 	 * Returns the first element of type clazz starting from the given element and
 	 * walking up the parent hierarchy.
@@ -138,7 +138,7 @@ public class SModelIndex {
 	 * @return an optional with the element of type clazz or an empty optional
 	 */
 	public <T extends SModelElement> Optional<T> findElement(SModelElement element, Class<T> clazz) {
-		if(element == null) {
+		if (element == null) {
 			return Optional.empty();
 		}
 		if (clazz.isInstance(element)) {
@@ -158,11 +158,9 @@ public class SModelIndex {
 	public SModelElement get(String elementId) {
 		return idToElement.get(elementId);
 	}
-	
+
 	public Set<SModelElement> getAll(String... elementIds) {
-		return Arrays.stream(elementIds)
-			.map(this::get)
-			.collect(Collectors.toSet());
+		return Arrays.stream(elementIds).map(this::get).collect(Collectors.toSet());
 	}
 
 	public Set<SModelElement> getAllByType(String type) {
@@ -186,7 +184,7 @@ public class SModelIndex {
 		typeToElements.get(element.getType()).remove(element);
 		childToParent.remove(element);
 	}
-	
+
 	public <T extends SModelElement> Set<T> getAllByClass(Class<T> type) {
 		return findAll(this.parent, type);
 	}
@@ -210,20 +208,17 @@ public class SModelIndex {
 		}
 		return null;
 	}
-	
+
 	public static <T extends SModelElement> Set<T> findAll(SModelElement parent, Class<T> type) {
-		return getStream(parent)
-			.flatMap(SModelIndex::getStream)
-			.filter(type::isInstance)
-			.map(type::cast)
-			.collect(Collectors.toSet());
+		return getStream(parent).flatMap(SModelIndex::getStream).filter(type::isInstance).map(type::cast)
+				.collect(Collectors.toSet());
 	}
-	
+
 	private static Stream<SModelElement> getStream(SModelElement element) {
-		if(element == null) {
+		if (element == null) {
 			return Stream.empty();
 		}
-		if(element.getChildren() == null) {
+		if (element.getChildren() == null) {
 			return Stream.of(element);
 		}
 		return Stream.concat(Stream.of(element), element.getChildren().stream());

@@ -27,7 +27,8 @@ public class ReconnectConnectionOperationAction extends AbstractOperationAction 
 		super(Action.Kind.RECONNECT_CONNECTION_OPERATION);
 	}
 
-	public ReconnectConnectionOperationAction(String connectionElementId, String sourceElementId, String targetElementId) {
+	public ReconnectConnectionOperationAction(String connectionElementId, String sourceElementId,
+			String targetElementId) {
 		this();
 		this.connectionElementId = connectionElementId;
 		this.sourceElementId = sourceElementId;

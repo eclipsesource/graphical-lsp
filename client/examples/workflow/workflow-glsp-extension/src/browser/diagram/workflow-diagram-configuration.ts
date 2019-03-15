@@ -13,29 +13,35 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { SelectionService } from "@theia/core";
-import { registerDefaultTools, TYPES } from "glsp-sprotty/lib";
+import 'sprotty-theia/css/theia-sprotty.css';
+
+import { Container } from 'inversify';
+import { DiagramConfiguration } from 'sprotty-theia/lib';
 import { GLSPTheiaDiagramServer } from 'glsp-theia-extension/lib/browser';
-import { Container, inject, injectable } from "inversify";
-import "sprotty-theia/css/theia-sprotty.css";
-import { DiagramConfiguration, TheiaDiagramServer, TheiaSprottySelectionForwarder } from "sprotty-theia/lib";
-import { createWorkflowDiagramContainer } from "workflow-sprotty/lib";
-import { WorkflowLanguage } from "../../common/workflow-language";
+import { SelectionService } from '@theia/core';
+import { TheiaDiagramServer } from 'sprotty-theia/lib';
+import { TheiaSprottySelectionForwarder } from 'sprotty-theia/lib';
+import { TYPES } from 'glsp-sprotty/lib';
+import { WorkflowLanguage } from '../../common/workflow-language';
+
+import { createWorkflowDiagramContainer } from 'workflow-sprotty/lib';
+import { inject } from 'inversify';
+import { injectable } from 'inversify';
+import { registerDefaultTools } from 'glsp-sprotty/lib';
 
 @injectable()
 export class WorkflowDiagramConfiguration implements DiagramConfiguration {
-    @inject(SelectionService) protected selectionService: SelectionService
-    diagramType: string = WorkflowLanguage.DiagramType
+    @inject(SelectionService) protected selectionService: SelectionService;
+    diagramType: string = WorkflowLanguage.DiagramType;
 
     createContainer(widgetId: string): Container {
         const container = createWorkflowDiagramContainer(widgetId);
-        container.bind(TYPES.ModelSource).to(GLSPTheiaDiagramServer).inSingletonScope()
+        container.bind(TYPES.ModelSource).to(GLSPTheiaDiagramServer).inSingletonScope();
         container.bind(TheiaDiagramServer).toService(GLSPTheiaDiagramServer);
         // container.rebind(KeyTool).to(TheiaKeyTool).inSingletonScope()
-        container.bind(TYPES.IActionHandlerInitializer).to(TheiaSprottySelectionForwarder)
-        container.bind(SelectionService).toConstantValue(this.selectionService)
+        container.bind(TYPES.IActionHandlerInitializer).to(TheiaSprottySelectionForwarder);
+        container.bind(SelectionService).toConstantValue(this.selectionService);
         registerDefaultTools(container);
         return container;
     }
-
 }

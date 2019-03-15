@@ -21,7 +21,7 @@ import com.eclipsesource.glsp.api.action.Action;
 
 public class UpdateModelAction extends Action {
 	private SModelRoot newRoot;
-	private boolean animate=true;
+	private boolean animate = true;
 
 	public UpdateModelAction() {
 		super(Action.Kind.UPDATE_MODEL);
@@ -36,8 +36,6 @@ public class UpdateModelAction extends Action {
 	public SModelRoot getNewRoot() {
 		return newRoot;
 	}
-
-
 
 	@Override
 	public int hashCode() {

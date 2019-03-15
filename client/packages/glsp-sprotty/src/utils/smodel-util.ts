@@ -44,7 +44,7 @@ export function getSelectedElementCount(element: SModelElement): number {
 }
 
 export function isSelected(element: SModelElement): element is SModelElement & Selectable {
-    return isSelectable(element) && element.selected
+    return isSelectable(element) && element.selected;
 }
 
 export function isNotUndefined<T>(element: T | undefined): element is T {

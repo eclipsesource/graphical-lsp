@@ -60,8 +60,8 @@ export class DeleteKeyListener extends KeyListener {
     keyDown(element: SModelElement, event: KeyboardEvent): Action[] {
         if (matchesKeystroke(event, 'Delete')) {
             const deleteElementIds = Array.from(element.root.index.all().filter(e => isSelectable(e) && e.selected)
-                .filter(e => e.id !== e.root.id).map(e => e.id))
-            return [new DeleteElementOperationAction(deleteElementIds)]
+                .filter(e => e.id !== e.root.id).map(e => e.id));
+            return [new DeleteElementOperationAction(deleteElementIds)];
         }
         return [];
     }
@@ -83,7 +83,7 @@ export class MouseDeleteTool implements Tool {
 
     enable() {
         this.mouseTool.register(this.deleteToolMouseListener);
-        this.feedbackDispatcher.registerFeedback(this, [new ApplyCursorCSSFeedbackAction(CursorCSS.ELEMENT_DELETION)])
+        this.feedbackDispatcher.registerFeedback(this, [new ApplyCursorCSSFeedbackAction(CursorCSS.ELEMENT_DELETION)]);
     }
 
     disable() {

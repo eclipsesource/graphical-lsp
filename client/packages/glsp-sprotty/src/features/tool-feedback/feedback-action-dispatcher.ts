@@ -21,7 +21,6 @@ import { TYPES } from "sprotty/lib";
 import { inject } from "inversify";
 import { injectable } from "inversify";
 
-
 export interface IFeedbackEmitter { }
 /**
  * Action dispatcher for actions that are meant to show tool feedback.

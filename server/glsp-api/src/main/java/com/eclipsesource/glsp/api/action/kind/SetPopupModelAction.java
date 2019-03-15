@@ -73,5 +73,4 @@ public class SetPopupModelAction extends Action {
 		return true;
 	}
 
-
 }

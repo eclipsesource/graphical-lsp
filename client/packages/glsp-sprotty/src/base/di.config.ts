@@ -29,7 +29,6 @@ import { TYPES } from "sprotty/lib";
 import { configureCommand } from "sprotty/lib";
 import { createToolFactory } from "./tool-manager/tool-manager-action-handler";
 
-
 const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     // GLSP Commandstack  initialization ------------------------------------
     if (isBound(TYPES.ICommandStack)) {
@@ -47,7 +46,7 @@ const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) =>
 
     // DiagramUIExtension registry initialization ------------------------------------
     bind(GLSP_TYPES.DiagramUIExtensionRegistry).to(DiagramUIExtensionRegistry).inSingletonScope();
-    bind(TYPES.IActionHandlerInitializer).to(DiagramUIExtensionActionHandlerInitializer)
+    bind(TYPES.IActionHandlerInitializer).to(DiagramUIExtensionActionHandlerInitializer);
 
     // Tool manager initialization ------------------------------------
 
@@ -56,6 +55,6 @@ const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) =>
 
     // Model update initialization ------------------------------------
     configureCommand({ bind, isBound }, FeedbackAwareUpdateModelCommand);
-})
+});
 
 export default defaultGLSPModule;

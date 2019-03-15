@@ -44,7 +44,7 @@ import { nodeEditConfig } from "../../base/edit-config/edit-config";
 
 @injectable()
 export class ApplyEditConfigAction implements Action {
-    readonly kind = ApplyEditConfigCommand.KIND
+    readonly kind = ApplyEditConfigCommand.KIND;
     constructor(public readonly editConfigs: Map<string, EditConfig>) { }
 }
 
@@ -57,52 +57,52 @@ export class ApplyEditConfigCommand extends FeedbackCommand {
     }
     execute(context: CommandExecutionContext): CommandResult {
         context.root.index.all().forEach(element => {
-            const config = this.action.editConfigs.get(element.type)
+            const config = this.action.editConfigs.get(element.type);
             if (config) {
                 Object.assign(element, config);
             }
-        })
+        });
         return context.root;
     }
 }
 
 @injectable()
 export class TypeHintsEditConfigProvider extends SelfInitializingActionHandler implements IEditConfigProvider {
-    @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackActionDispatcher: IFeedbackActionDispatcher
+    @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackActionDispatcher: IFeedbackActionDispatcher;
 
-    protected editConfigs: Map<string, EditConfig> = new Map
-    readonly handledActionKinds = [SetTypeHintsAction.KIND]
+    protected editConfigs: Map<string, EditConfig> = new Map;
+    readonly handledActionKinds = [SetTypeHintsAction.KIND];
 
     handle(action: Action): ICommand | Action | void {
         if (isSetTypeHintsAction(action)) {
-            action.nodeHints.forEach(hint => this.editConfigs.set(hint.elementTypeId, createNodeEditConfig(hint)))
-            action.edgeHints.forEach(hint => this.editConfigs.set(hint.elementTypeId, createEdgeEditConfig(hint)))
+            action.nodeHints.forEach(hint => this.editConfigs.set(hint.elementTypeId, createNodeEditConfig(hint)));
+            action.edgeHints.forEach(hint => this.editConfigs.set(hint.elementTypeId, createEdgeEditConfig(hint)));
             this.feedbackActionDispatcher.registerFeedback(this, [new ApplyEditConfigAction(this.editConfigs)]);
         }
     }
 
     getEditConfig(input: SModelElement | SModelElementSchema | string): EditConfig | undefined {
-        return this.editConfigs.get(getElementTypeId(input))
+        return this.editConfigs.get(getElementTypeId(input));
     }
 
     getAllEdgeEditConfigs(): EdgeEditConfig[] {
-        const configs: EdgeEditConfig[] = []
+        const configs: EdgeEditConfig[] = [];
         this.editConfigs.forEach((value, key) => {
             if (isEdgeEditConfig(value)) {
-                configs.push(value)
+                configs.push(value);
             }
-        })
-        return configs
+        });
+        return configs;
     }
 
     getAllNodeEditConfigs(): NodeEditConfig[] {
-        const configs: NodeEditConfig[] = []
+        const configs: NodeEditConfig[] = [];
         this.editConfigs.forEach((value, key) => {
             if (isNodeEditConfig(value)) {
-                configs.push(value)
+                configs.push(value);
             }
-        })
-        return configs
+        });
+        return configs;
     }
 }
 export function createNodeEditConfig(hint: NodeTypeHint): NodeEditConfig {
@@ -112,9 +112,9 @@ export function createNodeEditConfig(hint: NodeTypeHint): NodeEditConfig {
         repositionable: hint.repositionable,
         resizable: hint.resizable,
         configType: nodeEditConfig,
-        isContainableElement: (element) => { return hint.containableElementTypeIds ? contains(hint.containableElementTypeIds, getElementTypeId(element)) : false },
-        isContainer: () => { return hint.containableElementTypeIds ? hint.containableElementTypeIds.length > 0 : false }
-    }
+        isContainableElement: (element) => { return hint.containableElementTypeIds ? contains(hint.containableElementTypeIds, getElementTypeId(element)) : false; },
+        isContainer: () => { return hint.containableElementTypeIds ? hint.containableElementTypeIds.length > 0 : false; }
+    };
 }
 
 export function createEdgeEditConfig(hint: EdgeTypeHint): EdgeEditConfig {
@@ -124,15 +124,15 @@ export function createEdgeEditConfig(hint: EdgeTypeHint): EdgeEditConfig {
         repositionable: hint.repositionable,
         routable: hint.routable,
         configType: edgeEditConfig,
-        isAllowedSource: (source) => { return contains(hint.sourceElementTypeIds, getElementTypeId(source)) },
-        isAllowedTarget: (target) => { return contains(hint.targetElementTypeIds, getElementTypeId(target)) }
-    }
+        isAllowedSource: (source) => { return contains(hint.sourceElementTypeIds, getElementTypeId(source)); },
+        isAllowedTarget: (target) => { return contains(hint.targetElementTypeIds, getElementTypeId(target)); }
+    };
 }
 
 function getElementTypeId(input: SModelElement | SModelElementSchema | string) {
     if (typeof input === 'string') {
-        return <string>input
+        return <string>input;
     } else {
-        return <string>(<any>input)["type"]
+        return <string>(<any>input)["type"];
     }
 }

@@ -14,6 +14,7 @@
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.handler;
+
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -37,19 +38,19 @@ public class CreateDecisionNodeHandler extends CreateNodeOperationHandler {
 		}
 		return false;
 	}
-	
+
 	@Override
 	protected SModelElement createNode(Optional<Point> point, SModelIndex index) {
-    	ActivityNode result = new ActivityNode();
-    	result.setNodeType("decisionNode");
-    	result.setType(ModelTypes.DECISION_NODE);
-    	point.ifPresent(result::setPosition);
-    	
-    	Function<Integer, String> idProvider = i -> "activityNode"+ i;
-    	int i = getCounter(index, result.getType(), idProvider);
-    	result.setId(idProvider.apply(i));
-    	
-    	return result;
+		ActivityNode result = new ActivityNode();
+		result.setNodeType("decisionNode");
+		result.setType(ModelTypes.DECISION_NODE);
+		point.ifPresent(result::setPosition);
+
+		Function<Integer, String> idProvider = i -> "activityNode" + i;
+		int i = getCounter(index, result.getType(), idProvider);
+		result.setId(idProvider.apply(i));
+
+		return result;
 	}
 
 }

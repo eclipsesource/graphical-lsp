@@ -14,10 +14,19 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
-import { inject, injectable } from "inversify";
-import { Action, ActionHandlerRegistry, IActionDispatcher, IActionHandlerInitializer, ILogger, TYPES } from "sprotty/lib";
+import { Action } from 'sprotty/lib';
+import { ActionHandlerRegistry } from 'sprotty/lib';
+import { IActionDispatcher } from 'sprotty/lib';
+import { IActionHandlerInitializer } from 'sprotty/lib';
+import { IdentifiableRequestAction } from './action-definitions';
+import { IdentifiableResponseAction } from './action-definitions';
+import { ILogger } from 'sprotty/lib';
+import { TYPES } from 'sprotty/lib';
+
+import { inject } from 'inversify';
+import { injectable } from 'inversify';
+import { isIdentifiableResponseAction } from './action-definitions';
 import { v4 as uuid } from 'uuid';
-import { IdentifiableRequestAction, IdentifiableResponseAction, isIdentifiableResponseAction } from "./action-definitions";
 
 @injectable()
 export class RequestResponseSupport implements IActionHandlerInitializer {
@@ -37,7 +46,7 @@ export class RequestResponseSupport implements IActionHandlerInitializer {
             if (this.requestedResponses.has(responseId)) {
                 this.requestedResponses.set(responseId, response.action);
             } else {
-                this.logger.log(this, "[RequestResponse] " + responseId + ": Response without request, ignore.")
+                this.logger.log(this, "[RequestResponse] " + responseId + ": Response without request, ignore.");
             }
         }
     }
@@ -85,7 +94,7 @@ export class RequestResponseSupport implements IActionHandlerInitializer {
 
                 // handle timeout: reject or resolve with undefined
                 if (rejectOnTimeout) {
-                    return reject("No response for " + requestId + " (" + requestAction.action + ") timed out after " + timeoutMs + "!")
+                    return reject("No response for " + requestId + " (" + requestAction.action + ") timed out after " + timeoutMs + "!");
                 }
                 return resolve();
             }, timeoutMs);

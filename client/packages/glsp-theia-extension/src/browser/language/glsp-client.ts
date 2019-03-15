@@ -13,14 +13,23 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { MaybePromise } from "@theia/core";
-import { WebSocketConnectionProvider } from "@theia/core/lib/browser";
-import { Disposable } from "@theia/core/lib/common/disposable";
-import { CloseAction, ErrorAction, NotificationHandler, OutputChannel } from '@theia/languages/lib/browser';
-import { LanguageContribution } from "@theia/languages/lib/common";
-import { inject, injectable } from "inversify";
-import { Message, MessageConnection, NotificationType } from "vscode-jsonrpc";
-import { Connection, ConnectionProvider, createConnection, GLSPClient, GLSPClientOptions } from "./glsp-client-services";
+import { CloseAction } from '@theia/languages/lib/browser';
+import { Connection } from './glsp-client-services';
+import { ConnectionProvider } from './glsp-client-services';
+import { Disposable } from '@theia/core/lib/common/disposable';
+import { ErrorAction } from '@theia/languages/lib/browser';
+import { GLSPClient } from './glsp-client-services';
+import { GLSPClientOptions } from './glsp-client-services';
+import { LanguageContribution } from '@theia/languages/lib/common';
+import { MaybePromise } from '@theia/core';
+import { MessageConnection } from 'vscode-jsonrpc';
+import { NotificationHandler } from '@theia/languages/lib/browser';
+import { NotificationType } from 'vscode-jsonrpc';
+import { WebSocketConnectionProvider } from '@theia/core/lib/browser';
+
+import { createConnection } from './glsp-client-services';
+import { inject } from 'inversify';
+import { injectable } from 'inversify';
 
 enum ClientState {
     Initial,
@@ -31,31 +40,31 @@ enum ClientState {
     Stopped
 }
 export class BaseGLSPClient implements GLSPClient {
-    private id: string;
-    private name: string;
+    protected id: string;
+    protected name: string;
     protected readonly connectionProvider: ConnectionProvider;
-    private connectionPromise: Thenable<Connection> | undefined;
-    private resolvedConnection: Connection | undefined;
-    private state: ClientState
-    private _outputChannel: OutputChannel;
-    private clientOptions: GLSPClientOptions;
-    private onStop: Thenable<void> | undefined;
-    private _onReady: Promise<void>;
+    protected connectionPromise: Thenable<Connection> | undefined;
+    protected resolvedConnection: Connection | undefined;
+    protected state: ClientState;
+
+    protected clientOptions: GLSPClientOptions;
+    protected onStop: Thenable<void> | undefined;
+    protected _onReady: Promise<void>;
 
     constructor({ id, name, clientOptions, connectionProvider }: GLSPClient.Options) {
         this.connectionProvider = connectionProvider;
         this.id = id;
         this.name = name;
         this.clientOptions = clientOptions;
-        this.onStop = undefined
-        this._onReady = Promise.resolve()
-        this.state = ClientState.Initial
+        this.onStop = undefined;
+        this._onReady = Promise.resolve();
+        this.state = ClientState.Initial;
 
     }
     start(): Disposable {
         this.state = ClientState.Starting;
         this.resolveConnection().then((connection) => {
-            connection.listen()
+            connection.listen();
             this.resolvedConnection = connection;
             this.state = ClientState.Running;
         }).then(undefined, (error) => {
@@ -63,7 +72,7 @@ export class BaseGLSPClient implements GLSPClient {
         });
         return {
             dispose: () => this.stop()
-        }
+        };
 
     }
 
@@ -103,14 +112,6 @@ export class BaseGLSPClient implements GLSPClient {
         const errorHandler = (this as any).handleConnectionError.bind(this);
         const closeHandler = this.handleConnectionClosed.bind(this);
         return this.connectionProvider.get(errorHandler, closeHandler, undefined);
-    }
-
-    private handleConnectionError(error: Error, message: Message, count: number) {
-        const action = this.clientOptions.errorHandler!.error(error, message, count);
-        if (action === ErrorAction.Shutdown) {
-            console.error('Connection to server is erroring. Shutting down server.')
-            this.stop();
-        }
     }
 
     protected handleConnectionClosed() {

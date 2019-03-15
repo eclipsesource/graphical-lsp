@@ -20,13 +20,13 @@ import java.util.Arrays;
 import com.eclipsesource.glsp.api.action.Action;
 
 public class DeleteElementOperationAction extends AbstractOperationAction {
-	
+
 	private String[] elementIds;
-	
+
 	public DeleteElementOperationAction() {
 		super(Action.Kind.DELETE_ELEMENT_OPERATION);
 	}
-	
+
 	public DeleteElementOperationAction(String[] elementIds) {
 		this();
 		this.elementIds = elementIds;
@@ -61,7 +61,5 @@ public class DeleteElementOperationAction extends AbstractOperationAction {
 			return false;
 		return true;
 	}
-
-
 
 }
