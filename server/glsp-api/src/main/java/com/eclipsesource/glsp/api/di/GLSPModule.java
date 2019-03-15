@@ -75,7 +75,6 @@ public abstract class GLSPModule extends AbstractModule {
 	protected abstract void multiBindServerCommandHandlers();
 
 	protected abstract void multiBindActionHandlers();
-	
 
 	protected final LinkedBindingBuilder<ActionHandler> bindActionHandler() {
 		return actionHandlerBinder.addBinding();
@@ -90,8 +89,9 @@ public abstract class GLSPModule extends AbstractModule {
 	}
 
 	protected abstract Class<? extends GLSPServer> bindGLSPServer();
+
 	protected abstract Class<? extends ModelTypeConfigurationProvider> bindModelTypesConfigurationProvider();
-	
+
 	protected Class<? extends CommandPaletteActionProvider> bindCommandPaletteActionProvider() {
 		return CommandPaletteActionProvider.NullImpl.class;
 	}

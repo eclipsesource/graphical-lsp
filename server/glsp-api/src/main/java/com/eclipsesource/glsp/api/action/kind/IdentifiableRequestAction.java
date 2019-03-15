@@ -17,24 +17,24 @@ package com.eclipsesource.glsp.api.action.kind;
 
 import com.eclipsesource.glsp.api.action.Action;
 
-public class IdentifiableRequestAction  extends Action {
+public class IdentifiableRequestAction extends Action {
 	private String id;
 	private Action action;
 
 	public IdentifiableRequestAction() {
 		super(Action.Kind.IDENTIFIABLE_REQUEST_ACTION);
 	}
-	
+
 	public IdentifiableRequestAction(String id, Action action) {
 		this();
 		this.id = id;
 		this.action = action;
 	}
-	
+
 	public String getId() {
 		return id;
 	}
-	
+
 	public Action getAction() {
 		return action;
 	}
@@ -77,5 +77,4 @@ public class IdentifiableRequestAction  extends Action {
 		return true;
 	}
 
-	
 }

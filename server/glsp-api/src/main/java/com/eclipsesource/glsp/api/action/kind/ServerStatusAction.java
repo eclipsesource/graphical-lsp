@@ -23,7 +23,6 @@ public class ServerStatusAction extends Action {
 	private String severity;
 	private String message;
 
-
 	public ServerStatusAction() {
 		super(Action.Kind.SERVER_STATUS);
 	}
@@ -72,6 +71,5 @@ public class ServerStatusAction extends Action {
 			return false;
 		return true;
 	}
-
 
 }

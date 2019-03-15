@@ -30,7 +30,7 @@ import com.eclipsesource.glsp.example.workflow.schema.TaskNode;
 public class WorkflowPopupFactory implements PopupModelFactory {
 
 	private String generateTitle(TaskNode task) {
-		return  task.getName();
+		return task.getName();
 	}
 
 	private String generateBody(TaskNode task) {

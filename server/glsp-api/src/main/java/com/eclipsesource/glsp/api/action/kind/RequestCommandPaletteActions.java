@@ -26,12 +26,12 @@ public class RequestCommandPaletteActions extends Action {
 	public RequestCommandPaletteActions() {
 		super(Action.Kind.REQUEST_COMMAND_PALETTE_ACTIONS);
 	}
-	
+
 	public RequestCommandPaletteActions(String[] selectedElementsIDs) {
 		this();
 		this.selectedElementsIDs = selectedElementsIDs;
 	}
-	
+
 	public String[] getSelectedElementsIDs() {
 		return selectedElementsIDs;
 	}

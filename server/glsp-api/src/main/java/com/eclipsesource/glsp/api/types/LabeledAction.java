@@ -24,32 +24,32 @@ import com.eclipsesource.glsp.api.action.Action;
 public class LabeledAction {
 	private String label;
 	private List<Action> actions;
-	
+
 	public LabeledAction(String label, List<Action> actions) {
 		this.label = label;
 		setActions(actions);
 	}
-	
+
 	public LabeledAction(String label, Action... actions) {
 		this.label = label;
 		setActions(Arrays.asList(actions));
 	}
-	
+
 	public void setLabel(String label) {
 		this.label = label;
 	}
-	
+
 	public String getLabel() {
 		return label;
 	}
-	
+
 	public void setActions(List<Action> actions) {
-		if(actions == null || actions.isEmpty()) {
+		if (actions == null || actions.isEmpty()) {
 			throw new IllegalArgumentException("Invalid LabeledAction: Require at least one action to execute.");
 		}
 		this.actions = actions;
 	}
-	
+
 	public Collection<Action> getActions() {
 		return actions;
 	}

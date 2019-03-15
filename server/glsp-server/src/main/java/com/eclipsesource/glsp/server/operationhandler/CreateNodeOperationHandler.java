@@ -23,8 +23,8 @@ import org.eclipse.sprotty.Point;
 import org.eclipse.sprotty.SModelElement;
 import org.eclipse.sprotty.SModelRoot;
 
-import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
+import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
@@ -68,7 +68,7 @@ public abstract class CreateNodeOperationHandler implements OperationHandler {
 	}
 
 	protected abstract SModelElement createNode(Optional<Point> point, SModelIndex index);
-	
+
 	protected int getCounter(SModelIndex index, String type, Function<Integer, String> idProvider) {
 		int i = index.getTypeCount(type);
 		while (true) {

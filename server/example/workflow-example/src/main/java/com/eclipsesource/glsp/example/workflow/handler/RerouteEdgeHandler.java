@@ -28,28 +28,28 @@ import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 
-public class RerouteEdgeHandler  implements OperationHandler {
+public class RerouteEdgeHandler implements OperationHandler {
 	private static Logger log = Logger.getLogger(RerouteEdgeHandler.class);
-	
+
 	@Override
 	public Class<?> handlesActionType() {
 		return RerouteConnectionOperationAction.class;
 	}
-	
+
 	@Override
 	public Optional<SModelRoot> execute(AbstractOperationAction operationAction, ModelState modelState) {
-		if(!(operationAction instanceof RerouteConnectionOperationAction)) {
+		if (!(operationAction instanceof RerouteConnectionOperationAction)) {
 			log.warn("Unexpected action " + operationAction);
 			return Optional.empty();
 		}
-		
+
 		// check for null-values
-		final RerouteConnectionOperationAction action =  (RerouteConnectionOperationAction) operationAction;
+		final RerouteConnectionOperationAction action = (RerouteConnectionOperationAction) operationAction;
 		if (action.getConnectionElementId() == null || action.getRoutingPoints() == null) {
 			log.warn("Incomplete reconnect connection action");
 			return Optional.empty();
 		}
-		
+
 		// check for existence of matching elements
 		SModelIndex index = modelState.getCurrentModelIndex();
 		Optional<SEdge> edge = index.findElement(action.getConnectionElementId(), SEdge.class);
@@ -57,10 +57,10 @@ public class RerouteEdgeHandler  implements OperationHandler {
 			log.warn("Invalid edge: edge ID " + action.getConnectionElementId());
 			return Optional.empty();
 		}
-		
+
 		// reroute
 		edge.get().setRoutingPoints(Arrays.asList(action.getRoutingPoints()));
-		
+
 		SModelRoot currentModel = modelState.getCurrentModel();
 		return Optional.of(currentModel);
 	}

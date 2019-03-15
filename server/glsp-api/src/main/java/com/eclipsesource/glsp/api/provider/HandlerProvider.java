@@ -22,7 +22,7 @@ import java.util.Set;
 import com.eclipsesource.glsp.api.handler.Handler;
 
 public interface HandlerProvider<E extends Handler<T>, T> {
-	
+
 	Set<E> getHandlers();
 
 	default boolean isHandled(T object) {

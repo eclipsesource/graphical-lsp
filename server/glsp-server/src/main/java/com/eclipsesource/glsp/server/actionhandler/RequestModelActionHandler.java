@@ -38,7 +38,6 @@ public class RequestModelActionHandler extends AbstractActionHandler {
 	@Inject
 	private ModelSubmissionHandler submissionHandler;
 
-
 	@Override
 	public Optional<Action> execute(Action action, ModelState modelState) {
 		if (action instanceof RequestModelAction) {

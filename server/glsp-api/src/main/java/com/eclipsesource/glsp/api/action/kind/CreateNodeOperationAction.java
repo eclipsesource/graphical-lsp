@@ -20,17 +20,17 @@ import org.eclipse.sprotty.Point;
 import com.eclipsesource.glsp.api.action.Action;
 
 public class CreateNodeOperationAction extends AbstractOperationAction {
-	
+
 	private String elementTypeId;
-	
+
 	private Point location;
-	
+
 	private String containerId;
-	
+
 	public CreateNodeOperationAction() {
 		super(Action.Kind.CREATE_NODE_OPERATION);
 	}
-	
+
 	public CreateNodeOperationAction(String elementTypeId) {
 		this();
 		this.elementTypeId = elementTypeId;
@@ -45,7 +45,7 @@ public class CreateNodeOperationAction extends AbstractOperationAction {
 		this(elementTypeId, location);
 		this.containerId = containerId;
 	}
-	
+
 	public CreateNodeOperationAction(String elementTypeId, String containerId) {
 		this(elementTypeId);
 		this.containerId = containerId;

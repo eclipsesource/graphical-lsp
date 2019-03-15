@@ -15,7 +15,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.provider;
 
-
 import java.util.Collections;
 import java.util.Set;
 

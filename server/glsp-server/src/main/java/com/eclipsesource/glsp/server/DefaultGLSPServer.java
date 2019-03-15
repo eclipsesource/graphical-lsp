@@ -71,12 +71,13 @@ public class DefaultGLSPServer implements GLSPServer {
 			// unwrap identifiable request
 			requestId = Optional.of(((IdentifiableRequestAction) requestAction).getId());
 			requestAction = ((IdentifiableRequestAction) requestAction).getAction();
-		}	
+		}
 		if (actionRegistry.hasHandler(requestAction)) {
 			Optional<Action> responseOpt = actionRegistry.delegateToHandler(requestAction, modelState);
 			if (responseOpt.isPresent()) {
 				// wrap identifiable response if necessary
-				Action response = requestId.<Action>map(id -> new IdentifiableResponseAction(id, responseOpt.get())).orElse(responseOpt.get());
+				Action response = requestId.<Action>map(id -> new IdentifiableResponseAction(id, responseOpt.get()))
+						.orElse(responseOpt.get());
 				ActionMessage responseMessage = new ActionMessage(clientId, response);
 				clientProxy.process(responseMessage);
 			}

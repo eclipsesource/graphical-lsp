@@ -19,7 +19,7 @@ import org.eclipse.sprotty.SEdge;
 
 import com.eclipsesource.glsp.api.types.EdgeTypeHint;
 
-public class EdgeTypeConfiguration extends ModelTypeConfiguration{
+public class EdgeTypeConfiguration extends ModelTypeConfiguration {
 
 	public EdgeTypeConfiguration() {
 		super();
@@ -28,6 +28,6 @@ public class EdgeTypeConfiguration extends ModelTypeConfiguration{
 	public EdgeTypeConfiguration(String elementTypeId, Class<? extends SEdge> javaClassRepresentation,
 			EdgeTypeHint edgeTypeHint) {
 		super(elementTypeId, javaClassRepresentation, edgeTypeHint);
-		
+
 	}
 }

@@ -23,5 +23,4 @@ public class RequestLayersAction extends Action {
 		super(Action.Kind.REQUEST_LAYERS);
 	}
 
-
 }

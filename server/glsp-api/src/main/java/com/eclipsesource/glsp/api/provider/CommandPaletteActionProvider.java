@@ -25,7 +25,7 @@ import com.eclipsesource.glsp.api.types.LabeledAction;
 @FunctionalInterface
 public interface CommandPaletteActionProvider {
 	Set<LabeledAction> getActions(SModelRoot model, String[] selectedElementsIDs);
-	
+
 	public static class NullImpl implements CommandPaletteActionProvider {
 		@Override
 		public Set<LabeledAction> getActions(SModelRoot model, String[] selectedElementsIDs) {

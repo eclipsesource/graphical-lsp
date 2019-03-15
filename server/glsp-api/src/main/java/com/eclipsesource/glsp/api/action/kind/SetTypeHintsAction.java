@@ -83,5 +83,4 @@ public class SetTypeHintsAction extends Action {
 		return true;
 	}
 
-	
 }

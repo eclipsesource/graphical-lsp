@@ -30,8 +30,10 @@ import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.eclipsesource.glsp.example.workflow.schema.ModelTypes;
+
 public class CreateEdgeHandler implements OperationHandler {
-	private static Logger log= Logger.getLogger(CreateEdgeHandler.class);
+	private static Logger log = Logger.getLogger(CreateEdgeHandler.class);
+
 	@Override
 	public boolean handles(AbstractOperationAction execAction) {
 		if (execAction instanceof CreateConnectionOperationAction) {

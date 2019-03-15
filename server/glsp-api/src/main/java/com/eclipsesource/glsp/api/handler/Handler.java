@@ -19,8 +19,7 @@ public interface Handler<T> {
 	default int getPriority() {
 		return Integer.MIN_VALUE;
 	}
-	
+
 	boolean handles(T object);
-	
 
 }
