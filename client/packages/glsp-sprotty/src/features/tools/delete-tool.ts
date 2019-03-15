@@ -14,8 +14,12 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { Action } from "sprotty/lib";
+import { ApplyCursorCSSFeedbackAction } from "../tool-feedback/cursor-feedback";
+import { CursorCSS } from "../tool-feedback/cursor-feedback";
 import { DeleteElementOperationAction } from "../operation/operation-actions";
 import { EnableDefaultToolsAction } from "sprotty/lib";
+import { GLSP_TYPES } from "../../types";
+import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
 import { KeyListener } from "sprotty/lib";
 import { KeyTool } from "sprotty/lib";
 import { MouseListener } from "sprotty/lib";
@@ -74,14 +78,17 @@ export class MouseDeleteTool implements Tool {
 
     protected deleteToolMouseListener: DeleteToolMouseListener = new DeleteToolMouseListener();
 
-    constructor(@inject(MouseTool) protected readonly mouseTool: MouseTool) { }
+    constructor(@inject(MouseTool) protected readonly mouseTool: MouseTool,
+        @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected readonly feedbackDispatcher: IFeedbackActionDispatcher) { }
 
     enable() {
         this.mouseTool.register(this.deleteToolMouseListener);
+        this.feedbackDispatcher.registerFeedback(this, [new ApplyCursorCSSFeedbackAction(CursorCSS.ELEMENT_DELETION)]);
     }
 
     disable() {
         this.mouseTool.deregister(this.deleteToolMouseListener);
+        this.feedbackDispatcher.registerFeedback(this, [new ApplyCursorCSSFeedbackAction()]);
     }
 }
 

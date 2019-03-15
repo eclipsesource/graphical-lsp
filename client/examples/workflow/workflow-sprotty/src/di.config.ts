@@ -55,6 +55,7 @@ import { commandPaletteModule } from "glsp-sprotty/lib";
 import { configureModelElement } from "glsp-sprotty/lib";
 import { defaultGLSPModule } from "glsp-sprotty/lib";
 import { defaultModule } from "glsp-sprotty/lib";
+import { edgeLayoutModule } from "glsp-sprotty/lib";
 import { expandModule } from "glsp-sprotty/lib";
 import { exportModule } from "glsp-sprotty/lib";
 import { fadeModule } from "glsp-sprotty/lib";
@@ -105,7 +106,7 @@ export default function createContainer(widgetId: string): Container {
     container.load(defaultModule, defaultGLSPModule, selectModule, boundsModule, viewportModule,
         hoverModule, fadeModule, exportModule, expandModule, openModule, buttonModule, modelSourceModule,
         workflowDiagramModule, saveModule, executeCommandModule, toolFeedbackModule, modelHintsModule,
-        commandPaletteModule, paletteModule, requestResponseModule, routingModule);
+        commandPaletteModule, paletteModule, requestResponseModule, routingModule, edgeLayoutModule);
 
     overrideViewerOptions(container, {
         needsClientLayout: true,

@@ -31,8 +31,6 @@ import { multiInject } from "inversify";
 import { optional } from "inversify";
 import { toArray } from "sprotty/lib/utils/iterable";
 
-
-
 /**
  * Convinience class for classes that implement both `IActionHandler` and `IActionHandlerInitializer`
  */

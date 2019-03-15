@@ -18,29 +18,10 @@ import { SEdge } from "sprotty/lib";
 import { SModelElement } from "sprotty/lib";
 import { SModelElementSchema } from "sprotty/lib";
 import { SNode } from "sprotty/lib";
+import { SParentElement } from "sprotty/lib";
 
 export const edgeEditConfig = Symbol.for("edgeEditConfiguration");
 export const nodeEditConfig = Symbol.for("nodeEditConfiguration");
-
-export function isConfigurableElement(element: SModelElement): element is SModelElement & EditConfig {
-    return (<any>element).configType !== undefined && typeof ((<any>element).configType) === "symbol";
-}
-
-export function isConfigurableEdge(element: SModelElement): element is SEdge & EdgeEditConfig {
-    return element instanceof SEdge && isConfigurableElement(element) && element.configType === edgeEditConfig;
-}
-export function isConfigurableNode(element: SModelElement): element is SNode & NodeEditConfig {
-    return element instanceof SNode && isConfigurableElement(element) && element.configType === nodeEditConfig;
-}
-
-export function isEdgeEditConfig(editConfig: EditConfig): editConfig is EdgeEditConfig {
-    return editConfig.configType === edgeEditConfig;
-}
-
-export function isNodeEditConfig(editConfig: EditConfig): editConfig is NodeEditConfig {
-    return editConfig.configType === nodeEditConfig;
-}
-
 export interface EditConfig {
     deletable: boolean
     repositionable: boolean
@@ -63,5 +44,33 @@ export interface EdgeEditConfig extends EditConfig {
 
 export interface IEditConfigProvider {
     getEditConfig(input: SModelElement | SModelElementSchema | string): EditConfig | undefined
+}
+
+export function isConfigurableElement(element: SModelElement): element is SModelElement & EditConfig {
+    return (<any>element).configType !== undefined && typeof ((<any>element).configType) === "symbol";
+}
+
+export function isConfigurableEdge(element: SModelElement): element is SEdge & EdgeEditConfig {
+    return element instanceof SEdge && isConfigurableElement(element) && element.configType === edgeEditConfig;
+}
+export function isConfigurableNode(element: SModelElement): element is SNode & NodeEditConfig {
+    return element instanceof SNode && isConfigurableElement(element) && element.configType === nodeEditConfig;
+}
+
+export function isEdgeEditConfig(editConfig: EditConfig): editConfig is EdgeEditConfig {
+    return editConfig.configType === edgeEditConfig;
+}
+
+export function isNodeEditConfig(editConfig: EditConfig): editConfig is NodeEditConfig {
+    return editConfig.configType === nodeEditConfig;
+}
+
+export function movingAllowed(element: SModelElement): element is SNode & NodeEditConfig {
+    return isConfigurableNode(element) && element.repositionable;
+}
+
+export function containmentAllowed(element: SModelElement, containableElementTypeId: string)
+    : element is SParentElement & NodeEditConfig {
+    return isConfigurableNode(element) && element.isContainableElement(containableElementTypeId);
 }
 

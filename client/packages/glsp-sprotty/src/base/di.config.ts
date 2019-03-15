@@ -18,18 +18,16 @@ import "../../css/glsp-sprotty.css";
 import { ContainerModule } from "inversify";
 import { DiagramUIExtensionActionHandlerInitializer } from "./diagram-ui-extension/diagram-ui-extension-registry";
 import { DiagramUIExtensionRegistry } from "./diagram-ui-extension/diagram-ui-extension-registry";
+import { FeedbackAwareUpdateModelCommand } from "./model/update-model-command";
 import { GLSP_TYPES } from "../types";
 import { GLSPCommandStack } from "./command-stack";
 import { IReadonlyModelAccess } from "./command-stack";
-import { ModelUpdateActionInitializer } from "./model/model-update-observer-registry";
-import { ModelUpdateObserverRegistry } from "./model/model-update-observer-registry";
 import { Tool } from "sprotty/lib";
 import { ToolManagerActionHandler } from "./tool-manager/tool-manager-action-handler";
 import { TYPES } from "sprotty/lib";
 
+import { configureCommand } from "sprotty/lib";
 import { createToolFactory } from "./tool-manager/tool-manager-action-handler";
-
-
 
 const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     // GLSP Commandstack  initialization ------------------------------------
@@ -56,8 +54,7 @@ const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) =>
     bind(GLSP_TYPES.IToolFactory).toFactory<Tool>((createToolFactory()));
 
     // Model update initialization ------------------------------------
-    bind(GLSP_TYPES.ModelUpdateObserverRegistry).to(ModelUpdateObserverRegistry).inSingletonScope();
-    bind(TYPES.IActionHandlerInitializer).to(ModelUpdateActionInitializer);
+    configureCommand({ bind, isBound }, FeedbackAwareUpdateModelCommand);
 });
 
 export default defaultGLSPModule;

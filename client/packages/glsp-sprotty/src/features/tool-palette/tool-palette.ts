@@ -22,7 +22,6 @@ import { ICommand } from "sprotty/lib";
 import { ILogger } from "sprotty/lib";
 import { MouseDeleteTool } from "../tools/delete-tool";
 import { Operation } from "../operation/set-operations";
-import { OperationKind } from "../operation/set-operations";
 import { SelfInitializingActionHandler } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
 import { SetOperationsAction } from "../operation/set-operations";
 import { ShowDiagramUIExtensionAction } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
@@ -33,9 +32,9 @@ import { deriveToolId } from "../tools/creation-tool";
 import { inject } from "inversify";
 import { injectable } from "inversify";
 import { isSetOperationsAction } from "../operation/set-operations";
+import { parentGroup } from "../operation/set-operations";
 
 const CLICKED_CSS_CLASS = "clicked";
-
 @injectable()
 export class ToolPalette extends BaseDiagramUIExtension {
     static readonly ID = "glsp_tool_palette";
@@ -68,20 +67,26 @@ export class ToolPalette extends BaseDiagramUIExtension {
     protected createBody(): void {
         const bodyDiv = document.createElement("div");
         bodyDiv.classList.add("palette-body");
-        const nodeGroup = createToolGroup("Nodes", "palette_node_group");
-        const edgeGroup = createToolGroup("Edges", "palette_edge_group");
-
-        this.operations.forEach(op => {
-            const button = this.createToolButton(op);
-            if (op.operationKind === OperationKind.CREATE_NODE) {
-                nodeGroup.appendChild(button);
-            } else if (op.operationKind === OperationKind.CREATE_CONNECTION) {
-                edgeGroup.appendChild(button);
+        // Greate operation groups
+        const groups: Map<string, HTMLElement> = new Map();
+        this.operations.map(parentGroup).forEach(group => {
+            if (!groups.has(group.id)) {
+                groups.set(group.id, createToolGroup(group.label, group.id));
             }
         });
 
-        bodyDiv.appendChild(nodeGroup);
-        bodyDiv.appendChild(edgeGroup);
+        // Fill groups
+        this.operations.forEach(op => {
+            const button = this.createToolButton(op);
+            const group = parentGroup(op);
+            const htmlGroup = groups.get(group.id);
+            if (htmlGroup) {
+                htmlGroup.appendChild(button);
+            }
+        });
+
+        // Add groups to container
+        Array.from(groups.values()).forEach(group => bodyDiv.appendChild(group));
         this.containerElement.appendChild(bodyDiv);
     }
     protected createHeader(): void {
@@ -163,10 +168,21 @@ function createToolGroup(label: string, groupId: string): HTMLElement {
     header.classList.add("group-header");
     header.appendChild(createIcon(["fas", "fa-hammer"]));
     header.insertAdjacentText('beforeend', label);
+    header.ondblclick = (ev) => {
+        const css = "collapsed";
+        changeCSSClass(group, css);
+        Array.from(group.children).forEach(item => changeCSSClass(item, css));
+        window.getSelection().removeAllRanges();
+    };
+
     group.appendChild(header);
     return group;
 }
 
+function changeCSSClass(element: Element, css: string) {
+    element.classList.contains(css) ? element.classList.remove(css) :
+        element.classList.add(css);
+}
 @injectable()
 export class ToolPaletteActionHandler extends SelfInitializingActionHandler {
     @inject(ToolPalette) protected readonly toolPalette: ToolPalette;

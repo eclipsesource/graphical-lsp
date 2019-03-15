@@ -13,14 +13,15 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-
-import { Command, CommandExecutionContext, CommandResult, SModelRoot } from "sprotty/lib";
-import { addCssClasses, removeCssClasses } from "../../utils/smodel-util";
+import { Command } from "sprotty/lib";
+import { CommandExecutionContext } from "sprotty/lib";
+import { CommandResult } from "sprotty/lib";
 
 export abstract class FeedbackCommand extends Command {
+    // used by the `FeedbackAwareUpdateModelCommand`
+    readonly priority: number = 0;
 
-    abstract execute(context: CommandExecutionContext): SModelRoot;
-
+    abstract execute(context: CommandExecutionContext): CommandResult;
     undo(context: CommandExecutionContext): CommandResult {
         return context.root;
     }
@@ -28,17 +29,5 @@ export abstract class FeedbackCommand extends Command {
     redo(context: CommandExecutionContext): CommandResult {
         return context.root;
     }
-}
-
-export function applyCssClassesToRoot(context: CommandExecutionContext, cssClasses: string[]): SModelRoot {
-    const root = context.root;
-    addCssClasses(root, cssClasses);
-    return root;
-}
-
-export function unapplyCssClassesToRoot(context: CommandExecutionContext, cssClasses: string[]): SModelRoot {
-    const root = context.root;
-    removeCssClasses(root, cssClasses);
-    return root;
 }
 

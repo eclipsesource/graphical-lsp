@@ -17,22 +17,26 @@
 import { Action } from "sprotty/lib";
 import { AnchorComputerRegistry } from "sprotty/lib";
 import { CommandExecutionContext } from "sprotty/lib";
+import { CommandResult } from "sprotty/lib";
+import { EdgeRouterRegistry } from "sprotty/lib";
+import { ElementMove } from "sprotty/lib";
 import { FeedbackCommand } from "./model";
 import { FeedbackEdgeEnd } from "./creation-tool-feedback";
 import { FeedbackEdgeEndMovingMouseListener } from "./creation-tool-feedback";
-import { HideEdgeCreationToolFeedbackCommand } from "./creation-tool-feedback";
 import { MouseListener } from "sprotty/lib";
 import { MoveAction } from "sprotty/lib";
+import { Point } from "sprotty/lib";
 import { PolylineEdgeRouter } from "sprotty/lib";
 import { SConnectableElement } from "sprotty/lib";
-import { ShowEdgeCreationSelectTargetFeedbackAction } from "./creation-tool-feedback";
-import { ShowEdgeCreationSelectTargetFeedbackCommand } from "./creation-tool-feedback";
 import { SModelElement } from "sprotty/lib";
 import { SModelRoot } from "sprotty/lib";
+import { SRoutingHandle } from "sprotty/lib";
+import { SwitchEditModeAction } from "sprotty/lib";
+import { SwitchEditModeCommand } from "sprotty/lib";
 import { TYPES } from "sprotty/lib";
+import { VNode } from "snabbdom/vnode";
 
 import { addReconnectHandles } from "../reconnect/model";
-import { applyCssClassesToRoot } from "./model";
 import { center } from "sprotty/lib";
 import { euclideanDistance } from "sprotty/lib";
 import { feedbackEdgeEndId } from "./creation-tool-feedback";
@@ -46,8 +50,10 @@ import { isBoundsAware } from "sprotty/lib";
 import { isConnectable } from "sprotty/lib";
 import { isNotUndefined } from "../../utils/smodel-util";
 import { isRoutable } from "../reconnect/model";
+import { isRoutingHandle } from "../reconnect/model";
+import { isSelected } from "../../utils/smodel-util";
+import { isViewport } from "sprotty/lib";
 import { removeReconnectHandles } from "../reconnect/model";
-import { unapplyCssClassesToRoot } from "./model";
 
 /**
  * RECONNECT HANDLES FEEDBACK
@@ -65,13 +71,13 @@ export class HideEdgeReconnectHandlesFeedbackAction implements Action {
 
 @injectable()
 export class ShowEdgeReconnectHandlesFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.edge-reconnect-tool.handles.feedback.show';
+    static readonly KIND = 'showReconnectHandlesFeedback';
 
     constructor(@inject(TYPES.Action) protected action: ShowEdgeReconnectHandlesFeedbackAction) {
         super();
     }
 
-    execute(context: CommandExecutionContext): SModelRoot {
+    execute(context: CommandExecutionContext): CommandResult {
         const index = context.root.index;
         index.all().filter(isRoutable).forEach(removeReconnectHandles);
 
@@ -81,77 +87,57 @@ export class ShowEdgeReconnectHandlesFeedbackCommand extends FeedbackCommand {
                 addReconnectHandles(routableElement);
             }
         }
-
         return context.root;
     }
 }
 
 @injectable()
 export class HideEdgeReconnectHandlesFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.edge-reconnect-tool.handles.feedback.hide';
+    static readonly KIND = 'hideReconnectHandlesFeedback';
 
     constructor(@inject(TYPES.Action) protected action: HideEdgeReconnectHandlesFeedbackAction) {
         super();
     }
 
-    execute(context: CommandExecutionContext): SModelRoot {
+    execute(context: CommandExecutionContext): CommandResult {
         const index = context.root.index;
         index.all().filter(isRoutable).forEach(removeReconnectHandles);
         return context.root;
     }
+}
+/**
+ * ROUTING FEEDBACK
+ */
+
+export class SwitchRoutingModeAction extends SwitchEditModeAction {
+    readonly kind = SwitchRoutingModeCommand.KIND;
+}
+@injectable()
+export class SwitchRoutingModeCommand extends SwitchEditModeCommand {
+    static KIND = "switchRoutingMode";
+    constructor(@inject(TYPES.Action) action: SwitchRoutingModeAction) { super(action); }
 }
 
 /**
  * SOURCE AND TARGET EDGE FEEDBACK
  */
 
-export class ShowEdgeReconnectSelectSourceFeedbackAction implements Action {
-    kind = ShowEdgeReconnectSelectSourceFeedbackCommand.KIND;
+export class DrawFeedbackEdgeSourceAction implements Action {
+    kind = DrawFeedbackEdgeSourceCommand.KIND;
     constructor(readonly elementTypeId: string, readonly targetId: string) { }
 }
 
 
-export class ShowEdgeReconnectSelectTargetFeedbackAction extends ShowEdgeCreationSelectTargetFeedbackAction {
-    kind = ShowEdgeCreationSelectTargetFeedbackCommand.KIND; // re-use select target feedback from creation tool
-    constructor(readonly elementTypeId: string, readonly sourceId: string) {
-        super(elementTypeId, sourceId);
-    }
-}
-
-export class HideEdgeReconnectToolFeedbackAction implements Action {
-    kind = HideEdgeReconnectToolFeedbackCommand.KIND;
-    constructor() { }
-}
-
-const EDGE_RECONNECT_SOURCE_CSS_CLASS = 'edge-reconnect-select-source-mode';
-
 @injectable()
-export class ShowEdgeReconnectSelectSourceFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.edge-reconnect-tool.selectsource.feedback.show';
+export class DrawFeedbackEdgeSourceCommand extends FeedbackCommand {
+    static readonly KIND = 'drawFeedbackEdgeSource';
 
-    constructor(@inject(TYPES.Action) protected action: ShowEdgeReconnectSelectSourceFeedbackAction) {
+    constructor(@inject(TYPES.Action) protected action: DrawFeedbackEdgeSourceAction) {
         super();
     }
 
-    execute(context: CommandExecutionContext): SModelRoot {
+    execute(context: CommandExecutionContext): CommandResult {
         drawFeedbackEdgeSource(context, this.action.targetId, this.action.elementTypeId);
-        return applyCssClassesToRoot(context, [EDGE_RECONNECT_SOURCE_CSS_CLASS]);
-    }
-}
-
-@injectable()
-export class HideEdgeReconnectToolFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.edge-reconnect-tool.selectsource.feedback.hide';
-    private hideCreationToolFeedbackCommand: HideEdgeCreationToolFeedbackCommand;
-
-    constructor() {
-        super();
-        this.hideCreationToolFeedbackCommand = new HideEdgeCreationToolFeedbackCommand();
-    }
-
-    execute(context: CommandExecutionContext): SModelRoot {
-        this.hideCreationToolFeedbackCommand.execute(context);
-        unapplyCssClassesToRoot(context, [EDGE_RECONNECT_SOURCE_CSS_CLASS]);
         return context.root;
     }
 }
@@ -197,6 +183,94 @@ export class FeedbackEdgeSourceMovingMouseListener extends MouseListener {
     }
 }
 
+
+export class FeedbackEdgeRouteMovingMouseListener extends MouseListener {
+    hasDragged = false;
+    lastDragPosition: Point | undefined;
+
+    constructor(protected edgeRouterRegistry?: EdgeRouterRegistry) {
+        super();
+    }
+
+    mouseDown(target: SModelElement, event: MouseEvent): Action[] {
+        const result: Action[] = [];
+        if (event.button === 0) {
+            const routingHandle = findParentByFeature(target, isRoutingHandle);
+            if (routingHandle !== undefined) {
+                result.push(new SwitchRoutingModeAction([target.id], []));
+                this.lastDragPosition = { x: event.pageX, y: event.pageY };
+            } else {
+                this.lastDragPosition = undefined;
+            }
+            this.hasDragged = false;
+        }
+        return result;
+    }
+
+    mouseMove(target: SModelElement, event: MouseEvent): Action[] {
+        const result: Action[] = [];
+        if (event.buttons === 0)
+            this.mouseUp(target, event);
+        else if (this.lastDragPosition) {
+            const viewport = findParentByFeature(target, isViewport);
+            this.hasDragged = true;
+            const zoom = viewport ? viewport.zoom : 1;
+            const dx = (event.pageX - this.lastDragPosition.x) / zoom;
+            const dy = (event.pageY - this.lastDragPosition.y) / zoom;
+            const handleMoves: ElementMove[] = [];
+            target.root.index.all()
+                .filter(element => isSelected(element))
+                .forEach(element => {
+                    if (isRoutingHandle(element)) {
+                        const point = this.getHandlePosition(element);
+                        if (point !== undefined) {
+                            handleMoves.push({
+                                elementId: element.id,
+                                fromPosition: point,
+                                toPosition: {
+                                    x: point.x + dx,
+                                    y: point.y + dy
+                                }
+                            });
+                        }
+                    }
+                });
+            this.lastDragPosition = { x: event.pageX, y: event.pageY };
+            if (handleMoves.length > 0)
+                result.push(new MoveAction(handleMoves, false));
+        }
+        return result;
+    }
+
+    protected getHandlePosition(handle: SRoutingHandle): Point | undefined {
+        if (this.edgeRouterRegistry) {
+            const parent = handle.parent;
+            if (!isRoutable(parent))
+                return undefined;
+            const router = this.edgeRouterRegistry.get(parent.routerKind);
+            const route = router.route(parent);
+            return router.getHandlePosition(parent, route, handle);
+        }
+        return undefined;
+    }
+
+    mouseEnter(target: SModelElement, event: MouseEvent): Action[] {
+        if (target instanceof SModelRoot && event.buttons === 0)
+            this.mouseUp(target, event);
+        return [];
+    }
+
+    mouseUp(target: SModelElement, event: MouseEvent): Action[] {
+        this.hasDragged = false;
+        this.lastDragPosition = undefined;
+        return [];
+    }
+
+    decorate(vnode: VNode, element: SModelElement): VNode {
+        return vnode;
+    }
+}
+
 /**
  * UTILITY FUNCTIONS
  */
@@ -228,7 +302,7 @@ function drawFeedbackEdgeSource(context: CommandExecutionContext, targetId: stri
     const feedbackEdge = context.modelFactory.createElement(feedbackEdgeSchema);
     if (isRoutable(feedbackEdge)) {
         edgeEnd.feedbackEdge = feedbackEdge;
-        context.root.add(edgeEnd);
+        root.add(edgeEnd);
         root.add(feedbackEdge);
     }
 }

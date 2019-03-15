@@ -15,6 +15,7 @@
  ********************************************************************************/
 import { Action } from "sprotty/lib";
 import { CommandExecutionContext } from "sprotty/lib";
+import { CommandResult } from "sprotty/lib";
 import { ElementMove } from "sprotty/lib";
 import { FeedbackCommand } from "./model";
 import { MouseListener } from "sprotty/lib";
@@ -48,13 +49,13 @@ export class HideChangeBoundsToolResizeFeedbackAction implements Action {
 
 @injectable()
 export class ShowChangeBoundsToolResizeFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.changeboundstools.resize.feedback.show';
+    static readonly KIND = 'showChangeBoundsToolResizeFeedback';
 
     constructor(@inject(TYPES.Action) protected action: ShowChangeBoundsToolResizeFeedbackAction) {
         super();
     }
 
-    execute(context: CommandExecutionContext): SModelRoot {
+    execute(context: CommandExecutionContext): CommandResult {
         const index = context.root.index;
         index.all().filter(isResizeable).forEach(removeResizeHandles);
 
@@ -64,26 +65,24 @@ export class ShowChangeBoundsToolResizeFeedbackCommand extends FeedbackCommand {
                 addResizeHandles(resizeElement);
             }
         }
-
         return context.root;
     }
 }
 
 @injectable()
 export class HideChangeBoundsToolResizeFeedbackCommand extends FeedbackCommand {
-    static readonly KIND = 'glsp.changeboundstools.resize.feedback.hide';
+    static readonly KIND = 'hideChangeBoundsToolResizeFeedback';
 
     constructor(@inject(TYPES.Action) protected action: HideChangeBoundsToolResizeFeedbackAction) {
         super();
     }
 
-    execute(context: CommandExecutionContext): SModelRoot {
+    execute(context: CommandExecutionContext): CommandResult {
         const index = context.root.index;
         index.all().filter(isResizeable).forEach(removeResizeHandles);
         return context.root;
     }
 }
-
 
 /**
  * This mouse listener provides visual feedback for moving by sending client-side

@@ -49,6 +49,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         registry.register(SaveModelAction.KIND, this);
         registry.register(OperationKind.CREATE_CONNECTION, this);
         registry.register(OperationKind.RECONNECT_CONNECTION, this);
+        registry.register(OperationKind.REROUTE_CONNECTION, this);
         registry.register(OperationKind.CREATE_NODE, this);
         registry.register(OperationKind.CHANGE_BOUNDS, this);
         registry.register(OperationKind.DELETE_ELEMENT, this);
@@ -72,7 +73,6 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         // actions.
         registry.register(SwitchEditModeCommand.KIND, { handle: action => undefined });
     }
-
 
     public getSourceURI(): string {
         return this.sourceUri;

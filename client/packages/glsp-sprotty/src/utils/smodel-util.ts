@@ -13,11 +13,12 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { BoundsAware } from "sprotty/lib";
+import { NodeEditConfig } from "../base/edit-config/edit-config";
 import { Selectable } from "sprotty/lib";
 import { SModelElement } from "sprotty/lib";
+import { SParentElement } from "sprotty/lib";
 
-import { isBoundsAware } from "sprotty/lib";
+import { isConfigurableNode } from "../base/edit-config/edit-config";
 import { isSelectable } from "sprotty/lib";
 
 export function getIndex(element: SModelElement) {
@@ -46,10 +47,6 @@ export function isSelected(element: SModelElement): element is SModelElement & S
     return isSelectable(element) && element.selected;
 }
 
-export function isSelectedBoundsAware(element: SModelElement): element is SModelElement & BoundsAware & Selectable {
-    return isBoundsAware(element) && isSelected(element);
-}
-
 export function isNotUndefined<T>(element: T | undefined): element is T {
     return element !== undefined;
 }
@@ -75,4 +72,9 @@ export function removeCssClasses(root: SModelElement, cssClasses: string[]) {
             root.cssClasses.splice(root.cssClasses.indexOf(cssClass), 1);
         }
     }
+}
+
+export function isContainmentAllowed(element: SModelElement, containableElementTypeId: string)
+    : element is SParentElement & NodeEditConfig {
+    return isConfigurableNode(element) && element.isContainableElement(containableElementTypeId);
 }
