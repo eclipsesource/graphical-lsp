@@ -6,10 +6,10 @@
 {
     "tslint.enable": true,
     "tslint.configFile": "configs/tslint.json",
-    "editor.codeActionsOnSave": {
-        "source.organizeImports": true,
-        "source.fixAll.tslint": true
-    },
+    "tslint.autoFixOnSave": true,
+    "typescriptHero.imports.organizeOnSave": true,
+    "typescriptHero.imports.disableImportsSorting": true,
+    "typescriptHero.imports.stringQuoteStyle": "\"",
     "import-splitnsort.on-save": true,
     "editor.formatOnSave": true,
     "search.exclude": {
