@@ -22,10 +22,10 @@
     "@theia/cli": "next"
   },
   "scripts": {
-    "prepare": "theia build",    
+    "prepare": "theia build --mode development",
     "start": "theia start --WORKFLOW_LSP=5007 --root-dir=../workspace",
-    "start:debug": "yarn start --log-level=debug",
-  	"watch": "theia build --watch"
+    "start:debug": "theia start --WORKFLOW_LSP=5007 --root-dir=../workspace --loglevel=debug",
+    "watch": "theia build --watch --mode development"
   },
   "theia": {
     "target": "browser"
