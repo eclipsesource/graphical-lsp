@@ -4,10 +4,13 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Workflow Example: Watch browser-app",
+            "label": "Build all packages",
             "type": "shell",
-            "group": "build",
-            "command": "cd examples/workflow/browser-app && yarn watch",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "command": "yarn",
             "presentation": {
                 "reveal": "always",
                 "panel": "new"
@@ -15,20 +18,20 @@
             "problemMatcher": []
         },
         {
-            "label": "GLSP: Watch all packages",
+            "label": "Start Browser Backend for Workflow Example",
+            "type": "shell",
+            "command": "cd examples/workflow/browser-app && yarn start:debug",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Watch all packages",
             "type": "shell",
             "group": "build",
             "command": "yarn watch",
-            "presentation": {
-                "reveal": "always",
-                "panel": "new"
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "Workflow Example: Start in Browser",
-            "type": "shell",
-            "command": "cd examples/workflow/browser-app && yarn start:debug",
             "presentation": {
                 "reveal": "always",
                 "panel": "new"
