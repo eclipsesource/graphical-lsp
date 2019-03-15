@@ -39,6 +39,7 @@ import { inject } from 'inversify';
 import { injectable } from 'inversify';
 import { multiInject } from 'inversify';
 
+
 export const GLSPClientContribution = Symbol.for('GLSPClientContribution');
 
 export interface GLSPClientContribution extends LanguageContribution {
@@ -183,7 +184,6 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
 
 
     protected createOptions(): GLSPClientOptions {
-        const { id } = this;
         return {
             initializationFailedHandler: err => this.handleInitializationFailed(err),
 
