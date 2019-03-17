@@ -56,8 +56,6 @@ export class SetMarkersCommand extends Command {
 
     static readonly KIND = 'setMarkers';
 
-    markers: Marker[];
-
     constructor(@inject(TYPES.Action) public action: SetMarkersAction) {
         super();
     }
@@ -67,8 +65,8 @@ export class SetMarkersCommand extends Command {
      * @param context Context of the command execution
      */
     execute(context: CommandExecutionContext): CommandResult {
-        this.markers = this.action.markers;
-        for (let marker of this.markers) {
+        const markers: Marker[] = this.action.markers;
+        for (const marker of markers) {
             const modelElement: SModelElement | undefined = context.root.index.getById(marker.elementId);
             if (modelElement instanceof SParentElement) {
                 const issueMarker: SIssueMarker = this.getOrCreateSIssueMarker(modelElement);
@@ -121,11 +119,11 @@ export class SetMarkersCommand extends Command {
     }
 
     undo(context: CommandExecutionContext): CommandResult {
-        this.markers = this.action.markers;
-        for (let marker of this.markers) {
+        const markers: Marker[] = this.action.markers;
+        for (const marker of markers) {
             const modelElement: SModelElement | undefined = context.root.index.getById(marker.elementId);
             if (modelElement instanceof SParentElement) {
-                for (let child of modelElement.children) {
+                for (const child of modelElement.children) {
                     if (child instanceof SIssueMarker) {
                         for (let index = 0; index < child.issues.length; ++index) {
                             const issue = child.issues[index];
@@ -145,10 +143,6 @@ export class SetMarkersCommand extends Command {
 
     redo(context: CommandExecutionContext): CommandResult {
         return this.execute(context);
-    }
-
-    getMarkers(): Marker[] {
-        return this.markers;
     }
 
 }
