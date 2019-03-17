@@ -51,9 +51,6 @@ public class RequestMarkersHandler implements ActionHandler {
 			markers.addAll(validator.validate(modelState, modelElement));
 		}
 
-		// TODO get element ID of root element on client side and send it (see
-		// glsp-palette-contribution.ts)
-		// TODO wrap into setmarkersaction and return that action
 		SetMarkersAction setMarkersAction = new SetMarkersAction(markers.toArray(new Marker[markers.size()]));
 		return Optional.of(setMarkersAction);
 	}
