@@ -144,5 +144,4 @@ export class SetMarkersCommand extends Command {
     redo(context: CommandExecutionContext): CommandResult {
         return this.execute(context);
     }
-
 }
