@@ -70,7 +70,7 @@ export class SetMarkersCommand extends Command {
             const modelElement: SModelElement | undefined = context.root.index.getById(marker.elementId);
             if (modelElement instanceof SParentElement) {
                 const issueMarker: SIssueMarker = this.getOrCreateSIssueMarker(modelElement);
-                const issue: SIssue = this.createSIssue(marker);
+                const issue: SIssue = createSIssue(marker);
                 issueMarker.issues.push(issue);
             }
         }
@@ -94,28 +94,6 @@ export class SetMarkersCommand extends Command {
         }
 
         return issueMarker;
-    }
-
-    private createSIssue(marker: Marker): SIssue {
-        const issue: SIssue = new SIssue();
-        issue.message = marker.description;
-
-        switch (marker.kind) {
-            case MarkerKind.ERROR: {
-                issue.severity = 'error';
-                break;
-            }
-            case MarkerKind.INFO: {
-                issue.severity = 'info';
-                break;
-            }
-            case MarkerKind.WARNING: {
-                issue.severity = 'warning';
-                break;
-            }
-        }
-
-        return issue;
     }
 
     undo(context: CommandExecutionContext): CommandResult {
@@ -144,4 +122,26 @@ export class SetMarkersCommand extends Command {
     redo(context: CommandExecutionContext): CommandResult {
         return this.execute(context);
     }
+}
+
+function createSIssue(marker: Marker): SIssue {
+    const issue: SIssue = new SIssue();
+    issue.message = marker.description;
+
+    switch (marker.kind) {
+        case MarkerKind.ERROR: {
+            issue.severity = 'error';
+            break;
+        }
+        case MarkerKind.INFO: {
+            issue.severity = 'info';
+            break;
+        }
+        case MarkerKind.WARNING: {
+            issue.severity = 'warning';
+            break;
+        }
+    }
+
+    return issue;
 }
