@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Start Browser Backend",
-            "program": "${workspaceRoot}/examples/browser-app/src-gen/backend/main.js",
+            "program": "${workspaceRoot}/examples/workflow/browser-app/src-gen/backend/main.js",
             "args": [
                 "--loglevel=debug",
                 "--port=3000",
@@ -29,41 +29,12 @@
             "outputCapture": "std"
         },
         {
-            "type": "node",
-            "request": "launch",
-            "name": "Start Electron Backend",
-            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
-            "windows": {
-                "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
-            },
-            "program": "${workspaceRoot}/electron-app/src-gen/frontend/electron-main.js",
-            "protocol": "inspector",
-            "args": [
-                "--loglevel=debug",
-                "--hostname=localhost",
-                "--no-cluster"
-            ],
-            "env": {
-                "NODE_ENV": "development"
-            },
-            "sourceMaps": true,
-            "outFiles": [
-                "${workspaceRoot}/electron-app/src-gen/frontend/electron-main.js",
-                "${workspaceRoot}/electron-app/src-gen/backend/main.js",
-                "${workspaceRoot}/electron-app/lib/**/*.js",
-                "${workspaceRoot}/node_modules/@theia/*/lib/**/*.js"
-            ],
-            "smartStep": true,
-            "internalConsoleOptions": "openOnSessionStart",
-            "outputCapture": "std"
-        },
-        {
             "name": "Launch Browser Frontend",
             "type": "chrome",
             "request": "launch",
             "url": "http://localhost:3000/",
             "sourceMaps": true,
-            "webRoot": "${workspaceRoot}/examples/browser-app"
+            "webRoot": "${workspaceRoot}/examples/workflow/browser-app"
         }
     ]
 }

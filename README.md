@@ -63,13 +63,32 @@ The example workspace should be opend automatically on Theia launch. This worksp
 ## Contributing to the Graphical LSP project
 We'd be thrilled to receive your contribution! Please feel free to open issues, fork this repo, and/or open pull requests. Note that we will ask you to sign a [CLA](https://cla-assistant.io/eclipsesource/graphical-lsp) to ensure all contributions can be distributed under the terms of the following open-source licenses: Apache License 2.0, BSD 2/3 License, MIT License, and Eclipse Public License v2.0.
 
-## Tips & Tricks
-### Typescript MonoRepo Import Fixer
-This repository is a lerna mono repository which means that VS Code might have some troubles to correctly auto-generate import statements. It's recommended to install the "Typescript MonoRepo Import Fixer" extension.
+## Development
 
-	Launch VS Code
-	Open the "Quick Open" Window (ctrl + p)
-	
-Paste the following commmand and press enter
+### Building in VSCode
 
-	ext install q.typescript-mono-repo-import-helper
+The build task *Build all packages* of the VSCode workspace in `client` performs `yarn`. This build task is also marked as the default build task of this workspace. Thus, to perform a full build in VSCode, you can simply click the menu *Terminal --> Run Build Task...*, or press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> (unless you have changed the keybinding for invoking a build in VSCode), or use the command palette task *Tasks: Run Build Task*.
+
+### Watching
+
+To avoid having to perform a full build after each change, you can use the following workflow *in VSCode* to enable watching and automatic rebuilding.
+
+As a prerequisite, perform a full build once (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> or `cd client; yarn`; see above). Now perform the following steps to watch and automatically build on every file change in any package.
+
+1. Start the browser backend: start the launch configuration *Start Browser Backend* by invoking *Debug: Start Debugging*, or by switching to *Debug* perspective and select *Start Browser Backend*, or via the command palette *Tasks: Run Task --> Start Browser Backend for Workflow Example*.
+2. Start watching all packages: run the task *Watch all packages* via the command palette *Tasks: Run Task --> Watch all packages* or via the menu *Terminal --> Run Task... --> Watch all packages*.
+
+Alternatively, you can use the *command line* workflow detailed below.
+
+1. Start the browser backend:
+   
+   ```
+   cd client/examples/workflow/browser-app
+   yarn start:debug
+   ```
+2. In a new terminal, invoke the following command to watch all packages:
+   
+   ```
+   cd client
+   yarn watch
+   ```
