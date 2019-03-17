@@ -19,7 +19,7 @@ package com.eclipsesource.glsp.api.markers;
  * Defines kinds of model markers
  *
  */
-public class MarkerKind {
+public final class MarkerKind {
 
 	/**
 	 * Declares markers providing some information about a model element
