@@ -28,6 +28,7 @@ import { OpenAction } from "glsp-sprotty/lib";
 import { OperationKind } from "glsp-sprotty/lib";
 import { RequestBoundsCommand } from "glsp-sprotty/lib";
 import { RequestCommandPaletteActions } from "glsp-sprotty/lib";
+import { RequestMarkersAction } from "glsp-sprotty/lib";
 import { RequestModelAction } from "glsp-sprotty/lib";
 import { RequestOperationsAction } from "glsp-sprotty/lib";
 import { RequestPopupModelAction } from "glsp-sprotty/lib";
@@ -67,6 +68,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         registry.register(ExportSvgAction.KIND, this);
         registry.register(RequestCommandPaletteActions.KIND, this);
         registry.register(IdentifiableRequestAction.KIND, this);
+        registry.register(RequestMarkersAction.KIND, this);
 
         // Register an empty handler for SwitchEditMode, to avoid runtime exceptions.
         // We don't want to support SwitchEditMode, but sprotty still sends some corresponding

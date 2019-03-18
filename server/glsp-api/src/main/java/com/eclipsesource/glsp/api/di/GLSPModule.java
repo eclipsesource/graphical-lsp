@@ -23,6 +23,7 @@ import com.eclipsesource.glsp.api.handler.ActionHandler;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
+import com.eclipsesource.glsp.api.markers.ModelValidator;
 import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
 import com.eclipsesource.glsp.api.model.ModelExpansionListener;
 import com.eclipsesource.glsp.api.model.ModelSelectionListener;
@@ -58,6 +59,7 @@ public abstract class GLSPModule extends AbstractModule {
 		bind(ServerCommandHandlerProvider.class).to(bindServerCommandHandlerProvider());
 		bind(ModelTypeConfigurationProvider.class).to(bindModelTypesConfigurationProvider());
 		bind(CommandPaletteActionProvider.class).to(bindCommandPaletteActionProvider());
+		bind(ModelValidator.class).to(bindModelValidator());
 		configureMultibindings();
 	}
 
@@ -138,5 +140,9 @@ public abstract class GLSPModule extends AbstractModule {
 
 	protected Class<? extends ServerCommandHandlerProvider> bindServerCommandHandlerProvider() {
 		return ServerCommandHandlerProvider.NullImpl.class;
+	}
+	
+	protected Class<? extends ModelValidator> bindModelValidator() {
+		return ModelValidator.NullImpl.class;
 	}
 }
