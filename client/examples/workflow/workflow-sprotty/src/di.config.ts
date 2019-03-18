@@ -53,6 +53,7 @@ import { boundsModule } from "glsp-sprotty/lib";
 import { buttonModule } from "glsp-sprotty/lib";
 import { commandPaletteModule } from "glsp-sprotty/lib";
 import { configureModelElement } from "glsp-sprotty/lib";
+import { decorationModule } from "glsp-sprotty/lib";
 import { defaultGLSPModule } from "glsp-sprotty/lib";
 import { defaultModule } from "glsp-sprotty/lib";
 import { edgeLayoutModule } from "glsp-sprotty/lib";
@@ -70,6 +71,7 @@ import { routingModule } from "glsp-sprotty/lib";
 import { saveModule } from "glsp-sprotty/lib";
 import { selectModule } from "glsp-sprotty/lib";
 import { toolFeedbackModule } from "glsp-sprotty/lib";
+import { validationModule } from "glsp-sprotty/lib";
 import { viewportModule } from "glsp-sprotty/lib";
 
 import executeCommandModule from "glsp-sprotty/lib/features/execute/di.config";
@@ -103,7 +105,7 @@ const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind
 export default function createContainer(widgetId: string): Container {
     const container = new Container();
 
-    container.load(defaultModule, defaultGLSPModule, selectModule, boundsModule, viewportModule,
+    container.load(decorationModule, validationModule, defaultModule, defaultGLSPModule, selectModule, boundsModule, viewportModule,
         hoverModule, fadeModule, exportModule, expandModule, openModule, buttonModule, modelSourceModule,
         workflowDiagramModule, saveModule, executeCommandModule, toolFeedbackModule, modelHintsModule,
         commandPaletteModule, paletteModule, requestResponseModule, routingModule, edgeLayoutModule);

@@ -22,6 +22,7 @@ import { ICommand } from "sprotty/lib";
 import { ILogger } from "sprotty/lib";
 import { MouseDeleteTool } from "../tools/delete-tool";
 import { Operation } from "../operation/set-operations";
+import { RequestMarkersAction } from "../validation/validate";
 import { SelfInitializingActionHandler } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
 import { SetOperationsAction } from "../operation/set-operations";
 import { ShowDiagramUIExtensionAction } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
@@ -33,6 +34,8 @@ import { inject } from "inversify";
 import { injectable } from "inversify";
 import { isSetOperationsAction } from "../operation/set-operations";
 import { parentGroup } from "../operation/set-operations";
+
+
 
 const CLICKED_CSS_CLASS = "clicked";
 @injectable()
@@ -114,6 +117,14 @@ export class ToolPalette extends BaseDiagramUIExtension {
         const deleteToolButton = createIcon(["fas", "fa-eraser", "fa-xs"]);
         deleteToolButton.onclick = this.onClickToolButton(deleteToolButton, MouseDeleteTool.ID);
         headerTools.appendChild(deleteToolButton);
+
+        // Create button for ValidationTool
+        const validateActionButton = createIcon(["fas", "fa-check-square", "fa-xs"]);
+        validateActionButton.onclick = (ev: MouseEvent) => {
+            const modelIds: string[] = ["sprotty"];
+            this.executeAction(new RequestMarkersAction(modelIds));
+        };
+        headerTools.appendChild(validateActionButton);
 
         headerCompartment.appendChild(headerTools);
         this.containerElement.appendChild(headerCompartment);
