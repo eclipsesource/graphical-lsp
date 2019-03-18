@@ -29,7 +29,7 @@ and lerna
 
 It's recommended to clone the repository recursively. Otherwise submodules have to be cloned and initialized separatly
 
-    git clone --recursive git@github.com:eclipsesource/graphical-lsp.git
+    git clone git@github.com:eclipsesource/graphical-lsp.git
     cd graphical-lsp
     
     
