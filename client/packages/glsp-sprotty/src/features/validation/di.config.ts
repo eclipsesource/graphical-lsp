@@ -13,13 +13,15 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import { ApplyMarkersCommand } from "./validate";
 import { ContainerModule } from "inversify";
-import { configureCommand } from "sprotty/lib";
-
 import { SetMarkersCommand } from "./validate";
+
+import { configureCommand } from "sprotty/lib";
 
 const validationModule = new ContainerModule((bind, _unbind, isBound) => {
     configureCommand({ bind, isBound }, SetMarkersCommand);
+    configureCommand({ bind, isBound }, ApplyMarkersCommand);
 });
 
 export default validationModule;

@@ -46,6 +46,12 @@ export interface IFeedbackActionDispatcher {
     * Retrieve all currently registered `actions`
     */
     getRegisteredFeedback(): Action[]
+
+    /**
+     * Retrieve all currently registered `feedbackEmitter` processing `action`
+     * @param action the action for which processing feedback emitter are retrieved
+     */
+    getRegisteredFeedbackEmitters(action: Action): IFeedbackEmitter[]
 }
 
 @injectable()
@@ -80,5 +86,15 @@ export class FeedbackActionDispatcher implements IFeedbackActionDispatcher {
         return result;
     }
 
+    getRegisteredFeedbackEmitters(action: Action) {
+        const result: IFeedbackEmitter[] = [];
+        this.feedbackEmitters.forEach((value, key) => {
+            if (value.find(a => a === action)) {
+                result.push(key);
+            }
+        }
+        );
+        return result;
+    }
 
 }
