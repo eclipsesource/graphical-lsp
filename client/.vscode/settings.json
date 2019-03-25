@@ -4,24 +4,23 @@
 // - Linux: $HOME/.config/Code/User/settings.json
 // - Mac: $HOME/Library/Application Support/Code/User/settings.json
 {
-    "tslint.enable": true,
-    "tslint.configFile": "configs/tslint.json",
-    "tslint.autoFixOnSave": true,
-    "typescriptHero.imports.organizeOnSave": true,
-    "typescriptHero.imports.disableImportsSorting": true,
-    "typescriptHero.imports.stringQuoteStyle": "\"",
-    "import-splitnsort.on-save": true,
-    "editor.formatOnSave": true,
-    "search.exclude": {
-        "**/node_modules": true,
-        "**/lib": true
-    },
-    "editor.insertSpaces": true,
-    "[typescript]": {
-        "editor.tabSize": 4
-    },
-    "[json]": {
-        "editor.tabSize": 2
-    },
-    "typescript.tsdk": "node_modules/typescript/lib"
+  "typescriptHero.imports.organizeOnSave": true,
+  "typescriptHero.imports.disableImportsSorting": false,
+  "typescriptHero.imports.stringQuoteStyle": "\"",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.tslint": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/lib": true
+  },
+  "editor.insertSpaces": true,
+  "[typescript]": {
+    "editor.tabSize": 4
+  },
+  "[json]": {
+    "editor.tabSize": 2
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
