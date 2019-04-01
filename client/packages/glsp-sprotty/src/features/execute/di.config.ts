@@ -14,8 +14,9 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { ContainerModule } from "inversify";
-import { ExecuteCommandMouseListener } from "./execute-command";
 import { TYPES } from "sprotty/lib";
+
+import { ExecuteCommandMouseListener } from "./execute-command";
 
 const executeCommandModule = new ContainerModule(bind => {
     bind(TYPES.MouseListener).to(ExecuteCommandMouseListener);

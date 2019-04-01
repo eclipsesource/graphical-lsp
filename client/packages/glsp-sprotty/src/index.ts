@@ -13,6 +13,16 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import defaultGLSPModule from "./base/di.config";
+import commandPaletteModule from "./features/command-palette/di.config";
+import executeModule from "./features/execute/di.config";
+import modelHintsModule from "./features/hints/di.config";
+import requestResponseModule from "./features/request-response/di.config";
+import saveModule from "./features/save/di.config";
+import toolFeedbackModule from "./features/tool-feedback/di.config";
+import paletteModule from "./features/tool-palette/di.config";
+import validationModule from "./features/validation/di.config";
+
 export * from 'sprotty/lib';
 export * from './base/command-stack';
 export * from './base/diagram-ui-extension/diagram-ui-extension';
@@ -50,12 +60,3 @@ export * from './utils/smodel-util';
 export * from './utils/viewpoint-util';
 export { validationModule, saveModule, executeModule, paletteModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule, commandPaletteModule, requestResponseModule };
 
-import commandPaletteModule from './features/command-palette/di.config';
-import defaultGLSPModule from './base/di.config';
-import executeModule from './features/execute/di.config';
-import modelHintsModule from './features/hints/di.config';
-import paletteModule from './features/tool-palette/di.config';
-import requestResponseModule from './features/request-response/di.config';
-import saveModule from './features/save/di.config';
-import toolFeedbackModule from './features/tool-feedback/di.config';
-import validationModule from './features/validation/di.config';

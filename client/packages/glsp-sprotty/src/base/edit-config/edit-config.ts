@@ -13,12 +13,8 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import { SEdge, SModelElement, SModelElementSchema, SNode, SParentElement } from "sprotty/lib";
 
-import { SEdge } from "sprotty/lib";
-import { SModelElement } from "sprotty/lib";
-import { SModelElementSchema } from "sprotty/lib";
-import { SNode } from "sprotty/lib";
-import { SParentElement } from "sprotty/lib";
 
 export const edgeEditConfig = Symbol.for("edgeEditConfiguration");
 export const nodeEditConfig = Symbol.for("nodeEditConfiguration");

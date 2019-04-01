@@ -13,9 +13,8 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+
 @import "../../../node_modules/sprotty/css/sprotty.css";
-
-
 .sprotty-resize-handle {
     r: 7px;
     fill: #884;
@@ -32,19 +31,18 @@
     stroke-width: 1;
 }
 
-.node-creation-mode { 
-    cursor: copy; 
-} 
-    
-.edge-modification-not-allowed-mode{ 
-    cursor:  no-drop; 
-} 
-    
-.edge-creation-select-source-mode { 
-    cursor: pointer; 
-} 
-    
-.edge-creation-select-target-mode, 
-.edge-reconnect-select-target-mode { 
-    cursor: crosshair; 
-} 
+.node-creation-mode {
+    cursor: copy;
+}
+
+.edge-modification-not-allowed-mode {
+    cursor: no-drop;
+}
+
+.edge-creation-select-source-mode {
+    cursor: pointer;
+}
+
+.edge-creation-select-target-mode, .edge-reconnect-select-target-mode {
+    cursor: crosshair;
+}

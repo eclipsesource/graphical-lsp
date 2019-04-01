@@ -13,30 +13,25 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action } from "glsp-sprotty/lib";
-import { Container } from "inversify";
-import { DiagramServer } from "glsp-sprotty/lib";
-import { DiagramWidget } from "sprotty-theia/lib";
-import { DiagramWidgetOptions } from "sprotty-theia/lib";
-import { Disposable } from "@theia/core/lib/common";
-import { DisposableCollection } from "@theia/core/lib/common";
+import { Saveable, SaveableSource } from "@theia/core/lib/browser";
+import { Disposable, DisposableCollection, Emitter, Event, MaybePromise } from "@theia/core/lib/common";
 import { EditorPreferences } from "@theia/editor/lib/browser";
-import { Emitter } from "@theia/core/lib/common";
-import { Event } from "@theia/core/lib/common";
-import { GLSPTheiaDiagramServer } from "./glsp-theia-diagram-server";
-import { IActionDispatcher } from "glsp-sprotty/lib";
-import { MaybePromise } from "@theia/core/lib/common";
-import { ModelSource } from "glsp-sprotty/lib";
-import { NotifyingModelSource } from "./glsp-theia-diagram-server";
-import { OperationKind } from "glsp-sprotty/lib";
-import { RequestModelAction } from "glsp-sprotty/lib";
-import { RequestOperationsAction } from "glsp-sprotty/lib";
-import { RequestTypeHintsAction } from "glsp-sprotty/lib";
-import { Saveable } from "@theia/core/lib/browser";
-import { SaveableSource } from "@theia/core/lib/browser";
-import { SaveModelAction } from "glsp-sprotty/lib";
-import { TheiaSprottyConnector } from "sprotty-theia/lib";
-import { TYPES } from "glsp-sprotty/lib";
+import {
+    Action,
+    DiagramServer,
+    IActionDispatcher,
+    ModelSource,
+    OperationKind,
+    RequestModelAction,
+    RequestOperationsAction,
+    RequestTypeHintsAction,
+    SaveModelAction,
+    TYPES
+} from "glsp-sprotty/lib";
+import { Container } from "inversify";
+import { DiagramWidget, DiagramWidgetOptions, TheiaSprottyConnector } from "sprotty-theia/lib";
+
+import { GLSPTheiaDiagramServer, NotifyingModelSource } from "./glsp-theia-diagram-server";
 
 export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     saveable = new SaveableGLSPModelSource(this.actionDispatcher, this.diContainer.get<ModelSource>(TYPES.ModelSource));

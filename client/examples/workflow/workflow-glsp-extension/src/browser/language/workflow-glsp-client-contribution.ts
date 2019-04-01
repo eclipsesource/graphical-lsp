@@ -14,9 +14,9 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { BaseGLSPClientContribution } from "glsp-theia-extension/lib/browser";
-import { WorkflowLanguage } from "../../common/workflow-language";
-
 import { injectable } from "inversify";
+
+import { WorkflowLanguage } from "../../common/workflow-language";
 
 @injectable()
 export class WorkflowGLSPClientContribution extends BaseGLSPClientContribution {

@@ -13,26 +13,26 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action } from "sprotty/lib";
-import { ApplyCursorCSSFeedbackAction } from "../tool-feedback/cursor-feedback";
-import { CursorCSS } from "../tool-feedback/cursor-feedback";
-import { DeleteElementOperationAction } from "../operation/operation-actions";
-import { EnableDefaultToolsAction } from "sprotty/lib";
-import { GLSP_TYPES } from "../../types";
-import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
-import { KeyListener } from "sprotty/lib";
-import { KeyTool } from "sprotty/lib";
-import { MouseListener } from "sprotty/lib";
-import { MouseTool } from "sprotty/lib";
-import { SModelElement } from "sprotty/lib";
-import { SModelRoot } from "sprotty/lib";
-import { Tool } from "sprotty/lib";
-
-import { inject } from "inversify";
-import { injectable } from "inversify";
-import { isCtrlOrCmd } from "sprotty/lib";
-import { isSelectable } from "sprotty/lib";
+import { inject, injectable } from "inversify";
+import {
+    Action,
+    EnableDefaultToolsAction,
+    isCtrlOrCmd,
+    isSelectable,
+    KeyListener,
+    KeyTool,
+    MouseListener,
+    MouseTool,
+    SModelElement,
+    SModelRoot,
+    Tool
+} from "sprotty/lib";
 import { matchesKeystroke } from "sprotty/lib/utils/keyboard";
+
+import { GLSP_TYPES } from "../../types";
+import { DeleteElementOperationAction } from "../operation/operation-actions";
+import { ApplyCursorCSSFeedbackAction, CursorCSS } from "../tool-feedback/cursor-feedback";
+import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
 
 /**
  * Deletes selected elements when hitting the `Del` key.

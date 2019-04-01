@@ -13,16 +13,11 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action } from "sprotty/lib";
-import { CommandExecutionContext } from "sprotty/lib";
-import { FeedbackCommand } from "./model";
-import { SModelRoot } from "sprotty/lib";
-import { TYPES } from "sprotty/lib";
+import { inject, injectable } from "inversify";
+import { Action, CommandExecutionContext, SModelRoot, TYPES } from "sprotty/lib";
 
-import { addCssClasses } from "../../utils/smodel-util";
-import { inject } from "inversify";
-import { injectable } from "inversify";
-import { removeCssClasses } from "../../utils/smodel-util";
+import { addCssClasses, removeCssClasses } from "../../utils/smodel-util";
+import { FeedbackCommand } from "./model";
 
 export enum CursorCSS {
     NODE_CREATION = 'node-creation-mode',

@@ -16,18 +16,16 @@
 import "../../css/glsp-sprotty.css";
 
 import { ContainerModule } from "inversify";
-import { DiagramUIExtensionActionHandlerInitializer } from "./diagram-ui-extension/diagram-ui-extension-registry";
-import { DiagramUIExtensionRegistry } from "./diagram-ui-extension/diagram-ui-extension-registry";
-import { FeedbackAwareUpdateModelCommand } from "./model/update-model-command";
-import { GLSP_TYPES } from "../types";
-import { GLSPCommandStack } from "./command-stack";
-import { IReadonlyModelAccess } from "./command-stack";
-import { Tool } from "sprotty/lib";
-import { ToolManagerActionHandler } from "./tool-manager/tool-manager-action-handler";
-import { TYPES } from "sprotty/lib";
+import { configureCommand, Tool, TYPES } from "sprotty/lib";
 
-import { configureCommand } from "sprotty/lib";
-import { createToolFactory } from "./tool-manager/tool-manager-action-handler";
+import { GLSP_TYPES } from "../types";
+import { GLSPCommandStack, IReadonlyModelAccess } from "./command-stack";
+import {
+    DiagramUIExtensionActionHandlerInitializer,
+    DiagramUIExtensionRegistry
+} from "./diagram-ui-extension/diagram-ui-extension-registry";
+import { FeedbackAwareUpdateModelCommand } from "./model/update-model-command";
+import { createToolFactory, ToolManagerActionHandler } from "./tool-manager/tool-manager-action-handler";
 
 const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     // GLSP Commandstack  initialization ------------------------------------

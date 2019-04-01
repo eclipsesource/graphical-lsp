@@ -11,19 +11,10 @@
  * with the GNU Classpath Exception which is available at
  * https://www.gnu.org/software/classpath/license.html.
  *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action } from "sprotty/lib";
-import { IActionDispatcherProvider } from "sprotty/lib";
-import { ILogger } from "sprotty/lib";
-import { SModelElement } from "sprotty/lib";
-import { TYPES } from "sprotty/lib";
-import { ViewerOptions } from "sprotty/lib";
-
-import { inject } from "inversify";
-import { injectable } from "inversify";
-import { isAction } from "sprotty/lib";
-
+import { inject, injectable } from "inversify";
+import { Action, IActionDispatcherProvider, ILogger, isAction, SModelElement, TYPES, ViewerOptions } from "sprotty/lib";
 
 /**
  * An extension with togglable visbility  that can display additional (UI) information on top of a sprotty diagram

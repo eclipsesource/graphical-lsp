@@ -13,20 +13,12 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import { inject, injectable } from "inversify";
+import { Action, ActionHandlerRegistry, IActionDispatcher, IActionHandlerInitializer, ILogger, TYPES } from "sprotty/lib";
+import { v4 as uuid } from "uuid";
 
-import { Action } from 'sprotty/lib';
-import { ActionHandlerRegistry } from 'sprotty/lib';
-import { IActionDispatcher } from 'sprotty/lib';
-import { IActionHandlerInitializer } from 'sprotty/lib';
-import { IdentifiableRequestAction } from './action-definitions';
-import { IdentifiableResponseAction } from './action-definitions';
-import { ILogger } from 'sprotty/lib';
-import { TYPES } from 'sprotty/lib';
+import { IdentifiableRequestAction, IdentifiableResponseAction, isIdentifiableResponseAction } from "./action-definitions";
 
-import { inject } from 'inversify';
-import { injectable } from 'inversify';
-import { isIdentifiableResponseAction } from './action-definitions';
-import { v4 as uuid } from 'uuid';
 
 @injectable()
 export class RequestResponseSupport implements IActionHandlerInitializer {

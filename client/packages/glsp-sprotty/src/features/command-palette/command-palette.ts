@@ -13,31 +13,32 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-
-import { Action } from "sprotty/lib";
-import { AutocompleteResult } from "autocompleter";
-import { AutocompleteSettings } from "autocompleter";
-import { BaseDiagramUIExtension } from "../../base/diagram-ui-extension/diagram-ui-extension";
-import { GLSP_TYPES } from "../../types";
-import { HideDiagramUIExtensionAction } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
-import { IActionDispatcherProvider } from "sprotty/lib";
-import { ICommandPaletteActionProviderRegistry } from "./action-provider";
-import { ILogger } from "sprotty/lib";
-import { KeyListener } from "sprotty/lib";
-import { LabeledAction } from "../../base/diagram-ui-extension/diagram-ui-extension";
-import { ShowDiagramUIExtensionAction } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
-import { SModelElement } from "sprotty/lib";
-import { TYPES } from "sprotty/lib";
-import { ViewerOptions } from "sprotty/lib";
-
-import { findParentByFeature } from "sprotty/lib";
-import { inject } from "inversify";
-import { injectable } from "inversify";
-import { isBoundsAware } from "sprotty/lib";
-import { isSelectable } from "sprotty/lib";
-import { isViewport } from "sprotty/lib";
-import { matchesKeystroke } from "sprotty/lib/utils/keyboard";
+import { AutocompleteResult, AutocompleteSettings } from "autocompleter";
+import { inject, injectable } from "inversify";
+import {
+    Action,
+    findParentByFeature,
+    IActionDispatcherProvider,
+    ILogger,
+    isBoundsAware,
+    isSelectable,
+    isViewport,
+    KeyListener,
+    SModelElement,
+    TYPES,
+    ViewerOptions
+} from "sprotty/lib";
 import { toArray } from "sprotty/lib/utils/iterable";
+import { matchesKeystroke } from "sprotty/lib/utils/keyboard";
+
+import { BaseDiagramUIExtension, LabeledAction } from "../../base/diagram-ui-extension/diagram-ui-extension";
+import {
+    HideDiagramUIExtensionAction,
+    ShowDiagramUIExtensionAction
+} from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
+import { GLSP_TYPES } from "../../types";
+import { ICommandPaletteActionProviderRegistry } from "./action-provider";
+
 
 
 // import of function autocomplete(...) doesn't work

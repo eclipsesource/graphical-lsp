@@ -13,29 +13,25 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-
-import { ApplyCursorCSSFeedbackActionCommand } from "./cursor-feedback";
 import { ContainerModule } from "inversify";
-import { DrawFeedbackEdgeCommand } from "./creation-tool-feedback";
-import { DrawFeedbackEdgeSourceCommand } from "./edge-edit-tool-feedback";
-import { FeedbackActionDispatcher } from "./feedback-action-dispatcher";
-import { FeedbackEdgeEnd } from "./creation-tool-feedback";
-import { FeedbackEdgeEndView } from "./view";
-import { GLSP_TYPES } from "../../types";
-import { HideChangeBoundsToolResizeFeedbackCommand } from "./change-bounds-tool-feedback";
-import { HideEdgeReconnectHandlesFeedbackCommand } from "./edge-edit-tool-feedback";
-import { LocationDecorator } from "sprotty/lib";
-import { MoveCommand } from "sprotty/lib";
-import { RemoveFeedbackEdgeCommand } from "./creation-tool-feedback";
-import { ShowChangeBoundsToolResizeFeedbackCommand } from "./change-bounds-tool-feedback";
-import { ShowEdgeReconnectHandlesFeedbackCommand } from "./edge-edit-tool-feedback";
-import { SResizeHandle } from "../change-bounds/model";
-import { SResizeHandleView } from "./view";
-import { SwitchRoutingModeCommand } from "./edge-edit-tool-feedback";
-import { TYPES } from "sprotty/lib";
+import { configureCommand, configureView, LocationDecorator, MoveCommand, TYPES } from "sprotty/lib";
 
-import { configureCommand } from "sprotty/lib";
-import { configureView } from "sprotty/lib";
+import { GLSP_TYPES } from "../../types";
+import { SResizeHandle } from "../change-bounds/model";
+import {
+    HideChangeBoundsToolResizeFeedbackCommand,
+    ShowChangeBoundsToolResizeFeedbackCommand
+} from "./change-bounds-tool-feedback";
+import { DrawFeedbackEdgeCommand, FeedbackEdgeEnd, RemoveFeedbackEdgeCommand } from "./creation-tool-feedback";
+import { ApplyCursorCSSFeedbackActionCommand } from "./cursor-feedback";
+import {
+    DrawFeedbackEdgeSourceCommand,
+    HideEdgeReconnectHandlesFeedbackCommand,
+    ShowEdgeReconnectHandlesFeedbackCommand,
+    SwitchRoutingModeCommand
+} from "./edge-edit-tool-feedback";
+import { FeedbackActionDispatcher } from "./feedback-action-dispatcher";
+import { FeedbackEdgeEndView, SResizeHandleView } from "./view";
 
 const toolFeedbackModule = new ContainerModule((bind, _unbind, isBound) => {
     bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();

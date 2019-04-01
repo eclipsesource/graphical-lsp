@@ -13,21 +13,16 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import 'sprotty-theia/css/theia-sprotty.css';
+import "sprotty-theia/css/theia-sprotty.css";
 
-import { Container } from 'inversify';
-import { DiagramConfiguration } from 'sprotty-theia/lib';
-import { GLSPTheiaDiagramServer } from 'glsp-theia-extension/lib/browser';
-import { SelectionService } from '@theia/core';
-import { TheiaDiagramServer } from 'sprotty-theia/lib';
-import { TheiaSprottySelectionForwarder } from 'sprotty-theia/lib';
-import { TYPES } from 'glsp-sprotty/lib';
-import { WorkflowLanguage } from '../../common/workflow-language';
+import { SelectionService } from "@theia/core";
+import { registerDefaultTools, TYPES } from "glsp-sprotty/lib";
+import { GLSPTheiaDiagramServer } from "glsp-theia-extension/lib/browser";
+import { Container, inject, injectable } from "inversify";
+import { DiagramConfiguration, TheiaDiagramServer, TheiaSprottySelectionForwarder } from "sprotty-theia/lib";
+import { createWorkflowDiagramContainer } from "workflow-sprotty/lib";
 
-import { createWorkflowDiagramContainer } from 'workflow-sprotty/lib';
-import { inject } from 'inversify';
-import { injectable } from 'inversify';
-import { registerDefaultTools } from 'glsp-sprotty/lib';
+import { WorkflowLanguage } from "../../common/workflow-language";
 
 @injectable()
 export class WorkflowDiagramConfiguration implements DiagramConfiguration {

@@ -13,32 +13,33 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action } from "sprotty/lib";
-import { AnchorComputerRegistry } from "sprotty/lib";
-import { CommandExecutionContext } from "sprotty/lib";
-import { CommandResult } from "sprotty/lib";
-import { FeedbackCommand } from "./model";
-import { MouseListener } from "sprotty/lib";
-import { MoveAction } from "sprotty/lib";
-import { PolylineEdgeRouter } from "sprotty/lib";
-import { SChildElement } from "sprotty/lib";
-import { SConnectableElement } from "sprotty/lib";
-import { SDanglingAnchor } from "sprotty/lib";
-import { SModelElement } from "sprotty/lib";
-import { SModelRoot } from "sprotty/lib";
-import { SRoutableElement } from "sprotty/lib";
-import { TYPES } from "sprotty/lib";
+import { inject, injectable } from "inversify";
+import {
+    Action,
+    AnchorComputerRegistry,
+    center,
+    CommandExecutionContext,
+    CommandResult,
+    euclideanDistance,
+    findChildrenAtPosition,
+    findParentByFeature,
+    isBoundsAware,
+    isConnectable,
+    MouseListener,
+    MoveAction,
+    PolylineEdgeRouter,
+    SChildElement,
+    SConnectableElement,
+    SDanglingAnchor,
+    SModelElement,
+    SModelRoot,
+    SRoutableElement,
+    TYPES
+} from "sprotty/lib";
 
-import { center } from "sprotty/lib";
-import { euclideanDistance } from "sprotty/lib";
-import { findChildrenAtPosition } from "sprotty/lib";
-import { findParentByFeature } from "sprotty/lib";
 import { getAbsolutePosition } from "../../utils/viewpoint-util";
-import { inject } from "inversify";
-import { injectable } from "inversify";
-import { isBoundsAware } from "sprotty/lib";
-import { isConnectable } from "sprotty/lib";
 import { isRoutable } from "../reconnect/model";
+import { FeedbackCommand } from "./model";
 
 
 export class DrawFeedbackEdgeAction implements Action {

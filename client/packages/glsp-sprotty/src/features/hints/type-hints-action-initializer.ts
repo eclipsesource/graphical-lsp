@@ -13,34 +13,34 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import { inject, injectable } from "inversify";
+import {
+    Action,
+    CommandExecutionContext,
+    CommandResult,
+    ICommand,
+    SModelElement,
+    SModelElementSchema,
+    TYPES
+} from "sprotty/lib";
 
-import { Action } from "sprotty/lib";
-import { CommandExecutionContext } from "sprotty/lib";
-import { CommandResult } from "sprotty/lib";
-import { EdgeEditConfig } from "../../base/edit-config/edit-config";
-import { EdgeTypeHint } from "./action-definition";
-import { EditConfig } from "../../base/edit-config/edit-config";
-import { FeedbackCommand } from "../tool-feedback/model";
-import { GLSP_TYPES } from "../../types";
-import { ICommand } from "sprotty/lib";
-import { IEditConfigProvider } from "../../base/edit-config/edit-config";
-import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
-import { NodeEditConfig } from "../../base/edit-config/edit-config";
-import { NodeTypeHint } from "./action-definition";
 import { SelfInitializingActionHandler } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
-import { SetTypeHintsAction } from "./action-definition";
-import { SModelElement } from "sprotty/lib";
-import { SModelElementSchema } from "sprotty/lib";
-import { TYPES } from "sprotty/lib";
-
+import {
+    EdgeEditConfig,
+    edgeEditConfig,
+    EditConfig,
+    IEditConfigProvider,
+    isEdgeEditConfig,
+    isNodeEditConfig,
+    NodeEditConfig,
+    nodeEditConfig
+} from "../../base/edit-config/edit-config";
+import { GLSP_TYPES } from "../../types";
 import { contains } from "../../utils/array-utils";
-import { edgeEditConfig } from "../../base/edit-config/edit-config";
-import { inject } from "inversify";
-import { injectable } from "inversify";
-import { isEdgeEditConfig } from "../../base/edit-config/edit-config";
-import { isNodeEditConfig } from "../../base/edit-config/edit-config";
-import { isSetTypeHintsAction } from "./action-definition";
-import { nodeEditConfig } from "../../base/edit-config/edit-config";
+import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
+import { FeedbackCommand } from "../tool-feedback/model";
+import { EdgeTypeHint, isSetTypeHintsAction, NodeTypeHint, SetTypeHintsAction } from "./action-definition";
+
 
 @injectable()
 export class ApplyEditConfigAction implements Action {

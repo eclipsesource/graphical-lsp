@@ -13,13 +13,11 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { ApplyEditConfigCommand } from "./type-hints-action-initializer";
 import { ContainerModule } from "inversify";
-import { GLSP_TYPES } from "../../types";
-import { TypeHintsEditConfigProvider } from "./type-hints-action-initializer";
-import { TYPES } from "sprotty/lib";
+import { configureCommand, TYPES } from "sprotty/lib";
 
-import { configureCommand } from "sprotty/lib";
+import { GLSP_TYPES } from "../../types";
+import { ApplyEditConfigCommand, TypeHintsEditConfigProvider } from "./type-hints-action-initializer";
 
 const modelHintsModule = new ContainerModule((bind, _unbind, isBound) => {
     bind(TypeHintsEditConfigProvider).toSelf().inSingletonScope();

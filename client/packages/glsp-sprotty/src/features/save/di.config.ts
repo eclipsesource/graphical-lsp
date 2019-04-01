@@ -15,6 +15,7 @@
  ********************************************************************************/
 import { ContainerModule } from "inversify";
 import { TYPES } from "sprotty/lib/base/types";
+
 import { SaveModelKeyboardListener } from "./save";
 
 const saveModule = new ContainerModule(bind => {

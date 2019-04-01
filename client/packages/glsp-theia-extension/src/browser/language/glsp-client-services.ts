@@ -13,19 +13,17 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Commands } from "@theia/languages/lib/browser";
-import { ConnectionCloseHandler } from "@theia/languages/lib/browser";
-import { ConnectionErrorHandler } from "@theia/languages/lib/browser";
-import { Disposable } from "vscode-jsonrpc";
-import { ErrorHandler } from "@theia/languages/lib/browser";
-import { ExitNotification } from "../../common";
-import { InitializationFailedHandler } from "@theia/languages/lib/browser";
-import { Message } from "vscode-jsonrpc";
-import { MessageConnection } from "vscode-jsonrpc";
-import { NotificationHandler } from "vscode-jsonrpc";
-import { NotificationType } from "vscode-jsonrpc";
-import { OutputChannel } from "@theia/languages/lib/browser";
-import { ShutdownRequest } from "../../common";
+import {
+    Commands,
+    ConnectionCloseHandler,
+    ConnectionErrorHandler,
+    ErrorHandler,
+    InitializationFailedHandler,
+    OutputChannel
+} from "@theia/languages/lib/browser";
+import { Disposable, Message, MessageConnection, NotificationHandler, NotificationType } from "vscode-jsonrpc";
+
+import { ExitNotification, ShutdownRequest } from "../../common";
 
 
 export const GLSPClient = Symbol.for('GLSPClient');

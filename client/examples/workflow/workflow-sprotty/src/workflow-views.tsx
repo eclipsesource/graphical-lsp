@@ -13,10 +13,21 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { angleOfPoint, IView, Point, PolylineEdgeView, RectangularNodeView, RenderingContext, SEdge, SShapeElement, toDegrees } from "glsp-sprotty/lib";
+import {
+    angleOfPoint,
+    IView,
+    Point,
+    PolylineEdgeView,
+    RectangularNodeView,
+    RenderingContext,
+    SEdge,
+    SShapeElement,
+    toDegrees
+} from "glsp-sprotty/lib";
 import { injectable } from "inversify";
 import * as snabbdom from "snabbdom-jsx";
 import { VNode } from "snabbdom/vnode";
+
 import { Icon, TaskNode, WeightedEdge } from "./model";
 
 const JSX = { createElement: snabbdom.svg };

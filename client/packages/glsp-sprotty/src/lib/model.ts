@@ -13,10 +13,9 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Saveable } from "../features/save/model";
 import { SGraph } from "sprotty/lib";
 
-import { saveFeature } from "../features/save/model";
+import { Saveable, saveFeature } from "../features/save/model";
 
 export class GLSPGraph extends SGraph implements Saveable {
     dirty: boolean;
