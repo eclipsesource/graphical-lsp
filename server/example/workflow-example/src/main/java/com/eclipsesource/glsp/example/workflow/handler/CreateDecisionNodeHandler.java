@@ -31,6 +31,9 @@ import com.eclipsesource.glsp.server.operationhandler.CreateNodeOperationHandler
 
 public class CreateDecisionNodeHandler extends CreateNodeOperationHandler {
 
+	public CreateDecisionNodeHandler() {
+		super(true);
+	}
 	@Override
 	public boolean handles(Action execAction) {
 		if (execAction instanceof CreateNodeOperationAction) {
@@ -41,14 +44,14 @@ public class CreateDecisionNodeHandler extends CreateNodeOperationHandler {
 	}
 
 	@Override
-	protected SModelElement createNode(Optional<Point> point,IModelState modelState) {
+	protected SModelElement createNode(Optional<Point> point,SModelElement container,IModelState modelState) {
     	ActivityNode result = new ActivityNode();
     	result.setNodeType("decisionNode");
     	result.setType(ModelTypes.DECISION_NODE);
     	point.ifPresent(result::setPosition);
     	
     	Function<Integer, String> idProvider = i -> "activityNode"+ i;
-    	int i = getCounter(modelState.getCurrentModelIndex(), result.getType(), idProvider);
+    	int i = getCounter(modelState.getIndex(), result.getType(), idProvider);
     	result.setId(idProvider.apply(i));
     	
     	return result;

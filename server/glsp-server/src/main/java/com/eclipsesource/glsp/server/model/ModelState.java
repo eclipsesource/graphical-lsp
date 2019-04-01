@@ -90,7 +90,7 @@ public class ModelState implements IModelState {
 	}
 
 	@Override
-	public SModelIndex getCurrentModelIndex() {
+	public SModelIndex getIndex() {
 		return currentModelIndex;
 	}
 

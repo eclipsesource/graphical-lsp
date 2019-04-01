@@ -61,7 +61,7 @@ public class ReconnectEdgeHandler implements IOperationHandler {
 	
 	protected boolean reconnect(ReconnectConnectionOperationAction action, IModelState modelState) {
 		// check for existence of matching elements
-		SModelIndex index = modelState.getCurrentModelIndex();
+		SModelIndex index = modelState.getIndex();
 		Optional<SEdge> edge = index.findElement(action.getConnectionElementId(), SEdge.class);
 		Optional<SNode> source = index.findElement(action.getSourceElementId(), SNode.class);
 		Optional<SNode> target = index.findElement(action.getTargetElementId(), SNode.class);

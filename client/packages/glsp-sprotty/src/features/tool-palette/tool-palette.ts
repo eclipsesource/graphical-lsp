@@ -35,6 +35,12 @@ import { deriveToolId } from "../tools/creation-tool";
 import { MouseDeleteTool } from "../tools/delete-tool";
 import { RequestMarkersAction } from "../validation/validate";
 
+import { deriveToolId } from "../tools/creation-tool";
+import { inject } from "inversify";
+import { injectable } from "inversify";
+import { isSetOperationsAction } from "../operation/set-operations";
+import { parentGroup } from "../operation/set-operations";
+
 const CLICKED_CSS_CLASS = "clicked";
 @injectable()
 export class ToolPalette extends BaseDiagramUIExtension {

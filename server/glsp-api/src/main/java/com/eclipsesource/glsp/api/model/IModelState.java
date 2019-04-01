@@ -44,6 +44,6 @@ public interface IModelState {
 
 	void setOptions(ParsedModelOptions options);
 
-	SModelIndex getCurrentModelIndex();
+	SModelIndex getIndex();
 
 }

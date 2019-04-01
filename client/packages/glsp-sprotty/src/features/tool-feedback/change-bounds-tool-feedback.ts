@@ -36,6 +36,7 @@ import { isNotUndefined } from "../../utils/smodel-util";
 import { addResizeHandles, isResizeable, removeResizeHandles } from "../change-bounds/model";
 import { FeedbackCommand } from "./model";
 
+
 export class ShowChangeBoundsToolResizeFeedbackAction implements Action {
     kind = ShowChangeBoundsToolResizeFeedbackCommand.KIND;
     constructor(readonly elementId?: string) { }
@@ -121,7 +122,7 @@ export class FeedbackMoveMouseListener extends MouseListener {
             target.root.index.all()
                 .filter(element => isSelectable(element) && element.selected)
                 .forEach(element => {
-                    if (isMoveable(element)) {
+                    if (isMoveable(element) && this.inParentBounds(element)) {
                         nodeMoves.push({
                             elementId: element.id,
                             fromPosition: {
@@ -142,6 +143,22 @@ export class FeedbackMoveMouseListener extends MouseListener {
         return result;
     }
 
+    protected inParentBounds(element: SModelElement): boolean {
+        if (element instanceof SChildElement) {
+            if (element.parent instanceof SModelRoot) {
+                return true;
+            } else if (isBoundsAware(element) && isBoundsAware(element.parent)) {
+                const childBounds = element.bounds;
+                const parentBounds = element.parent.bounds;
+                return childBounds.x >= parentBounds.x &&
+                    childBounds.x + childBounds.width <= parentBounds.x + parentBounds.width &&
+                    childBounds.y >= parentBounds.y &&
+                    childBounds.y + childBounds.height <= parentBounds.y + parentBounds.height;
+            }
+        }
+
+        return false;
+    }
     mouseEnter(target: SModelElement, event: MouseEvent): Action[] {
         if (target instanceof SModelRoot && event.buttons === 0)
             this.mouseUp(target, event);

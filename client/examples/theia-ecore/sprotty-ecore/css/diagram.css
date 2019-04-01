@@ -29,11 +29,11 @@
     font-weight: bold;
 }
 
-.ecore-node.selected {
+.sprotty-node.selected {
     stroke-width: 5;
 }
 
-.ecore-node.mouseover:not(.selected) {
+.sprotty-node.mouseover:not(.selected) {
     stroke-width: 3;
 }
 

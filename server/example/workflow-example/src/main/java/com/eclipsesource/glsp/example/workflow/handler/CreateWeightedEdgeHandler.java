@@ -52,54 +52,30 @@ public class CreateWeightedEdgeHandler implements IOperationHandler {
 			return Optional.empty();
 		}
 
-		SModelIndex index = modelState.getCurrentModelIndex();
+		SModelIndex index = modelState.getIndex();
 
-		SModelElement source = index.get(action.getSourceElementId());
-		SModelElement target = index.get(action.getTargetElementId());
+		Optional<SNode> source = index.findElement(action.getSourceElementId(),SNode.class);
+		Optional<SNode> target = index.findElement(action.getTargetElementId(),SNode.class);
 
-		if (source == null || target == null) {
+		if (!source.isPresent() || target.isPresent()) {
 			log.warn("NULL source or target for source ID " + action.getSourceElementId() + " and target ID "
 					+ action.getTargetElementId());
 			return Optional.empty();
 		}
 
-		if (false == source instanceof SNode) {
-			source = findNode(source, index);
-		}
-		if (false == target instanceof SNode) {
-			target = findNode(target, index);
-		}
-
-		SModelRoot currentModel = modelState.getCurrentModel();
-		if (source == currentModel || target == currentModel) {
-			log.warn("Can't create a link to the root node");
-			return Optional.empty();
-		}
 
 		WeightedEdge edge = new WeightedEdge();
-		edge.setSourceId(source.getId());
-		edge.setTargetId(target.getId());
+		edge.setSourceId(source.get().getId());
+		edge.setTargetId(target.get().getId());
 		edge.setType(WEIGHTED_EDGE);
 		int newID = index.getTypeCount(WEIGHTED_EDGE);
 		edge.setId(WEIGHTED_EDGE + newID);
 		edge.setProbability("high");
-
+		SModelRoot currentModel= modelState.getCurrentModel();
 		currentModel.getChildren().add(edge);
 		index.addToIndex(edge, currentModel);
 
 		return Optional.of(currentModel);
-	}
-
-	private SModelElement findNode(SModelElement element, com.eclipsesource.glsp.api.utils.SModelIndex index) {
-		if (element instanceof SNode) {
-			return element;
-		}
-
-		SModelElement parent = index.getParent(element);
-		if (parent == null) {
-			return element;
-		}
-		return findNode(parent, index);
 	}
 
 }

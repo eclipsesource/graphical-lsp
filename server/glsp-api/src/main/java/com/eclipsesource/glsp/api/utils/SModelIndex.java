@@ -17,6 +17,7 @@ package com.eclipsesource.glsp.api.utils;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -102,19 +103,19 @@ public class SModelIndex {
 
 	private void indexSourceAndTarget(SEdge edge) {
 		String sourceId = edge.getSourceId();
-		SModelElement source = get(sourceId);
+		SModelElement source = get(sourceId).orElse(null);
 		outgoingEdges.computeIfAbsent(source, s -> new HashSet<>()).add(edge);
 
 		String targetId = edge.getTargetId();
-		SModelElement target = get(targetId);
+		SModelElement target = get(targetId).orElse(null);
 		incomingEdges.computeIfAbsent(target, t -> new HashSet<>()).add(edge);
 	}
 
-	public SModelElement getParent(SModelElement element) {
+	public Optional<SModelElement> getParent(SModelElement element) {
 		if (!childToParent.containsKey(element)) {
 			childToParent.put(element, findParent(element));
 		}
-		return childToParent.get(element);
+		return Optional.ofNullable(childToParent.get(element));
 	}
 
 	/**
@@ -126,7 +127,11 @@ public class SModelIndex {
 	 * @return an optional with the element of type clazz or an empty optional
 	 */
 	public <T extends SModelElement> Optional<T> findElement(String elementId, Class<T> clazz) {
-		return findElement(get(elementId), clazz);
+		Optional<SModelElement> element= get(elementId);
+		if (element.isPresent()){
+			return findElement(element.get(), clazz);
+		}
+		return Optional.empty();
 	}
 
 	/**
@@ -144,8 +149,8 @@ public class SModelIndex {
 		if (clazz.isInstance(element)) {
 			return Optional.of(clazz.cast(element));
 		}
-		SModelElement parent = getParent(element);
-		return parent != null ? findElement(parent, clazz) : Optional.empty();
+		Optional<SModelElement> parent = getParent(element);
+		return parent.isPresent() ? findElement(parent.get(), clazz) : Optional.empty();
 	}
 
 	/**
@@ -155,12 +160,17 @@ public class SModelIndex {
 		return idToElement.keySet();
 	}
 
-	public SModelElement get(String elementId) {
-		return idToElement.get(elementId);
+	public Optional<SModelElement> get(String elementId) {
+		return Optional.ofNullable(idToElement.get(elementId));
 	}
 
 	public Set<SModelElement> getAll(Collection<String> elementIds) {
-		return elementIds.stream().map(this::get).collect(Collectors.toSet());
+		Set<SModelElement>result= elementIds.stream().map(this::get).filter(Optional::isPresent)
+				.map(Optional::get).collect(Collectors.toSet());
+		if (result.size()==elementIds.size()){
+			return result;
+		}
+		return Collections.emptySet();
 	}
 
 	public Set<SModelElement> getAllByType(String type) {

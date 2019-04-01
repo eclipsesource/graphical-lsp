@@ -43,9 +43,9 @@ public class SimulateCommandHandler implements IServerCommandHandler {
 		Optional<Action> result = Optional.empty();
 		if (SIMULATE_COMMAND_ID.equals(commandId)) {
 			getValue(options, OPTIONS_INVOKER_ID).ifPresent(id -> {
-				SModelElement invoker = modelState.getCurrentModelIndex().get(id);
-				if (invoker != null) {
-					logger.info("Start simulation of " + invoker.getId());
+				Optional<SModelElement> invoker = modelState.getIndex().get(id);
+				if (!invoker.isPresent()) {
+					logger.info("Start simulation of " + invoker.get().getId());
 					double duration = ThreadLocalRandom.current().nextDouble(0d, 10d);
 					logger.info("Task simulation finished within " + duration + " seconds");
 				}

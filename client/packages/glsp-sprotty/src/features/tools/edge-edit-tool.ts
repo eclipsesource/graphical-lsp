@@ -61,7 +61,7 @@ export class EdgeEditTool implements Tool {
 
     protected feedbackEdgeSourceMovingListener: FeedbackEdgeSourceMovingMouseListener;
     protected feedbackEdgeTargetMovingListener: FeedbackEdgeTargetMovingMouseListener;
-    protected feedbackMovingListener: FeedbackMoveMouseListener;
+    protected feedbackMovingListener: FeedbackEdgeRouteMovingMouseListener;
     protected reconnectEdgeListener: ReconnectEdgeListener;
 
     constructor(@inject(MouseTool) protected mouseTool: MouseTool,

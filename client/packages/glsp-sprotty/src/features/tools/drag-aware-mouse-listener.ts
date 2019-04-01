@@ -25,8 +25,8 @@ import { Action, MouseListener, SModelElement } from "sprotty/lib";
  */
 export class DragAwareMouseListener extends MouseListener {
 
-    private isMouseDown: boolean = false;
-    private isMouseDrag: boolean = false;
+    protected isMouseDown: boolean = false;
+    protected isMouseDrag: boolean = false;
 
     mouseDown(target: SModelElement, event: MouseEvent): Action[] {
         this.isMouseDown = true;

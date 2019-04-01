@@ -46,6 +46,6 @@ public interface IModelTypeConfigurationProvider {
 	}
 
 	default NodeTypeHint createDefaultNodeTypeHint(String elementId) {
-		return new NodeTypeHint(elementId, true, true, true);
+		return new NodeTypeHint(elementId, true, true, true,false);
 	}
 }

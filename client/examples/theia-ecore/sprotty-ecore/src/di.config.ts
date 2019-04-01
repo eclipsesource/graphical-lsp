@@ -22,7 +22,6 @@ import { ConsoleLogger } from "sprotty/lib";
 import { Container } from "inversify";
 import { ContainerModule } from "inversify";
 import { EcoreGraph } from "./model";
-import { EdgeWithMultiplicty } from "./model";
 import { ExpandButtonView } from "sprotty/lib";
 import { HtmlRoot } from "sprotty/lib";
 import { HtmlRootView } from "sprotty/lib";
@@ -30,8 +29,10 @@ import { Icon } from "./model";
 import { IconView } from "./views";
 import { InheritanceEdgeView } from "./views";
 import { LogLevel } from "sprotty/lib";
+import { PolylineEdgeView } from "sprotty/lib";
 import { PreRenderedElement } from "sprotty/lib";
 import { PreRenderedView } from "sprotty/lib";
+import { RectangularNodeView } from "sprotty/lib";
 import { SButton } from "sprotty/lib";
 import { SCompartment } from "sprotty/lib";
 import { SCompartmentView } from "sprotty/lib";
@@ -39,6 +40,7 @@ import { SEdge } from "sprotty/lib";
 import { SGraphView } from "sprotty/lib";
 import { SLabel } from "sprotty/lib";
 import { SLabelView } from "sprotty/lib";
+import { SNode } from "sprotty/lib";
 import { SRoutingHandle } from "sprotty/lib";
 import { SRoutingHandleView } from "sprotty/lib";
 import { TYPES } from "sprotty/lib";
@@ -56,7 +58,6 @@ import { fadeModule } from "sprotty/lib";
 import { graphModule } from "sprotty/lib";
 import { hoverModule } from "sprotty/lib";
 import { modelSourceModule } from "sprotty/lib";
-import { moveModule } from "sprotty/lib";
 import { routingModule } from "sprotty/lib";
 import { selectModule } from "sprotty/lib";
 import { undoRedoModule } from "sprotty/lib";
@@ -72,9 +73,11 @@ export default (containerId: string, withSelectionSupport: boolean, needsServerL
         configureModelElement(context, 'graph', EcoreGraph, SGraphView);
         configureModelElement(context, 'node:class', ClassNode, ClassNodeView);
         configureModelElement(context, 'node:enum', ClassNode, ClassNodeView);
+        configureModelElement(context, 'node:datatype', ClassNode, ClassNodeView);
         configureModelElement(context, 'label:heading', SLabel, SLabelView);
-        configureModelElement(context, 'label:prop:attr', SLabel, SLabelView);
-        configureModelElement(context, 'label:prop:enum', SLabel, SLabelView);
+        configureModelElement(context, 'node:attribute', SNode, RectangularNodeView);
+        configureModelElement(context, 'node:enumliteral', SNode, RectangularNodeView);
+        configureModelElement(context, 'node:operation', SNode, RectangularNodeView);
         configureModelElement(context, 'label:text', SLabel, SLabelView);
         configureModelElement(context, 'comp:comp', SCompartment, SCompartmentView);
         configureModelElement(context, 'comp:header', SCompartment, SCompartmentView);
@@ -85,10 +88,10 @@ export default (containerId: string, withSelectionSupport: boolean, needsServerL
         configureModelElement(context, 'button:expand', SButton, ExpandButtonView);
         configureModelElement(context, 'routing-point', SRoutingHandle, SRoutingHandleView);
         configureModelElement(context, 'volatile-routing-point', SRoutingHandle, SRoutingHandleView);
-        configureModelElement(context, 'edge:association', SEdge, ArrowEdgeView)
+        configureModelElement(context, 'edge:reference', SEdge, PolylineEdgeView)
         configureModelElement(context, 'edge:inheritance', SEdge, InheritanceEdgeView)
-        configureModelElement(context, 'edge:aggregation', EdgeWithMultiplicty, AggregationEdgeView)
-        configureModelElement(context, 'edge:composition', EdgeWithMultiplicty, CompositionEdgeView)
+        configureModelElement(context, 'edge:aggregation', SEdge, AggregationEdgeView)
+        configureModelElement(context, 'edge:composition', SEdge, CompositionEdgeView)
         configureModelElement(context, 'edge', SEdge, ArrowEdgeView)
         configureViewerOptions(context, {
             needsClientLayout: true,
@@ -98,12 +101,11 @@ export default (containerId: string, withSelectionSupport: boolean, needsServerL
     });
 
     const container = new Container();
-    const modules = [defaultModule, moveModule, boundsModule, undoRedoModule, modelSourceModule, routingModule,
-        updateModule, viewportModule, fadeModule, hoverModule, exportModule, expandModule, buttonModule,
-        edgeEditModule, edgeLayoutModule, classDiagramModule, graphModule]
-    if (withSelectionSupport) {
-        modules.push(selectModule)
-    }
+    const modules = [defaultModule, selectModule, boundsModule, undoRedoModule,
+        viewportModule, fadeModule, hoverModule, exportModule, expandModule, buttonModule,
+        updateModule, graphModule, routingModule, edgeEditModule, edgeLayoutModule,
+        modelSourceModule, classDiagramModule]
+
     container.load(...modules)
     return container;
 };

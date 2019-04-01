@@ -1,9 +1,11 @@
 package com.eclipsesource.glsp.ecore.model;
 
 import static com.eclipsesource.glsp.ecore.util.SModelIdUtils.toAttributeLabelId;
+import static com.eclipsesource.glsp.ecore.util.SModelIdUtils.toAttributeNodeId;
 import static com.eclipsesource.glsp.ecore.util.SModelIdUtils.toClassNodeId;
 import static com.eclipsesource.glsp.ecore.util.SModelIdUtils.toInheritanceEdgeId;
 import static com.eclipsesource.glsp.ecore.util.SModelIdUtils.toLiteralLabelId;
+import static com.eclipsesource.glsp.ecore.util.SModelIdUtils.toLiteralNodeId;
 import static com.eclipsesource.glsp.ecore.util.SModelIdUtils.toReferenceEdgeId;
 
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.Optional;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EReference;
@@ -22,8 +25,10 @@ import org.eclipse.sprotty.EdgePlacement.Side;
 import org.eclipse.sprotty.LayoutOptions;
 import org.eclipse.sprotty.Point;
 import org.eclipse.sprotty.SCompartment;
+import org.eclipse.sprotty.SEdge;
 import org.eclipse.sprotty.SLabel;
 import org.eclipse.sprotty.SModelElement;
+import org.eclipse.sprotty.SNode;
 
 import com.google.inject.Singleton;
 
@@ -31,13 +36,17 @@ import com.google.inject.Singleton;
 public class EcoreSModelConverter {
 
 	private static EdgePlacement centralTop() {
-		EdgePlacement placement= new EdgePlacement();
+		EdgePlacement placement = new EdgePlacement();
 		placement.setSide(Side.top);
 		placement.setPosition(0.5d);
+		placement.setOffset(0.1d);
+		placement.setRotate(false);
 		return placement;
 	}
-	public EcoreEdge createReferenceEdge(EReference eReference) {
-		EcoreEdge reference = new EcoreEdge();
+
+	public SEdge createReferenceEdge(EReference eReference) {
+		SEdge reference = new SEdge();
+		reference.setCssClasses(new ArrayList<>());
 		reference.getCssClasses().add("ecore-edge");
 		reference.setId(toReferenceEdgeId(eReference));
 		if (eReference.isContainment()) {
@@ -47,21 +56,20 @@ public class EcoreSModelConverter {
 
 		reference.setSourceId(toClassNodeId(eReference.getEContainingClass()));
 		reference.setTargetId(toClassNodeId(eReference.getEReferenceType()));
-		reference.setMultiplicitySource("0..1");
-		reference.setMultiplicityTarget(String.format("%s..%s", eReference.getLowerBound(),
-				eReference.getUpperBound() == -1 ? "*" : eReference.getUpperBound()));
 		SLabel refName = new SLabel();
 		refName.setId(reference.getId() + "_name");
 		refName.setType("label:text");
-		refName.setText(eReference.getName());
-		refName.setEdgePlacement(centralTop());
+		refName.setText(String.format("[%s..%s] %s", eReference.getLowerBound(),
+				eReference.getUpperBound() == -1 ? "*" : eReference.getUpperBound(),eReference.getName()));
+//		refName.setEdgePlacement(centralTop());
 		reference.setChildren(new ArrayList<>(Arrays.asList(refName)));
-		
+
 		return reference;
 	}
 
-	public EcoreEdge createInheritanceEdge(EClass baseClass, EClass superClass) {
-		EcoreEdge reference = new EcoreEdge();
+	public SEdge createInheritanceEdge(EClass baseClass, EClass superClass) {
+		SEdge reference = new SEdge();
+		reference.setCssClasses(new ArrayList<>());
 		reference.getCssClasses().add("ecore-edge");
 		reference.getCssClasses().add("inheritance");
 		reference.setId(toInheritanceEdgeId(baseClass, superClass));
@@ -71,20 +79,34 @@ public class EcoreSModelConverter {
 		return reference;
 	}
 
-	public SLabel createPropertyLabel(EAttribute eAttribute) {
-		SLabel attribute = new SLabel();
-		attribute.setId(toAttributeLabelId(eAttribute));
-		attribute.setType(ModelTypes.ATTRIBUTE);
-		attribute.setText(String.format(" - %s : %s", eAttribute.getName(), eAttribute.getEAttributeType().getName()));
-		return attribute;
+	public SNode createAttributeLabel(EAttribute eAttribute) {
+		SNode attributeNode = new SNode();
+		attributeNode.setType(ModelTypes.ATTRIBUTE);
+		attributeNode.setId(toAttributeNodeId(eAttribute));
+		List<SModelElement> children = new ArrayList<>();
+		SLabel attributeLabel = new SLabel();
+		attributeLabel.setType("label:text");
+		attributeLabel.setId(toAttributeLabelId(eAttribute));
+		attributeLabel
+				.setText(String.format(" - %s : %s", eAttribute.getName(), eAttribute.getEAttributeType().getName()));
+		children.add(attributeLabel);
+		attributeNode.setChildren(children);
+		return attributeNode;
 	}
-	
-	public SLabel createEnumLiteralLabel(EEnumLiteral eliteral) {
-		SLabel literal = new SLabel();
-		literal.setId(toLiteralLabelId(eliteral));
-		literal.setType(ModelTypes.ENUMLITERAL);
-		literal.setText(" - " + eliteral.getLiteral());
-		return literal;
+
+	public SNode createEnumLiteralLabel(EEnumLiteral eliteral) {
+		SNode literalNode = new SNode();
+		literalNode.setType(ModelTypes.ENUMLITERAL);
+		literalNode.setId(toLiteralNodeId(eliteral));
+		List<SModelElement> children = new ArrayList<>();
+		SLabel literalLabel = new SLabel();
+		literalLabel.setType("label:text");
+		literalLabel.setId(toLiteralLabelId(eliteral));
+		literalLabel.setType(ModelTypes.ENUMLITERAL);
+		literalLabel.setText(" - " + eliteral.getLiteral());
+		children.add(literalLabel);
+		literalNode.setChildren(children);
+		return literalNode;
 	}
 
 	public ClassNode createClassNode(EClassifier eClassifier, boolean foreignPackage, Optional<Point> point) {
@@ -98,7 +120,7 @@ public class EcoreSModelConverter {
 		}
 		List<SModelElement> classChildren = new ArrayList<SModelElement>();
 		classNode.setChildren(classChildren);
-		Point location= point.isPresent()?point.get():new Point(0,0);
+		Point location = point.isPresent() ? point.get() : new Point(0, 0);
 		classNode.setPosition(location);
 
 		// header
@@ -137,6 +159,9 @@ public class EcoreSModelConverter {
 		} else if (eClassifier instanceof EEnum) {
 			iconLabelText = "E";
 			classNode.getCssClasses().add("enum");
+		} else if (eClassifier instanceof EDataType) {
+			iconLabelText = "D";
+			classNode.getCssClasses().add("datatype");
 		}
 		iconLabel.setText(iconLabelText);
 		icon.setChildren(new ArrayList<>(Arrays.asList(iconLabel)));
@@ -178,6 +203,24 @@ public class EcoreSModelConverter {
 			List<SModelElement> literals = new ArrayList<SModelElement>();
 			literalsCompartment.setChildren(literals);
 			classChildren.add(literalsCompartment);
+		} else if (eClassifier instanceof EDataType) {
+			SCompartment detailsComparment = new SCompartment();
+			detailsComparment.setId(classNode.getId() + "_details");
+			detailsComparment.setType("comp:comp");
+			detailsComparment.setLayout("vbox");
+			detailsComparment.setPosition(new Point(0, 0));
+			List<SModelElement> details = new ArrayList<SModelElement>();
+			LayoutOptions attributeCompartementLO = new LayoutOptions();
+			attributeCompartementLO.setHAlign("left");
+			attributeCompartementLO.setVAlign("center");
+			detailsComparment.setLayoutOptions(attributeCompartementLO);
+			SLabel detailLabel = new SLabel();
+			detailLabel.setText(((EDataType) eClassifier).getInstanceClassName());
+			detailLabel.setType("label:text");
+			details.add(detailLabel);
+			detailsComparment.setChildren(details);
+
+			classChildren.add(detailsComparment);
 		}
 
 		return classNode;

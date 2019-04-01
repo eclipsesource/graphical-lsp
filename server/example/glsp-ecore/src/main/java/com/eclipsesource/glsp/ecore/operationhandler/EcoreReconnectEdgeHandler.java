@@ -30,7 +30,7 @@ public class EcoreReconnectEdgeHandler extends ReconnectEdgeHandler {
 		if (ecoreModelState.isPresent()) {
 			Optional<EClass> source = ecoreModelState.get().getIndex().get(action.getSourceElementId(), EClass.class);
 			Optional<EClass> target = ecoreModelState.get().getIndex().get(action.getTargetElementId(), EClass.class);
-			Optional<SEdge> sEdge = modelState.getCurrentModelIndex().findElement(action.getConnectionElementId(),
+			Optional<SEdge> sEdge = modelState.getIndex().findElement(action.getConnectionElementId(),
 					SEdge.class);
 			Optional<EReference> reference = ecoreModelState.get().getIndex().get(action.getConnectionElementId(),
 					EReference.class);

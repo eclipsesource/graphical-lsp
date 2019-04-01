@@ -16,6 +16,7 @@
 import { Action, ElementAndBounds, Point } from "sprotty/lib";
 
 import { OperationKind } from "./set-operations";
+import { Point } from "sprotty/lib";
 
 export class CreateNodeOperationAction implements Action {
     readonly kind = OperationKind.CREATE_NODE;
@@ -45,12 +46,12 @@ export class ChangeBoundsOperationAction implements Action {
     constructor(public newBounds: ElementAndBounds[]) { }
 }
 
-export class ChangeContainerOperation implements Action {
+export class ChangeContainerOperationAction implements Action {
     readonly kind = OperationKind.CHANGE_CONTAINER;
 
     constructor(public readonly elementId: string,
         public readonly targetContainerId: string,
-        public readonly location?: string) { }
+        public readonly location?: Point) { }
 }
 
 export class GenericOperationAction implements Action {

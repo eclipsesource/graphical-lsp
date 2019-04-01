@@ -7,6 +7,7 @@ import java.util.function.Function;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -21,14 +22,13 @@ import com.eclipsesource.glsp.ecore.emf.EMFCommandService;
 import com.eclipsesource.glsp.ecore.emf.EcoreModelState;
 import com.eclipsesource.glsp.ecore.emf.EcoreModelStateProvider;
 import com.eclipsesource.glsp.ecore.model.EcoreSModelConverter;
-import com.eclipsesource.glsp.ecore.model.ModelTypes;
 import com.eclipsesource.glsp.server.operationhandler.CreateNodeOperationHandler;
 import com.google.inject.Inject;
-
+import static com.eclipsesource.glsp.ecore.model.ModelTypes.*;
 public class CreateClassiferOperationHandler extends CreateNodeOperationHandler {
 
-	private List<String> handledElementTypeIds = Arrays.asList(ModelTypes.ECLASS, ModelTypes.ENUM, ModelTypes.INTERFACE,
-			ModelTypes.ABSTRACT);
+	private List<String> handledElementTypeIds = Arrays.asList(ECLASS, ENUM, INTERFACE,
+			ABSTRACT,DATATYPE);
 	@Inject
 	private EcoreModelStateProvider modelStateProvider;
 	@Inject
@@ -37,7 +37,10 @@ public class CreateClassiferOperationHandler extends CreateNodeOperationHandler 
 	private EcoreSModelConverter smodelConverter;
 
 	private String elementTypeId;
-
+	public CreateClassiferOperationHandler() {
+		super(true);
+		
+	}
 	@Override
 	public boolean handles(Action execAction) {
 		if (execAction instanceof CreateNodeOperationAction) {
@@ -54,7 +57,7 @@ public class CreateClassiferOperationHandler extends CreateNodeOperationHandler 
 	}
 
 	@Override
-	protected SModelElement createNode(Optional<Point> point, IModelState modelState) {
+	protected SModelElement createNode(Optional<Point> point,SModelElement container, IModelState modelState) {
 		String clientId = modelState.getClientId();
 		Optional<EcoreModelState> ecoreModelState = modelStateProvider.getModelState(clientId);
 		if (!ecoreModelState.isPresent()) {
@@ -62,10 +65,10 @@ public class CreateClassiferOperationHandler extends CreateNodeOperationHandler 
 		}
 		EObject root = ecoreModelState.get().getCurrentModel();
 		EClassifier classifier = createClassifier();
-		String typeLabel= classifier instanceof EClass?"class":"Enum";
-		String typeId= elementTypeId.equals(ModelTypes.ENUM)?ModelTypes.ENUM:ModelTypes.ECLASS;
-		Function<Integer, String> idProvider = i -> typeLabel + i;
-		int nodeCounter = getCounter(modelState.getCurrentModelIndex(), typeId, idProvider);
+		
+		String typeId= elementTypeId.startsWith(ECLASS)?ECLASS:elementTypeId;
+		Function<Integer, String> idProvider = i -> "New"+classifier.eClass().getName() + i;
+		int nodeCounter = getCounter(modelState.getIndex(), typeId, idProvider);
 		classifier.setName(idProvider.apply(nodeCounter));
 
 		commandService.add(root, EcorePackage.eINSTANCE.getEPackage_EClassifiers(), classifier);
@@ -76,13 +79,18 @@ public class CreateClassiferOperationHandler extends CreateNodeOperationHandler 
 	}
 
 	private EClassifier createClassifier() {
-		if (elementTypeId.equals((ModelTypes.ENUM))) {
+		if (elementTypeId.equals((ENUM))) {
 			return EcoreFactory.eINSTANCE.createEEnum();
-		} else {
+		} else if (elementTypeId.equals(DATATYPE)){
+			EDataType dataType= EcoreFactory.eINSTANCE.createEDataType();
+			dataType.setInstanceClass(Object.class);
+			dataType.setInstanceClassName("java.lang.Object");
+			return dataType;
+		}else {
 			EClass eClass = EcoreFactory.eINSTANCE.createEClass();
-			if (elementTypeId.equals(ModelTypes.ABSTRACT)) {
+			if (elementTypeId.equals(ABSTRACT)) {
 				eClass.setAbstract(true);
-			} else if (elementTypeId.equals(ModelTypes.INTERFACE)) {
+			} else if (elementTypeId.equals(INTERFACE)) {
 				eClass.setInterface(true);
 			}
 			return eClass;

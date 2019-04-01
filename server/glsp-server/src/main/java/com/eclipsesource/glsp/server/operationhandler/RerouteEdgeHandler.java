@@ -51,7 +51,7 @@ public class RerouteEdgeHandler  implements IOperationHandler {
 		}
 		
 		// check for existence of matching elements
-		SModelIndex index = modelState.getCurrentModelIndex();
+		SModelIndex index = modelState.getIndex();
 		Optional<SEdge> edge = index.findElement(action.getConnectionElementId(), SEdge.class);
 		if (!edge.isPresent()) {
 			log.warn("Invalid edge: edge ID " + action.getConnectionElementId());

@@ -17,14 +17,21 @@ import { interfaces } from "inversify";
 import { ToolManager, TYPES } from "sprotty/lib";
 
 import { ChangeBoundsTool } from "./change-bounds-tool";
-import { DelKeyDeleteTool, MouseDeleteTool } from "./delete-tool";
+import { ChangeContainerTool } from "./change-container.tool";
+import { DelKeyDeleteTool } from "./delete-tool";
 import { EdgeEditTool } from "./edge-edit-tool";
+import { MouseDeleteTool } from "./delete-tool";
+import { ToolManager } from "sprotty/lib";
+import { TYPES } from "sprotty/lib";
+
+import { interfaces } from "inversify";
 
 export function registerDefaultTools(container: interfaces.Container) {
     const toolManager: ToolManager = container.get(TYPES.IToolManager);
     toolManager.registerDefaultTools(
         container.resolve(ChangeBoundsTool),
         container.resolve(EdgeEditTool),
+        container.resolve(ChangeContainerTool),
         container.resolve(DelKeyDeleteTool));
     toolManager.registerTools(container.resolve(MouseDeleteTool));
     toolManager.enableDefaultTools();

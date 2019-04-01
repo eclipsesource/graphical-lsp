@@ -80,18 +80,19 @@ export class NodeCreationTool implements Tool, TypeAware {
 
 @injectable()
 export class NodeCreationToolMouseListener extends DragAwareMouseListener {
-    private container?: SModelElement;
+    private container?: SParentElement & NodeEditConfig;
+
     constructor(protected elementTypeId: string, protected tool: NodeCreationTool) {
         super();
     }
 
-    private creationAllowed(target: SModelElement) {
-        return this.container || target instanceof SModelRoot;
+    private creationAllowed() {
+        return this.container && this.container.isContainableElement(this.elementTypeId);
     }
 
     nonDraggingMouseUp(target: SModelElement, event: MouseEvent): Action[] {
         const result: Action[] = [];
-        if (this.creationAllowed(target)) {
+        if (this.creationAllowed()) {
             const containerId = this.container ? this.container.id : undefined;
             const location = getAbsolutePosition(target, event);
             result.push(new CreateNodeOperationAction(this.elementTypeId, location, containerId));
@@ -105,10 +106,10 @@ export class NodeCreationToolMouseListener extends DragAwareMouseListener {
     }
 
     mouseOver(target: SModelElement, event: MouseEvent): Action[] {
-        const currentContainer = findParent(target, e => containmentAllowed(e, this.elementTypeId));
+        const currentContainer = findParentByFeature(target, isConfigurableNode);
         if (!this.container || currentContainer !== this.container) {
             this.container = currentContainer;
-            const feedback = this.creationAllowed(target)
+            const feedback = this.creationAllowed()
                 ? new ApplyCursorCSSFeedbackAction(CursorCSS.NODE_CREATION) :
                 new ApplyCursorCSSFeedbackAction(CursorCSS.OPERATION_NOT_ALLOWED);
             this.tool.dispatchFeedback([feedback]);

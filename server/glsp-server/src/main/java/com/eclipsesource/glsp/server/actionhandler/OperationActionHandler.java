@@ -26,6 +26,7 @@ import org.eclipse.sprotty.SModelRoot;
 import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.ChangeBoundsOperationAction;
+import com.eclipsesource.glsp.api.action.kind.ChangeContainerOperationAction;
 import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
 import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
 import com.eclipsesource.glsp.api.action.kind.DeleteElementOperationAction;
@@ -45,7 +46,7 @@ public class OperationActionHandler extends AbstractActionHandler {
 	protected Collection<Action> handleableActionsKinds() {
 		return Arrays.asList(new CreateNodeOperationAction(), new CreateConnectionOperationAction(),
 				new DeleteElementOperationAction(), new ChangeBoundsOperationAction(),
-				new ReconnectConnectionOperationAction(), new RerouteConnectionOperationAction());
+				new ReconnectConnectionOperationAction(), new RerouteConnectionOperationAction(), new ChangeContainerOperationAction());
 	}
 
 	@Override
@@ -57,6 +58,7 @@ public class OperationActionHandler extends AbstractActionHandler {
 		case Action.Kind.REROUTE_CONNECTION_OPERATION:
 		case Action.Kind.DELETE_ELEMENT_OPERATION:
 		case Action.Kind.CHANGE_BOUNDS_OPERATION:
+		case Action.Kind.CHANGE_CONTAINER_OPERATION:
 			return doHandle((Action) action, getModelState(clientId));
 		default:
 			return Optional.empty();

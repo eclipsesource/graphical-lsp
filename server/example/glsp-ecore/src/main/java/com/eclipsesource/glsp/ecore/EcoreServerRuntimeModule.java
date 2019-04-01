@@ -29,8 +29,10 @@ import com.eclipsesource.glsp.ecore.diagram.EcoreLayoutEngine;
 import com.eclipsesource.glsp.ecore.model.EcoreJSONSModelLoader;
 import com.eclipsesource.glsp.ecore.model.EcoreXMIModelLoader;
 import com.eclipsesource.glsp.ecore.operationhandler.CreateClassiferOperationHandler;
+import com.eclipsesource.glsp.ecore.operationhandler.CreateClassifierChildNodeHandler;
 import com.eclipsesource.glsp.ecore.operationhandler.CreateInheritanceHandler;
 import com.eclipsesource.glsp.ecore.operationhandler.CreateReferenceOperationHandler;
+import com.eclipsesource.glsp.ecore.operationhandler.EcoreChangeContainerHandler;
 import com.eclipsesource.glsp.ecore.operationhandler.EcoreDeleteOperationHandler;
 import com.eclipsesource.glsp.ecore.operationhandler.EcoreReconnectEdgeHandler;
 import com.eclipsesource.glsp.server.ServerModule;
@@ -55,6 +57,8 @@ public class EcoreServerRuntimeModule extends ServerModule {
 		 handlers.add(CreateInheritanceHandler.class);
 		 handlers.add(RerouteEdgeHandler.class);
 		 handlers.add(EcoreReconnectEdgeHandler.class);
+		 handlers.add(CreateClassifierChildNodeHandler.class);
+		 handlers.add(EcoreChangeContainerHandler.class);
 		 return handlers;
 	}
 

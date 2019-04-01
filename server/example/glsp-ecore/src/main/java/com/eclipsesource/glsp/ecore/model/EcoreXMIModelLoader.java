@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.sprotty.Dimension;
+import org.eclipse.sprotty.SEdge;
 import org.eclipse.sprotty.SGraph;
 import org.eclipse.sprotty.SModelElement;
 import org.eclipse.sprotty.SModelRoot;
@@ -74,7 +75,7 @@ public class EcoreXMIModelLoader implements IFileExtensionLoader<EObject> {
 	@Override
 	public SModelRoot generate(EObject sourceModel) {
 		GLSPGraph result = new GLSPGraph();
-		result.setNeedsInitialLayout(true);
+		result.setNeedsInitialLayout(false);
 		result.setId("graph");
 		result.setType("graph");
 		result.setSize(new Dimension(10000, 8000));
@@ -104,13 +105,13 @@ public class EcoreXMIModelLoader implements IFileExtensionLoader<EObject> {
 			SModelElement attributeCompartment = node.getChildren().get(1);
 			List<SModelElement> attributes = new ArrayList<>();
 			for (EAttribute eAttribute : eClass.getEAttributes()) {
-				attributes.add(smodelConverter.createPropertyLabel(eAttribute));
+				attributes.add(smodelConverter.createAttributeLabel(eAttribute));
 			}
 			attributeCompartment.setChildren(attributes);
 			// we do not want to have edged from classes which are in a foreign package
 			if (!foreignPackage) {
 				for (EReference eReference : eClass.getEReferences()) {
-					EcoreEdge reference = smodelConverter.createReferenceEdge(eReference);
+					SEdge reference = smodelConverter.createReferenceEdge(eReference);
 					graphChildren.put(reference.getId(), reference);
 
 					if (eReference.getEReferenceType().getEPackage() != ePackage) {
@@ -124,7 +125,7 @@ public class EcoreXMIModelLoader implements IFileExtensionLoader<EObject> {
 				}
 
 				for (EClass superClass : eClass.getESuperTypes()) {
-					EcoreEdge reference = smodelConverter.createInheritanceEdge(eClass, superClass);
+					SEdge reference = smodelConverter.createInheritanceEdge(eClass, superClass);
 					graphChildren.put(reference.getId(), reference);
 				}
 			}

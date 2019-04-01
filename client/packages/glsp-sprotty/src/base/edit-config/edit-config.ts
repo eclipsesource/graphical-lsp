@@ -28,6 +28,7 @@ export interface EditConfig {
 
 export interface NodeEditConfig extends EditConfig {
     resizable: boolean
+    reparentable: boolean
     isContainer(): boolean
     isContainableElement(input: SModelElement | SModelElementSchema | string): boolean
 }
@@ -64,9 +65,7 @@ export function isNodeEditConfig(editConfig: EditConfig): editConfig is NodeEdit
 export function movingAllowed(element: SModelElement): element is SNode & NodeEditConfig {
     return isConfigurableNode(element) && element.repositionable;
 }
-
-export function containmentAllowed(element: SModelElement, containableElementTypeId: string)
-    : element is SParentElement & NodeEditConfig {
-    return isConfigurableNode(element) && element.isContainableElement(containableElementTypeId);
+export function reparentAllowed(element: SModelElement): element is SNode & NodeEditConfig {
+    return isConfigurableNode(element) && element.reparentable
 }
 

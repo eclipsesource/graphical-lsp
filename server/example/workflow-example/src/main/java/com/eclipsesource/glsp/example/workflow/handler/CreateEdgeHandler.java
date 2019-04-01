@@ -51,7 +51,7 @@ public class CreateEdgeHandler implements OperationHandler {
 			return Optional.empty();
 		}
 
-		SModelIndex index = modelState.getCurrentModelIndex();
+		SModelIndex index = modelState.getIndex();
 
 		Optional<SNode> source = index.findElement(action.getSourceElementId(), SNode.class);
 		Optional<SNode> target = index.findElement(action.getTargetElementId(), SNode.class);

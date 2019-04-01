@@ -31,6 +31,7 @@ import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.MERGE_NO
 import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.PRE_RENDERED;
 import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.WEIGHTED_EDGE;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -77,8 +78,19 @@ public class WorkflowModelTypeConfigurationProvider implements IModelTypeConfigu
 
 	@Override
 	public List<NodeTypeHint> getNodeTypeHints() {
-		return Arrays.asList(createDefaultNodeTypeHint(DECISION_NODE), createDefaultNodeTypeHint(MERGE_NODE),
-				createDefaultNodeTypeHint(MANUAL_TASK), createDefaultNodeTypeHint(AUTOMATED_TASK));
+		List<NodeTypeHint> hints = new ArrayList<>();
+		hints.add(createDefaultNodeTypeHint(DECISION_NODE));
+		hints.add(createDefaultNodeTypeHint(MERGE_NODE));
+		hints.add(createDefaultNodeTypeHint(MANUAL_TASK));
+		hints.add(createDefaultNodeTypeHint(AUTOMATED_TASK));
+		NodeTypeHint rootTypeHint = createDefaultNodeTypeHint(GRAPH);
+		rootTypeHint
+				.setContainableElementTypeIds(Arrays.asList(MANUAL_TASK, AUTOMATED_TASK, MERGE_NODE, DECISION_NODE));
+		rootTypeHint.setDeletable(false);
+		rootTypeHint.setReparentable(false);
+		rootTypeHint.setRepositionable(false);
+		hints.add(rootTypeHint);
+		return hints;
 	}
 
 	@Override

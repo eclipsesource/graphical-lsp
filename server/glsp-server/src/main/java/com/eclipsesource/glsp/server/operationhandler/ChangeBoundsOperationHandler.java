@@ -67,19 +67,19 @@ public class ChangeBoundsOperationHandler implements IOperationHandler {
 	}
 
 	private static Optional<SNode> findMovableNode(IModelState modelState, String elementId) {
-		SModelIndex index = modelState.getCurrentModelIndex();
-		SModelElement element = index.get(elementId);
-		if (element == null) {
+		SModelIndex index = modelState.getIndex();
+		Optional<SModelElement> element = index.get(elementId);
+		if (!element.isPresent()) {
 			log.warn("Element with id " + elementId + " not found");
 			return Optional.empty();
 		}
 
-		if (!(element instanceof SNode)) {
+		if (!(element.get() instanceof SNode)) {
 			log.warn("Element " + elementId + " is not moveable");
 			return Optional.empty();
 		}
 
-		return Optional.of((SNode) element);
+		return Optional.of((SNode) element.get());
 	}
 
 	private static void setBounds(SNode node, Bounds bounds) {

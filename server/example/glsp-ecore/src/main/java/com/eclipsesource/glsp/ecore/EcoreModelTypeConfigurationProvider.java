@@ -10,6 +10,19 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.ecore;
 
+import static com.eclipsesource.glsp.ecore.model.ModelTypes.ABSTRACT;
+import static com.eclipsesource.glsp.ecore.model.ModelTypes.ATTRIBUTE;
+import static com.eclipsesource.glsp.ecore.model.ModelTypes.COMPOSITION;
+import static com.eclipsesource.glsp.ecore.model.ModelTypes.DATATYPE;
+import static com.eclipsesource.glsp.ecore.model.ModelTypes.ECLASS;
+import static com.eclipsesource.glsp.ecore.model.ModelTypes.ENUM;
+import static com.eclipsesource.glsp.ecore.model.ModelTypes.ENUMLITERAL;
+import static com.eclipsesource.glsp.ecore.model.ModelTypes.INHERITANCE;
+import static com.eclipsesource.glsp.ecore.model.ModelTypes.INTERFACE;
+import static com.eclipsesource.glsp.ecore.model.ModelTypes.OPERATION;
+import static com.eclipsesource.glsp.ecore.model.ModelTypes.REFERENCE;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -22,33 +35,57 @@ import org.eclipse.sprotty.SCompartment;
 import org.eclipse.sprotty.SEdge;
 import org.eclipse.sprotty.SLabel;
 import org.eclipse.sprotty.SModelElement;
+import org.eclipse.sprotty.SNode;
 
 import com.eclipsesource.glsp.api.provider.IModelTypeConfigurationProvider;
 import com.eclipsesource.glsp.api.types.EdgeTypeHint;
 import com.eclipsesource.glsp.api.types.NodeTypeHint;
 import com.eclipsesource.glsp.ecore.model.ClassNode;
-import com.eclipsesource.glsp.ecore.model.EcoreEdge;
 import com.eclipsesource.glsp.ecore.model.Icon;
-import com.eclipsesource.glsp.ecore.model.ModelTypes;
 import com.eclipsesource.glsp.server.model.GLSPGraph;
 
 public class EcoreModelTypeConfigurationProvider implements IModelTypeConfigurationProvider {
 
 	@Override
 	public List<EdgeTypeHint> getEdgeTypeHints() {
-		return Arrays.asList(createDefaultEdgeTypeHint(ModelTypes.REFERENCE),
-				createDefaultEdgeTypeHint(ModelTypes.INHERITANCE), createDefaultEdgeTypeHint(ModelTypes.COMPOSITION));
+		return Arrays.asList(createDefaultEdgeTypeHint(REFERENCE), createDefaultEdgeTypeHint(INHERITANCE),
+				createDefaultEdgeTypeHint(COMPOSITION));
 	}
 
 	@Override
 	public List<NodeTypeHint> getNodeTypeHints() {
-		return Arrays.asList(createDefaultNodeTypeHint(ModelTypes.ECLASS),
-				createDefaultNodeTypeHint(ModelTypes.COMPOSITION), createDefaultNodeTypeHint(ModelTypes.ENUM));
+		List<NodeTypeHint> hints = new ArrayList<>();
+		hints.add(createDefaultNodeTypeHint(ECLASS));
+		hints.add(createDefaultNodeTypeHint(COMPOSITION));
+
+		NodeTypeHint enumHint = createDefaultNodeTypeHint(ENUM);
+		enumHint.setContainableElementTypeIds(Arrays.asList(ENUMLITERAL));
+		NodeTypeHint dataTypeHint=createDefaultNodeTypeHint(DATATYPE);
+		dataTypeHint.setContainableElementTypeIds(null);
+		hints.add(dataTypeHint);
+		hints.add(enumHint);
+		NodeTypeHint rootTypeHint = createDefaultNodeTypeHint("graph");
+		rootTypeHint.setContainableElementTypeIds(Arrays.asList(ECLASS, ABSTRACT, INTERFACE, COMPOSITION, ENUM,DATATYPE));
+		rootTypeHint.setDeletable(false);
+		rootTypeHint.setReparentable(false);
+		rootTypeHint.setRepositionable(false);
+		hints.add(rootTypeHint);
+		NodeTypeHint attributeNodeHint= new NodeTypeHint(ATTRIBUTE,false,true,false,true);
+		NodeTypeHint operationNodeHint= new NodeTypeHint(OPERATION,false,true,false,true);
+		NodeTypeHint literalNodeHint= new NodeTypeHint(ENUMLITERAL,false,true,false,true);
+		hints.add(attributeNodeHint);
+		hints.add(literalNodeHint);
+		hints.add(operationNodeHint);
+		return hints;
+	}
+
+	public NodeTypeHint createDefaultNodeTypeHint(String elementId) {
+		return new NodeTypeHint(elementId, true, true, true, false, Arrays.asList(ATTRIBUTE, OPERATION));
 	}
 
 	@Override
 	public EdgeTypeHint createDefaultEdgeTypeHint(String elementId) {
-		List<String> allowed = Arrays.asList(ModelTypes.ECLASS, ModelTypes.COMPOSITION);
+		List<String> allowed = Arrays.asList(ECLASS, COMPOSITION);
 		return new EdgeTypeHint(elementId, true, true, true, allowed, allowed);
 	}
 
@@ -69,20 +106,20 @@ public class EcoreModelTypeConfigurationProvider implements IModelTypeConfigurat
 				put("html", HtmlRoot.class);
 				put("pre-rendered", PreRenderedElement.class);
 
-				// needed?
-				put("routing-point", SModelElement.class);
-				put("volatile-routing-point", SModelElement.class);
-
 				// additional ui stuff
 				put("icon", Icon.class);
 				put("button:expand", SButton.class);
 
 				// ecore stuff
-				put(ModelTypes.ECLASS, ClassNode.class);
-				put(ModelTypes.REFERENCE, EcoreEdge.class);
-				put(ModelTypes.INHERITANCE, SEdge.class);
-				put(ModelTypes.COMPOSITION, EcoreEdge.class);
-				put(ModelTypes.ENUM, ClassNode.class);
+				put(ECLASS, ClassNode.class);
+				put(REFERENCE, SEdge.class);
+				put(INHERITANCE, SEdge.class);
+				put(COMPOSITION, SEdge.class);
+				put(ENUM, ClassNode.class);
+				put(ATTRIBUTE, SNode.class);
+				put(OPERATION, SNode.class);
+				put(ENUMLITERAL, SNode.class);
+				put(DATATYPE, ClassNode.class);
 			}
 		};
 	}

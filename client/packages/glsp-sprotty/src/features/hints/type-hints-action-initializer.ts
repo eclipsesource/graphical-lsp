@@ -110,6 +110,7 @@ export function createNodeEditConfig(hint: NodeTypeHint): NodeEditConfig {
         elementTypeId: hint.elementTypeId,
         deletable: hint.deletable,
         repositionable: hint.repositionable,
+        reparentable: hint.reparentable,
         resizable: hint.resizable,
         configType: nodeEditConfig,
         isContainableElement: (element) => { return hint.containableElementTypeIds ? contains(hint.containableElementTypeIds, getElementTypeId(element)) : false; },

@@ -17,8 +17,8 @@
 import { injectable } from 'inversify';
 import { svg } from 'snabbdom-jsx';
 import { VNode } from "snabbdom/vnode";
-import { IView, Point, PolylineEdgeView, RectangularNodeView, RenderingContext, SEdge, toDegrees } from "sprotty/lib";
-import { ClassNode, EdgeWithMultiplicty, Icon } from './model';
+import { getSubType, IView, Point, PolylineEdgeView, RectangularNodeView, RenderingContext, SEdge, setAttr, SLabelView, toDegrees } from "sprotty/lib";
+import { ClassNode, EdgeWithMultiplicty, Icon, PropertyLabel } from './model';
 
 
 @injectable()
@@ -132,6 +132,18 @@ export class AggregationEdgeView extends DiamondEdgeView {
     }
 }
 
+@injectable()
+export class PropertyLabelView extends SLabelView {
+
+    render(label: Readonly<PropertyLabel>, context: RenderingContext): VNode {
+        const vnode = <text class-sprotty-label={true} class-selected={label.selected}
+            class-mouseover={label.hoverFeedback}>{label.text}</text>;
+        const subType = getSubType(label);
+        if (subType)
+            setAttr(vnode, 'class', subType);
+        return vnode;
+    }
+}
 export function angle(x0: Point, x1: Point): number {
     return toDegrees(Math.atan2(x1.y - x0.y, x1.x - x0.x))
 }

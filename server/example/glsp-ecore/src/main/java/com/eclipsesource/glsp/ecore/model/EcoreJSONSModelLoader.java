@@ -15,7 +15,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.ecore.model;
 
-import static com.eclipsesource.glsp.ecore.util.ThreadUtil.runDeferred;
 import static com.eclipsesource.glsp.server.model.JSONSavemodelDelegator.replaceExtension;
 
 import java.util.Optional;
@@ -38,10 +37,10 @@ public class EcoreJSONSModelLoader extends JSONSModelLoader {
 	@Override
 	public Optional<SModelRoot> loadFromFile(String fileURI, String clientId) {
 		Optional<SModelRoot> modelRoot = super.loadFromFile(fileURI, clientId);
-		runDeferred(() -> {
+		
 			new EcoreXMIModelLoader(resourceManager, modelStateProvider, smodelConverter)
 					.loadFromFile(replaceExtension(fileURI, "ecore"), clientId);
-		});
+		
 		return modelRoot;
 	}
 	

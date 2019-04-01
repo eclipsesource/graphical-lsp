@@ -47,7 +47,7 @@ public class DeleteElementOperationHandler implements IOperationHandler {
 	public Optional<SModelRoot> execute(Action execAction, IModelState modelState) {
 		DeleteElementOperationAction action = (DeleteElementOperationAction) execAction;
 
-		SModelIndex index = modelState.getCurrentModelIndex();
+		SModelIndex index = modelState.getIndex();
 
 		boolean success = action.getElementIds().stream().allMatch(eId -> delete(eId, index, modelState));
 		if (!success) {
@@ -59,16 +59,16 @@ public class DeleteElementOperationHandler implements IOperationHandler {
 	}
 
 	protected boolean delete(String elementId, SModelIndex index, IModelState modelState) {
-		SModelElement element = index.get(elementId);
+		Optional<SModelElement> element = index.get(elementId);
 
-		if (element == null) {
+		if (!element.isPresent()) {
 			log.warn("Element not found: " + elementId);
 			return false;
 		}
 
 		// Always delete the top-level node
-		SModelElement nodeToDelete = findTopLevelElement(element, index);
-		SModelElement parent = index.getParent(nodeToDelete);
+		SModelElement nodeToDelete = findTopLevelElement(element.get(), index);
+		Optional<SModelElement> parent = index.getParent(nodeToDelete);
 		if (parent == null) {
 			log.warn("The requested node doesn't have a parent; it can't be deleted");
 			return false; // Can't delete the root, or an element that doesn't belong to the model
@@ -84,13 +84,13 @@ public class DeleteElementOperationHandler implements IOperationHandler {
 	}
 
 	protected boolean delete(SModelElement element, IModelState modelState) {
-		SModelElement parent = modelState.getCurrentModelIndex().getParent(element);
-		modelState.getCurrentModelIndex().removeFromIndex(element);
+		Optional<SModelElement> parent = modelState.getIndex().getParent(element);
+		modelState.getIndex().removeFromIndex(element);
 
-		if (parent == null || parent.getChildren() == null) {
+		if (!parent.isPresent() || parent.get().getChildren() == null) {
 			return false; 
 		}
-		parent.getChildren().remove(element);
+		parent.get().getChildren().remove(element);
 		return true;
 	}
 
@@ -107,7 +107,7 @@ public class DeleteElementOperationHandler implements IOperationHandler {
 			}
 		}
 
-		SModelIndex index = modelState.getCurrentModelIndex();
+		SModelIndex index = modelState.getIndex();
 
 		// Then, incoming/outgoing links
 		for (SModelElement incoming : index.getIncomingEdges(nodeToDelete)) {
@@ -126,11 +126,11 @@ public class DeleteElementOperationHandler implements IOperationHandler {
 			return element;
 		}
 
-		SModelElement parent = index.getParent(element);
-		if (parent == null) {
+		Optional<SModelElement> parent = index.getParent(element);
+		if (!parent.isPresent()) {
 			return element;
 		}
-		return findTopLevelElement(parent, index);
+		return findTopLevelElement(parent.get(), index);
 	}
 
 }

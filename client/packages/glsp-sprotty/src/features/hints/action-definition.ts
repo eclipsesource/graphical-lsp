@@ -56,6 +56,10 @@ export interface NodeTypeHint extends TypeHint {
     readonly resizable: boolean;
 
     /**
+     * Specifies wether the parent container of the element can be changed
+     */
+    readonly reparentable: boolean;
+    /**
      * The types of elements that can be contained by this element (if any)
      */
     readonly containableElementTypeIds?: string[];

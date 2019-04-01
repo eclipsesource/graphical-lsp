@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.function.Function;
 
+import org.apache.log4j.Logger;
 import org.eclipse.sprotty.Point;
 import org.eclipse.sprotty.SModelElement;
 import org.eclipse.sprotty.SModelRoot;
@@ -28,36 +29,53 @@ import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
 import com.eclipsesource.glsp.api.handler.IOperationHandler;
 import com.eclipsesource.glsp.api.model.IModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
-import com.google.inject.internal.util.StackTraceElements.InMemoryStackTraceElement;
 
 public abstract class CreateNodeOperationHandler implements IOperationHandler {
+	Logger log = Logger.getLogger(CreateNodeOperationAction.class);
+	private boolean canCreateOnRoot;
+
+	public CreateNodeOperationHandler(boolean canCreateOnRoot) {
+		this.canCreateOnRoot = canCreateOnRoot;
+	}
 
 	@Override
 	public boolean handles(Action action) {
 		return action instanceof CreateNodeOperationAction;
 	}
 
+	protected Optional<SModelElement> retrieveContainer(Optional<String> containerId, IModelState modelState) {
+		Optional<SModelElement> container = containerId.isPresent() ? modelState.getIndex().get(containerId.get())
+				: null;
+		if (!container.isPresent()) {
+			if (canCreateOnRoot) {
+				container = Optional.of(modelState.getCurrentModel());
+			}
+		}
+		return container;
+
+	}
+
 	@Override
 	public Optional<SModelRoot> execute(Action action, IModelState modelState) {
 		CreateNodeOperationAction executeAction = (CreateNodeOperationAction) action;
 
-		SModelIndex index = modelState.getCurrentModelIndex();
+		SModelIndex index = modelState.getIndex();
 
-		SModelElement container = index.get(executeAction.getContainerId());
-		if (container == null) {
-			container = modelState.getCurrentModel();
+		Optional<Point> point = Optional.of(executeAction.getLocation());		
+		Optional<SModelElement> container= retrieveContainer(Optional.ofNullable(executeAction.getContainerId()), modelState);
+		if (!container.isPresent()) {
+			log.error("No valid container found for node creation");
+			return Optional.empty();
 		}
-
-		Optional<Point> point = Optional.of(executeAction.getLocation());
-		SModelElement element = createNode(point, modelState);
-		if (element!=null) {
-			if (container.getChildren() == null) {
-				container.setChildren(new ArrayList<SModelElement>());
+		SModelElement element = createNode(point, container.get(), modelState);
+		if (element != null) {
+			if (container.get().getChildren() == null) {
+				container.get().setChildren(new ArrayList<SModelElement>());
 			}
-			container.getChildren().add(element);
-			index.addToIndex(element, container);
+			container.get().getChildren().add(element);
+			index.addToIndex(element, container.get());
 		}
-	
+
 		return Optional.of(modelState.getCurrentModel());
 	}
 
@@ -71,13 +89,13 @@ public abstract class CreateNodeOperationHandler implements IOperationHandler {
 		return id + i;
 	}
 
-	protected abstract SModelElement createNode(Optional<Point> point, IModelState modelState);
-	
+	protected abstract SModelElement createNode(Optional<Point> point, SModelElement container, IModelState modelState);
+
 	protected int getCounter(SModelIndex index, String type, Function<Integer, String> idProvider) {
-		int i = index.getTypeCount(type);
+		int i = index.getTypeCount(type)+1;
 		while (true) {
 			String id = idProvider.apply(i);
-			if (index.get(id) == null) {
+			if (!index.get(id).isPresent()) {
 				break;
 			}
 			i++;
