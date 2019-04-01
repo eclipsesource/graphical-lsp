@@ -17,6 +17,7 @@ import { FrontendApplicationContribution, OpenHandler, WidgetFactory } from "@th
 import { GLSPClientContribution } from "glsp-theia-extension/lib/browser";
 import { ContainerModule, interfaces } from "inversify";
 import { DiagramConfiguration, DiagramManager, DiagramManagerProvider } from "sprotty-theia/lib";
+
 import { EcoreDiagramConfiguration } from "./ecore-diagram-configuration";
 import { EcoreDiagramManager } from "./ecore-diagram-manager.";
 import { EcoreGLClientContribution } from "./ecore-glclient-contribution";
@@ -24,15 +25,15 @@ import { EcoreGLSPDiagramClient } from "./ecore-gslp-diagram-client";
 
 
 export default new ContainerModule((bind: interfaces.Bind, unbind: interfaces.Unbind, isBound: interfaces.IsBound, rebind: interfaces.Rebind) => {
-    bind(EcoreGLClientContribution).toSelf().inSingletonScope()
+    bind(EcoreGLClientContribution).toSelf().inSingletonScope();
     bind(GLSPClientContribution).toService(EcoreGLClientContribution);
 
-    bind(EcoreGLSPDiagramClient).toSelf().inSingletonScope()
+    bind(EcoreGLSPDiagramClient).toSelf().inSingletonScope();
 
-    bind(DiagramConfiguration).to(EcoreDiagramConfiguration).inSingletonScope()
-    bind(EcoreDiagramManager).toSelf().inSingletonScope()
-    bind(FrontendApplicationContribution).toService(EcoreDiagramManager)
-    bind(OpenHandler).toService(EcoreDiagramManager)
+    bind(DiagramConfiguration).to(EcoreDiagramConfiguration).inSingletonScope();
+    bind(EcoreDiagramManager).toSelf().inSingletonScope();
+    bind(FrontendApplicationContribution).toService(EcoreDiagramManager);
+    bind(OpenHandler).toService(EcoreDiagramManager);
     bind(WidgetFactory).toService(EcoreDiagramManager);
     bind(DiagramManagerProvider).toProvider<DiagramManager>((context) => {
         return () => {
@@ -42,5 +43,5 @@ export default new ContainerModule((bind: interfaces.Bind, unbind: interfaces.Un
             });
         };
     });
-})
+});
 

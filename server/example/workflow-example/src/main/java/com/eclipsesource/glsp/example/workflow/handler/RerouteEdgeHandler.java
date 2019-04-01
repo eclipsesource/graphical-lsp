@@ -22,13 +22,13 @@ import org.apache.log4j.Logger;
 import org.eclipse.sprotty.SEdge;
 import org.eclipse.sprotty.SModelRoot;
 
-import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
+import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RerouteConnectionOperationAction;
-import com.eclipsesource.glsp.api.handler.OperationHandler;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.handler.IOperationHandler;
+import com.eclipsesource.glsp.api.model.IModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 
-public class RerouteEdgeHandler implements OperationHandler {
+public class RerouteEdgeHandler implements IOperationHandler {
 	private static Logger log = Logger.getLogger(RerouteEdgeHandler.class);
 
 	@Override
@@ -37,7 +37,7 @@ public class RerouteEdgeHandler implements OperationHandler {
 	}
 
 	@Override
-	public Optional<SModelRoot> execute(AbstractOperationAction operationAction, ModelState modelState) {
+	public Optional<SModelRoot> execute(Action operationAction, IModelState modelState) {
 		if (!(operationAction instanceof RerouteConnectionOperationAction)) {
 			log.warn("Unexpected action " + operationAction);
 			return Optional.empty();
@@ -51,7 +51,7 @@ public class RerouteEdgeHandler implements OperationHandler {
 		}
 
 		// check for existence of matching elements
-		SModelIndex index = modelState.getCurrentModelIndex();
+		SModelIndex index = modelState.getIndex();
 		Optional<SEdge> edge = index.findElement(action.getConnectionElementId(), SEdge.class);
 		if (!edge.isPresent()) {
 			log.warn("Invalid edge: edge ID " + action.getConnectionElementId());
@@ -64,4 +64,5 @@ public class RerouteEdgeHandler implements OperationHandler {
 		SModelRoot currentModel = modelState.getCurrentModel();
 		return Optional.of(currentModel);
 	}
+
 }

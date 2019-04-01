@@ -13,28 +13,26 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action } from "sprotty/lib";
-import { ApplyCursorCSSFeedbackAction } from "../tool-feedback/cursor-feedback";
-import { Bounds } from "sprotty/lib";
-import { ChangeContainerOperationAction } from "../operation/operation-actions";
-import { CursorCSS } from "../tool-feedback/cursor-feedback";
-import { DragAwareMouseListener } from "./drag-aware-mouse-listener";
-import { GLSP_TYPES } from "../../types";
-import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
-import { MouseTool } from "sprotty/lib";
-import { NodeEditConfig } from "../../base/edit-config/edit-config";
-import { Point } from "sprotty/lib";
-import { SChildElement } from "sprotty/lib";
-import { SModelElement } from "sprotty/lib";
-import { SNode } from "sprotty/lib";
-import { Tool } from "sprotty/lib";
+import { inject, injectable } from "inversify";
+import {
+    Action,
+    Bounds,
+    findParentByFeature,
+    isBoundsAware,
+    MouseTool,
+    Point,
+    SChildElement,
+    SModelElement,
+    SNode,
+    Tool
+} from "sprotty/lib";
 
-import { findParentByFeature } from "sprotty/lib";
-import { inject } from "inversify";
-import { injectable } from "inversify";
-import { isBoundsAware } from "sprotty/lib";
-import { isConfigurableNode } from "../../base/edit-config/edit-config";
-import { reparentAllowed } from "../../base/edit-config/edit-config";
+import { isConfigurableNode, NodeEditConfig, reparentAllowed } from "../../base/edit-config/edit-config";
+import { GLSP_TYPES } from "../../types";
+import { ChangeContainerOperationAction } from "../operation/operation-actions";
+import { ApplyCursorCSSFeedbackAction, CursorCSS } from "../tool-feedback/cursor-feedback";
+import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
+import { DragAwareMouseListener } from "./drag-aware-mouse-listener";
 
 
 @injectable()
@@ -53,7 +51,7 @@ export class ChangeContainerTool implements Tool {
 
     disable() {
         this.mouseTool.deregister(this.changeContainerListener);
-        this.feedbackDispatcher.deregisterFeedback(this, [new ApplyCursorCSSFeedbackAction()])
+        this.feedbackDispatcher.deregisterFeedback(this, [new ApplyCursorCSSFeedbackAction()]);
     }
 
     dispatchFeedback(actions: Action[]) {
@@ -66,7 +64,7 @@ class ChangeContainerListener extends DragAwareMouseListener {
     private child?: SChildElement;
     private parentBounds?: Bounds;
 
-    constructor(protected tool: ChangeContainerTool) { super() }
+    constructor(protected tool: ChangeContainerTool) { super(); }
     mouseDown(target: SModelElement, event: MouseEvent): Action[] {
         this.isMouseDown = true;
         const currentChild = findParentByFeature(target, isConfigurableNode);
@@ -82,7 +80,7 @@ class ChangeContainerListener extends DragAwareMouseListener {
         if (this.child && this.container && this.container !== this.child.parent) {
             if (reparentAllowed) {
                 const location: Point = { x: event.x, y: event.y };
-                result.push(new ChangeContainerOperationAction(this.child.id, this.container.id, location))
+                result.push(new ChangeContainerOperationAction(this.child.id, this.container.id, location));
 
             }
         }
@@ -113,7 +111,7 @@ class ChangeContainerListener extends DragAwareMouseListener {
     private reset() {
         this.child = undefined;
         this.container = undefined;
-        this.tool.dispatchFeedback([new ApplyCursorCSSFeedbackAction()])
+        this.tool.dispatchFeedback([new ApplyCursorCSSFeedbackAction()]);
     }
 
     private reparentAllowed(): boolean {

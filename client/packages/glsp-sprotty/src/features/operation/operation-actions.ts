@@ -16,7 +16,6 @@
 import { Action, ElementAndBounds, Point } from "sprotty/lib";
 
 import { OperationKind } from "./set-operations";
-import { Point } from "sprotty/lib";
 
 export class CreateNodeOperationAction implements Action {
     readonly kind = OperationKind.CREATE_NODE;

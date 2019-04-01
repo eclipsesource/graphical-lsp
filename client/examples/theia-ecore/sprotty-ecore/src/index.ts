@@ -13,9 +13,11 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import 'reflect-metadata';
-import '../css/diagram.css';
-import createEcoreDiagramContainer from './di.config';
+import "../css/diagram.css";
+import "reflect-metadata";
+
+import createEcoreDiagramContainer from "./di.config";
+
 export * from './model';
 export * from './views';
 export { createEcoreDiagramContainer };

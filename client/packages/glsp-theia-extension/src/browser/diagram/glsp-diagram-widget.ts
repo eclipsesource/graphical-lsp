@@ -36,9 +36,9 @@ import { GLSPTheiaDiagramServer, NotifyingModelSource } from "./glsp-theia-diagr
 export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     saveable = new SaveableGLSPModelSource(this.actionDispatcher, this.diContainer.get<ModelSource>(TYPES.ModelSource));
 
-    constructor(options: DiagramWidgetOptions, readonly id: string, readonly diContainer: Container,
+    constructor(options: DiagramWidgetOptions, readonly widgetId: string, readonly diContainer: Container,
         readonly editorPreferences: EditorPreferences, readonly connector?: TheiaSprottyConnector) {
-        super(options, id, diContainer, connector);
+        super(options, widgetId, diContainer, connector);
         this.updateSaveable();
         const prefUpdater = editorPreferences.onPreferenceChanged(() => this.updateSaveable());
         this.toDispose.push(prefUpdater);

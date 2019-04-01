@@ -15,10 +15,12 @@
  ********************************************************************************/
 import { BaseGLSPClientContribution } from "glsp-theia-extension/lib/browser";
 import { injectable } from "inversify";
+
 import { EcoreLanguage } from "../common/ecore-language";
+
 @injectable()
 export class EcoreGLClientContribution extends BaseGLSPClientContribution {
-    fileExtensions = EcoreLanguage.FileExtensions
-    readonly id = EcoreLanguage.Id
-    readonly name = EcoreLanguage.Name
+    fileExtensions = EcoreLanguage.FileExtensions;
+    readonly id = EcoreLanguage.Id;
+    readonly name = EcoreLanguage.Name;
 }

@@ -30,12 +30,6 @@ import {
 
 import { isConfigurableNode, NodeEditConfig } from "../../base/edit-config/edit-config";
 
-import { hoverFeedbackFeature } from "sprotty/lib";
-import { isBoundsAware } from "sprotty/lib";
-import { isConfigurableNode } from "../../base/edit-config/edit-config";
-import { isMoveable } from "sprotty/lib";
-import { isSelectable } from "sprotty/lib";
-
 export enum ResizeHandleLocation {
     TopLeft = "top-left",
     TopRight = "top-right",

@@ -21,7 +21,7 @@ export namespace OperationKind {
     export const RECONNECT_CONNECTION = "reconnectConnection";
     export const REROUTE_CONNECTION = "rerouteConnection";
     export const DELETE_ELEMENT = "delete";
-    export const CHANGE_BOUNDS = "changeBoundsOperation";
+    export const CHANGE_BOUNDS = "changeBounds";
     export const CHANGE_CONTAINER = "changeContainer";
     export const GENERIC = "generic";
 }

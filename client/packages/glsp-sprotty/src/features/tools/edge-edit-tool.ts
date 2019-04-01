@@ -40,7 +40,6 @@ import {
     SReconnectHandle
 } from "../reconnect/model";
 import { SelectionTracker } from "../select/selection-tracker";
-import { FeedbackMoveMouseListener } from "../tool-feedback/change-bounds-tool-feedback";
 import { DrawFeedbackEdgeAction, feedbackEdgeId, RemoveFeedbackEdgeAction } from "../tool-feedback/creation-tool-feedback";
 import { ApplyCursorCSSFeedbackAction, CursorCSS } from "../tool-feedback/cursor-feedback";
 import {

@@ -13,32 +13,33 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import {
+    boundsFeature,
+    Expandable,
+    expandFeature,
+    fadeFeature,
+    Hoverable,
+    hoverFeedbackFeature,
+    layoutableChildFeature,
+    layoutContainerFeature,
+    RectangularNode,
+    SEdge,
+    SGraph,
+    SLabel,
+    SModelRoot,
+    SModelRootSchema,
+    SShapeElement
+} from "sprotty/lib";
 
-import { Expandable } from "sprotty/lib";
-import { Hoverable } from "sprotty/lib";
-import { RectangularNode } from "sprotty/lib";
-import { SEdge } from "sprotty/lib";
-import { SGraph } from "sprotty/lib";
-import { SLabel } from "sprotty/lib";
-import { SModelRoot } from "sprotty/lib";
-import { SModelRootSchema } from "sprotty/lib";
-import { SShapeElement } from "sprotty/lib";
-
-import { boundsFeature } from "sprotty/lib";
-import { expandFeature } from "sprotty/lib";
-import { fadeFeature } from "sprotty/lib";
-import { hoverFeedbackFeature } from "sprotty/lib";
-import { layoutableChildFeature } from "sprotty/lib";
-import { layoutContainerFeature } from "sprotty/lib";
 
 
 
 export class EcoreGraph extends SGraph {
-    needsInitialLayout: boolean
+    needsInitialLayout: boolean;
 }
 
 export function isEcoreGraph(root: SModelRoot | SModelRootSchema): root is EcoreGraph {
-    return (<any>root)["needsInitialLayout"] !== undefined && typeof ((<any>root)["needsInitialLayout"]) === 'boolean'
+    return (<any>root)["needsInitialLayout"] !== undefined && typeof ((<any>root)["needsInitialLayout"]) === 'boolean';
 }
 
 export class ClassNode extends RectangularNode implements Expandable {
@@ -64,8 +65,8 @@ export const multiplicitySourceFeature = Symbol('multiplicitySourceFeature');
 export const multiplicityTargetFeature = Symbol('multiplicityTargetFeature');
 
 export class EdgeWithMultiplicty extends SEdge {
-    multiplicitySource: string
-    multiplicityTarget: string
+    multiplicitySource: string;
+    multiplicityTarget: string;
 
     hasFeature(feature: symbol) {
         return feature === multiplicitySourceFeature || feature === multiplicityTargetFeature || super.hasFeature(feature);
@@ -73,7 +74,7 @@ export class EdgeWithMultiplicty extends SEdge {
 }
 
 export class PropertyLabel extends SLabel implements Hoverable {
-    hoverFeedback: boolean
+    hoverFeedback: boolean;
 
     hasFeature(feature: symbol) {
         return feature === hoverFeedbackFeature || super.hasFeature(feature);

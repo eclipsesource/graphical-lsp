@@ -19,7 +19,7 @@ import org.eclipse.sprotty.SEdge;
 
 import com.eclipsesource.glsp.api.types.EdgeTypeHint;
 
-public class EdgeTypeConfiguration extends ModelTypeConfiguration {
+public class EdgeTypeConfiguration extends IModelTypeConfiguration {
 
 	public EdgeTypeConfiguration() {
 		super();

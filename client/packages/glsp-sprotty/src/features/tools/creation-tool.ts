@@ -18,17 +18,22 @@ import {
     Action,
     AnchorComputerRegistry,
     EnableDefaultToolsAction,
-    findParent,
     findParentByFeature,
     isConnectable,
     isCtrlOrCmd,
     MouseTool,
     SModelElement,
-    SModelRoot,
+    SParentElement,
     Tool
 } from "sprotty/lib";
 
-import { containmentAllowed, EdgeEditConfig, edgeEditConfig, IEditConfigProvider } from "../../base/edit-config/edit-config";
+import {
+    EdgeEditConfig,
+    edgeEditConfig,
+    IEditConfigProvider,
+    isConfigurableNode,
+    NodeEditConfig
+} from "../../base/edit-config/edit-config";
 import { TypeAware } from "../../base/tool-manager/tool-manager-action-handler";
 import { GLSP_TYPES } from "../../types";
 import { getAbsolutePosition } from "../../utils/viewpoint-util";
@@ -42,6 +47,9 @@ import {
 import { ApplyCursorCSSFeedbackAction, CursorCSS } from "../tool-feedback/cursor-feedback";
 import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
 import { DragAwareMouseListener } from "./drag-aware-mouse-listener";
+
+
+
 
 
 export const TOOL_ID_PREFIX = "tool";

@@ -19,13 +19,12 @@ import { Action, CommandExecutionContext, SModelRoot, TYPES } from "sprotty/lib"
 import { addCssClasses, removeCssClasses } from "../../utils/smodel-util";
 import { FeedbackCommand } from "./model";
 
-
 export enum CursorCSS {
     NODE_CREATION = 'node-creation-mode',
     EDGE_CREATION_SOURCE = 'edge-creation-select-source-mode',
     EDGE_CREATION_TARGET = 'edge-creation-select-target-mode',
     EDGE_RECONNECT = 'edge-reconnect-select-target-mode',
-    OPERATION_NOT_ALLOWED = 'modification-not-allowed-mode',
+    OPERATION_NOT_ALLOWED = 'edge-modification-not-allowed-mode',
     ELEMENT_DELETION = "element-deletion-mode",
     CHANGE_CONTAINER = "change-container-mode"
 }

@@ -24,9 +24,8 @@ import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.WEIGHTED
 
 import com.eclipsesource.glsp.api.action.kind.RequestOperationsAction;
 import com.eclipsesource.glsp.api.operations.Group;
+import com.eclipsesource.glsp.api.operations.IOperationConfiguration;
 import com.eclipsesource.glsp.api.operations.Operation;
-import com.eclipsesource.glsp.api.operations.Group;
-import com.eclipsesource.glsp.api.operations.OperationConfiguration;
 
 public class WorkflowOperationConfiguration implements IOperationConfiguration {
 

@@ -31,7 +31,7 @@ import com.eclipsesource.glsp.api.model.IModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.eclipsesource.glsp.example.workflow.schema.ModelTypes;
 
-public class CreateEdgeHandler implements OperationHandler {
+public class CreateEdgeHandler implements IOperationHandler {
 	private static Logger log = Logger.getLogger(CreateEdgeHandler.class);
 
 	@Override

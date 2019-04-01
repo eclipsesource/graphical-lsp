@@ -13,42 +13,39 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Container } from "inversify";
-import { DiagramConfiguration } from "sprotty-theia/lib";
+import { SelectionService } from "@theia/core";
+import {
+    defaultGLSPModule,
+    KeyTool,
+    modelHintsModule,
+    registerDefaultTools,
+    toolFeedbackModule,
+    TYPES
+} from "glsp-sprotty/lib";
+import toolPaletteModule from "glsp-sprotty/lib/features/tool-palette/di.config";
+import { Container, inject, injectable } from "inversify";
+import { createEcoreDiagramContainer } from "sprotty-ecore/lib";
+import { TheiaDiagramServer } from "sprotty-theia";
+import { DiagramConfiguration, TheiaKeyTool, TheiaSprottySelectionForwarder } from "sprotty-theia/lib";
+
 import { EcoreLanguage } from "../common/ecore-language";
 import { EcoreTheiaDiagramServer } from "./ecore-diagram-server";
-import { KeyTool } from "glsp-sprotty/lib";
-import { SelectionService } from "@theia/core";
-import { TheiaDiagramServer } from "sprotty-theia";
-import { TheiaKeyTool } from "sprotty-theia/lib";
-import { TheiaSprottySelectionForwarder } from "sprotty-theia/lib";
-import { TYPES } from "glsp-sprotty/lib";
-
-import { createEcoreDiagramContainer } from "sprotty-ecore/lib";
-import { defaultGLSPModule } from "glsp-sprotty/lib";
-import { inject } from "inversify";
-import { injectable } from "inversify";
-import { modelHintsModule } from "glsp-sprotty/lib";
-import { registerDefaultTools } from "glsp-sprotty/lib";
-import { toolFeedbackModule } from "glsp-sprotty/lib";
-
-import toolPaletteModule from "glsp-sprotty/lib/features/tool-palette/di.config";
 
 @injectable()
 export class EcoreDiagramConfiguration implements DiagramConfiguration {
     @inject(SelectionService) protected readonly selectionService: SelectionService;
-    diagramType: string = EcoreLanguage.DiagramType
+    diagramType: string = EcoreLanguage.DiagramType;
 
     createContainer(widgetId: string): Container {
         const container = createEcoreDiagramContainer(widgetId, true, false);
 
-        container.bind(TYPES.ModelSource).to(EcoreTheiaDiagramServer).inSingletonScope()
-        container.bind(TheiaDiagramServer).toService(TYPES.ModelSource)
-        container.rebind(KeyTool).to(TheiaKeyTool).inSingletonScope()
-        container.bind(SelectionService).toConstantValue(this.selectionService)
-        container.bind(TYPES.IActionHandlerInitializer).to(TheiaSprottySelectionForwarder)
+        container.bind(TYPES.ModelSource).to(EcoreTheiaDiagramServer).inSingletonScope();
+        container.bind(TheiaDiagramServer).toService(TYPES.ModelSource);
+        container.rebind(KeyTool).to(TheiaKeyTool).inSingletonScope();
+        container.bind(SelectionService).toConstantValue(this.selectionService);
+        container.bind(TYPES.IActionHandlerInitializer).to(TheiaSprottySelectionForwarder);
 
-        container.load(defaultGLSPModule, modelHintsModule, toolPaletteModule, toolFeedbackModule)
+        container.load(defaultGLSPModule, modelHintsModule, toolPaletteModule, toolFeedbackModule);
         registerDefaultTools(container);
         return container;
     }

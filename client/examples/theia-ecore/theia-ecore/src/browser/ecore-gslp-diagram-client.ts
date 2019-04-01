@@ -16,6 +16,7 @@
 import { EditorManager } from "@theia/editor/lib/browser";
 import { GLSPDiagramClient } from "glsp-theia-extension/lib/browser";
 import { inject, injectable } from "inversify";
+
 import { EcoreGLClientContribution } from "./ecore-glclient-contribution";
 
 
@@ -24,6 +25,6 @@ export class EcoreGLSPDiagramClient extends GLSPDiagramClient {
     constructor(
         @inject(EcoreGLClientContribution) glspCLientContribution: EcoreGLClientContribution,
         @inject(EditorManager) editorManager: EditorManager) {
-        super(glspCLientContribution, editorManager)
+        super(glspCLientContribution, editorManager);
     }
 }

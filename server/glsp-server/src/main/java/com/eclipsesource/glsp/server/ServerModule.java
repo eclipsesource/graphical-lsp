@@ -23,7 +23,6 @@ import com.eclipsesource.glsp.api.di.GLSPModule;
 import com.eclipsesource.glsp.api.factory.IModelFactory;
 import com.eclipsesource.glsp.api.handler.IActionHandler;
 import com.eclipsesource.glsp.api.jsonrpc.IGLSPServer;
-import com.eclipsesource.glsp.api.model.IModelState;
 import com.eclipsesource.glsp.api.model.IModelStateProvider;
 import com.eclipsesource.glsp.api.provider.IActionHandlerProvider;
 import com.eclipsesource.glsp.api.provider.IActionProvider;
@@ -37,7 +36,6 @@ import com.eclipsesource.glsp.server.actionhandler.OpenActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.OperationActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.RequestCommandPaletteActionsHandler;
 import com.eclipsesource.glsp.server.actionhandler.RequestElementTypeHintsActionHandler;
-import com.eclipsesource.glsp.server.actionhandler.RequestMarkersHandler;
 import com.eclipsesource.glsp.server.actionhandler.RequestModelActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.RequestOperationsHandler;
 import com.eclipsesource.glsp.server.actionhandler.RequestPopupModelActionHandler;
@@ -137,22 +135,4 @@ public abstract class ServerModule extends GLSPModule {
 		handlers.add(RequestCommandPaletteActionsHandler.class);
 		return handlers;
 	}
-
-	@Override
-	protected void multiBindActionHandlers() {
-		bindActionHandler().to(CollapseExpandActionHandler.class);
-		bindActionHandler().to(ComputedBoundsActionHandler.class);
-		bindActionHandler().to(OpenActionHandler.class);
-		bindActionHandler().to(OperationActionHandler.class);
-		bindActionHandler().to(RequestModelActionHandler.class);
-		bindActionHandler().to(RequestOperationsHandler.class);
-		bindActionHandler().to(RequestPopupModelActionHandler.class);
-		bindActionHandler().to(SaveModelActionHandler.class);
-		bindActionHandler().to(SelectActionHandler.class);
-		bindActionHandler().to(ExecuteServerCommandActionHandler.class);
-		bindActionHandler().to(RequestElementTypeHintsActionHandler.class);
-		bindActionHandler().to(RequestCommandPaletteActionsHandler.class);
-		bindActionHandler().to(RequestMarkersHandler.class);
-	}
-
 }

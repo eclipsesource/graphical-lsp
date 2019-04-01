@@ -14,11 +14,24 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 /** @jsx svg */
-import { injectable } from 'inversify';
 import { svg } from 'snabbdom-jsx';
+import { injectable } from "inversify";
 import { VNode } from "snabbdom/vnode";
-import { getSubType, IView, Point, PolylineEdgeView, RectangularNodeView, RenderingContext, SEdge, setAttr, SLabelView, toDegrees } from "sprotty/lib";
-import { ClassNode, EdgeWithMultiplicty, Icon, PropertyLabel } from './model';
+import {
+    getSubType,
+    IView,
+    Point,
+    PolylineEdgeView,
+    RectangularNodeView,
+    RenderingContext,
+    SEdge,
+    setAttr,
+    SLabelView,
+    toDegrees
+} from "sprotty/lib";
+
+import { ClassNode, EdgeWithMultiplicty, Icon, PropertyLabel } from "./model";
+
 
 
 @injectable()
@@ -57,13 +70,13 @@ export class ArrowEdgeView extends PolylineEdgeView {
         return [
             <path class-sprotty-edge={true} d="M 10,-4 L 0,0 L 10,4"
                 transform={`rotate(${angle(p2, p1)} ${p2.x} ${p2.y}) translate(${p2.x} ${p2.y})`} />,
-        ]
+        ];
     }
 
-    static readonly TARGET_CORRECTION = Math.sqrt(1 * 1 + 2.5 * 2.5)
+    static readonly TARGET_CORRECTION = Math.sqrt(1 * 1 + 2.5 * 2.5);
 
     protected getTargetAnchorCorrection(edge: SEdge): number {
-        return ArrowEdgeView.TARGET_CORRECTION
+        return ArrowEdgeView.TARGET_CORRECTION;
     }
 
 }
@@ -75,22 +88,21 @@ export class InheritanceEdgeView extends ArrowEdgeView {
         const p2 = segments[segments.length - 1];
         return [
             <path class-sprotty-edge={true} d="M 10,-4 L 0,0 L 10,4 Z" class-inheritance={true}
-                transform={`rotate(${angle(p2, p1)} ${p2.x} ${p2.y}) translate(${p2.x} ${p2.y})`} />,
-        ]
+                transform={`rotate(${angle(p2, p1)} ${p2.x} ${p2.y}) translate(${p2.x} ${p2.y})`} />,];
     }
 
-    static readonly TARGET_CORRECTION = Math.sqrt(1 * 1 + 2.5 * 2.5)
+    static readonly TARGET_CORRECTION = Math.sqrt(1 * 1 + 2.5 * 2.5);
 
     protected getTargetAnchorCorrection(edge: SEdge): number {
-        return ArrowEdgeView.TARGET_CORRECTION
+        return ArrowEdgeView.TARGET_CORRECTION;
     }
 }
 
 @injectable()
 abstract class DiamondEdgeView extends PolylineEdgeView {
     protected renderAdditionals(edge: EdgeWithMultiplicty, segments: Point[], context: RenderingContext): VNode[] {
-        const p1 = segments[0]
-        const p2 = segments[1]
+        const p1 = segments[0];
+        const p2 = segments[1];
         const r = 6;
         const rhombStr = "M 0,0 l" + r + "," + (r / 2) + " l" + r + ",-" + (r / 2) + " l-" + r + ",-" + (r / 2) + " l-" + r + "," + (r / 2) + " Z";
         const firstEdgeAngle = angle(p1, p2);
@@ -101,14 +113,13 @@ abstract class DiamondEdgeView extends PolylineEdgeView {
             <path class-sprotty-edge={true} class-diamond={true} class-composition={this.isComposition()} class-aggregation={this.isAggregation()} d={rhombStr}
                 transform={`rotate(${firstEdgeAngle} ${p1.x} ${p1.y}) translate(${p1.x} ${p1.y})`} />,
             <text class-sprotty-label={true} transform={`rotate(${firstEdgeAngle} ${p1.x} ${p1.y}) translate(${p1.x + 15} ${p1.y - 5})`}>{edge.multiplicitySource}</text>,
-            <text class-sprotty-label={true} transform={`rotate(${lastEdgeAngle} ${pn.x} ${pn.y}) translate(${pn.x - 15} ${pn.y - 5})`}>{edge.multiplicityTarget}</text>
-        ]
+            <text class-sprotty-label={true} transform={`rotate(${lastEdgeAngle} ${pn.x} ${pn.y}) translate(${pn.x - 15} ${pn.y - 5})`}>{edge.multiplicityTarget}</text>];
     }
 
-    static readonly SOURCE_CORRECTION = Math.sqrt(1 * 1 + 2 * 2)
+    static readonly SOURCE_CORRECTION = Math.sqrt(1 * 1 + 2 * 2);
 
     protected getSourceAnchorCorrection(edge: SEdge): number {
-        return CompositionEdgeView.SOURCE_CORRECTION
+        return CompositionEdgeView.SOURCE_CORRECTION;
     }
     protected isComposition(): boolean {
         return false;
@@ -145,5 +156,6 @@ export class PropertyLabelView extends SLabelView {
     }
 }
 export function angle(x0: Point, x1: Point): number {
-    return toDegrees(Math.atan2(x1.y - x0.y, x1.x - x0.x))
+    return toDegrees(Math.atan2(x1.y - x0.y, x1.x
+        - x0.x));
 }

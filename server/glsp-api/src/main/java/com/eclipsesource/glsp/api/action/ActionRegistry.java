@@ -24,7 +24,6 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import com.eclipsesource.glsp.api.handler.IActionHandler;
-import com.eclipsesource.glsp.api.model.IModelState;
 import com.eclipsesource.glsp.api.provider.IActionHandlerProvider;
 import com.eclipsesource.glsp.api.provider.IActionProvider;
 import com.google.inject.Inject;
@@ -39,7 +38,7 @@ public class ActionRegistry {
 	private Map<String, IActionHandler> actionHandlers;
 
 	@Inject
-	public ActionRegistry(ActionProvider registeredActionProvider, ActionHandlerProvider registeredHandlerProvider) {
+	public ActionRegistry(IActionProvider registeredActionProvider, IActionHandlerProvider registeredHandlerProvider) {
 		actions = new HashMap<>();
 		actionHandlers = new HashMap<>();
 		registeredActions = new HashSet<>();

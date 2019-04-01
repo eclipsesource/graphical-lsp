@@ -14,26 +14,27 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { IConnection } from "@theia/languages/lib/node";
-import { BaseGLSPServerContribution } from 'glsp-theia-extension/lib/node';
+import { BaseGLSPServerContribution } from "glsp-theia-extension/lib/node";
 import { injectable } from "inversify";
-import * as net from 'net';
-import { createSocketConnection } from 'vscode-ws-jsonrpc/lib/server';
+import * as net from "net";
+import { createSocketConnection } from "vscode-ws-jsonrpc/lib/server";
+
 import { EcoreLanguage } from "../common/ecore-language";
 
 function getPort(): number | undefined {
-    let arg = process.argv.filter(arg => arg.startsWith('--ECORE_LSP='))[0]
+    const arg = process.argv.filter(a => a.startsWith('--ECORE_LSP='))[0];
     if (!arg) {
-        return undefined
+        return undefined;
     } else {
-        return Number.parseInt(arg.substring('--ECORE_LSP='.length), 10)
+        return Number.parseInt(arg.substring('--ECORE_LSP='.length), 10);
     }
 }
 @injectable()
 export class EcoreGLServerContribution extends BaseGLSPServerContribution {
-    readonly id = EcoreLanguage.Id
-    readonly name = EcoreLanguage.Name
+    readonly id = EcoreLanguage.Id;
+    readonly name = EcoreLanguage.Name;
 
-    serverStarted = false
+    serverStarted = false;
 
     readonly description = {
         id: 'ecore',
@@ -42,11 +43,11 @@ export class EcoreGLServerContribution extends BaseGLSPServerContribution {
         fileEvents: [
             '**/*.ecorediagram'
         ]
-    }
+    };
 
     start(clientConnection: IConnection): void {
-        console.log('[EcoreGL] Start Server for Client Connection.')
-        let socketPort = getPort();
+        console.log('[EcoreGL] Start Server for Client Connection.');
+        const socketPort = getPort();
         if (socketPort) {
             // if (!this.serverStarted) {
             //     const command = 'java';
@@ -65,19 +66,19 @@ export class EcoreGLServerContribution extends BaseGLSPServerContribution {
             //     child.unref();
             // }
 
-            const socket = new net.Socket()
-            console.log('[EcoreGL] Create Socket Connection at ' + socketPort + '.')
+            const socket = new net.Socket();
+            console.log('[EcoreGL] Create Socket Connection at ' + socketPort + '.');
             const serverConnection = createSocketConnection(socket, socket, () => {
-                console.log('[EcoreGL] Socket Connection Disposed.')
-                socket.destroy()
+                console.log('[EcoreGL] Socket Connection Disposed.');
+                socket.destroy();
             });
-            console.log('[EcoreGL] Forward Client Connections.')
-            this.forward(clientConnection, serverConnection)
-            socket.connect(socketPort)
+            console.log('[EcoreGL] Forward Client Connections.');
+            this.forward(clientConnection, serverConnection);
+            socket.connect(socketPort);
             this.serverStarted = true;
-            console.log('[EcoreGL] Client Connection Started.')
+            console.log('[EcoreGL] Client Connection Started.');
         } else {
-            console.log('[EcoreGL] Unable to connect to Workflow Graphical Language Server: No Socket Port.')
+            console.log('[EcoreGL] Unable to connect to Workflow Graphical Language Server: No Socket Port.');
         }
     }
 }

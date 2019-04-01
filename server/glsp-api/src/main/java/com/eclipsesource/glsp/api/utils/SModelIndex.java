@@ -15,7 +15,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.utils;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -127,8 +126,8 @@ public class SModelIndex {
 	 * @return an optional with the element of type clazz or an empty optional
 	 */
 	public <T extends SModelElement> Optional<T> findElement(String elementId, Class<T> clazz) {
-		Optional<SModelElement> element= get(elementId);
-		if (element.isPresent()){
+		Optional<SModelElement> element = get(elementId);
+		if (element.isPresent()) {
 			return findElement(element.get(), clazz);
 		}
 		return Optional.empty();
@@ -165,9 +164,9 @@ public class SModelIndex {
 	}
 
 	public Set<SModelElement> getAll(Collection<String> elementIds) {
-		Set<SModelElement>result= elementIds.stream().map(this::get).filter(Optional::isPresent)
-				.map(Optional::get).collect(Collectors.toSet());
-		if (result.size()==elementIds.size()){
+		Set<SModelElement> result = elementIds.stream().map(this::get).filter(Optional::isPresent).map(Optional::get)
+				.collect(Collectors.toSet());
+		if (result.size() == elementIds.size()) {
 			return result;
 		}
 		return Collections.emptySet();

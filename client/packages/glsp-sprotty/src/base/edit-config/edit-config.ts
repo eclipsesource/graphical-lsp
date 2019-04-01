@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { SEdge, SModelElement, SModelElementSchema, SNode, SParentElement } from "sprotty/lib";
+import { SEdge, SModelElement, SModelElementSchema, SNode } from "sprotty/lib";
 
 
 export const edgeEditConfig = Symbol.for("edgeEditConfiguration");
@@ -66,6 +66,6 @@ export function movingAllowed(element: SModelElement): element is SNode & NodeEd
     return isConfigurableNode(element) && element.repositionable;
 }
 export function reparentAllowed(element: SModelElement): element is SNode & NodeEditConfig {
-    return isConfigurableNode(element) && element.reparentable
+    return isConfigurableNode(element) && element.reparentable;
 }
 

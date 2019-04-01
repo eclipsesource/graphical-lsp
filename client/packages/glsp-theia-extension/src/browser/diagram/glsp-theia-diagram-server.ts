@@ -41,8 +41,6 @@ import {
 import { injectable } from "inversify";
 import { TheiaDiagramServer } from "sprotty-theia/lib";
 
-import { injectable } from "inversify";
-
 @injectable()
 export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements NotifyingModelSource {
     readonly handledActionEventEmitter: Emitter<Action> = new Emitter<Action>();
@@ -58,7 +56,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         registry.register(ExecuteServerCommandAction.KIND, this);
         registry.register(RequestTypeHintsAction.KIND, this);
         registry.register(SetTypeHintsAction.KIND, this);
-        registry.register(OperationKind.CHANGE_CONTAINER, this)
+        registry.register(OperationKind.CHANGE_CONTAINER, this);
         registry.register(OperationKind.DELETE_ELEMENT, this);
         registry.register(ComputedBoundsAction.KIND, this);
         registry.register(RequestBoundsCommand.KIND, this);

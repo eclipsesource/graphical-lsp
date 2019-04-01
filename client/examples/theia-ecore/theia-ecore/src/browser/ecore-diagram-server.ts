@@ -16,6 +16,7 @@
 import { GLSPTheiaDiagramServer } from "glsp-theia-extension/lib/browser";
 import { ComputedBoundsAction, SModelRootSchema } from "sprotty";
 import { isEcoreGraph } from "sprotty-ecore/lib";
+
 function needsInitialServerLayout(root: SModelRootSchema) {
     return isEcoreGraph(root) && root.needsInitialLayout;
 }

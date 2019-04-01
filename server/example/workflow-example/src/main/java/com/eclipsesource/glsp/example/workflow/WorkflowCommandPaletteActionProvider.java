@@ -17,7 +17,6 @@ package com.eclipsesource.glsp.example.workflow;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import org.eclipse.sprotty.Point;
@@ -35,7 +34,7 @@ import com.eclipsesource.glsp.example.workflow.schema.ModelTypes;
 import com.eclipsesource.glsp.example.workflow.schema.TaskNode;
 import com.google.common.collect.Sets;
 
-public class WorkflowCommandPaletteActionProvider implements CommandPaletteActionProvider {
+public class WorkflowCommandPaletteActionProvider implements ICommandPaletteActionProvider {
 	private static final LabeledAction CREATE_MERGE_NODE = new LabeledAction("Create Merge Node",
 			new CreateNodeOperationAction(ModelTypes.MERGE_NODE, new Point(0, 0), null));
 	private static final LabeledAction CREATE_DECISION_NODE = new LabeledAction("Create Decision Node",

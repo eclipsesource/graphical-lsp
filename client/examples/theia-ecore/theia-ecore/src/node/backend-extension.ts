@@ -15,8 +15,9 @@
  ********************************************************************************/
 import { LanguageServerContribution } from "@theia/languages/lib/node";
 import { ContainerModule } from "inversify";
+
 import { EcoreGLServerContribution } from "./ecore-glserver-contribution";
 
 export default new ContainerModule(bind => {
-    bind(LanguageServerContribution).to(EcoreGLServerContribution).inSingletonScope()
-})
+    bind(LanguageServerContribution).to(EcoreGLServerContribution).inSingletonScope();
+});
