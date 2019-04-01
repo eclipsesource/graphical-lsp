@@ -19,35 +19,11 @@ import { ContainerModule } from "inversify";
 import { configureCommand, Tool, TYPES } from "sprotty/lib";
 
 import { GLSP_TYPES } from "../types";
-import { GLSPCommandStack, IReadonlyModelAccess } from "./command-stack";
-import {
-    DiagramUIExtensionActionHandlerInitializer,
-    DiagramUIExtensionRegistry
-} from "./diagram-ui-extension/diagram-ui-extension-registry";
 import { FeedbackAwareUpdateModelCommand } from "./model/update-model-command";
 import { createToolFactory, ToolManagerActionHandler } from "./tool-manager/tool-manager-action-handler";
 
 const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) => {
-    // GLSP Commandstack  initialization ------------------------------------
-    if (isBound(TYPES.ICommandStack)) {
-        unbind(TYPES.ICommandStack);
-    }
-    bind(GLSPCommandStack).toSelf().inSingletonScope();
-    bind(TYPES.ICommandStack).toService(GLSPCommandStack);
-    bind(GLSP_TYPES.IReadonlyModelAccessProvider).toProvider<IReadonlyModelAccess>((context) => {
-        return () => {
-            return new Promise<IReadonlyModelAccess>((resolve) => {
-                resolve(context.container.get<IReadonlyModelAccess>(TYPES.ICommandStack));
-            });
-        };
-    });
-
-    // DiagramUIExtension registry initialization ------------------------------------
-    bind(GLSP_TYPES.DiagramUIExtensionRegistry).to(DiagramUIExtensionRegistry).inSingletonScope();
-    bind(TYPES.IActionHandlerInitializer).to(DiagramUIExtensionActionHandlerInitializer);
-
     // Tool manager initialization ------------------------------------
-
     bind(TYPES.IActionHandlerInitializer).to(ToolManagerActionHandler);
     bind(GLSP_TYPES.IToolFactory).toFactory<Tool>((createToolFactory()));
 

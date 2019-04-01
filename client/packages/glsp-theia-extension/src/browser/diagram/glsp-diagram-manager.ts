@@ -33,8 +33,8 @@ export abstract class GLSPDiagramManager extends DiagramManager {
         if (DiagramWidgetOptions.is(options)) {
             const clientId = this.createClientId();
             const config = this.diagramConfigurationRegistry.get(options.diagramType);
-            const diContainer = config.createContainer(clientId + '_sprotty');
-            const diagramWidget = new GLSPDiagramWidget(options, clientId, diContainer, this.editorPreferences, this.diagramConnector);
+            const diContainer = config.createContainer(clientId);
+            const diagramWidget = new GLSPDiagramWidget(options, clientId + '_widget', diContainer, this.editorPreferences, this.diagramConnector);
             return diagramWidget;
         }
         throw Error('DiagramWidgetFactory needs DiagramWidgetOptions but got ' + JSON.stringify(options));
