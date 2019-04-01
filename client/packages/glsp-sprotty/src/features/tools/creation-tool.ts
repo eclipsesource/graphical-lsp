@@ -13,39 +13,36 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import { inject, injectable } from "inversify";
+import {
+    Action,
+    AnchorComputerRegistry,
+    EnableDefaultToolsAction,
+    findParent,
+    findParentByFeature,
+    isConnectable,
+    isCtrlOrCmd,
+    MouseTool,
+    SModelElement,
+    SModelRoot,
+    Tool
+} from "sprotty/lib";
 
-import { Action } from "sprotty/lib";
-import { AnchorComputerRegistry } from "sprotty/lib";
-import { ApplyCursorCSSFeedbackAction } from "../tool-feedback/cursor-feedback";
-import { CreateConnectionOperationAction } from "../operation/operation-actions";
-import { CreateNodeOperationAction } from "../operation/operation-actions";
-import { CursorCSS } from "../tool-feedback/cursor-feedback";
-import { DragAwareMouseListener } from "./drag-aware-mouse-listener";
-import { DrawFeedbackEdgeAction } from "../tool-feedback/creation-tool-feedback";
-import { EdgeEditConfig } from "../../base/edit-config/edit-config";
-import { EnableDefaultToolsAction } from "sprotty/lib";
-import { FeedbackEdgeEndMovingMouseListener } from "../tool-feedback/creation-tool-feedback";
-import { GLSP_TYPES } from "../../types";
-import { IEditConfigProvider } from "../../base/edit-config/edit-config";
-import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
-import { MouseTool } from "sprotty/lib";
-import { OperationKind } from "../operation/set-operations";
-import { RemoveFeedbackEdgeAction } from "../tool-feedback/creation-tool-feedback";
-import { SModelElement } from "sprotty/lib";
-import { SModelRoot } from "sprotty/lib";
-import { Tool } from "sprotty/lib";
+import { containmentAllowed, EdgeEditConfig, edgeEditConfig, IEditConfigProvider } from "../../base/edit-config/edit-config";
 import { TypeAware } from "../../base/tool-manager/tool-manager-action-handler";
-
-import { containmentAllowed } from "../../base/edit-config/edit-config";
-import { deriveOperationId } from "../operation/set-operations";
-import { edgeEditConfig } from "../../base/edit-config/edit-config";
-import { findParent } from "sprotty/lib";
-import { findParentByFeature } from "sprotty/lib";
+import { GLSP_TYPES } from "../../types";
 import { getAbsolutePosition } from "../../utils/viewpoint-util";
-import { inject } from "inversify";
-import { injectable } from "inversify";
-import { isConnectable } from "sprotty/lib";
-import { isCtrlOrCmd } from "sprotty/lib";
+import { CreateConnectionOperationAction, CreateNodeOperationAction } from "../operation/operation-actions";
+import { deriveOperationId, OperationKind } from "../operation/set-operations";
+import {
+    DrawFeedbackEdgeAction,
+    FeedbackEdgeEndMovingMouseListener,
+    RemoveFeedbackEdgeAction
+} from "../tool-feedback/creation-tool-feedback";
+import { ApplyCursorCSSFeedbackAction, CursorCSS } from "../tool-feedback/cursor-feedback";
+import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
+import { DragAwareMouseListener } from "./drag-aware-mouse-listener";
+
 
 export const TOOL_ID_PREFIX = "tool";
 

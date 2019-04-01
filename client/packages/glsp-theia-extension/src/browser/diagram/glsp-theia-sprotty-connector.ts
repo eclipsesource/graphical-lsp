@@ -13,18 +13,13 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { ActionMessage } from "glsp-sprotty/lib";
-import { DiagramManager } from "sprotty-theia/lib";
-import { DiagramWidget } from "sprotty-theia/lib";
+import { WidgetManager } from "@theia/core/lib/browser";
 import { EditorManager } from "@theia/editor/lib/browser";
-import { ExportSvgAction } from "glsp-sprotty/lib";
+import { ActionMessage, ExportSvgAction, ServerStatusAction } from "glsp-sprotty/lib";
+import { DiagramManager, DiagramWidget, TheiaDiagramServer, TheiaFileSaver, TheiaSprottyConnector } from "sprotty-theia/lib";
+
 import { GLSPClient } from "../language/glsp-client-services";
 import { GLSPDiagramClient } from "./glsp-diagram-client";
-import { ServerStatusAction } from "glsp-sprotty/lib";
-import { TheiaDiagramServer } from "sprotty-theia/lib";
-import { TheiaFileSaver } from "sprotty-theia/lib";
-import { TheiaSprottyConnector } from "sprotty-theia/lib";
-import { WidgetManager } from "@theia/core/lib/browser";
 
 export interface GLSPTheiaSprottyConnectorServices {
     readonly diagramClient: GLSPDiagramClient,

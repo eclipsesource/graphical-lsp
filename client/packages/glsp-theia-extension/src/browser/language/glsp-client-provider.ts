@@ -14,12 +14,10 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { ContributionProvider } from "@theia/core";
-import { GLSPClient } from "./glsp-client-services";
-import { GLSPClientContribution } from "./glsp-client-contribution";
+import { inject, injectable, named } from "inversify";
 
-import { inject } from "inversify";
-import { injectable } from "inversify";
-import { named } from "inversify";
+import { GLSPClientContribution } from "./glsp-client-contribution";
+import { GLSPClient } from "./glsp-client-services";
 
 export const GLSPClientProvider = Symbol.for('GLSPClientProvider');
 

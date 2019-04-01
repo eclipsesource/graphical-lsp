@@ -13,14 +13,13 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import * as net from 'net';
+import { IConnection } from "@theia/languages/lib/node";
+import { BaseGLSPServerContribution } from "glsp-theia-extension/lib/node";
+import { injectable } from "inversify";
+import * as net from "net";
+import { createSocketConnection } from "vscode-ws-jsonrpc/lib/server";
 
-import { BaseGLSPServerContribution } from 'glsp-theia-extension/lib/node';
-import { IConnection } from '@theia/languages/lib/node';
-import { WorkflowLanguage } from '../common/workflow-language';
-
-import { createSocketConnection } from 'vscode-ws-jsonrpc/lib/server';
-import { injectable } from 'inversify';
+import { WorkflowLanguage } from "../common/workflow-language";
 
 function getPort(): number | undefined {
     const arg = process.argv.filter(arg => arg.startsWith('--WORKFLOW_LSP='))[0];

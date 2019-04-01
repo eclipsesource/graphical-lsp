@@ -13,10 +13,8 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { BaseLanguageServerContribution } from '@theia/languages/lib/node';
-import { LanguageServerContribution } from '@theia/languages/lib/node';
-
-import { injectable } from 'inversify';
+import { BaseLanguageServerContribution, LanguageServerContribution } from "@theia/languages/lib/node";
+import { injectable } from "inversify";
 
 export const GLSPServerContribution = Symbol.for('GLSPServerContribution');
 export interface GLSPServerContribution extends LanguageServerContribution { }

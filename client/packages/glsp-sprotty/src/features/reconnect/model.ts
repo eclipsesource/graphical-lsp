@@ -13,14 +13,15 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { RoutingHandleKind } from "sprotty/lib";
-import { SModelElement } from "sprotty/lib";
-import { SRoutableElement } from "sprotty/lib";
-import { SRoutingHandle } from "sprotty/lib";
-
-import { edgeInProgressID } from "sprotty/lib";
-import { edgeInProgressTargetHandleID } from "sprotty/lib";
-import { selectFeature } from "sprotty/lib";
+import {
+    edgeInProgressID,
+    edgeInProgressTargetHandleID,
+    RoutingHandleKind,
+    selectFeature,
+    SModelElement,
+    SRoutableElement,
+    SRoutingHandle
+} from "sprotty/lib";
 
 const ROUTING_HANDLE_SOURCE_INDEX: number = -2;
 

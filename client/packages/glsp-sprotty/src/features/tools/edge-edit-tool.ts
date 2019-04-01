@@ -13,46 +13,46 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action } from "sprotty/lib";
-import { AnchorComputerRegistry } from "sprotty/lib";
-import { ApplyCursorCSSFeedbackAction } from "../tool-feedback/cursor-feedback";
-import { Connectable } from "sprotty/lib";
-import { CursorCSS } from "../tool-feedback/cursor-feedback";
-import { DrawFeedbackEdgeAction } from "../tool-feedback/creation-tool-feedback";
-import { DrawFeedbackEdgeSourceAction } from "../tool-feedback/edge-edit-tool-feedback";
-import { EdgeRouterRegistry } from "sprotty/lib";
-import { FeedbackEdgeRouteMovingMouseListener } from "../tool-feedback/edge-edit-tool-feedback";
-import { FeedbackEdgeSourceMovingMouseListener } from "../tool-feedback/edge-edit-tool-feedback";
-import { FeedbackEdgeTargetMovingMouseListener } from "../tool-feedback/edge-edit-tool-feedback";
-import { FeedbackMoveMouseListener } from "../tool-feedback/change-bounds-tool-feedback";
-import { GLSP_TYPES } from "../../types";
-import { HideEdgeReconnectHandlesFeedbackAction } from "../tool-feedback/edge-edit-tool-feedback";
-import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
-import { MouseTool } from "sprotty/lib";
-import { ReconnectConnectionOperationAction } from "../reconnect/action-definitions";
-import { RemoveFeedbackEdgeAction } from "../tool-feedback/creation-tool-feedback";
-import { RerouteConnectionOperationAction } from "../reconnect/action-definitions";
-import { SelectionTracker } from "../select/selection-tracker";
-import { ShowEdgeReconnectHandlesFeedbackAction } from "../tool-feedback/edge-edit-tool-feedback";
-import { SModelElement } from "sprotty/lib";
-import { SReconnectHandle } from "../reconnect/model";
-import { SRoutableElement } from "sprotty/lib";
-import { SRoutingHandle } from "sprotty/lib";
-import { SwitchRoutingModeAction } from "../tool-feedback/edge-edit-tool-feedback";
-import { Tool } from "sprotty/lib";
+import { inject, injectable, optional } from "inversify";
+import {
+    Action,
+    AnchorComputerRegistry,
+    Connectable,
+    EdgeRouterRegistry,
+    findParentByFeature,
+    isConnectable,
+    MouseTool,
+    SModelElement,
+    SRoutableElement,
+    SRoutingHandle,
+    Tool
+} from "sprotty/lib";
 
-import { feedbackEdgeId } from "../tool-feedback/creation-tool-feedback";
-import { findParentByFeature } from "sprotty/lib";
-import { inject } from "inversify";
-import { injectable } from "inversify";
 import { isConfigurableEdge } from "../../base/edit-config/edit-config";
-import { isConnectable } from "sprotty/lib";
-import { isReconnectHandle } from "../reconnect/model";
-import { isRoutable } from "../reconnect/model";
-import { isRoutingHandle } from "../reconnect/model";
-import { isSourceRoutingHandle } from "../reconnect/model";
-import { isTargetRoutingHandle } from "../reconnect/model";
-import { optional } from "inversify";
+import { GLSP_TYPES } from "../../types";
+import { ReconnectConnectionOperationAction, RerouteConnectionOperationAction } from "../reconnect/action-definitions";
+import {
+    isReconnectHandle,
+    isRoutable,
+    isRoutingHandle,
+    isSourceRoutingHandle,
+    isTargetRoutingHandle,
+    SReconnectHandle
+} from "../reconnect/model";
+import { SelectionTracker } from "../select/selection-tracker";
+import { FeedbackMoveMouseListener } from "../tool-feedback/change-bounds-tool-feedback";
+import { DrawFeedbackEdgeAction, feedbackEdgeId, RemoveFeedbackEdgeAction } from "../tool-feedback/creation-tool-feedback";
+import { ApplyCursorCSSFeedbackAction, CursorCSS } from "../tool-feedback/cursor-feedback";
+import {
+    DrawFeedbackEdgeSourceAction,
+    FeedbackEdgeRouteMovingMouseListener,
+    FeedbackEdgeSourceMovingMouseListener,
+    FeedbackEdgeTargetMovingMouseListener,
+    HideEdgeReconnectHandlesFeedbackAction,
+    ShowEdgeReconnectHandlesFeedbackAction,
+    SwitchRoutingModeAction
+} from "../tool-feedback/edge-edit-tool-feedback";
+import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
 
 @injectable()
 export class EdgeEditTool implements Tool {

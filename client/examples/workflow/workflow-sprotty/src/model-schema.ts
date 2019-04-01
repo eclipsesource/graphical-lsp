@@ -13,8 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { SEdgeSchema } from "glsp-sprotty/lib";
-import { SNodeSchema } from "glsp-sprotty/lib";
+import { SEdgeSchema, SNodeSchema } from "glsp-sprotty/lib";
 
 export namespace ActivityNodeSchema {
     export namespace Type {

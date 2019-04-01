@@ -13,21 +13,20 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import { inject, injectable } from "inversify";
+import {
+    Action,
+    Command,
+    CommandExecutionContext,
+    CommandResult,
+    SIssue,
+    SIssueMarker,
+    SModelElement,
+    SParentElement,
+    TYPES
+} from "sprotty/lib";
 
-import { Action } from "sprotty/lib";
-import { Command } from "sprotty/lib";
-import { CommandExecutionContext } from "sprotty/lib";
-import { CommandResult } from "sprotty/lib";
-import { Marker } from "../../utils/marker";
-import { MarkerKind } from "../../utils/marker";
-import { SIssue } from "sprotty/lib";
-import { SIssueMarker } from "sprotty/lib";
-import { SModelElement } from "sprotty/lib";
-import { SParentElement } from "sprotty/lib";
-import { TYPES } from "sprotty/lib";
-
-import { inject } from "inversify";
-import { injectable } from "inversify";
+import { Marker, MarkerKind } from "../../utils/marker";
 
 /**
  * Action to retrieve markers for a model

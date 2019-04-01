@@ -13,24 +13,26 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { ActivityNodeSchema } from "./model-schema";
-import { Bounds } from "glsp-sprotty/lib";
-import { CommandExecutor } from "glsp-sprotty/lib";
-import { DiamondNode } from "glsp-sprotty/lib";
-import { Expandable } from "glsp-sprotty/lib";
-import { LayoutContainer } from "glsp-sprotty/lib";
-import { Nameable } from "glsp-sprotty/lib";
-import { RectangularNode } from "glsp-sprotty/lib";
-import { SEdge } from "glsp-sprotty/lib";
-import { SShapeElement } from "glsp-sprotty/lib";
+import {
+    Bounds,
+    boundsFeature,
+    CommandExecutor,
+    DiamondNode,
+    executeCommandFeature,
+    Expandable,
+    expandFeature,
+    fadeFeature,
+    layoutableChildFeature,
+    LayoutContainer,
+    layoutContainerFeature,
+    Nameable,
+    nameFeature,
+    RectangularNode,
+    SEdge,
+    SShapeElement
+} from "glsp-sprotty/lib";
 
-import { boundsFeature } from "glsp-sprotty/lib";
-import { executeCommandFeature } from "glsp-sprotty/lib";
-import { expandFeature } from "glsp-sprotty/lib";
-import { fadeFeature } from "glsp-sprotty/lib";
-import { layoutableChildFeature } from "glsp-sprotty/lib";
-import { layoutContainerFeature } from "glsp-sprotty/lib";
-import { nameFeature } from "glsp-sprotty/lib";
+import { ActivityNodeSchema } from "./model-schema";
 
 export class TaskNode extends RectangularNode implements Expandable, Nameable {
     expanded: boolean;

@@ -13,18 +13,15 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { DiagramManager } from "sprotty-theia/lib";
-import { DiagramWidgetOptions } from "sprotty-theia/lib";
-import { EditorPreferences } from "@theia/editor/lib/browser";
-import { GLSPDiagramWidget } from "./glsp-diagram-widget";
-import { GLSPTheiaSprottyConnector } from "./glsp-theia-sprotty-connector";
 import { Widget } from "@phosphor/widgets";
 import { WidgetOpenerOptions } from "@theia/core/lib/browser";
-
-import { inject } from "inversify";
-import { injectable } from "inversify";
-
 import URI from "@theia/core/lib/common/uri";
+import { EditorPreferences } from "@theia/editor/lib/browser";
+import { inject, injectable } from "inversify";
+import { DiagramManager, DiagramWidgetOptions } from "sprotty-theia/lib";
+
+import { GLSPDiagramWidget } from "./glsp-diagram-widget";
+import { GLSPTheiaSprottyConnector } from "./glsp-theia-sprotty-connector";
 
 @injectable()
 export abstract class GLSPDiagramManager extends DiagramManager {

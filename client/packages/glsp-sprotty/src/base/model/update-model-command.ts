@@ -13,23 +13,22 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { ActionHandlerRegistry } from "sprotty/lib";
-import { Command } from "sprotty/lib";
-import { CommandActionHandler } from "sprotty/lib";
-import { CommandExecutionContext } from "sprotty/lib";
-import { CommandResult } from "sprotty/lib";
+import { inject, injectable, optional } from "inversify";
+import {
+    ActionHandlerRegistry,
+    Command,
+    CommandActionHandler,
+    CommandExecutionContext,
+    CommandResult,
+    ILogger,
+    SModelRoot,
+    TYPES
+} from "sprotty/lib";
+import { UpdateModelAction, UpdateModelCommand } from "sprotty/lib/features/update/update-model";
+import { IFeedbackActionDispatcher } from "src/features/tool-feedback/feedback-action-dispatcher";
+
 import { FeedbackCommand } from "../../features/tool-feedback/model";
 import { GLSP_TYPES } from "../../types";
-import { IFeedbackActionDispatcher } from "src/features/tool-feedback/feedback-action-dispatcher";
-import { ILogger } from "sprotty/lib";
-import { SModelRoot } from "sprotty/lib";
-import { TYPES } from "sprotty/lib";
-import { UpdateModelAction } from "sprotty/lib/features/update/update-model";
-import { UpdateModelCommand } from "sprotty/lib/features/update/update-model";
-
-import { inject } from "inversify";
-import { injectable } from "inversify";
-import { optional } from "inversify";
 
 /**
  * A special`UpdateModelCommand` that retrieves all registered `actions` from the `IFeedbackActionDispatcher` (if present) and applies their feedback

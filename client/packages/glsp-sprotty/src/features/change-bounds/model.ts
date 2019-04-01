@@ -13,21 +13,22 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { BoundsAware } from "sprotty/lib";
-import { Hoverable } from "sprotty/lib";
-import { Locateable } from "sprotty/lib";
-import { NodeEditConfig } from "../../base/edit-config/edit-config";
-import { SChildElement } from "sprotty/lib";
-import { Selectable } from "sprotty/lib";
-import { SModelElement } from "sprotty/lib";
-import { SNode } from "sprotty/lib";
-import { SParentElement } from "sprotty/lib";
+import {
+    BoundsAware,
+    Hoverable,
+    hoverFeedbackFeature,
+    isBoundsAware,
+    isMoveable,
+    isSelectable,
+    Locateable,
+    SChildElement,
+    Selectable,
+    SModelElement,
+    SNode,
+    SParentElement
+} from "sprotty/lib";
 
-import { hoverFeedbackFeature } from "sprotty/lib";
-import { isBoundsAware } from "sprotty/lib";
-import { isConfigurableNode } from "../../base/edit-config/edit-config";
-import { isMoveable } from "sprotty/lib";
-import { isSelectable } from "sprotty/lib";
+import { isConfigurableNode, NodeEditConfig } from "../../base/edit-config/edit-config";
 
 export enum ResizeHandleLocation {
     TopLeft = "top-left",

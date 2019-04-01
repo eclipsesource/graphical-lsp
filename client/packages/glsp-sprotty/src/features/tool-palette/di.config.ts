@@ -16,10 +16,10 @@
 import "../../../css/tool-palette.css";
 
 import { ContainerModule } from "inversify";
-import { GLSP_TYPES } from "../../types";
-import { ToolPalette } from "./tool-palette";
-import { ToolPaletteActionHandler } from "./tool-palette";
 import { TYPES } from "sprotty/lib";
+
+import { GLSP_TYPES } from "../../types";
+import { ToolPalette, ToolPaletteActionHandler } from "./tool-palette";
 
 const toolPaletteModule = new ContainerModule((bind) => {
     bind(ToolPalette).toSelf().inSingletonScope();

@@ -13,29 +13,27 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action } from "sprotty/lib";
+import { inject, injectable } from "inversify";
+import {
+    Action,
+    EnableDefaultToolsAction,
+    EnableToolsAction,
+    IActionDispatcherProvider,
+    ICommand,
+    ILogger,
+    TYPES,
+    ViewerOptions
+} from "sprotty/lib";
+
 import { BaseDiagramUIExtension } from "../../base/diagram-ui-extension/diagram-ui-extension";
-import { EnableDefaultToolsAction } from "sprotty/lib";
-import { EnableToolsAction } from "sprotty/lib";
-import { IActionDispatcherProvider } from "sprotty/lib";
-import { ICommand } from "sprotty/lib";
-import { ILogger } from "sprotty/lib";
-import { MouseDeleteTool } from "../tools/delete-tool";
-import { Operation } from "../operation/set-operations";
-import { RequestMarkersAction } from "../validation/validate";
-import { SelfInitializingActionHandler } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
-import { SetOperationsAction } from "../operation/set-operations";
-import { ShowDiagramUIExtensionAction } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
-import { TYPES } from "sprotty/lib";
-import { ViewerOptions } from "sprotty/lib";
-
+import {
+    SelfInitializingActionHandler,
+    ShowDiagramUIExtensionAction
+} from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
+import { isSetOperationsAction, Operation, parentGroup, SetOperationsAction } from "../operation/set-operations";
 import { deriveToolId } from "../tools/creation-tool";
-import { inject } from "inversify";
-import { injectable } from "inversify";
-import { isSetOperationsAction } from "../operation/set-operations";
-import { parentGroup } from "../operation/set-operations";
-
-
+import { MouseDeleteTool } from "../tools/delete-tool";
+import { RequestMarkersAction } from "../validation/validate";
 
 const CLICKED_CSS_CLASS = "clicked";
 @injectable()

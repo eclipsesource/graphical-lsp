@@ -13,17 +13,16 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-
-import { ContainerModule } from "inversify";
-import { FrontendApplicationContribution } from "@theia/core/lib/browser";
-import { GLSPClientContribution } from "./language/glsp-client-contribution";
-import { GLSPClientFactory } from "./language/glsp-client";
-import { GLSPClientProvider } from "./language/glsp-client-provider";
-import { GLSPClientProviderImpl } from "./language/glsp-client-provider";
-import { GLSPFrontendContribution } from "./language/glsp-frontend-contribution";
-import { GLSPTheiaSprottyConnector } from "./diagram/glsp-theia-sprotty-connector";
-
 import { bindContributionProvider } from "@theia/core";
+import { FrontendApplicationContribution } from "@theia/core/lib/browser";
+import { ContainerModule } from "inversify";
+
+import { GLSPTheiaSprottyConnector } from "./diagram/glsp-theia-sprotty-connector";
+import { GLSPClientFactory } from "./language/glsp-client";
+import { GLSPClientContribution } from "./language/glsp-client-contribution";
+import { GLSPClientProvider, GLSPClientProviderImpl } from "./language/glsp-client-provider";
+import { GLSPFrontendContribution } from "./language/glsp-frontend-contribution";
+
 
 export default new ContainerModule(bind => {
     bind(GLSPClientFactory).toSelf().inSingletonScope();

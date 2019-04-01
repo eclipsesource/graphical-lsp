@@ -13,23 +13,14 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action } from "sprotty/lib";
-import { EdgeCreationTool } from "../../features/tools/creation-tool";
-import { GLSP_TYPES } from "../../types";
-import { ICommand } from "sprotty/lib";
-import { MouseDeleteTool } from "../../features/tools/delete-tool";
-import { NodeCreationTool } from "../../features/tools/creation-tool";
-import { OperationKind } from "../../features/operation/set-operations";
-import { SelfInitializingActionHandler } from "../diagram-ui-extension/diagram-ui-extension-registry";
-import { SetOperationsAction } from "../../features/operation/set-operations";
-import { Tool } from "sprotty/lib";
-import { ToolManager } from "sprotty/lib";
-import { TYPES } from "sprotty/lib";
+import { inject, injectable, interfaces } from "inversify";
+import { Action, ICommand, Tool, ToolManager, TYPES } from "sprotty/lib";
 
-import { inject } from "inversify";
-import { injectable } from "inversify";
-import { interfaces } from "inversify";
-import { isSetOperationsAction } from "../../features/operation/set-operations";
+import { isSetOperationsAction, OperationKind, SetOperationsAction } from "../../features/operation/set-operations";
+import { EdgeCreationTool, NodeCreationTool } from "../../features/tools/creation-tool";
+import { MouseDeleteTool } from "../../features/tools/delete-tool";
+import { GLSP_TYPES } from "../../types";
+import { SelfInitializingActionHandler } from "../diagram-ui-extension/diagram-ui-extension-registry";
 
 
 @injectable()

@@ -13,68 +13,62 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-
 import "../css/diagram.css";
 
-import { ActivityNode } from "./model";
-import { ConsoleLogger } from "glsp-sprotty/lib";
-import { Container } from "inversify";
-import { ContainerModule } from "inversify";
-import { DiamondNodeView } from "glsp-sprotty/lib";
-import { ExpandButtonView } from "glsp-sprotty/lib";
-import { GLSPGraph } from "glsp-sprotty/lib";
-import { HtmlRoot } from "glsp-sprotty/lib";
-import { HtmlRootView } from "glsp-sprotty/lib";
-import { Icon } from "./model";
-import { IconView } from "./workflow-views";
-import { LogLevel } from "glsp-sprotty/lib";
-import { PreRenderedElement } from "glsp-sprotty/lib";
-import { PreRenderedView } from "glsp-sprotty/lib";
-import { RectangularNode } from "glsp-sprotty/lib";
-import { RectangularNodeView } from "glsp-sprotty/lib";
-import { SButton } from "glsp-sprotty/lib";
-import { SCompartment } from "glsp-sprotty/lib";
-import { SCompartmentView } from "glsp-sprotty/lib";
-import { SEdge } from "glsp-sprotty/lib";
-import { SGraphView } from "glsp-sprotty/lib";
-import { SLabel } from "glsp-sprotty/lib";
-import { SLabelView } from "glsp-sprotty/lib";
-import { SRoutingHandle } from "glsp-sprotty/lib";
-import { SRoutingHandleView } from "glsp-sprotty/lib";
-import { TaskNode } from "./model";
-import { TaskNodeView } from "./workflow-views";
-import { TYPES } from "glsp-sprotty/lib";
-import { WeightedEdge } from "./model";
-import { WeightedEdgeView } from "./workflow-views";
-import { WorkflowEdgeView } from "./workflow-views";
-import { WorkflowModelFactory } from "./model-factory";
-
-import { boundsModule } from "glsp-sprotty/lib";
-import { buttonModule } from "glsp-sprotty/lib";
-import { commandPaletteModule } from "glsp-sprotty/lib";
-import { configureModelElement } from "glsp-sprotty/lib";
-import { decorationModule } from "glsp-sprotty/lib";
-import { defaultGLSPModule } from "glsp-sprotty/lib";
-import { defaultModule } from "glsp-sprotty/lib";
-import { edgeLayoutModule } from "glsp-sprotty/lib";
-import { expandModule } from "glsp-sprotty/lib";
-import { exportModule } from "glsp-sprotty/lib";
-import { fadeModule } from "glsp-sprotty/lib";
-import { hoverModule } from "glsp-sprotty/lib";
-import { modelHintsModule } from "glsp-sprotty/lib";
-import { modelSourceModule } from "glsp-sprotty/lib";
-import { openModule } from "glsp-sprotty/lib";
-import { overrideViewerOptions } from "glsp-sprotty/lib";
-import { paletteModule } from "glsp-sprotty/lib";
-import { requestResponseModule } from "glsp-sprotty/lib";
-import { routingModule } from "glsp-sprotty/lib";
-import { saveModule } from "glsp-sprotty/lib";
-import { selectModule } from "glsp-sprotty/lib";
-import { toolFeedbackModule } from "glsp-sprotty/lib";
-import { validationModule } from "glsp-sprotty/lib";
-import { viewportModule } from "glsp-sprotty/lib";
-
+import {
+    boundsModule,
+    buttonModule,
+    commandPaletteModule,
+    configureModelElement,
+    ConsoleLogger,
+    decorationModule,
+    defaultGLSPModule,
+    defaultModule,
+    DiamondNodeView,
+    edgeLayoutModule,
+    ExpandButtonView,
+    expandModule,
+    exportModule,
+    fadeModule,
+    GLSPGraph,
+    hoverModule,
+    HtmlRoot,
+    HtmlRootView,
+    LogLevel,
+    modelHintsModule,
+    modelSourceModule,
+    openModule,
+    overrideViewerOptions,
+    paletteModule,
+    PreRenderedElement,
+    PreRenderedView,
+    RectangularNode,
+    RectangularNodeView,
+    requestResponseModule,
+    routingModule,
+    saveModule,
+    SButton,
+    SCompartment,
+    SCompartmentView,
+    SEdge,
+    selectModule,
+    SGraphView,
+    SLabel,
+    SLabelView,
+    SRoutingHandle,
+    SRoutingHandleView,
+    toolFeedbackModule,
+    TYPES,
+    validationModule,
+    viewportModule
+} from "glsp-sprotty/lib";
 import executeCommandModule from "glsp-sprotty/lib/features/execute/di.config";
+import { Container, ContainerModule } from "inversify";
+
+import { ActivityNode, Icon, TaskNode, WeightedEdge } from "./model";
+import { WorkflowModelFactory } from "./model-factory";
+import { IconView, TaskNodeView, WeightedEdgeView, WorkflowEdgeView } from "./workflow-views";
+
 
 const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();

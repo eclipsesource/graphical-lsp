@@ -13,31 +13,19 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { CommandRegistry } from '@theia/core';
-import { Commands } from '@theia/languages/lib/browser';
-import { Deferred } from '@theia/core/lib/common/promise-util';
-import { DiagramManagerProvider } from 'sprotty-theia/lib';
-import { Disposable } from '@theia/languages/lib/browser';
-import { DisposableCollection } from '@theia/core';
-import { EditorManager } from '@theia/editor/lib/browser';
-import { FrontendApplication } from '@theia/core/lib/browser';
-import { GLSPClient } from './glsp-client-services';
-import { GLSPClientFactory } from './glsp-client';
-import { GLSPClientOptions } from './glsp-client-services';
-import { InitializeParams } from '@theia/languages/lib/browser';
-import { LanguageContribution } from '@theia/languages/lib/common';
-import { MaybePromise } from '@theia/core';
-import { MessageConnection } from 'vscode-jsonrpc';
-import { MessageService } from '@theia/core';
-import { ResponseError } from 'vscode-jsonrpc';
-import { State } from '@theia/languages/lib/browser';
-import { WebSocketConnectionProvider } from '@theia/core/lib/browser';
-import { WebSocketOptions } from '@theia/core/lib/browser';
-import { WorkspaceService } from '@theia/workspace/lib/browser';
+import { CommandRegistry, DisposableCollection, MaybePromise, MessageService } from "@theia/core";
+import { FrontendApplication, WebSocketConnectionProvider, WebSocketOptions } from "@theia/core/lib/browser";
+import { Deferred } from "@theia/core/lib/common/promise-util";
+import { EditorManager } from "@theia/editor/lib/browser";
+import { Commands, Disposable, InitializeParams, State } from "@theia/languages/lib/browser";
+import { LanguageContribution } from "@theia/languages/lib/common";
+import { WorkspaceService } from "@theia/workspace/lib/browser";
+import { inject, injectable, multiInject } from "inversify";
+import { DiagramManagerProvider } from "sprotty-theia/lib";
+import { MessageConnection, ResponseError } from "vscode-jsonrpc";
 
-import { inject } from 'inversify';
-import { injectable } from 'inversify';
-import { multiInject } from 'inversify';
+import { GLSPClientFactory } from "./glsp-client";
+import { GLSPClient, GLSPClientOptions } from "./glsp-client-services";
 
 
 export const GLSPClientContribution = Symbol.for('GLSPClientContribution');

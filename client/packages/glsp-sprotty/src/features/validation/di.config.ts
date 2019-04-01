@@ -15,6 +15,7 @@
  ********************************************************************************/
 import { ContainerModule } from "inversify";
 import { configureCommand } from "sprotty/lib";
+
 import { SetMarkersCommand } from "./validate";
 
 const validationModule = new ContainerModule((bind, _unbind, isBound) => {

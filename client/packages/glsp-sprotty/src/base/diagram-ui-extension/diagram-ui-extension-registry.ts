@@ -13,23 +13,22 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action } from "sprotty/lib";
-import { ActionHandlerRegistry } from "sprotty/lib";
-import { CommandExecutionContext } from "sprotty/lib";
-import { CommandResult } from "sprotty/lib";
-import { GLSP_TYPES } from "../../types";
-import { IActionHandler } from "sprotty/lib";
-import { IActionHandlerInitializer } from "sprotty/lib";
-import { ICommand } from "sprotty/lib";
-import { IDiagramUIExtension } from "./diagram-ui-extension";
-import { InstanceRegistry } from "sprotty/lib";
-import { SystemCommand } from "sprotty/lib";
-
-import { inject } from "inversify";
-import { injectable } from "inversify";
-import { multiInject } from "inversify";
-import { optional } from "inversify";
+import { inject, injectable, multiInject, optional } from "inversify";
+import {
+    Action,
+    ActionHandlerRegistry,
+    CommandExecutionContext,
+    CommandResult,
+    IActionHandler,
+    IActionHandlerInitializer,
+    ICommand,
+    InstanceRegistry,
+    SystemCommand
+} from "sprotty/lib";
 import { toArray } from "sprotty/lib/utils/iterable";
+
+import { GLSP_TYPES } from "../../types";
+import { IDiagramUIExtension } from "./diagram-ui-extension";
 
 /**
  * Convinience class for classes that implement both `IActionHandler` and `IActionHandlerInitializer`

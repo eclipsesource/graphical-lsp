@@ -13,47 +13,45 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-
-import { Action } from "sprotty/lib";
-import { AnchorComputerRegistry } from "sprotty/lib";
-import { CommandExecutionContext } from "sprotty/lib";
-import { CommandResult } from "sprotty/lib";
-import { EdgeRouterRegistry } from "sprotty/lib";
-import { ElementMove } from "sprotty/lib";
-import { FeedbackCommand } from "./model";
-import { FeedbackEdgeEnd } from "./creation-tool-feedback";
-import { FeedbackEdgeEndMovingMouseListener } from "./creation-tool-feedback";
-import { MouseListener } from "sprotty/lib";
-import { MoveAction } from "sprotty/lib";
-import { Point } from "sprotty/lib";
-import { PolylineEdgeRouter } from "sprotty/lib";
-import { SConnectableElement } from "sprotty/lib";
-import { SModelElement } from "sprotty/lib";
-import { SModelRoot } from "sprotty/lib";
-import { SRoutingHandle } from "sprotty/lib";
-import { SwitchEditModeAction } from "sprotty/lib";
-import { SwitchEditModeCommand } from "sprotty/lib";
-import { TYPES } from "sprotty/lib";
+import { inject, injectable } from "inversify";
 import { VNode } from "snabbdom/vnode";
+import {
+    Action,
+    AnchorComputerRegistry,
+    center,
+    CommandExecutionContext,
+    CommandResult,
+    EdgeRouterRegistry,
+    ElementMove,
+    euclideanDistance,
+    findChildrenAtPosition,
+    findParentByFeature,
+    isBoundsAware,
+    isConnectable,
+    isViewport,
+    MouseListener,
+    MoveAction,
+    Point,
+    PolylineEdgeRouter,
+    SConnectableElement,
+    SModelElement,
+    SModelRoot,
+    SRoutingHandle,
+    SwitchEditModeAction,
+    SwitchEditModeCommand,
+    TYPES
+} from "sprotty/lib";
 
-import { addReconnectHandles } from "../reconnect/model";
-import { center } from "sprotty/lib";
-import { euclideanDistance } from "sprotty/lib";
-import { feedbackEdgeEndId } from "./creation-tool-feedback";
-import { feedbackEdgeId } from "./creation-tool-feedback";
-import { findChildrenAtPosition } from "sprotty/lib";
-import { findParentByFeature } from "sprotty/lib";
+import { isNotUndefined, isSelected } from "../../utils/smodel-util";
 import { getAbsolutePosition } from "../../utils/viewpoint-util";
-import { inject } from "inversify";
-import { injectable } from "inversify";
-import { isBoundsAware } from "sprotty/lib";
-import { isConnectable } from "sprotty/lib";
-import { isNotUndefined } from "../../utils/smodel-util";
-import { isRoutable } from "../reconnect/model";
-import { isRoutingHandle } from "../reconnect/model";
-import { isSelected } from "../../utils/smodel-util";
-import { isViewport } from "sprotty/lib";
-import { removeReconnectHandles } from "../reconnect/model";
+import { addReconnectHandles, isRoutable, isRoutingHandle, removeReconnectHandles } from "../reconnect/model";
+import {
+    FeedbackEdgeEnd,
+    feedbackEdgeEndId,
+    FeedbackEdgeEndMovingMouseListener,
+    feedbackEdgeId
+} from "./creation-tool-feedback";
+import { FeedbackCommand } from "./model";
 
 /**
  * RECONNECT HANDLES FEEDBACK

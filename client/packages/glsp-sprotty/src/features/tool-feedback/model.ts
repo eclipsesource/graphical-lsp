@@ -13,9 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Command } from "sprotty/lib";
-import { CommandExecutionContext } from "sprotty/lib";
-import { CommandResult } from "sprotty/lib";
+import { Command, CommandExecutionContext, CommandResult } from "sprotty/lib";
 
 export abstract class FeedbackCommand extends Command {
     // used by the `FeedbackAwareUpdateModelCommand`

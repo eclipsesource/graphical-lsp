@@ -13,33 +13,33 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action } from "glsp-sprotty/lib";
-import { ActionHandlerRegistry } from "glsp-sprotty/lib";
-import { CollapseExpandAction } from "glsp-sprotty/lib";
-import { CollapseExpandAllAction } from "glsp-sprotty/lib";
-import { ComputedBoundsAction } from "glsp-sprotty/lib";
-import { Emitter } from "@theia/core/lib/common";
-import { Event } from "@theia/core/lib/common";
-import { ExecuteServerCommandAction } from "glsp-sprotty/lib";
-import { ExportSvgAction } from "glsp-sprotty/lib";
-import { IdentifiableRequestAction } from "glsp-sprotty/lib";
-import { ModelSource } from "glsp-sprotty/lib";
-import { OpenAction } from "glsp-sprotty/lib";
-import { OperationKind } from "glsp-sprotty/lib";
-import { RequestBoundsCommand } from "glsp-sprotty/lib";
-import { RequestCommandPaletteActions } from "glsp-sprotty/lib";
-import { RequestMarkersAction } from "glsp-sprotty/lib";
-import { RequestModelAction } from "glsp-sprotty/lib";
-import { RequestOperationsAction } from "glsp-sprotty/lib";
-import { RequestPopupModelAction } from "glsp-sprotty/lib";
-import { RequestTypeHintsAction } from "glsp-sprotty/lib";
-import { SaveModelAction } from "glsp-sprotty/lib";
-import { ServerStatusAction } from "glsp-sprotty/lib";
-import { SetTypeHintsAction } from "glsp-sprotty/lib";
-import { SwitchEditModeCommand } from "glsp-sprotty/lib";
-import { TheiaDiagramServer } from "sprotty-theia/lib";
-
+import { Emitter, Event } from "@theia/core/lib/common";
+import {
+    Action,
+    ActionHandlerRegistry,
+    CollapseExpandAction,
+    CollapseExpandAllAction,
+    ComputedBoundsAction,
+    ExecuteServerCommandAction,
+    ExportSvgAction,
+    IdentifiableRequestAction,
+    ModelSource,
+    OpenAction,
+    OperationKind,
+    RequestBoundsCommand,
+    RequestCommandPaletteActions,
+    RequestMarkersAction,
+    RequestModelAction,
+    RequestOperationsAction,
+    RequestPopupModelAction,
+    RequestTypeHintsAction,
+    SaveModelAction,
+    ServerStatusAction,
+    SetTypeHintsAction,
+    SwitchEditModeCommand
+} from "glsp-sprotty/lib";
 import { injectable } from "inversify";
+import { TheiaDiagramServer } from "sprotty-theia/lib";
 
 @injectable()
 export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements NotifyingModelSource {

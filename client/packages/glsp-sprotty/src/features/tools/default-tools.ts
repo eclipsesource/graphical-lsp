@@ -15,6 +15,7 @@
  ********************************************************************************/
 import { interfaces } from "inversify";
 import { ToolManager, TYPES } from "sprotty/lib";
+
 import { ChangeBoundsTool } from "./change-bounds-tool";
 import { DelKeyDeleteTool, MouseDeleteTool } from "./delete-tool";
 import { EdgeEditTool } from "./edge-edit-tool";
