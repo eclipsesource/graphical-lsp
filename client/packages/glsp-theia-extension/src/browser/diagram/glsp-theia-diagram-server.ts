@@ -23,6 +23,7 @@ import {
     ExecuteServerCommandAction,
     ExportSvgAction,
     IdentifiableRequestAction,
+    LayoutAction,
     ModelSource,
     OpenAction,
     OperationKind,
@@ -69,6 +70,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         registry.register(RequestCommandPaletteActions.KIND, this);
         registry.register(IdentifiableRequestAction.KIND, this);
         registry.register(RequestMarkersAction.KIND, this);
+        registry.register(LayoutAction.KIND, this);
 
         // Register an empty handler for SwitchEditMode, to avoid runtime exceptions.
         // We don't want to support SwitchEditMode, but sprotty still sends some corresponding

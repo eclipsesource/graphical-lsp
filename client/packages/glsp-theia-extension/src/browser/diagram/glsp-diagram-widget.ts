@@ -60,10 +60,11 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
             if (modelSource instanceof GLSPTheiaDiagramServer && this.connector)
                 this.connector.disconnect(modelSource);
         });
+
         this.actionDispatcher.dispatch(new RequestModelAction({
             sourceUri: this.options.uri,
             diagramType: this.options.diagramType,
-            needsClientLayout: 'true'
+            needsClientLayout: "" + this.viewerOptions.needsClientLayout
         }));
         this.actionDispatcher.dispatch(new RequestOperationsAction());
         this.actionDispatcher.dispatch(new RequestTypeHintsAction(this.options.diagramType));

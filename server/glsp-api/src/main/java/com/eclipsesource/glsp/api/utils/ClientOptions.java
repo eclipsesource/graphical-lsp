@@ -18,29 +18,26 @@ package com.eclipsesource.glsp.api.utils;
 import java.util.Map;
 import java.util.Optional;
 
-public final class ModelOptions {
+public final class ClientOptions {
 
 	public static final String NEEDS_CLIENT_LAYOUT = "needsClientLayout";
-	public static final String NEEDS_SERVER_LAYOUT = "needsServerLayout";
 	public static final String DIAGRAM_TYPE = "diagramType";
 	public static final String SOURCE_URI = "sourceUri";
 
-	private ModelOptions() {
+	private ClientOptions() {
 	}
 
-	public static ParsedModelOptions parse(Map<String, String> options) {
-		return new ParsedModelOptions(options);
+	public static ParsedClientOptions parse(Map<String, String> options) {
+		return new ParsedClientOptions(options);
 	}
 
-	public static class ParsedModelOptions {
+	public static class ParsedClientOptions {
 		boolean needsClientLayout;
-		boolean needsServerLayout;
 		Optional<String> diagramType;
 		Optional<String> sourceUri;
 
-		private ParsedModelOptions(Map<String, String> options) {
+		private ParsedClientOptions(Map<String, String> options) {
 			needsClientLayout = getBoolValue(options, NEEDS_CLIENT_LAYOUT);
-			needsServerLayout = getBoolValue(options, NEEDS_SERVER_LAYOUT);
 			sourceUri = getValue(options, SOURCE_URI);
 			diagramType = getValue(options, DIAGRAM_TYPE);
 		}
@@ -51,10 +48,6 @@ public final class ModelOptions {
 
 		public Optional<String> getSourceUri() {
 			return sourceUri;
-		}
-
-		public boolean needsServerLayout() {
-			return needsServerLayout;
 		}
 
 		public Optional<String> getDiagramType() {

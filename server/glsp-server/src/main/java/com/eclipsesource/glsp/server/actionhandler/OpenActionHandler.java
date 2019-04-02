@@ -15,8 +15,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.actionhandler;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Optional;
 
 import javax.inject.Inject;
@@ -31,8 +29,8 @@ public class OpenActionHandler extends AbstractActionHandler {
 	private ModelElementOpenListener modelElementOpenListener;
 
 	@Override
-	protected Collection<Action> handleableActionsKinds() {
-		return Arrays.asList(new OpenAction());
+	public boolean handles(Action action) {
+		return action instanceof OpenAction;
 	}
 
 	@Override

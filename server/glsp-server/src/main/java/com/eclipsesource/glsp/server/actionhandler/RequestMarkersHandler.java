@@ -11,8 +11,6 @@
 package com.eclipsesource.glsp.server.actionhandler;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,8 +53,8 @@ public class RequestMarkersHandler extends AbstractActionHandler {
 	}
 
 	@Override
-	protected Collection<Action> handleableActionsKinds() {
-		return Arrays.asList(new RequestMarkersAction());
+	public boolean handles(Action action) {
+		return action instanceof RequestMarkersAction;
 	}
 
 }

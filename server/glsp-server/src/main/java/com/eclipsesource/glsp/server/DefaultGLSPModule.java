@@ -35,14 +35,15 @@ import com.eclipsesource.glsp.api.provider.ServerCommandHandlerProvider;
 import com.eclipsesource.glsp.server.actionhandler.CollapseExpandActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.ComputedBoundsActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.ExecuteServerCommandActionHandler;
+import com.eclipsesource.glsp.server.actionhandler.LayoutActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.OpenActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.OperationActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.RequestCommandPaletteActionsHandler;
-import com.eclipsesource.glsp.server.actionhandler.RequestElementTypeHintsActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.RequestMarkersHandler;
 import com.eclipsesource.glsp.server.actionhandler.RequestModelActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.RequestOperationsHandler;
 import com.eclipsesource.glsp.server.actionhandler.RequestPopupModelActionHandler;
+import com.eclipsesource.glsp.server.actionhandler.RequestTypeHintsActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.SaveModelActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.SelectActionHandler;
 import com.eclipsesource.glsp.server.model.DefaultModelStateProvider;
@@ -121,9 +122,8 @@ public abstract class DefaultGLSPModule extends GLSPModule {
 		return Arrays.asList(CollapseExpandActionHandler.class, ComputedBoundsActionHandler.class,
 				OpenActionHandler.class, OperationActionHandler.class, RequestModelActionHandler.class,
 				RequestOperationsHandler.class, RequestPopupModelActionHandler.class, SaveModelActionHandler.class,
-				SelectActionHandler.class, ExecuteServerCommandActionHandler.class,
-				RequestElementTypeHintsActionHandler.class, RequestCommandPaletteActionsHandler.class,
-				RequestMarkersHandler.class);
+				SelectActionHandler.class, ExecuteServerCommandActionHandler.class, RequestTypeHintsActionHandler.class,
+				RequestCommandPaletteActionsHandler.class, RequestMarkersHandler.class, LayoutActionHandler.class);
 	}
 
 	protected Collection<Class<? extends ServerCommandHandler>> bindServerCommandHandlers() {

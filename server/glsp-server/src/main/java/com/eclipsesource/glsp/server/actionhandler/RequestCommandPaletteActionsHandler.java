@@ -15,8 +15,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.actionhandler;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
 
@@ -35,8 +33,8 @@ public class RequestCommandPaletteActionsHandler extends AbstractActionHandler {
 	private CommandPaletteActionProvider commandPaletteActionProvider;
 
 	@Override
-	protected Collection<Action> handleableActionsKinds() {
-		return Arrays.asList(new RequestCommandPaletteActions());
+	public boolean handles(Action action) {
+		return action instanceof RequestCommandPaletteActions;
 	}
 
 	@Override

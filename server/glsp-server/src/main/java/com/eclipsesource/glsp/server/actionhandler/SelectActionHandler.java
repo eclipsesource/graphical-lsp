@@ -16,7 +16,6 @@
 package com.eclipsesource.glsp.server.actionhandler;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
 
@@ -33,8 +32,8 @@ public class SelectActionHandler extends AbstractActionHandler {
 	ModelSelectionListener modelSelectionListener;
 
 	@Override
-	protected Collection<Action> handleableActionsKinds() {
-		return Arrays.asList(new SelectAction(), new SelectAllAction());
+	public boolean handles(Action action) {
+		return action instanceof SelectAction || action instanceof SelectAllAction;
 	}
 
 	@Override

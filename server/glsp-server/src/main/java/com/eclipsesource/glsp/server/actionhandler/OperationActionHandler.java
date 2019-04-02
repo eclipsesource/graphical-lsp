@@ -15,8 +15,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.actionhandler;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Optional;
 
 import javax.inject.Inject;
@@ -25,12 +23,6 @@ import org.eclipse.sprotty.SModelRoot;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
-import com.eclipsesource.glsp.api.action.kind.ChangeBoundsOperationAction;
-import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
-import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
-import com.eclipsesource.glsp.api.action.kind.DeleteElementOperationAction;
-import com.eclipsesource.glsp.api.action.kind.ReconnectConnectionOperationAction;
-import com.eclipsesource.glsp.api.action.kind.RerouteConnectionOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
@@ -42,10 +34,8 @@ public class OperationActionHandler extends AbstractActionHandler {
 	private ModelSubmissionHandler submissionHandler;
 
 	@Override
-	protected Collection<Action> handleableActionsKinds() {
-		return Arrays.asList(new CreateNodeOperationAction(), new CreateConnectionOperationAction(),
-				new DeleteElementOperationAction(), new ChangeBoundsOperationAction(),
-				new ReconnectConnectionOperationAction(), new RerouteConnectionOperationAction());
+	public boolean handles(Action action) {
+		return action instanceof AbstractOperationAction;
 	}
 
 	@Override
@@ -68,7 +58,7 @@ public class OperationActionHandler extends AbstractActionHandler {
 			OperationHandler handler = operationHandlerProvider.getHandler(action).get();
 			Optional<SModelRoot> modelRoot = handler.execute(action, modelState);
 			if (modelRoot.isPresent()) {
-				return submissionHandler.submit(modelRoot.get(), true, modelState);
+				return submissionHandler.submit(true, modelState);
 			}
 		}
 		return Optional.empty();

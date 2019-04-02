@@ -25,7 +25,7 @@ import org.eclipse.sprotty.SModelElement;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.api.utils.ModelOptions;
+import com.eclipsesource.glsp.api.utils.ClientOptions;
 
 public class SimulateCommandHandler implements ServerCommandHandler {
 	private static Logger logger = Logger.getLogger(SimulateCommandHandler.class);
@@ -41,7 +41,7 @@ public class SimulateCommandHandler implements ServerCommandHandler {
 	public Optional<Action> execute(String commandId, Map<String, String> options, GraphicalModelState modelState) {
 		Optional<Action> result = Optional.empty();
 		if (SIMULATE_COMMAND_ID.equals(commandId)) {
-			ModelOptions.getValue(options, OPTIONS_INVOKER_ID).ifPresent(id -> {
+			ClientOptions.getValue(options, OPTIONS_INVOKER_ID).ifPresent(id -> {
 				Optional<SModelElement> invoker = modelState.getIndex().get(id);
 				if (!invoker.isPresent()) {
 					logger.info("Start simulation of " + invoker.get().getId());

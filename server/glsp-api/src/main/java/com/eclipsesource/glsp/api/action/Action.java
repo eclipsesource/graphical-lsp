@@ -107,6 +107,7 @@ public abstract class Action {
 		public static final String IDENTIFIABLE_RESPONSE_ACTION = "identifiableResponseAction";
 		public static final String REQUEST_MARKERS = "requestMarkers";
 		public static final String SET_MARKERS = "setMarkers";
+		public static final String LAYOUT = "layout";
 	}
 
 }

@@ -15,8 +15,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.actionhandler;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Optional;
 
 import org.eclipse.sprotty.SModelElement;
@@ -34,8 +32,8 @@ public class RequestPopupModelActionHandler extends AbstractActionHandler {
 	private PopupModelFactory popupModelFactory;
 
 	@Override
-	protected Collection<Action> handleableActionsKinds() {
-		return Arrays.asList(new RequestPopupModelAction());
+	public boolean handles(Action action) {
+		return action instanceof RequestPopupModelAction;
 	}
 
 	@Override

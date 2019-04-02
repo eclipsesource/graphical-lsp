@@ -15,7 +15,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.actionhandler;
 
-import java.util.Collection;
 import java.util.Optional;
 
 import org.eclipse.sprotty.ServerStatus;
@@ -32,13 +31,6 @@ public abstract class AbstractActionHandler implements ActionHandler {
 	@Inject
 	protected ModelStateProvider modelStateProvider;
 	protected String clientId;
-
-	protected abstract Collection<Action> handleableActionsKinds();
-
-	public boolean handles(Action action) {
-		return handleableActionsKinds().stream().anyMatch(
-				hAction -> hAction.getKind().equals(action.getKind()) && hAction.getClass().equals(action.getClass()));
-	}
 
 	/**
 	 * Processes and action and returns the response action which should be send to

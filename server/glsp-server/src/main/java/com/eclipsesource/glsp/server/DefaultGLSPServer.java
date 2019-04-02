@@ -37,8 +37,8 @@ import com.eclipsesource.glsp.api.diagram.DiagramHandlerProvider;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPClient;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
 import com.eclipsesource.glsp.api.model.ModelStateProvider;
-import com.eclipsesource.glsp.api.utils.ModelOptions;
-import com.eclipsesource.glsp.api.utils.ModelOptions.ParsedModelOptions;
+import com.eclipsesource.glsp.api.utils.ClientOptions;
+import com.eclipsesource.glsp.api.utils.ClientOptions.ParsedClientOptions;
 
 public class DefaultGLSPServer implements GLSPServer {
 
@@ -82,7 +82,7 @@ public class DefaultGLSPServer implements GLSPServer {
 		}
 
 		if (requestAction instanceof RequestModelAction) {
-			ParsedModelOptions options = ModelOptions.parse(((RequestModelAction) requestAction).getOptions());
+			ParsedClientOptions options = ClientOptions.parse(((RequestModelAction) requestAction).getOptions());
 			Optional<String> diagramType = options.getDiagramType();
 			Optional<DiagramHandler> diagramServer = getOrCreateDiagramServer(clientId, diagramType);
 			if (!diagramServer.isPresent()) {

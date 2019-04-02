@@ -13,32 +13,19 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.model;
+package com.eclipsesource.glsp.api.utils;
 
-import java.util.Set;
+import org.eclipse.sprotty.ServerLayoutKind;
 
-import org.eclipse.sprotty.SModelRoot;
+public class ServerOptions {
+	private ServerLayoutKind layoutKind = ServerLayoutKind.NONE;
 
-import com.eclipsesource.glsp.api.utils.ClientOptions.ParsedClientOptions;
-import com.eclipsesource.glsp.api.utils.SModelIndex;
-import com.eclipsesource.glsp.api.utils.ServerOptions;
+	public ServerLayoutKind getLayoutKind() {
+		return layoutKind;
+	}
 
-public interface GraphicalModelState extends ModelState<SModelRoot> {
-	ParsedClientOptions getClientOptions();
+	public void setLayoutKind(ServerLayoutKind layoutKind) {
+		this.layoutKind = layoutKind;
+	}
 
-	void setClientOptions(ParsedClientOptions options);
-
-	Set<String> getExpandedElements();
-
-	Set<String> getSelectedElements();
-
-	void setExpandedElements(Set<String> expandedElements);
-
-	void setSelectedElements(Set<String> selectedElements);
-
-	SModelIndex getIndex();
-
-	void setServerOptions(ServerOptions options);
-
-	ServerOptions getServerOptions();
 }

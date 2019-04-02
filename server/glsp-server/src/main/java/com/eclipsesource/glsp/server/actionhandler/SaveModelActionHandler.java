@@ -17,8 +17,6 @@ package com.eclipsesource.glsp.server.actionhandler;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Optional;
 
 import org.apache.commons.io.FileUtils;
@@ -40,8 +38,8 @@ public class SaveModelActionHandler extends AbstractActionHandler {
 	DiagramHandlerProvider diagramHandlerProvider;
 
 	@Override
-	protected Collection<Action> handleableActionsKinds() {
-		return Arrays.asList(new SaveModelAction());
+	public boolean handles(Action action) {
+		return action instanceof SaveModelAction;
 	}
 
 	@Override
@@ -67,7 +65,7 @@ public class SaveModelActionHandler extends AbstractActionHandler {
 	}
 
 	private Optional<File> convertToFile(GraphicalModelState modelState) {
-		Optional<String> sourceUriOpt = modelState.getOptions().getSourceUri();
+		Optional<String> sourceUriOpt = modelState.getClientOptions().getSourceUri();
 		if (sourceUriOpt.isPresent()) {
 			String uri = sourceUriOpt.get();
 			if (uri.startsWith(FILE_PREFIX)) {

@@ -21,24 +21,27 @@ import java.util.Set;
 import org.eclipse.sprotty.SModelRoot;
 
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.api.utils.ModelOptions.ParsedModelOptions;
+import com.eclipsesource.glsp.api.utils.ClientOptions.ParsedClientOptions;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
+import com.eclipsesource.glsp.api.utils.ServerOptions;
 
 public class ModelStateImpl implements GraphicalModelState {
-	private ParsedModelOptions options;
+	private ParsedClientOptions options;
 	private String clientId;
 	private SModelRoot currentModel;
 	private Set<String> expandedElements;
 	private Set<String> selectedElements;
 	private SModelIndex currentModelIndex;
+	private ServerOptions serverOptions;
 
 	public ModelStateImpl() {
 		expandedElements = new HashSet<>();
 		selectedElements = new HashSet<>();
+		serverOptions = new ServerOptions();
 	}
 
 	@Override
-	public ParsedModelOptions getOptions() {
+	public ParsedClientOptions getClientOptions() {
 		return options;
 	}
 
@@ -74,7 +77,7 @@ public class ModelStateImpl implements GraphicalModelState {
 	}
 
 	@Override
-	public void setOptions(ParsedModelOptions options) {
+	public void setClientOptions(ParsedClientOptions options) {
 		this.options = options;
 	}
 
@@ -93,4 +96,15 @@ public class ModelStateImpl implements GraphicalModelState {
 	public SModelIndex getIndex() {
 		return currentModelIndex;
 	}
+
+	@Override
+	public ServerOptions getServerOptions() {
+		return serverOptions;
+	}
+
+	@Override
+	public void setServerOptions(ServerOptions serverOptions) {
+		this.serverOptions = serverOptions;
+	}
+
 }

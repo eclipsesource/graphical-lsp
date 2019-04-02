@@ -15,8 +15,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.actionhandler;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Optional;
 
 import com.eclipsesource.glsp.api.action.Action;
@@ -31,8 +29,8 @@ public class ExecuteServerCommandActionHandler extends AbstractActionHandler {
 	ServerCommandHandlerProvider commandHandlerProvider;
 
 	@Override
-	protected Collection<Action> handleableActionsKinds() {
-		return Arrays.asList(new ExecuteServerCommandAction());
+	public boolean handles(Action action) {
+		return action instanceof ExecuteServerCommandAction;
 	}
 
 	@Override

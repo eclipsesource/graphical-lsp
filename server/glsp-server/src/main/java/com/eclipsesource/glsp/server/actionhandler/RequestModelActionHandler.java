@@ -15,8 +15,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.actionhandler;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Optional;
 
 import org.eclipse.sprotty.SModelRoot;
@@ -25,8 +23,8 @@ import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.api.utils.ModelOptions;
-import com.eclipsesource.glsp.api.utils.ModelOptions.ParsedModelOptions;
+import com.eclipsesource.glsp.api.utils.ClientOptions;
+import com.eclipsesource.glsp.api.utils.ClientOptions.ParsedClientOptions;
 import com.google.inject.Inject;
 
 public class RequestModelActionHandler extends AbstractActionHandler {
@@ -51,18 +49,18 @@ public class RequestModelActionHandler extends AbstractActionHandler {
 	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		if (action instanceof RequestModelAction) {
 			RequestModelAction requestAction = (RequestModelAction) action;
-			ParsedModelOptions options = ModelOptions.parse(requestAction.getOptions());
+			ParsedClientOptions options = ClientOptions.parse(requestAction.getOptions());
 			SModelRoot model = modelFactory.loadModel(requestAction);
 			modelState.setRoot(model);
-			modelState.setOptions(options);
-			return submissionHandler.submit(model, false, modelState);
+			modelState.setClientOptions(options);
+			return submissionHandler.submit(false, modelState);
 		}
 		return Optional.empty();
 	}
 
 	@Override
-	protected Collection<Action> handleableActionsKinds() {
-		return Arrays.asList(new RequestModelAction());
+	public boolean handles(Action action) {
+		return action instanceof RequestModelAction;
 	}
 
 }
