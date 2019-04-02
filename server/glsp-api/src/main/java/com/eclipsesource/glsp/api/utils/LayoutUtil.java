@@ -17,6 +17,7 @@
 package com.eclipsesource.glsp.api.utils;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.eclipse.sprotty.Alignable;
 import org.eclipse.sprotty.Bounds;
@@ -42,18 +43,18 @@ public final class LayoutUtil {
 	public static void applyBounds(SModelRoot root, ComputedBoundsAction action) {
 		SModelIndex index = new SModelIndex(root);
 		for (ElementAndBounds b : action.getBounds()) {
-			SModelElement element = index.get(b.getElementId());
-			if (element instanceof BoundsAware) {
-				BoundsAware bae = (BoundsAware) element;
+			Optional<SModelElement> element = index.get(b.getElementId());
+			if (element.isPresent() && element.get() instanceof BoundsAware) {
+				BoundsAware bae = (BoundsAware) element.get();
 				Bounds newBounds = b.getNewBounds();
 				bae.setPosition(new Point(newBounds.getX(), newBounds.getY()));
 				bae.setSize(new Dimension(newBounds.getWidth(), newBounds.getHeight()));
 			}
 		}
 		for (ElementAndAlignment a : action.getAlignments()) {
-			SModelElement element = index.get(a.getElementId());
-			if (element instanceof Alignable) {
-				Alignable alignable = (Alignable) element;
+			Optional<SModelElement> element = index.get(a.getElementId());
+			if (element.isPresent() && element.get() instanceof Alignable) {
+				Alignable alignable = (Alignable) element.get();
 				alignable.setAlignment(a.getNewAlignment());
 			}
 		}
@@ -70,19 +71,20 @@ public final class LayoutUtil {
 
 	private static void copyLayoutDataRecursively(SModelElement element, SModelIndex oldIndex) {
 		if (element instanceof BoundsAware) {
-			SModelElement oldElement = oldIndex.get(element.getId());
-			if (oldElement instanceof BoundsAware) {
+			Optional<SModelElement> oldElement = oldIndex.get(element.getId());
+			if (oldElement.isPresent() && oldElement.get() instanceof BoundsAware) {
 				BoundsAware newBae = (BoundsAware) element;
-				BoundsAware oldBae = (BoundsAware) oldElement;
+				BoundsAware oldBae = (BoundsAware) oldElement.get();
 				if (oldBae.getPosition() != null)
 					newBae.setPosition(new Point(oldBae.getPosition()));
 				if (oldBae.getSize() != null)
 					newBae.setSize(new Dimension(oldBae.getSize()));
 			}
 		} else if (element instanceof SEdge) {
-			SModelElement oldElement = oldIndex.get(element.getId());
-			if (oldElement instanceof SEdge && ((SEdge) oldElement).getRoutingPoints() != null) {
-				((SEdge) element).setRoutingPoints(new ArrayList<>(((SEdge) oldElement).getRoutingPoints()));
+			Optional<SModelElement> oldElement = oldIndex.get(element.getId());
+			if (oldElement.isPresent() && oldElement.get() instanceof SEdge
+					&& ((SEdge) oldElement.get()).getRoutingPoints() != null) {
+				((SEdge) element).setRoutingPoints(new ArrayList<>(((SEdge) oldElement.get()).getRoutingPoints()));
 			}
 		}
 		if (element.getChildren() != null) {

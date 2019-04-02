@@ -54,31 +54,31 @@ public class CreateWeightedEdgeHandler implements OperationHandler {
 
 		SModelIndex index = modelState.getIndex();
 
-		SModelElement source = index.get(action.getSourceElementId());
-		SModelElement target = index.get(action.getTargetElementId());
+		Optional<SModelElement> source = index.get(action.getSourceElementId());
+		Optional<SModelElement> target = index.get(action.getTargetElementId());
 
-		if (source == null || target == null) {
+		if (!source.isPresent() || !target.isPresent()) {
 			log.warn("NULL source or target for source ID " + action.getSourceElementId() + " and target ID "
 					+ action.getTargetElementId());
 			return Optional.empty();
 		}
 
-		if (false == source instanceof SNode) {
-			source = findNode(source, index);
+		if (!(source.get() instanceof SNode)) {
+			source = findNode(source.get(), index);
 		}
-		if (false == target instanceof SNode) {
-			target = findNode(target, index);
+		if (!(target.get() instanceof SNode)) {
+			target = findNode(target.get(), index);
 		}
 
 		SModelRoot currentModel = modelState.getRoot();
-		if (source == currentModel || target == currentModel) {
+		if (source.get() == currentModel || target.get() == currentModel) {
 			log.warn("Can't create a link to the root node");
 			return Optional.empty();
 		}
 
 		WeightedEdge edge = new WeightedEdge();
-		edge.setSourceId(source.getId());
-		edge.setTargetId(target.getId());
+		edge.setSourceId(source.get().getId());
+		edge.setTargetId(target.get().getId());
 		edge.setType(WEIGHTED_EDGE);
 		int newID = index.getTypeCount(WEIGHTED_EDGE);
 		edge.setId(WEIGHTED_EDGE + newID);
@@ -90,14 +90,14 @@ public class CreateWeightedEdgeHandler implements OperationHandler {
 		return Optional.of(currentModel);
 	}
 
-	private SModelElement findNode(SModelElement element, com.eclipsesource.glsp.api.utils.SModelIndex index) {
+	private Optional<SModelElement> findNode(SModelElement element, SModelIndex index) {
 		if (element instanceof SNode) {
-			return element;
+			return Optional.of(element);
 		}
 
 		SModelElement parent = index.getParent(element);
 		if (parent == null) {
-			return element;
+			return Optional.ofNullable(element);
 		}
 		return findNode(parent, index);
 	}

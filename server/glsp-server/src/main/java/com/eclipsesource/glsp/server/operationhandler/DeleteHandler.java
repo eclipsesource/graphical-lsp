@@ -63,15 +63,15 @@ public class DeleteHandler implements OperationHandler {
 	}
 
 	protected boolean delete(String elementId, SModelIndex index, GraphicalModelState modelState) {
-		SModelElement element = index.get(elementId);
+		Optional<SModelElement> element = index.get(elementId);
 
-		if (element == null) {
+		if (!element.isPresent()) {
 			log.warn("Element not found: " + elementId);
 			return false;
 		}
 
 		// Always delete the top-level node
-		SModelElement nodeToDelete = findTopLevelElement(element, index);
+		SModelElement nodeToDelete = findTopLevelElement(element.get(), index);
 		SModelElement parent = index.getParent(nodeToDelete);
 		if (parent == null) {
 			log.warn("The requested node doesn't have a parent; it can't be deleted");

@@ -42,18 +42,18 @@ public abstract class CreateNodeOperationHandler implements OperationHandler {
 
 		SModelIndex index = modelState.getIndex();
 
-		SModelElement container = index.get(executeAction.getContainerId());
-		if (container == null) {
-			container = modelState.getRoot();
+		Optional<SModelElement> container = index.get(executeAction.getContainerId());
+		if (!container.isPresent()) {
+			container = Optional.of(modelState.getRoot());
 		}
 
 		Optional<Point> point = Optional.of(executeAction.getLocation());
 		SModelElement element = createNode(point, index);
-		if (container.getChildren() == null) {
-			container.setChildren(new ArrayList<SModelElement>());
+		if (container.get().getChildren() == null) {
+			container.get().setChildren(new ArrayList<SModelElement>());
 		}
-		container.getChildren().add(element);
-		index.addToIndex(element, container);
+		container.get().getChildren().add(element);
+		index.addToIndex(element, container.get());
 		return Optional.of(modelState.getRoot());
 	}
 
@@ -73,7 +73,7 @@ public abstract class CreateNodeOperationHandler implements OperationHandler {
 		int i = index.getTypeCount(type);
 		while (true) {
 			String id = idProvider.apply(i);
-			if (index.get(id) == null) {
+			if (!index.get(id).isPresent()) {
 				break;
 			}
 			i++;

@@ -66,7 +66,7 @@ public class CreateEdgeHandler implements OperationHandler {
 		edge.setTargetId(target.get().getId());
 		edge.setType(EDGE);
 		int newID = index.getTypeCount(EDGE);
-		while (index.get(EDGE + newID) != null) {
+		while (index.get(EDGE + newID).isPresent()) {
 			newID++;
 		}
 		edge.setId(EDGE + newID);

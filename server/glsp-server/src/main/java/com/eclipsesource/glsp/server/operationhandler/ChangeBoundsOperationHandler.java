@@ -68,18 +68,18 @@ public class ChangeBoundsOperationHandler implements OperationHandler {
 
 	private static Optional<SNode> findMovableNode(GraphicalModelState modelState, String elementId) {
 		SModelIndex index = modelState.getIndex();
-		SModelElement element = index.get(elementId);
-		if (element == null) {
+		Optional<SModelElement> element = index.get(elementId);
+		if (!element.isPresent()) {
 			log.warn("Element with id " + elementId + " not found");
 			return Optional.empty();
 		}
 
-		if (!(element instanceof SNode)) {
+		if (!(element.get() instanceof SNode)) {
 			log.warn("Element " + elementId + " is not moveable");
 			return Optional.empty();
 		}
 
-		return Optional.of((SNode) element);
+		return Optional.of((SNode) element.get());
 	}
 
 	private static void setBounds(SNode node, Bounds bounds) {

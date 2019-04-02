@@ -43,8 +43,11 @@ public class RequestMarkersHandler extends AbstractActionHandler {
 		List<Marker> markers = new ArrayList<Marker>();
 		SModelIndex currentModelIndex = modelState.getIndex();
 		for (String elementID : elementsIDs) {
-			SModelElement modelElement = currentModelIndex.get(elementID);
-			markers.addAll(validator.validate(modelState, modelElement));
+			Optional<SModelElement> modelElement = currentModelIndex.get(elementID);
+			if (modelElement.isPresent()) {
+				markers.addAll(validator.validate(modelState, modelElement.get()));
+			}
+
 		}
 
 		SetMarkersAction setMarkersAction = new SetMarkersAction(markers.toArray(new Marker[markers.size()]));
