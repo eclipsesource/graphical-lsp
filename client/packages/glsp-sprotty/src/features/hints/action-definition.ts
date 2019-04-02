@@ -18,6 +18,7 @@ import { Action } from "sprotty/lib";
 export class RequestTypeHintsAction implements Action {
     static readonly KIND = "requestTypeHints";
     kind = RequestTypeHintsAction.KIND;
+    constructor(public readonly diagramType?: string) { }
 }
 
 export class SetTypeHintsAction implements Action {

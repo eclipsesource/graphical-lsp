@@ -15,17 +15,11 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action;
 
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import com.eclipsesource.glsp.api.handler.ActionHandler;
-import com.eclipsesource.glsp.api.model.ModelState;
-import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
 import com.eclipsesource.glsp.api.provider.ActionProvider;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -34,37 +28,23 @@ import com.google.inject.Singleton;
 public class ActionRegistry {
 	static Logger log = Logger.getLogger(ActionRegistry.class.getName());
 
-	private Set<Action> registeredActions;
+	private ActionProvider actionProvider;
 	private Map<String, Class<? extends Action>> actions;
-	private Map<String, ActionHandler> actionHandlers;
 
 	@Inject
-	public ActionRegistry(ActionProvider registeredActionProvider, ActionHandlerProvider registeredHandlerProvider) {
-		actions = new HashMap<>();
-		actionHandlers = new HashMap<>();
-		registeredActions = new HashSet<>();
-		initializeMaps(registeredActionProvider, registeredHandlerProvider);
-
+	public ActionRegistry(ActionProvider actionProvider) {
+		this.actionProvider = actionProvider;
+		intialize();
 	}
 
-	private void initializeMaps(ActionProvider registeredActionProvider,
-			ActionHandlerProvider registeredHandlerProvider) {
-		// sort providers by priority
+	private void intialize() {
+		this.actions = new HashMap<>();
+		actionProvider.getActions().forEach(a -> actions.put(a.getKind(), a.getClass()));
 
-		registeredActionProvider.getActions().forEach(action -> {
-			if (!actions.containsKey(action.getKind())) {
-				actions.put(action.getKind(), action.getClass());
-				registeredActions.add(action);
-				if (registeredHandlerProvider.isHandled(action)) {
-					ActionHandler handler = registeredHandlerProvider.getHandler(action).get();
-					actionHandlers.put(action.getKind(), handler);
-				}
-			}
-		});
 	}
 
 	public Set<Action> getAllActions() {
-		return Collections.unmodifiableSet(registeredActions);
+		return actionProvider.getActions();
 	}
 
 	/**
@@ -76,24 +56,4 @@ public class ActionRegistry {
 	public Class<? extends Action> getActionClass(String kind) {
 		return actions.get(kind);
 	}
-
-	/**
-	 * Process the passed action by delegating it to the registered consumer (i.e.
-	 * action handler method)
-	 * 
-	 * @param action Action which should be processed
-	 * @return true if a registered consumer was found and the action was accepted
-	 */
-	public Optional<Action> delegateToHandler(Action action, ModelState modelState) {
-		ActionHandler handler = actionHandlers.get(action.getKind());
-		if (handler != null) {
-			return handler.execute(action, modelState);
-		}
-		return Optional.empty();
-	}
-
-	public boolean hasHandler(Action action) {
-		return actionHandlers.containsKey(action.getKind());
-	}
-
 }

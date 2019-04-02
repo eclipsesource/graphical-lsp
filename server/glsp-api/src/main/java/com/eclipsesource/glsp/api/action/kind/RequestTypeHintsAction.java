@@ -17,9 +17,49 @@ package com.eclipsesource.glsp.api.action.kind;
 
 import com.eclipsesource.glsp.api.action.Action;
 
-public class RequestTypeHints extends Action {
+public class RequestTypeHintsAction extends Action {
+	private String diagramType;
 
-	public RequestTypeHints() {
+	public RequestTypeHintsAction() {
 		super(Action.Kind.REQUEST_TYPE_HINTS);
 	}
+
+	public RequestTypeHintsAction(String diagramType) {
+		this();
+		this.diagramType = diagramType;
+	}
+
+	public String getDiagramType() {
+		return diagramType;
+	}
+
+	public void setDiagramType(String diagramType) {
+		this.diagramType = diagramType;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((diagramType == null) ? 0 : diagramType.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RequestTypeHintsAction other = (RequestTypeHintsAction) obj;
+		if (diagramType == null) {
+			if (other.diagramType != null)
+				return false;
+		} else if (!diagramType.equals(other.diagramType))
+			return false;
+		return true;
+	}
+
 }

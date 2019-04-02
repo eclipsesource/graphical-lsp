@@ -16,11 +16,24 @@
 package com.eclipsesource.glsp.api.provider;
 
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Optional;
 import java.util.Set;
 
+import com.eclipsesource.glsp.api.handler.Handler;
 import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
 
-public interface ServerCommandHandlerProvider extends HandlerProvider<ServerCommandHandler, String> {
+public interface ServerCommandHandlerProvider {
+	Set<ServerCommandHandler> getHandlers();
+
+	default boolean isHandled(String command) {
+		return getHandler(command).isPresent();
+	}
+
+	default Optional<ServerCommandHandler> getHandler(String command) {
+		return getHandlers().stream().sorted(Comparator.comparing(Handler::getPriority))
+				.filter(ha -> ha.handles(command)).findFirst();
+	}
 
 	final static class NullImpl implements ServerCommandHandlerProvider {
 

@@ -13,26 +13,34 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.server.provider;
+package com.eclipsesource.glsp.server;
 
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
-import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
-import com.eclipsesource.glsp.api.provider.ServerCommandHandlerProvider;
-import com.google.inject.Inject;
+import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.ModelStateProvider;
+import com.eclipsesource.glsp.server.model.ModelStateImpl;
+import com.google.inject.Singleton;
 
-public class DefaultServerCommandHandlerProvider implements ServerCommandHandlerProvider {
-	@Inject
-	private Set<ServerCommandHandler> handlers;
+@Singleton
+public class DefaultModelStateProvider implements ModelStateProvider {
 
-	@Inject
-	public DefaultServerCommandHandlerProvider(Set<ServerCommandHandler> handlers) {
-		this.handlers = handlers;
+	private Map<String, ModelState> clientModelStates;
+
+	public DefaultModelStateProvider() {
+		clientModelStates = new HashMap<>();
 	}
 
 	@Override
-	public Set<ServerCommandHandler> getHandlers() {
-		return handlers;
+	public synchronized ModelState getModelState(String clientId) {
+		ModelState modelState = clientModelStates.get(clientId);
+		if (modelState == null) {
+			modelState = new ModelStateImpl();
+			modelState.setClientId(clientId);
+			clientModelStates.put(clientId, modelState);
+		}
+		return modelState;
 	}
 
 }

@@ -21,26 +21,31 @@ import java.util.Optional;
 
 import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.action.kind.RequestTypeHints;
+import com.eclipsesource.glsp.api.action.kind.RequestTypeHintsAction;
 import com.eclipsesource.glsp.api.action.kind.SetTypeHintsAction;
+import com.eclipsesource.glsp.api.diagram.DiagramHandler;
+import com.eclipsesource.glsp.api.diagram.DiagramHandlerProvider;
 import com.eclipsesource.glsp.api.model.ModelState;
-import com.eclipsesource.glsp.api.provider.ModelTypeConfigurationProvider;
 import com.google.inject.Inject;
 
 public class RequestElementTypeHintsActionHandler extends AbstractActionHandler {
 	@Inject
-	private ModelTypeConfigurationProvider typeConfigurationProvider;
+	private DiagramHandlerProvider diagramHandlerProvider;
 
 	@Override
 	protected Collection<Action> handleableActionsKinds() {
-		return Arrays.asList(new RequestTypeHints());
+		return Arrays.asList(new RequestTypeHintsAction());
 	}
 
 	@Override
 	public Optional<Action> execute(Action action, ModelState modelState) {
-		if (action instanceof RequestTypeHints) {
-			return Optional.of(new SetTypeHintsAction(typeConfigurationProvider.getNodeTypeHints(),
-					typeConfigurationProvider.getEdgeTypeHints()));
+		if (action instanceof RequestTypeHintsAction) {
+			Optional<DiagramHandler> handler = diagramHandlerProvider
+					.get(((RequestTypeHintsAction) action).getDiagramType());
+			if (handler.isPresent()) {
+				return Optional
+						.of(new SetTypeHintsAction(handler.get().getNodeTypeHints(), handler.get().getEdgeTypeHints()));
+			}
 		}
 		return Optional.empty();
 	}

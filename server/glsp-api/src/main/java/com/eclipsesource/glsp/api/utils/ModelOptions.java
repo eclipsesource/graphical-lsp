@@ -15,9 +15,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.utils;
 
-import static com.eclipsesource.glsp.api.utils.OptionsUtil.getBoolValue;
-import static com.eclipsesource.glsp.api.utils.OptionsUtil.getValue;
-
 import java.util.Map;
 import java.util.Optional;
 
@@ -25,6 +22,7 @@ public final class ModelOptions {
 
 	public static final String NEEDS_CLIENT_LAYOUT = "needsClientLayout";
 	public static final String NEEDS_SERVER_LAYOUT = "needsServerLayout";
+	public static final String DIAGRAM_TYPE = "diagramType";
 	public static final String SOURCE_URI = "sourceUri";
 
 	private ModelOptions() {
@@ -37,12 +35,14 @@ public final class ModelOptions {
 	public static class ParsedModelOptions {
 		boolean needsClientLayout;
 		boolean needsServerLayout;
+		Optional<String> diagramType;
 		Optional<String> sourceUri;
 
 		private ParsedModelOptions(Map<String, String> options) {
 			needsClientLayout = getBoolValue(options, NEEDS_CLIENT_LAYOUT);
 			needsServerLayout = getBoolValue(options, NEEDS_SERVER_LAYOUT);
 			sourceUri = getValue(options, SOURCE_URI);
+			diagramType = getValue(options, DIAGRAM_TYPE);
 		}
 
 		public boolean needsClientLayout() {
@@ -57,5 +57,33 @@ public final class ModelOptions {
 			return needsServerLayout;
 		}
 
+		public Optional<String> getDiagramType() {
+			return diagramType;
+		}
+
+	}
+
+	public static Optional<String> getValue(Map<String, String> options, String key) {
+		return Optional.ofNullable(options.get(key));
+	}
+
+	public static Optional<Integer> getIntValue(Map<String, String> options, String key) {
+		try {
+			return Optional.ofNullable(Integer.parseInt(options.get(key)));
+		} catch (NumberFormatException ex) {
+			return Optional.empty();
+		}
+	}
+
+	public static Optional<Float> getFloatValue(Map<String, String> options, String key) {
+		try {
+			return Optional.ofNullable(Float.parseFloat(options.get(key)));
+		} catch (NumberFormatException ex) {
+			return Optional.empty();
+		}
+	}
+
+	public static boolean getBoolValue(Map<String, String> options, String key) {
+		return Boolean.parseBoolean(options.get(key));
 	}
 }

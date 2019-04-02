@@ -13,21 +13,25 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.model;
+package com.eclipsesource.glsp.server.provider;
 
-import org.eclipse.sprotty.SEdge;
+import java.util.Set;
 
-import com.eclipsesource.glsp.api.types.EdgeTypeHint;
+import com.eclipsesource.glsp.api.handler.ActionHandler;
+import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
+import com.google.inject.Inject;
 
-public class EdgeTypeConfiguration extends ModelTypeConfiguration {
+public class DIActionHandlerProvider implements ActionHandlerProvider {
+	private Set<ActionHandler> handlers;
 
-	public EdgeTypeConfiguration() {
-		super();
+	@Inject
+	public DIActionHandlerProvider(Set<ActionHandler> handlers) {
+		this.handlers = handlers;
 	}
 
-	public EdgeTypeConfiguration(String elementTypeId, Class<? extends SEdge> javaClassRepresentation,
-			EdgeTypeHint edgeTypeHint) {
-		super(elementTypeId, javaClassRepresentation, edgeTypeHint);
-
+	@Override
+	public Set<ActionHandler> getActionHandlers() {
+		return handlers;
 	}
+
 }

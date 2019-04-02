@@ -13,25 +13,28 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.server.provider;
+package com.eclipsesource.glsp.server;
 
-import java.util.Set;
-
-import com.eclipsesource.glsp.api.handler.OperationHandler;
-import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
+import com.eclipsesource.glsp.api.diagram.DiagramHandler;
+import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.ModelStateProvider;
+import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
 import com.google.inject.Inject;
 
-public class DefaultOperationHandlerProvider implements OperationHandlerProvider {
-	private Set<OperationHandler> handlers;
-
+public abstract class DefaultDiagramHandler extends DiagramHandler {
 	@Inject
-	public DefaultOperationHandlerProvider(Set<OperationHandler> handlers) {
-		this.handlers = handlers;
+	private ActionHandlerProvider actionHandlerProvider;
+	@Inject
+	private ModelStateProvider modelStateProvider;
+
+	@Override
+	public ModelState getModelState(String clientId) {
+		return modelStateProvider.getModelState(clientId);
 	}
 
 	@Override
-	public Set<OperationHandler> getHandlers() {
-		return handlers;
+	public ActionHandlerProvider getActionHandlerProvider() {
+		return actionHandlerProvider;
 	}
 
 }

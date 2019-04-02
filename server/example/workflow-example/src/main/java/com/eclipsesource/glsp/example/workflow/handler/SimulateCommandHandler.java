@@ -15,8 +15,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.handler;
 
-import static com.eclipsesource.glsp.api.utils.OptionsUtil.getValue;
-
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
@@ -27,6 +25,7 @@ import org.eclipse.sprotty.SModelElement;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
 import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.utils.ModelOptions;
 
 public class SimulateCommandHandler implements ServerCommandHandler {
 	private static Logger logger = Logger.getLogger(SimulateCommandHandler.class);
@@ -42,7 +41,7 @@ public class SimulateCommandHandler implements ServerCommandHandler {
 	public Optional<Action> execute(String commandId, Map<String, String> options, ModelState modelState) {
 		Optional<Action> result = Optional.empty();
 		if (SIMULATE_COMMAND_ID.equals(commandId)) {
-			getValue(options, OPTIONS_INVOKER_ID).ifPresent(id -> {
+			ModelOptions.getValue(options, OPTIONS_INVOKER_ID).ifPresent(id -> {
 				SModelElement invoker = modelState.getCurrentModelIndex().get(id);
 				if (invoker != null) {
 					logger.info("Start simulation of " + invoker.getId());

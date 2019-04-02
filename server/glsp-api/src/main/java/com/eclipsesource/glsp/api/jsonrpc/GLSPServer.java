@@ -22,9 +22,8 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
 import org.eclipse.sprotty.ServerStatus;
 
 import com.eclipsesource.glsp.api.action.ActionMessage;
-import com.eclipsesource.glsp.api.model.ModelStateProvider;
 
-public interface GLSPServer extends GLSPClientAware, ModelStateProvider {
+public interface GLSPServer extends GLSPClientAware {
 
 	public interface Provider {
 		GLSPServer getGraphicalLanguageServer(String clientId);
@@ -41,5 +40,5 @@ public interface GLSPServer extends GLSPClientAware, ModelStateProvider {
 	@JsonNotification("exit")
 	void exit();
 
-	void setStatus(ServerStatus serverStatus);
+	void setStatus(String clientId, ServerStatus serverStatus);
 }

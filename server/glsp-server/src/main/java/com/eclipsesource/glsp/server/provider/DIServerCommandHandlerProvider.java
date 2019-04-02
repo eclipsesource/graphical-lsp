@@ -13,21 +13,26 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.model;
+package com.eclipsesource.glsp.server.provider;
 
-import org.eclipse.sprotty.SNode;
+import java.util.Set;
 
-import com.eclipsesource.glsp.api.types.NodeTypeHint;
+import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
+import com.eclipsesource.glsp.api.provider.ServerCommandHandlerProvider;
+import com.google.inject.Inject;
 
-public class NodeTypeConfiguration extends ModelTypeConfiguration {
+public class DIServerCommandHandlerProvider implements ServerCommandHandlerProvider {
+	@Inject
+	private Set<ServerCommandHandler> handlers;
 
-	public NodeTypeConfiguration() {
-		super();
+	@Inject
+	public DIServerCommandHandlerProvider(Set<ServerCommandHandler> handlers) {
+		this.handlers = handlers;
 	}
 
-	public NodeTypeConfiguration(String elementTypeId, Class<? extends SNode> javaClassRepresentation,
-			NodeTypeHint nodeTypeHint) {
-		super(elementTypeId, javaClassRepresentation, nodeTypeHint);
+	@Override
+	public Set<ServerCommandHandler> getHandlers() {
+		return handlers;
 	}
 
 }

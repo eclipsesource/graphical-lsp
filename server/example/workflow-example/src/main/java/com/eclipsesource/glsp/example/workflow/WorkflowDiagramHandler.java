@@ -31,6 +31,7 @@ import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.MERGE_NO
 import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.PRE_RENDERED;
 import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.WEIGHTED_EDGE;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -44,18 +45,23 @@ import org.eclipse.sprotty.SGraph;
 import org.eclipse.sprotty.SLabel;
 import org.eclipse.sprotty.SModelElement;
 
-import com.eclipsesource.glsp.api.provider.ModelTypeConfigurationProvider;
 import com.eclipsesource.glsp.api.types.EdgeTypeHint;
 import com.eclipsesource.glsp.api.types.NodeTypeHint;
 import com.eclipsesource.glsp.example.workflow.schema.ActivityNode;
 import com.eclipsesource.glsp.example.workflow.schema.Icon;
 import com.eclipsesource.glsp.example.workflow.schema.TaskNode;
 import com.eclipsesource.glsp.example.workflow.schema.WeightedEdge;
+import com.eclipsesource.glsp.server.DefaultDiagramHandler;
 
-public class WorkflowModelTypeConfigurationProvider implements ModelTypeConfigurationProvider {
+public class WorkflowDiagramHandler extends DefaultDiagramHandler {
 
 	@Override
-	public Map<String, Class<? extends SModelElement>> getTypeToClassMappings() {
+	public String getDiagramType() {
+		return "workflow-diagram";
+	}
+
+	@Override
+	public Map<String, Class<? extends SModelElement>> getTypeMappings() {
 		Map<String, Class<? extends SModelElement>> mapping = new HashMap<>();
 		mapping.put(GRAPH, SGraph.class);
 		mapping.put(LABEL_HEADING, SLabel.class);
@@ -77,20 +83,28 @@ public class WorkflowModelTypeConfigurationProvider implements ModelTypeConfigur
 
 	@Override
 	public List<NodeTypeHint> getNodeTypeHints() {
-		return Arrays.asList(createDefaultNodeTypeHint(DECISION_NODE), createDefaultNodeTypeHint(MERGE_NODE),
-				createDefaultNodeTypeHint(MANUAL_TASK), createDefaultNodeTypeHint(AUTOMATED_TASK));
+		List<NodeTypeHint> nodeHints = new ArrayList<>();
+		nodeHints.add(createDefaultNodeTypeHint(DECISION_NODE));
+		nodeHints.add(createDefaultNodeTypeHint(MERGE_NODE));
+		nodeHints.add(createDefaultNodeTypeHint(MANUAL_TASK));
+		nodeHints.add(createDefaultNodeTypeHint(AUTOMATED_TASK));
+		return nodeHints;
+	}
+
+	@Override
+	public List<EdgeTypeHint> getEdgeTypeHints() {
+		List<EdgeTypeHint> edgeHints = new ArrayList<EdgeTypeHint>();
+		edgeHints.add(createDefaultEdgeTypeHint(WEIGHTED_EDGE));
+		edgeHints.add(createDefaultEdgeTypeHint(EDGE));
+		return edgeHints;
 	}
 
 	@Override
 	public EdgeTypeHint createDefaultEdgeTypeHint(String elementId) {
-		EdgeTypeHint hint = ModelTypeConfigurationProvider.super.createDefaultEdgeTypeHint(elementId);
+		EdgeTypeHint hint = super.createDefaultEdgeTypeHint(elementId);
 		hint.setSourceElementTypeIds(Arrays.asList(MANUAL_TASK, AUTOMATED_TASK, DECISION_NODE, MERGE_NODE));
 		hint.setTargetElementTypeIds(Arrays.asList(MANUAL_TASK, AUTOMATED_TASK, DECISION_NODE, MERGE_NODE));
 		return hint;
 	}
 
-	@Override
-	public List<EdgeTypeHint> getEdgeTypeHints() {
-		return Arrays.asList(createDefaultEdgeTypeHint(WEIGHTED_EDGE), createDefaultEdgeTypeHint(EDGE));
-	}
 }

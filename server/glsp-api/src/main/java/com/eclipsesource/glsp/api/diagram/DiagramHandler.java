@@ -13,39 +13,46 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.provider;
+package com.eclipsesource.glsp.api.diagram;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.eclipse.sprotty.SModelElement;
-import org.eclipse.sprotty.server.json.EnumTypeAdapter;
 
-import com.eclipsesource.glsp.api.json.SModelElementTypeAdapter;
+import com.eclipsesource.glsp.api.action.Action;
+import com.eclipsesource.glsp.api.handler.ActionHandler;
+import com.eclipsesource.glsp.api.model.ModelStateProvider;
+import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
 import com.eclipsesource.glsp.api.types.EdgeTypeHint;
 import com.eclipsesource.glsp.api.types.NodeTypeHint;
-import com.google.gson.GsonBuilder;
 
-public interface ModelTypeConfigurationProvider {
+public abstract class DiagramHandler implements ModelStateProvider {
 
-	Map<String, Class<? extends SModelElement>> getTypeToClassMappings();
+	public abstract ActionHandlerProvider getActionHandlerProvider();
 
-	List<NodeTypeHint> getNodeTypeHints();
+	public abstract String getDiagramType();
 
-	List<EdgeTypeHint> getEdgeTypeHints();
-
-	default GsonBuilder configureGSON() {
-		GsonBuilder builder = new GsonBuilder();
-		builder.registerTypeAdapterFactory(new SModelElementTypeAdapter.Factory(getTypeToClassMappings()))
-				.registerTypeAdapterFactory(new EnumTypeAdapter.Factory());
-		return builder;
+	public Optional<Action> execute(String clientId, Action action) {
+		Optional<ActionHandler> handler = getActionHandlerProvider().getHandler(action);
+		if (handler.isPresent()) {
+			return handler.get().execute(action, getModelState(clientId));
+		}
+		return Optional.empty();
 	}
 
-	default EdgeTypeHint createDefaultEdgeTypeHint(String elementId) {
+	public abstract Map<String, Class<? extends SModelElement>> getTypeMappings();
+
+	public abstract List<NodeTypeHint> getNodeTypeHints();
+
+	public abstract List<EdgeTypeHint> getEdgeTypeHints();
+
+	public EdgeTypeHint createDefaultEdgeTypeHint(String elementId) {
 		return new EdgeTypeHint(elementId, true, true, true, null, null);
 	}
 
-	default NodeTypeHint createDefaultNodeTypeHint(String elementId) {
+	public NodeTypeHint createDefaultNodeTypeHint(String elementId) {
 		return new NodeTypeHint(elementId, true, true, true);
 	}
 }

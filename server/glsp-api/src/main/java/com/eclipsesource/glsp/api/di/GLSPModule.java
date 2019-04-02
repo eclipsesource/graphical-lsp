@@ -17,34 +17,27 @@ package com.eclipsesource.glsp.api.di;
 
 import org.eclipse.sprotty.ILayoutEngine;
 
+import com.eclipsesource.glsp.api.diagram.DiagramHandlerProvider;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
-import com.eclipsesource.glsp.api.handler.ActionHandler;
-import com.eclipsesource.glsp.api.handler.OperationHandler;
-import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
 import com.eclipsesource.glsp.api.markers.ModelValidator;
 import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
 import com.eclipsesource.glsp.api.model.ModelExpansionListener;
 import com.eclipsesource.glsp.api.model.ModelSelectionListener;
+import com.eclipsesource.glsp.api.model.ModelStateProvider;
 import com.eclipsesource.glsp.api.operations.OperationConfiguration;
 import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
 import com.eclipsesource.glsp.api.provider.ActionProvider;
 import com.eclipsesource.glsp.api.provider.CommandPaletteActionProvider;
-import com.eclipsesource.glsp.api.provider.ModelTypeConfigurationProvider;
 import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
 import com.eclipsesource.glsp.api.provider.ServerCommandHandlerProvider;
 import com.google.inject.AbstractModule;
-import com.google.inject.binder.LinkedBindingBuilder;
-import com.google.inject.multibindings.Multibinder;
 
 public abstract class GLSPModule extends AbstractModule {
-	private Multibinder<ActionHandler> actionHandlerBinder;
-	private Multibinder<ServerCommandHandler> serverCommandHandler;
-	private Multibinder<OperationHandler> operationHandler;
 
 	@Override
-	protected final void configure() {
+	protected void configure() {
 		bind(GLSPServer.class).to(bindGLSPServer());
 		bind(PopupModelFactory.class).to(bindPopupModelFactory());
 		bind(ModelFactory.class).to(bindModelFactory());
@@ -57,42 +50,17 @@ public abstract class GLSPModule extends AbstractModule {
 		bind(ActionHandlerProvider.class).to(bindActionHandlerProvider());
 		bind(OperationHandlerProvider.class).to(bindOperatioHandlerProvider());
 		bind(ServerCommandHandlerProvider.class).to(bindServerCommandHandlerProvider());
-		bind(ModelTypeConfigurationProvider.class).to(bindModelTypesConfigurationProvider());
 		bind(CommandPaletteActionProvider.class).to(bindCommandPaletteActionProvider());
 		bind(ModelValidator.class).to(bindModelValidator());
-		configureMultibindings();
+		bind(DiagramHandlerProvider.class).to(bindDiagramHandlerProvider());
+		bind(ModelStateProvider.class).to(bindModelStateProvider());
 	}
 
-	protected void configureMultibindings() {
-		actionHandlerBinder = Multibinder.newSetBinder(binder(), ActionHandler.class);
-		serverCommandHandler = Multibinder.newSetBinder(binder(), ServerCommandHandler.class);
-		operationHandler = Multibinder.newSetBinder(binder(), OperationHandler.class);
-		multiBindActionHandlers();
-		multiBindServerCommandHandlers();
-		multiBindOperationHandlers();
-	}
+	protected abstract Class<? extends ModelStateProvider> bindModelStateProvider();
 
-	protected abstract void multiBindOperationHandlers();
-
-	protected abstract void multiBindServerCommandHandlers();
-
-	protected abstract void multiBindActionHandlers();
-
-	protected final LinkedBindingBuilder<ActionHandler> bindActionHandler() {
-		return actionHandlerBinder.addBinding();
-	}
-
-	protected final LinkedBindingBuilder<ServerCommandHandler> bindServerCommandHandler() {
-		return serverCommandHandler.addBinding();
-	}
-
-	protected final LinkedBindingBuilder<OperationHandler> bindOperationHandler() {
-		return operationHandler.addBinding();
-	}
+	protected abstract Class<? extends DiagramHandlerProvider> bindDiagramHandlerProvider();
 
 	protected abstract Class<? extends GLSPServer> bindGLSPServer();
-
-	protected abstract Class<? extends ModelTypeConfigurationProvider> bindModelTypesConfigurationProvider();
 
 	protected Class<? extends CommandPaletteActionProvider> bindCommandPaletteActionProvider() {
 		return CommandPaletteActionProvider.NullImpl.class;
@@ -141,7 +109,7 @@ public abstract class GLSPModule extends AbstractModule {
 	protected Class<? extends ServerCommandHandlerProvider> bindServerCommandHandlerProvider() {
 		return ServerCommandHandlerProvider.NullImpl.class;
 	}
-	
+
 	protected Class<? extends ModelValidator> bindModelValidator() {
 		return ModelValidator.NullImpl.class;
 	}

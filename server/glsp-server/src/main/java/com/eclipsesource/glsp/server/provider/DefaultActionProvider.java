@@ -42,7 +42,7 @@ import com.eclipsesource.glsp.api.action.kind.RequestMarkersAction;
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
 import com.eclipsesource.glsp.api.action.kind.RequestOperationsAction;
 import com.eclipsesource.glsp.api.action.kind.RequestPopupModelAction;
-import com.eclipsesource.glsp.api.action.kind.RequestTypeHints;
+import com.eclipsesource.glsp.api.action.kind.RequestTypeHintsAction;
 import com.eclipsesource.glsp.api.action.kind.RerouteConnectionOperationAction;
 import com.eclipsesource.glsp.api.action.kind.SaveModelAction;
 import com.eclipsesource.glsp.api.action.kind.SelectAction;
@@ -79,7 +79,7 @@ public class DefaultActionProvider implements ActionProvider {
 		defaultActions.add(new ChangeContainerOperationAction());
 		defaultActions.add(new OpenAction());
 		defaultActions.add(new RequestBoundsAction());
-		defaultActions.add(new RequestTypeHints());
+		defaultActions.add(new RequestTypeHintsAction());
 		defaultActions.add(new RequestExportSvgAction());
 		defaultActions.add(new RequestLayersAction());
 		defaultActions.add(new RequestModelAction());

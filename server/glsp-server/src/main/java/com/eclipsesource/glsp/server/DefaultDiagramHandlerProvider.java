@@ -13,25 +13,33 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.provider;
+package com.eclipsesource.glsp.server;
 
-import java.util.Comparator;
-import java.util.Optional;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Set;
 
-import com.eclipsesource.glsp.api.handler.Handler;
+import com.eclipsesource.glsp.api.diagram.DiagramHandler;
+import com.eclipsesource.glsp.api.diagram.DiagramHandlerProvider;
+import com.google.inject.Inject;
 
-public interface HandlerProvider<E extends Handler<T>, T> {
+public class DefaultDiagramHandlerProvider implements DiagramHandlerProvider {
+	public static final String DEFAULT_DIAGRAM_TYPE = "default-diagram";
+	private Set<DiagramHandler> diagramHandlers;
 
-	Set<E> getHandlers();
-
-	default boolean isHandled(T object) {
-		return getHandler(object).isPresent();
+	@Inject
+	public DefaultDiagramHandlerProvider(Set<DiagramHandler> diagramHandlers) {
+		this.diagramHandlers = diagramHandlers;
 	}
 
-	default Optional<E> getHandler(T object) {
-		return getHandlers().stream().sorted(Comparator.comparing(Handler::getPriority))
-				.filter(ha -> ha.handles(object)).findFirst();
+	@Override
+	public Collection<String> getDiagramTypes() {
+		return Arrays.asList(DEFAULT_DIAGRAM_TYPE);
+	}
+
+	@Override
+	public Collection<DiagramHandler> getAll() {
+		return diagramHandlers;
 	}
 
 }
