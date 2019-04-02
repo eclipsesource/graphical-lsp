@@ -15,33 +15,37 @@
  ********************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import java.util.Arrays;
+import java.util.List;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.markers.Marker;
 
 public class SetMarkersAction extends Action {
 
-	private Marker[] markers;
+	private List<Marker> markers;
 
 	public SetMarkersAction() {
 		super(Action.Kind.SET_MARKERS);
 	}
 
-	public SetMarkersAction(Marker[] markers) {
+	public SetMarkersAction(List<Marker> markers) {
 		this();
 		this.markers = markers;
 	}
 
-	public Marker[] getMarkers() {
+	public List<Marker> getMarkers() {
 		return markers;
+	}
+
+	public void setMarkers(List<Marker> markers) {
+		this.markers = markers;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Arrays.hashCode(markers);
+		result = prime * result + ((markers == null) ? 0 : markers.hashCode());
 		return result;
 	}
 
@@ -54,7 +58,10 @@ public class SetMarkersAction extends Action {
 		if (getClass() != obj.getClass())
 			return false;
 		SetMarkersAction other = (SetMarkersAction) obj;
-		if (!Arrays.equals(markers, other.markers))
+		if (markers == null) {
+			if (other.markers != null)
+				return false;
+		} else if (!markers.equals(other.markers))
 			return false;
 		return true;
 	}

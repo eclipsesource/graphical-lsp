@@ -15,7 +15,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.actionhandler;
 
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
 
@@ -64,10 +63,10 @@ public class CollapseExpandActionHandler extends AbstractActionHandler {
 	private Optional<Action> handleCollapseExpandAction(CollapseExpandAction action, GraphicalModelState modelState) {
 		Set<String> expandedElements = modelState.getExpandedElements();
 		if (action.getCollapseIds() != null) {
-			expandedElements.removeAll(Arrays.asList(action.getCollapseIds()));
+			expandedElements.removeAll(action.getCollapseIds());
 		}
 		if (action.getExpandIds() != null) {
-			expandedElements.addAll(Arrays.asList(action.getExpandIds()));
+			expandedElements.addAll(action.getExpandIds());
 		}
 
 		if (expansionListener != null) {

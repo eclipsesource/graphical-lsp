@@ -15,7 +15,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.handler;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
@@ -59,7 +58,7 @@ public class RerouteEdgeHandler implements OperationHandler {
 		}
 
 		// reroute
-		edge.get().setRoutingPoints(Arrays.asList(action.getRoutingPoints()));
+		edge.get().setRoutingPoints(action.getRoutingPoints());
 
 		SModelRoot currentModel = modelState.getRoot();
 		return Optional.of(currentModel);

@@ -15,8 +15,8 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.operationhandler;
 
-import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -46,14 +46,14 @@ public class DeleteHandler implements OperationHandler {
 	@Override
 	public Optional<SModelRoot> execute(AbstractOperationAction execAction, GraphicalModelState modelState) {
 		DeleteElementOperationAction action = (DeleteElementOperationAction) execAction;
-		String elementIds[] = action.getElementIds();
-		if (elementIds == null || elementIds.length == 0) {
+		List<String> elementIds = action.getElementIds();
+		if (elementIds == null || elementIds.size() == 0) {
 			log.warn("Elements to delete are not specified");
 			return Optional.empty();
 		}
 		SModelIndex index = modelState.getIndex();
 
-		boolean success = Arrays.stream(elementIds).allMatch(eId -> delete(eId, index, modelState));
+		boolean success = elementIds.stream().allMatch(eId -> delete(eId, index, modelState));
 		if (!success) {
 			return Optional.empty();
 		}

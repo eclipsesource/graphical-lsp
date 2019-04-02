@@ -11,6 +11,7 @@
 package com.eclipsesource.glsp.server.actionhandler;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,10 +34,10 @@ public class RequestMarkersHandler extends AbstractActionHandler {
 	@Override
 	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		RequestMarkersAction execAction = (RequestMarkersAction) action;
-		String[] elementsIDs = execAction.getElementsIDs();
-		if (elementsIDs == null || elementsIDs.length == 0) { // if no element ID is provided, compute the markers for
+		List<String> elementsIDs = execAction.getElementsIDs();
+		if (elementsIDs == null || elementsIDs.size() == 0) { // if no element ID is provided, compute the markers for
 																// the complete model
-			elementsIDs = new String[] { modelState.getRoot().getId() };
+			elementsIDs = Arrays.asList(modelState.getRoot().getId());
 		}
 		List<Marker> markers = new ArrayList<Marker>();
 		SModelIndex currentModelIndex = modelState.getIndex();
@@ -48,7 +49,7 @@ public class RequestMarkersHandler extends AbstractActionHandler {
 
 		}
 
-		SetMarkersAction setMarkersAction = new SetMarkersAction(markers.toArray(new Marker[markers.size()]));
+		SetMarkersAction setMarkersAction = new SetMarkersAction(markers);
 		return Optional.of(setMarkersAction);
 	}
 

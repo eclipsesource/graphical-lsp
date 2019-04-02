@@ -15,39 +15,47 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import java.util.Arrays;
+import java.util.List;
 
 import com.eclipsesource.glsp.api.action.Action;
 
 public class CenterAction extends Action {
 
-	private String[] elementIDs;
+	private List<String> elementIDs;
 	private boolean animate = true;
 
 	public CenterAction() {
 		super(Action.Kind.CENTER);
 	}
 
-	public CenterAction(String[] elementIDs, boolean animate) {
+	public CenterAction(List<String> elementIDs, boolean animate) {
 		this();
 		this.elementIDs = elementIDs;
 		this.animate = animate;
 	}
 
-	public String[] getElementIDs() {
+	public List<String> getElementIDs() {
 		return elementIDs;
+	}
+
+	public void setElementIDs(List<String> elementIDs) {
+		this.elementIDs = elementIDs;
 	}
 
 	public boolean isAnimate() {
 		return animate;
 	}
 
+	public void setAnimate(boolean animate) {
+		this.animate = animate;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		int result = super.hashCode();
 		result = prime * result + (animate ? 1231 : 1237);
-		result = prime * result + Arrays.hashCode(elementIDs);
+		result = prime * result + ((elementIDs == null) ? 0 : elementIDs.hashCode());
 		return result;
 	}
 
@@ -55,16 +63,18 @@ public class CenterAction extends Action {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		CenterAction other = (CenterAction) obj;
 		if (animate != other.animate)
 			return false;
-		if (!Arrays.equals(elementIDs, other.elementIDs))
+		if (elementIDs == null) {
+			if (other.elementIDs != null)
+				return false;
+		} else if (!elementIDs.equals(other.elementIDs))
 			return false;
 		return true;
 	}
-
 }

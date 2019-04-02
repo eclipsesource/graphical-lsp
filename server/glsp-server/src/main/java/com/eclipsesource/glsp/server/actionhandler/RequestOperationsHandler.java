@@ -15,6 +15,8 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.actionhandler;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import com.eclipsesource.glsp.api.action.Action;
@@ -38,9 +40,9 @@ public class RequestOperationsHandler extends AbstractActionHandler {
 	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		if (action instanceof RequestOperationsAction) {
 			RequestOperationsAction requestAction = (RequestOperationsAction) action;
-			Optional<Operation[]> operations = Optional.ofNullable(operationConfiguration)
+			Optional<List<Operation>> operations = Optional.ofNullable(operationConfiguration)
 					.map(config -> config.getOperations(requestAction));
-			return Optional.of(new SetOperationsAction(operations.orElse(new Operation[0])));
+			return Optional.of(new SetOperationsAction(operations.orElse(Collections.emptyList())));
 		}
 		return Optional.empty();
 	}

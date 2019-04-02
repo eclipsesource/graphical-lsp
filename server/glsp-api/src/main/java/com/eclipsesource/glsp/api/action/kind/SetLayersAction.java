@@ -15,32 +15,36 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import java.util.Arrays;
+import java.util.List;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.types.Layer;
 
 public class SetLayersAction extends Action {
-	private Layer[] layers;
+	private List<Layer> layers;
 
 	public SetLayersAction() {
 		super(Action.Kind.SET_LAYERS);
 	}
 
-	public SetLayersAction(Layer[] layers) {
+	public SetLayersAction(List<Layer> layers) {
 		this();
 		this.layers = layers;
 	}
 
-	public Layer[] getLayers() {
+	public List<Layer> getLayers() {
 		return layers;
+	}
+
+	public void setLayers(List<Layer> layers) {
+		this.layers = layers;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Arrays.hashCode(layers);
+		result = prime * result + ((layers == null) ? 0 : layers.hashCode());
 		return result;
 	}
 
@@ -53,9 +57,11 @@ public class SetLayersAction extends Action {
 		if (getClass() != obj.getClass())
 			return false;
 		SetLayersAction other = (SetLayersAction) obj;
-		if (!Arrays.equals(layers, other.layers))
+		if (layers == null) {
+			if (other.layers != null)
+				return false;
+		} else if (!layers.equals(other.layers))
 			return false;
 		return true;
 	}
-
 }

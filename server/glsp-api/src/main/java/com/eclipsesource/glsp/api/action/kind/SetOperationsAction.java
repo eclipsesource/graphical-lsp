@@ -15,29 +15,29 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import java.util.Arrays;
+import java.util.List;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.operations.Operation;
 
 public class SetOperationsAction extends Action {
 
-	private Operation[] operations;
+	private List<Operation> operations;
 
 	public SetOperationsAction() {
 		super(Action.Kind.SET_OPERATIONS);
 	}
 
-	public SetOperationsAction(Operation[] operations) {
+	public SetOperationsAction(List<Operation> operations) {
 		this();
 		this.operations = operations;
 	}
 
-	public Operation[] getOperations() {
+	public List<Operation> getOperations() {
 		return operations;
 	}
 
-	public void setOperations(Operation[] operations) {
+	public void setOperations(List<Operation> operations) {
 		this.operations = operations;
 	}
 
@@ -45,7 +45,7 @@ public class SetOperationsAction extends Action {
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Arrays.hashCode(operations);
+		result = prime * result + ((operations == null) ? 0 : operations.hashCode());
 		return result;
 	}
 
@@ -58,7 +58,10 @@ public class SetOperationsAction extends Action {
 		if (getClass() != obj.getClass())
 			return false;
 		SetOperationsAction other = (SetOperationsAction) obj;
-		if (!Arrays.equals(operations, other.operations))
+		if (operations == null) {
+			if (other.operations != null)
+				return false;
+		} else if (!operations.equals(other.operations))
 			return false;
 		return true;
 	}

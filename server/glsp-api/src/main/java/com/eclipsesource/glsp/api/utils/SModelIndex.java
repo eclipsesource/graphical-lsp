@@ -15,7 +15,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.utils;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -163,8 +162,8 @@ public class SModelIndex {
 		return Optional.ofNullable(idToElement.get(elementId));
 	}
 
-	public Set<SModelElement> getAll(String... elementIds) {
-		return Arrays.stream(elementIds).map(this::get).map(Optional::get).collect(Collectors.toSet());
+	public Set<SModelElement> getAll(Collection<String> elementIds) {
+		return elementIds.stream().map(this::get).map(Optional::get).collect(Collectors.toSet());
 	}
 
 	public Set<SModelElement> getAllByType(String type) {

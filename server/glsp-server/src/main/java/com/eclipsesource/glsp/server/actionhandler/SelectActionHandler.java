@@ -15,7 +15,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.actionhandler;
 
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
 
@@ -64,10 +63,10 @@ public class SelectActionHandler extends AbstractActionHandler {
 	private Optional<Action> handleSelectAction(SelectAction action, GraphicalModelState modelState) {
 		Set<String> selectedElements = modelState.getSelectedElements();
 		if (action.getDeselectedElementsIDs() != null) {
-			selectedElements.removeAll(Arrays.asList(action.getDeselectedElementsIDs()));
+			selectedElements.removeAll(action.getDeselectedElementsIDs());
 		}
 		if (action.getSelectedElementsIDs() != null) {
-			selectedElements.addAll(Arrays.asList(action.getSelectedElementsIDs()));
+			selectedElements.addAll(action.getSelectedElementsIDs());
 		}
 		if (modelSelectionListener != null) {
 			modelSelectionListener.selectionChanged(action);

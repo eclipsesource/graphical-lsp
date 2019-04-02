@@ -15,28 +15,20 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import java.util.Arrays;
+import java.util.List;
 
 import com.eclipsesource.glsp.api.action.Action;
 
 public class DeleteElementOperationAction extends AbstractOperationAction {
 
-	private String[] elementIds;
+	private List<String> elementIds;
 
 	public DeleteElementOperationAction() {
 		super(Action.Kind.DELETE_ELEMENT_OPERATION);
 	}
 
-	public DeleteElementOperationAction(String[] elementIds) {
+	public DeleteElementOperationAction(List<String> elementIds) {
 		this();
-		this.elementIds = elementIds;
-	}
-
-	public String[] getElementIds() {
-		return elementIds;
-	}
-
-	public void setElementIds(String[] elementIds) {
 		this.elementIds = elementIds;
 	}
 
@@ -44,8 +36,16 @@ public class DeleteElementOperationAction extends AbstractOperationAction {
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Arrays.hashCode(elementIds);
+		result = prime * result + ((elementIds == null) ? 0 : elementIds.hashCode());
 		return result;
+	}
+
+	public List<String> getElementIds() {
+		return elementIds;
+	}
+
+	public void setElementIds(List<String> elementIds) {
+		this.elementIds = elementIds;
 	}
 
 	@Override
@@ -57,7 +57,10 @@ public class DeleteElementOperationAction extends AbstractOperationAction {
 		if (getClass() != obj.getClass())
 			return false;
 		DeleteElementOperationAction other = (DeleteElementOperationAction) obj;
-		if (!Arrays.equals(elementIds, other.elementIds))
+		if (elementIds == null) {
+			if (other.elementIds != null)
+				return false;
+		} else if (!elementIds.equals(other.elementIds))
 			return false;
 		return true;
 	}

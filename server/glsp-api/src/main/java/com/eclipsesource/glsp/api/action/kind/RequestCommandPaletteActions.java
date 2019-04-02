@@ -15,50 +15,54 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import java.util.Arrays;
+import java.util.List;
 
 import com.eclipsesource.glsp.api.action.Action;
 
 public class RequestCommandPaletteActions extends Action {
 
-	private String[] selectedElementsIDs;
+	private List<String> selectedElementsIDs;
 
 	public RequestCommandPaletteActions() {
 		super(Action.Kind.REQUEST_COMMAND_PALETTE_ACTIONS);
 	}
 
-	public RequestCommandPaletteActions(String[] selectedElementsIDs) {
+	public RequestCommandPaletteActions(List<String> selectedElementsIDs) {
 		this();
 		this.selectedElementsIDs = selectedElementsIDs;
 	}
 
-	public String[] getSelectedElementsIDs() {
+	public List<String> getSelectedElementsIDs() {
 		return selectedElementsIDs;
+	}
+
+	public void setSelectedElementsIDs(List<String> selectedElementsIDs) {
+		this.selectedElementsIDs = selectedElementsIDs;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Arrays.hashCode(selectedElementsIDs);
+		result = prime * result + ((selectedElementsIDs == null) ? 0 : selectedElementsIDs.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (!super.equals(obj)) {
+		if (!super.equals(obj))
 			return false;
-		}
-		if (!(obj instanceof RequestCommandPaletteActions)) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
 		RequestCommandPaletteActions other = (RequestCommandPaletteActions) obj;
-		if (!Arrays.equals(selectedElementsIDs, other.selectedElementsIDs)) {
+		if (selectedElementsIDs == null) {
+			if (other.selectedElementsIDs != null)
+				return false;
+		} else if (!selectedElementsIDs.equals(other.selectedElementsIDs))
 			return false;
-		}
 		return true;
 	}
+
 }

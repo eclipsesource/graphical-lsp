@@ -15,46 +15,58 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import java.util.Arrays;
+import java.util.List;
 
 import com.eclipsesource.glsp.api.action.Action;
 
 public class CollapseExpandAction extends Action {
 
-	private String[] expandIds;
-	private String[] collapseIds;
+	private List<String> expandIds;
+	private List<String> collapseIds;
 	private boolean collapse = true;
 
 	public CollapseExpandAction() {
 		super(Action.Kind.COLLAPSE_EXPAND);
 	}
 
-	public CollapseExpandAction(String[] expandIds, String[] collapseIds, boolean collapse) {
+	public CollapseExpandAction(List<String> expandIds, List<String> collapseIds, boolean collapse) {
 		this();
 		this.expandIds = expandIds;
 		this.collapseIds = collapseIds;
 		this.collapse = collapse;
 	}
 
-	public String[] getExpandIds() {
+	public List<String> getExpandIds() {
 		return expandIds;
 	}
 
-	public String[] getCollapseIds() {
+	public void setExpandIds(List<String> expandIds) {
+		this.expandIds = expandIds;
+	}
+
+	public List<String> getCollapseIds() {
 		return collapseIds;
+	}
+
+	public void setCollapseIds(List<String> collapseIds) {
+		this.collapseIds = collapseIds;
 	}
 
 	public boolean isCollapse() {
 		return collapse;
 	}
 
+	public void setCollapse(boolean collapse) {
+		this.collapse = collapse;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		int result = super.hashCode();
 		result = prime * result + (collapse ? 1231 : 1237);
-		result = prime * result + Arrays.hashCode(collapseIds);
-		result = prime * result + Arrays.hashCode(expandIds);
+		result = prime * result + ((collapseIds == null) ? 0 : collapseIds.hashCode());
+		result = prime * result + ((expandIds == null) ? 0 : expandIds.hashCode());
 		return result;
 	}
 
@@ -62,16 +74,22 @@ public class CollapseExpandAction extends Action {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		CollapseExpandAction other = (CollapseExpandAction) obj;
 		if (collapse != other.collapse)
 			return false;
-		if (!Arrays.equals(collapseIds, other.collapseIds))
+		if (collapseIds == null) {
+			if (other.collapseIds != null)
+				return false;
+		} else if (!collapseIds.equals(other.collapseIds))
 			return false;
-		if (!Arrays.equals(expandIds, other.expandIds))
+		if (expandIds == null) {
+			if (other.expandIds != null)
+				return false;
+		} else if (!expandIds.equals(other.expandIds))
 			return false;
 		return true;
 	}
