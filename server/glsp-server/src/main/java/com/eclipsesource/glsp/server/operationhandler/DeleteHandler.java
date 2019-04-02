@@ -15,10 +15,12 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.operationhandler;
 
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.eclipse.sprotty.SEdge;
@@ -37,6 +39,7 @@ import com.eclipsesource.glsp.api.utils.SModelIndex;
  */
 public class DeleteHandler implements OperationHandler {
 	private static Logger log = Logger.getLogger(DeleteHandler.class);
+	private Set<String> allDependantsIds;
 
 	@Override
 	public boolean handles(AbstractOperationAction action) {
@@ -52,7 +55,7 @@ public class DeleteHandler implements OperationHandler {
 			return Optional.empty();
 		}
 		SModelIndex index = modelState.getIndex();
-
+		allDependantsIds = new HashSet<>();
 		boolean success = elementIds.stream().allMatch(eId -> delete(eId, index, modelState));
 		if (!success) {
 			return Optional.empty();
@@ -63,6 +66,11 @@ public class DeleteHandler implements OperationHandler {
 	}
 
 	protected boolean delete(String elementId, SModelIndex index, GraphicalModelState modelState) {
+		if (allDependantsIds.contains(elementId)) {
+			// The element as already been deleted as dependent of a previously deleted
+			// element
+			return true;
+		}
 		Optional<SModelElement> element = index.get(elementId);
 
 		if (!element.isPresent()) {
@@ -82,6 +90,7 @@ public class DeleteHandler implements OperationHandler {
 		collectDependents(dependents, nodeToDelete, modelState);
 
 		dependents.forEach(modelElement -> delete(modelElement, modelState));
+		allDependantsIds.addAll(dependents.stream().map(SModelElement::getId).collect(Collectors.toSet()));
 		return true;
 	}
 
