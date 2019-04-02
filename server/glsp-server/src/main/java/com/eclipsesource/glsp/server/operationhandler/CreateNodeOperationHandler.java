@@ -26,7 +26,7 @@ import org.eclipse.sprotty.SModelRoot;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 
 public abstract class CreateNodeOperationHandler implements OperationHandler {
@@ -37,14 +37,14 @@ public abstract class CreateNodeOperationHandler implements OperationHandler {
 	}
 
 	@Override
-	public Optional<SModelRoot> execute(AbstractOperationAction action, ModelState modelState) {
+	public Optional<SModelRoot> execute(AbstractOperationAction action, GraphicalModelState modelState) {
 		CreateNodeOperationAction executeAction = (CreateNodeOperationAction) action;
 
-		SModelIndex index = modelState.getCurrentModelIndex();
+		SModelIndex index = modelState.getIndex();
 
 		SModelElement container = index.get(executeAction.getContainerId());
 		if (container == null) {
-			container = modelState.getCurrentModel();
+			container = modelState.getRoot();
 		}
 
 		Optional<Point> point = Optional.of(executeAction.getLocation());
@@ -54,7 +54,7 @@ public abstract class CreateNodeOperationHandler implements OperationHandler {
 		}
 		container.getChildren().add(element);
 		index.addToIndex(element, container);
-		return Optional.of(modelState.getCurrentModel());
+		return Optional.of(modelState.getRoot());
 	}
 
 	protected String generateID(SModelElement element, SModelIndex index) {

@@ -29,7 +29,7 @@ import org.eclipse.sprotty.SNode;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.action.kind.DeleteElementOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 
 /**
@@ -44,25 +44,25 @@ public class DeleteHandler implements OperationHandler {
 	}
 
 	@Override
-	public Optional<SModelRoot> execute(AbstractOperationAction execAction, ModelState modelState) {
+	public Optional<SModelRoot> execute(AbstractOperationAction execAction, GraphicalModelState modelState) {
 		DeleteElementOperationAction action = (DeleteElementOperationAction) execAction;
 		String elementIds[] = action.getElementIds();
 		if (elementIds == null || elementIds.length == 0) {
 			log.warn("Elements to delete are not specified");
 			return Optional.empty();
 		}
-		SModelIndex index = modelState.getCurrentModelIndex();
+		SModelIndex index = modelState.getIndex();
 
 		boolean success = Arrays.stream(elementIds).allMatch(eId -> delete(eId, index, modelState));
 		if (!success) {
 			return Optional.empty();
 		}
 
-		SModelRoot currentModel = modelState.getCurrentModel();
+		SModelRoot currentModel = modelState.getRoot();
 		return Optional.of(currentModel);
 	}
 
-	protected boolean delete(String elementId, SModelIndex index, ModelState modelState) {
+	protected boolean delete(String elementId, SModelIndex index, GraphicalModelState modelState) {
 		SModelElement element = index.get(elementId);
 
 		if (element == null) {
@@ -85,9 +85,9 @@ public class DeleteHandler implements OperationHandler {
 		return true;
 	}
 
-	protected void delete(SModelElement element, ModelState modelState) {
-		SModelElement parent = modelState.getCurrentModelIndex().getParent(element);
-		modelState.getCurrentModelIndex().removeFromIndex(element);
+	protected void delete(SModelElement element, GraphicalModelState modelState) {
+		SModelElement parent = modelState.getIndex().getParent(element);
+		modelState.getIndex().removeFromIndex(element);
 
 		if (parent == null || parent.getChildren() == null) {
 			return;
@@ -95,7 +95,8 @@ public class DeleteHandler implements OperationHandler {
 		parent.getChildren().remove(element);
 	}
 
-	protected void collectDependents(Set<SModelElement> dependents, SModelElement nodeToDelete, ModelState modelState) {
+	protected void collectDependents(Set<SModelElement> dependents, SModelElement nodeToDelete,
+			GraphicalModelState modelState) {
 		if (dependents.contains(nodeToDelete)) {
 			return;
 		}
@@ -107,7 +108,7 @@ public class DeleteHandler implements OperationHandler {
 			}
 		}
 
-		SModelIndex index = modelState.getCurrentModelIndex();
+		SModelIndex index = modelState.getIndex();
 
 		// Then, incoming/outgoing links
 		for (SModelElement incoming : index.getIncomingEdges(nodeToDelete)) {

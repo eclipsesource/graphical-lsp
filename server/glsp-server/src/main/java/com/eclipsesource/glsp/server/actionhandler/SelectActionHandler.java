@@ -20,12 +20,11 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
 
-import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.SelectAction;
 import com.eclipsesource.glsp.api.action.kind.SelectAllAction;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.model.ModelSelectionListener;
-import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.google.inject.Inject;
 
@@ -39,7 +38,7 @@ public class SelectActionHandler extends AbstractActionHandler {
 	}
 
 	@Override
-	public Optional<Action> execute(Action action, ModelState modelState) {
+	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		switch (action.getKind()) {
 		case Action.Kind.SELECT:
 			return handleSelectAction((SelectAction) action, modelState);
@@ -51,10 +50,10 @@ public class SelectActionHandler extends AbstractActionHandler {
 
 	}
 
-	private Optional<Action> handleSelectAllAction(SelectAllAction action, ModelState modelState) {
+	private Optional<Action> handleSelectAllAction(SelectAllAction action, GraphicalModelState modelState) {
 		Set<String> selectedElements = modelState.getSelectedElements();
 		if (action.isSelect()) {
-			new SModelIndex(modelState.getCurrentModel()).allIds().forEach(id -> selectedElements.add(id));
+			new SModelIndex(modelState.getRoot()).allIds().forEach(id -> selectedElements.add(id));
 		} else
 			selectedElements.clear();
 		if (modelSelectionListener != null) {
@@ -63,7 +62,7 @@ public class SelectActionHandler extends AbstractActionHandler {
 		return Optional.empty();
 	}
 
-	private Optional<Action> handleSelectAction(SelectAction action, ModelState modelState) {
+	private Optional<Action> handleSelectAction(SelectAction action, GraphicalModelState modelState) {
 		Set<String> selectedElements = modelState.getSelectedElements();
 		if (action.getDeselectedElementsIDs() != null) {
 			selectedElements.removeAll(Arrays.asList(action.getDeselectedElementsIDs()));

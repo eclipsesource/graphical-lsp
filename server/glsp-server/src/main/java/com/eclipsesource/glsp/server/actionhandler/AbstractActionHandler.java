@@ -13,20 +13,29 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.action;
+package com.eclipsesource.glsp.server.actionhandler;
 
 import java.util.Collection;
 import java.util.Optional;
 
+import org.eclipse.sprotty.ServerStatus;
+import org.eclipse.sprotty.ServerStatus.Severity;
+
+import com.eclipsesource.glsp.api.action.Action;
+import com.eclipsesource.glsp.api.action.kind.ServerStatusAction;
 import com.eclipsesource.glsp.api.handler.ActionHandler;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
+import com.eclipsesource.glsp.api.model.ModelStateProvider;
+import com.google.inject.Inject;
 
 public abstract class AbstractActionHandler implements ActionHandler {
+	@Inject
+	protected ModelStateProvider modelStateProvider;
+	protected String clientId;
 
 	protected abstract Collection<Action> handleableActionsKinds();
 
 	public boolean handles(Action action) {
-
 		return handleableActionsKinds().stream().anyMatch(
 				hAction -> hAction.getKind().equals(action.getKind()) && hAction.getClass().equals(action.getClass()));
 	}
@@ -35,6 +44,18 @@ public abstract class AbstractActionHandler implements ActionHandler {
 	 * Processes and action and returns the response action which should be send to
 	 * the client. If no response to the client is need a NoOpAction is returned
 	 */
-	public abstract Optional<Action> execute(Action action, ModelState modelState);
+	@Override
+	public Optional<Action> execute(String clientId, Action action) {
+		this.clientId = clientId;
+		Optional<GraphicalModelState> modelState = modelStateProvider.getModelState(clientId);
+		if (modelState.isPresent()) {
+			return execute(action, modelState.get());
+		}
+		ServerStatus status = new ServerStatus(Severity.FATAL,
+				"Could not retrieve the model state for client with id '" + clientId + "'");
+		return Optional.of(new ServerStatusAction(status));
+	}
+
+	protected abstract Optional<Action> execute(Action action, GraphicalModelState modelState);
 
 }

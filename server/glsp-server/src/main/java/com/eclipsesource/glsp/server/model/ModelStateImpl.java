@@ -20,11 +20,11 @@ import java.util.Set;
 
 import org.eclipse.sprotty.SModelRoot;
 
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.utils.ModelOptions.ParsedModelOptions;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 
-public class ModelStateImpl implements ModelState {
+public class ModelStateImpl implements GraphicalModelState {
 	private ParsedModelOptions options;
 	private String clientId;
 	private SModelRoot currentModel;
@@ -53,12 +53,12 @@ public class ModelStateImpl implements ModelState {
 	}
 
 	@Override
-	public SModelRoot getCurrentModel() {
+	public SModelRoot getRoot() {
 		return currentModel;
 	}
 
 	@Override
-	public void setCurrentModel(SModelRoot newRoot) {
+	public void setRoot(SModelRoot newRoot) {
 		this.currentModel = newRoot;
 		this.currentModelIndex = new SModelIndex(newRoot);
 	}
@@ -90,8 +90,7 @@ public class ModelStateImpl implements ModelState {
 	}
 
 	@Override
-	public SModelIndex getCurrentModelIndex() {
+	public SModelIndex getIndex() {
 		return currentModelIndex;
 	}
-
 }

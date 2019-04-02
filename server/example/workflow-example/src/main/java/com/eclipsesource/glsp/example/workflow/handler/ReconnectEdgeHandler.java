@@ -25,7 +25,7 @@ import org.eclipse.sprotty.SNode;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ReconnectConnectionOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 
 public class ReconnectEdgeHandler implements OperationHandler {
@@ -37,7 +37,7 @@ public class ReconnectEdgeHandler implements OperationHandler {
 	}
 
 	@Override
-	public Optional<SModelRoot> execute(AbstractOperationAction operationAction, ModelState modelState) {
+	public Optional<SModelRoot> execute(AbstractOperationAction operationAction, GraphicalModelState modelState) {
 		if (!(operationAction instanceof ReconnectConnectionOperationAction)) {
 			log.warn("Unexpected action " + operationAction);
 			return Optional.empty();
@@ -52,7 +52,7 @@ public class ReconnectEdgeHandler implements OperationHandler {
 		}
 
 		// check for existence of matching elements
-		SModelIndex index = modelState.getCurrentModelIndex();
+		SModelIndex index = modelState.getIndex();
 		Optional<SEdge> edge = index.findElement(action.getConnectionElementId(), SEdge.class);
 		Optional<SNode> source = index.findElement(action.getSourceElementId(), SNode.class);
 		Optional<SNode> target = index.findElement(action.getTargetElementId(), SNode.class);
@@ -67,7 +67,7 @@ public class ReconnectEdgeHandler implements OperationHandler {
 		edge.get().setTargetId(target.get().getId());
 		edge.get().setRoutingPoints(null);
 
-		SModelRoot currentModel = modelState.getCurrentModel();
+		SModelRoot currentModel = modelState.getRoot();
 		return Optional.of(currentModel);
 	}
 }

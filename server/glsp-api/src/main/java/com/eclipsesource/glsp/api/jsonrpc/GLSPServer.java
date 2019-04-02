@@ -38,7 +38,7 @@ public interface GLSPServer extends GLSPClientAware {
 	CompletableFuture<Object> shutdown();
 
 	@JsonNotification("exit")
-	void exit();
+	void exit(String clientId);
 
-	void setStatus(String clientId, ServerStatus serverStatus);
+	ServerStatus getStatus();
 }

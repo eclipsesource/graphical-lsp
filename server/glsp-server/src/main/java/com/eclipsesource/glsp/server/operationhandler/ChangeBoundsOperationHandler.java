@@ -29,7 +29,7 @@ import org.eclipse.sprotty.SNode;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ChangeBoundsOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 
 /**
@@ -45,16 +45,16 @@ public class ChangeBoundsOperationHandler implements OperationHandler {
 	}
 
 	@Override
-	public Optional<SModelRoot> execute(AbstractOperationAction action, ModelState modelState) {
+	public Optional<SModelRoot> execute(AbstractOperationAction action, GraphicalModelState modelState) {
 		ChangeBoundsOperationAction changeBoundsAction = (ChangeBoundsOperationAction) action;
 		for (ElementAndBounds element : changeBoundsAction.getNewBounds()) {
 			changeElementBounds(element.getElementId(), element.getNewBounds(), modelState);
 		}
-		SModelRoot currentModel = modelState.getCurrentModel();
+		SModelRoot currentModel = modelState.getRoot();
 		return Optional.of(currentModel);
 	}
 
-	private Optional<SNode> changeElementBounds(String elementId, Bounds newBounds, ModelState modelState) {
+	private Optional<SNode> changeElementBounds(String elementId, Bounds newBounds, GraphicalModelState modelState) {
 		if (elementId == null || newBounds == null) {
 			log.warn("Invalid ChangeBounds Action; missing mandatory arguments");
 			return Optional.empty();
@@ -66,8 +66,8 @@ public class ChangeBoundsOperationHandler implements OperationHandler {
 		return nodeToUpdate;
 	}
 
-	private static Optional<SNode> findMovableNode(ModelState modelState, String elementId) {
-		SModelIndex index = modelState.getCurrentModelIndex();
+	private static Optional<SNode> findMovableNode(GraphicalModelState modelState, String elementId) {
+		SModelIndex index = modelState.getIndex();
 		SModelElement element = index.get(elementId);
 		if (element == null) {
 			log.warn("Element with id " + elementId + " not found");

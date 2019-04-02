@@ -22,12 +22,11 @@ import java.util.Optional;
 import org.eclipse.sprotty.SModelElement;
 import org.eclipse.sprotty.SModelRoot;
 
-import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestPopupModelAction;
 import com.eclipsesource.glsp.api.action.kind.SetPopupModelAction;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.google.inject.Inject;
 
@@ -41,10 +40,10 @@ public class RequestPopupModelActionHandler extends AbstractActionHandler {
 	}
 
 	@Override
-	public Optional<Action> execute(Action action, ModelState modelState) {
+	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		if (action instanceof RequestPopupModelAction) {
 			RequestPopupModelAction requestAction = (RequestPopupModelAction) action;
-			SModelRoot model = modelState.getCurrentModel();
+			SModelRoot model = modelState.getRoot();
 			SModelElement element = SModelIndex.find(model, requestAction.getElementId());
 			if (popupModelFactory != null) {
 				SModelRoot popupModel = popupModelFactory.createPopuModel(element, requestAction);

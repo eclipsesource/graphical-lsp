@@ -45,6 +45,7 @@ import com.eclipsesource.glsp.server.actionhandler.RequestOperationsHandler;
 import com.eclipsesource.glsp.server.actionhandler.RequestPopupModelActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.SaveModelActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.SelectActionHandler;
+import com.eclipsesource.glsp.server.model.DefaultModelStateProvider;
 import com.eclipsesource.glsp.server.model.FileBasedModelFactory;
 import com.eclipsesource.glsp.server.provider.DIActionHandlerProvider;
 import com.eclipsesource.glsp.server.provider.DIOperationHandlerProvider;

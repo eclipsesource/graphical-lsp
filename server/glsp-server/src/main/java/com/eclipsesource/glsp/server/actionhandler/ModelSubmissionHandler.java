@@ -24,7 +24,7 @@ import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestBoundsAction;
 import com.eclipsesource.glsp.api.action.kind.SetModelAction;
 import com.eclipsesource.glsp.api.action.kind.UpdateModelAction;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -36,7 +36,7 @@ public class ModelSubmissionHandler {
 	private String lastSubmittedModelType;
 	private int revision = 0;
 
-	public Optional<Action> submit(SModelRoot newRoot, boolean update, ModelState modelState) {
+	public Optional<Action> submit(SModelRoot newRoot, boolean update, GraphicalModelState modelState) {
 		if (modelState.getOptions().needsClientLayout()) {
 			return Optional.of(new RequestBoundsAction(newRoot));
 		} else {
@@ -44,7 +44,7 @@ public class ModelSubmissionHandler {
 		}
 	}
 
-	public Optional<Action> doSubmitModel(SModelRoot newRoot, boolean update, ModelState modelState) {
+	public Optional<Action> doSubmitModel(SModelRoot newRoot, boolean update, GraphicalModelState modelState) {
 		if (modelState.getOptions().needsServerLayout()) {
 			if (layoutEngine != null) {
 				layoutEngine.layout(newRoot);

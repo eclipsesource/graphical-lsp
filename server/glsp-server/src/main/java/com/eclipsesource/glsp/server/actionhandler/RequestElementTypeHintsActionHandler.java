@@ -19,13 +19,12 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 
-import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestTypeHintsAction;
 import com.eclipsesource.glsp.api.action.kind.SetTypeHintsAction;
 import com.eclipsesource.glsp.api.diagram.DiagramHandler;
 import com.eclipsesource.glsp.api.diagram.DiagramHandlerProvider;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.google.inject.Inject;
 
 public class RequestElementTypeHintsActionHandler extends AbstractActionHandler {
@@ -38,7 +37,7 @@ public class RequestElementTypeHintsActionHandler extends AbstractActionHandler 
 	}
 
 	@Override
-	public Optional<Action> execute(Action action, ModelState modelState) {
+	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		if (action instanceof RequestTypeHintsAction) {
 			Optional<DiagramHandler> handler = diagramHandlerProvider
 					.get(((RequestTypeHintsAction) action).getDiagramType());

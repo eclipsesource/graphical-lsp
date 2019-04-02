@@ -23,7 +23,6 @@ import javax.inject.Inject;
 
 import org.eclipse.sprotty.SModelRoot;
 
-import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ChangeBoundsOperationAction;
@@ -33,7 +32,7 @@ import com.eclipsesource.glsp.api.action.kind.DeleteElementOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ReconnectConnectionOperationAction;
 import com.eclipsesource.glsp.api.action.kind.RerouteConnectionOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
 
 public class OperationActionHandler extends AbstractActionHandler {
@@ -50,7 +49,7 @@ public class OperationActionHandler extends AbstractActionHandler {
 	}
 
 	@Override
-	public Optional<Action> execute(Action action, ModelState modelState) {
+	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		switch (action.getKind()) {
 		case Action.Kind.CREATE_NODE_OPERATION:
 		case Action.Kind.CREATE_CONNECTION_OPERATION:
@@ -64,7 +63,7 @@ public class OperationActionHandler extends AbstractActionHandler {
 		}
 	}
 
-	public Optional<Action> doHandle(AbstractOperationAction action, ModelState modelState) {
+	public Optional<Action> doHandle(AbstractOperationAction action, GraphicalModelState modelState) {
 		if (operationHandlerProvider.isHandled(action)) {
 			OperationHandler handler = operationHandlerProvider.getHandler(action).get();
 			Optional<SModelRoot> modelRoot = handler.execute(action, modelState);

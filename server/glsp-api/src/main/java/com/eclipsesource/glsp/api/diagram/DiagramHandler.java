@@ -23,12 +23,11 @@ import org.eclipse.sprotty.SModelElement;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.handler.ActionHandler;
-import com.eclipsesource.glsp.api.model.ModelStateProvider;
 import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
 import com.eclipsesource.glsp.api.types.EdgeTypeHint;
 import com.eclipsesource.glsp.api.types.NodeTypeHint;
 
-public abstract class DiagramHandler implements ModelStateProvider {
+public abstract class DiagramHandler {
 
 	public abstract ActionHandlerProvider getActionHandlerProvider();
 
@@ -37,7 +36,7 @@ public abstract class DiagramHandler implements ModelStateProvider {
 	public Optional<Action> execute(String clientId, Action action) {
 		Optional<ActionHandler> handler = getActionHandlerProvider().getHandler(action);
 		if (handler.isPresent()) {
-			return handler.get().execute(action, getModelState(clientId));
+			return handler.get().execute(clientId, action);
 		}
 		return Optional.empty();
 	}

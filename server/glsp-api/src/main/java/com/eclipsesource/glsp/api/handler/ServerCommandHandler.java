@@ -20,13 +20,13 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 
 public interface ServerCommandHandler extends Handler<String> {
 
-	default public void execute(String commandId, ModelState modelState) {
+	default public void execute(String commandId, GraphicalModelState modelState) {
 		execute(commandId, Collections.emptyMap(), modelState);
 	}
 
-	public Optional<Action> execute(String commandId, Map<String, String> options, ModelState modelState);
+	public Optional<Action> execute(String commandId, Map<String, String> options, GraphicalModelState modelState);
 }

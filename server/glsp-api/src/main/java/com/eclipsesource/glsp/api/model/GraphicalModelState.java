@@ -13,34 +13,28 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.server;
+package com.eclipsesource.glsp.api.model;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Set;
 
-import com.eclipsesource.glsp.api.model.ModelState;
-import com.eclipsesource.glsp.api.model.ModelStateProvider;
-import com.eclipsesource.glsp.server.model.ModelStateImpl;
-import com.google.inject.Singleton;
+import org.eclipse.sprotty.SModelRoot;
 
-@Singleton
-public class DefaultModelStateProvider implements ModelStateProvider {
+import com.eclipsesource.glsp.api.utils.ModelOptions.ParsedModelOptions;
+import com.eclipsesource.glsp.api.utils.SModelIndex;
 
-	private Map<String, ModelState> clientModelStates;
+public interface GraphicalModelState extends ModelState<SModelRoot> {
+	ParsedModelOptions getOptions();
 
-	public DefaultModelStateProvider() {
-		clientModelStates = new HashMap<>();
-	}
+	void setOptions(ParsedModelOptions options);
 
-	@Override
-	public synchronized ModelState getModelState(String clientId) {
-		ModelState modelState = clientModelStates.get(clientId);
-		if (modelState == null) {
-			modelState = new ModelStateImpl();
-			modelState.setClientId(clientId);
-			clientModelStates.put(clientId, modelState);
-		}
-		return modelState;
-	}
+	Set<String> getExpandedElements();
+
+	Set<String> getSelectedElements();
+
+	void setExpandedElements(Set<String> expandedElements);
+
+	void setSelectedElements(Set<String> selectedElements);
+
+	SModelIndex getIndex();
 
 }

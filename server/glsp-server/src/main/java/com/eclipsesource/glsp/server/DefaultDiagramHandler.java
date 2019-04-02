@@ -16,21 +16,12 @@
 package com.eclipsesource.glsp.server;
 
 import com.eclipsesource.glsp.api.diagram.DiagramHandler;
-import com.eclipsesource.glsp.api.model.ModelState;
-import com.eclipsesource.glsp.api.model.ModelStateProvider;
 import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
 import com.google.inject.Inject;
 
 public abstract class DefaultDiagramHandler extends DiagramHandler {
 	@Inject
 	private ActionHandlerProvider actionHandlerProvider;
-	@Inject
-	private ModelStateProvider modelStateProvider;
-
-	@Override
-	public ModelState getModelState(String clientId) {
-		return modelStateProvider.getModelState(clientId);
-	}
 
 	@Override
 	public ActionHandlerProvider getActionHandlerProvider() {

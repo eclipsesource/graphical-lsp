@@ -11,6 +11,8 @@
 package com.eclipsesource.glsp.server.actionhandler;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,33 +21,27 @@ import org.eclipse.sprotty.SModelElement;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestMarkersAction;
 import com.eclipsesource.glsp.api.action.kind.SetMarkersAction;
-import com.eclipsesource.glsp.api.handler.ActionHandler;
 import com.eclipsesource.glsp.api.markers.Marker;
 import com.eclipsesource.glsp.api.markers.ModelValidator;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.google.inject.Inject;
 
-public class RequestMarkersHandler implements ActionHandler {
+public class RequestMarkersHandler extends AbstractActionHandler {
 
 	@Inject
 	private ModelValidator validator;
 
 	@Override
-	public boolean handles(Action action) {
-		return action instanceof RequestMarkersAction;
-	}
-
-	@Override
-	public Optional<Action> execute(Action action, ModelState modelState) {
+	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		RequestMarkersAction execAction = (RequestMarkersAction) action;
 		String[] elementsIDs = execAction.getElementsIDs();
 		if (elementsIDs == null || elementsIDs.length == 0) { // if no element ID is provided, compute the markers for
 																// the complete model
-			elementsIDs = new String[] { modelState.getCurrentModel().getId() };
+			elementsIDs = new String[] { modelState.getRoot().getId() };
 		}
 		List<Marker> markers = new ArrayList<Marker>();
-		SModelIndex currentModelIndex = modelState.getCurrentModelIndex();
+		SModelIndex currentModelIndex = modelState.getIndex();
 		for (String elementID : elementsIDs) {
 			SModelElement modelElement = currentModelIndex.get(elementID);
 			markers.addAll(validator.validate(modelState, modelElement));
@@ -53,6 +49,11 @@ public class RequestMarkersHandler implements ActionHandler {
 
 		SetMarkersAction setMarkersAction = new SetMarkersAction(markers.toArray(new Marker[markers.size()]));
 		return Optional.of(setMarkersAction);
+	}
+
+	@Override
+	protected Collection<Action> handleableActionsKinds() {
+		return Arrays.asList(new RequestMarkersAction());
 	}
 
 }

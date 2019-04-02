@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.inject.Inject;
 
@@ -37,7 +36,7 @@ import com.eclipsesource.glsp.api.diagram.DiagramHandler;
 import com.eclipsesource.glsp.api.diagram.DiagramHandlerProvider;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPClient;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.ModelStateProvider;
 import com.eclipsesource.glsp.api.utils.ModelOptions;
 import com.eclipsesource.glsp.api.utils.ModelOptions.ParsedModelOptions;
 
@@ -45,17 +44,17 @@ public class DefaultGLSPServer implements GLSPServer {
 
 	@Inject
 	private DiagramHandlerProvider diagramHandlerProvider;
+	@Inject
+	private ModelStateProvider modelStateProvider;
 	static Logger log = Logger.getLogger(DefaultGLSPServer.class);
 
 	private ServerStatus status;
 
 	private GLSPClient clientProxy;
-	private Map<String, ModelState> clientModelStates;
 
 	private Map<String, DiagramHandler> clientIdtoDiagramServer;
 
 	public DefaultGLSPServer() {
-		clientModelStates = new ConcurrentHashMap<>();
 		clientIdtoDiagramServer = new HashMap<>();
 	}
 
@@ -66,6 +65,7 @@ public class DefaultGLSPServer implements GLSPServer {
 	@Override
 	public void connect(GLSPClient clientProxy) {
 		this.clientProxy = clientProxy;
+		status = new ServerStatus(Severity.OK, "Connection successfull");
 	}
 
 	@Override
@@ -127,11 +127,8 @@ public class DefaultGLSPServer implements GLSPServer {
 		return server != null && server.getDiagramType().equals(diagramType) ? Optional.of(server) : Optional.empty();
 	}
 
-	@Override
-	public void setStatus(String clientId, ServerStatus status) {
-		this.status = status;
-		ActionMessage msg = new ActionMessage(clientId, new ServerStatusAction(status));
-		clientProxy.process(msg);
+	public ServerStatus getStatus() {
+		return status;
 	}
 
 	@Override
@@ -140,7 +137,7 @@ public class DefaultGLSPServer implements GLSPServer {
 	}
 
 	@Override
-	public void exit() {
-		// TODO Auto-generated method stub
+	public void exit(String clientId) {
+		modelStateProvider.remove(clientId);
 	}
 }

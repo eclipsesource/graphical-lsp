@@ -21,11 +21,10 @@ import java.util.Optional;
 
 import org.eclipse.sprotty.SModelRoot;
 
-import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.utils.ModelOptions;
 import com.eclipsesource.glsp.api.utils.ModelOptions.ParsedModelOptions;
 import com.google.inject.Inject;
@@ -39,12 +38,22 @@ public class RequestModelActionHandler extends AbstractActionHandler {
 	private ModelSubmissionHandler submissionHandler;
 
 	@Override
-	public Optional<Action> execute(Action action, ModelState modelState) {
+	public Optional<Action> execute(String clientId, Action action) {
+		this.clientId = clientId;
+		Optional<GraphicalModelState> modelState = modelStateProvider.getModelState(clientId);
+		if (modelState.isPresent()) {
+			return execute(action, modelState.get());
+		}
+		return execute(action, modelStateProvider.create(clientId));
+	}
+
+	@Override
+	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		if (action instanceof RequestModelAction) {
 			RequestModelAction requestAction = (RequestModelAction) action;
 			ParsedModelOptions options = ModelOptions.parse(requestAction.getOptions());
 			SModelRoot model = modelFactory.loadModel(requestAction);
-			modelState.setCurrentModel(model);
+			modelState.setRoot(model);
 			modelState.setOptions(options);
 			return submissionHandler.submit(model, false, modelState);
 		}

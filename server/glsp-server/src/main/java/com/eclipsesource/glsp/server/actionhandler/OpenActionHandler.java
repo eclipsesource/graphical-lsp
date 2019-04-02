@@ -21,11 +21,10 @@ import java.util.Optional;
 
 import javax.inject.Inject;
 
-import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.OpenAction;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
-import com.eclipsesource.glsp.api.model.ModelState;
 
 public class OpenActionHandler extends AbstractActionHandler {
 	@Inject
@@ -37,7 +36,7 @@ public class OpenActionHandler extends AbstractActionHandler {
 	}
 
 	@Override
-	public Optional<Action> execute(Action action, ModelState modelState) {
+	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		if (action instanceof OpenAction) {
 			if (modelElementOpenListener != null) {
 				modelElementOpenListener.elementOpened((OpenAction) action);
