@@ -19,16 +19,16 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 
-import com.eclipsesource.glsp.api.diagram.DiagramHandler;
+import com.eclipsesource.glsp.api.diagram.DiagramManager;
 import com.eclipsesource.glsp.api.diagram.DiagramHandlerProvider;
 import com.google.inject.Inject;
 
 public class DefaultDiagramHandlerProvider implements DiagramHandlerProvider {
 	public static final String DEFAULT_DIAGRAM_TYPE = "default-diagram";
-	private Set<DiagramHandler> diagramHandlers;
+	private Set<DiagramManager> diagramHandlers;
 
 	@Inject
-	public DefaultDiagramHandlerProvider(Set<DiagramHandler> diagramHandlers) {
+	public DefaultDiagramHandlerProvider(Set<DiagramManager> diagramHandlers) {
 		this.diagramHandlers = diagramHandlers;
 	}
 
@@ -38,7 +38,7 @@ public class DefaultDiagramHandlerProvider implements DiagramHandlerProvider {
 	}
 
 	@Override
-	public Collection<DiagramHandler> getAll() {
+	public Collection<DiagramManager> getAll() {
 		return diagramHandlers;
 	}
 

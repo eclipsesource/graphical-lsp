@@ -30,17 +30,17 @@ public interface DiagramHandlerProvider {
 
 	Collection<String> getDiagramTypes();
 
-	default Optional<DiagramHandler> get(String diagramType) {
+	default Optional<DiagramManager> get(String diagramType) {
 		return getAll().stream().filter(h -> h.getDiagramType().equals(diagramType)).findFirst();
 	}
 
-	Collection<DiagramHandler> getAll();
+	Collection<DiagramManager> getAll();
 
 	default boolean provides(String diagramType) {
 		return getDiagramTypes().contains(diagramType);
 	}
 
-	default Optional<DiagramHandler> createDefault() {
+	default Optional<DiagramManager> createDefault() {
 		if (getDiagramTypes().size() == 1) {
 			String diagramType = getDiagramTypes().iterator().next();
 			return get(diagramType);
@@ -51,7 +51,7 @@ public interface DiagramHandlerProvider {
 	default GsonBuilder configureGSON() {
 		GsonBuilder builder = new GsonBuilder();
 		Map<String, Class<? extends SModelElement>> modelTypes = new HashMap<>();
-		getAll().stream().map(DiagramHandler::getTypeMappings).forEach(modelTypes::putAll);
+		getAll().stream().map(DiagramManager::getTypeMappings).forEach(modelTypes::putAll);
 		builder.registerTypeAdapterFactory(new SModelElementTypeAdapter.Factory(modelTypes))
 				.registerTypeAdapterFactory(new EnumTypeAdapter.Factory());
 		return builder;

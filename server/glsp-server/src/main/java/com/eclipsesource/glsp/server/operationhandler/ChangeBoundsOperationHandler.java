@@ -26,6 +26,7 @@ import org.eclipse.sprotty.SModelElement;
 import org.eclipse.sprotty.SModelRoot;
 import org.eclipse.sprotty.SNode;
 
+import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ChangeBoundsOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
@@ -40,7 +41,7 @@ public class ChangeBoundsOperationHandler implements OperationHandler {
 	private static Logger log = Logger.getLogger(ChangeBoundsOperationHandler.class);
 
 	@Override
-	public Class<?> handlesActionType() {
+	public Class<? extends Action> handlesActionType() {
 		return ChangeBoundsOperationAction.class;
 	}
 

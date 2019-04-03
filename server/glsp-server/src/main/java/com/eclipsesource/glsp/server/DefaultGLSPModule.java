@@ -20,7 +20,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import com.eclipsesource.glsp.api.di.GLSPModule;
-import com.eclipsesource.glsp.api.diagram.DiagramHandler;
+import com.eclipsesource.glsp.api.diagram.DiagramManager;
 import com.eclipsesource.glsp.api.diagram.DiagramHandlerProvider;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.handler.ActionHandler;
@@ -58,7 +58,7 @@ public abstract class DefaultGLSPModule extends GLSPModule {
 	protected Multibinder<ActionHandler> actionHandlerBinder;
 	protected Multibinder<ServerCommandHandler> serverCommandHandler;
 	protected Multibinder<OperationHandler> operationHandler;
-	protected Multibinder<DiagramHandler> diagramHandler;
+	protected Multibinder<DiagramManager> diagramHandler;
 
 	@Override
 	protected void configure() {
@@ -67,7 +67,7 @@ public abstract class DefaultGLSPModule extends GLSPModule {
 		actionHandlerBinder = Multibinder.newSetBinder(binder(), ActionHandler.class);
 		serverCommandHandler = Multibinder.newSetBinder(binder(), ServerCommandHandler.class);
 		operationHandler = Multibinder.newSetBinder(binder(), OperationHandler.class);
-		diagramHandler = Multibinder.newSetBinder(binder(), DiagramHandler.class);
+		diagramHandler = Multibinder.newSetBinder(binder(), DiagramManager.class);
 		bindActionHandlers().forEach(h -> actionHandlerBinder.addBinding().to(h));
 		bindServerCommandHandlers().forEach(h -> serverCommandHandler.addBinding().to(h));
 		bindOperationHandlers().forEach(h -> operationHandler.addBinding().to(h));
@@ -116,7 +116,7 @@ public abstract class DefaultGLSPModule extends GLSPModule {
 
 	protected abstract Collection<Class<? extends OperationHandler>> bindOperationHandlers();
 
-	protected abstract Collection<Class<? extends DiagramHandler>> bindDiagramHandlers();
+	protected abstract Collection<Class<? extends DiagramManager>> bindDiagramHandlers();
 
 	protected Collection<Class<? extends ActionHandler>> bindActionHandlers() {
 		return Arrays.asList(CollapseExpandActionHandler.class, ComputedBoundsActionHandler.class,

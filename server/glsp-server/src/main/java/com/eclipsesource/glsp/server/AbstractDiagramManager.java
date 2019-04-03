@@ -15,11 +15,13 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server;
 
-import com.eclipsesource.glsp.api.diagram.DiagramHandler;
+import com.eclipsesource.glsp.api.diagram.DiagramManager;
 import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
+import com.eclipsesource.glsp.api.types.EdgeTypeHint;
+import com.eclipsesource.glsp.api.types.NodeTypeHint;
 import com.google.inject.Inject;
 
-public abstract class DefaultDiagramHandler extends DiagramHandler {
+public abstract class AbstractDiagramManager extends DiagramManager {
 	@Inject
 	private ActionHandlerProvider actionHandlerProvider;
 
@@ -28,4 +30,11 @@ public abstract class DefaultDiagramHandler extends DiagramHandler {
 		return actionHandlerProvider;
 	}
 
+	public EdgeTypeHint createDefaultEdgeTypeHint(String elementId) {
+		return new EdgeTypeHint(elementId, true, true, true, null, null);
+	}
+
+	public NodeTypeHint createDefaultNodeTypeHint(String elementId) {
+		return new NodeTypeHint(elementId, true, true, true);
+	}
 }

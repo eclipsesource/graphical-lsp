@@ -32,7 +32,7 @@ import com.eclipsesource.glsp.api.action.kind.IdentifiableRequestAction;
 import com.eclipsesource.glsp.api.action.kind.IdentifiableResponseAction;
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
 import com.eclipsesource.glsp.api.action.kind.ServerStatusAction;
-import com.eclipsesource.glsp.api.diagram.DiagramHandler;
+import com.eclipsesource.glsp.api.diagram.DiagramManager;
 import com.eclipsesource.glsp.api.diagram.DiagramHandlerProvider;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPClient;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
@@ -52,7 +52,7 @@ public class DefaultGLSPServer implements GLSPServer {
 
 	private GLSPClient clientProxy;
 
-	private Map<String, DiagramHandler> clientIdtoDiagramServer;
+	private Map<String, DiagramManager> clientIdtoDiagramServer;
 
 	public DefaultGLSPServer() {
 		clientIdtoDiagramServer = new HashMap<>();
@@ -84,7 +84,7 @@ public class DefaultGLSPServer implements GLSPServer {
 		if (requestAction instanceof RequestModelAction) {
 			ParsedClientOptions options = ClientOptions.parse(((RequestModelAction) requestAction).getOptions());
 			Optional<String> diagramType = options.getDiagramType();
-			Optional<DiagramHandler> diagramServer = getOrCreateDiagramServer(clientId, diagramType);
+			Optional<DiagramManager> diagramServer = getOrCreateDiagramServer(clientId, diagramType);
 			if (!diagramServer.isPresent()) {
 				ServerStatus status = new ServerStatus(Severity.ERROR,
 						String.format("Could not retrieve diagram server of type '%s' for client '%s'",
@@ -97,7 +97,7 @@ public class DefaultGLSPServer implements GLSPServer {
 
 		}
 
-		DiagramHandler diagramServer = clientIdtoDiagramServer.get(clientId);
+		DiagramManager diagramServer = clientIdtoDiagramServer.get(clientId);
 		Optional<Action> responseOpt = diagramServer.execute(clientId, requestAction);
 
 		if (responseOpt.isPresent()) {
@@ -109,9 +109,9 @@ public class DefaultGLSPServer implements GLSPServer {
 		}
 	}
 
-	private Optional<DiagramHandler> getOrCreateDiagramServer(String clientId, Optional<String> diagramType) {
+	private Optional<DiagramManager> getOrCreateDiagramServer(String clientId, Optional<String> diagramType) {
 		if (diagramType.isPresent()) {
-			Optional<DiagramHandler> existingServer = getDiagramServer(clientId, diagramType.get());
+			Optional<DiagramManager> existingServer = getDiagramServer(clientId, diagramType.get());
 			return existingServer.isPresent() ? existingServer : diagramHandlerProvider.get(diagramType.get());
 		} else {
 			if (clientIdtoDiagramServer.get(clientId) != null) {
@@ -122,8 +122,8 @@ public class DefaultGLSPServer implements GLSPServer {
 		}
 	}
 
-	private Optional<DiagramHandler> getDiagramServer(String clientId, String diagramType) {
-		DiagramHandler server = clientIdtoDiagramServer.get(clientId);
+	private Optional<DiagramManager> getDiagramServer(String clientId, String diagramType) {
+		DiagramManager server = clientIdtoDiagramServer.get(clientId);
 		return server != null && server.getDiagramType().equals(diagramType) ? Optional.of(server) : Optional.empty();
 	}
 

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import com.eclipsesource.glsp.api.diagram.DiagramHandler;
+import com.eclipsesource.glsp.api.diagram.DiagramManager;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
@@ -45,7 +45,7 @@ import com.eclipsesource.glsp.server.operationhandler.ChangeBoundsOperationHandl
 import com.eclipsesource.glsp.server.operationhandler.DeleteOperationHandler;
 
 @SuppressWarnings("serial")
-public class WorkflowServerRuntimeModule extends DefaultGLSPModule {
+public class WorkflowGLSPModule extends DefaultGLSPModule {
 
 	@Override
 	public Class<? extends PopupModelFactory> bindPopupModelFactory() {
@@ -107,7 +107,7 @@ public class WorkflowServerRuntimeModule extends DefaultGLSPModule {
 	}
 
 	@Override
-	protected Collection<Class<? extends DiagramHandler>> bindDiagramHandlers() {
-		return Arrays.asList(WorkflowDiagramHandler.class);
+	protected Collection<Class<? extends DiagramManager>> bindDiagramHandlers() {
+		return Arrays.asList(WorkflowDiagramManager.class);
 	}
 }

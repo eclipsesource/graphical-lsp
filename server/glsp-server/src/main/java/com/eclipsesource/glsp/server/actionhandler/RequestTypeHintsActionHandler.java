@@ -20,7 +20,7 @@ import java.util.Optional;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestTypeHintsAction;
 import com.eclipsesource.glsp.api.action.kind.SetTypeHintsAction;
-import com.eclipsesource.glsp.api.diagram.DiagramHandler;
+import com.eclipsesource.glsp.api.diagram.DiagramManager;
 import com.eclipsesource.glsp.api.diagram.DiagramHandlerProvider;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.google.inject.Inject;
@@ -37,7 +37,7 @@ public class RequestTypeHintsActionHandler extends AbstractActionHandler {
 	@Override
 	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		if (action instanceof RequestTypeHintsAction) {
-			Optional<DiagramHandler> handler = diagramHandlerProvider
+			Optional<DiagramManager> handler = diagramHandlerProvider
 					.get(((RequestTypeHintsAction) action).getDiagramType());
 			if (handler.isPresent()) {
 				return Optional

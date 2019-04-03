@@ -51,9 +51,9 @@ import com.eclipsesource.glsp.example.workflow.schema.ActivityNode;
 import com.eclipsesource.glsp.example.workflow.schema.Icon;
 import com.eclipsesource.glsp.example.workflow.schema.TaskNode;
 import com.eclipsesource.glsp.example.workflow.schema.WeightedEdge;
-import com.eclipsesource.glsp.server.DefaultDiagramHandler;
+import com.eclipsesource.glsp.server.AbstractDiagramManager;
 
-public class WorkflowDiagramHandler extends DefaultDiagramHandler {
+public class WorkflowDiagramManager extends AbstractDiagramManager {
 
 	@Override
 	public String getDiagramType() {

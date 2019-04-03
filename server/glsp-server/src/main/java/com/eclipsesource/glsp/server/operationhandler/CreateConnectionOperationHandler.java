@@ -13,62 +13,68 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.example.workflow.handler;
+package com.eclipsesource.glsp.server.operationhandler;
 
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.eclipse.sprotty.SEdge;
+import org.eclipse.sprotty.SModelElement;
 import org.eclipse.sprotty.SModelRoot;
 import org.eclipse.sprotty.SNode;
 
-import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
-import com.eclipsesource.glsp.api.action.kind.ReconnectConnectionOperationAction;
+import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 
-public class ReconnectEdgeHandler implements OperationHandler {
-	private static Logger log = Logger.getLogger(ReconnectEdgeHandler.class);
+public abstract class CreateConnectionOperationHandler implements OperationHandler {
+	private static Logger log = Logger.getLogger(CreateConnectionOperationHandler.class);
+	protected final String elementTypeId;
+
+	public CreateConnectionOperationHandler(String elementTypeId) {
+		this.elementTypeId = elementTypeId;
+	}
 
 	@Override
-	public Class<? extends Action> handlesActionType() {
-		return ReconnectConnectionOperationAction.class;
+	public Class<?> handlesActionType() {
+		return CreateConnectionOperationAction.class;
+	}
+
+	@Override
+	public boolean handles(AbstractOperationAction action) {
+		return OperationHandler.super.handles(action)
+				? ((CreateConnectionOperationAction) action).getElementTypeId().equals(elementTypeId)
+				: false;
 	}
 
 	@Override
 	public Optional<SModelRoot> execute(AbstractOperationAction operationAction, GraphicalModelState modelState) {
-		if (!(operationAction instanceof ReconnectConnectionOperationAction)) {
-			log.warn("Unexpected action " + operationAction);
+		CreateConnectionOperationAction action = (CreateConnectionOperationAction) operationAction;
+		if (action.getSourceElementId() == null || action.getTargetElementId() == null) {
+			log.warn("Incomplete create connection action");
 			return Optional.empty();
 		}
 
-		// check for null-values
-		final ReconnectConnectionOperationAction action = (ReconnectConnectionOperationAction) operationAction;
-		if (action.getConnectionElementId() == null || action.getSourceElementId() == null
-				|| action.getTargetElementId() == null) {
-			log.warn("Incomplete reconnect connection action");
-			return Optional.empty();
-		}
-
-		// check for existence of matching elements
 		SModelIndex index = modelState.getIndex();
-		Optional<SEdge> edge = index.findElement(action.getConnectionElementId(), SEdge.class);
+
 		Optional<SNode> source = index.findElement(action.getSourceElementId(), SNode.class);
 		Optional<SNode> target = index.findElement(action.getTargetElementId(), SNode.class);
-		if (!edge.isPresent() || !source.isPresent() || !target.isPresent()) {
-			log.warn("Invalid edge, source or target ID: edge ID " + action.getConnectionElementId() + ", source ID "
-					+ action.getSourceElementId() + " and target ID " + action.getTargetElementId());
+		if (!source.isPresent() || !target.isPresent()) {
+			log.warn("Invalid source or target for source ID " + action.getSourceElementId() + " and target ID "
+					+ action.getTargetElementId());
 			return Optional.empty();
 		}
 
-		// reconnect
-		edge.get().setSourceId(source.get().getId());
-		edge.get().setTargetId(target.get().getId());
-		edge.get().setRoutingPoints(null);
-
+		SEdge connection = createConnection(source.get(), target.get(), modelState);
 		SModelRoot currentModel = modelState.getRoot();
+		currentModel.getChildren().add(connection);
+		index.addToIndex(connection, currentModel);
 		return Optional.of(currentModel);
 	}
+
+	protected abstract SEdge createConnection(SModelElement source, SModelElement target,
+			GraphicalModelState modelState);
+
 }

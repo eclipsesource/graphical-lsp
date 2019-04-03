@@ -17,12 +17,13 @@ package com.eclipsesource.glsp.server.operationhandler;
 
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.function.Function;
 
 import org.eclipse.sprotty.Point;
 import org.eclipse.sprotty.SModelElement;
 import org.eclipse.sprotty.SModelRoot;
+import org.eclipse.sprotty.SNode;
 
+import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
@@ -31,9 +32,22 @@ import com.eclipsesource.glsp.api.utils.SModelIndex;
 
 public abstract class CreateNodeOperationHandler implements OperationHandler {
 
+	protected String elementTypeId;
+
+	@Override
+	public Class<? extends Action> handlesActionType() {
+		return CreateNodeOperationAction.class;
+	}
+
+	public CreateNodeOperationHandler(String elementTypeId) {
+		this.elementTypeId = elementTypeId;
+	}
+
 	@Override
 	public boolean handles(AbstractOperationAction action) {
-		return action instanceof CreateNodeOperationAction;
+		return OperationHandler.super.handles(action)
+				? ((CreateNodeOperationAction) action).getElementTypeId().equals(elementTypeId)
+				: false;
 	}
 
 	@Override
@@ -48,7 +62,7 @@ public abstract class CreateNodeOperationHandler implements OperationHandler {
 		}
 
 		Optional<Point> point = Optional.of(executeAction.getLocation());
-		SModelElement element = createNode(point, index);
+		SModelElement element = createNode(point, modelState);
 		if (container.get().getChildren() == null) {
 			container.get().setChildren(new ArrayList<SModelElement>());
 		}
@@ -57,28 +71,5 @@ public abstract class CreateNodeOperationHandler implements OperationHandler {
 		return Optional.of(modelState.getRoot());
 	}
 
-	protected String generateID(SModelElement element, SModelIndex index) {
-		int i = index.getTypeCount(element.getType());
-		String id = element.getType().replace(":", "").toLowerCase();
-
-		while (index.get(id + i) != null) {
-			i++;
-		}
-		return id + i;
-	}
-
-	protected abstract SModelElement createNode(Optional<Point> point, SModelIndex index);
-
-	protected int getCounter(SModelIndex index, String type, Function<Integer, String> idProvider) {
-		int i = index.getTypeCount(type);
-		while (true) {
-			String id = idProvider.apply(i);
-			if (!index.get(id).isPresent()) {
-				break;
-			}
-			i++;
-		}
-		return i;
-	}
-
+	protected abstract SNode createNode(Optional<Point> point, GraphicalModelState modelState);
 }

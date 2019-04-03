@@ -21,6 +21,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -205,5 +206,17 @@ public class SModelIndex {
 			return Stream.of(element);
 		}
 		return Stream.concat(Stream.of(element), element.getChildren().stream());
+	}
+
+	public int getCounter(String type, Function<Integer, String> idProvider) {
+		int i = getTypeCount(type);
+		while (true) {
+			String id = idProvider.apply(i);
+			if (!get(id).isPresent()) {
+				break;
+			}
+			i++;
+		}
+		return i;
 	}
 }

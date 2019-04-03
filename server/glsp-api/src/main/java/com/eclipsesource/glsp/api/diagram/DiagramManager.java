@@ -27,7 +27,7 @@ import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
 import com.eclipsesource.glsp.api.types.EdgeTypeHint;
 import com.eclipsesource.glsp.api.types.NodeTypeHint;
 
-public abstract class DiagramHandler {
+public abstract class DiagramManager {
 
 	public abstract ActionHandlerProvider getActionHandlerProvider();
 
@@ -46,12 +46,4 @@ public abstract class DiagramHandler {
 	public abstract List<NodeTypeHint> getNodeTypeHints();
 
 	public abstract List<EdgeTypeHint> getEdgeTypeHints();
-
-	public EdgeTypeHint createDefaultEdgeTypeHint(String elementId) {
-		return new EdgeTypeHint(elementId, true, true, true, null, null);
-	}
-
-	public NodeTypeHint createDefaultNodeTypeHint(String elementId) {
-		return new NodeTypeHint(elementId, true, true, true);
-	}
 }
