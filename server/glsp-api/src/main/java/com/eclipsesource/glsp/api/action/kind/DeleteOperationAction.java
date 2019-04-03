@@ -19,15 +19,15 @@ import java.util.List;
 
 import com.eclipsesource.glsp.api.action.Action;
 
-public class DeleteElementOperationAction extends AbstractOperationAction {
+public class DeleteOperationAction extends AbstractOperationAction {
 
 	private List<String> elementIds;
 
-	public DeleteElementOperationAction() {
+	public DeleteOperationAction() {
 		super(Action.Kind.DELETE_ELEMENT_OPERATION);
 	}
 
-	public DeleteElementOperationAction(List<String> elementIds) {
+	public DeleteOperationAction(List<String> elementIds) {
 		this();
 		this.elementIds = elementIds;
 	}
@@ -56,7 +56,7 @@ public class DeleteElementOperationAction extends AbstractOperationAction {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		DeleteElementOperationAction other = (DeleteElementOperationAction) obj;
+		DeleteOperationAction other = (DeleteOperationAction) obj;
 		if (elementIds == null) {
 			if (other.elementIds != null)
 				return false;

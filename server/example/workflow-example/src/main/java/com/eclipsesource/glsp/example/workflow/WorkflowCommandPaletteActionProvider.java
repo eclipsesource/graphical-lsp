@@ -26,7 +26,7 @@ import org.eclipse.sprotty.SNode;
 
 import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
 import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
-import com.eclipsesource.glsp.api.action.kind.DeleteElementOperationAction;
+import com.eclipsesource.glsp.api.action.kind.DeleteOperationAction;
 import com.eclipsesource.glsp.api.provider.CommandPaletteActionProvider;
 import com.eclipsesource.glsp.api.types.LabeledAction;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
@@ -76,9 +76,9 @@ public class WorkflowCommandPaletteActionProvider implements CommandPaletteActio
 
 		// Delete action
 		if (selectedElements.size() == 1) {
-			actions.add(new LabeledAction("Delete", new DeleteElementOperationAction(selectedElementsIDs)));
+			actions.add(new LabeledAction("Delete", new DeleteOperationAction(selectedElementsIDs)));
 		} else if (selectedElements.size() > 1) {
-			actions.add(new LabeledAction("Delete All", new DeleteElementOperationAction(selectedElementsIDs)));
+			actions.add(new LabeledAction("Delete All", new DeleteOperationAction(selectedElementsIDs)));
 		}
 
 		return actions;

@@ -29,26 +29,26 @@ import org.eclipse.sprotty.SModelRoot;
 import org.eclipse.sprotty.SNode;
 
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
-import com.eclipsesource.glsp.api.action.kind.DeleteElementOperationAction;
+import com.eclipsesource.glsp.api.action.kind.DeleteOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 
 /**
- * Generic handler implementation for {@link DeleteElementOperationAction}
+ * Generic handler implementation for {@link DeleteOperationAction}
  */
-public class DeleteHandler implements OperationHandler {
-	private static Logger log = Logger.getLogger(DeleteHandler.class);
+public class DeleteOperationHandler implements OperationHandler {
+	private static Logger log = Logger.getLogger(DeleteOperationHandler.class);
 	private Set<String> allDependantsIds;
 
 	@Override
 	public boolean handles(AbstractOperationAction action) {
-		return action instanceof DeleteElementOperationAction;
+		return action instanceof DeleteOperationAction;
 	}
 
 	@Override
 	public Optional<SModelRoot> execute(AbstractOperationAction execAction, GraphicalModelState modelState) {
-		DeleteElementOperationAction action = (DeleteElementOperationAction) execAction;
+		DeleteOperationAction action = (DeleteOperationAction) execAction;
 		List<String> elementIds = action.getElementIds();
 		if (elementIds == null || elementIds.size() == 0) {
 			log.warn("Elements to delete are not specified");

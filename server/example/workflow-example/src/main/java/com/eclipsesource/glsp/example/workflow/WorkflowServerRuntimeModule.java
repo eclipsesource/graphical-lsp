@@ -42,7 +42,7 @@ import com.eclipsesource.glsp.example.workflow.handler.SimulateCommandHandler;
 import com.eclipsesource.glsp.example.workflow.marker.WorkflowModelValidator;
 import com.eclipsesource.glsp.server.DefaultGLSPModule;
 import com.eclipsesource.glsp.server.operationhandler.ChangeBoundsOperationHandler;
-import com.eclipsesource.glsp.server.operationhandler.DeleteHandler;
+import com.eclipsesource.glsp.server.operationhandler.DeleteOperationHandler;
 
 @SuppressWarnings("serial")
 public class WorkflowServerRuntimeModule extends DefaultGLSPModule {
@@ -91,7 +91,7 @@ public class WorkflowServerRuntimeModule extends DefaultGLSPModule {
 				add(RerouteEdgeHandler.class);
 				add(DeleteWorkflowElementHandler.class);
 				add(ChangeBoundsOperationHandler.class);
-				add(DeleteHandler.class);
+				add(DeleteOperationHandler.class);
 			}
 		};
 	}

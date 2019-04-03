@@ -27,7 +27,7 @@ import com.eclipsesource.glsp.api.action.kind.CollapseExpandAllAction;
 import com.eclipsesource.glsp.api.action.kind.ComputedBoundsAction;
 import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
 import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
-import com.eclipsesource.glsp.api.action.kind.DeleteElementOperationAction;
+import com.eclipsesource.glsp.api.action.kind.DeleteOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ExecuteServerCommandAction;
 import com.eclipsesource.glsp.api.action.kind.ExportSVGAction;
 import com.eclipsesource.glsp.api.action.kind.FitToScreenAction;
@@ -74,7 +74,7 @@ public class DefaultActionProvider implements ActionProvider {
 		defaultActions.add(new ComputedBoundsAction());
 		defaultActions.add(new CreateConnectionOperationAction());
 		defaultActions.add(new CreateNodeOperationAction());
-		defaultActions.add(new DeleteElementOperationAction());
+		defaultActions.add(new DeleteOperationAction());
 		defaultActions.add(new ExportSVGAction());
 		defaultActions.add(new FitToScreenAction());
 		defaultActions.add(new ChangeContainerOperationAction());
