@@ -15,21 +15,17 @@
  ********************************************************************************/
 import { inject, injectable } from "inversify";
 import {
+    AbstractUIExtension,
     Action,
     EnableDefaultToolsAction,
     EnableToolsAction,
-    IActionDispatcherProvider,
+    IActionDispatcher,
     ICommand,
-    ILogger,
-    TYPES,
-    ViewerOptions
+    SetUIExtensionVisibilityAction,
+    TYPES
 } from "sprotty/lib";
 
-import { BaseDiagramUIExtension } from "../../base/diagram-ui-extension/diagram-ui-extension";
-import {
-    SelfInitializingActionHandler,
-    ShowDiagramUIExtensionAction
-} from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
+import { SelfInitializingActionHandler } from "../../base/tool-manager/tool-manager-action-handler";
 import { isSetOperationsAction, Operation, parentGroup, SetOperationsAction } from "../operation/set-operations";
 import { deriveToolId } from "../tools/creation-tool";
 import { MouseDeleteTool } from "../tools/delete-tool";
@@ -37,7 +33,8 @@ import { RequestMarkersAction } from "../validation/validate";
 
 const CLICKED_CSS_CLASS = "clicked";
 @injectable()
-export class ToolPalette extends BaseDiagramUIExtension {
+export class ToolPalette extends AbstractUIExtension {
+    @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: IActionDispatcher;
     static readonly ID = "glsp_tool_palette";
 
     readonly id = ToolPalette.ID;
@@ -46,12 +43,6 @@ export class ToolPalette extends BaseDiagramUIExtension {
     protected lastActivebutton?: HTMLElement;
     protected defaultToolsButton: HTMLElement;
 
-    constructor(
-        @inject(TYPES.ViewerOptions) protected options: ViewerOptions,
-        @inject(TYPES.IActionDispatcherProvider) protected actionDispatcherProvider: IActionDispatcherProvider,
-        @inject(TYPES.ILogger) protected logger: ILogger) {
-        super(options, actionDispatcherProvider, logger);
-    }
 
     initialize() {
         if (!this.operations) {
@@ -60,7 +51,7 @@ export class ToolPalette extends BaseDiagramUIExtension {
         return super.initialize();
     }
 
-    protected createUIElements(): void {
+    protected initializeContents(containerElement: HTMLElement): void {
         this.createHeader();
         this.createBody();
     }
@@ -120,7 +111,7 @@ export class ToolPalette extends BaseDiagramUIExtension {
         const validateActionButton = createIcon(["fas", "fa-check-square", "fa-xs"]);
         validateActionButton.onclick = (ev: MouseEvent) => {
             const modelIds: string[] = ["sprotty"];
-            this.executeAction(new RequestMarkersAction(modelIds));
+            this.actionDispatcher.dispatch(new RequestMarkersAction(modelIds));
         };
         headerTools.appendChild(validateActionButton);
 
@@ -139,7 +130,7 @@ export class ToolPalette extends BaseDiagramUIExtension {
     protected onClickToolButton(button: HTMLElement, toolId?: string) {
         return (ev: MouseEvent) => {
             const action = toolId ? new EnableToolsAction([toolId]) : new EnableDefaultToolsAction();
-            this.executeAction(action);
+            this.actionDispatcher.dispatch(action);
             this.changeActiveButton(button);
             this.restoreFocus();
         };
@@ -181,7 +172,7 @@ function createToolGroup(label: string, groupId: string): HTMLElement {
         const css = "collapsed";
         changeCSSClass(group, css);
         Array.from(group.children).forEach(item => changeCSSClass(item, css));
-        window.getSelection().removeAllRanges();
+        window!.getSelection()!.removeAllRanges();
     };
 
     group.appendChild(header);
@@ -201,7 +192,7 @@ export class ToolPaletteActionHandler extends SelfInitializingActionHandler {
     handle(action: Action): ICommand | Action | void {
         if (isSetOperationsAction(action)) {
             this.toolPalette.setOperations(action.operations);
-            return new ShowDiagramUIExtensionAction(ToolPalette.ID, []);
+            return new SetUIExtensionVisibilityAction(ToolPalette.ID, true);
         } else if (action instanceof EnableDefaultToolsAction) {
             this.toolPalette.changeActiveButton();
         }

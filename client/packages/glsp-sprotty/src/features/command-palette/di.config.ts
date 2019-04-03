@@ -18,33 +18,12 @@ import "../../../css/command-palette.css";
 import { ContainerModule } from "inversify";
 import { TYPES } from "sprotty/lib";
 
-import { GLSP_TYPES } from "../../types";
-import {
-    CommandPaletteActionProviderRegistry,
-    ICommandPaletteActionProvider,
-    NavigationCommandPaletteActionProvider,
-    ServerCommandPaletteActionProvider
-} from "./action-provider";
-import { CommandPalette, CommandPaletteKeyListener } from "./command-palette";
+import { NavigationCommandPaletteActionProvider, ServerCommandPaletteActionProvider } from "./action-provider";
 
-
-
-
-const commandPaletteModule = new ContainerModule((bind, unbind, isBound, rebind) => {
-    bind(CommandPalette).toSelf().inSingletonScope();
-    bind(GLSP_TYPES.IDiagramUIExtension).toService(CommandPalette);
-    bind(TYPES.KeyListener).to(CommandPaletteKeyListener);
-    bind(CommandPaletteActionProviderRegistry).toSelf().inSingletonScope();
-    bind(GLSP_TYPES.ICommandPaletteActionProviderRegistry).toProvider<ICommandPaletteActionProvider>((context) => {
-        return () => {
-            return new Promise<ICommandPaletteActionProvider>((resolve) => {
-                resolve(context.container.get<ICommandPaletteActionProvider>(CommandPaletteActionProviderRegistry));
-            });
-        };
-    });
-    bind(GLSP_TYPES.ICommandPaletteActionProvider).to(NavigationCommandPaletteActionProvider);
+const glspCommandPaletteModule = new ContainerModule((bind, unbind, isBound, rebind) => {
+    bind(TYPES.ICommandPaletteActionProvider).to(NavigationCommandPaletteActionProvider);
     bind(ServerCommandPaletteActionProvider).toSelf().inSingletonScope();
-    bind(GLSP_TYPES.ICommandPaletteActionProvider).to(ServerCommandPaletteActionProvider);
+    bind(TYPES.ICommandPaletteActionProvider).to(ServerCommandPaletteActionProvider);
 });
 
-export default commandPaletteModule;
+export default glspCommandPaletteModule;

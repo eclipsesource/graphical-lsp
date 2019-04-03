@@ -14,13 +14,9 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 export const GLSP_TYPES = {
-    ICommandPaletteActionProvider: Symbol.for("ICommandPaletteActionProvider"),
     ICommandPaletteActionProviderRegistry: Symbol.for("ICommandPaletteActionProviderRegistry"),
     IFeedbackActionDispatcher: Symbol.for("IFeedbackActionDispatcher"),
     IToolFactory: Symbol.for("Factory<Tool>"),
-    IReadonlyModelAccessProvider: Symbol.for("IReadonlyModelAccessProvider"),
-    IDiagramUIExtension: Symbol.for("IDiagramUIExtension"),
-    DiagramUIExtensionRegistry: Symbol.for("DiagramUIExtensionRegistry"),
     IEditConfigProvider: Symbol.for("IEditConfigProvider"),
     RequestResponseSupport: Symbol.for("RequestResponseSupport")
 };

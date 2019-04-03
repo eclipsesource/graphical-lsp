@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import defaultGLSPModule from "./base/di.config";
-import commandPaletteModule from "./features/command-palette/di.config";
+import glspCommandPaletteModule from "./features/command-palette/di.config";
 import executeModule from "./features/execute/di.config";
 import modelHintsModule from "./features/hints/di.config";
 import requestResponseModule from "./features/request-response/di.config";
@@ -24,20 +24,16 @@ import paletteModule from "./features/tool-palette/di.config";
 import validationModule from "./features/validation/di.config";
 
 export * from 'sprotty/lib';
-export * from './base/command-stack';
-export * from './base/diagram-ui-extension/diagram-ui-extension';
 export * from './base/edit-config/edit-config';
 export * from './base/model/update-model-command';
 export * from './base/tool-manager/tool-manager-action-handler';
 export * from './features/change-bounds/model';
 export * from './features/command-palette/action-definitions';
 export * from './features/command-palette/action-provider';
-export * from './features/command-palette/command-palette';
 export * from './features/execute/execute-command';
 export * from './features/execute/model';
 export * from './features/hints/action-definition';
 export * from './features/hints/type-hints-action-initializer';
-export * from './features/nameable/model';
 export * from './features/operation/operation-actions';
 export * from './features/operation/set-operations';
 export * from './features/request-response/action-definitions';
@@ -58,5 +54,5 @@ export * from './utils/array-utils';
 export * from './utils/marker';
 export * from './utils/smodel-util';
 export * from './utils/viewpoint-util';
-export { validationModule, saveModule, executeModule, paletteModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule, commandPaletteModule, requestResponseModule };
+export { validationModule, saveModule, executeModule, paletteModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule, glspCommandPaletteModule, requestResponseModule };
 

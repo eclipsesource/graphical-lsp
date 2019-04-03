@@ -13,8 +13,7 @@
     "glsp-sprotty": "0.4.4"
   },
   "devDependencies": {
-    "rimraf": "latest",
-    "typescript": "latest"
+    "rimraf": "latest"
   },
   "scripts": {
     "prepare": "yarn run clean && yarn run build",
