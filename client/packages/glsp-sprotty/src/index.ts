@@ -17,8 +17,10 @@ import defaultGLSPModule from "./base/di.config";
 import glspCommandPaletteModule from "./features/command-palette/di.config";
 import executeModule from "./features/execute/di.config";
 import modelHintsModule from "./features/hints/di.config";
+import glspMouseToolModule from "./features/mouse-tool/di.config";
 import requestResponseModule from "./features/request-response/di.config";
 import saveModule from "./features/save/di.config";
+import glspSelectModule from "./features/select/di.config";
 import toolFeedbackModule from "./features/tool-feedback/di.config";
 import paletteModule from "./features/tool-palette/di.config";
 import validationModule from "./features/validation/di.config";
@@ -48,11 +50,16 @@ export * from './features/tools/creation-tool';
 export * from './features/tools/default-tools';
 export * from './features/tools/delete-tool';
 export * from './features/validation/validate';
+export * from './features/mouse-tool/di.config';
+export * from './features/select/di.config';
 export * from './lib/model';
 export * from './types';
 export * from './utils/array-utils';
 export * from './utils/marker';
 export * from './utils/smodel-util';
 export * from './utils/viewpoint-util';
-export { validationModule, saveModule, executeModule, paletteModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule, glspCommandPaletteModule, requestResponseModule };
+export {
+    validationModule, saveModule, executeModule, paletteModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule, glspCommandPaletteModule, requestResponseModule, //
+    glspSelectModule, glspMouseToolModule
+};
 

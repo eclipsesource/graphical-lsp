@@ -31,6 +31,8 @@ import {
     exportModule,
     fadeModule,
     GLSPGraph,
+    glspMouseToolModule,
+    glspSelectModule,
     hoverModule,
     HtmlRoot,
     HtmlRootView,
@@ -51,7 +53,6 @@ import {
     SCompartment,
     SCompartmentView,
     SEdge,
-    selectModule,
     SGraphView,
     SLabel,
     SLabelView,
@@ -60,7 +61,7 @@ import {
     toolFeedbackModule,
     TYPES,
     validationModule,
-    viewportModule,
+    viewportModule
 } from "glsp-sprotty/lib";
 import glspCommandPaletteModule from "glsp-sprotty/lib/features/command-palette/di.config";
 import executeCommandModule from "glsp-sprotty/lib/features/execute/di.config";
@@ -100,7 +101,7 @@ const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind
 export default function createContainer(widgetId: string): Container {
     const container = new Container();
 
-    container.load(decorationModule, validationModule, defaultModule, defaultGLSPModule, selectModule, boundsModule, viewportModule,
+    container.load(decorationModule, validationModule, defaultModule, glspMouseToolModule, defaultGLSPModule, glspSelectModule, boundsModule, viewportModule,
         hoverModule, fadeModule, exportModule, expandModule, openModule, buttonModule, modelSourceModule,
         workflowDiagramModule, saveModule, executeCommandModule, toolFeedbackModule, modelHintsModule,
         commandPaletteModule, glspCommandPaletteModule, paletteModule, requestResponseModule, routingModule, edgeLayoutModule);

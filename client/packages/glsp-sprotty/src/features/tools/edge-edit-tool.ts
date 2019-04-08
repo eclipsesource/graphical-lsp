@@ -21,8 +21,9 @@ import {
     EdgeRouterRegistry,
     findParentByFeature,
     isConnectable,
-    MouseTool,
+    MouseListener,
     SModelElement,
+    SModelRoot,
     SRoutableElement,
     SRoutingHandle,
     Tool
@@ -30,6 +31,8 @@ import {
 
 import { isConfigurableEdge } from "../../base/edit-config/edit-config";
 import { GLSP_TYPES } from "../../types";
+import { isSelected } from "../../utils/smodel-util";
+import { IMouseTool } from "../mouse-tool/mouse-tool";
 import { ReconnectConnectionOperationAction, RerouteConnectionOperationAction } from "../reconnect/action-definitions";
 import {
     isReconnectHandle,
@@ -39,7 +42,7 @@ import {
     isTargetRoutingHandle,
     SReconnectHandle
 } from "../reconnect/model";
-import { SelectionTracker } from "../select/selection-tracker";
+import { SelectionListener, SelectionService } from "../select/selection-service";
 import { FeedbackMoveMouseListener } from "../tool-feedback/change-bounds-tool-feedback";
 import { DrawFeedbackEdgeAction, feedbackEdgeId, RemoveFeedbackEdgeAction } from "../tool-feedback/creation-tool-feedback";
 import { ApplyCursorCSSFeedbackAction, CursorCSS } from "../tool-feedback/cursor-feedback";
@@ -64,7 +67,8 @@ export class EdgeEditTool implements Tool {
     protected feedbackMovingListener: FeedbackMoveMouseListener;
     protected reconnectEdgeListener: ReconnectEdgeListener;
 
-    constructor(@inject(MouseTool) protected mouseTool: MouseTool,
+    constructor(@inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService,
+        @inject(GLSP_TYPES.MouseTool) protected mouseTool: IMouseTool,
         @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher,
         @inject(AnchorComputerRegistry) protected anchorRegistry: AnchorComputerRegistry,
         @inject(EdgeRouterRegistry) @optional() protected edgeRouterRegistry?: EdgeRouterRegistry) {
@@ -73,6 +77,7 @@ export class EdgeEditTool implements Tool {
     enable(): void {
         this.reconnectEdgeListener = new ReconnectEdgeListener(this);
         this.mouseTool.register(this.reconnectEdgeListener);
+        this.selectionService.register(this.reconnectEdgeListener);
 
         // install feedback move mouse listener for client-side move updates
         this.feedbackEdgeSourceMovingListener = new FeedbackEdgeSourceMovingMouseListener(this.anchorRegistry);
@@ -85,6 +90,7 @@ export class EdgeEditTool implements Tool {
 
     disable(): void {
         this.reconnectEdgeListener.reset();
+        this.selectionService.deregister(this.reconnectEdgeListener);
         this.mouseTool.deregister(this.feedbackEdgeSourceMovingListener);
         this.mouseTool.deregister(this.feedbackEdgeTargetMovingListener);
         this.mouseTool.deregister(this.feedbackMovingListener);
@@ -96,7 +102,7 @@ export class EdgeEditTool implements Tool {
     }
 }
 
-class ReconnectEdgeListener extends SelectionTracker {
+class ReconnectEdgeListener extends MouseListener implements SelectionListener {
     private isMouseDown: boolean;
 
     // active selection data
@@ -114,7 +120,7 @@ class ReconnectEdgeListener extends SelectionTracker {
     }
 
     private isValidEdge(edge?: SRoutableElement): edge is SRoutableElement {
-        return edge !== undefined && edge.id !== feedbackEdgeId(edge.root);
+        return edge !== undefined && edge.id !== feedbackEdgeId(edge.root) && isSelected(edge);
     }
 
     private setEdgeSelected(edge: SRoutableElement) {
@@ -129,7 +135,7 @@ class ReconnectEdgeListener extends SelectionTracker {
     }
 
     private isEdgeSelected(): boolean {
-        return this.edge !== undefined;
+        return this.edge !== undefined && isSelected(this.edge);
     }
 
     private setReconnectHandleSelected(edge: SRoutableElement, reconnectHandle: SReconnectHandle) {
@@ -171,7 +177,7 @@ class ReconnectEdgeListener extends SelectionTracker {
     }
 
     private isReadyToReconnect() {
-        return this.isEdgeSelected() && this.isReconnecting() && this.newConnectable !== undefined;
+        return this.edge && this.isReconnecting() && this.newConnectable !== undefined;
     }
 
     private isReadyToReroute() {
@@ -253,6 +259,35 @@ class ReconnectEdgeListener extends SelectionTracker {
         return [];
     }
 
+    selectionChanged(root: Readonly<SModelRoot>, selectedElements: string[]): void {
+        if (this.edge) {
+            if (selectedElements.indexOf(this.edge.id) > -1) {
+                // our active edge is still selected, nothing to do
+                return;
+            }
+
+            if (this.isReconnecting()) {
+                // we are reconnecting, so we may have clicked on a potential target
+                return;
+            }
+
+            // try to find some other selected element and mark that active
+            for (const elementId of selectedElements.reverse()) {
+                const element = root.index.getById(elementId);
+                if (element) {
+                    const edge = findParentByFeature(element, isRoutable);
+                    if (this.isValidEdge(edge)) {
+                        // PHASE 1: Select edge
+                        this.setEdgeSelected(edge);
+                        return;
+                    }
+                }
+            }
+
+            this.reset();
+        }
+    }
+
     public reset() {
         this.resetFeedback();
         this.resetData();
@@ -274,6 +309,5 @@ class ReconnectEdgeListener extends SelectionTracker {
         result.push(...[new HideEdgeReconnectHandlesFeedbackAction(),
         new ApplyCursorCSSFeedbackAction(), new RemoveFeedbackEdgeAction()]);
         this.tool.dispatchFeedback(result);
-
     }
 }
