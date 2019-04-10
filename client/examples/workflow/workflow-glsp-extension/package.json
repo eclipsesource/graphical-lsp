@@ -19,13 +19,13 @@
     "@theia/filesystem": "next",
     "@theia/languages": "next",
     "@theia/monaco": "next",
-    "@types/node": "^8.0.14",
+  
     "workflow-sprotty": "0.1.0",
     "glsp-theia-extension": "0.1.7"
   },
   "devDependencies": {
     "rimraf": "latest",
-    "typescript": "latest"
+    "@types/node": "latest"
   },
   "scripts": {
     "prepare": "yarn run clean && yarn run build",

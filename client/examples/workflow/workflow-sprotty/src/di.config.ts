@@ -60,8 +60,9 @@ import {
     toolFeedbackModule,
     TYPES,
     validationModule,
-    viewportModule
+    viewportModule,
 } from "glsp-sprotty/lib";
+import glspCommandPaletteModule from "glsp-sprotty/lib/features/command-palette/di.config";
 import executeCommandModule from "glsp-sprotty/lib/features/execute/di.config";
 import { Container, ContainerModule } from "inversify";
 
@@ -102,7 +103,7 @@ export default function createContainer(widgetId: string): Container {
     container.load(decorationModule, validationModule, defaultModule, defaultGLSPModule, selectModule, boundsModule, viewportModule,
         hoverModule, fadeModule, exportModule, expandModule, openModule, buttonModule, modelSourceModule,
         workflowDiagramModule, saveModule, executeCommandModule, toolFeedbackModule, modelHintsModule,
-        commandPaletteModule, paletteModule, requestResponseModule, routingModule, edgeLayoutModule);
+        commandPaletteModule, glspCommandPaletteModule, paletteModule, requestResponseModule, routingModule, edgeLayoutModule);
 
     overrideViewerOptions(container, {
         needsClientLayout: true,

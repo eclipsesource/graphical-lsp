@@ -21,10 +21,9 @@ import {
     ICommand,
     SModelElement,
     SModelElementSchema,
-    TYPES
+    TYPES,
 } from "sprotty/lib";
 
-import { SelfInitializingActionHandler } from "../../base/diagram-ui-extension/diagram-ui-extension-registry";
 import {
     EdgeEditConfig,
     edgeEditConfig,
@@ -33,8 +32,9 @@ import {
     isEdgeEditConfig,
     isNodeEditConfig,
     NodeEditConfig,
-    nodeEditConfig
+    nodeEditConfig,
 } from "../../base/edit-config/edit-config";
+import { SelfInitializingActionHandler } from "../../base/tool-manager/tool-manager-action-handler";
 import { GLSP_TYPES } from "../../types";
 import { contains } from "../../utils/array-utils";
 import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
