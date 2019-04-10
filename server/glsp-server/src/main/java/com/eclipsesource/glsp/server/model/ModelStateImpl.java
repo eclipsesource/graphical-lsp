@@ -20,25 +20,28 @@ import java.util.Set;
 
 import org.eclipse.sprotty.SModelRoot;
 
-import com.eclipsesource.glsp.api.model.ModelState;
-import com.eclipsesource.glsp.api.utils.ModelOptions.ParsedModelOptions;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
+import com.eclipsesource.glsp.api.utils.ClientOptions.ParsedClientOptions;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
+import com.eclipsesource.glsp.api.utils.ServerOptions;
 
-public class ModelStateImpl implements ModelState {
-	private ParsedModelOptions options;
+public class ModelStateImpl implements GraphicalModelState {
+	private ParsedClientOptions options;
 	private String clientId;
 	private SModelRoot currentModel;
 	private Set<String> expandedElements;
 	private Set<String> selectedElements;
 	private SModelIndex currentModelIndex;
+	private ServerOptions serverOptions;
 
 	public ModelStateImpl() {
 		expandedElements = new HashSet<>();
 		selectedElements = new HashSet<>();
+		serverOptions = new ServerOptions();
 	}
 
 	@Override
-	public ParsedModelOptions getOptions() {
+	public ParsedClientOptions getClientOptions() {
 		return options;
 	}
 
@@ -53,12 +56,12 @@ public class ModelStateImpl implements ModelState {
 	}
 
 	@Override
-	public SModelRoot getCurrentModel() {
+	public SModelRoot getRoot() {
 		return currentModel;
 	}
 
 	@Override
-	public void setCurrentModel(SModelRoot newRoot) {
+	public void setRoot(SModelRoot newRoot) {
 		this.currentModel = newRoot;
 		this.currentModelIndex = new SModelIndex(newRoot);
 	}
@@ -74,7 +77,7 @@ public class ModelStateImpl implements ModelState {
 	}
 
 	@Override
-	public void setOptions(ParsedModelOptions options) {
+	public void setClientOptions(ParsedClientOptions options) {
 		this.options = options;
 	}
 
@@ -90,8 +93,18 @@ public class ModelStateImpl implements ModelState {
 	}
 
 	@Override
-	public SModelIndex getCurrentModelIndex() {
+	public SModelIndex getIndex() {
 		return currentModelIndex;
+	}
+
+	@Override
+	public ServerOptions getServerOptions() {
+		return serverOptions;
+	}
+
+	@Override
+	public void setServerOptions(ServerOptions serverOptions) {
+		this.serverOptions = serverOptions;
 	}
 
 }

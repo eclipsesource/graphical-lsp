@@ -15,29 +15,26 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.actionhandler;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Optional;
 
 import javax.inject.Inject;
 
-import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.OpenAction;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
-import com.eclipsesource.glsp.api.model.ModelState;
 
 public class OpenActionHandler extends AbstractActionHandler {
 	@Inject
 	private ModelElementOpenListener modelElementOpenListener;
 
 	@Override
-	protected Collection<Action> handleableActionsKinds() {
-		return Arrays.asList(new OpenAction());
+	public boolean handles(Action action) {
+		return action instanceof OpenAction;
 	}
 
 	@Override
-	public Optional<Action> execute(Action action, ModelState modelState) {
+	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		if (action instanceof OpenAction) {
 			if (modelElementOpenListener != null) {
 				modelElementOpenListener.elementOpened((OpenAction) action);

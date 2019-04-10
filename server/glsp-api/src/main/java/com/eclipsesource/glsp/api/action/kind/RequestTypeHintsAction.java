@@ -15,36 +15,33 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import java.util.List;
-
 import com.eclipsesource.glsp.api.action.Action;
 
-public class RequestCommandPaletteActions extends Action {
+public class RequestTypeHintsAction extends Action {
+	private String diagramType;
 
-	private List<String> selectedElementsIDs;
-
-	public RequestCommandPaletteActions() {
-		super(Action.Kind.REQUEST_COMMAND_PALETTE_ACTIONS);
+	public RequestTypeHintsAction() {
+		super(Action.Kind.REQUEST_TYPE_HINTS);
 	}
 
-	public RequestCommandPaletteActions(List<String> selectedElementsIDs) {
+	public RequestTypeHintsAction(String diagramType) {
 		this();
-		this.selectedElementsIDs = selectedElementsIDs;
+		this.diagramType = diagramType;
 	}
 
-	public List<String> getSelectedElementsIDs() {
-		return selectedElementsIDs;
+	public String getDiagramType() {
+		return diagramType;
 	}
 
-	public void setSelectedElementsIDs(List<String> selectedElementsIDs) {
-		this.selectedElementsIDs = selectedElementsIDs;
+	public void setDiagramType(String diagramType) {
+		this.diagramType = diagramType;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((selectedElementsIDs == null) ? 0 : selectedElementsIDs.hashCode());
+		result = prime * result + ((diagramType == null) ? 0 : diagramType.hashCode());
 		return result;
 	}
 
@@ -56,11 +53,11 @@ public class RequestCommandPaletteActions extends Action {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		RequestCommandPaletteActions other = (RequestCommandPaletteActions) obj;
-		if (selectedElementsIDs == null) {
-			if (other.selectedElementsIDs != null)
+		RequestTypeHintsAction other = (RequestTypeHintsAction) obj;
+		if (diagramType == null) {
+			if (other.diagramType != null)
 				return false;
-		} else if (!selectedElementsIDs.equals(other.selectedElementsIDs))
+		} else if (!diagramType.equals(other.diagramType))
 			return false;
 		return true;
 	}

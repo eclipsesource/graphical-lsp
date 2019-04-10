@@ -43,9 +43,9 @@ public class ServerLauncher {
 	private static Logger log = Logger.getLogger(ServerLauncher.class);
 	private String host;
 	private int port;
-	private ServerModule module;
+	private DefaultGLSPModule module;
 
-	public ServerLauncher(String host, int port, ServerModule module) {
+	public ServerLauncher(String host, int port, DefaultGLSPModule module) {
 		this.module = module;
 		this.host = host;
 		this.port = port;

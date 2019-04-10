@@ -15,35 +15,14 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.model;
 
-import java.util.Set;
-
-import org.eclipse.sprotty.SModelRoot;
-
-import com.eclipsesource.glsp.api.utils.ModelOptions.ParsedModelOptions;
-import com.eclipsesource.glsp.api.utils.SModelIndex;
-
-public interface ModelState {
-
-	ParsedModelOptions getOptions();
+public interface ModelState<T> {
 
 	String getClientId();
 
 	void setClientId(String clientId);
 
-	SModelRoot getCurrentModel();
+	T getRoot();
 
-	void setCurrentModel(SModelRoot newRoot);
-
-	Set<String> getExpandedElements();
-
-	Set<String> getSelectedElements();
-
-	void setExpandedElements(Set<String> expandedElements);
-
-	void setSelectedElements(Set<String> selectedElements);
-
-	void setOptions(ParsedModelOptions options);
-
-	SModelIndex getCurrentModelIndex();
+	void setRoot(T newRoot);
 
 }

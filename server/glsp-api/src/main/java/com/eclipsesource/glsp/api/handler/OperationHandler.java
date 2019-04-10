@@ -20,11 +20,11 @@ import java.util.Optional;
 import org.eclipse.sprotty.SModelRoot;
 
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 
 public interface OperationHandler extends Handler<AbstractOperationAction> {
 
-	Optional<SModelRoot> execute(AbstractOperationAction action, ModelState modelState);
+	Optional<SModelRoot> execute(AbstractOperationAction action, GraphicalModelState modelState);
 
 	@Override
 	default boolean handles(AbstractOperationAction action) {

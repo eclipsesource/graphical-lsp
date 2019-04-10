@@ -13,25 +13,25 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.provider;
+package com.eclipsesource.glsp.server.provider;
 
-import java.util.Comparator;
-import java.util.Optional;
 import java.util.Set;
 
-import com.eclipsesource.glsp.api.handler.Handler;
+import com.eclipsesource.glsp.api.handler.ActionHandler;
+import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
+import com.google.inject.Inject;
 
-public interface HandlerProvider<E extends Handler<T>, T> {
+public class DIActionHandlerProvider implements ActionHandlerProvider {
+	private Set<ActionHandler> handlers;
 
-	Set<E> getHandlers();
-
-	default boolean isHandled(T object) {
-		return getHandler(object).isPresent();
+	@Inject
+	public DIActionHandlerProvider(Set<ActionHandler> handlers) {
+		this.handlers = handlers;
 	}
 
-	default Optional<E> getHandler(T object) {
-		return getHandlers().stream().sorted(Comparator.comparing(Handler::getPriority))
-				.filter(ha -> ha.handles(object)).findFirst();
+	@Override
+	public Set<ActionHandler> getActionHandlers() {
+		return handlers;
 	}
 
 }

@@ -19,12 +19,13 @@ import java.util.Optional;
 
 import org.eclipse.sprotty.ILayoutEngine;
 import org.eclipse.sprotty.SModelRoot;
+import org.eclipse.sprotty.ServerLayoutKind;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestBoundsAction;
 import com.eclipsesource.glsp.api.action.kind.SetModelAction;
 import com.eclipsesource.glsp.api.action.kind.UpdateModelAction;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -36,16 +37,17 @@ public class ModelSubmissionHandler {
 	private String lastSubmittedModelType;
 	private int revision = 0;
 
-	public Optional<Action> submit(SModelRoot newRoot, boolean update, ModelState modelState) {
-		if (modelState.getOptions().needsClientLayout()) {
-			return Optional.of(new RequestBoundsAction(newRoot));
+	public Optional<Action> submit(boolean update, GraphicalModelState modelState) {
+		if (modelState.getClientOptions().needsClientLayout()) {
+			return Optional.of(new RequestBoundsAction(modelState.getRoot()));
 		} else {
-			return doSubmitModel(newRoot, update, modelState);
+			return doSubmitModel(update, modelState);
 		}
 	}
 
-	public Optional<Action> doSubmitModel(SModelRoot newRoot, boolean update, ModelState modelState) {
-		if (modelState.getOptions().needsServerLayout()) {
+	public Optional<Action> doSubmitModel(boolean update, GraphicalModelState modelState) {
+		SModelRoot newRoot = modelState.getRoot();
+		if (modelState.getServerOptions().getLayoutKind() == ServerLayoutKind.AUTOMATIC) {
 			if (layoutEngine != null) {
 				layoutEngine.layout(newRoot);
 			}

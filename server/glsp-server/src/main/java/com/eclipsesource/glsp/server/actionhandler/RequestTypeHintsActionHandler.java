@@ -17,37 +17,33 @@ package com.eclipsesource.glsp.server.actionhandler;
 
 import java.util.Optional;
 
-import org.eclipse.sprotty.SModelRoot;
-
 import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.action.kind.ComputedBoundsAction;
+import com.eclipsesource.glsp.api.action.kind.RequestTypeHintsAction;
+import com.eclipsesource.glsp.api.action.kind.SetTypeHintsAction;
+import com.eclipsesource.glsp.api.diagram.DiagramManager;
+import com.eclipsesource.glsp.api.diagram.DiagramHandlerProvider;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.api.utils.LayoutUtil;
 import com.google.inject.Inject;
 
-public class ComputedBoundsActionHandler extends AbstractActionHandler {
+public class RequestTypeHintsActionHandler extends AbstractActionHandler {
 	@Inject
-	private ModelSubmissionHandler submissionHandler;
+	private DiagramHandlerProvider diagramHandlerProvider;
 
 	@Override
 	public boolean handles(Action action) {
-		return action instanceof ComputedBoundsAction;
+		return action instanceof RequestTypeHintsAction;
 	}
 
 	@Override
 	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
-		if (action instanceof ComputedBoundsAction) {
-			ComputedBoundsAction computedBoundsAction = (ComputedBoundsAction) action;
-
-			synchronized (submissionHandler.getModelLock()) {
-				SModelRoot model = modelState.getRoot();
-				if (model != null && model.getRevision() == computedBoundsAction.getRevision()) {
-					LayoutUtil.applyBounds(model, computedBoundsAction);
-					return submissionHandler.doSubmitModel(true, modelState);
-				}
+		if (action instanceof RequestTypeHintsAction) {
+			Optional<DiagramManager> handler = diagramHandlerProvider
+					.get(((RequestTypeHintsAction) action).getDiagramType());
+			if (handler.isPresent()) {
+				return Optional
+						.of(new SetTypeHintsAction(handler.get().getNodeTypeHints(), handler.get().getEdgeTypeHints()));
 			}
 		}
 		return Optional.empty();
 	}
-
 }

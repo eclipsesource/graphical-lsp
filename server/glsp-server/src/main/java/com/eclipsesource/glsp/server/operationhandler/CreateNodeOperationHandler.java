@@ -17,68 +17,59 @@ package com.eclipsesource.glsp.server.operationhandler;
 
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.function.Function;
 
 import org.eclipse.sprotty.Point;
 import org.eclipse.sprotty.SModelElement;
 import org.eclipse.sprotty.SModelRoot;
+import org.eclipse.sprotty.SNode;
 
+import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 
 public abstract class CreateNodeOperationHandler implements OperationHandler {
 
+	protected String elementTypeId;
+
 	@Override
-	public boolean handles(AbstractOperationAction action) {
-		return action instanceof CreateNodeOperationAction;
+	public Class<? extends Action> handlesActionType() {
+		return CreateNodeOperationAction.class;
+	}
+
+	public CreateNodeOperationHandler(String elementTypeId) {
+		this.elementTypeId = elementTypeId;
 	}
 
 	@Override
-	public Optional<SModelRoot> execute(AbstractOperationAction action, ModelState modelState) {
+	public boolean handles(AbstractOperationAction action) {
+		return OperationHandler.super.handles(action)
+				? ((CreateNodeOperationAction) action).getElementTypeId().equals(elementTypeId)
+				: false;
+	}
+
+	@Override
+	public Optional<SModelRoot> execute(AbstractOperationAction action, GraphicalModelState modelState) {
 		CreateNodeOperationAction executeAction = (CreateNodeOperationAction) action;
 
-		SModelIndex index = modelState.getCurrentModelIndex();
+		SModelIndex index = modelState.getIndex();
 
-		SModelElement container = index.get(executeAction.getContainerId());
-		if (container == null) {
-			container = modelState.getCurrentModel();
+		Optional<SModelElement> container = index.get(executeAction.getContainerId());
+		if (!container.isPresent()) {
+			container = Optional.of(modelState.getRoot());
 		}
 
 		Optional<Point> point = Optional.of(executeAction.getLocation());
-		SModelElement element = createNode(point, index);
-		if (container.getChildren() == null) {
-			container.setChildren(new ArrayList<SModelElement>());
+		SModelElement element = createNode(point, modelState);
+		if (container.get().getChildren() == null) {
+			container.get().setChildren(new ArrayList<SModelElement>());
 		}
-		container.getChildren().add(element);
-		index.addToIndex(element, container);
-		return Optional.of(modelState.getCurrentModel());
+		container.get().getChildren().add(element);
+		index.addToIndex(element, container.get());
+		return Optional.of(modelState.getRoot());
 	}
 
-	protected String generateID(SModelElement element, SModelIndex index) {
-		int i = index.getTypeCount(element.getType());
-		String id = element.getType().replace(":", "").toLowerCase();
-
-		while (index.get(id + i) != null) {
-			i++;
-		}
-		return id + i;
-	}
-
-	protected abstract SModelElement createNode(Optional<Point> point, SModelIndex index);
-
-	protected int getCounter(SModelIndex index, String type, Function<Integer, String> idProvider) {
-		int i = index.getTypeCount(type);
-		while (true) {
-			String id = idProvider.apply(i);
-			if (index.get(id) == null) {
-				break;
-			}
-			i++;
-		}
-		return i;
-	}
-
+	protected abstract SNode createNode(Optional<Point> point, GraphicalModelState modelState);
 }

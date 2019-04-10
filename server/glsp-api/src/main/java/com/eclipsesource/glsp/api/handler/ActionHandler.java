@@ -18,10 +18,9 @@ package com.eclipsesource.glsp.api.handler;
 import java.util.Optional;
 
 import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.model.ModelState;
 
 public interface ActionHandler extends Handler<Action> {
 
-	public Optional<Action> execute(Action action, ModelState modelState);
+	public Optional<Action> execute(String clientId, Action action);
 
 }

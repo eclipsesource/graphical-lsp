@@ -15,10 +15,12 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.operationhandler;
 
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.eclipse.sprotty.SEdge;
@@ -27,51 +29,57 @@ import org.eclipse.sprotty.SModelRoot;
 import org.eclipse.sprotty.SNode;
 
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
-import com.eclipsesource.glsp.api.action.kind.DeleteElementOperationAction;
+import com.eclipsesource.glsp.api.action.kind.DeleteOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 
 /**
- * Generic handler implementation for {@link DeleteElementOperationAction}
+ * Generic handler implementation for {@link DeleteOperationAction}
  */
-public class DeleteHandler implements OperationHandler {
-	private static Logger log = Logger.getLogger(DeleteHandler.class);
+public class DeleteOperationHandler implements OperationHandler {
+	private static Logger log = Logger.getLogger(DeleteOperationHandler.class);
+	private Set<String> allDependantsIds;
 
 	@Override
 	public boolean handles(AbstractOperationAction action) {
-		return action instanceof DeleteElementOperationAction;
+		return action instanceof DeleteOperationAction;
 	}
 
 	@Override
-	public Optional<SModelRoot> execute(AbstractOperationAction execAction, ModelState modelState) {
-		DeleteElementOperationAction action = (DeleteElementOperationAction) execAction;
-		String elementIds[] = action.getElementIds();
-		if (elementIds == null || elementIds.length == 0) {
+	public Optional<SModelRoot> execute(AbstractOperationAction execAction, GraphicalModelState modelState) {
+		DeleteOperationAction action = (DeleteOperationAction) execAction;
+		List<String> elementIds = action.getElementIds();
+		if (elementIds == null || elementIds.size() == 0) {
 			log.warn("Elements to delete are not specified");
 			return Optional.empty();
 		}
-		SModelIndex index = modelState.getCurrentModelIndex();
-
-		boolean success = Arrays.stream(elementIds).allMatch(eId -> delete(eId, index, modelState));
+		SModelIndex index = modelState.getIndex();
+		allDependantsIds = new HashSet<>();
+		boolean success = elementIds.stream().allMatch(eId -> delete(eId, index, modelState));
 		if (!success) {
 			return Optional.empty();
 		}
 
-		SModelRoot currentModel = modelState.getCurrentModel();
+		SModelRoot currentModel = modelState.getRoot();
 		return Optional.of(currentModel);
 	}
 
-	protected boolean delete(String elementId, SModelIndex index, ModelState modelState) {
-		SModelElement element = index.get(elementId);
+	protected boolean delete(String elementId, SModelIndex index, GraphicalModelState modelState) {
+		if (allDependantsIds.contains(elementId)) {
+			// The element as already been deleted as dependent of a previously deleted
+			// element
+			return true;
+		}
+		Optional<SModelElement> element = index.get(elementId);
 
-		if (element == null) {
+		if (!element.isPresent()) {
 			log.warn("Element not found: " + elementId);
 			return false;
 		}
 
 		// Always delete the top-level node
-		SModelElement nodeToDelete = findTopLevelElement(element, index);
+		SModelElement nodeToDelete = findTopLevelElement(element.get(), index);
 		SModelElement parent = index.getParent(nodeToDelete);
 		if (parent == null) {
 			log.warn("The requested node doesn't have a parent; it can't be deleted");
@@ -82,12 +90,13 @@ public class DeleteHandler implements OperationHandler {
 		collectDependents(dependents, nodeToDelete, modelState);
 
 		dependents.forEach(modelElement -> delete(modelElement, modelState));
+		allDependantsIds.addAll(dependents.stream().map(SModelElement::getId).collect(Collectors.toSet()));
 		return true;
 	}
 
-	protected void delete(SModelElement element, ModelState modelState) {
-		SModelElement parent = modelState.getCurrentModelIndex().getParent(element);
-		modelState.getCurrentModelIndex().removeFromIndex(element);
+	protected void delete(SModelElement element, GraphicalModelState modelState) {
+		SModelElement parent = modelState.getIndex().getParent(element);
+		modelState.getIndex().removeFromIndex(element);
 
 		if (parent == null || parent.getChildren() == null) {
 			return;
@@ -95,7 +104,8 @@ public class DeleteHandler implements OperationHandler {
 		parent.getChildren().remove(element);
 	}
 
-	protected void collectDependents(Set<SModelElement> dependents, SModelElement nodeToDelete, ModelState modelState) {
+	protected void collectDependents(Set<SModelElement> dependents, SModelElement nodeToDelete,
+			GraphicalModelState modelState) {
 		if (dependents.contains(nodeToDelete)) {
 			return;
 		}
@@ -107,7 +117,7 @@ public class DeleteHandler implements OperationHandler {
 			}
 		}
 
-		SModelIndex index = modelState.getCurrentModelIndex();
+		SModelIndex index = modelState.getIndex();
 
 		// Then, incoming/outgoing links
 		for (SModelElement incoming : index.getIncomingEdges(nodeToDelete)) {

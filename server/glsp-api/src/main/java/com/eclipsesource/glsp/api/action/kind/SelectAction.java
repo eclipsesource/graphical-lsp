@@ -15,38 +15,46 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import java.util.Arrays;
+import java.util.List;
 
 import com.eclipsesource.glsp.api.action.Action;
 
 public class SelectAction extends Action {
-	private String[] selectedElementsIDs;
-	private String[] deselectedElementsIDs;
+	private List<String> selectedElementsIDs;
+	private List<String> deselectedElementsIDs;
 
 	public SelectAction() {
 		super(Action.Kind.SELECT);
 	}
 
-	public SelectAction(String[] selectedElementsIDs, String[] deselectedElementsIDs) {
+	public SelectAction(List<String> selectedElementsIDs, List<String> deselectedElementsIDs) {
 		this();
 		this.selectedElementsIDs = selectedElementsIDs;
 		this.deselectedElementsIDs = deselectedElementsIDs;
 	}
 
-	public String[] getSelectedElementsIDs() {
+	public List<String> getSelectedElementsIDs() {
 		return selectedElementsIDs;
 	}
 
-	public String[] getDeselectedElementsIDs() {
+	public void setSelectedElementsIDs(List<String> selectedElementsIDs) {
+		this.selectedElementsIDs = selectedElementsIDs;
+	}
+
+	public List<String> getDeselectedElementsIDs() {
 		return deselectedElementsIDs;
+	}
+
+	public void setDeselectedElementsIDs(List<String> deselectedElementsIDs) {
+		this.deselectedElementsIDs = deselectedElementsIDs;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Arrays.hashCode(deselectedElementsIDs);
-		result = prime * result + Arrays.hashCode(selectedElementsIDs);
+		result = prime * result + ((deselectedElementsIDs == null) ? 0 : deselectedElementsIDs.hashCode());
+		result = prime * result + ((selectedElementsIDs == null) ? 0 : selectedElementsIDs.hashCode());
 		return result;
 	}
 
@@ -59,11 +67,16 @@ public class SelectAction extends Action {
 		if (getClass() != obj.getClass())
 			return false;
 		SelectAction other = (SelectAction) obj;
-		if (!Arrays.equals(deselectedElementsIDs, other.deselectedElementsIDs))
+		if (deselectedElementsIDs == null) {
+			if (other.deselectedElementsIDs != null)
+				return false;
+		} else if (!deselectedElementsIDs.equals(other.deselectedElementsIDs))
 			return false;
-		if (!Arrays.equals(selectedElementsIDs, other.selectedElementsIDs))
+		if (selectedElementsIDs == null) {
+			if (other.selectedElementsIDs != null)
+				return false;
+		} else if (!selectedElementsIDs.equals(other.selectedElementsIDs))
 			return false;
 		return true;
 	}
-
 }

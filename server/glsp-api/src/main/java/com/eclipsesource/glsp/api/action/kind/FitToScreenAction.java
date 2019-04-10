@@ -15,12 +15,12 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import java.util.Arrays;
+import java.util.List;
 
 import com.eclipsesource.glsp.api.action.Action;
 
 public class FitToScreenAction extends Action {
-	private String[] elementIds;
+	private List<String> elementIds;
 	private double padding;
 	private double maxZoom;
 	private boolean animate;
@@ -29,28 +29,44 @@ public class FitToScreenAction extends Action {
 		super(Action.Kind.FIT_TO_SCREEN);
 	}
 
-	public FitToScreenAction(String[] elementIds, double padding, double maxZoom, boolean animate) {
-		this();
+	public FitToScreenAction(String kind, List<String> elementIds, double padding, double maxZoom, boolean animate) {
+		super(kind);
 		this.elementIds = elementIds;
 		this.padding = padding;
 		this.maxZoom = maxZoom;
 		this.animate = animate;
 	}
 
-	public String[] getElementIds() {
+	public List<String> getElementIds() {
 		return elementIds;
+	}
+
+	public void setElementIds(List<String> elementIds) {
+		this.elementIds = elementIds;
 	}
 
 	public double getPadding() {
 		return padding;
 	}
 
+	public void setPadding(double padding) {
+		this.padding = padding;
+	}
+
 	public double getMaxZoom() {
 		return maxZoom;
 	}
 
+	public void setMaxZoom(double maxZoom) {
+		this.maxZoom = maxZoom;
+	}
+
 	public boolean isAnimate() {
 		return animate;
+	}
+
+	public void setAnimate(boolean animate) {
+		this.animate = animate;
 	}
 
 	@Override
@@ -58,7 +74,7 @@ public class FitToScreenAction extends Action {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + (animate ? 1231 : 1237);
-		result = prime * result + Arrays.hashCode(elementIds);
+		result = prime * result + ((elementIds == null) ? 0 : elementIds.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(maxZoom);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -78,7 +94,10 @@ public class FitToScreenAction extends Action {
 		FitToScreenAction other = (FitToScreenAction) obj;
 		if (animate != other.animate)
 			return false;
-		if (!Arrays.equals(elementIds, other.elementIds))
+		if (elementIds == null) {
+			if (other.elementIds != null)
+				return false;
+		} else if (!elementIds.equals(other.elementIds))
 			return false;
 		if (Double.doubleToLongBits(maxZoom) != Double.doubleToLongBits(other.maxZoom))
 			return false;

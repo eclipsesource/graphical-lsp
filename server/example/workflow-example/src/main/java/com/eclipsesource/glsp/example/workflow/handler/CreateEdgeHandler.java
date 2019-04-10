@@ -15,66 +15,28 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.handler;
 
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.EDGE;
-
-import java.util.Optional;
-
-import org.apache.log4j.Logger;
 import org.eclipse.sprotty.SEdge;
-import org.eclipse.sprotty.SModelRoot;
-import org.eclipse.sprotty.SNode;
+import org.eclipse.sprotty.SModelElement;
 
-import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
-import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
-import com.eclipsesource.glsp.api.handler.OperationHandler;
-import com.eclipsesource.glsp.api.model.ModelState;
-import com.eclipsesource.glsp.api.utils.SModelIndex;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.example.workflow.schema.ModelTypes;
+import com.eclipsesource.glsp.server.operationhandler.CreateConnectionOperationHandler;
+import com.eclipsesource.glsp.server.util.SModelUtil;
 
-public class CreateEdgeHandler implements OperationHandler {
-	private static Logger log = Logger.getLogger(CreateEdgeHandler.class);
+public class CreateEdgeHandler extends CreateConnectionOperationHandler {
 
-	@Override
-	public boolean handles(AbstractOperationAction execAction) {
-		if (execAction instanceof CreateConnectionOperationAction) {
-			CreateConnectionOperationAction action = (CreateConnectionOperationAction) execAction;
-			return ModelTypes.EDGE.equals(action.getElementTypeId());
-		}
-		return false;
+	public CreateEdgeHandler() {
+		super(ModelTypes.EDGE);
 	}
 
 	@Override
-	public Optional<SModelRoot> execute(AbstractOperationAction operationAction, ModelState modelState) {
-		CreateConnectionOperationAction action = (CreateConnectionOperationAction) operationAction;
-		if (action.getSourceElementId() == null || action.getTargetElementId() == null) {
-			log.warn("Incomplete create connection action");
-			return Optional.empty();
-		}
-
-		SModelIndex index = modelState.getCurrentModelIndex();
-
-		Optional<SNode> source = index.findElement(action.getSourceElementId(), SNode.class);
-		Optional<SNode> target = index.findElement(action.getTargetElementId(), SNode.class);
-		if (!source.isPresent() || !target.isPresent()) {
-			log.warn("Invalid source or target for source ID " + action.getSourceElementId() + " and target ID "
-					+ action.getTargetElementId());
-			return Optional.empty();
-		}
-
+	protected SEdge createConnection(SModelElement source, SModelElement target, GraphicalModelState modelState) {
 		SEdge edge = new SEdge();
-		edge.setSourceId(source.get().getId());
-		edge.setTargetId(target.get().getId());
-		edge.setType(EDGE);
-		int newID = index.getTypeCount(EDGE);
-		while (index.get(EDGE + newID) != null) {
-			newID++;
-		}
-		edge.setId(EDGE + newID);
-
-		SModelRoot currentModel = modelState.getCurrentModel();
-		currentModel.getChildren().add(edge);
-		index.addToIndex(edge, currentModel);
-
-		return Optional.of(currentModel);
+		edge.setSourceId(source.getId());
+		edge.setTargetId(target.getId());
+		edge.setType(elementTypeId);
+		SModelUtil.generateId(edge, "edge", modelState);
+		return edge;
 	}
+
 }

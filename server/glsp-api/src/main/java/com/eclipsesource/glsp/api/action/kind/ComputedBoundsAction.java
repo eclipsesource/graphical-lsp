@@ -15,7 +15,7 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import java.util.Arrays;
+import java.util.List;
 
 import org.eclipse.sprotty.ElementAndAlignment;
 import org.eclipse.sprotty.ElementAndBounds;
@@ -24,39 +24,51 @@ import com.eclipsesource.glsp.api.action.Action;
 
 public class ComputedBoundsAction extends Action {
 
-	private ElementAndBounds[] bounds;
-	private ElementAndAlignment[] alignments;
+	private List<ElementAndBounds> bounds;
+	private List<ElementAndAlignment> alignments;
 	private int revision;
 
 	public ComputedBoundsAction() {
 		super(Action.Kind.COMPUTED_BOUNDS);
 	}
 
-	public ComputedBoundsAction(ElementAndBounds[] bounds, int revision, ElementAndAlignment[] alignments) {
+	public ComputedBoundsAction(List<ElementAndBounds> bounds, List<ElementAndAlignment> alignments, int revision) {
 		this();
 		this.bounds = bounds;
-		this.revision = revision;
 		this.alignments = alignments;
+		this.revision = revision;
 	}
 
-	public ElementAndBounds[] getBounds() {
+	public List<ElementAndBounds> getBounds() {
 		return bounds;
 	}
 
-	public ElementAndAlignment[] getAlignments() {
+	public void setBounds(List<ElementAndBounds> bounds) {
+		this.bounds = bounds;
+	}
+
+	public List<ElementAndAlignment> getAlignments() {
 		return alignments;
+	}
+
+	public void setAlignments(List<ElementAndAlignment> alignments) {
+		this.alignments = alignments;
 	}
 
 	public int getRevision() {
 		return revision;
 	}
 
+	public void setRevision(int revision) {
+		this.revision = revision;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Arrays.hashCode(alignments);
-		result = prime * result + Arrays.hashCode(bounds);
+		result = prime * result + ((alignments == null) ? 0 : alignments.hashCode());
+		result = prime * result + ((bounds == null) ? 0 : bounds.hashCode());
 		result = prime * result + revision;
 		return result;
 	}
@@ -70,12 +82,19 @@ public class ComputedBoundsAction extends Action {
 		if (getClass() != obj.getClass())
 			return false;
 		ComputedBoundsAction other = (ComputedBoundsAction) obj;
-		if (!Arrays.equals(alignments, other.alignments))
+		if (alignments == null) {
+			if (other.alignments != null)
+				return false;
+		} else if (!alignments.equals(other.alignments))
 			return false;
-		if (!Arrays.equals(bounds, other.bounds))
+		if (bounds == null) {
+			if (other.bounds != null)
+				return false;
+		} else if (!bounds.equals(other.bounds))
 			return false;
 		if (revision != other.revision)
 			return false;
 		return true;
 	}
+
 }

@@ -15,17 +15,14 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.actionhandler;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
 
-import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.CollapseExpandAction;
 import com.eclipsesource.glsp.api.action.kind.CollapseExpandAllAction;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.model.ModelExpansionListener;
-import com.eclipsesource.glsp.api.model.ModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.google.inject.Inject;
 
@@ -34,12 +31,12 @@ public class CollapseExpandActionHandler extends AbstractActionHandler {
 	ModelExpansionListener expansionListener;
 
 	@Override
-	protected Collection<Action> handleableActionsKinds() {
-		return Arrays.asList(new CollapseExpandAction(), new CollapseExpandAllAction());
+	public boolean handles(Action action) {
+		return action instanceof CollapseExpandAction || action instanceof CollapseExpandAllAction;
 	}
 
 	@Override
-	public Optional<Action> execute(Action action, ModelState modelState) {
+	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		switch (action.getKind()) {
 		case Action.Kind.COLLAPSE_EXPAND:
 			return handleCollapseExpandAction((CollapseExpandAction) action, modelState);
@@ -50,11 +47,12 @@ public class CollapseExpandActionHandler extends AbstractActionHandler {
 		}
 	}
 
-	private Optional<Action> handleCollapseExpandAllAction(CollapseExpandAllAction action, ModelState modelState) {
+	private Optional<Action> handleCollapseExpandAllAction(CollapseExpandAllAction action,
+			GraphicalModelState modelState) {
 		Set<String> expandedElements = modelState.getExpandedElements();
 		expandedElements.clear();
 		if (action.isExpand()) {
-			new SModelIndex(modelState.getCurrentModel()).allIds().forEach(id -> expandedElements.add(id));
+			new SModelIndex(modelState.getRoot()).allIds().forEach(id -> expandedElements.add(id));
 		}
 		if (expansionListener != null) {
 			expansionListener.expansionChanged(action);
@@ -62,13 +60,13 @@ public class CollapseExpandActionHandler extends AbstractActionHandler {
 		return Optional.empty();
 	}
 
-	private Optional<Action> handleCollapseExpandAction(CollapseExpandAction action, ModelState modelState) {
+	private Optional<Action> handleCollapseExpandAction(CollapseExpandAction action, GraphicalModelState modelState) {
 		Set<String> expandedElements = modelState.getExpandedElements();
 		if (action.getCollapseIds() != null) {
-			expandedElements.removeAll(Arrays.asList(action.getCollapseIds()));
+			expandedElements.removeAll(action.getCollapseIds());
 		}
 		if (action.getExpandIds() != null) {
-			expandedElements.addAll(Arrays.asList(action.getExpandIds()));
+			expandedElements.addAll(action.getExpandIds());
 		}
 
 		if (expansionListener != null) {

@@ -15,34 +15,38 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import java.util.Arrays;
+import java.util.List;
 
 import org.eclipse.sprotty.ElementAndBounds;
 
 import com.eclipsesource.glsp.api.action.Action;
 
 public class ChangeBoundsOperationAction extends AbstractOperationAction {
-	private ElementAndBounds[] newBounds;
+	private List<ElementAndBounds> newBounds;
 
 	public ChangeBoundsOperationAction() {
 		super(Action.Kind.CHANGE_BOUNDS_OPERATION);
 
 	}
 
-	public ChangeBoundsOperationAction(ElementAndBounds[] newBounds) {
+	public ChangeBoundsOperationAction(List<ElementAndBounds> newBounds) {
 		this();
 		this.newBounds = newBounds;
 	}
 
-	public ElementAndBounds[] getNewBounds() {
+	public List<ElementAndBounds> getNewBounds() {
 		return newBounds;
+	}
+
+	public void setNewBounds(List<ElementAndBounds> newBounds) {
+		this.newBounds = newBounds;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Arrays.hashCode(newBounds);
+		result = prime * result + ((newBounds == null) ? 0 : newBounds.hashCode());
 		return result;
 	}
 
@@ -55,9 +59,11 @@ public class ChangeBoundsOperationAction extends AbstractOperationAction {
 		if (getClass() != obj.getClass())
 			return false;
 		ChangeBoundsOperationAction other = (ChangeBoundsOperationAction) obj;
-		if (!Arrays.equals(newBounds, other.newBounds))
+		if (newBounds == null) {
+			if (other.newBounds != null)
+				return false;
+		} else if (!newBounds.equals(other.newBounds))
 			return false;
 		return true;
 	}
-
 }

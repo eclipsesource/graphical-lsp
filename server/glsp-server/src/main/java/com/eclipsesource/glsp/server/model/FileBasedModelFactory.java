@@ -24,9 +24,9 @@ import org.eclipse.sprotty.SGraph;
 import org.eclipse.sprotty.SModelRoot;
 
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
+import com.eclipsesource.glsp.api.diagram.DiagramHandlerProvider;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
-import com.eclipsesource.glsp.api.provider.ModelTypeConfigurationProvider;
-import com.eclipsesource.glsp.api.utils.ModelOptions;
+import com.eclipsesource.glsp.api.utils.ClientOptions;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 
@@ -42,17 +42,17 @@ public class FileBasedModelFactory implements ModelFactory {
 	private static final String FILE_PREFIX = "file://";
 
 	@Inject
-	private ModelTypeConfigurationProvider modelTypeConfigurationProvider;
+	private DiagramHandlerProvider diagramHandlerProvider;
 	private SModelRoot modelRoot;
 
 	@Override
 	public SModelRoot loadModel(RequestModelAction action) {
-		String sourceURI = action.getOptions().get(ModelOptions.SOURCE_URI);
+		String sourceURI = action.getOptions().get(ClientOptions.SOURCE_URI);
 		try {
 			File modelFile = convertToFile(sourceURI);
 			if (modelFile != null && modelFile.exists()) {
 				String json = FileUtils.readFileToString(modelFile, "UTF8");
-				Gson gson = modelTypeConfigurationProvider.configureGSON().create();
+				Gson gson = diagramHandlerProvider.configureGSON().create();
 				modelRoot = gson.fromJson(json, SGraph.class);
 			}
 		} catch (IOException e) {

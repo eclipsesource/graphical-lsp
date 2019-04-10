@@ -16,17 +16,30 @@
 package com.eclipsesource.glsp.api.provider;
 
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Optional;
 import java.util.Set;
 
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
+import com.eclipsesource.glsp.api.handler.Handler;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 
-public interface OperationHandlerProvider extends HandlerProvider<OperationHandler, AbstractOperationAction> {
+public interface OperationHandlerProvider {
+	Set<OperationHandler> getOperationHandlers();
+
+	default boolean isHandled(AbstractOperationAction action) {
+		return getHandler(action).isPresent();
+	}
+
+	default Optional<OperationHandler> getHandler(AbstractOperationAction action) {
+		return getOperationHandlers().stream().sorted(Comparator.comparing(Handler::getPriority))
+				.filter(ha -> ha.handles(action)).findFirst();
+	}
 
 	final static class NullImpl implements OperationHandlerProvider {
 
 		@Override
-		public Set<OperationHandler> getHandlers() {
+		public Set<OperationHandler> getOperationHandlers() {
 			return Collections.emptySet();
 		}
 	}

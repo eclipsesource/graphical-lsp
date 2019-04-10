@@ -15,19 +15,30 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.model;
 
-import org.eclipse.sprotty.SNode;
+import java.util.Set;
 
-import com.eclipsesource.glsp.api.types.NodeTypeHint;
+import org.eclipse.sprotty.SModelRoot;
 
-public class NodeTypeConfiguration extends ModelTypeConfiguration {
+import com.eclipsesource.glsp.api.utils.ClientOptions.ParsedClientOptions;
+import com.eclipsesource.glsp.api.utils.SModelIndex;
+import com.eclipsesource.glsp.api.utils.ServerOptions;
 
-	public NodeTypeConfiguration() {
-		super();
-	}
+public interface GraphicalModelState extends ModelState<SModelRoot> {
+	ParsedClientOptions getClientOptions();
 
-	public NodeTypeConfiguration(String elementTypeId, Class<? extends SNode> javaClassRepresentation,
-			NodeTypeHint nodeTypeHint) {
-		super(elementTypeId, javaClassRepresentation, nodeTypeHint);
-	}
+	void setClientOptions(ParsedClientOptions options);
 
+	Set<String> getExpandedElements();
+
+	Set<String> getSelectedElements();
+
+	void setExpandedElements(Set<String> expandedElements);
+
+	void setSelectedElements(Set<String> selectedElements);
+
+	SModelIndex getIndex();
+
+	void setServerOptions(ServerOptions options);
+
+	ServerOptions getServerOptions();
 }

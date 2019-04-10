@@ -15,17 +15,20 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.operations;
 
+import java.util.Collections;
+import java.util.List;
+
 import com.eclipsesource.glsp.api.action.kind.RequestOperationsAction;
 
 public interface OperationConfiguration {
 
-	Operation[] getOperations(RequestOperationsAction action);
+	List<Operation> getOperations(RequestOperationsAction action);
 
 	final class NullOperationConfiguration implements OperationConfiguration {
 
 		@Override
-		public Operation[] getOperations(RequestOperationsAction action) {
-			return new Operation[0];
+		public List<Operation> getOperations(RequestOperationsAction action) {
+			return Collections.emptyList();
 		}
 
 	}

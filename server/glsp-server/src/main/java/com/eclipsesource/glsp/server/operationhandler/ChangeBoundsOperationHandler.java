@@ -26,10 +26,11 @@ import org.eclipse.sprotty.SModelElement;
 import org.eclipse.sprotty.SModelRoot;
 import org.eclipse.sprotty.SNode;
 
+import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ChangeBoundsOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.utils.SModelIndex;
 
 /**
@@ -40,21 +41,21 @@ public class ChangeBoundsOperationHandler implements OperationHandler {
 	private static Logger log = Logger.getLogger(ChangeBoundsOperationHandler.class);
 
 	@Override
-	public Class<?> handlesActionType() {
+	public Class<? extends Action> handlesActionType() {
 		return ChangeBoundsOperationAction.class;
 	}
 
 	@Override
-	public Optional<SModelRoot> execute(AbstractOperationAction action, ModelState modelState) {
+	public Optional<SModelRoot> execute(AbstractOperationAction action, GraphicalModelState modelState) {
 		ChangeBoundsOperationAction changeBoundsAction = (ChangeBoundsOperationAction) action;
 		for (ElementAndBounds element : changeBoundsAction.getNewBounds()) {
 			changeElementBounds(element.getElementId(), element.getNewBounds(), modelState);
 		}
-		SModelRoot currentModel = modelState.getCurrentModel();
+		SModelRoot currentModel = modelState.getRoot();
 		return Optional.of(currentModel);
 	}
 
-	private Optional<SNode> changeElementBounds(String elementId, Bounds newBounds, ModelState modelState) {
+	private Optional<SNode> changeElementBounds(String elementId, Bounds newBounds, GraphicalModelState modelState) {
 		if (elementId == null || newBounds == null) {
 			log.warn("Invalid ChangeBounds Action; missing mandatory arguments");
 			return Optional.empty();
@@ -66,20 +67,20 @@ public class ChangeBoundsOperationHandler implements OperationHandler {
 		return nodeToUpdate;
 	}
 
-	private static Optional<SNode> findMovableNode(ModelState modelState, String elementId) {
-		SModelIndex index = modelState.getCurrentModelIndex();
-		SModelElement element = index.get(elementId);
-		if (element == null) {
+	private static Optional<SNode> findMovableNode(GraphicalModelState modelState, String elementId) {
+		SModelIndex index = modelState.getIndex();
+		Optional<SModelElement> element = index.get(elementId);
+		if (!element.isPresent()) {
 			log.warn("Element with id " + elementId + " not found");
 			return Optional.empty();
 		}
 
-		if (!(element instanceof SNode)) {
+		if (!(element.get() instanceof SNode)) {
 			log.warn("Element " + elementId + " is not moveable");
 			return Optional.empty();
 		}
 
-		return Optional.of((SNode) element);
+		return Optional.of((SNode) element.get());
 	}
 
 	private static void setBounds(SNode node, Bounds bounds) {

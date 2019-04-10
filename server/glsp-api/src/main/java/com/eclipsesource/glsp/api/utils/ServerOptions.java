@@ -13,21 +13,19 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.model;
+package com.eclipsesource.glsp.api.utils;
 
-import org.eclipse.sprotty.SEdge;
+import org.eclipse.sprotty.ServerLayoutKind;
 
-import com.eclipsesource.glsp.api.types.EdgeTypeHint;
+public class ServerOptions {
+	private ServerLayoutKind layoutKind = ServerLayoutKind.NONE;
 
-public class EdgeTypeConfiguration extends ModelTypeConfiguration {
-
-	public EdgeTypeConfiguration() {
-		super();
+	public ServerLayoutKind getLayoutKind() {
+		return layoutKind;
 	}
 
-	public EdgeTypeConfiguration(String elementTypeId, Class<? extends SEdge> javaClassRepresentation,
-			EdgeTypeHint edgeTypeHint) {
-		super(elementTypeId, javaClassRepresentation, edgeTypeHint);
-
+	public void setLayoutKind(ServerLayoutKind layoutKind) {
+		this.layoutKind = layoutKind;
 	}
+
 }

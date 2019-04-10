@@ -17,19 +17,16 @@ package com.eclipsesource.glsp.server.actionhandler;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Optional;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.sprotty.SModelRoot;
 
-import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.SaveModelAction;
-import com.eclipsesource.glsp.api.model.ModelState;
-import com.eclipsesource.glsp.api.provider.ModelTypeConfigurationProvider;
+import com.eclipsesource.glsp.api.diagram.DiagramHandlerProvider;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 
@@ -38,15 +35,15 @@ public class SaveModelActionHandler extends AbstractActionHandler {
 	private static final String FILE_PREFIX = "file://";
 
 	@Inject
-	ModelTypeConfigurationProvider modelTypeConfigurationProvider;
+	DiagramHandlerProvider diagramHandlerProvider;
 
 	@Override
-	protected Collection<Action> handleableActionsKinds() {
-		return Arrays.asList(new SaveModelAction());
+	public boolean handles(Action action) {
+		return action instanceof SaveModelAction;
 	}
 
 	@Override
-	public Optional<Action> execute(Action action, ModelState modelState) {
+	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		if (action instanceof SaveModelAction) {
 			SaveModelAction saveAction = (SaveModelAction) action;
 			if (saveAction != null) {
@@ -56,26 +53,19 @@ public class SaveModelActionHandler extends AbstractActionHandler {
 		return Optional.empty();
 	}
 
-	private void saveModelState(ModelState modelState) {
+	private void saveModelState(GraphicalModelState modelState) {
 		convertToFile(modelState).ifPresent(file -> {
 			try {
-				Gson gson = modelTypeConfigurationProvider.configureGSON().create();
-				FileUtils.writeStringToFile(file, gson.toJson(modelState.getCurrentModel(), SModelRoot.class), "UTF8");
+				Gson gson = diagramHandlerProvider.configureGSON().create();
+				FileUtils.writeStringToFile(file, gson.toJson(modelState.getRoot(), SModelRoot.class), "UTF8");
 			} catch (IOException e) {
 				LOG.error(e);
 			}
 		});
 	}
 
-	private Optional<String> getSourceUri(ModelState modelState) {
-		if (modelState.getOptions() != null) {
-			return modelState.getOptions().getSourceUri();
-		}
-		return Optional.empty();
-	}
-
-	private Optional<File> convertToFile(ModelState modelState) {
-		Optional<String> sourceUriOpt = getSourceUri(modelState);
+	private Optional<File> convertToFile(GraphicalModelState modelState) {
+		Optional<String> sourceUriOpt = modelState.getClientOptions().getSourceUri();
 		if (sourceUriOpt.isPresent()) {
 			String uri = sourceUriOpt.get();
 			if (uri.startsWith(FILE_PREFIX)) {

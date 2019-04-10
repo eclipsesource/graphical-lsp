@@ -19,32 +19,31 @@ import java.util.List;
 
 import com.eclipsesource.glsp.api.action.Action;
 
-public class RequestCommandPaletteActions extends Action {
+public class LayoutAction extends Action {
+	private List<String> elementIds;
 
-	private List<String> selectedElementsIDs;
-
-	public RequestCommandPaletteActions() {
-		super(Action.Kind.REQUEST_COMMAND_PALETTE_ACTIONS);
+	public LayoutAction() {
+		super(Action.Kind.LAYOUT);
 	}
 
-	public RequestCommandPaletteActions(List<String> selectedElementsIDs) {
+	public LayoutAction(List<String> elementIds) {
 		this();
-		this.selectedElementsIDs = selectedElementsIDs;
+		this.elementIds = elementIds;
 	}
 
-	public List<String> getSelectedElementsIDs() {
-		return selectedElementsIDs;
+	public List<String> getElementIds() {
+		return elementIds;
 	}
 
-	public void setSelectedElementsIDs(List<String> selectedElementsIDs) {
-		this.selectedElementsIDs = selectedElementsIDs;
+	public void setElementIds(List<String> elementIds) {
+		this.elementIds = elementIds;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((selectedElementsIDs == null) ? 0 : selectedElementsIDs.hashCode());
+		result = prime * result + ((elementIds == null) ? 0 : elementIds.hashCode());
 		return result;
 	}
 
@@ -56,13 +55,12 @@ public class RequestCommandPaletteActions extends Action {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		RequestCommandPaletteActions other = (RequestCommandPaletteActions) obj;
-		if (selectedElementsIDs == null) {
-			if (other.selectedElementsIDs != null)
+		LayoutAction other = (LayoutAction) obj;
+		if (elementIds == null) {
+			if (other.elementIds != null)
 				return false;
-		} else if (!selectedElementsIDs.equals(other.selectedElementsIDs))
+		} else if (!elementIds.equals(other.elementIds))
 			return false;
 		return true;
 	}
-
 }

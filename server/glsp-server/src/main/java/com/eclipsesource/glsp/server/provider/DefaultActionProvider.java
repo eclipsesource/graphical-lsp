@@ -27,11 +27,12 @@ import com.eclipsesource.glsp.api.action.kind.CollapseExpandAllAction;
 import com.eclipsesource.glsp.api.action.kind.ComputedBoundsAction;
 import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
 import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
-import com.eclipsesource.glsp.api.action.kind.DeleteElementOperationAction;
+import com.eclipsesource.glsp.api.action.kind.DeleteOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ExecuteServerCommandAction;
 import com.eclipsesource.glsp.api.action.kind.ExportSVGAction;
 import com.eclipsesource.glsp.api.action.kind.FitToScreenAction;
 import com.eclipsesource.glsp.api.action.kind.IdentifiableRequestAction;
+import com.eclipsesource.glsp.api.action.kind.LayoutAction;
 import com.eclipsesource.glsp.api.action.kind.OpenAction;
 import com.eclipsesource.glsp.api.action.kind.ReconnectConnectionOperationAction;
 import com.eclipsesource.glsp.api.action.kind.RequestBoundsAction;
@@ -42,7 +43,7 @@ import com.eclipsesource.glsp.api.action.kind.RequestMarkersAction;
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
 import com.eclipsesource.glsp.api.action.kind.RequestOperationsAction;
 import com.eclipsesource.glsp.api.action.kind.RequestPopupModelAction;
-import com.eclipsesource.glsp.api.action.kind.RequestTypeHints;
+import com.eclipsesource.glsp.api.action.kind.RequestTypeHintsAction;
 import com.eclipsesource.glsp.api.action.kind.RerouteConnectionOperationAction;
 import com.eclipsesource.glsp.api.action.kind.SaveModelAction;
 import com.eclipsesource.glsp.api.action.kind.SelectAction;
@@ -73,13 +74,13 @@ public class DefaultActionProvider implements ActionProvider {
 		defaultActions.add(new ComputedBoundsAction());
 		defaultActions.add(new CreateConnectionOperationAction());
 		defaultActions.add(new CreateNodeOperationAction());
-		defaultActions.add(new DeleteElementOperationAction());
+		defaultActions.add(new DeleteOperationAction());
 		defaultActions.add(new ExportSVGAction());
 		defaultActions.add(new FitToScreenAction());
 		defaultActions.add(new ChangeContainerOperationAction());
 		defaultActions.add(new OpenAction());
 		defaultActions.add(new RequestBoundsAction());
-		defaultActions.add(new RequestTypeHints());
+		defaultActions.add(new RequestTypeHintsAction());
 		defaultActions.add(new RequestExportSvgAction());
 		defaultActions.add(new RequestLayersAction());
 		defaultActions.add(new RequestModelAction());
@@ -102,6 +103,7 @@ public class DefaultActionProvider implements ActionProvider {
 		defaultActions.add(new IdentifiableRequestAction());
 		defaultActions.add(new ReconnectConnectionOperationAction());
 		defaultActions.add(new RerouteConnectionOperationAction());
+		defaultActions.add(new LayoutAction());
 	}
 
 	@Override

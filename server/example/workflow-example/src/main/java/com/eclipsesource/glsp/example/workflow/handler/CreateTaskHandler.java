@@ -28,31 +28,30 @@ import org.eclipse.sprotty.Point;
 import org.eclipse.sprotty.SCompartment;
 import org.eclipse.sprotty.SLabel;
 import org.eclipse.sprotty.SModelElement;
+import org.eclipse.sprotty.SNode;
 
-import com.eclipsesource.glsp.api.utils.SModelIndex;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.example.workflow.schema.Icon;
 import com.eclipsesource.glsp.example.workflow.schema.TaskNode;
 import com.eclipsesource.glsp.server.operationhandler.CreateNodeOperationHandler;
+import com.eclipsesource.glsp.server.util.SModelUtil;
 
 public abstract class CreateTaskHandler extends CreateNodeOperationHandler {
 
 	private String taskType;
 	private Function<Integer, String> labelProvider;
-	private String type;
 
-	public CreateTaskHandler(String type, String taskType, Function<Integer, String> labelProvider) {
+	public CreateTaskHandler(String elementTypeId, String taskType, Function<Integer, String> labelProvider) {
+		super(elementTypeId);
 		this.taskType = taskType;
-		this.type = type;
 		this.labelProvider = labelProvider;
 	}
 
 	@Override
-	protected SModelElement createNode(Optional<Point> point, SModelIndex index) {
+	protected SNode createNode(Optional<Point> point, GraphicalModelState modelState) {
 		TaskNode taskNode = new TaskNode();
-		taskNode.setType(type);
-		Function<Integer, String> idProvider = i -> "task" + i;
-		int nodeCounter = getCounter(index, type, idProvider);
-		taskNode.setId(idProvider.apply(nodeCounter));
+		taskNode.setType(elementTypeId);
+		int nodeCounter = SModelUtil.generateId(taskNode, "task", modelState);
 		taskNode.setName(labelProvider.apply(nodeCounter));
 		taskNode.setDuration(0);
 
@@ -65,12 +64,12 @@ public abstract class CreateTaskHandler extends CreateNodeOperationHandler {
 		taskNode.setChildren(new ArrayList<SModelElement>());
 
 		SCompartment compHeader = new SCompartment();
-		compHeader.setId("task" + nodeCounter + "_header");
+		compHeader.setId(taskNode.getId() + "_header");
 		compHeader.setType(COMP_HEADER);
 		compHeader.setLayout("hbox");
 		compHeader.setChildren(new ArrayList<SModelElement>());
 		Icon icon = new Icon();
-		icon.setId("task" + nodeCounter + "_icon");
+		icon.setId(taskNode.getId() + "_icon");
 		icon.setLayout("stack");
 		icon.setCommandId(SimulateCommandHandler.SIMULATE_COMMAND_ID);
 		LayoutOptions layoutOptions = new LayoutOptions();
@@ -80,7 +79,7 @@ public abstract class CreateTaskHandler extends CreateNodeOperationHandler {
 		icon.setChildren(new ArrayList<SModelElement>());
 		SLabel iconLabel = new SLabel();
 		iconLabel.setType(LABEL_ICON);
-		iconLabel.setId("task" + nodeCounter + "_ticon");
+		iconLabel.setId(taskNode.getId() + "_ticon");
 		iconLabel.setText("" + taskNode.getTaskType().toUpperCase().charAt(0));
 		icon.getChildren().add(iconLabel);
 

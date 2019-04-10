@@ -15,32 +15,34 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.actionhandler;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Optional;
 
-import com.eclipsesource.glsp.api.action.AbstractActionHandler;
+import org.eclipse.sprotty.ILayoutEngine;
+import org.eclipse.sprotty.ServerLayoutKind;
+
 import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.action.kind.RequestTypeHints;
-import com.eclipsesource.glsp.api.action.kind.SetTypeHintsAction;
-import com.eclipsesource.glsp.api.model.ModelState;
-import com.eclipsesource.glsp.api.provider.ModelTypeConfigurationProvider;
+import com.eclipsesource.glsp.api.action.kind.LayoutAction;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.google.inject.Inject;
 
-public class RequestElementTypeHintsActionHandler extends AbstractActionHandler {
+public class LayoutActionHandler extends AbstractActionHandler {
 	@Inject
-	private ModelTypeConfigurationProvider typeConfigurationProvider;
+	protected ILayoutEngine layoutEngine;
+	@Inject
+	protected ModelSubmissionHandler modelSubmissionHandler;
 
 	@Override
-	protected Collection<Action> handleableActionsKinds() {
-		return Arrays.asList(new RequestTypeHints());
+	public boolean handles(Action action) {
+		return action instanceof LayoutAction;
 	}
 
 	@Override
-	public Optional<Action> execute(Action action, ModelState modelState) {
-		if (action instanceof RequestTypeHints) {
-			return Optional.of(new SetTypeHintsAction(typeConfigurationProvider.getNodeTypeHints(),
-					typeConfigurationProvider.getEdgeTypeHints()));
+	protected Optional<Action> execute(Action action, GraphicalModelState modelState) {
+		if (modelState.getServerOptions().getLayoutKind() == ServerLayoutKind.MANUAL) {
+			if (layoutEngine != null) {
+				layoutEngine.layout(modelState.getRoot());
+			}
+			return modelSubmissionHandler.doSubmitModel(true, modelState);
 		}
 		return Optional.empty();
 	}

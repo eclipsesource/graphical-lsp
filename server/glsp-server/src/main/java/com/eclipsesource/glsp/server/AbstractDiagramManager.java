@@ -13,39 +13,28 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.provider;
+package com.eclipsesource.glsp.server;
 
-import java.util.List;
-import java.util.Map;
-
-import org.eclipse.sprotty.SModelElement;
-import org.eclipse.sprotty.server.json.EnumTypeAdapter;
-
-import com.eclipsesource.glsp.api.json.SModelElementTypeAdapter;
+import com.eclipsesource.glsp.api.diagram.DiagramManager;
+import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
 import com.eclipsesource.glsp.api.types.EdgeTypeHint;
 import com.eclipsesource.glsp.api.types.NodeTypeHint;
-import com.google.gson.GsonBuilder;
+import com.google.inject.Inject;
 
-public interface ModelTypeConfigurationProvider {
+public abstract class AbstractDiagramManager extends DiagramManager {
+	@Inject
+	private ActionHandlerProvider actionHandlerProvider;
 
-	Map<String, Class<? extends SModelElement>> getTypeToClassMappings();
-
-	List<NodeTypeHint> getNodeTypeHints();
-
-	List<EdgeTypeHint> getEdgeTypeHints();
-
-	default GsonBuilder configureGSON() {
-		GsonBuilder builder = new GsonBuilder();
-		builder.registerTypeAdapterFactory(new SModelElementTypeAdapter.Factory(getTypeToClassMappings()))
-				.registerTypeAdapterFactory(new EnumTypeAdapter.Factory());
-		return builder;
+	@Override
+	public ActionHandlerProvider getActionHandlerProvider() {
+		return actionHandlerProvider;
 	}
 
-	default EdgeTypeHint createDefaultEdgeTypeHint(String elementId) {
+	public EdgeTypeHint createDefaultEdgeTypeHint(String elementId) {
 		return new EdgeTypeHint(elementId, true, true, true, null, null);
 	}
 
-	default NodeTypeHint createDefaultNodeTypeHint(String elementId) {
+	public NodeTypeHint createDefaultNodeTypeHint(String elementId) {
 		return new NodeTypeHint(elementId, true, true, true);
 	}
 }

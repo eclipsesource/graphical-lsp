@@ -13,20 +13,37 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.handler;
+package com.eclipsesource.glsp.api.diagram;
 
-import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.eclipse.sprotty.SModelElement;
+
 import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.model.GraphicalModelState;
+import com.eclipsesource.glsp.api.handler.ActionHandler;
+import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
+import com.eclipsesource.glsp.api.types.EdgeTypeHint;
+import com.eclipsesource.glsp.api.types.NodeTypeHint;
 
-public interface ServerCommandHandler extends Handler<String> {
+public abstract class DiagramManager {
 
-	default public void execute(String commandId, GraphicalModelState modelState) {
-		execute(commandId, Collections.emptyMap(), modelState);
+	public abstract ActionHandlerProvider getActionHandlerProvider();
+
+	public abstract String getDiagramType();
+
+	public Optional<Action> execute(String clientId, Action action) {
+		Optional<ActionHandler> handler = getActionHandlerProvider().getHandler(action);
+		if (handler.isPresent()) {
+			return handler.get().execute(clientId, action);
+		}
+		return Optional.empty();
 	}
 
-	public Optional<Action> execute(String commandId, Map<String, String> options, GraphicalModelState modelState);
+	public abstract Map<String, Class<? extends SModelElement>> getTypeMappings();
+
+	public abstract List<NodeTypeHint> getNodeTypeHints();
+
+	public abstract List<EdgeTypeHint> getEdgeTypeHints();
 }

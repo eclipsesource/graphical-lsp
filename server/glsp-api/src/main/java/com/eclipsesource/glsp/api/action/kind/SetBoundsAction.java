@@ -15,33 +15,37 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import java.util.Arrays;
+import java.util.List;
 
 import org.eclipse.sprotty.ElementAndBounds;
 
 import com.eclipsesource.glsp.api.action.Action;
 
 public class SetBoundsAction extends Action {
-	private ElementAndBounds[] bounds;
+	private List<ElementAndBounds> bounds;
 
 	public SetBoundsAction() {
 		super(Action.Kind.SET_BOUNDS);
 	}
 
-	public SetBoundsAction(ElementAndBounds[] bounds) {
-		this();
+	public SetBoundsAction(String kind, List<ElementAndBounds> bounds) {
+		super(kind);
 		this.bounds = bounds;
 	}
 
-	public ElementAndBounds[] getBounds() {
+	public List<ElementAndBounds> getBounds() {
 		return bounds;
+	}
+
+	public void setBounds(List<ElementAndBounds> bounds) {
+		this.bounds = bounds;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Arrays.hashCode(bounds);
+		result = prime * result + ((bounds == null) ? 0 : bounds.hashCode());
 		return result;
 	}
 
@@ -54,9 +58,11 @@ public class SetBoundsAction extends Action {
 		if (getClass() != obj.getClass())
 			return false;
 		SetBoundsAction other = (SetBoundsAction) obj;
-		if (!Arrays.equals(bounds, other.bounds))
+		if (bounds == null) {
+			if (other.bounds != null)
+				return false;
+		} else if (!bounds.equals(other.bounds))
 			return false;
 		return true;
 	}
-
 }

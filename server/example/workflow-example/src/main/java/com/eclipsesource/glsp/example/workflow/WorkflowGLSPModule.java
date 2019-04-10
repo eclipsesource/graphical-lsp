@@ -15,14 +15,20 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+
+import com.eclipsesource.glsp.api.diagram.DiagramManager;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
+import com.eclipsesource.glsp.api.handler.OperationHandler;
+import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
 import com.eclipsesource.glsp.api.markers.ModelValidator;
 import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
 import com.eclipsesource.glsp.api.model.ModelExpansionListener;
 import com.eclipsesource.glsp.api.model.ModelSelectionListener;
 import com.eclipsesource.glsp.api.operations.OperationConfiguration;
 import com.eclipsesource.glsp.api.provider.CommandPaletteActionProvider;
-import com.eclipsesource.glsp.api.provider.ModelTypeConfigurationProvider;
 import com.eclipsesource.glsp.example.workflow.handler.CreateAutomatedTaskHandler;
 import com.eclipsesource.glsp.example.workflow.handler.CreateDecisionNodeHandler;
 import com.eclipsesource.glsp.example.workflow.handler.CreateEdgeHandler;
@@ -34,16 +40,12 @@ import com.eclipsesource.glsp.example.workflow.handler.ReconnectEdgeHandler;
 import com.eclipsesource.glsp.example.workflow.handler.RerouteEdgeHandler;
 import com.eclipsesource.glsp.example.workflow.handler.SimulateCommandHandler;
 import com.eclipsesource.glsp.example.workflow.marker.WorkflowModelValidator;
-import com.eclipsesource.glsp.server.ServerModule;
+import com.eclipsesource.glsp.server.DefaultGLSPModule;
 import com.eclipsesource.glsp.server.operationhandler.ChangeBoundsOperationHandler;
-import com.eclipsesource.glsp.server.operationhandler.DeleteHandler;
+import com.eclipsesource.glsp.server.operationhandler.DeleteOperationHandler;
 
-public class WorkflowServerRuntimeModule extends ServerModule {
-
-	@Override
-	protected Class<? extends ModelTypeConfigurationProvider> bindModelTypesConfigurationProvider() {
-		return WorkflowModelTypeConfigurationProvider.class;
-	}
+@SuppressWarnings("serial")
+public class WorkflowGLSPModule extends DefaultGLSPModule {
 
 	@Override
 	public Class<? extends PopupModelFactory> bindPopupModelFactory() {
@@ -76,23 +78,27 @@ public class WorkflowServerRuntimeModule extends ServerModule {
 	}
 
 	@Override
-	protected void multiBindOperationHandlers() {
-		bindOperationHandler().to(CreateAutomatedTaskHandler.class);
-		bindOperationHandler().to(CreateManualTaskHandler.class);
-		bindOperationHandler().to(CreateDecisionNodeHandler.class);
-		bindOperationHandler().to(CreateMergeNodeHandler.class);
-		bindOperationHandler().to(CreateWeightedEdgeHandler.class);
-		bindOperationHandler().to(CreateEdgeHandler.class);
-		bindOperationHandler().to(ReconnectEdgeHandler.class);
-		bindOperationHandler().to(RerouteEdgeHandler.class);
-		bindOperationHandler().to(DeleteWorkflowElementHandler.class);
-		bindOperationHandler().to(ChangeBoundsOperationHandler.class);
-		bindOperationHandler().to(DeleteHandler.class);
+	protected Collection<Class<? extends OperationHandler>> bindOperationHandlers() {
+		return new ArrayList<Class<? extends OperationHandler>>() {
+			{
+				add(CreateAutomatedTaskHandler.class);
+				add(CreateManualTaskHandler.class);
+				add(CreateDecisionNodeHandler.class);
+				add(CreateMergeNodeHandler.class);
+				add(CreateWeightedEdgeHandler.class);
+				add(CreateEdgeHandler.class);
+				add(ReconnectEdgeHandler.class);
+				add(RerouteEdgeHandler.class);
+				add(DeleteWorkflowElementHandler.class);
+				add(ChangeBoundsOperationHandler.class);
+				add(DeleteOperationHandler.class);
+			}
+		};
 	}
 
 	@Override
-	protected void multiBindServerCommandHandlers() {
-		bindServerCommandHandler().to(SimulateCommandHandler.class);
+	protected Collection<Class<? extends ServerCommandHandler>> bindServerCommandHandlers() {
+		return Arrays.asList(SimulateCommandHandler.class);
 	}
 
 	@Override
@@ -100,4 +106,8 @@ public class WorkflowServerRuntimeModule extends ServerModule {
 		return WorkflowModelValidator.class;
 	}
 
+	@Override
+	protected Collection<Class<? extends DiagramManager>> bindDiagramHandlers() {
+		return Arrays.asList(WorkflowDiagramManager.class);
+	}
 }

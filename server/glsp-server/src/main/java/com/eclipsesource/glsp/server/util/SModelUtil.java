@@ -13,25 +13,23 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.server.provider;
+package com.eclipsesource.glsp.server.util;
 
-import java.util.Set;
+import java.util.function.Function;
 
-import com.eclipsesource.glsp.api.handler.ActionHandler;
-import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
-import com.google.inject.Inject;
+import org.eclipse.sprotty.SModelElement;
 
-public class DefaultActionHandlerProvider implements ActionHandlerProvider {
-	private Set<ActionHandler> handlers;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 
-	@Inject
-	public DefaultActionHandlerProvider(Set<ActionHandler> handlers) {
-		this.handlers = handlers;
+public final class SModelUtil {
+	private SModelUtil() {
 	}
 
-	@Override
-	public Set<ActionHandler> getHandlers() {
-		return handlers;
+	public static int generateId(SModelElement element, String id, GraphicalModelState modelState) {
+		Function<Integer, String> idProvider = i -> id + i;
+		int count = modelState.getIndex().getCounter(element.getType(), idProvider);
+		element.setId(idProvider.apply(count));
+		return count;
 	}
 
 }

@@ -15,91 +15,29 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.handler;
 
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.WEIGHTED_EDGE;
-
-import java.util.Optional;
-
-import org.apache.log4j.Logger;
+import org.eclipse.sprotty.SEdge;
 import org.eclipse.sprotty.SModelElement;
-import org.eclipse.sprotty.SModelRoot;
-import org.eclipse.sprotty.SNode;
 
-import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
-import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
-import com.eclipsesource.glsp.api.handler.OperationHandler;
-import com.eclipsesource.glsp.api.model.ModelState;
-import com.eclipsesource.glsp.api.utils.SModelIndex;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.example.workflow.schema.ModelTypes;
 import com.eclipsesource.glsp.example.workflow.schema.WeightedEdge;
+import com.eclipsesource.glsp.server.operationhandler.CreateConnectionOperationHandler;
 
-public class CreateWeightedEdgeHandler implements OperationHandler {
-	private static Logger log = Logger.getLogger(CreateWeightedEdgeHandler.class);
+public class CreateWeightedEdgeHandler extends CreateConnectionOperationHandler {
 
-	@Override
-	public boolean handles(AbstractOperationAction execAction) {
-		if (execAction instanceof CreateConnectionOperationAction) {
-			CreateConnectionOperationAction action = (CreateConnectionOperationAction) execAction;
-			return ModelTypes.WEIGHTED_EDGE.equals(action.getElementTypeId());
-		}
-		return false;
+	public CreateWeightedEdgeHandler() {
+		super(ModelTypes.WEIGHTED_EDGE);
+
 	}
 
 	@Override
-	public Optional<SModelRoot> execute(AbstractOperationAction operationAction, ModelState modelState) {
-		CreateConnectionOperationAction action = (CreateConnectionOperationAction) operationAction;
-		if (action.getSourceElementId() == null || action.getTargetElementId() == null) {
-			log.warn("Incomplete create connection action");
-			return Optional.empty();
-		}
-
-		SModelIndex index = modelState.getCurrentModelIndex();
-
-		SModelElement source = index.get(action.getSourceElementId());
-		SModelElement target = index.get(action.getTargetElementId());
-
-		if (source == null || target == null) {
-			log.warn("NULL source or target for source ID " + action.getSourceElementId() + " and target ID "
-					+ action.getTargetElementId());
-			return Optional.empty();
-		}
-
-		if (false == source instanceof SNode) {
-			source = findNode(source, index);
-		}
-		if (false == target instanceof SNode) {
-			target = findNode(target, index);
-		}
-
-		SModelRoot currentModel = modelState.getCurrentModel();
-		if (source == currentModel || target == currentModel) {
-			log.warn("Can't create a link to the root node");
-			return Optional.empty();
-		}
-
+	protected SEdge createConnection(SModelElement source, SModelElement target, GraphicalModelState modelState) {
 		WeightedEdge edge = new WeightedEdge();
 		edge.setSourceId(source.getId());
 		edge.setTargetId(target.getId());
-		edge.setType(WEIGHTED_EDGE);
-		int newID = index.getTypeCount(WEIGHTED_EDGE);
-		edge.setId(WEIGHTED_EDGE + newID);
+		edge.setType(elementTypeId);
 		edge.setProbability("high");
-
-		currentModel.getChildren().add(edge);
-		index.addToIndex(edge, currentModel);
-
-		return Optional.of(currentModel);
-	}
-
-	private SModelElement findNode(SModelElement element, com.eclipsesource.glsp.api.utils.SModelIndex index) {
-		if (element instanceof SNode) {
-			return element;
-		}
-
-		SModelElement parent = index.getParent(element);
-		if (parent == null) {
-			return element;
-		}
-		return findNode(parent, index);
+		return edge;
 	}
 
 }

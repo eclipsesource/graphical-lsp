@@ -15,20 +15,16 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.actionhandler;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Optional;
 
 import org.eclipse.sprotty.SModelElement;
 import org.eclipse.sprotty.SModelRoot;
 
-import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestPopupModelAction;
 import com.eclipsesource.glsp.api.action.kind.SetPopupModelAction;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
-import com.eclipsesource.glsp.api.model.ModelState;
-import com.eclipsesource.glsp.api.utils.SModelIndex;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.google.inject.Inject;
 
 public class RequestPopupModelActionHandler extends AbstractActionHandler {
@@ -36,18 +32,18 @@ public class RequestPopupModelActionHandler extends AbstractActionHandler {
 	private PopupModelFactory popupModelFactory;
 
 	@Override
-	protected Collection<Action> handleableActionsKinds() {
-		return Arrays.asList(new RequestPopupModelAction());
+	public boolean handles(Action action) {
+		return action instanceof RequestPopupModelAction;
 	}
 
 	@Override
-	public Optional<Action> execute(Action action, ModelState modelState) {
+	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		if (action instanceof RequestPopupModelAction) {
 			RequestPopupModelAction requestAction = (RequestPopupModelAction) action;
-			SModelRoot model = modelState.getCurrentModel();
-			SModelElement element = SModelIndex.find(model, requestAction.getElementId());
-			if (popupModelFactory != null) {
-				SModelRoot popupModel = popupModelFactory.createPopuModel(element, requestAction);
+			SModelRoot model = modelState.getRoot();
+			Optional<SModelElement> element = modelState.getIndex().get(requestAction.getElementId());
+			if (popupModelFactory != null && element.isPresent()) {
+				SModelRoot popupModel = popupModelFactory.createPopuModel(element.get(), requestAction);
 				if (popupModel != null) {
 					return Optional.of(new SetPopupModelAction(popupModel, requestAction.getBounds()));
 				}

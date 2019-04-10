@@ -13,13 +13,25 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.action.kind;
+package com.eclipsesource.glsp.server.provider;
 
-import com.eclipsesource.glsp.api.action.Action;
+import java.util.Set;
 
-public class RequestTypeHints extends Action {
+import com.eclipsesource.glsp.api.handler.OperationHandler;
+import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
+import com.google.inject.Inject;
 
-	public RequestTypeHints() {
-		super(Action.Kind.REQUEST_TYPE_HINTS);
+public class DIOperationHandlerProvider implements OperationHandlerProvider {
+	private Set<OperationHandler> handlers;
+
+	@Inject
+	public DIOperationHandlerProvider(Set<OperationHandler> handlers) {
+		this.handlers = handlers;
 	}
+
+	@Override
+	public Set<OperationHandler> getOperationHandlers() {
+		return handlers;
+	}
+
 }

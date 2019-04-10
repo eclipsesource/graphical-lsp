@@ -15,18 +15,16 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.actionhandler;
 
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import org.eclipse.sprotty.SModelRoot;
 
-import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestCommandPaletteActions;
 import com.eclipsesource.glsp.api.action.kind.SetCommandPaletteActions;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.provider.CommandPaletteActionProvider;
 import com.eclipsesource.glsp.api.types.LabeledAction;
 import com.google.inject.Inject;
@@ -36,16 +34,16 @@ public class RequestCommandPaletteActionsHandler extends AbstractActionHandler {
 	private CommandPaletteActionProvider commandPaletteActionProvider;
 
 	@Override
-	protected Collection<Action> handleableActionsKinds() {
-		return Arrays.asList(new RequestCommandPaletteActions());
+	public boolean handles(Action action) {
+		return action instanceof RequestCommandPaletteActions;
 	}
 
 	@Override
-	public Optional<Action> execute(Action action, ModelState modelState) {
+	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		if (action instanceof RequestCommandPaletteActions) {
 			RequestCommandPaletteActions paletteAction = (RequestCommandPaletteActions) action;
-			SModelRoot root = modelState.getCurrentModel();
-			String[] selectedElementsIDs = paletteAction.getSelectedElementsIDs();
+			SModelRoot root = modelState.getRoot();
+			List<String> selectedElementsIDs = paletteAction.getSelectedElementsIDs();
 			Set<LabeledAction> commandPaletteActions = commandPaletteActionProvider.getActions(root,
 					selectedElementsIDs);
 			return Optional.of(new SetCommandPaletteActions(commandPaletteActions));

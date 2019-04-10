@@ -20,16 +20,16 @@ import java.util.List;
 
 import org.eclipse.sprotty.SModelElement;
 
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 
 public interface ModelValidator {
 
-	public List<Marker> validate(ModelState modelState, SModelElement... elements);
+	public List<Marker> validate(GraphicalModelState modelState, SModelElement... elements);
 
 	final static class NullImpl implements ModelValidator {
 
 		@Override
-		public List<Marker> validate(ModelState modelState, SModelElement... elements) {
+		public List<Marker> validate(GraphicalModelState modelState, SModelElement... elements) {
 			return Collections.emptyList();
 		}
 	}

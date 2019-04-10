@@ -15,15 +15,14 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.actionhandler;
 
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
-import com.eclipsesource.glsp.api.action.AbstractActionHandler;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestOperationsAction;
 import com.eclipsesource.glsp.api.action.kind.SetOperationsAction;
-import com.eclipsesource.glsp.api.model.ModelState;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.operations.Operation;
 import com.eclipsesource.glsp.api.operations.OperationConfiguration;
 import com.google.inject.Inject;
@@ -33,17 +32,17 @@ public class RequestOperationsHandler extends AbstractActionHandler {
 	private OperationConfiguration operationConfiguration;
 
 	@Override
-	protected Collection<Action> handleableActionsKinds() {
-		return Arrays.asList(new RequestOperationsAction());
+	public boolean handles(Action action) {
+		return action instanceof RequestOperationsAction;
 	}
 
 	@Override
-	public Optional<Action> execute(Action action, ModelState modelState) {
+	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		if (action instanceof RequestOperationsAction) {
 			RequestOperationsAction requestAction = (RequestOperationsAction) action;
-			Optional<Operation[]> operations = Optional.ofNullable(operationConfiguration)
+			Optional<List<Operation>> operations = Optional.ofNullable(operationConfiguration)
 					.map(config -> config.getOperations(requestAction));
-			return Optional.of(new SetOperationsAction(operations.orElse(new Operation[0])));
+			return Optional.of(new SetOperationsAction(operations.orElse(Collections.emptyList())));
 		}
 		return Optional.empty();
 	}

@@ -15,39 +15,47 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 import org.eclipse.sprotty.ServerStatus;
+import org.eclipse.sprotty.ServerStatus.Severity;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.ActionMessage;
-import com.eclipsesource.glsp.api.action.ActionRegistry;
 import com.eclipsesource.glsp.api.action.kind.IdentifiableRequestAction;
 import com.eclipsesource.glsp.api.action.kind.IdentifiableResponseAction;
+import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
+import com.eclipsesource.glsp.api.action.kind.ServerStatusAction;
+import com.eclipsesource.glsp.api.diagram.DiagramManager;
+import com.eclipsesource.glsp.api.diagram.DiagramHandlerProvider;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPClient;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
-import com.eclipsesource.glsp.api.model.ModelState;
-import com.eclipsesource.glsp.server.model.ModelStateImpl;
+import com.eclipsesource.glsp.api.model.ModelStateProvider;
+import com.eclipsesource.glsp.api.utils.ClientOptions;
+import com.eclipsesource.glsp.api.utils.ClientOptions.ParsedClientOptions;
 
 public class DefaultGLSPServer implements GLSPServer {
 
+	@Inject
+	private DiagramHandlerProvider diagramHandlerProvider;
+	@Inject
+	private ModelStateProvider modelStateProvider;
 	static Logger log = Logger.getLogger(DefaultGLSPServer.class);
 
 	private ServerStatus status;
-	private ActionRegistry actionRegistry;
-	private GLSPClient clientProxy;
-	private Map<String, ModelState> clientModelStates;
 
-	@Inject
-	public DefaultGLSPServer(ActionRegistry actionRegistry) {
-		this.actionRegistry = actionRegistry;
-		clientModelStates = new ConcurrentHashMap<>();
+	private GLSPClient clientProxy;
+
+	private Map<String, DiagramManager> clientIdtoDiagramServer;
+
+	public DefaultGLSPServer() {
+		clientIdtoDiagramServer = new HashMap<>();
 	}
 
 	@Override
@@ -57,13 +65,13 @@ public class DefaultGLSPServer implements GLSPServer {
 	@Override
 	public void connect(GLSPClient clientProxy) {
 		this.clientProxy = clientProxy;
+		status = new ServerStatus(Severity.OK, "Connection successfull");
 	}
 
 	@Override
 	public void process(ActionMessage message) {
 		log.debug("process " + message);
 		String clientId = message.getClientId();
-		ModelState modelState = getModelState(clientId);
 
 		Action requestAction = message.getAction();
 		Optional<String> requestId = Optional.empty();
@@ -72,24 +80,55 @@ public class DefaultGLSPServer implements GLSPServer {
 			requestId = Optional.of(((IdentifiableRequestAction) requestAction).getId());
 			requestAction = ((IdentifiableRequestAction) requestAction).getAction();
 		}
-		if (actionRegistry.hasHandler(requestAction)) {
-			Optional<Action> responseOpt = actionRegistry.delegateToHandler(requestAction, modelState);
-			if (responseOpt.isPresent()) {
-				// wrap identifiable response if necessary
-				Action response = requestId.<Action>map(id -> new IdentifiableResponseAction(id, responseOpt.get()))
-						.orElse(responseOpt.get());
-				ActionMessage responseMessage = new ActionMessage(clientId, response);
-				clientProxy.process(responseMessage);
+
+		if (requestAction instanceof RequestModelAction) {
+			ParsedClientOptions options = ClientOptions.parse(((RequestModelAction) requestAction).getOptions());
+			Optional<String> diagramType = options.getDiagramType();
+			Optional<DiagramManager> diagramServer = getOrCreateDiagramServer(clientId, diagramType);
+			if (!diagramServer.isPresent()) {
+				ServerStatus status = new ServerStatus(Severity.ERROR,
+						String.format("Could not retrieve diagram server of type '%s' for client '%s'",
+								diagramType.orElse("undefined"), clientId));
+				clientProxy.process(new ActionMessage(clientId, new ServerStatusAction(status)));
+				return;
+			} else {
+				clientIdtoDiagramServer.put(clientId, diagramServer.get());
 			}
-		} else {
-			log.warn("No action handler registered for action kind: \"" + message.getAction().getKind() + "\"");
+
 		}
 
+		DiagramManager diagramServer = clientIdtoDiagramServer.get(clientId);
+		Optional<Action> responseOpt = diagramServer.execute(clientId, requestAction);
+
+		if (responseOpt.isPresent()) {
+			// wrap identifiable response if necessary
+			Action response = requestId.<Action>map(id -> new IdentifiableResponseAction(id, responseOpt.get()))
+					.orElse(responseOpt.get());
+			ActionMessage responseMessage = new ActionMessage(clientId, response);
+			clientProxy.process(responseMessage);
+		}
 	}
 
-	@Override
-	public void setStatus(ServerStatus status) {
-		this.status = status;
+	private Optional<DiagramManager> getOrCreateDiagramServer(String clientId, Optional<String> diagramType) {
+		if (diagramType.isPresent()) {
+			Optional<DiagramManager> existingServer = getDiagramServer(clientId, diagramType.get());
+			return existingServer.isPresent() ? existingServer : diagramHandlerProvider.get(diagramType.get());
+		} else {
+			if (clientIdtoDiagramServer.get(clientId) != null) {
+				return Optional.of(clientIdtoDiagramServer.get(clientId));
+			} else {
+				return diagramHandlerProvider.createDefault();
+			}
+		}
+	}
+
+	private Optional<DiagramManager> getDiagramServer(String clientId, String diagramType) {
+		DiagramManager server = clientIdtoDiagramServer.get(clientId);
+		return server != null && server.getDiagramType().equals(diagramType) ? Optional.of(server) : Optional.empty();
+	}
+
+	public ServerStatus getStatus() {
+		return status;
 	}
 
 	@Override
@@ -98,19 +137,7 @@ public class DefaultGLSPServer implements GLSPServer {
 	}
 
 	@Override
-	public void exit() {
-		// TODO Auto-generated method stub
+	public void exit(String clientId) {
+		modelStateProvider.remove(clientId);
 	}
-
-	@Override
-	public synchronized ModelState getModelState(String clientId) {
-		ModelState modelState = clientModelStates.get(clientId);
-		if (modelState == null) {
-			modelState = new ModelStateImpl();
-			modelState.setClientId(clientId);
-			clientModelStates.put(clientId, modelState);
-		}
-		return modelState;
-	}
-
 }

@@ -16,9 +16,9 @@
 package com.eclipsesource.glsp.example.workflow.handler;
 
 import com.eclipsesource.glsp.api.handler.OperationHandler;
-import com.eclipsesource.glsp.server.operationhandler.DeleteHandler;
+import com.eclipsesource.glsp.server.operationhandler.DeleteOperationHandler;
 
-public class DeleteWorkflowElementHandler extends DeleteHandler implements OperationHandler {
+public class DeleteWorkflowElementHandler extends DeleteOperationHandler implements OperationHandler {
 
 	// Nothing special, yet. Just reuse the default implementation
 

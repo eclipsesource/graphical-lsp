@@ -15,13 +15,13 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.utils;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -102,12 +102,12 @@ public class SModelIndex {
 
 	private void indexSourceAndTarget(SEdge edge) {
 		String sourceId = edge.getSourceId();
-		SModelElement source = get(sourceId);
-		outgoingEdges.computeIfAbsent(source, s -> new HashSet<>()).add(edge);
+		Optional<SModelElement> source = get(sourceId);
+		outgoingEdges.computeIfAbsent(source.orElseGet(null), s -> new HashSet<>()).add(edge);
 
 		String targetId = edge.getTargetId();
-		SModelElement target = get(targetId);
-		incomingEdges.computeIfAbsent(target, t -> new HashSet<>()).add(edge);
+		Optional<SModelElement> target = get(targetId);
+		incomingEdges.computeIfAbsent(target.orElseGet(null), t -> new HashSet<>()).add(edge);
 	}
 
 	public SModelElement getParent(SModelElement element) {
@@ -126,7 +126,11 @@ public class SModelIndex {
 	 * @return an optional with the element of type clazz or an empty optional
 	 */
 	public <T extends SModelElement> Optional<T> findElement(String elementId, Class<T> clazz) {
-		return findElement(get(elementId), clazz);
+		Optional<SModelElement> element = get(elementId);
+		if (element.isPresent()) {
+			return findElement(element.get(), clazz);
+		}
+		return Optional.empty();
 	}
 
 	/**
@@ -155,12 +159,12 @@ public class SModelIndex {
 		return idToElement.keySet();
 	}
 
-	public SModelElement get(String elementId) {
-		return idToElement.get(elementId);
+	public Optional<SModelElement> get(String elementId) {
+		return Optional.ofNullable(idToElement.get(elementId));
 	}
 
-	public Set<SModelElement> getAll(String... elementIds) {
-		return Arrays.stream(elementIds).map(this::get).collect(Collectors.toSet());
+	public Set<SModelElement> getAll(Collection<String> elementIds) {
+		return elementIds.stream().map(this::get).map(Optional::get).collect(Collectors.toSet());
 	}
 
 	public Set<SModelElement> getAllByType(String type) {
@@ -189,26 +193,6 @@ public class SModelIndex {
 		return findAll(this.parent, type);
 	}
 
-	/**
-	 * Find a single model element without building an index first. If you need to
-	 * find multiple elements, creating an {@link SModelIndex} instance is more
-	 * effective.
-	 */
-	public static SModelElement find(SModelElement parent, String elementId) {
-		if (elementId != null) {
-			if (elementId.equals(parent.getId()))
-				return parent;
-			if (parent.getChildren() != null) {
-				for (SModelElement child : parent.getChildren()) {
-					SModelElement result = find(child, elementId);
-					if (result != null)
-						return result;
-				}
-			}
-		}
-		return null;
-	}
-
 	public static <T extends SModelElement> Set<T> findAll(SModelElement parent, Class<T> type) {
 		return getStream(parent).flatMap(SModelIndex::getStream).filter(type::isInstance).map(type::cast)
 				.collect(Collectors.toSet());
@@ -222,5 +206,17 @@ public class SModelIndex {
 			return Stream.of(element);
 		}
 		return Stream.concat(Stream.of(element), element.getChildren().stream());
+	}
+
+	public int getCounter(String type, Function<Integer, String> idProvider) {
+		int i = getTypeCount(type);
+		while (true) {
+			String id = idProvider.apply(i);
+			if (!get(id).isPresent()) {
+				break;
+			}
+			i++;
+		}
+		return i;
 	}
 }

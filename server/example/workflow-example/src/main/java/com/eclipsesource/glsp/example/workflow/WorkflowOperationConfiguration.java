@@ -22,16 +22,18 @@ import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.MANUAL_T
 import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.MERGE_NODE;
 import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.WEIGHTED_EDGE;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.eclipsesource.glsp.api.action.kind.RequestOperationsAction;
 import com.eclipsesource.glsp.api.operations.Group;
 import com.eclipsesource.glsp.api.operations.Operation;
-import com.eclipsesource.glsp.api.operations.Group;
 import com.eclipsesource.glsp.api.operations.OperationConfiguration;
 
 public class WorkflowOperationConfiguration implements OperationConfiguration {
 
 	@Override
-	public Operation[] getOperations(RequestOperationsAction action) {
+	public List<Operation> getOperations(RequestOperationsAction action) {
 		Group nodeGroup = new Group("workflow.nodes", "Nodes");
 		Group edgeGroup = new Group("workflow.edges", "Edges");
 		Operation createAutomatedTask = new Operation("Automated Task", AUTOMATED_TASK, Operation.Kind.CREATE_NODE,
@@ -44,9 +46,8 @@ public class WorkflowOperationConfiguration implements OperationConfiguration {
 				edgeGroup);
 		Operation createEdge = new Operation("Edge", EDGE, Operation.Kind.CREATE_CONNECTION, edgeGroup);
 
-		Operation[] operations = { createAutomatedTask, createManualTask, createDecisionNode, createMergeNode,
-				createWeightedEdge, createEdge };
-		return operations;
-	}
+		return Arrays.asList(createAutomatedTask, createManualTask, createDecisionNode, createMergeNode,
+				createWeightedEdge, createEdge);
 
+	}
 }

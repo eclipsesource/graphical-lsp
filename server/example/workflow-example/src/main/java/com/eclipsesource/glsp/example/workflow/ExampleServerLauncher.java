@@ -26,7 +26,7 @@ public class ExampleServerLauncher {
 
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
-		ServerLauncher launcher = new ServerLauncher("localhost", 5007, new WorkflowServerRuntimeModule());
+		ServerLauncher launcher = new ServerLauncher("localhost", 5007, new WorkflowGLSPModule());
 		try {
 			launcher.run();
 		} catch (IOException e) {

@@ -15,32 +15,36 @@
  ********************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import java.util.Arrays;
+import java.util.List;
 
 import com.eclipsesource.glsp.api.action.Action;
 
 public class RequestMarkersAction extends Action {
 
-	private String[] elementsIDs;
+	private List<String> elementsIDs;
 
 	public RequestMarkersAction() {
 		super(Action.Kind.REQUEST_MARKERS);
 	}
 
-	public RequestMarkersAction(String[] elementsIDs) {
+	public RequestMarkersAction(List<String> elementsIDs) {
 		this();
 		this.elementsIDs = elementsIDs;
 	}
 
-	public String[] getElementsIDs() {
+	public List<String> getElementsIDs() {
 		return elementsIDs;
+	}
+
+	public void setElementsIDs(List<String> elementsIDs) {
+		this.elementsIDs = elementsIDs;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Arrays.hashCode(elementsIDs);
+		result = prime * result + ((elementsIDs == null) ? 0 : elementsIDs.hashCode());
 		return result;
 	}
 
@@ -53,7 +57,10 @@ public class RequestMarkersAction extends Action {
 		if (getClass() != obj.getClass())
 			return false;
 		RequestMarkersAction other = (RequestMarkersAction) obj;
-		if (!Arrays.equals(elementsIDs, other.elementsIDs))
+		if (elementsIDs == null) {
+			if (other.elementsIDs != null)
+				return false;
+		} else if (!elementsIDs.equals(other.elementsIDs))
 			return false;
 		return true;
 	}
