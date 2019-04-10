@@ -13,25 +13,24 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import { inject, injectable } from "inversify";
+import {
+    Action,
+    Command,
+    CommandExecutionContext,
+    CommandResult,
+    SIssue,
+    SIssueMarker,
+    SModelElement,
+    SParentElement,
+    TYPES
+} from "sprotty/lib";
 
-import { Action } from "sprotty/lib";
-import { Command } from "sprotty/lib";
-import { CommandExecutionContext } from "sprotty/lib";
-import { CommandResult } from "sprotty/lib";
-import { FeedbackCommand } from "../tool-feedback/model";
 import { GLSP_TYPES } from "../../types";
-import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
-import { IFeedbackEmitter } from "../tool-feedback/feedback-action-dispatcher";
-import { Marker } from "../../utils/marker";
-import { MarkerKind } from "../../utils/marker";
-import { SIssue } from "sprotty/lib";
-import { SIssueMarker } from "sprotty/lib";
-import { SModelElement } from "sprotty/lib";
-import { SParentElement } from "sprotty/lib";
-import { TYPES } from "sprotty/lib";
+import { Marker, MarkerKind } from "../../utils/marker";
+import { IFeedbackActionDispatcher, IFeedbackEmitter } from "../tool-feedback/feedback-action-dispatcher";
+import { FeedbackCommand } from "../tool-feedback/model";
 
-import { inject } from "inversify";
-import { injectable } from "inversify";
 
 /**
  * Action to retrieve markers for a model
@@ -42,6 +41,20 @@ export class RequestMarkersAction implements Action {
     readonly kind = RequestMarkersAction.KIND;
 
     constructor(public readonly elementsIDs: string[] = []) { }
+}
+
+@injectable()
+export class ValidationFeedbackEmitter implements IFeedbackEmitter {
+
+    @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackActionDispatcher: IFeedbackActionDispatcher;
+
+    private constructor() { }
+
+    registerValidationFeedbackAction(action: Action[]) {
+        this.feedbackActionDispatcher.deregisterFeedback(this, []);
+        this.feedbackActionDispatcher.registerFeedback(this, action);
+    }
+
 }
 
 /**
@@ -58,7 +71,7 @@ export class SetMarkersAction implements Action {
 @injectable()
 export class SetMarkersCommand extends Command {
 
-    @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackActionDispatcher: IFeedbackActionDispatcher;
+    @inject(ValidationFeedbackEmitter) protected validationFeedbackEmitter: ValidationFeedbackEmitter;
 
     static readonly KIND = 'setMarkers';
 
@@ -66,55 +79,21 @@ export class SetMarkersCommand extends Command {
         super();
     }
 
-    /**
-     * Creates SIssueMarkers for all received markers and adds them to the respective SModelElements
-     * @param context Context of the command execution
-     */
     execute(context: CommandExecutionContext): CommandResult {
         const markers: Marker[] = this.action.markers;
-
-        // Unregister action for re-applying _old_ markers whenever the model is updated
-        const registeredAction: Action | undefined = this.feedbackActionDispatcher.getRegisteredFeedback().find(a => a instanceof ApplyMarkersAction);
-        if (registeredAction !== undefined) {
-            const registeredEmitter: IFeedbackEmitter[] = this.feedbackActionDispatcher.getRegisteredFeedbackEmitters(registeredAction);
-            registeredEmitter.forEach(emitter => this.feedbackActionDispatcher.deregisterFeedback(emitter, [registeredAction]));
-        }
-
-        // Register action for re-applying _new_ markers whenever the model is updated
-        this.feedbackActionDispatcher.registerFeedback(this, [new ApplyMarkersAction(markers)]);
-
+        const applyMarkersAction: ApplyMarkersAction = new ApplyMarkersAction(markers);
+        this.validationFeedbackEmitter.registerValidationFeedbackAction([applyMarkersAction]);
         return context.root;
     }
 
     undo(context: CommandExecutionContext): CommandResult {
+        this.validationFeedbackEmitter.registerValidationFeedbackAction([]);
         return context.root;
     }
 
     redo(context: CommandExecutionContext): CommandResult {
         return this.execute(context);
     }
-}
-
-function createSIssue(marker: Marker): SIssue {
-    const issue: SIssue = new SIssue();
-    issue.message = marker.description;
-
-    switch (marker.kind) {
-        case MarkerKind.ERROR: {
-            issue.severity = 'error';
-            break;
-        }
-        case MarkerKind.INFO: {
-            issue.severity = 'info';
-            break;
-        }
-        case MarkerKind.WARNING: {
-            issue.severity = 'warning';
-            break;
-        }
-    }
-
-    return issue;
 }
 
 /**
@@ -196,4 +175,26 @@ function getOrCreateSIssueMarker(modelElement: SParentElement): SIssueMarker {
     }
 
     return issueMarker;
+}
+
+function createSIssue(marker: Marker): SIssue {
+    const issue: SIssue = new SIssue();
+    issue.message = marker.description;
+
+    switch (marker.kind) {
+        case MarkerKind.ERROR: {
+            issue.severity = 'error';
+            break;
+        }
+        case MarkerKind.INFO: {
+            issue.severity = 'info';
+            break;
+        }
+        case MarkerKind.WARNING: {
+            issue.severity = 'warning';
+            break;
+        }
+    }
+
+    return issue;
 }
