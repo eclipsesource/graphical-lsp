@@ -13,31 +13,14 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { SEdgeSchema, SNodeSchema } from "@glsp/sprotty-client/lib";
+import { BaseGLSPClientContribution } from "@glsp/theia-integration/lib/browser";
+import { injectable } from "inversify";
 
-export namespace ActivityNodeSchema {
-    export namespace Type {
-        export const INITIAL = 'initalNode';
-        export const FINAL = 'finalNode';
-        export const DECISION = 'decisionNode';
-        export const MERGE = 'mergeNode';
-        export const JOIN = 'joinNode';
-        export const FORK = 'forkNode';
-        export const UNDEFINED = "undefined";
-    }
-}
+import { WorkflowLanguage } from "../../common/workflow-language";
 
-export interface TaskNodeSchema extends SNodeSchema {
-    name?: string
-    duration?: number
-    taskType?: string
-    reference?: string
-}
-
-export interface WeightedEdgeSchema extends SEdgeSchema {
-    probability?: string
-}
-
-export interface ActivityNodeSchema extends SNodeSchema {
-    nodeType: string
+@injectable()
+export class WorkflowGLSPClientContribution extends BaseGLSPClientContribution {
+    readonly id = WorkflowLanguage.Id;
+    readonly name = WorkflowLanguage.Name;
+    readonly fileExtensions = [WorkflowLanguage.FileExtension];
 }

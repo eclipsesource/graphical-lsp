@@ -13,31 +13,17 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { SEdgeSchema, SNodeSchema } from "@glsp/sprotty-client/lib";
+import { ActionMessage } from "@glsp/sprotty-client/lib";
+import { NotificationType, NotificationType0, RequestType0 } from "vscode-jsonrpc";
 
-export namespace ActivityNodeSchema {
-    export namespace Type {
-        export const INITIAL = 'initalNode';
-        export const FINAL = 'finalNode';
-        export const DECISION = 'decisionNode';
-        export const MERGE = 'mergeNode';
-        export const JOIN = 'joinNode';
-        export const FORK = 'forkNode';
-        export const UNDEFINED = "undefined";
-    }
+export namespace ActionMessageNotification {
+    export const type = new NotificationType<ActionMessage, void>('process');
 }
 
-export interface TaskNodeSchema extends SNodeSchema {
-    name?: string
-    duration?: number
-    taskType?: string
-    reference?: string
+export namespace ShutdownRequest {
+    export const type = new RequestType0<void, void, void>('shutdown');
 }
 
-export interface WeightedEdgeSchema extends SEdgeSchema {
-    probability?: string
-}
-
-export interface ActivityNodeSchema extends SNodeSchema {
-    nodeType: string
+export namespace ExitNotification {
+    export const type = new NotificationType0<void>('exit');
 }

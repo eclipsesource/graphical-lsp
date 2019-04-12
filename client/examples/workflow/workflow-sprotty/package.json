@@ -1,7 +1,7 @@
 {
   "name": "workflow-sprotty",
   "version": "0.1.0",
-  "description": "sprotty diagrams for the Workflow DSL",
+  "description": "GLSP sprotty diagrams for the Workflow DSL",
   "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
   "author": "EclipseSource",
   "keywords": [
@@ -10,17 +10,18 @@
     "diagram"
   ],
   "dependencies": {
-    "glsp-sprotty": "0.4.4"
+    "@glsp/sprotty-client": "^0.1.0"
   },
   "devDependencies": {
-    "rimraf": "latest",
-    "typescript": "latest"
+    "tslint": "^5.5.0",
+    "typescript": "3.4.3",
+    "rimraf": "^2.6.1"
   },
   "scripts": {
     "prepare": "yarn run clean && yarn run build",
     "clean": "rimraf lib",
     "build": "tsc && yarn run lint",
-    "lint" : "tslint -c ../../../configs/tslint.json --project ./tsconfig.json",
+    "lint": "tslint -c ../../../configs/tslint.json --project ./tsconfig.json",
     "watch": "tsc -w"
   },
   "files": [

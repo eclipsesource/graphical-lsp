@@ -61,8 +61,8 @@ import {
     TYPES,
     validationModule,
     viewportModule
-} from "glsp-sprotty/lib";
-import executeCommandModule from "glsp-sprotty/lib/features/execute/di.config";
+} from "@glsp/sprotty-client/lib";
+import executeCommandModule from "@glsp/sprotty-client/lib/features/execute/di.config";
 import { Container, ContainerModule } from "inversify";
 
 import { ActivityNode, Icon, TaskNode, WeightedEdge } from "./model";
