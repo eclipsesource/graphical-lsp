@@ -12,6 +12,8 @@
     "glsp",
     "diagram editor"
   ],
+  "homepage": "https://github.com/eclipsesource/graphical-lsp",
+  "bugs": "https://github.com/eclipsesource/graphical-lsp/issues",
   "files": [
     "lib",
     "src",
@@ -19,6 +21,10 @@
   ],
   "author": {
     "name": "EclipseSource"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eclipsesource/graphical-lsp.git"
   },
   "dependencies": {
     "autocompleter": "^4.0.2",
