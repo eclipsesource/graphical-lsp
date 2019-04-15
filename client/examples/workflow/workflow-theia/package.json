@@ -1,5 +1,5 @@
 {
-  "name": "workflow-glsp",
+  "name": "@glsp-examples/workflow-theia",
   "keywords": [
     "theia-extension"
   ],
@@ -14,19 +14,19 @@
     "name": "EclipseSource"
   },
   "dependencies": {
+    "@glsp/theia-integration": "^0.1.0",
     "@theia/core": "^0.4.0",
     "@theia/editor": "^0.4.0",
     "@theia/filesystem": "^0.4.0",
     "@theia/languages": "^0.4.0",
     "@theia/monaco": "^0.4.0",
     "@types/node": "^8.0.14",
-    "workflow-sprotty": "0.1.0",
-    "@glsp/theia-integration": "0.1.0"
+    "@glsp-examples/workflow-sprotty": "^0.1.0"
   },
   "devDependencies": {
+    "rimraf": "^2.6.1",
     "tslint": "^5.5.0",
-    "typescript": "3.4.3",
-    "rimraf": "^2.6.1"
+    "typescript": "3.4.3"
   },
   "scripts": {
     "prepare": "yarn run clean && yarn run build",

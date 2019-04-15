@@ -31,9 +31,9 @@
     "sprotty": "^0.6.0"
   },
   "devDependencies": {
+    "rimraf": "^2.6.1",
     "tslint": "^5.5.0",
-    "typescript": "3.4.3",
-    "rimraf": "^2.6.1"
+    "typescript": "3.4.3"
   },
   "scripts": {
     "prepare": "yarn run clean && yarn run build",

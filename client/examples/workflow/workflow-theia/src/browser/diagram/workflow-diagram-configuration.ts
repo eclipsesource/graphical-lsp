@@ -15,12 +15,12 @@
  ********************************************************************************/
 import "sprotty-theia/css/theia-sprotty.css";
 
+import { createWorkflowDiagramContainer } from "@glsp-examples/workflow-sprotty/lib";
 import { registerDefaultTools, TYPES } from "@glsp/sprotty-client/lib";
 import { GLSPTheiaDiagramServer } from "@glsp/theia-integration/lib/browser";
 import { SelectionService } from "@theia/core";
 import { Container, inject, injectable } from "inversify";
 import { DiagramConfiguration, TheiaDiagramServer, TheiaSprottySelectionForwarder } from "sprotty-theia/lib";
-import { createWorkflowDiagramContainer } from "workflow-sprotty/lib";
 
 import { WorkflowLanguage } from "../../common/workflow-language";
 

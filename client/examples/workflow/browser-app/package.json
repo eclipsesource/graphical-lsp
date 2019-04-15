@@ -16,7 +16,7 @@
     "@theia/monaco": "^0.4.0",
     "@theia/typescript": "^0.4.0",
     "@theia/messages": "^0.4.0",
-    "workflow-glsp": "0.1.0"
+    "@glsp-examples/workflow-theia": "0.1.0"
   },
   "devDependencies": {
     "@theia/cli": "^0.4.0"

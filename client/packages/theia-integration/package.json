@@ -27,19 +27,19 @@
     "src"
   ],
   "dependencies": {
+    "@glsp/sprotty-client": "^0.1.0",
     "@theia/core": "^0.4.0",
     "@theia/editor": "^0.4.0",
     "@theia/filesystem": "^0.4.0",
     "@theia/languages": "^0.4.0",
     "@theia/monaco": "^0.4.0",
     "@types/node": "^8.0.14",
-    "@glsp/sprotty-client": "0.1.0",
     "sprotty-theia": "0.6.0"
   },
   "devDependencies": {
+    "rimraf": "^2.6.1",
     "tslint": "^5.5.0",
-    "typescript": "3.4.3",
-    "rimraf": "^2.6.1"
+    "typescript": "3.4.3"
   },
   "scripts": {
     "prepare": "yarn run clean && yarn run build",
