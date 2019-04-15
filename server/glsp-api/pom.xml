@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>com.eclipsesource.glsp</groupId>
 		<artifactId>glsp-parent</artifactId>
-		<version>0.2.0-SNAPSHOT</version>
+		<version>1.1.0</version>
 	</parent>
 	<licenses>
 		<license>
@@ -76,13 +76,13 @@
 		<dependency>
 			<groupId>org.eclipse.sprotty</groupId>
 			<artifactId>org.eclipse.sprotty</artifactId>
-			<version>0.5.0-SNAPSHOT</version>
+			<version>0.6.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.eclipse.sprotty</groupId>
 			<artifactId>org.eclipse.sprotty.server</artifactId>
-			<version>0.5.0-SNAPSHOT</version>
+			<version>0.6.0</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
