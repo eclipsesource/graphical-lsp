@@ -23,11 +23,12 @@ import {
     isBoundsAware,
     isViewport,
     KeyTool,
-    MouseTool,
+    MouseListener,
     Point,
     Selectable,
     SetBoundsAction,
     SModelElement,
+    SModelRoot,
     SParentElement,
     Tool
 } from "sprotty/lib";
@@ -35,9 +36,10 @@ import {
 import { GLSP_TYPES } from "../../types";
 import { forEachElement, isSelected } from "../../utils/smodel-util";
 import { isBoundsAwareMoveable, isResizeable, ResizeHandleLocation, SResizeHandle } from "../change-bounds/model";
+import { IMouseTool } from "../mouse-tool/mouse-tool";
 import { ChangeBoundsOperationAction } from "../operation/operation-actions";
 import { isRoutable } from "../reconnect/model";
-import { SelectionTracker } from "../select/selection-tracker";
+import { SelectionListener, SelectionService } from "../select/selection-service";
 import {
     FeedbackMoveMouseListener,
     HideChangeBoundsToolResizeFeedbackAction,
@@ -65,9 +67,9 @@ export class ChangeBoundsTool implements Tool {
 
     protected feedbackMoveMouseListener: FeedbackMoveMouseListener;
     protected changeBoundsListener: ChangeBoundsListener;
-    protected selectionTracker: SelectionTracker;
 
-    constructor(@inject(MouseTool) protected mouseTool: MouseTool,
+    constructor(@inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService,
+        @inject(GLSP_TYPES.MouseTool) protected mouseTool: IMouseTool,
         @inject(KeyTool) protected keyTool: KeyTool,
         @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher) { }
 
@@ -79,13 +81,13 @@ export class ChangeBoundsTool implements Tool {
         // instlal change bounds listener for client-side resize updates and server-side updates
         this.changeBoundsListener = new ChangeBoundsListener(this);
         this.mouseTool.register(this.changeBoundsListener);
-        this.keyTool.register(this.changeBoundsListener);
+        this.selectionService.register(this.changeBoundsListener);
         this.feedbackDispatcher.registerFeedback(this, [new ShowChangeBoundsToolResizeFeedbackAction]);
     }
 
     disable() {
         this.mouseTool.deregister(this.changeBoundsListener);
-        this.keyTool.deregister(this.changeBoundsListener);
+        this.selectionService.deregister(this.changeBoundsListener);
         this.mouseTool.deregister(this.feedbackMoveMouseListener);
         this.feedbackDispatcher.deregisterFeedback(this, [new HideChangeBoundsToolResizeFeedbackAction]);
     }
@@ -95,7 +97,7 @@ export class ChangeBoundsTool implements Tool {
     }
 }
 
-class ChangeBoundsListener extends SelectionTracker {
+class ChangeBoundsListener extends MouseListener implements SelectionListener {
     // members for calculating the correct position change
     private lastDragPosition: Point | undefined = undefined;
     private positionDelta: Point = { x: 0, y: 0 };
@@ -112,26 +114,16 @@ class ChangeBoundsListener extends SelectionTracker {
         super.mouseDown(target, event);
         const actions: Action[] = [];
         if (event.button === 0) {
-            let active: boolean = false;
             // check if we have a resize handle (only single-selection)
-            if (target instanceof SResizeHandle) {
+            if (this.activeResizeElementId && target instanceof SResizeHandle) {
                 this.activeResizeHandle = target;
-                active = true;
             } else {
-                // check if we have a moveable element (multi-selection allowed)
-                this.tool.dispatchFeedback([new HideChangeBoundsToolResizeFeedbackAction()]);
-                const moveableElement = findParentByFeature(target, isBoundsAwareMoveable);
-                if (moveableElement) {
-                    // only allow one element to have the element resize handles
-                    this.activeResizeElementId = moveableElement.id;
-                    this.tool.dispatchFeedback([new ShowChangeBoundsToolResizeFeedbackAction(this.activeResizeElementId)]);
-                }
-                active = moveableElement !== undefined || this.activeResizeElementId !== undefined;
+                this.setActiveResizeElement(target);
             }
-            if (active) {
+            if (this.activeResizeElementId) {
                 this.initPosition(event);
             } else {
-                this.resetPosition();
+                this.reset();
             }
         }
         return actions;
@@ -174,16 +166,34 @@ class ChangeBoundsListener extends SelectionTracker {
         return actions;
     }
 
-    keyDown(element: SModelElement, event: KeyboardEvent): Action[] {
-        const actions: Action[] = [];
+    selectionChanged(root: SModelRoot, selectedElements: string[]): void {
         if (this.activeResizeElementId) {
-            super.keyDown(element, event);
-            if (this.isMultiSelection()) {
-                // no element should be in resize mode
-                this.tool.dispatchFeedback([new HideChangeBoundsToolResizeFeedbackAction()]);
+            if (selectedElements.indexOf(this.activeResizeElementId) > -1) {
+                // our active element is still selected, nothing to do
+                return;
             }
+
+            // try to find some other selected element and mark that active
+            for (const elementId of selectedElements.reverse()) {
+                const element = root.index.getById(elementId);
+                if (element && this.setActiveResizeElement(element)) {
+                    return;
+                }
+            }
+            this.reset();
         }
-        return actions;
+    }
+
+    private setActiveResizeElement(target: SModelElement): boolean {
+        // check if we have a selected, moveable element (multi-selection allowed)
+        const moveableElement = findParentByFeature(target, isBoundsAwareMoveable);
+        if (isSelected(moveableElement)) {
+            // only allow one element to have the element resize handles
+            this.activeResizeElementId = moveableElement.id;
+            this.tool.dispatchFeedback([new ShowChangeBoundsToolResizeFeedbackAction(this.activeResizeElementId)]);
+            return true;
+        }
+        return false;
     }
 
     private isActiveResizeElement(element: SModelElement | undefined): element is SParentElement & BoundsAware {
@@ -206,6 +216,11 @@ class ChangeBoundsListener extends SelectionTracker {
             return true;
         }
         return false;
+    }
+
+    private reset() {
+        this.tool.dispatchFeedback([new HideChangeBoundsToolResizeFeedbackAction()]);
+        this.resetPosition();
     }
 
     private resetPosition() {

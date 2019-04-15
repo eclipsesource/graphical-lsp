@@ -13,14 +13,17 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-export const GLSP_TYPES = {
-    ICommandPaletteActionProviderRegistry: Symbol.for("ICommandPaletteActionProviderRegistry"),
-    IFeedbackActionDispatcher: Symbol.for("IFeedbackActionDispatcher"),
-    IToolFactory: Symbol.for("Factory<Tool>"),
-    IEditConfigProvider: Symbol.for("IEditConfigProvider"),
-    RequestResponseSupport: Symbol.for("RequestResponseSupport"),
-    SelectionService: Symbol.for("SelectionService"),
-    SelectionListener: Symbol.for("SelectionListener"),
-    SModelRootListener: Symbol.for("SModelRootListener"),
-    MouseTool: Symbol.for("MouseTool")
-};
+
+export const DEFAULT_RANK: number = 0;
+
+export interface Ranked {
+    rank: number;
+}
+
+export function isRanked(arg: any): arg is Ranked {
+    return arg !== undefined && arg.rank !== undefined && typeof (arg.rank) === 'number';
+}
+
+export function getRank(arg: any): number {
+    return isRanked(arg) ? arg.rank : DEFAULT_RANK;
+}

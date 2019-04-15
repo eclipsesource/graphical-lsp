@@ -13,13 +13,9 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { NodeEditConfig } from "../base/edit-config/edit-config";
-import { Selectable } from "sprotty/lib";
-import { SModelElement } from "sprotty/lib";
-import { SParentElement } from "sprotty/lib";
+import { isSelectable, Selectable, SModelElement, SParentElement } from "sprotty/lib";
 
-import { isConfigurableNode } from "../base/edit-config/edit-config";
-import { isSelectable } from "sprotty/lib";
+import { isConfigurableNode, NodeEditConfig } from "../base/edit-config/edit-config";
 
 export function getIndex(element: SModelElement) {
     return element.root.index;
@@ -43,8 +39,8 @@ export function getSelectedElementCount(element: SModelElement): number {
     return selected;
 }
 
-export function isSelected(element: SModelElement): element is SModelElement & Selectable {
-    return isSelectable(element) && element.selected;
+export function isSelected(element: SModelElement | undefined): element is SModelElement & Selectable {
+    return isNotUndefined(element) && isSelectable(element) && element.selected;
 }
 
 export function isNotUndefined<T>(element: T | undefined): element is T {

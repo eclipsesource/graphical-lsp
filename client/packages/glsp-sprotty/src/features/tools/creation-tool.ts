@@ -22,7 +22,6 @@ import {
     findParentByFeature,
     isConnectable,
     isCtrlOrCmd,
-    MouseTool,
     SModelElement,
     SModelRoot,
     Tool
@@ -32,6 +31,7 @@ import { containmentAllowed, EdgeEditConfig, edgeEditConfig, IEditConfigProvider
 import { TypeAware } from "../../base/tool-manager/tool-manager-action-handler";
 import { GLSP_TYPES } from "../../types";
 import { getAbsolutePosition } from "../../utils/viewpoint-util";
+import { IMouseTool } from "../mouse-tool/mouse-tool";
 import { CreateConnectionOperationAction, CreateNodeOperationAction } from "../operation/operation-actions";
 import { deriveOperationId, OperationKind } from "../operation/set-operations";
 import {
@@ -55,7 +55,7 @@ export class NodeCreationTool implements Tool, TypeAware {
     public elementTypeId: string = "unknown";
     protected creationToolMouseListener: NodeCreationToolMouseListener;
 
-    constructor(@inject(MouseTool) protected mouseTool: MouseTool,
+    constructor(@inject(GLSP_TYPES.MouseTool) protected mouseTool: IMouseTool,
         @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher) { }
 
     get id() {
@@ -127,7 +127,7 @@ export class EdgeCreationTool implements Tool, TypeAware {
     protected creationToolMouseListener: EdgeCreationToolMouseListener;
     protected feedbackEndMovingMouseListener: FeedbackEdgeEndMovingMouseListener;
 
-    constructor(@inject(MouseTool) protected mouseTool: MouseTool,
+    constructor(@inject(GLSP_TYPES.MouseTool) protected mouseTool: IMouseTool,
         @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher,
         @inject(AnchorComputerRegistry) protected anchorRegistry: AnchorComputerRegistry,
         @inject(GLSP_TYPES.IEditConfigProvider) public readonly editConfigProvider: IEditConfigProvider) { }

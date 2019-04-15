@@ -13,14 +13,16 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-export const GLSP_TYPES = {
-    ICommandPaletteActionProviderRegistry: Symbol.for("ICommandPaletteActionProviderRegistry"),
-    IFeedbackActionDispatcher: Symbol.for("IFeedbackActionDispatcher"),
-    IToolFactory: Symbol.for("Factory<Tool>"),
-    IEditConfigProvider: Symbol.for("IEditConfigProvider"),
-    RequestResponseSupport: Symbol.for("RequestResponseSupport"),
-    SelectionService: Symbol.for("SelectionService"),
-    SelectionListener: Symbol.for("SelectionListener"),
-    SModelRootListener: Symbol.for("SModelRootListener"),
-    MouseTool: Symbol.for("MouseTool")
-};
+import { ContainerModule } from "inversify";
+import { MouseTool } from "sprotty";
+
+import { GLSP_TYPES } from "../../types";
+import { RankingMouseTool } from "./mouse-tool";
+
+const glspMouseToolModule = new ContainerModule((bind, unbind, isBound, rebind) => {
+    bind(RankingMouseTool).toSelf().inSingletonScope();
+    bind(GLSP_TYPES.MouseTool).toService(RankingMouseTool);
+    rebind(MouseTool).toService(RankingMouseTool);
+});
+
+export default glspMouseToolModule;

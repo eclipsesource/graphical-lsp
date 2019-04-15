@@ -13,14 +13,14 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-export const GLSP_TYPES = {
-    ICommandPaletteActionProviderRegistry: Symbol.for("ICommandPaletteActionProviderRegistry"),
-    IFeedbackActionDispatcher: Symbol.for("IFeedbackActionDispatcher"),
-    IToolFactory: Symbol.for("Factory<Tool>"),
-    IEditConfigProvider: Symbol.for("IEditConfigProvider"),
-    RequestResponseSupport: Symbol.for("RequestResponseSupport"),
-    SelectionService: Symbol.for("SelectionService"),
-    SelectionListener: Symbol.for("SelectionListener"),
-    SModelRootListener: Symbol.for("SModelRootListener"),
-    MouseTool: Symbol.for("MouseTool")
-};
+import { SelectMouseListener } from "sprotty";
+
+import { DEFAULT_RANK, Ranked } from "../rank/model";
+
+/**
+ * Ranked select mouse listener that is executed before default mouse listeners when using the RankedMouseTool.
+ * This ensures that default mouse listeners are working on a model that has selection changes already applied.
+ */
+export class RankedSelectMouseListener extends SelectMouseListener implements Ranked {
+    rank: number = DEFAULT_RANK - 1; /* we want to be executed before all default mouse listeners */
+}

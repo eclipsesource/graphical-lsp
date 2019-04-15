@@ -22,7 +22,6 @@ import {
     KeyListener,
     KeyTool,
     MouseListener,
-    MouseTool,
     SModelElement,
     SModelRoot,
     Tool
@@ -30,6 +29,7 @@ import {
 import { matchesKeystroke } from "sprotty/lib/utils/keyboard";
 
 import { GLSP_TYPES } from "../../types";
+import { IMouseTool } from "../mouse-tool/mouse-tool";
 import { DeleteElementOperationAction } from "../operation/operation-actions";
 import { ApplyCursorCSSFeedbackAction, CursorCSS } from "../tool-feedback/cursor-feedback";
 import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
@@ -78,7 +78,7 @@ export class MouseDeleteTool implements Tool {
 
     protected deleteToolMouseListener: DeleteToolMouseListener = new DeleteToolMouseListener();
 
-    constructor(@inject(MouseTool) protected readonly mouseTool: MouseTool,
+    constructor(@inject(GLSP_TYPES.MouseTool) protected mouseTool: IMouseTool,
         @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected readonly feedbackDispatcher: IFeedbackActionDispatcher) { }
 
     enable() {

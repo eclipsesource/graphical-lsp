@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { inject, injectable, optional } from "inversify";
+import { inject, injectable, multiInject, optional } from "inversify";
 import {
     ActionHandlerRegistry,
     Command,
@@ -30,6 +30,11 @@ import { IFeedbackActionDispatcher } from "src/features/tool-feedback/feedback-a
 import { FeedbackCommand } from "../../features/tool-feedback/model";
 import { GLSP_TYPES } from "../../types";
 
+
+export interface SModelRootListener {
+    modelRootChanged(root: Readonly<SModelRoot>): void
+}
+
 /**
  * A special`UpdateModelCommand` that retrieves all registered `actions` from the `IFeedbackActionDispatcher` (if present) and applies their feedback
  * to the `newRoot` before performing the update
@@ -39,7 +44,8 @@ export class FeedbackAwareUpdateModelCommand extends UpdateModelCommand {
     constructor(@inject(TYPES.Action) action: UpdateModelAction,
         @inject(TYPES.ILogger) protected logger: ILogger,
         @inject(GLSP_TYPES.IFeedbackActionDispatcher) @optional() protected readonly feedbackActionDispatcher: IFeedbackActionDispatcher,
-        @inject(TYPES.ActionHandlerRegistryProvider) protected actionHandlerRegistryProvider: () => Promise<ActionHandlerRegistry>) {
+        @inject(TYPES.ActionHandlerRegistryProvider) protected actionHandlerRegistryProvider: () => Promise<ActionHandlerRegistry>,
+        @multiInject(GLSP_TYPES.SModelRootListener) @optional() protected modelRootListeners: SModelRootListener[] = []) {
         super(action);
     }
 
@@ -60,6 +66,7 @@ export class FeedbackAwareUpdateModelCommand extends UpdateModelCommand {
                 feedbackCommands.forEach(command => command.execute(tempContext));
             });
         }
+        this.modelRootListeners.forEach(listener => listener.modelRootChanged(newRoot));
         return super.performUpdate(oldRoot, newRoot, context);
 
     }
