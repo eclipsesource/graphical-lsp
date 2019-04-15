@@ -30,9 +30,9 @@ import { IFeedbackActionDispatcher } from "src/features/tool-feedback/feedback-a
 import { FeedbackCommand } from "../../features/tool-feedback/model";
 import { GLSP_TYPES } from "../../types";
 
-@injectable()
-export class SModelRootListener {
-    modelRootChanged(root: Readonly<SModelRoot>) { }
+
+export interface SModelRootListener {
+    modelRootChanged(root: Readonly<SModelRoot>): void
 }
 
 /**

@@ -18,12 +18,12 @@ import { Action, ILogger, SModelRoot, TYPES } from "sprotty";
 
 import { SModelRootListener } from "../../base/model/update-model-command";
 import { GLSP_TYPES } from "../../types";
+import { distinctAdd, remove } from "../../utils/array-utils";
 import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
 import { SelectFeedbackAction } from "./action-definitions";
 
-@injectable()
-export class SelectionListener {
-    selectionChanged(root: Readonly<SModelRoot>, selectedElements: string[]) { }
+export interface SelectionListener {
+    selectionChanged(root: Readonly<SModelRoot>, selectedElements: string[]): void;
 }
 
 @injectable()
@@ -37,14 +37,11 @@ export class SelectionService implements SModelRootListener {
     constructor(@multiInject(GLSP_TYPES.SelectionListener) @optional() protected selectionListeners: SelectionListener[] = []) { }
 
     register(selectionListener: SelectionListener) {
-        this.selectionListeners.push(selectionListener);
+        distinctAdd(this.selectionListeners, selectionListener);
     }
 
     deregister(selectionListener: SelectionListener) {
-        const index = this.selectionListeners.indexOf(selectionListener);
-        if (index >= 0) {
-            this.selectionListeners.splice(index, 1);
-        }
+        remove(this.selectionListeners, selectionListener);
     }
 
     modelRootChanged(root: Readonly<SModelRoot>): void {
