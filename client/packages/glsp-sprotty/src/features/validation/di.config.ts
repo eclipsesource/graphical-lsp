@@ -16,10 +16,13 @@
 import { ContainerModule } from "inversify";
 import { configureCommand } from "sprotty/lib";
 
-import { SetMarkersCommand } from "./validate";
+import { ApplyMarkersCommand, ClearMarkersCommand, SetMarkersCommand, ValidationFeedbackEmitter } from "./validate";
 
 const validationModule = new ContainerModule((bind, _unbind, isBound) => {
     configureCommand({ bind, isBound }, SetMarkersCommand);
+    configureCommand({ bind, isBound }, ApplyMarkersCommand);
+    configureCommand({ bind, isBound }, ClearMarkersCommand);
+    bind(ValidationFeedbackEmitter).toSelf().inSingletonScope();
 });
 
 export default validationModule;

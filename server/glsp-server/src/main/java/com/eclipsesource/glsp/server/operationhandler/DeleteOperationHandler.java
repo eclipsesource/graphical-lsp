@@ -117,14 +117,17 @@ public class DeleteOperationHandler implements OperationHandler {
 			}
 		}
 
-		SModelIndex index = modelState.getIndex();
+		// Then, incoming/outgoing edges for nodes
+		if (nodeToDelete instanceof SNode) {
+			SModelIndex index = modelState.getIndex();
 
-		// Then, incoming/outgoing links
-		for (SModelElement incoming : index.getIncomingEdges(nodeToDelete)) {
-			collectDependents(dependents, incoming, modelState);
-		}
-		for (SModelElement outgoing : index.getOutgoingEdges(nodeToDelete)) {
-			collectDependents(dependents, outgoing, modelState);
+			// Then, incoming/outgoing links
+			for (SModelElement incoming : index.getIncomingEdges(nodeToDelete)) {
+				collectDependents(dependents, incoming, modelState);
+			}
+			for (SModelElement outgoing : index.getOutgoingEdges(nodeToDelete)) {
+				collectDependents(dependents, outgoing, modelState);
+			}
 		}
 
 		// Finally, the node to delete

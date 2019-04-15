@@ -19,6 +19,7 @@ import {
     Command,
     CommandExecutionContext,
     CommandResult,
+    IActionDispatcher,
     SIssue,
     SIssueMarker,
     SModelElement,
@@ -26,11 +27,14 @@ import {
     TYPES
 } from "sprotty/lib";
 
+import { GLSP_TYPES } from "../../types";
 import { Marker, MarkerKind } from "../../utils/marker";
+import { IFeedbackActionDispatcher, IFeedbackEmitter } from "../tool-feedback/feedback-action-dispatcher";
+import { FeedbackCommand } from "../tool-feedback/model";
 
 /**
- * Action to retrieve markers for a model
- */
+* Action to retrieve markers for a model
+*/
 export class RequestMarkersAction implements Action {
 
     static readonly KIND = 'requestMarkers';
@@ -40,18 +44,63 @@ export class RequestMarkersAction implements Action {
 }
 
 /**
+ * Feedback emitter sending actions for visualizing model validation feedback and
+ * re-establishing this feedback visualization after the model has been updated.
+ */
+@injectable()
+export class ValidationFeedbackEmitter implements IFeedbackEmitter {
+
+    @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackActionDispatcher: IFeedbackActionDispatcher;
+
+    @inject(TYPES.IActionDispatcherProvider) protected actionDispatcher: () => Promise<IActionDispatcher>;
+
+    private registeredAction: MarkersAction;
+
+    private constructor() { }
+
+    /**
+     * Register the action that should be emitted for visualizing validation feedback.
+     * @param action the action that should be emitted when the model is updated and that will visualize the model validation feedback.
+     */
+    registerValidationFeedbackAction(action: MarkersAction) {
+        // De-register old action responsible for applying markers and re-applying them when the model is updated
+        this.feedbackActionDispatcher.deregisterFeedback(this, []);
+
+        // Clear existing markers
+        if (this.registeredAction !== undefined) {
+            const clearMarkersAction = new ClearMarkersAction(this.registeredAction.markers);
+            this.actionDispatcher().then(dispatcher => dispatcher.dispatch(clearMarkersAction));
+        }
+
+        // Register new action responsible for applying markers and re-applying them when the model is updated
+        this.feedbackActionDispatcher.registerFeedback(this, [action]);
+        this.registeredAction = action;
+    }
+
+}
+
+/**
+ * Interface for actions processing markers
+ */
+export interface MarkersAction extends Action {
+    readonly markers: Marker[];
+}
+
+/**
  * Action to set markers for a model
  */
-export class SetMarkersAction implements Action {
+export class SetMarkersAction implements MarkersAction {
     readonly kind = SetMarkersCommand.KIND;
     constructor(public readonly markers: Marker[]) { }
 }
 
 /**
- * Command for handling SetMarkersActions
+ * Command for handling `SetMarkersAction`
  */
 @injectable()
 export class SetMarkersCommand extends Command {
+
+    @inject(ValidationFeedbackEmitter) protected validationFeedbackEmitter: ValidationFeedbackEmitter;
 
     static readonly KIND = 'setMarkers';
 
@@ -59,62 +108,14 @@ export class SetMarkersCommand extends Command {
         super();
     }
 
-    /**
-     * Creates SIssueMarkers for all received markers and adds them to the respective SModelElements
-     * @param context Context of the command execution
-     */
     execute(context: CommandExecutionContext): CommandResult {
         const markers: Marker[] = this.action.markers;
-        for (const marker of markers) {
-            const modelElement: SModelElement | undefined = context.root.index.getById(marker.elementId);
-            if (modelElement instanceof SParentElement) {
-                const issueMarker: SIssueMarker = this.getOrCreateSIssueMarker(modelElement);
-                const issue: SIssue = createSIssue(marker);
-                issueMarker.issues.push(issue);
-            }
-        }
+        const applyMarkersAction: ApplyMarkersAction = new ApplyMarkersAction(markers);
+        this.validationFeedbackEmitter.registerValidationFeedbackAction(applyMarkersAction);
         return context.root;
     }
 
-    private getOrCreateSIssueMarker(modelElement: SParentElement): SIssueMarker {
-        let issueMarker: SIssueMarker | undefined;
-
-        for (const child of modelElement.children) {
-            if (child instanceof SIssueMarker) {
-                issueMarker = child;
-            }
-        }
-
-        if (issueMarker === undefined) {
-            issueMarker = new SIssueMarker();
-            issueMarker.type = "marker";
-            issueMarker.issues = new Array<SIssue>();
-            modelElement.add(issueMarker);
-        }
-
-        return issueMarker;
-    }
-
     undo(context: CommandExecutionContext): CommandResult {
-        const markers: Marker[] = this.action.markers;
-        for (const marker of markers) {
-            const modelElement: SModelElement | undefined = context.root.index.getById(marker.elementId);
-            if (modelElement instanceof SParentElement) {
-                for (const child of modelElement.children) {
-                    if (child instanceof SIssueMarker) {
-                        for (let index = 0; index < child.issues.length; ++index) {
-                            const issue = child.issues[index];
-                            if (issue.message === marker.description) {
-                                child.issues.splice(index--, 1);
-                            }
-                        }
-                        if (child.issues.length === 0) {
-                            modelElement.remove(child);
-                        }
-                    }
-                }
-            }
-        }
         return context.root;
     }
 
@@ -123,6 +124,96 @@ export class SetMarkersCommand extends Command {
     }
 }
 
+/**
+ * Action for applying makers to a model
+ */
+@injectable()
+export class ApplyMarkersAction implements MarkersAction {
+    readonly kind = ApplyMarkersCommand.KIND;
+    constructor(public readonly markers: Marker[]) { }
+}
+
+/**
+ * Command for handling `ApplyMarkersAction`
+ */
+@injectable()
+export class ApplyMarkersCommand extends FeedbackCommand {
+
+    static KIND = "applyMarkers";
+    readonly priority = 0;
+
+    constructor(@inject(TYPES.Action) protected action: ApplyMarkersAction) {
+        super();
+    }
+
+    execute(context: CommandExecutionContext): CommandResult {
+        const markers: Marker[] = this.action.markers;
+        for (const marker of markers) {
+            const modelElement: SModelElement | undefined = context.root.index.getById(marker.elementId);
+            if (modelElement instanceof SParentElement) {
+                const issueMarker: SIssueMarker = getOrCreateSIssueMarker(modelElement);
+                const issue: SIssue = createSIssue(marker);
+                issueMarker.issues.push(issue);
+            }
+        }
+        return context.root;
+    }
+
+    undo(context: CommandExecutionContext): CommandResult {
+        return context.root;
+    }
+
+    redo(context: CommandExecutionContext): CommandResult {
+        return this.execute(context);
+    }
+}
+
+/**
+ * Retrieves the `SIssueMarker` contained by the provided model element as
+ * direct child or a newly instantiated `SIssueMarker` if no child
+ * `SIssueMarker` exists.
+ * @param modelElement for which the `SIssueMarker` should be retrieved or created.
+ * @returns the child `SIssueMarker` or a new `SIssueMarker` if no such child exists.
+ */
+function getOrCreateSIssueMarker(modelElement: SParentElement): SIssueMarker {
+    let issueMarker: SIssueMarker | undefined;
+
+    issueMarker = getSIssueMarker(modelElement);
+
+    if (issueMarker === undefined) {
+        issueMarker = new SIssueMarker();
+        issueMarker.type = "marker";
+        issueMarker.issues = new Array<SIssue>();
+        modelElement.add(issueMarker);
+    }
+
+    return issueMarker;
+}
+
+/**
+ * Retrieves the `SIssueMarker` contained by the provided model element as
+ * direct child or `undefined` if such an `SIssueMarker` does not exist.
+ * @param modelElement for which the `SIssueMarker` should be retrieved.
+ * @returns the child `SIssueMarker` or `undefined` if no such child exists.
+ */
+function getSIssueMarker(modelElement: SParentElement): SIssueMarker | undefined {
+    let issueMarker: SIssueMarker | undefined;
+
+    for (const child of modelElement.children) {
+        if (child instanceof SIssueMarker) {
+            issueMarker = child;
+        }
+    }
+
+    return issueMarker;
+}
+
+/**
+ * Creates an `SIssue` with `severity` and `message` set according to
+ * the `kind` and `description` of the provided `Marker`.
+ * @param marker `Marker` for that an `SIssue` should be created.
+ * @returns the created `SIssue`.
+ */
 function createSIssue(marker: Marker): SIssue {
     const issue: SIssue = new SIssue();
     issue.message = marker.description;
@@ -143,4 +234,55 @@ function createSIssue(marker: Marker): SIssue {
     }
 
     return issue;
+}
+
+/**
+ * Action for clearing makers of a model
+ */
+@injectable()
+export class ClearMarkersAction implements MarkersAction {
+    readonly kind = ClearMarkersCommand.KIND;
+    constructor(public readonly markers: Marker[]) { }
+}
+
+/**
+ * Command for handling `ClearMarkersAction`
+ */
+@injectable()
+export class ClearMarkersCommand extends Command {
+    static KIND = "clearMarkers";
+
+    constructor(@inject(TYPES.Action) protected action: ClearMarkersAction) {
+        super();
+    }
+
+    execute(context: CommandExecutionContext): CommandResult {
+        const markers: Marker[] = this.action.markers;
+        for (const marker of markers) {
+            const modelElement: SModelElement | undefined = context.root.index.getById(marker.elementId);
+            if (modelElement instanceof SParentElement) {
+                const issueMarker: SIssueMarker | undefined = getSIssueMarker(modelElement);
+                if (issueMarker !== undefined) {
+                    for (let index = 0; index < issueMarker.issues.length; ++index) {
+                        const issue: SIssue = issueMarker.issues[index];
+                        if (issue.message === marker.description) {
+                            issueMarker.issues.splice(index--, 1);
+                        }
+                    }
+                    if (issueMarker.issues.length === 0) {
+                        modelElement.remove(issueMarker);
+                    }
+                }
+            }
+        }
+        return context.root;
+    }
+
+    undo(context: CommandExecutionContext): CommandResult {
+        return context.root;
+    }
+
+    redo(context: CommandExecutionContext): CommandResult {
+        return this.execute(context);
+    }
 }
