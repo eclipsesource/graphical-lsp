@@ -187,6 +187,21 @@ public class SModelIndex {
 		idToElement.remove(element.getId());
 		typeToElements.get(element.getType()).remove(element);
 		childToParent.remove(element);
+
+		if (element instanceof SEdge) {
+			// Update indices for outgoing and incoming edges
+			SEdge edge = (SEdge) element;
+			String sourceId = edge.getSourceId();
+			SModelElement sourceElement = idToElement.get(sourceId);
+			if (sourceElement != null && this.outgoingEdges.containsKey(sourceElement)) {
+				this.outgoingEdges.get(sourceElement).remove(edge);
+			}
+			String targetId = edge.getTargetId();
+			SModelElement targetElement = idToElement.get(targetId);
+			if (targetElement != null && this.incomingEdges.containsKey(targetElement)) {
+				this.incomingEdges.get(targetElement).remove(edge);
+			}
+		}
 	}
 
 	public <T extends SModelElement> Set<T> getAllByClass(Class<T> type) {

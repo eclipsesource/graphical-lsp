@@ -22,6 +22,7 @@ import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.example.workflow.schema.ModelTypes;
 import com.eclipsesource.glsp.example.workflow.schema.WeightedEdge;
 import com.eclipsesource.glsp.server.operationhandler.CreateConnectionOperationHandler;
+import com.eclipsesource.glsp.server.util.SModelUtil;
 
 public class CreateWeightedEdgeHandler extends CreateConnectionOperationHandler {
 
@@ -37,6 +38,7 @@ public class CreateWeightedEdgeHandler extends CreateConnectionOperationHandler 
 		edge.setTargetId(target.getId());
 		edge.setType(elementTypeId);
 		edge.setProbability("high");
+		SModelUtil.generateId(edge, "weightedEdge", modelState);
 		return edge;
 	}
 
