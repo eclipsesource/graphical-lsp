@@ -24,7 +24,7 @@
     ]
   },
   "include": [
-    "dev-packages/*/src",
+    "packages/*/src",
     "examples/*/src"
   ]
 }
