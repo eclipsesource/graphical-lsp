@@ -14,18 +14,17 @@
     "name": "EclipseSource"
   },
   "dependencies": {
-    "@theia/core": "next",
-    "@theia/editor": "next",
-    "@theia/filesystem": "next",
-    "@theia/languages": "next",
-    "@theia/monaco": "next",
-  
-    "workflow-sprotty": "0.1.0",
-    "glsp-theia-extension": "0.1.7"
+    "@theia/core": "^0.5.0",
+    "@theia/editor": "^0.5.0",
+    "@theia/filesystem": "^0.5.0",
+    "@theia/languages": "^0.5.0",
+    "@theia/monaco": "^0.5.0",
+    "glsp-theia-extension": "0.1.7",
+    "workflow-sprotty": "0.1.0"
   },
   "devDependencies": {
-    "rimraf": "latest",
-    "@types/node": "latest"
+    "@types/node": "latest",
+    "rimraf": "latest"
   },
   "scripts": {
     "prepare": "yarn run clean && yarn run build",
