@@ -20,7 +20,7 @@ import {
     SGraphFactory,
     SModelElementSchema,
     SParentElement
-} from "glsp-sprotty/lib";
+} from "@glsp/sprotty-client/lib";
 
 import { ActivityNode, TaskNode, WeightedEdge } from "./model";
 import { ActivityNodeSchema, TaskNodeSchema, WeightedEdgeSchema } from "./model-schema";

@@ -2,7 +2,7 @@ node_modules
 .browser_modules
 
 lib
-!*/glsp-sprotty/src/lib
+!*/sprotty-client/src/lib
 *.log
 examples/workflow/browser-app/ 
 !examples/workflow/browser-app/package.json 

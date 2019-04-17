@@ -30,6 +30,7 @@ import {
     expandModule,
     exportModule,
     fadeModule,
+    glspCommandPaletteModule,
     GLSPGraph,
     glspMouseToolModule,
     glspSelectModule,
@@ -62,9 +63,8 @@ import {
     TYPES,
     validationModule,
     viewportModule
-} from "glsp-sprotty/lib";
-import glspCommandPaletteModule from "glsp-sprotty/lib/features/command-palette/di.config";
-import executeCommandModule from "glsp-sprotty/lib/features/execute/di.config";
+} from "@glsp/sprotty-client/lib";
+import executeCommandModule from "@glsp/sprotty-client/lib/features/execute/di.config";
 import { Container, ContainerModule } from "inversify";
 
 import { ActivityNode, Icon, TaskNode, WeightedEdge } from "./model";

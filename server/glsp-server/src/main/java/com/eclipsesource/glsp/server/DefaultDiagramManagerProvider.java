@@ -13,37 +13,33 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.server.actionhandler;
+package com.eclipsesource.glsp.server;
 
-import java.util.Optional;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Set;
 
-import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.action.kind.RequestTypeHintsAction;
-import com.eclipsesource.glsp.api.action.kind.SetTypeHintsAction;
 import com.eclipsesource.glsp.api.diagram.DiagramManager;
 import com.eclipsesource.glsp.api.diagram.DiagramManagerProvider;
-import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.google.inject.Inject;
 
-public class RequestTypeHintsActionHandler extends AbstractActionHandler {
+public class DefaultDiagramManagerProvider implements DiagramManagerProvider {
+	public static final String DEFAULT_DIAGRAM_TYPE = "default-diagram";
+	private Set<DiagramManager> diagramHandlers;
+
 	@Inject
-	private DiagramManagerProvider diagramManagerProvider;
-
-	@Override
-	public boolean handles(Action action) {
-		return action instanceof RequestTypeHintsAction;
+	public DefaultDiagramManagerProvider(Set<DiagramManager> diagramHandlers) {
+		this.diagramHandlers = diagramHandlers;
 	}
 
 	@Override
-	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
-		if (action instanceof RequestTypeHintsAction) {
-			Optional<DiagramManager> handler = diagramManagerProvider
-					.get(((RequestTypeHintsAction) action).getDiagramType());
-			if (handler.isPresent()) {
-				return Optional
-						.of(new SetTypeHintsAction(handler.get().getNodeTypeHints(), handler.get().getEdgeTypeHints()));
-			}
-		}
-		return Optional.empty();
+	public Collection<String> getDiagramTypes() {
+		return Arrays.asList(DEFAULT_DIAGRAM_TYPE);
 	}
+
+	@Override
+	public Collection<DiagramManager> getAll() {
+		return diagramHandlers;
+	}
+
 }

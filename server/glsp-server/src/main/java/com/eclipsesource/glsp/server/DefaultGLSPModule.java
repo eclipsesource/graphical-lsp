@@ -21,7 +21,7 @@ import java.util.Collections;
 
 import com.eclipsesource.glsp.api.di.GLSPModule;
 import com.eclipsesource.glsp.api.diagram.DiagramManager;
-import com.eclipsesource.glsp.api.diagram.DiagramHandlerProvider;
+import com.eclipsesource.glsp.api.diagram.DiagramManagerProvider;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.handler.ActionHandler;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
@@ -110,8 +110,8 @@ public abstract class DefaultGLSPModule extends GLSPModule {
 	}
 
 	@Override
-	protected Class<? extends DiagramHandlerProvider> bindDiagramHandlerProvider() {
-		return DefaultDiagramHandlerProvider.class;
+	protected Class<? extends DiagramManagerProvider> bindDiagramManagerProvider() {
+		return DefaultDiagramManagerProvider.class;
 	}
 
 	protected abstract Collection<Class<? extends OperationHandler>> bindOperationHandlers();

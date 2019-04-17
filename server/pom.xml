@@ -6,7 +6,7 @@
 	<artifactId>glsp-parent</artifactId>
 	<name>glsp-parent</name>
 	<description>parent for all glsp modules</description>
-	<version>0.2.0-SNAPSHOT</version>
+	<version>1.2.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<repositories>
 		<repository>
@@ -72,10 +72,6 @@
 			<id>ossrh</id>
 			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
-		<repository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository>
 	</distributionManagement>
 
 	<build>
@@ -170,6 +166,4 @@
 			</build>
 		</profile>
 	</profiles>
-
-
 </project>

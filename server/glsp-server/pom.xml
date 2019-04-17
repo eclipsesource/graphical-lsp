@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.eclipsesource.glsp</groupId>
 		<artifactId>glsp-parent</artifactId>
-		<version>0.2.0-SNAPSHOT</version>
+		<version>1.2.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>glsp-server</artifactId>
 	<name>glsp-server</name>
@@ -61,12 +61,12 @@
 		<dependency>
 			<groupId>com.eclipsesource.glsp</groupId>
 			<artifactId>glsp-api</artifactId>
-			<version>0.2.0-SNAPSHOT</version>
+			<version>1.2.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
-			<version>4.0</version>
+			<version>3.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.sprotty</groupId>

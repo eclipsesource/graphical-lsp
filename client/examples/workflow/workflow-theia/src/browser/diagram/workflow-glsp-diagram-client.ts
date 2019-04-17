@@ -13,31 +13,17 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { SEdgeSchema, SNodeSchema } from "@glsp/sprotty-client/lib";
+import { GLSPDiagramClient } from "@glsp/theia-integration/lib/browser";
+import { EditorManager } from "@theia/editor/lib/browser";
+import { inject, injectable } from "inversify";
 
-export namespace ActivityNodeSchema {
-    export namespace Type {
-        export const INITIAL = 'initalNode';
-        export const FINAL = 'finalNode';
-        export const DECISION = 'decisionNode';
-        export const MERGE = 'mergeNode';
-        export const JOIN = 'joinNode';
-        export const FORK = 'forkNode';
-        export const UNDEFINED = "undefined";
+import { WorkflowGLSPClientContribution } from "../language/workflow-glsp-client-contribution";
+
+@injectable()
+export class WorkflowGLSPDiagramClient extends GLSPDiagramClient {
+    constructor(
+        @inject(WorkflowGLSPClientContribution) glspCLientContribution: WorkflowGLSPClientContribution,
+        @inject(EditorManager) editorManager: EditorManager) {
+        super(glspCLientContribution, editorManager);
     }
-}
-
-export interface TaskNodeSchema extends SNodeSchema {
-    name?: string
-    duration?: number
-    taskType?: string
-    reference?: string
-}
-
-export interface WeightedEdgeSchema extends SEdgeSchema {
-    probability?: string
-}
-
-export interface ActivityNodeSchema extends SNodeSchema {
-    nodeType: string
 }
