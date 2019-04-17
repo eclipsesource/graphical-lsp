@@ -1,11 +1,11 @@
 {
   "name": "@glsp-examples/workflow-theia",
+  "version": "0.2.0",
   "keywords": [
     "theia-extension"
   ],
   "description": "Theia extension for the workflow GLSP example",
   "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
-  "version": "0.1.1",
   "files": [
     "lib",
     "src"
@@ -14,14 +14,14 @@
     "name": "EclipseSource"
   },
   "dependencies": {
-    "@glsp/theia-integration": "^0.1.0",
-    "@theia/core": "^0.4.0",
-    "@theia/editor": "^0.4.0",
-    "@theia/filesystem": "^0.4.0",
-    "@theia/languages": "^0.4.0",
-    "@theia/monaco": "^0.4.0",
+    "@glsp/theia-integration": "^0.2.0",
+    "@theia/core": "^0.5.0",
+    "@theia/editor": "^0.5.0",
+    "@theia/filesystem": "^0.5.0",
+    "@theia/languages": "^0.5.0",
+    "@theia/monaco": "^0.5.0",
     "@types/node": "^8.0.14",
-    "@glsp-examples/workflow-sprotty": "^0.1.1"
+    "@glsp-examples/workflow-sprotty": "^0.2.0"
   },
   "devDependencies": {
     "rimraf": "^2.6.1",

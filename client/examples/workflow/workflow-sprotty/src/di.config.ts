@@ -30,6 +30,7 @@ import {
     expandModule,
     exportModule,
     fadeModule,
+    glspCommandPaletteModule,
     GLSPGraph,
     glspMouseToolModule,
     glspSelectModule,

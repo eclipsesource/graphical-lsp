@@ -4,17 +4,17 @@
     "skipLibCheck": false,
     "baseUrl": ".",
     "paths": {
-      "glsp-client-extension": [
-        "packages/glsp-client-extension/src/*"
+      "@glsp/theia-integration": [
+        "packages/@glsp/theia-integration/src/*"
       ],
-      "glsp-sprotty": [
-        "packages/glsp-sprotty/src/*"
+      "@glsp/sprotty-client": [
+        "packages/@glsp/sprotty-client/src/*"
       ],
-      "workflow-glsp-extension": [
-        "examples/workflow/workflow-glsp-extension/src/*"
+      "@glsp-examples/workflow-theia": [
+        "examples/workflow/@glsp-examples/workflow-theia/src/*"
       ],
-      "workflow-sprotty": [
-        "examples/workflow/workflow-sprotty/src/*"
+      "@glsp-examples/workflow-sprotty": [
+        "examples/workflow/@glsp-examples/workflow-sprotty/src/*"
       ]
     },
     "plugins": [
