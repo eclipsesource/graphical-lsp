@@ -1,10 +1,13 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.eclipsesource.glsp</groupId>
 		<artifactId>glsp-parent</artifactId>
-		<version>1.1.0</version>
+		<version>1.2.0-SNAPSHOT</version>
+		<relativePath>../../</relativePath>
 	</parent>
 	<artifactId>workflow-example</artifactId>
 	<name>workflow-example</name>
@@ -50,22 +53,22 @@
 		<dependency>
 			<groupId>com.eclipsesource.glsp</groupId>
 			<artifactId>glsp-api</artifactId>
-			<version>1.1.0</version>
+			<version>1.2.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.sprotty</groupId>
 			<artifactId>org.eclipse.sprotty.layout</artifactId>
-			<version>0.6.0</version>
+			<version>0.7.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
-			<version>4.0</version>
+			<version>3.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.eclipsesource.glsp</groupId>
 			<artifactId>glsp-server</artifactId>
-			<version>1.1.0</version>
+			<version>1.2.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -136,7 +139,8 @@
 						<version>3.0.0</version>
 						<configuration>
 							<transformers>
-								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<mainClass>com.eclipsesource.glsp.example.workflow.ExampleServerLauncher</mainClass>
 								</transformer>
 							</transformers>
