@@ -40,7 +40,7 @@ and lerna
 	mvn clean install
 	
 ### 1. Starting the GLSP Server
-Once the server is built, you should have the jar file `server/example/workflow-example/target/workflow-example-X.X.X-SNAPSHOT-glsp.jar` whereas `X.X.X` is the current version. You can now start the server by executing the following commands:
+Once the server is built with `mvn clean install -Pfatjar` -- note the activation of the profile `fatjar`, you should have a jar file `server/example/workflow-example/target/workflow-example-X.X.X-SNAPSHOT-glsp.jar` whereas `X.X.X` is the current version. You can now start the server by executing the following commands:
 
 	cd server/example/workflow-example/target
 	java -jar workflow-example-X.X.X-SNAPSHOT-glsp.jar com.eclipsesource.glsp.example.workflow.ExampleServerLauncher
