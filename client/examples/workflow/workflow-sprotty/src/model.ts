@@ -30,7 +30,7 @@ import {
     RectangularNode,
     SEdge,
     SShapeElement
-} from "glsp-sprotty/lib";
+} from "@glsp/sprotty-client/lib";
 
 import { ActivityNodeSchema } from "./model-schema";
 

@@ -13,31 +13,22 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { SEdgeSchema, SNodeSchema } from "@glsp/sprotty-client/lib";
+import { SModelElement, SModelExtension } from "sprotty/lib";
 
-export namespace ActivityNodeSchema {
-    export namespace Type {
-        export const INITIAL = 'initalNode';
-        export const FINAL = 'finalNode';
-        export const DECISION = 'decisionNode';
-        export const MERGE = 'mergeNode';
-        export const JOIN = 'joinNode';
-        export const FORK = 'forkNode';
-        export const UNDEFINED = "undefined";
+export const nameFeature = Symbol('nameableFeature');
+
+export interface Nameable extends SModelExtension {
+    name: string
+}
+
+export function isNameable(element: SModelElement): element is SModelElement & Nameable {
+    return element.hasFeature(nameFeature);
+}
+
+export function name(element: SModelElement): string {
+    if (isNameable(element)) {
+        return element.name;
+    } else {
+        return 'unnamed';
     }
-}
-
-export interface TaskNodeSchema extends SNodeSchema {
-    name?: string
-    duration?: number
-    taskType?: string
-    reference?: string
-}
-
-export interface WeightedEdgeSchema extends SEdgeSchema {
-    probability?: string
-}
-
-export interface ActivityNodeSchema extends SNodeSchema {
-    nodeType: string
 }

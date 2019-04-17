@@ -23,7 +23,7 @@ import {
     SEdge,
     SShapeElement,
     toDegrees
-} from "glsp-sprotty/lib";
+} from "@glsp/sprotty-client/lib";
 import { injectable } from "inversify";
 import * as snabbdom from "snabbdom-jsx";
 import { VNode } from "snabbdom/vnode";

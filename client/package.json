@@ -16,7 +16,7 @@
     "rebuild:electron": "theia rebuild:electron",
     "watch": "lerna run --parallel watch",
     "publish": "yarn && yarn publish:latest",
-    "publish:latest": "lerna publish --registry=https://registry.npmjs.org/ --skip-git --force-publish",
+    "publish:latest": "lerna publish --registry=https://registry.npmjs.org/ --skip-git --force-publish --access public",
     "publish:next": "lerna publish --registry=https://registry.npmjs.org/ --exact --canary=next --npm-tag=next --force-publish --skip-git --yes"
   },
   "resolutions": {
@@ -31,7 +31,7 @@
     "lerna": "^3.13.2",
     "tslint": "^5.5.0",
     "tslint-loader": "^3.4.3",
-    "typescript": "latest"
+    "typescript": "3.4.3"
   },
   "workspaces": [
     "packages/*",
