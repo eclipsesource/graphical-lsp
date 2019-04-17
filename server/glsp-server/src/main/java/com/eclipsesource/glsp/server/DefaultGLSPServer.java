@@ -33,7 +33,7 @@ import com.eclipsesource.glsp.api.action.kind.IdentifiableResponseAction;
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
 import com.eclipsesource.glsp.api.action.kind.ServerStatusAction;
 import com.eclipsesource.glsp.api.diagram.DiagramManager;
-import com.eclipsesource.glsp.api.diagram.DiagramHandlerProvider;
+import com.eclipsesource.glsp.api.diagram.DiagramManagerProvider;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPClient;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
 import com.eclipsesource.glsp.api.model.ModelStateProvider;
@@ -43,7 +43,7 @@ import com.eclipsesource.glsp.api.utils.ClientOptions.ParsedClientOptions;
 public class DefaultGLSPServer implements GLSPServer {
 
 	@Inject
-	private DiagramHandlerProvider diagramHandlerProvider;
+	private DiagramManagerProvider diagramManagerProvider;
 	@Inject
 	private ModelStateProvider modelStateProvider;
 	static Logger log = Logger.getLogger(DefaultGLSPServer.class);
@@ -112,12 +112,12 @@ public class DefaultGLSPServer implements GLSPServer {
 	private Optional<DiagramManager> getOrCreateDiagramServer(String clientId, Optional<String> diagramType) {
 		if (diagramType.isPresent()) {
 			Optional<DiagramManager> existingServer = getDiagramServer(clientId, diagramType.get());
-			return existingServer.isPresent() ? existingServer : diagramHandlerProvider.get(diagramType.get());
+			return existingServer.isPresent() ? existingServer : diagramManagerProvider.get(diagramType.get());
 		} else {
 			if (clientIdtoDiagramServer.get(clientId) != null) {
 				return Optional.of(clientIdtoDiagramServer.get(clientId));
 			} else {
-				return diagramHandlerProvider.createDefault();
+				return diagramManagerProvider.createDefault();
 			}
 		}
 	}

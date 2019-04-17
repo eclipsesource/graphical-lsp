@@ -20,15 +20,15 @@ import java.util.Collection;
 import java.util.Set;
 
 import com.eclipsesource.glsp.api.diagram.DiagramManager;
-import com.eclipsesource.glsp.api.diagram.DiagramHandlerProvider;
+import com.eclipsesource.glsp.api.diagram.DiagramManagerProvider;
 import com.google.inject.Inject;
 
-public class DefaultDiagramHandlerProvider implements DiagramHandlerProvider {
+public class DefaultDiagramManagerProvider implements DiagramManagerProvider {
 	public static final String DEFAULT_DIAGRAM_TYPE = "default-diagram";
 	private Set<DiagramManager> diagramHandlers;
 
 	@Inject
-	public DefaultDiagramHandlerProvider(Set<DiagramManager> diagramHandlers) {
+	public DefaultDiagramManagerProvider(Set<DiagramManager> diagramHandlers) {
 		this.diagramHandlers = diagramHandlers;
 	}
 

@@ -21,13 +21,13 @@ import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestTypeHintsAction;
 import com.eclipsesource.glsp.api.action.kind.SetTypeHintsAction;
 import com.eclipsesource.glsp.api.diagram.DiagramManager;
-import com.eclipsesource.glsp.api.diagram.DiagramHandlerProvider;
+import com.eclipsesource.glsp.api.diagram.DiagramManagerProvider;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.google.inject.Inject;
 
 public class RequestTypeHintsActionHandler extends AbstractActionHandler {
 	@Inject
-	private DiagramHandlerProvider diagramHandlerProvider;
+	private DiagramManagerProvider diagramManagerProvider;
 
 	@Override
 	public boolean handles(Action action) {
@@ -37,7 +37,7 @@ public class RequestTypeHintsActionHandler extends AbstractActionHandler {
 	@Override
 	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		if (action instanceof RequestTypeHintsAction) {
-			Optional<DiagramManager> handler = diagramHandlerProvider
+			Optional<DiagramManager> handler = diagramManagerProvider
 					.get(((RequestTypeHintsAction) action).getDiagramType());
 			if (handler.isPresent()) {
 				return Optional

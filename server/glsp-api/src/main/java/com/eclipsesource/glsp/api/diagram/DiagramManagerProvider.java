@@ -26,7 +26,7 @@ import org.eclipse.sprotty.SModelElement;
 import com.eclipsesource.glsp.api.json.SModelElementTypeAdapter;
 import com.google.gson.GsonBuilder;
 
-public interface DiagramHandlerProvider {
+public interface DiagramManagerProvider {
 
 	Collection<String> getDiagramTypes();
 

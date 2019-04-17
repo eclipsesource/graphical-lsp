@@ -17,7 +17,7 @@ package com.eclipsesource.glsp.api.di;
 
 import org.eclipse.sprotty.ILayoutEngine;
 
-import com.eclipsesource.glsp.api.diagram.DiagramHandlerProvider;
+import com.eclipsesource.glsp.api.diagram.DiagramManagerProvider;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
@@ -52,13 +52,13 @@ public abstract class GLSPModule extends AbstractModule {
 		bind(ServerCommandHandlerProvider.class).to(bindServerCommandHandlerProvider());
 		bind(CommandPaletteActionProvider.class).to(bindCommandPaletteActionProvider());
 		bind(ModelValidator.class).to(bindModelValidator());
-		bind(DiagramHandlerProvider.class).to(bindDiagramHandlerProvider());
+		bind(DiagramManagerProvider.class).to(bindDiagramManagerProvider());
 		bind(ModelStateProvider.class).to(bindModelStateProvider());
 	}
 
 	protected abstract Class<? extends ModelStateProvider> bindModelStateProvider();
 
-	protected abstract Class<? extends DiagramHandlerProvider> bindDiagramHandlerProvider();
+	protected abstract Class<? extends DiagramManagerProvider> bindDiagramManagerProvider();
 
 	protected abstract Class<? extends GLSPServer> bindGLSPServer();
 
