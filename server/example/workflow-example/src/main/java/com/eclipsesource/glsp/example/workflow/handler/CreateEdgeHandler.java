@@ -19,14 +19,14 @@ import org.eclipse.sprotty.SEdge;
 import org.eclipse.sprotty.SModelElement;
 
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.example.workflow.schema.ModelTypes;
+import com.eclipsesource.glsp.api.utils.DefaultModelTypes;
 import com.eclipsesource.glsp.server.operationhandler.CreateConnectionOperationHandler;
 import com.eclipsesource.glsp.server.util.SModelUtil;
 
 public class CreateEdgeHandler extends CreateConnectionOperationHandler {
 
 	public CreateEdgeHandler() {
-		super(ModelTypes.EDGE);
+		super(DefaultModelTypes.EDGE);
 	}
 
 	@Override

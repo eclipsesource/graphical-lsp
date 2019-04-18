@@ -15,38 +15,30 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow;
 
+import static com.eclipsesource.glsp.api.utils.DefaultModelTypes.EDGE;
 import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.AUTOMATED_TASK;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.COMP_COMP;
 import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.COMP_HEADER;
 import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.DECISION_NODE;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.EDGE;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.GRAPH;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.HTML;
 import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.ICON;
 import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.LABEL_HEADING;
 import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.LABEL_ICON;
 import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.LABEL_TEXT;
 import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.MANUAL_TASK;
 import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.MERGE_NODE;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.PRE_RENDERED;
 import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.WEIGHTED_EDGE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.sprotty.HtmlRoot;
-import org.eclipse.sprotty.PreRenderedElement;
 import org.eclipse.sprotty.SCompartment;
-import org.eclipse.sprotty.SEdge;
-import org.eclipse.sprotty.SGraph;
 import org.eclipse.sprotty.SLabel;
 import org.eclipse.sprotty.SModelElement;
 
 import com.eclipsesource.glsp.api.types.EdgeTypeHint;
 import com.eclipsesource.glsp.api.types.NodeTypeHint;
+import com.eclipsesource.glsp.api.utils.DefaultModelTypes;
 import com.eclipsesource.glsp.example.workflow.schema.ActivityNode;
 import com.eclipsesource.glsp.example.workflow.schema.Icon;
 import com.eclipsesource.glsp.example.workflow.schema.TaskNode;
@@ -62,23 +54,19 @@ public class WorkflowDiagramManager extends AbstractDiagramManager {
 
 	@Override
 	public Map<String, Class<? extends SModelElement>> getTypeMappings() {
-		Map<String, Class<? extends SModelElement>> mapping = new HashMap<>();
-		mapping.put(GRAPH, SGraph.class);
-		mapping.put(LABEL_HEADING, SLabel.class);
-		mapping.put(LABEL_TEXT, SLabel.class);
-		mapping.put(COMP_COMP, SCompartment.class);
-		mapping.put(COMP_HEADER, SCompartment.class);
-		mapping.put(LABEL_ICON, SLabel.class);
-		mapping.put(EDGE, SEdge.class);
-		mapping.put(HTML, HtmlRoot.class);
-		mapping.put(PRE_RENDERED, PreRenderedElement.class);
-		mapping.put(WEIGHTED_EDGE, WeightedEdge.class);
-		mapping.put(ICON, Icon.class);
-		mapping.put(MERGE_NODE, ActivityNode.class);
-		mapping.put(DECISION_NODE, ActivityNode.class);
-		mapping.put(MANUAL_TASK, TaskNode.class);
-		mapping.put(AUTOMATED_TASK, TaskNode.class);
-		return mapping;
+		Map<String, Class<? extends SModelElement>> mappings = DefaultModelTypes.getDefaultTypeMappings();
+
+		mappings.put(LABEL_HEADING, SLabel.class);
+		mappings.put(LABEL_TEXT, SLabel.class);
+		mappings.put(COMP_HEADER, SCompartment.class);
+		mappings.put(LABEL_ICON, SLabel.class);
+		mappings.put(WEIGHTED_EDGE, WeightedEdge.class);
+		mappings.put(ICON, Icon.class);
+		mappings.put(MERGE_NODE, ActivityNode.class);
+		mappings.put(DECISION_NODE, ActivityNode.class);
+		mappings.put(MANUAL_TASK, TaskNode.class);
+		mappings.put(AUTOMATED_TASK, TaskNode.class);
+		return mappings;
 	}
 
 	@Override

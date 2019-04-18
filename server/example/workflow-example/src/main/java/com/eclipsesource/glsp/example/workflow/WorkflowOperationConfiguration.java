@@ -15,9 +15,9 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow;
 
+import static com.eclipsesource.glsp.api.utils.DefaultModelTypes.EDGE;
 import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.AUTOMATED_TASK;
 import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.DECISION_NODE;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.EDGE;
 import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.MANUAL_TASK;
 import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.MERGE_NODE;
 import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.WEIGHTED_EDGE;
