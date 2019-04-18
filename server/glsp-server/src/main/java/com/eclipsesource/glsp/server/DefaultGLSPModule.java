@@ -71,7 +71,7 @@ public abstract class DefaultGLSPModule extends GLSPModule {
 		bindActionHandlers().forEach(h -> actionHandlerBinder.addBinding().to(h));
 		bindServerCommandHandlers().forEach(h -> serverCommandHandler.addBinding().to(h));
 		bindOperationHandlers().forEach(h -> operationHandler.addBinding().to(h));
-		bindDiagramHandlers().forEach(h -> diagramHandler.addBinding().to(h));
+		bindDiagramManagers().forEach(h -> diagramHandler.addBinding().to(h));
 	}
 
 	@Override
@@ -116,7 +116,7 @@ public abstract class DefaultGLSPModule extends GLSPModule {
 
 	protected abstract Collection<Class<? extends OperationHandler>> bindOperationHandlers();
 
-	protected abstract Collection<Class<? extends DiagramManager>> bindDiagramHandlers();
+	protected abstract Collection<Class<? extends DiagramManager>> bindDiagramManagers();
 
 	protected Collection<Class<? extends ActionHandler>> bindActionHandlers() {
 		return Arrays.asList(CollapseExpandActionHandler.class, ComputedBoundsActionHandler.class,

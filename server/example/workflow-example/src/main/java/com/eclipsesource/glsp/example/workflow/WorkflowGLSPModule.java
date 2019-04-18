@@ -107,7 +107,7 @@ public class WorkflowGLSPModule extends DefaultGLSPModule {
 	}
 
 	@Override
-	protected Collection<Class<? extends DiagramManager>> bindDiagramHandlers() {
+	protected Collection<Class<? extends DiagramManager>> bindDiagramManagers() {
 		return Arrays.asList(WorkflowDiagramManager.class);
 	}
 }
