@@ -20,8 +20,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
-import javax.inject.Inject;
-
 import org.apache.log4j.Logger;
 import org.eclipse.sprotty.ServerStatus;
 import org.eclipse.sprotty.ServerStatus.Severity;
@@ -39,6 +37,7 @@ import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
 import com.eclipsesource.glsp.api.model.ModelStateProvider;
 import com.eclipsesource.glsp.api.utils.ClientOptions;
 import com.eclipsesource.glsp.api.utils.ClientOptions.ParsedClientOptions;
+import com.google.inject.Inject;
 
 public class DefaultGLSPServer implements GLSPServer {
 

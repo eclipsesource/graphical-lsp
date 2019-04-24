@@ -17,12 +17,11 @@ package com.eclipsesource.glsp.server.actionhandler;
 
 import java.util.Optional;
 
-import javax.inject.Inject;
-
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.OpenAction;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
+import com.google.inject.Inject;
 
 public class OpenActionHandler extends AbstractActionHandler {
 	@Inject
