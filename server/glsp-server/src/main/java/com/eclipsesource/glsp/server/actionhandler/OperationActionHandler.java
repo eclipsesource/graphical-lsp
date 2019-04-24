@@ -17,8 +17,6 @@ package com.eclipsesource.glsp.server.actionhandler;
 
 import java.util.Optional;
 
-import javax.inject.Inject;
-
 import org.eclipse.sprotty.SModelRoot;
 
 import com.eclipsesource.glsp.api.action.Action;
@@ -26,6 +24,7 @@ import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
+import com.google.inject.Inject;
 
 public class OperationActionHandler extends AbstractActionHandler {
 	@Inject
