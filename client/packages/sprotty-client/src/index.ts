@@ -27,6 +27,7 @@ import validationModule from "./features/validation/di.config";
 
 export * from 'sprotty/lib';
 export * from './base/edit-config/edit-config';
+export * from './model-source/websocket-diagram-server';
 export * from './base/model/update-model-command';
 export * from './base/tool-manager/tool-manager-action-handler';
 export * from './features/change-bounds/model';
@@ -36,12 +37,14 @@ export * from './features/execute/execute-command';
 export * from './features/execute/model';
 export * from './features/hints/action-definition';
 export * from './features/hints/type-hints-action-initializer';
+export * from './features/mouse-tool/di.config';
 export * from './features/operation/operation-actions';
 export * from './features/operation/set-operations';
 export * from './features/request-response/action-definitions';
 export * from './features/request-response/support';
 export * from './features/save/model';
 export * from './features/save/save';
+export * from './features/select/di.config';
 export * from './features/tool-feedback/creation-tool-feedback';
 export * from './features/tool-feedback/model';
 export * from './features/tool-palette/tool-palette';
@@ -50,8 +53,6 @@ export * from './features/tools/creation-tool';
 export * from './features/tools/default-tools';
 export * from './features/tools/delete-tool';
 export * from './features/validation/validate';
-export * from './features/mouse-tool/di.config';
-export * from './features/select/di.config';
 export * from './lib/model';
 export * from './types';
 export * from './utils/array-utils';
@@ -62,4 +63,5 @@ export {
     validationModule, saveModule, executeModule, paletteModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule, glspCommandPaletteModule, requestResponseModule, //
     glspSelectModule, glspMouseToolModule
 };
+
 
