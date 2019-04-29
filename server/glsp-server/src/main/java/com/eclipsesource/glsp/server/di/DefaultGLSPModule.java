@@ -19,7 +19,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
-import com.eclipsesource.glps.server.diagram.DefaultDiagramManagerProvider;
 import com.eclipsesource.glsp.api.di.GLSPModule;
 import com.eclipsesource.glsp.api.diagram.DiagramManager;
 import com.eclipsesource.glsp.api.diagram.DiagramManagerProvider;
@@ -47,6 +46,7 @@ import com.eclipsesource.glsp.server.actionhandler.RequestPopupModelActionHandle
 import com.eclipsesource.glsp.server.actionhandler.RequestTypeHintsActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.SaveModelActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.SelectActionHandler;
+import com.eclipsesource.glsp.server.diagram.DefaultDiagramManagerProvider;
 import com.eclipsesource.glsp.server.jsonrpc.DefaultGLSPServer;
 import com.eclipsesource.glsp.server.model.DefaultModelStateProvider;
 import com.eclipsesource.glsp.server.model.FileBasedModelFactory;
