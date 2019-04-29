@@ -17,6 +17,7 @@ import "reflect-metadata";
 import "sprotty-theia/css/theia-sprotty.css";
 
 import { GLSPWebsocketDiagramServer, RequestOperationsAction, RequestTypeHintsAction } from "@glsp/sprotty-client/lib";
+import { join, resolve } from "path";
 import { IActionDispatcher, RequestModelAction, TYPES } from "sprotty";
 
 import createContainer from "./di.config";
@@ -24,13 +25,16 @@ import createContainer from "./di.config";
 const container = createContainer();
 
 const websocket = new WebSocket("ws://localhost:8081/process");
+const loc = window.location.pathname;
+const currentDir = loc.substring(0, loc.lastIndexOf('/'));
+const examplePath = resolve(join(currentDir, '..', '..', 'workspace', 'example1.wf'));
 
 const diagramServer = container.get<GLSPWebsocketDiagramServer>(TYPES.ModelSource);
 diagramServer.listen(websocket);
 const actionDispatcher = container.get<IActionDispatcher>(TYPES.IActionDispatcher);
 websocket.addEventListener('open', event => {
     actionDispatcher.dispatch(new RequestModelAction({
-        sourceUri: "file:///home/tobias/DA/git/graphical-lsp/client/examples/workflow/workspace/example1.wf",
+        sourceUri: `file://${examplePath}`,
         diagramType: "workflow-diagram",
         needsClientLayout: "true"
     }));

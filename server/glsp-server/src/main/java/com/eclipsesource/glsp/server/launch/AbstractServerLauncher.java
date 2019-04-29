@@ -13,28 +13,33 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.server;
+package com.eclipsesource.glsp.server.launch;
 
-import com.eclipsesource.glsp.api.diagram.DiagramManager;
-import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
-import com.eclipsesource.glsp.api.types.EdgeTypeHint;
-import com.eclipsesource.glsp.api.types.NodeTypeHint;
-import com.google.inject.Inject;
+import com.eclipsesource.glsp.api.di.GLSPModule;
 
-public abstract class AbstractDiagramManager extends DiagramManager {
-	@Inject
-	private ActionHandlerProvider actionHandlerProvider;
+public abstract class AbstractServerLauncher {
 
-	@Override
-	public ActionHandlerProvider getActionHandlerProvider() {
-		return actionHandlerProvider;
+	private int port;
+	private GLSPModule module;
+	private String host;
+
+	public AbstractServerLauncher(String host, int port, GLSPModule module) {
+		this.module = module;
+		this.host = host;
+		this.port = port;
 	}
 
-	public EdgeTypeHint createDefaultEdgeTypeHint(String elementId) {
-		return new EdgeTypeHint(elementId, true, true, true, null, null);
+	public abstract void run();
+
+	public String getHost() {
+		return host;
 	}
 
-	public NodeTypeHint createDefaultNodeTypeHint(String elementId) {
-		return new NodeTypeHint(elementId, true, true, true);
+	public int getPort() {
+		return port;
+	}
+
+	public GLSPModule getModule() {
+		return module;
 	}
 }
