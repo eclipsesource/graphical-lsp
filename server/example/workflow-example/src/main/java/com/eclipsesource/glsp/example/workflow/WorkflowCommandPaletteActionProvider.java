@@ -15,6 +15,8 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow;
 
+import static com.eclipsesource.glsp.api.utils.DefaultModelTypes.EDGE;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -99,8 +101,7 @@ public class WorkflowCommandPaletteActionProvider implements CommandPaletteActio
 	}
 
 	private LabeledAction createEdgeAction(String label, SNode source, SNode node) {
-		return new LabeledAction(label,
-				new CreateConnectionOperationAction(ModelTypes.EDGE, source.getId(), node.getId()));
+		return new LabeledAction(label, new CreateConnectionOperationAction(EDGE, source.getId(), node.getId()));
 	}
 
 	private String getLabel(SNode node) {
