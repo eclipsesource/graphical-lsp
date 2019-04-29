@@ -36,6 +36,7 @@ import org.eclipse.sprotty.SCompartment;
 import org.eclipse.sprotty.SLabel;
 import org.eclipse.sprotty.SModelElement;
 
+import com.eclipsesource.glps.server.diagram.AbstractDiagramManager;
 import com.eclipsesource.glsp.api.types.EdgeTypeHint;
 import com.eclipsesource.glsp.api.types.NodeTypeHint;
 import com.eclipsesource.glsp.api.utils.DefaultModelTypes;
@@ -43,7 +44,6 @@ import com.eclipsesource.glsp.example.workflow.schema.ActivityNode;
 import com.eclipsesource.glsp.example.workflow.schema.Icon;
 import com.eclipsesource.glsp.example.workflow.schema.TaskNode;
 import com.eclipsesource.glsp.example.workflow.schema.WeightedEdge;
-import com.eclipsesource.glsp.server.AbstractDiagramManager;
 
 public class WorkflowDiagramManager extends AbstractDiagramManager {
 

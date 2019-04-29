@@ -1,2 +1,6 @@
 
 \.metadata/
+
+client/examples/workflow/workflow-standalone/app/bundle\.js\.map
+
+client/examples/workflow/workflow-standalone/app/bundle\.js
