@@ -1,19 +1,4 @@
-/*******************************************************************************
- * Copyright (c) 2019 EclipseSource and others.
- *  
- *   This program and the accompanying materials are made available under the
- *   terms of the Eclipse Public License v. 2.0 which is available at
- *   http://www.eclipse.org/legal/epl-2.0.
- *  
- *   This Source Code may also be made available under the following Secondary
- *   Licenses when the conditions for such availability set forth in the Eclipse
- *   Public License v. 2.0 are satisfied: GNU General Public License, version 2
- *   with the GNU Classpath Exception which is available at
- *   https://www.gnu.org/software/classpath/license.html.
- *  
- *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- ******************************************************************************/
-package com.eclipsesource.glsp.server;
+package com.eclipsesource.glsp.server.launch;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,6 +21,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.lsp4j.jsonrpc.Launcher;
 import org.eclipse.lsp4j.jsonrpc.MessageConsumer;
 
+import com.eclipsesource.glsp.api.di.GLSPModule;
 import com.eclipsesource.glsp.api.json.GsonConfigurator;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPClient;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
@@ -43,38 +29,40 @@ import com.google.gson.GsonBuilder;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-public class ServerLauncher {
-	private static Logger log = Logger.getLogger(ServerLauncher.class);
-	private String host;
-	private int port;
-	private DefaultGLSPModule module;
+public class DefaultServerLauncher extends AbstractServerLauncher {
+	private static Logger log = Logger.getLogger(DefaultServerLauncher.class);
 
 	private ExecutorService threadPool;
 	private AsynchronousServerSocketChannel serverSocket;
 	private CompletableFuture<Void> onShutdown;
 
-	public ServerLauncher(String host, int port, DefaultGLSPModule module) {
-		this.module = module;
-		this.host = host;
-		this.port = port;
+	public DefaultServerLauncher(String host, int port, GLSPModule module) {
+		super(host, port, module);
 	}
 
-	public void run() throws IOException, InterruptedException, ExecutionException {
-		Future<Void> onClose = asyncRun();
-		onClose.get();
-		log.info("Stopped language server");
+	public void run() {
+		Future<Void> onClose;
+		try {
+			onClose = asyncRun();
+			onClose.get();
+			log.info("Stopped language server");
+		} catch (IOException | InterruptedException | ExecutionException e) {
+			log.error(e.getMessage());
+			e.printStackTrace();
+		}
+
 	}
 
 	public Future<Void> asyncRun() throws IOException, InterruptedException, ExecutionException {
 		onShutdown = new CompletableFuture<Void>();
 
-		serverSocket = AsynchronousServerSocketChannel.open().bind(new InetSocketAddress(host, port));
+		serverSocket = AsynchronousServerSocketChannel.open().bind(new InetSocketAddress(getHost(), getPort()));
 		threadPool = Executors.newCachedThreadPool();
 
 		CompletionHandler<AsynchronousSocketChannel, Void> handler = new CompletionHandler<AsynchronousSocketChannel, Void>() {
 			public void completed(AsynchronousSocketChannel result, Void attachment) {
 				serverSocket.accept(null, this); // Prepare for the next connection
-				ServerLauncher.this.createClientConnection(result);
+				DefaultServerLauncher.this.createClientConnection(result);
 			}
 
 			public void failed(Throwable exc, Void attachment) {
@@ -89,7 +77,7 @@ public class ServerLauncher {
 	}
 
 	private void createClientConnection(AsynchronousSocketChannel socketChannel) {
-		Injector injector = Guice.createInjector(module);
+		Injector injector = Guice.createInjector(getModule());
 		GsonConfigurator gsonConf = injector.getInstance(GsonConfigurator.class);
 
 		InputStream in = Channels.newInputStream(socketChannel);

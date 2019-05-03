@@ -43,7 +43,7 @@ import com.eclipsesource.glsp.example.workflow.schema.ActivityNode;
 import com.eclipsesource.glsp.example.workflow.schema.Icon;
 import com.eclipsesource.glsp.example.workflow.schema.TaskNode;
 import com.eclipsesource.glsp.example.workflow.schema.WeightedEdge;
-import com.eclipsesource.glsp.server.AbstractDiagramManager;
+import com.eclipsesource.glsp.server.diagram.AbstractDiagramManager;
 
 public class WorkflowDiagramManager extends AbstractDiagramManager {
 

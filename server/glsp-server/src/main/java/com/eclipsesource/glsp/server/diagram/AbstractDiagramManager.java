@@ -13,33 +13,28 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.server;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Set;
+package com.eclipsesource.glsp.server.diagram;
 
 import com.eclipsesource.glsp.api.diagram.DiagramManager;
-import com.eclipsesource.glsp.api.diagram.DiagramManagerProvider;
+import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
+import com.eclipsesource.glsp.api.types.EdgeTypeHint;
+import com.eclipsesource.glsp.api.types.NodeTypeHint;
 import com.google.inject.Inject;
 
-public class DefaultDiagramManagerProvider implements DiagramManagerProvider {
-	public static final String DEFAULT_DIAGRAM_TYPE = "default-diagram";
-	private Set<DiagramManager> diagramHandlers;
-
+public abstract class AbstractDiagramManager extends DiagramManager {
 	@Inject
-	public DefaultDiagramManagerProvider(Set<DiagramManager> diagramHandlers) {
-		this.diagramHandlers = diagramHandlers;
-	}
+	private ActionHandlerProvider actionHandlerProvider;
 
 	@Override
-	public Collection<String> getDiagramTypes() {
-		return Arrays.asList(DEFAULT_DIAGRAM_TYPE);
+	public ActionHandlerProvider getActionHandlerProvider() {
+		return actionHandlerProvider;
 	}
 
-	@Override
-	public Collection<DiagramManager> getAll() {
-		return diagramHandlers;
+	public EdgeTypeHint createDefaultEdgeTypeHint(String elementId) {
+		return new EdgeTypeHint(elementId, true, true, true, null, null);
 	}
 
+	public NodeTypeHint createDefaultNodeTypeHint(String elementId) {
+		return new NodeTypeHint(elementId, true, true, true);
+	}
 }

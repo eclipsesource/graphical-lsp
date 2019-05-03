@@ -40,7 +40,7 @@ import com.eclipsesource.glsp.example.workflow.handler.ReconnectEdgeHandler;
 import com.eclipsesource.glsp.example.workflow.handler.RerouteEdgeHandler;
 import com.eclipsesource.glsp.example.workflow.handler.SimulateCommandHandler;
 import com.eclipsesource.glsp.example.workflow.marker.WorkflowModelValidator;
-import com.eclipsesource.glsp.server.DefaultGLSPModule;
+import com.eclipsesource.glsp.server.di.DefaultGLSPModule;
 import com.eclipsesource.glsp.server.operationhandler.ChangeBoundsOperationHandler;
 import com.eclipsesource.glsp.server.operationhandler.DeleteOperationHandler;
 

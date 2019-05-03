@@ -70,6 +70,11 @@
 			<artifactId>glsp-server</artifactId>
 			<version>1.2.0-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>com.eclipsesource.glsp</groupId>
+			<artifactId>glsp-server-websocket</artifactId>
+			<version>1.2.0-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<resources>

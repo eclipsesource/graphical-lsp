@@ -15,29 +15,33 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow;
 
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-
 import org.apache.log4j.BasicConfigurator;
 
-import com.eclipsesource.glsp.server.ServerLauncher;
+import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
+import com.eclipsesource.glsp.server.launch.AbstractServerLauncher;
+import com.eclipsesource.glsp.server.launch.DefaultServerLauncher;
+import com.eclipsesource.glsp.server.websocket.DefaultWebsocketGLSPServer;
+import com.eclipsesource.glsp.server.websocket.WebsocketServerLauncher;
 
 public class ExampleServerLauncher {
-
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
-		ServerLauncher launcher = new ServerLauncher("localhost", 5007, new WorkflowGLSPModule());
-		try {
-			launcher.run();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		AbstractServerLauncher launcher;
+
+		if (args.length == 1 && args[0].equals("websocket")) {
+			launcher = new WebsocketServerLauncher("localhost", 8081, new WorkflowGLSPModule() {
+
+				@Override
+				protected Class<? extends GLSPServer> bindGLSPServer() {
+					return DefaultWebsocketGLSPServer.class;
+				}
+
+			});
+		} else {
+			launcher = new DefaultServerLauncher("localhost", 5007, new WorkflowGLSPModule());
 		}
+
+		launcher.run();
+
 	}
 }
