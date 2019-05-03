@@ -20,8 +20,8 @@ import org.apache.log4j.BasicConfigurator;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
 import com.eclipsesource.glsp.server.launch.AbstractServerLauncher;
 import com.eclipsesource.glsp.server.launch.DefaultServerLauncher;
-import com.eclipsesource.glsp.server.launch.WebsocketServerLauncher;
 import com.eclipsesource.glsp.server.websocket.DefaultWebsocketGLSPServer;
+import com.eclipsesource.glsp.server.websocket.WebsocketServerLauncher;
 
 public class ExampleServerLauncher {
 	public static void main(String[] args) {

@@ -13,7 +13,7 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.server.launch;
+package com.eclipsesource.glsp.server.websocket;
 
 import java.net.InetSocketAddress;
 
@@ -29,8 +29,7 @@ import com.eclipsesource.glsp.api.di.GLSPModule;
 import com.eclipsesource.glsp.api.json.GsonConfigurator;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
 import com.eclipsesource.glsp.api.websocket.WebsocketGLSPServer;
-import com.eclipsesource.glsp.server.websocket.EndpointConfigurator;
-import com.eclipsesource.glsp.server.websocket.LoggingServerEndpoint;
+import com.eclipsesource.glsp.server.launch.AbstractServerLauncher;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
