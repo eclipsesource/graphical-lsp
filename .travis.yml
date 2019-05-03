@@ -1,3 +1,6 @@
+branches:
+        only:
+        - master
 matrix:
   include:
     - language: java
@@ -10,9 +13,6 @@ matrix:
       install: false
       script:
         - mvn clean verify
-      branches:
-        only:
-        - master
       before_deploy:
        - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
        - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
@@ -42,9 +42,7 @@ matrix:
       before_deploy:
       - printf "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}\n" >> ~/.npmrc
       - yarn
-      branches:
-        only:
-        - master
+    
       deploy:
         provider: script
         script: bash ../scripts/deployNPM.sh
