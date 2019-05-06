@@ -33,6 +33,7 @@ matrix:
     - language: node_js
       node_js:
         - "8"
+      install: false
       before_script:
         - cd client
       cache:

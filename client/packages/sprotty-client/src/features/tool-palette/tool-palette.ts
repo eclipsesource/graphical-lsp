@@ -22,6 +22,7 @@ import {
     IActionDispatcher,
     ICommand,
     SetUIExtensionVisibilityAction,
+    SModelRoot,
     TYPES
 } from "sprotty/lib";
 
@@ -42,6 +43,7 @@ export class ToolPalette extends AbstractUIExtension {
     protected operations: Operation[];
     protected lastActivebutton?: HTMLElement;
     protected defaultToolsButton: HTMLElement;
+    modelRootId: string;
 
 
     initialize() {
@@ -54,6 +56,10 @@ export class ToolPalette extends AbstractUIExtension {
     protected initializeContents(containerElement: HTMLElement): void {
         this.createHeader();
         this.createBody();
+    }
+
+    protected onBeforeShow(containerElement: HTMLElement, root: Readonly<SModelRoot>) {
+        this.modelRootId = root.id;
     }
 
     protected createBody(): void {
@@ -110,7 +116,7 @@ export class ToolPalette extends AbstractUIExtension {
         // Create button for ValidationTool
         const validateActionButton = createIcon(["fas", "fa-check-square", "fa-xs"]);
         validateActionButton.onclick = (ev: MouseEvent) => {
-            const modelIds: string[] = ["sprotty"];
+            const modelIds: string[] = [this.modelRootId];
             this.actionDispatcher.dispatch(new RequestMarkersAction(modelIds));
         };
         headerTools.appendChild(validateActionButton);
