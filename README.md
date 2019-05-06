@@ -10,6 +10,17 @@ Below is a screenshot of a small example diagram being edited in the GLSP client
 [![Screenshot of GLSP Client with Server Log](documentation/glsp-reduced-teaser.png)](documentation/glsp-animated-reduced.gif)
 
 For more information, you can also watch the [EclipseCon Europe 2018 talk](https://www.youtube.com/watch?v=snb1UTSH3Zw) or look at [the slides of this talk](https://docs.google.com/presentation/d/e/2PACX-1vS6VlDFPTNGTt7QdwgLZSgF2swXV_qkl9zCXb43dgPYPQRhP-a83eC-Sta54ETMTzhook3S32clXpL9/pub?start=false&loop=false&delayms=3000&slide=id.g120ca87e56_0_4).
+## Build artifacts
+The client packages are available via [NPM](https://www.npmjs.com/search?q=%40glsp).<br>
+<br>
+The server packages are available as maven repository or p2 update site.<br>
+#### Maven Repositories
+- <i>Releases: </i> https://repo.maven.apache.org/maven2/com/eclipsesource/glsp/
+- <i>Snapshots: </i> https://oss.sonatype.org/content/repositories/snapshots/com/eclipsesource/glsp/
+#### P2 Update Sites
+- <i>Releases: </i> https://dl.bintray.com/eclipsesource/glsp/releases/
+- <i>Snapshots: </i> https://dl.bintray.com/eclipsesource/glsp/nightly <br><br>
+All changes on the master branch are deployed automatically to the corresponding snapshot repository
 
 ## Getting started
 ### Prerequisites
