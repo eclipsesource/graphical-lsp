@@ -47,7 +47,7 @@ import {
     modelHintsModule,
     modelSourceModule,
     openModule,
-    overrideViewerOptions,
+    overrideGLSPViewerOptions,
     paletteModule,
     PreRenderedElement,
     PreRenderedView,
