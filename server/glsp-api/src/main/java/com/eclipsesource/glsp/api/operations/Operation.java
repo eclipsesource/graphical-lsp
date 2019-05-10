@@ -26,6 +26,7 @@ public class Operation {
 		public static final String GENERIC = "generic";
 		public static final String RECONNECT_CONNECTION = "reconnectConnection";
 		public static final String REROUTE_CONNECTION = "rerouteConnection";
+		public static final String APPLY_LABEL_EDIT = "ApplyLabelEdit";
 	}
 
 	private String label;

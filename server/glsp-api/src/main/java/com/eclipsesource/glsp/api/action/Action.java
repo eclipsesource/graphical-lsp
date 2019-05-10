@@ -99,6 +99,7 @@ public abstract class Action {
 		public static final String DELETE_ELEMENT_OPERATION = Operation.Kind.DELETE_ELEMENT;
 		public static final String CHANGE_BOUNDS_OPERATION = Operation.Kind.CHANGE_BOUNDS;
 		public static final String CHANGE_CONTAINER_OPERATION = Operation.Kind.CHANGE_CONTAINER;
+		public static final String APPLY_LABEL_EDIT_OPERATION = Operation.Kind.APPLY_LABEL_EDIT;
 		public static final String GENERIC_OPERATION = Operation.Kind.GENERIC;
 		public static final String EXECUTE_SERVER_COMMAND = "executeServerCommand";
 		public static final String REQUEST_COMMAND_PALETTE_ACTIONS = "requestCommandPaletteActions";
@@ -108,6 +109,8 @@ public abstract class Action {
 		public static final String REQUEST_MARKERS = "requestMarkers";
 		public static final String SET_MARKERS = "setMarkers";
 		public static final String LAYOUT = "layout";
+		public static final String VALIDATE_LABEL_EDIT_ACTION = "validateLabelEditAction";
+		public static final String SET_LABEL_EDIT_VALIDATION_RESULT_ACTION = "setLabelEditValidationResultAction";
 	}
 
 }

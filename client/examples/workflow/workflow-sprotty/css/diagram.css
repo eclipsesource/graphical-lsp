@@ -181,3 +181,8 @@ svg {
     border-width: 1px;
     border-color: #bbb;
 }
+
+.label-edit input {
+    margin-top: -1px;
+    margin-left: -5px;
+}

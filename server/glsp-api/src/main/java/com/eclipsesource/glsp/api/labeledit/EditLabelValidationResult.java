@@ -13,39 +13,43 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.action.kind;
+package com.eclipsesource.glsp.api.labeledit;
 
-import java.util.List;
+public class EditLabelValidationResult {
 
-import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.types.ElementAndBounds;
+	public static final EditLabelValidationResult OK_RESULT = new EditLabelValidationResult(SeverityKind.OK, null);
 
-public class ChangeBoundsOperationAction extends AbstractOperationAction {
-	
-	private List<ElementAndBounds> newBounds;
+	private String severity;
+	private String message;
 
-	public ChangeBoundsOperationAction() {
-		super(Action.Kind.CHANGE_BOUNDS_OPERATION);
+	public EditLabelValidationResult(String severity, String message) {
+		super();
+		this.severity = severity;
+		this.message = message;
 	}
 
-	public ChangeBoundsOperationAction(List<ElementAndBounds> newBounds) {
-		this();
-		this.newBounds = newBounds;
+	public String getSeverity() {
+		return severity;
 	}
 
-	public List<ElementAndBounds> getNewBounds() {
-		return newBounds;
+	public void setSeverity(String severity) {
+		this.severity = severity;
 	}
 
-	public void setNewBounds(List<ElementAndBounds> newBounds) {
-		this.newBounds = newBounds;
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((newBounds == null) ? 0 : newBounds.hashCode());
+		int result = 1;
+		result = prime * result + ((message == null) ? 0 : message.hashCode());
+		result = prime * result + ((severity == null) ? 0 : severity.hashCode());
 		return result;
 	}
 
@@ -53,16 +57,19 @@ public class ChangeBoundsOperationAction extends AbstractOperationAction {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ChangeBoundsOperationAction other = (ChangeBoundsOperationAction) obj;
-		if (newBounds == null) {
-			if (other.newBounds != null)
+		EditLabelValidationResult other = (EditLabelValidationResult) obj;
+		if (message == null) {
+			if (other.message != null)
 				return false;
-		} else if (!newBounds.equals(other.newBounds))
+		} else if (!message.equals(other.message))
+			return false;
+		if (severity != other.severity)
 			return false;
 		return true;
 	}
+
 }
