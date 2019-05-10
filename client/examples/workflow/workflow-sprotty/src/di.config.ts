@@ -18,6 +18,7 @@ import "../css/diagram.css";
 import {
     boundsModule,
     buttonModule,
+    CenterGridSnapper,
     commandPaletteModule,
     configureModelElement,
     ConsoleLogger,
@@ -76,6 +77,7 @@ const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind
     rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
     rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
     rebind(TYPES.IModelFactory).to(WorkflowModelFactory).inSingletonScope();
+    bind(TYPES.ISnapper).to(CenterGridSnapper);
     const context = { bind, unbind, isBound, rebind };
     configureModelElement(context, 'graph', GLSPGraph, SGraphView);
     configureModelElement(context, 'task:automated', TaskNode, TaskNodeView);

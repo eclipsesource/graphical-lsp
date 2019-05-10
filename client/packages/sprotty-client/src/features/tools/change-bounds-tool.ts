@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { inject, injectable } from "inversify";
+import { inject, injectable, optional } from "inversify";
 import {
     Action,
     Bounds,
@@ -21,6 +21,7 @@ import {
     ElementAndBounds,
     findParentByFeature,
     isBoundsAware,
+    ISnapper,
     isViewport,
     KeyTool,
     MouseListener,
@@ -30,7 +31,8 @@ import {
     SModelElement,
     SModelRoot,
     SParentElement,
-    Tool
+    Tool,
+    TYPES
 } from "sprotty/lib";
 
 import { GLSP_TYPES } from "../../types";
@@ -71,11 +73,12 @@ export class ChangeBoundsTool implements Tool {
     constructor(@inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService,
         @inject(GLSP_TYPES.MouseTool) protected mouseTool: IMouseTool,
         @inject(KeyTool) protected keyTool: KeyTool,
-        @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher) { }
+        @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher,
+        @inject(TYPES.ISnapper) @optional() protected snapper?: ISnapper) { }
 
     enable() {
         // install feedback move mouse listener for client-side move updates
-        this.feedbackMoveMouseListener = new FeedbackMoveMouseListener();
+        this.feedbackMoveMouseListener = new FeedbackMoveMouseListener(this.snapper);
         this.mouseTool.register(this.feedbackMoveMouseListener);
 
         // instlal change bounds listener for client-side resize updates and server-side updates
