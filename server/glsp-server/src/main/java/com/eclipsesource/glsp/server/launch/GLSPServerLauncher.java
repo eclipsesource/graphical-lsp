@@ -16,30 +16,41 @@
 package com.eclipsesource.glsp.server.launch;
 
 import com.eclipsesource.glsp.api.di.GLSPModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
-public abstract class AbstractServerLauncher {
+public abstract class GLSPServerLauncher {
 
-	private int port;
 	private GLSPModule module;
-	private String host;
+	private Injector injector;
 
-	public AbstractServerLauncher(String host, int port, GLSPModule module) {
+	public GLSPServerLauncher() {
+	}
+
+	public GLSPServerLauncher(GLSPModule module) {
 		this.module = module;
-		this.host = host;
-		this.port = port;
 	}
 
-	public abstract void run();
-
-	public String getHost() {
-		return host;
+	protected Injector doSetup() {
+		return Guice.createInjector(module);
 	}
 
-	public int getPort() {
-		return port;
+	public void start(String hostname, int port) {
+		if (injector == null) {
+			injector = doSetup();
+		}
+		run(hostname, port);
 	}
+
+	protected abstract void run(String hostname, int port);
+
+	public abstract void shutdown();
 
 	public GLSPModule getModule() {
 		return module;
+	}
+
+	public void setModule(GLSPModule module) {
+		this.module = module;
 	}
 }

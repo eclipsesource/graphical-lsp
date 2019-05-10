@@ -29,20 +29,21 @@ import com.eclipsesource.glsp.api.di.GLSPModule;
 import com.eclipsesource.glsp.api.json.GsonConfigurator;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
 import com.eclipsesource.glsp.api.websocket.WebsocketGLSPServer;
-import com.eclipsesource.glsp.server.launch.AbstractServerLauncher;
+import com.eclipsesource.glsp.server.launch.GLSPServerLauncher;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-public class WebsocketServerLauncher extends AbstractServerLauncher {
-	private static Logger logger = Logger.getLogger(WebsocketServerLauncher.class);
+public class WebsocketServerLauncher extends GLSPServerLauncher {
+	private static Logger log = Logger.getLogger(WebsocketServerLauncher.class);
+	private Server server;
 
-	public WebsocketServerLauncher(String host, int port, GLSPModule module) {
-		super(host, port, module);
+	public WebsocketServerLauncher(GLSPModule module) {
+		super(module);
 	}
 
-	public void run() {
+	public void run(String hostname, int port) {
 		try {
-			Server server = new Server(new InetSocketAddress(getHost(), getPort()));
+			server = new Server(new InetSocketAddress(hostname, port));
 			ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
 			contextHandler.setContextPath("/");
 			server.setHandler(contextHandler);
@@ -61,11 +62,22 @@ public class WebsocketServerLauncher extends AbstractServerLauncher {
 				server.start();
 				server.join();
 			} else {
-				logger.error("No matching binding for WebsocketGLSPServer was found");
+				log.error("No matching binding for WebsocketGLSPServer was found");
 			}
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+		} catch (Exception ex) {
+			log.error("Failed to start Websocket GLSP server " + ex.getMessage(), ex);
 		}
+	}
+
+	@Override
+	public void shutdown() {
+		if (server.isRunning()) {
+			try {
+				server.stop();
+			} catch (Exception ex) {
+				log.error("Failed to stop Websocket GLSP server " + ex.getMessage(), ex);
+			}
+		}
+
 	}
 }

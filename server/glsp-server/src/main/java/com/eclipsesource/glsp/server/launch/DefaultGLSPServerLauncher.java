@@ -29,21 +29,21 @@ import com.google.gson.GsonBuilder;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-public class DefaultServerLauncher extends AbstractServerLauncher {
-	private static Logger log = Logger.getLogger(DefaultServerLauncher.class);
+public class DefaultGLSPServerLauncher extends GLSPServerLauncher {
+	private static Logger log = Logger.getLogger(DefaultGLSPServerLauncher.class);
 
 	private ExecutorService threadPool;
 	private AsynchronousServerSocketChannel serverSocket;
 	private CompletableFuture<Void> onShutdown;
 
-	public DefaultServerLauncher(String host, int port, GLSPModule module) {
-		super(host, port, module);
+	public DefaultGLSPServerLauncher(GLSPModule module) {
+		super(module);
 	}
 
-	public void run() {
+	public void run(String hostname, int port) {
 		Future<Void> onClose;
 		try {
-			onClose = asyncRun();
+			onClose = asyncRun(hostname, port);
 			onClose.get();
 			log.info("Stopped language server");
 		} catch (IOException | InterruptedException | ExecutionException e) {
@@ -53,16 +53,17 @@ public class DefaultServerLauncher extends AbstractServerLauncher {
 
 	}
 
-	public Future<Void> asyncRun() throws IOException, InterruptedException, ExecutionException {
+	public Future<Void> asyncRun(String hostname, int port)
+			throws IOException, InterruptedException, ExecutionException {
 		onShutdown = new CompletableFuture<Void>();
 
-		serverSocket = AsynchronousServerSocketChannel.open().bind(new InetSocketAddress(getHost(), getPort()));
+		serverSocket = AsynchronousServerSocketChannel.open().bind(new InetSocketAddress(hostname, port));
 		threadPool = Executors.newCachedThreadPool();
 
 		CompletionHandler<AsynchronousSocketChannel, Void> handler = new CompletionHandler<AsynchronousSocketChannel, Void>() {
 			public void completed(AsynchronousSocketChannel result, Void attachment) {
 				serverSocket.accept(null, this); // Prepare for the next connection
-				DefaultServerLauncher.this.createClientConnection(result);
+				DefaultGLSPServerLauncher.this.createClientConnection(result);
 			}
 
 			public void failed(Throwable exc, Void attachment) {
@@ -100,9 +101,17 @@ public class DefaultServerLauncher extends AbstractServerLauncher {
 		}
 	}
 
-	public void stop() throws IOException {
+	public void shutdown() {
 		log.info("Stopping all connections to the language server...");
-		serverSocket.close();
+		if (serverSocket.isOpen()) {
+			try {
+				serverSocket.close();
+			} catch (IOException e) {
+				log.error("Failed to close serverSocket: " + e.getMessage(), e);
+
+			}
+		}
+
 		threadPool.shutdown();
 		onShutdown.complete(null);
 		log.info("Stopped language server");
