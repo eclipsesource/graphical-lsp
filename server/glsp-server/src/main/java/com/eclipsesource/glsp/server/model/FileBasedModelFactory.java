@@ -46,7 +46,7 @@ public class FileBasedModelFactory implements ModelFactory {
 	private SModelRoot modelRoot;
 
 	@Override
-	public SModelRoot loadModel(RequestModelAction action) {
+	public SModelRoot loadModel(RequestModelAction action, String clientId) {
 		String sourceURI = action.getOptions().get(ClientOptions.SOURCE_URI);
 		try {
 			File modelFile = convertToFile(sourceURI);
