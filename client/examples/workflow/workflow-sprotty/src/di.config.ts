@@ -110,7 +110,8 @@ export default function createContainer(widgetId: string): Container {
         needsClientLayout: true,
         needsServerLayout: false,
         baseDiv: widgetId,
-        hiddenDiv: widgetId + "_hidden"
+        hiddenDiv: widgetId + "_hidden",
+        noElementOverlap: true
     });
 
     return container;

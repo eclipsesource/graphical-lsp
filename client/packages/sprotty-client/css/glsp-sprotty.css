@@ -64,6 +64,14 @@
     cursor: copy;
 }
 
+.overlap-forbidden-mode {
+    cursor: not-allowed;
+}
+
+.default-mode {
+    cursor: default;
+}
+
 .edge-modification-not-allowed-mode {
     cursor: no-drop;
 }

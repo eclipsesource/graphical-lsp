@@ -14,13 +14,16 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { inject, injectable } from "inversify";
+import { element } from "prop-types";
 import { VNode } from "snabbdom/vnode";
 import {
     Action,
+    Bounds,
     CommandExecutionContext,
     CommandResult,
     ElementMove,
     findParentByFeature,
+    includes,
     isMoveable,
     isSelectable,
     isViewport,
@@ -32,8 +35,11 @@ import {
     TYPES
 } from "sprotty/lib";
 
+import { GLSPViewerOptions } from "../../base/views/viewer-options";
 import { isNotUndefined } from "../../utils/smodel-util";
+import { getAbsolutePosition } from "../../utils/viewpoint-util";
 import { addResizeHandles, isResizeable, removeResizeHandles } from "../change-bounds/model";
+import { ApplyCursorCSSFeedbackAction, CursorCSS } from "./cursor-feedback";
 import { FeedbackCommand } from "./model";
 
 export class ShowChangeBoundsToolResizeFeedbackAction implements Action {
@@ -93,7 +99,8 @@ export class HideChangeBoundsToolResizeFeedbackCommand extends FeedbackCommand {
 export class FeedbackMoveMouseListener extends MouseListener {
     hasDragged = false;
     lastDragPosition: Point | undefined;
-
+    hasCollided = false;
+    constructor(protected glspViewerOptions: GLSPViewerOptions) { super(); }
     mouseDown(target: SModelElement, event: MouseEvent): Action[] {
         if (event.button === 0) {
             const moveable = findParentByFeature(target, isMoveable);
@@ -107,6 +114,54 @@ export class FeedbackMoveMouseListener extends MouseListener {
         return [];
     }
 
+    /**
+    * Used to check if 1D boxes (lines) overlap
+    */
+    isOverlapping1Dimension(x1: number, width1: number, x2: number, width2: number): boolean {
+        return x1 + width1 >= x2 && x2 + width2 >= x1;
+    }
+
+    /**
+    * Used to check if 2 bounds are overlapping
+    */
+    isOverlappingBounds(bounds1: Bounds, bounds2: Bounds): boolean {
+        return this.isOverlapping1Dimension(bounds1.x, bounds1.width, bounds2.x, bounds2.width) &&
+            this.isOverlapping1Dimension(bounds1.y, bounds1.height, bounds2.y, bounds2.height);
+
+    }
+
+    /**
+    * Used to return the collision target(s) or the collision chain in case of multiple selected elements
+    */
+    getCollisionChain(target: SModelElement, element: SModelElement, dx: number, dy: number, collisionChain: SModelElement[]): SModelElement[] {
+        if (isMoveable(element) && isResizeable(element)) {
+            target.root.index.all()
+                .filter(candidate => isSelectable(candidate) && element.id !== candidate.id && collisionChain.indexOf(candidate) < 0)
+                .forEach(candidate => {
+                    if (isMoveable(element) && isMoveable(candidate)) {
+                        if (isResizeable(element) && isResizeable(candidate)) {
+                            const futureBounds: Bounds = {
+                                x: element.position.x + dx,
+                                y: element.position.y + dy,
+                                width: element.size.width,
+                                height: element.size.height
+                            };
+                            if (this.isOverlappingBounds(futureBounds, candidate.bounds) && !this.isOverlappingBounds(element.bounds, candidate.bounds)) {
+                                collisionChain.push(candidate);
+                                if (candidate.selected) {
+                                    // Check what the selected candidate will collide with and add it to the chain
+                                    collisionChain.push.apply(collisionChain, this.getCollisionChain(target, candidate, dx, dy, collisionChain));
+
+                                }
+                            }
+                        }
+                    }
+                });
+        }
+
+        return collisionChain;
+    }
+
     mouseMove(target: SModelElement, event: MouseEvent): Action[] {
         const result: Action[] = [];
         if (event.buttons === 0)
@@ -115,13 +170,43 @@ export class FeedbackMoveMouseListener extends MouseListener {
             const viewport = findParentByFeature(target, isViewport);
             this.hasDragged = true;
             const zoom = viewport ? viewport.zoom : 1;
+            const mousePoint: Point = getAbsolutePosition(target, event);
             const dx = (event.pageX - this.lastDragPosition.x) / zoom;
             const dy = (event.pageY - this.lastDragPosition.y) / zoom;
             const nodeMoves: ElementMove[] = [];
+            let willCollide: boolean = false;
+            let mouseOverElement: boolean = false;
+            const collisionOccured: boolean = false;
+
             target.root.index.all()
                 .filter(element => isSelectable(element) && element.selected)
                 .forEach(element => {
-                    if (isMoveable(element)) {
+                    if (isMoveable(element) && isResizeable(element)) {
+                        // If noElementOverlap Option is set perform collision detection
+                        if (this.glspViewerOptions.noElementOverlap) {
+                            // After collision the mouse is back inside the element => change cursor back to default
+                            if (this.hasCollided && includes(element.bounds, mousePoint)) {
+                                mouseOverElement = true;
+                                result.push(new ApplyCursorCSSFeedbackAction(CursorCSS.DEFAULT));
+                            }
+                            // Get only the valid, non-slected collision targets to avoid in-selection collisions
+                            const collisionTargets: SModelElement[] = this.getCollisionChain(target, element, dx, dy, [])
+                                .filter(collidingElement => isSelectable(collidingElement) && !collidingElement.selected);
+
+                            if (collisionTargets.length > 0) {
+                                collisionTargets.forEach(collisionTarget => {
+                                    if (isResizeable(collisionTarget)) {
+                                        willCollide = true;
+                                        this.hasCollided = true;
+                                        result.push(new ApplyCursorCSSFeedbackAction(CursorCSS.OVERLAP_FORBIDDEN));
+                                    }
+                                });
+                            }
+                        }
+                    }
+                    if (isMoveable(element) && !collisionOccured && ((!willCollide && !this.hasCollided) ||
+                        (this.hasCollided && !willCollide && mouseOverElement))) {
+                        this.hasCollided = false;
                         nodeMoves.push({
                             elementId: element.id,
                             fromPosition: {
@@ -136,9 +221,11 @@ export class FeedbackMoveMouseListener extends MouseListener {
                     }
                 });
             this.lastDragPosition = { x: event.pageX, y: event.pageY };
-            if (nodeMoves.length > 0)
+            if (nodeMoves.length > 0 && !this.hasCollided) {
                 result.push(new MoveAction(nodeMoves, false));
+            }
         }
+
         return result;
     }
 
@@ -158,3 +245,4 @@ export class FeedbackMoveMouseListener extends MouseListener {
         return vnode;
     }
 }
+

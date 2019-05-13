@@ -33,6 +33,7 @@ import {
     Tool
 } from "sprotty/lib";
 
+import { GLSPViewerOptions } from "../../base/views/viewer-options";
 import { GLSP_TYPES } from "../../types";
 import { forEachElement, isSelected } from "../../utils/smodel-util";
 import { isBoundsAwareMoveable, isResizeable, ResizeHandleLocation, SResizeHandle } from "../change-bounds/model";
@@ -71,11 +72,12 @@ export class ChangeBoundsTool implements Tool {
     constructor(@inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService,
         @inject(GLSP_TYPES.MouseTool) protected mouseTool: IMouseTool,
         @inject(KeyTool) protected keyTool: KeyTool,
-        @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher) { }
+        @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher,
+        @inject(GLSP_TYPES.ViewerOptions) protected opts: GLSPViewerOptions) { }
 
     enable() {
         // install feedback move mouse listener for client-side move updates
-        this.feedbackMoveMouseListener = new FeedbackMoveMouseListener();
+        this.feedbackMoveMouseListener = new FeedbackMoveMouseListener(this.opts);
         this.mouseTool.register(this.feedbackMoveMouseListener);
 
         // instlal change bounds listener for client-side resize updates and server-side updates
