@@ -41,7 +41,7 @@ import {
     modelHintsModule,
     modelSourceModule,
     openModule,
-    overrideGLSPViewerOptions,
+    overrideViewerOptions,
     paletteModule,
     PreRenderedElement,
     PreRenderedView,
@@ -106,7 +106,7 @@ export default function createContainer(widgetId: string): Container {
         workflowDiagramModule, saveModule, executeCommandModule, toolFeedbackModule, modelHintsModule,
         commandPaletteModule, glspCommandPaletteModule, paletteModule, requestResponseModule, routingModule, edgeLayoutModule);
 
-    overrideGLSPViewerOptions(container, {
+    overrideViewerOptions(container, {
         needsClientLayout: true,
         needsServerLayout: false,
         baseDiv: widgetId,
