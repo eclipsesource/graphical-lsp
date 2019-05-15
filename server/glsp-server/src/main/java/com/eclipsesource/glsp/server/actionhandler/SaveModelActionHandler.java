@@ -25,7 +25,7 @@ import org.eclipse.sprotty.SModelRoot;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.SaveModelAction;
-import com.eclipsesource.glsp.api.diagram.DiagramManagerProvider;
+import com.eclipsesource.glsp.api.diagram.DiagramConfigurationProvider;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
@@ -35,7 +35,7 @@ public class SaveModelActionHandler extends AbstractActionHandler {
 	private static final String FILE_PREFIX = "file://";
 
 	@Inject
-	DiagramManagerProvider diagramManagerProvider;
+	DiagramConfigurationProvider diagramManagerProvider;
 
 	@Override
 	public boolean handles(Action action) {

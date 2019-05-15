@@ -13,23 +13,33 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.operations;
+package com.eclipsesource.glsp.server.diagram;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Set;
 
-import com.eclipsesource.glsp.api.action.kind.RequestOperationsAction;
+import com.eclipsesource.glsp.api.diagram.DiagramConfiguration;
+import com.eclipsesource.glsp.api.diagram.DiagramConfigurationProvider;
+import com.google.inject.Inject;
 
-public interface OperationConfiguration {
+public class DIDiagramConfigurationProvider implements DiagramConfigurationProvider {
+	public static final String DEFAULT_DIAGRAM_TYPE = "default-diagram";
+	private Set<DiagramConfiguration> diagramHandlers;
 
-	List<Operation> getOperations(RequestOperationsAction action);
-
-	final class NullOperationConfiguration implements OperationConfiguration {
-
-		@Override
-		public List<Operation> getOperations(RequestOperationsAction action) {
-			return Collections.emptyList();
-		}
-
+	@Inject
+	public DIDiagramConfigurationProvider(Set<DiagramConfiguration> diagramHandlers) {
+		this.diagramHandlers = diagramHandlers;
 	}
+
+	@Override
+	public Collection<String> getDiagramTypes() {
+		return Arrays.asList(DEFAULT_DIAGRAM_TYPE);
+	}
+
+	@Override
+	public Collection<DiagramConfiguration> getAll() {
+		return diagramHandlers;
+	}
+
 }

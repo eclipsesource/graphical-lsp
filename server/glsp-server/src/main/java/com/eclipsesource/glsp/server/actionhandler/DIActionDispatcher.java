@@ -13,28 +13,26 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.server.diagram;
+package com.eclipsesource.glsp.server.actionhandler;
 
-import com.eclipsesource.glsp.api.diagram.DiagramManager;
+import java.util.Optional;
+
+import com.eclipsesource.glsp.api.action.Action;
+import com.eclipsesource.glsp.api.action.ActionDispatcher;
+import com.eclipsesource.glsp.api.handler.ActionHandler;
 import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
-import com.eclipsesource.glsp.api.types.EdgeTypeHint;
-import com.eclipsesource.glsp.api.types.NodeTypeHint;
 import com.google.inject.Inject;
 
-public abstract class AbstractDiagramManager extends DiagramManager {
+public class DIActionDispatcher implements ActionDispatcher {
+
 	@Inject
-	private ActionHandlerProvider actionHandlerProvider;
+	protected ActionHandlerProvider handlerProvider;
 
-	@Override
-	public ActionHandlerProvider getActionHandlerProvider() {
-		return actionHandlerProvider;
-	}
-
-	public EdgeTypeHint createDefaultEdgeTypeHint(String elementId) {
-		return new EdgeTypeHint(elementId, true, true, true, null, null);
-	}
-
-	public NodeTypeHint createDefaultNodeTypeHint(String elementId) {
-		return new NodeTypeHint(elementId, true, true, true);
+	public Optional<Action> dispatch(String clientId, Action action) {
+		Optional<ActionHandler> handler = handlerProvider.getHandler(action);
+		if (handler.isPresent()) {
+			return handler.get().execute(clientId, action);
+		}
+		return Optional.empty();
 	}
 }

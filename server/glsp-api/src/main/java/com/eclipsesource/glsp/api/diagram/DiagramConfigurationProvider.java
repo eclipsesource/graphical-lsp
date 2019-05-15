@@ -26,21 +26,21 @@ import org.eclipse.sprotty.SModelElement;
 import com.eclipsesource.glsp.api.json.SModelElementTypeAdapter;
 import com.google.gson.GsonBuilder;
 
-public interface DiagramManagerProvider {
+public interface DiagramConfigurationProvider {
 
 	Collection<String> getDiagramTypes();
 
-	default Optional<DiagramManager> get(String diagramType) {
+	default Optional<DiagramConfiguration> get(String diagramType) {
 		return getAll().stream().filter(h -> h.getDiagramType().equals(diagramType)).findFirst();
 	}
 
-	Collection<DiagramManager> getAll();
+	Collection<DiagramConfiguration> getAll();
 
 	default boolean provides(String diagramType) {
 		return getDiagramTypes().contains(diagramType);
 	}
 
-	default Optional<DiagramManager> createDefault() {
+	default Optional<DiagramConfiguration> createDefault() {
 		if (getDiagramTypes().size() == 1) {
 			String diagramType = getDiagramTypes().iterator().next();
 			return get(diagramType);
@@ -51,7 +51,7 @@ public interface DiagramManagerProvider {
 	default GsonBuilder configureGSON() {
 		GsonBuilder builder = new GsonBuilder();
 		Map<String, Class<? extends SModelElement>> modelTypes = new HashMap<>();
-		getAll().stream().map(DiagramManager::getTypeMappings).forEach(modelTypes::putAll);
+		getAll().stream().map(DiagramConfiguration::getTypeMappings).forEach(modelTypes::putAll);
 		builder.registerTypeAdapterFactory(new SModelElementTypeAdapter.Factory(modelTypes))
 				.registerTypeAdapterFactory(new EnumTypeAdapter.Factory());
 		return builder;
