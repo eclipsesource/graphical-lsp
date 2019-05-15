@@ -20,6 +20,8 @@ import { addCssClasses, removeCssClasses } from "../../utils/smodel-util";
 import { FeedbackCommand } from "./model";
 
 export enum CursorCSS {
+    DEFAULT = 'default-mode',
+    OVERLAP_FORBIDDEN = 'overlap-forbidden-mode',
     NODE_CREATION = 'node-creation-mode',
     EDGE_CREATION_SOURCE = 'edge-creation-select-source-mode',
     EDGE_CREATION_TARGET = 'edge-creation-select-target-mode',

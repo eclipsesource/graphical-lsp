@@ -30,6 +30,7 @@ export * from './base/edit-config/edit-config';
 export * from './model-source/websocket-diagram-server';
 export * from './base/model/update-model-command';
 export * from './base/tool-manager/tool-manager-action-handler';
+export * from './base/views/viewer-options';
 export * from './features/change-bounds/model';
 export * from './features/command-palette/action-definitions';
 export * from './features/command-palette/action-provider';

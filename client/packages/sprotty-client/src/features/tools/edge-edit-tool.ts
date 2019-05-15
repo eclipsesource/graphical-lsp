@@ -43,7 +43,6 @@ import {
     SReconnectHandle
 } from "../reconnect/model";
 import { SelectionListener, SelectionService } from "../select/selection-service";
-import { FeedbackMoveMouseListener } from "../tool-feedback/change-bounds-tool-feedback";
 import { DrawFeedbackEdgeAction, feedbackEdgeId, RemoveFeedbackEdgeAction } from "../tool-feedback/creation-tool-feedback";
 import { ApplyCursorCSSFeedbackAction, CursorCSS } from "../tool-feedback/cursor-feedback";
 import {
@@ -64,7 +63,7 @@ export class EdgeEditTool implements Tool {
 
     protected feedbackEdgeSourceMovingListener: FeedbackEdgeSourceMovingMouseListener;
     protected feedbackEdgeTargetMovingListener: FeedbackEdgeTargetMovingMouseListener;
-    protected feedbackMovingListener: FeedbackMoveMouseListener;
+    protected feedbackMovingListener: FeedbackEdgeRouteMovingMouseListener;
     protected reconnectEdgeListener: ReconnectEdgeListener;
 
     constructor(@inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService,
