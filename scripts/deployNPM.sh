@@ -1,10 +1,10 @@
 #!/bin/bash
-if 	git diff --name-only HEAD^| grep -q "^client" | grep -q -v "^client/yarn.lock"
+diff=$(git diff --name-only HEAD^| grep "^client" | grep -v "^client/yarn.lock")
+if [ -z "$diff" ]
 then
-    echo diff --name-only HEAD^| grep "^client" | grep -v "^client/yarn.lock"
+    echo "No NPM packages have been changed. Skip deployment"
+else
     echo "Deploy next-packages to npm"
     cd ../client
-    # yarn run publish:next
-else
-    echo "No NPM packages have been changed. Skip deployment"
+    yarn run publish:next
 fi
