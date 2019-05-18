@@ -58,6 +58,7 @@
 		<module>example/workflow-example</module>
 		<module>glsp-server</module>
 		<module>glsp-server-websocket</module>
+		<module>glsp-graph</module>
 	</modules>
 
 	<dependencies>
