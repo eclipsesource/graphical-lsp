@@ -49,5 +49,4 @@ public abstract class AbstractActionHandler implements ActionHandler {
 	}
 
 	protected abstract Optional<Action> execute(Action action, GraphicalModelState modelState);
-
 }

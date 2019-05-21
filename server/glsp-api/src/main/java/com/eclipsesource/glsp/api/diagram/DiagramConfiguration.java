@@ -17,33 +17,30 @@ package com.eclipsesource.glsp.api.diagram;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.eclipse.sprotty.SModelElement;
 
-import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.handler.ActionHandler;
-import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
+import com.eclipsesource.glsp.api.operations.Operation;
 import com.eclipsesource.glsp.api.types.EdgeTypeHint;
 import com.eclipsesource.glsp.api.types.NodeTypeHint;
 
-public abstract class DiagramManager {
+public interface DiagramConfiguration {
 
-	public abstract ActionHandlerProvider getActionHandlerProvider();
+	String getDiagramType();
 
-	public abstract String getDiagramType();
+	Map<String, Class<? extends SModelElement>> getTypeMappings();
 
-	public Optional<Action> execute(String clientId, Action action) {
-		Optional<ActionHandler> handler = getActionHandlerProvider().getHandler(action);
-		if (handler.isPresent()) {
-			return handler.get().execute(clientId, action);
-		}
-		return Optional.empty();
+	List<NodeTypeHint> getNodeTypeHints();
+
+	List<EdgeTypeHint> getEdgeTypeHints();
+
+	List<Operation> getOperations();
+
+	default EdgeTypeHint createDefaultEdgeTypeHint(String elementId) {
+		return new EdgeTypeHint(elementId, true, true, true, null, null);
 	}
 
-	public abstract Map<String, Class<? extends SModelElement>> getTypeMappings();
-
-	public abstract List<NodeTypeHint> getNodeTypeHints();
-
-	public abstract List<EdgeTypeHint> getEdgeTypeHints();
+	default NodeTypeHint createDefaultNodeTypeHint(String elementId) {
+		return new NodeTypeHint(elementId, true, true, true);
+	}
 }

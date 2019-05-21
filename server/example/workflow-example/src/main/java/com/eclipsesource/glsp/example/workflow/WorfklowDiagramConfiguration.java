@@ -36,6 +36,9 @@ import org.eclipse.sprotty.SCompartment;
 import org.eclipse.sprotty.SLabel;
 import org.eclipse.sprotty.SModelElement;
 
+import com.eclipsesource.glsp.api.diagram.DiagramConfiguration;
+import com.eclipsesource.glsp.api.operations.Group;
+import com.eclipsesource.glsp.api.operations.Operation;
 import com.eclipsesource.glsp.api.types.EdgeTypeHint;
 import com.eclipsesource.glsp.api.types.NodeTypeHint;
 import com.eclipsesource.glsp.api.utils.DefaultModelTypes;
@@ -43,9 +46,8 @@ import com.eclipsesource.glsp.example.workflow.schema.ActivityNode;
 import com.eclipsesource.glsp.example.workflow.schema.Icon;
 import com.eclipsesource.glsp.example.workflow.schema.TaskNode;
 import com.eclipsesource.glsp.example.workflow.schema.WeightedEdge;
-import com.eclipsesource.glsp.server.diagram.AbstractDiagramManager;
 
-public class WorkflowDiagramManager extends AbstractDiagramManager {
+public class WorfklowDiagramConfiguration implements DiagramConfiguration {
 
 	@Override
 	public String getDiagramType() {
@@ -89,10 +91,28 @@ public class WorkflowDiagramManager extends AbstractDiagramManager {
 
 	@Override
 	public EdgeTypeHint createDefaultEdgeTypeHint(String elementId) {
-		EdgeTypeHint hint = super.createDefaultEdgeTypeHint(elementId);
+		EdgeTypeHint hint = DiagramConfiguration.super.createDefaultEdgeTypeHint(elementId);
 		hint.setSourceElementTypeIds(Arrays.asList(MANUAL_TASK, AUTOMATED_TASK, DECISION_NODE, MERGE_NODE));
 		hint.setTargetElementTypeIds(Arrays.asList(MANUAL_TASK, AUTOMATED_TASK, DECISION_NODE, MERGE_NODE));
 		return hint;
+	}
+
+	@Override
+	public List<Operation> getOperations() {
+		Group nodeGroup = new Group("workflow.nodes", "Nodes");
+		Group edgeGroup = new Group("workflow.edges", "Edges");
+		Operation createAutomatedTask = new Operation("Automated Task", AUTOMATED_TASK, Operation.Kind.CREATE_NODE,
+				nodeGroup);
+		Operation createManualTask = new Operation("Manual Task", MANUAL_TASK, Operation.Kind.CREATE_NODE, nodeGroup);
+		Operation createDecisionNode = new Operation("Decision Node", DECISION_NODE, Operation.Kind.CREATE_NODE,
+				nodeGroup);
+		Operation createMergeNode = new Operation("Merge Node", MERGE_NODE, Operation.Kind.CREATE_NODE, nodeGroup);
+		Operation createWeightedEdge = new Operation("Weighted Edge", WEIGHTED_EDGE, Operation.Kind.CREATE_CONNECTION,
+				edgeGroup);
+		Operation createEdge = new Operation("Edge", EDGE, Operation.Kind.CREATE_CONNECTION, edgeGroup);
+
+		return Arrays.asList(createAutomatedTask, createManualTask, createDecisionNode, createMergeNode,
+				createWeightedEdge, createEdge);
 	}
 
 }

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import com.eclipsesource.glsp.api.diagram.DiagramManager;
+import com.eclipsesource.glsp.api.diagram.DiagramConfiguration;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
@@ -27,7 +27,6 @@ import com.eclipsesource.glsp.api.markers.ModelValidator;
 import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
 import com.eclipsesource.glsp.api.model.ModelExpansionListener;
 import com.eclipsesource.glsp.api.model.ModelSelectionListener;
-import com.eclipsesource.glsp.api.operations.OperationConfiguration;
 import com.eclipsesource.glsp.api.provider.CommandPaletteActionProvider;
 import com.eclipsesource.glsp.example.workflow.handler.CreateAutomatedTaskHandler;
 import com.eclipsesource.glsp.example.workflow.handler.CreateDecisionNodeHandler;
@@ -68,11 +67,6 @@ public class WorkflowGLSPModule extends DefaultGLSPModule {
 	}
 
 	@Override
-	public Class<? extends OperationConfiguration> bindOperationConfiguration() {
-		return WorkflowOperationConfiguration.class;
-	}
-
-	@Override
 	protected Class<? extends CommandPaletteActionProvider> bindCommandPaletteActionProvider() {
 		return WorkflowCommandPaletteActionProvider.class;
 	}
@@ -107,7 +101,7 @@ public class WorkflowGLSPModule extends DefaultGLSPModule {
 	}
 
 	@Override
-	protected Collection<Class<? extends DiagramManager>> bindDiagramManagers() {
-		return Arrays.asList(WorkflowDiagramManager.class);
+	protected Collection<Class<? extends DiagramConfiguration>> bindDiagramConfigurations() {
+		return Arrays.asList(WorfklowDiagramConfiguration.class);
 	}
 }

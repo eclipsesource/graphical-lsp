@@ -15,21 +15,22 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.actionhandler;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
+
+import org.apache.log4j.Logger;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestOperationsAction;
 import com.eclipsesource.glsp.api.action.kind.SetOperationsAction;
+import com.eclipsesource.glsp.api.diagram.DiagramConfiguration;
+import com.eclipsesource.glsp.api.diagram.DiagramConfigurationProvider;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.api.operations.Operation;
-import com.eclipsesource.glsp.api.operations.OperationConfiguration;
 import com.google.inject.Inject;
 
-public class RequestOperationsHandler extends AbstractActionHandler {
+public class RequestOperationsActionHandler extends AbstractActionHandler {
+	private static Logger LOG = Logger.getLogger(RequestOperationsActionHandler.class);
 	@Inject
-	private OperationConfiguration operationConfiguration;
+	protected DiagramConfigurationProvider diagramConfigurationProvider;
 
 	@Override
 	public boolean handles(Action action) {
@@ -40,11 +41,28 @@ public class RequestOperationsHandler extends AbstractActionHandler {
 	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		if (action instanceof RequestOperationsAction) {
 			RequestOperationsAction requestAction = (RequestOperationsAction) action;
-			Optional<List<Operation>> operations = Optional.ofNullable(operationConfiguration)
-					.map(config -> config.getOperations(requestAction));
-			return Optional.of(new SetOperationsAction(operations.orElse(Collections.emptyList())));
+			Optional<String> diagramType = getDiagramType(requestAction, modelState);
+			if (!diagramType.isPresent()) {
+				LOG.info("RequestOperationsAction failed: No diagram type is present");
+				return Optional.empty();
+			}
+			Optional<DiagramConfiguration> configuration = diagramConfigurationProvider.get(diagramType.get());
+			if (!configuration.isPresent()) {
+				LOG.info("RequestOperationsAction failed: No diagram confiuration found for : " + diagramType.get());
+				return Optional.empty();
+			}
+			return Optional.of(new SetOperationsAction(configuration.get().getOperations()));
 		}
+
 		return Optional.empty();
+	}
+
+	private Optional<String> getDiagramType(RequestOperationsAction action, GraphicalModelState modelState) {
+		if (action.getDiagramType() != null && !action.getDiagramType().isEmpty()) {
+			return Optional.of(action.getDiagramType());
+		} else {
+			return modelState.getClientOptions().getDiagramType();
+		}
 	}
 
 }

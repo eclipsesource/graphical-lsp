@@ -15,8 +15,6 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.jsonrpc;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -25,36 +23,28 @@ import org.eclipse.sprotty.ServerStatus;
 import org.eclipse.sprotty.ServerStatus.Severity;
 
 import com.eclipsesource.glsp.api.action.Action;
+import com.eclipsesource.glsp.api.action.ActionDispatcher;
 import com.eclipsesource.glsp.api.action.ActionMessage;
 import com.eclipsesource.glsp.api.action.kind.IdentifiableRequestAction;
 import com.eclipsesource.glsp.api.action.kind.IdentifiableResponseAction;
-import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
-import com.eclipsesource.glsp.api.action.kind.ServerStatusAction;
-import com.eclipsesource.glsp.api.diagram.DiagramManager;
-import com.eclipsesource.glsp.api.diagram.DiagramManagerProvider;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPClient;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
 import com.eclipsesource.glsp.api.model.ModelStateProvider;
-import com.eclipsesource.glsp.api.utils.ClientOptions;
-import com.eclipsesource.glsp.api.utils.ClientOptions.ParsedClientOptions;
 import com.google.inject.Inject;
 
 public class DefaultGLSPServer implements GLSPServer {
 
 	@Inject
-	private DiagramManagerProvider diagramManagerProvider;
-	@Inject
 	private ModelStateProvider modelStateProvider;
+	@Inject
+	private ActionDispatcher actionDispatcher;
 	static Logger log = Logger.getLogger(DefaultGLSPServer.class);
 
 	private ServerStatus status;
 
 	private GLSPClient clientProxy;
 
-	private Map<String, DiagramManager> clientIdtoDiagramServer;
-
 	public DefaultGLSPServer() {
-		clientIdtoDiagramServer = new HashMap<>();
 	}
 
 	@Override
@@ -80,24 +70,7 @@ public class DefaultGLSPServer implements GLSPServer {
 			requestAction = ((IdentifiableRequestAction) requestAction).getAction();
 		}
 
-		if (requestAction instanceof RequestModelAction) {
-			ParsedClientOptions options = ClientOptions.parse(((RequestModelAction) requestAction).getOptions());
-			Optional<String> diagramType = options.getDiagramType();
-			Optional<DiagramManager> diagramServer = getOrCreateDiagramServer(clientId, diagramType);
-			if (!diagramServer.isPresent()) {
-				ServerStatus status = new ServerStatus(Severity.ERROR,
-						String.format("Could not retrieve diagram server of type '%s' for client '%s'",
-								diagramType.orElse("undefined"), clientId));
-				clientProxy.process(new ActionMessage(clientId, new ServerStatusAction(status)));
-				return;
-			} else {
-				clientIdtoDiagramServer.put(clientId, diagramServer.get());
-			}
-
-		}
-
-		DiagramManager diagramServer = clientIdtoDiagramServer.get(clientId);
-		Optional<Action> responseOpt = diagramServer.execute(clientId, requestAction);
+		Optional<Action> responseOpt = actionDispatcher.dispatch(clientId, requestAction);
 
 		if (responseOpt.isPresent()) {
 			// wrap identifiable response if necessary
@@ -106,24 +79,6 @@ public class DefaultGLSPServer implements GLSPServer {
 			ActionMessage responseMessage = new ActionMessage(clientId, response);
 			clientProxy.process(responseMessage);
 		}
-	}
-
-	private Optional<DiagramManager> getOrCreateDiagramServer(String clientId, Optional<String> diagramType) {
-		if (diagramType.isPresent()) {
-			Optional<DiagramManager> existingServer = getDiagramServer(clientId, diagramType.get());
-			return existingServer.isPresent() ? existingServer : diagramManagerProvider.get(diagramType.get());
-		} else {
-			if (clientIdtoDiagramServer.get(clientId) != null) {
-				return Optional.of(clientIdtoDiagramServer.get(clientId));
-			} else {
-				return diagramManagerProvider.createDefault();
-			}
-		}
-	}
-
-	private Optional<DiagramManager> getDiagramServer(String clientId, String diagramType) {
-		DiagramManager server = clientIdtoDiagramServer.get(clientId);
-		return server != null && server.getDiagramType().equals(diagramType) ? Optional.of(server) : Optional.empty();
 	}
 
 	public ServerStatus getStatus() {
