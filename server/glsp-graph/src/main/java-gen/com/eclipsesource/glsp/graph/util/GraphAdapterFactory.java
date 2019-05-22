@@ -25,24 +25,26 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides
- * an adapter <code>createXXX</code> method for each class of the model. <!--
- * end-user-doc -->
+ * <!-- begin-user-doc -->
+ * The <b>Adapter Factory</b> for the model.
+ * It provides an adapter <code>createXXX</code> method for each class of the model.
+ * <!-- end-user-doc -->
  * @see com.eclipsesource.glsp.graph.GraphPackage
  * @generated
  */
 public class GraphAdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * The cached model package.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected static GraphPackage modelPackage;
 
 	/**
 	 * Creates an instance of the adapter factory.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public GraphAdapterFactory() {
@@ -52,11 +54,10 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Returns whether this factory is applicable for the type of the object. <!--
-	 * begin-user-doc --> This implementation returns <code>true</code> if the
-	 * object is either the model's package or is an instance object of the model.
+	 * Returns whether this factory is applicable for the type of the object.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns <code>true</code> if the object is either the model's package or is an instance object of the model.
 	 * <!-- end-user-doc -->
-	 * 
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
@@ -72,9 +73,9 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * The switch that delegates to the <code>createXXX</code> methods. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The switch that delegates to the <code>createXXX</code> methods.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected GraphSwitch<Adapter> modelSwitch = new GraphSwitch<Adapter>() {
@@ -191,8 +192,8 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 
 	/**
 	 * Creates an adapter for the <code>target</code>.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param target the object to adapt.
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
@@ -204,9 +205,10 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 
 	/**
 	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GModelElement <em>GModel Element</em>}'.
-	 * <!-- begin-user-doc --> This default implementation returns null so that we
-	 * can easily ignore cases; it's useful to ignore a case when inheritance will
-	 * catch all the cases anyway. <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see com.eclipsesource.glsp.graph.GModelElement
 	 * @generated
@@ -217,9 +219,10 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 
 	/**
 	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GShapeElement <em>GShape Element</em>}'.
-	 * <!-- begin-user-doc --> This default implementation returns null so that we
-	 * can easily ignore cases; it's useful to ignore a case when inheritance will
-	 * catch all the cases anyway. <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see com.eclipsesource.glsp.graph.GShapeElement
 	 * @generated
@@ -229,12 +232,11 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class
-	 * '{@link com.eclipsesource.glsp.graph.GGraph <em>GGraph</em>}'. <!--
-	 * begin-user-doc --> This default implementation returns null so that we can
-	 * easily ignore cases; it's useful to ignore a case when inheritance will catch
-	 * all the cases anyway. <!-- end-user-doc -->
-	 * 
+	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GGraph <em>GGraph</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see com.eclipsesource.glsp.graph.GGraph
 	 * @generated
@@ -244,12 +246,11 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class
-	 * '{@link com.eclipsesource.glsp.graph.GModelRoot <em>GModel Root</em>}'. <!--
-	 * begin-user-doc --> This default implementation returns null so that we can
-	 * easily ignore cases; it's useful to ignore a case when inheritance will catch
-	 * all the cases anyway. <!-- end-user-doc -->
-	 * 
+	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GModelRoot <em>GModel Root</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see com.eclipsesource.glsp.graph.GModelRoot
 	 * @generated
@@ -259,12 +260,11 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class
-	 * '{@link com.eclipsesource.glsp.graph.GNode <em>GNode</em>}'. <!--
-	 * begin-user-doc --> This default implementation returns null so that we can
-	 * easily ignore cases; it's useful to ignore a case when inheritance will catch
-	 * all the cases anyway. <!-- end-user-doc -->
-	 * 
+	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GNode <em>GNode</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see com.eclipsesource.glsp.graph.GNode
 	 * @generated
@@ -274,12 +274,11 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class
-	 * '{@link com.eclipsesource.glsp.graph.GEdge <em>GEdge</em>}'. <!--
-	 * begin-user-doc --> This default implementation returns null so that we can
-	 * easily ignore cases; it's useful to ignore a case when inheritance will catch
-	 * all the cases anyway. <!-- end-user-doc -->
-	 * 
+	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GEdge <em>GEdge</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see com.eclipsesource.glsp.graph.GEdge
 	 * @generated
@@ -290,9 +289,10 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 
 	/**
 	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GCompartment <em>GCompartment</em>}'.
-	 * <!-- begin-user-doc --> This default implementation returns null so that we
-	 * can easily ignore cases; it's useful to ignore a case when inheritance will
-	 * catch all the cases anyway. <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see com.eclipsesource.glsp.graph.GCompartment
 	 * @generated
@@ -302,12 +302,11 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class
-	 * '{@link com.eclipsesource.glsp.graph.GLabel <em>GLabel</em>}'. <!--
-	 * begin-user-doc --> This default implementation returns null so that we can
-	 * easily ignore cases; it's useful to ignore a case when inheritance will catch
-	 * all the cases anyway. <!-- end-user-doc -->
-	 * 
+	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GLabel <em>GLabel</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see com.eclipsesource.glsp.graph.GLabel
 	 * @generated
@@ -318,9 +317,10 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 
 	/**
 	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GIssueMarker <em>GIssue Marker</em>}'.
-	 * <!-- begin-user-doc --> This default implementation returns null so that we
-	 * can easily ignore cases; it's useful to ignore a case when inheritance will
-	 * catch all the cases anyway. <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see com.eclipsesource.glsp.graph.GIssueMarker
 	 * @generated
@@ -330,12 +330,11 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class
-	 * '{@link com.eclipsesource.glsp.graph.GPort <em>GPort</em>}'. <!--
-	 * begin-user-doc --> This default implementation returns null so that we can
-	 * easily ignore cases; it's useful to ignore a case when inheritance will catch
-	 * all the cases anyway. <!-- end-user-doc -->
-	 * 
+	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GPort <em>GPort</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see com.eclipsesource.glsp.graph.GPort
 	 * @generated
@@ -345,12 +344,11 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class
-	 * '{@link com.eclipsesource.glsp.graph.GButton <em>GButton</em>}'. <!--
-	 * begin-user-doc --> This default implementation returns null so that we can
-	 * easily ignore cases; it's useful to ignore a case when inheritance will catch
-	 * all the cases anyway. <!-- end-user-doc -->
-	 * 
+	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GButton <em>GButton</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see com.eclipsesource.glsp.graph.GButton
 	 * @generated
@@ -360,14 +358,13 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class
-	 * '{@link org.eclipse.sprotty.BoundsAware <em>GBounds Aware</em>}'. <!--
-	 * begin-user-doc --> This default implementation returns null so that we can
-	 * easily ignore cases; it's useful to ignore a case when inheritance will catch
-	 * all the cases anyway. <!-- end-user-doc -->
-	 * 
+	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GBoundsAware <em>GBounds Aware</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.sprotty.BoundsAware
+	 * @see com.eclipsesource.glsp.graph.GBoundsAware
 	 * @generated
 	 */
 	public Adapter createGBoundsAwareAdapter() {
@@ -375,12 +372,11 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class
-	 * '{@link com.eclipsesource.glsp.graph.GPoint <em>GPoint</em>}'. <!--
-	 * begin-user-doc --> This default implementation returns null so that we can
-	 * easily ignore cases; it's useful to ignore a case when inheritance will catch
-	 * all the cases anyway. <!-- end-user-doc -->
-	 * 
+	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GPoint <em>GPoint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see com.eclipsesource.glsp.graph.GPoint
 	 * @generated
@@ -390,12 +386,11 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class
-	 * '{@link com.eclipsesource.glsp.graph.GDimension <em>GDimension</em>}'. <!--
-	 * begin-user-doc --> This default implementation returns null so that we can
-	 * easily ignore cases; it's useful to ignore a case when inheritance will catch
-	 * all the cases anyway. <!-- end-user-doc -->
-	 * 
+	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GDimension <em>GDimension</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see com.eclipsesource.glsp.graph.GDimension
 	 * @generated
@@ -406,9 +401,10 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 
 	/**
 	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GLayoutOptions <em>GLayout Options</em>}'.
-	 * <!-- begin-user-doc --> This default implementation returns
-	 * null so that we can easily ignore cases; it's useful to ignore a case when
-	 * inheritance will catch all the cases anyway. <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see com.eclipsesource.glsp.graph.GLayoutOptions
 	 * @generated
@@ -419,9 +415,10 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 
 	/**
 	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GEdgeLayoutable <em>GEdge Layoutable</em>}'.
-	 * <!-- begin-user-doc --> This default implementation
-	 * returns null so that we can easily ignore cases; it's useful to ignore a case
-	 * when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see com.eclipsesource.glsp.graph.GEdgeLayoutable
 	 * @generated
@@ -432,9 +429,10 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 
 	/**
 	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GEdgePlacement <em>GEdge Placement</em>}'.
-	 * <!-- begin-user-doc --> This default implementation returns
-	 * null so that we can easily ignore cases; it's useful to ignore a case when
-	 * inheritance will catch all the cases anyway. <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see com.eclipsesource.glsp.graph.GEdgePlacement
 	 * @generated
@@ -444,12 +442,11 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class
-	 * '{@link com.eclipsesource.glsp.graph.GLayouting <em>GLayouting</em>}'. <!--
-	 * begin-user-doc --> This default implementation returns null so that we can
-	 * easily ignore cases; it's useful to ignore a case when inheritance will catch
-	 * all the cases anyway. <!-- end-user-doc -->
-	 * 
+	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GLayouting <em>GLayouting</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see com.eclipsesource.glsp.graph.GLayouting
 	 * @generated
@@ -459,12 +456,11 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class
-	 * '{@link com.eclipsesource.glsp.graph.GBounds <em>GBounds</em>}'. <!--
-	 * begin-user-doc --> This default implementation returns null so that we can
-	 * easily ignore cases; it's useful to ignore a case when inheritance will catch
-	 * all the cases anyway. <!-- end-user-doc -->
-	 * 
+	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GBounds <em>GBounds</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see com.eclipsesource.glsp.graph.GBounds
 	 * @generated
@@ -474,12 +470,11 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class
-	 * '{@link com.eclipsesource.glsp.graph.GAlignable <em>GAlignable</em>}'. <!--
-	 * begin-user-doc --> This default implementation returns null so that we can
-	 * easily ignore cases; it's useful to ignore a case when inheritance will catch
-	 * all the cases anyway. <!-- end-user-doc -->
-	 * 
+	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GAlignable <em>GAlignable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see com.eclipsesource.glsp.graph.GAlignable
 	 * @generated
@@ -489,12 +484,11 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class
-	 * '{@link com.eclipsesource.glsp.graph.GIssue <em>GIssue</em>}'. <!--
-	 * begin-user-doc --> This default implementation returns null so that we can
-	 * easily ignore cases; it's useful to ignore a case when inheritance will catch
-	 * all the cases anyway. <!-- end-user-doc -->
-	 * 
+	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GIssue <em>GIssue</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see com.eclipsesource.glsp.graph.GIssue
 	 * @generated
@@ -505,8 +499,9 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 
 	/**
 	 * Creates a new adapter for the default case.
-	 * <!-- begin-user-doc --> This
-	 * default implementation returns null. <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null.
+	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @generated
 	 */
@@ -514,4 +509,4 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 		return null;
 	}
 
-} // GraphAdapterFactory
+} //GraphAdapterFactory

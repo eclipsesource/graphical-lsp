@@ -18,8 +18,9 @@ package com.eclipsesource.glsp.graph;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>GIssue
- * Marker</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>GIssue Marker</b></em>'.
+ * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
@@ -36,7 +37,8 @@ public interface GIssueMarker extends GShapeElement {
 	/**
 	 * Returns the value of the '<em><b>Issues</b></em>' containment reference list.
 	 * The list contents are of type {@link com.eclipsesource.glsp.graph.GIssue}.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Issues</em>' containment reference list.
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGIssueMarker_Issues()
 	 * @model containment="true"

@@ -18,16 +18,17 @@ package com.eclipsesource.glsp.graph;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object
- * '<em><b>GEdge</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>GEdge</b></em>'.
+ * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link com.eclipsesource.glsp.graph.GEdge#getRoutingPoints <em>Routing Points</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.GEdge#getSourceId <em>Source Id</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.GEdge#getTargetId <em>Target Id</em>}</li>
- *   <li>{@link com.eclipsesource.glsp.graph.GEdge#getRoutingPoints <em>Routing Points</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.GEdge#getSource <em>Source</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.GEdge#getTarget <em>Target</em>}</li>
  * </ul>
@@ -38,34 +39,10 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface GEdge extends GModelElement {
 	/**
-	 * Returns the value of the '<em><b>Source Id</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>Source Id</em>' attribute.
-	 * @see #setSourceId(String)
-	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGEdge_SourceId()
-	 * @model derived="true"
-	 * @generated
-	 */
-	String getSourceId();
-
-	/**
-	 * Returns the value of the '<em><b>Target Id</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>Target Id</em>' attribute.
-	 * @see #setTargetId(String)
-	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGEdge_TargetId()
-	 * @model derived="true"
-	 * @generated
-	 */
-	String getTargetId();
-
-	/**
 	 * Returns the value of the '<em><b>Routing Points</b></em>' containment reference list.
 	 * The list contents are of type {@link com.eclipsesource.glsp.graph.GPoint}.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Routing Points</em>' containment reference list.
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGEdge_RoutingPoints()
 	 * @model containment="true"
@@ -74,20 +51,65 @@ public interface GEdge extends GModelElement {
 	EList<GPoint> getRoutingPoints();
 
 	/**
-	 * Returns the value of the '<em><b>Source</b></em>' reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the value of the '<em><b>Source Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Source Id</em>' attribute.
+	 * @see #setSourceId(String)
+	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGEdge_SourceId()
+	 * @model
+	 * @generated
+	 */
+	String getSourceId();
+
+	/**
+	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GEdge#getSourceId <em>Source Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Source Id</em>' attribute.
+	 * @see #getSourceId()
+	 * @generated
+	 */
+	void setSourceId(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Target Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Target Id</em>' attribute.
+	 * @see #setTargetId(String)
+	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGEdge_TargetId()
+	 * @model
+	 * @generated
+	 */
+	String getTargetId();
+
+	/**
+	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GEdge#getTargetId <em>Target Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Target Id</em>' attribute.
+	 * @see #getTargetId()
+	 * @generated
+	 */
+	void setTargetId(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Source</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Source</em>' reference.
 	 * @see #setSource(GModelElement)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGEdge_Source()
-	 * @model
+	 * @model transient="true" volatile="true" derived="true"
 	 * @generated
 	 */
 	GModelElement getSource();
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GEdge#getSource <em>Source</em>}' reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Source</em>' reference.
 	 * @see #getSource()
 	 * @generated
@@ -95,20 +117,21 @@ public interface GEdge extends GModelElement {
 	void setSource(GModelElement value);
 
 	/**
-	 * Returns the value of the '<em><b>Target</b></em>' reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the value of the '<em><b>Target</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Target</em>' reference.
 	 * @see #setTarget(GModelElement)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGEdge_Target()
-	 * @model
+	 * @model transient="true" volatile="true" derived="true"
 	 * @generated
 	 */
 	GModelElement getTarget();
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GEdge#getTarget <em>Target</em>}' reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Target</em>' reference.
 	 * @see #getTarget()
 	 * @generated

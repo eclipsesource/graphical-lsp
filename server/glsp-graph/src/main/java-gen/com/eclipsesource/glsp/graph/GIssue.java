@@ -18,8 +18,9 @@ package com.eclipsesource.glsp.graph;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object
- * '<em><b>GIssue</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>GIssue</b></em>'.
+ * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
@@ -35,22 +36,24 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface GIssue extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Severity</b></em>' attribute. The literals
-	 * are from the enumeration {@link com.eclipsesource.glsp.graph.GSeverity}. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the value of the '<em><b>Severity</b></em>' attribute.
+	 * The default value is <code>"info"</code>.
+	 * The literals are from the enumeration {@link com.eclipsesource.glsp.graph.GSeverity}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Severity</em>' attribute.
 	 * @see com.eclipsesource.glsp.graph.GSeverity
 	 * @see #setSeverity(GSeverity)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGIssue_Severity()
-	 * @model
+	 * @model default="info" required="true"
 	 * @generated
 	 */
 	GSeverity getSeverity();
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GIssue#getSeverity <em>Severity</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Severity</em>' attribute.
 	 * @see com.eclipsesource.glsp.graph.GSeverity
 	 * @see #getSeverity()
@@ -59,9 +62,9 @@ public interface GIssue extends EObject {
 	void setSeverity(GSeverity value);
 
 	/**
-	 * Returns the value of the '<em><b>Message</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the value of the '<em><b>Message</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Message</em>' attribute.
 	 * @see #setMessage(String)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGIssue_Message()
@@ -72,7 +75,8 @@ public interface GIssue extends EObject {
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GIssue#getMessage <em>Message</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Message</em>' attribute.
 	 * @see #getMessage()
 	 * @generated

@@ -26,8 +26,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '<em><b>GLayout
- * Options</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>GLayout Options</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
@@ -49,7 +50,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements GLayoutOptions {
 	/**
 	 * The default value of the '{@link #getPaddingLeft() <em>Padding Left</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getPaddingLeft()
 	 * @generated
 	 * @ordered
@@ -58,7 +60,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 
 	/**
 	 * The cached value of the '{@link #getPaddingLeft() <em>Padding Left</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getPaddingLeft()
 	 * @generated
 	 * @ordered
@@ -67,7 +70,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 
 	/**
 	 * The default value of the '{@link #getPaddingRight() <em>Padding Right</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getPaddingRight()
 	 * @generated
 	 * @ordered
@@ -76,7 +80,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 
 	/**
 	 * The cached value of the '{@link #getPaddingRight() <em>Padding Right</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getPaddingRight()
 	 * @generated
 	 * @ordered
@@ -85,7 +90,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 
 	/**
 	 * The default value of the '{@link #getPaddingTop() <em>Padding Top</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getPaddingTop()
 	 * @generated
 	 * @ordered
@@ -94,7 +100,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 
 	/**
 	 * The cached value of the '{@link #getPaddingTop() <em>Padding Top</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getPaddingTop()
 	 * @generated
 	 * @ordered
@@ -103,7 +110,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 
 	/**
 	 * The default value of the '{@link #getPaddingBottom() <em>Padding Bottom</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getPaddingBottom()
 	 * @generated
 	 * @ordered
@@ -112,7 +120,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 
 	/**
 	 * The cached value of the '{@link #getPaddingBottom() <em>Padding Bottom</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getPaddingBottom()
 	 * @generated
 	 * @ordered
@@ -121,7 +130,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 
 	/**
 	 * The default value of the '{@link #getPaddingFactor() <em>Padding Factor</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getPaddingFactor()
 	 * @generated
 	 * @ordered
@@ -130,7 +140,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 
 	/**
 	 * The cached value of the '{@link #getPaddingFactor() <em>Padding Factor</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getPaddingFactor()
 	 * @generated
 	 * @ordered
@@ -139,7 +150,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 
 	/**
 	 * The default value of the '{@link #isResizeContainer() <em>Resize Container</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #isResizeContainer()
 	 * @generated
 	 * @ordered
@@ -148,7 +160,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 
 	/**
 	 * The cached value of the '{@link #isResizeContainer() <em>Resize Container</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #isResizeContainer()
 	 * @generated
 	 * @ordered
@@ -156,9 +169,9 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	protected boolean resizeContainer = RESIZE_CONTAINER_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getVGap() <em>VGap</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getVGap() <em>VGap</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getVGap()
 	 * @generated
 	 * @ordered
@@ -166,9 +179,9 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	protected static final double VGAP_EDEFAULT = 0.0;
 
 	/**
-	 * The cached value of the '{@link #getVGap() <em>VGap</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getVGap() <em>VGap</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getVGap()
 	 * @generated
 	 * @ordered
@@ -176,9 +189,9 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	protected double vGap = VGAP_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getHGap() <em>HGap</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getHGap() <em>HGap</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getHGap()
 	 * @generated
 	 * @ordered
@@ -186,9 +199,9 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	protected static final double HGAP_EDEFAULT = 0.0;
 
 	/**
-	 * The cached value of the '{@link #getHGap() <em>HGap</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getHGap() <em>HGap</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getHGap()
 	 * @generated
 	 * @ordered
@@ -197,7 +210,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 
 	/**
 	 * The default value of the '{@link #getVAlign() <em>VAlign</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getVAlign()
 	 * @generated
 	 * @ordered
@@ -206,7 +220,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 
 	/**
 	 * The cached value of the '{@link #getVAlign() <em>VAlign</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getVAlign()
 	 * @generated
 	 * @ordered
@@ -215,7 +230,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 
 	/**
 	 * The default value of the '{@link #getHAlign() <em>HAlign</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getHAlign()
 	 * @generated
 	 * @ordered
@@ -224,7 +240,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 
 	/**
 	 * The cached value of the '{@link #getHAlign() <em>HAlign</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getHAlign()
 	 * @generated
 	 * @ordered
@@ -232,15 +249,17 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	protected String hAlign = HALIGN_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected GLayoutOptionsImpl() {
+	public GLayoutOptionsImpl() {
 		super();
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -249,7 +268,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -258,7 +278,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -271,7 +292,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -280,7 +302,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -293,7 +316,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -302,7 +326,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -315,7 +340,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -324,7 +350,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -337,7 +364,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -346,7 +374,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -359,7 +388,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -368,7 +398,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -381,7 +412,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -390,7 +422,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -402,7 +435,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -411,7 +445,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -423,7 +458,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -432,7 +468,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -445,7 +482,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -454,7 +492,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -467,7 +506,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -498,7 +538,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -539,7 +580,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -580,7 +622,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -611,7 +654,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -644,4 +688,4 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 		return result.toString();
 	}
 
-} // GLayoutOptionsImpl
+} //GLayoutOptionsImpl

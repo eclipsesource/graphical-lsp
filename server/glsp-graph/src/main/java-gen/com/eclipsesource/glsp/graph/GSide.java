@@ -22,9 +22,10 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc --> A representation of the literals of the enumeration
- * '<em><b>GSide</b></em>', and utility methods for working with them. <!--
- * end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the literals of the enumeration '<em><b>GSide</b></em>',
+ * and utility methods for working with them.
+ * <!-- end-user-doc -->
  * @see com.eclipsesource.glsp.graph.GraphPackage#getGSide()
  * @model
  * @generated
@@ -32,8 +33,8 @@ import org.eclipse.emf.common.util.Enumerator;
 public enum GSide implements Enumerator {
 	/**
 	 * The '<em><b>Left</b></em>' literal object.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #LEFT_VALUE
 	 * @generated
 	 * @ordered
@@ -42,8 +43,8 @@ public enum GSide implements Enumerator {
 
 	/**
 	 * The '<em><b>Right</b></em>' literal object.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #RIGHT_VALUE
 	 * @generated
 	 * @ordered
@@ -52,8 +53,8 @@ public enum GSide implements Enumerator {
 
 	/**
 	 * The '<em><b>Top</b></em>' literal object.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #TOP_VALUE
 	 * @generated
 	 * @ordered
@@ -62,8 +63,8 @@ public enum GSide implements Enumerator {
 
 	/**
 	 * The '<em><b>Bottom</b></em>' literal object.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #BOTTOM_VALUE
 	 * @generated
 	 * @ordered
@@ -72,8 +73,8 @@ public enum GSide implements Enumerator {
 
 	/**
 	 * The '<em><b>On</b></em>' literal object.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #ON_VALUE
 	 * @generated
 	 * @ordered
@@ -82,8 +83,8 @@ public enum GSide implements Enumerator {
 
 	/**
 	 * The '<em><b>Left</b></em>' literal value.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #LEFT
 	 * @model name="left"
 	 * @generated
@@ -93,8 +94,8 @@ public enum GSide implements Enumerator {
 
 	/**
 	 * The '<em><b>Right</b></em>' literal value.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #RIGHT
 	 * @model name="right"
 	 * @generated
@@ -104,8 +105,8 @@ public enum GSide implements Enumerator {
 
 	/**
 	 * The '<em><b>Top</b></em>' literal value.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #TOP
 	 * @model name="top"
 	 * @generated
@@ -115,8 +116,8 @@ public enum GSide implements Enumerator {
 
 	/**
 	 * The '<em><b>Bottom</b></em>' literal value.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #BOTTOM
 	 * @model name="bottom"
 	 * @generated
@@ -126,8 +127,8 @@ public enum GSide implements Enumerator {
 
 	/**
 	 * The '<em><b>On</b></em>' literal value.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #ON
 	 * @model name="on"
 	 * @generated
@@ -137,23 +138,24 @@ public enum GSide implements Enumerator {
 
 	/**
 	 * An array of all the '<em><b>GSide</b></em>' enumerators.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private static final GSide[] VALUES_ARRAY = new GSide[] { LEFT, RIGHT, TOP, BOTTOM, ON, };
 
 	/**
-	 * A public read-only list of all the '<em><b>GSide</b></em>' enumerators. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * A public read-only list of all the '<em><b>GSide</b></em>' enumerators.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public static final List<GSide> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>GSide</b></em>' literal with the specified literal value.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param literal the literal.
 	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
@@ -169,9 +171,9 @@ public enum GSide implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>GSide</b></em>' literal with the specified name. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the '<em><b>GSide</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param name the name.
 	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
@@ -188,7 +190,8 @@ public enum GSide implements Enumerator {
 
 	/**
 	 * Returns the '<em><b>GSide</b></em>' literal with the specified integer value.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the integer value.
 	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
@@ -210,27 +213,30 @@ public enum GSide implements Enumerator {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private final int value;
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private final String name;
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private GSide(int value, String name, String literal) {
@@ -240,7 +246,8 @@ public enum GSide implements Enumerator {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -249,7 +256,8 @@ public enum GSide implements Enumerator {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -258,7 +266,8 @@ public enum GSide implements Enumerator {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -268,7 +277,8 @@ public enum GSide implements Enumerator {
 
 	/**
 	 * Returns the literal value of the enumerator, which is its string representation.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -276,4 +286,4 @@ public enum GSide implements Enumerator {
 		return literal;
 	}
 
-} // GSide
+} //GSide

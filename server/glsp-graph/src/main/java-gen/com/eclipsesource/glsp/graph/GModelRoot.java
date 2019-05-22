@@ -16,8 +16,9 @@
 package com.eclipsesource.glsp.graph;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>GModel
- * Root</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>GModel Root</b></em>'.
+ * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
@@ -34,7 +35,8 @@ package com.eclipsesource.glsp.graph;
 public interface GModelRoot extends GModelElement {
 	/**
 	 * Returns the value of the '<em><b>Canvas Bounds</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Canvas Bounds</em>' containment reference.
 	 * @see #setCanvasBounds(GBounds)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGModelRoot_CanvasBounds()
@@ -45,8 +47,8 @@ public interface GModelRoot extends GModelElement {
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GModelRoot#getCanvasBounds <em>Canvas Bounds</em>}' containment reference.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Canvas Bounds</em>' containment reference.
 	 * @see #getCanvasBounds()
 	 * @generated
@@ -54,24 +56,25 @@ public interface GModelRoot extends GModelElement {
 	void setCanvasBounds(GBounds value);
 
 	/**
-	 * Returns the value of the '<em><b>Revision</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the value of the '<em><b>Revision</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Revision</em>' attribute.
-	 * @see #setRevision(String)
+	 * @see #setRevision(int)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGModelRoot_Revision()
 	 * @model
 	 * @generated
 	 */
-	String getRevision();
+	int getRevision();
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GModelRoot#getRevision <em>Revision</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Revision</em>' attribute.
 	 * @see #getRevision()
 	 * @generated
 	 */
-	void setRevision(String value);
+	void setRevision(int value);
 
 } // GModelRoot

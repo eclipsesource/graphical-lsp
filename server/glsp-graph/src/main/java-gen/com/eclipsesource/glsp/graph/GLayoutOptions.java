@@ -18,8 +18,9 @@ package com.eclipsesource.glsp.graph;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>GLayout
- * Options</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>GLayout Options</b></em>'.
+ * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
@@ -43,9 +44,9 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface GLayoutOptions extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Padding Left</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the value of the '<em><b>Padding Left</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Padding Left</em>' attribute.
 	 * @see #setPaddingLeft(double)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGLayoutOptions_PaddingLeft()
@@ -55,11 +56,9 @@ public interface GLayoutOptions extends EObject {
 	double getPaddingLeft();
 
 	/**
-	 * Sets the value of the
-	 * '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getPaddingLeft
-	 * <em>Padding Left</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
-	 * 
+	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getPaddingLeft <em>Padding Left</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Padding Left</em>' attribute.
 	 * @see #getPaddingLeft()
 	 * @generated
@@ -67,9 +66,9 @@ public interface GLayoutOptions extends EObject {
 	void setPaddingLeft(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Padding Right</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the value of the '<em><b>Padding Right</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Padding Right</em>' attribute.
 	 * @see #setPaddingRight(double)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGLayoutOptions_PaddingRight()
@@ -79,11 +78,9 @@ public interface GLayoutOptions extends EObject {
 	double getPaddingRight();
 
 	/**
-	 * Sets the value of the
-	 * '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getPaddingRight
-	 * <em>Padding Right</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
-	 * 
+	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getPaddingRight <em>Padding Right</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Padding Right</em>' attribute.
 	 * @see #getPaddingRight()
 	 * @generated
@@ -91,9 +88,9 @@ public interface GLayoutOptions extends EObject {
 	void setPaddingRight(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Padding Top</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the value of the '<em><b>Padding Top</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Padding Top</em>' attribute.
 	 * @see #setPaddingTop(double)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGLayoutOptions_PaddingTop()
@@ -104,7 +101,8 @@ public interface GLayoutOptions extends EObject {
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getPaddingTop <em>Padding Top</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Padding Top</em>' attribute.
 	 * @see #getPaddingTop()
 	 * @generated
@@ -112,9 +110,9 @@ public interface GLayoutOptions extends EObject {
 	void setPaddingTop(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Padding Bottom</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the value of the '<em><b>Padding Bottom</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Padding Bottom</em>' attribute.
 	 * @see #setPaddingBottom(double)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGLayoutOptions_PaddingBottom()
@@ -125,8 +123,8 @@ public interface GLayoutOptions extends EObject {
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getPaddingBottom <em>Padding Bottom</em>}' attribute.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Padding Bottom</em>' attribute.
 	 * @see #getPaddingBottom()
 	 * @generated
@@ -134,9 +132,9 @@ public interface GLayoutOptions extends EObject {
 	void setPaddingBottom(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Padding Factor</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the value of the '<em><b>Padding Factor</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Padding Factor</em>' attribute.
 	 * @see #setPaddingFactor(double)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGLayoutOptions_PaddingFactor()
@@ -147,8 +145,8 @@ public interface GLayoutOptions extends EObject {
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getPaddingFactor <em>Padding Factor</em>}' attribute.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Padding Factor</em>' attribute.
 	 * @see #getPaddingFactor()
 	 * @generated
@@ -156,9 +154,9 @@ public interface GLayoutOptions extends EObject {
 	void setPaddingFactor(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Resize Container</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the value of the '<em><b>Resize Container</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Resize Container</em>' attribute.
 	 * @see #setResizeContainer(boolean)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGLayoutOptions_ResizeContainer()
@@ -169,8 +167,8 @@ public interface GLayoutOptions extends EObject {
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GLayoutOptions#isResizeContainer <em>Resize Container</em>}' attribute.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Resize Container</em>' attribute.
 	 * @see #isResizeContainer()
 	 * @generated
@@ -178,9 +176,9 @@ public interface GLayoutOptions extends EObject {
 	void setResizeContainer(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>VGap</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the value of the '<em><b>VGap</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>VGap</em>' attribute.
 	 * @see #setVGap(double)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGLayoutOptions_VGap()
@@ -191,7 +189,8 @@ public interface GLayoutOptions extends EObject {
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getVGap <em>VGap</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>VGap</em>' attribute.
 	 * @see #getVGap()
 	 * @generated
@@ -199,9 +198,9 @@ public interface GLayoutOptions extends EObject {
 	void setVGap(double value);
 
 	/**
-	 * Returns the value of the '<em><b>HGap</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the value of the '<em><b>HGap</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>HGap</em>' attribute.
 	 * @see #setHGap(double)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGLayoutOptions_HGap()
@@ -212,7 +211,8 @@ public interface GLayoutOptions extends EObject {
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getHGap <em>HGap</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>HGap</em>' attribute.
 	 * @see #getHGap()
 	 * @generated
@@ -220,9 +220,9 @@ public interface GLayoutOptions extends EObject {
 	void setHGap(double value);
 
 	/**
-	 * Returns the value of the '<em><b>VAlign</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the value of the '<em><b>VAlign</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>VAlign</em>' attribute.
 	 * @see #setVAlign(String)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGLayoutOptions_VAlign()
@@ -233,7 +233,8 @@ public interface GLayoutOptions extends EObject {
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getVAlign <em>VAlign</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>VAlign</em>' attribute.
 	 * @see #getVAlign()
 	 * @generated
@@ -241,9 +242,9 @@ public interface GLayoutOptions extends EObject {
 	void setVAlign(String value);
 
 	/**
-	 * Returns the value of the '<em><b>HAlign</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the value of the '<em><b>HAlign</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>HAlign</em>' attribute.
 	 * @see #setHAlign(String)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGLayoutOptions_HAlign()
@@ -254,7 +255,8 @@ public interface GLayoutOptions extends EObject {
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getHAlign <em>HAlign</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>HAlign</em>' attribute.
 	 * @see #getHAlign()
 	 * @generated

@@ -6,7 +6,8 @@
     rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" codeFormatting="true"
     testsDirectory="" testSuiteClass="com.eclipsesource.glsp.graph.tests.GlspGraphAllTests"
     importerID="org.eclipse.emf.importer.ecore" bundleManifest="false" complianceLevel="8.0"
-    copyrightFields="false" runtimeVersion="2.15" operationReflection="true" importOrganizing="true">
+    copyrightFields="false" publicConstructors="true" runtimeVersion="2.15" operationReflection="true"
+    importOrganizing="true">
   <foreignModel>glsp-graph.ecore</foreignModel>
   <genPackages prefix="Graph" basePackage="com.eclipsesource.glsp" disposableProviderFactory="true"
       fileExtensions="graph" ecorePackage="glsp-graph.ecore#/">
@@ -39,9 +40,9 @@
     </genClasses>
     <genClasses ecoreClass="glsp-graph.ecore#//GNode"/>
     <genClasses ecoreClass="glsp-graph.ecore#//GEdge">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference glsp-graph.ecore#//GEdge/routingPoints"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute glsp-graph.ecore#//GEdge/sourceId"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute glsp-graph.ecore#//GEdge/targetId"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference glsp-graph.ecore#//GEdge/routingPoints"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference glsp-graph.ecore#//GEdge/source"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference glsp-graph.ecore#//GEdge/target"/>
     </genClasses>

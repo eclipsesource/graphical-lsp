@@ -22,14 +22,15 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
 /**
- * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains
- * accessors for the meta objects to represent
+ * <!-- begin-user-doc -->
+ * The <b>Package</b> for the model.
+ * It contains accessors for the meta objects to represent
  * <ul>
- * <li>each class,</li>
- * <li>each feature of each class,</li>
- * <li>each operation of each class,</li>
- * <li>each enum,</li>
- * <li>and each data type</li>
+ *   <li>each class,</li>
+ *   <li>each feature of each class,</li>
+ *   <li>each operation of each class,</li>
+ *   <li>each enum,</li>
+ *   <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
  * @see com.eclipsesource.glsp.graph.GraphFactory
@@ -39,38 +40,40 @@ import org.eclipse.emf.ecore.EReference;
 public interface GraphPackage extends EPackage {
 	/**
 	 * The package name.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	String eNAME = "graph";
 
 	/**
 	 * The package namespace URI.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	String eNS_URI = "http://www.eclipsesource.com/glsp/graph";
 
 	/**
 	 * The package namespace name.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	String eNS_PREFIX = "graph";
 
 	/**
 	 * The singleton instance of the package.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	GraphPackage eINSTANCE = com.eclipsesource.glsp.graph.impl.GraphPackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.GModelElement
-	 * <em>GModel Element</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
-	 * 
+	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.GModelElement <em>GModel Element</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see com.eclipsesource.glsp.graph.GModelElement
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGModelElement()
 	 * @generated
@@ -79,17 +82,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GMODEL_ELEMENT__ID = 0;
 
 	/**
-	 * The feature id for the '<em><b>Css Classes</b></em>' attribute list. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Css Classes</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -97,16 +100,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GMODEL_ELEMENT__CHILDREN = 2;
 
 	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -114,8 +118,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Trace</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -123,26 +127,26 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The number of structural features of the '<em>GModel Element</em>' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GMODEL_ELEMENT_FEATURE_COUNT = 5;
 
 	/**
-	 * The number of operations of the '<em>GModel Element</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of operations of the '<em>GModel Element</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GMODEL_ELEMENT_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.GShapeElement
-	 * <em>GShape Element</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
-	 * 
+	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.GShapeElement <em>GShape Element</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see com.eclipsesource.glsp.graph.GShapeElement
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGShapeElement()
 	 * @generated
@@ -151,17 +155,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GSHAPE_ELEMENT__ID = GMODEL_ELEMENT__ID;
 
 	/**
-	 * The feature id for the '<em><b>Css Classes</b></em>' attribute list. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Css Classes</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -169,16 +173,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GSHAPE_ELEMENT__CHILDREN = GMODEL_ELEMENT__CHILDREN;
 
 	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -186,26 +191,26 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Trace</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GSHAPE_ELEMENT__TRACE = GMODEL_ELEMENT__TRACE;
 
 	/**
-	 * The feature id for the '<em><b>Position</b></em>' containment reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Position</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GSHAPE_ELEMENT__POSITION = GMODEL_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Size</b></em>' containment reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -213,16 +218,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The number of structural features of the '<em>GShape Element</em>' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GSHAPE_ELEMENT_FEATURE_COUNT = GMODEL_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of operations of the '<em>GShape Element</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of operations of the '<em>GShape Element</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -230,7 +236,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.impl.GModelRootImpl <em>GModel Root</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see com.eclipsesource.glsp.graph.impl.GModelRootImpl
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGModelRoot()
 	 * @generated
@@ -239,17 +246,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GMODEL_ROOT__ID = GMODEL_ELEMENT__ID;
 
 	/**
-	 * The feature id for the '<em><b>Css Classes</b></em>' attribute list. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Css Classes</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -257,16 +264,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GMODEL_ROOT__CHILDREN = GMODEL_ELEMENT__CHILDREN;
 
 	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -274,8 +282,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Trace</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -283,34 +291,35 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Canvas Bounds</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GMODEL_ROOT__CANVAS_BOUNDS = GMODEL_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Revision</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Revision</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GMODEL_ROOT__REVISION = GMODEL_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>GModel Root</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of structural features of the '<em>GModel Root</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GMODEL_ROOT_FEATURE_COUNT = GMODEL_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of operations of the '<em>GModel Root</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of operations of the '<em>GModel Root</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -318,7 +327,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.impl.GGraphImpl <em>GGraph</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see com.eclipsesource.glsp.graph.impl.GGraphImpl
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGGraph()
 	 * @generated
@@ -327,17 +337,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GGRAPH__ID = GMODEL_ROOT__ID;
 
 	/**
-	 * The feature id for the '<em><b>Css Classes</b></em>' attribute list. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Css Classes</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -345,16 +355,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GGRAPH__CHILDREN = GMODEL_ROOT__CHILDREN;
 
 	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -362,8 +373,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Trace</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -371,34 +382,35 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Canvas Bounds</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GGRAPH__CANVAS_BOUNDS = GMODEL_ROOT__CANVAS_BOUNDS;
 
 	/**
-	 * The feature id for the '<em><b>Revision</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Revision</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GGRAPH__REVISION = GMODEL_ROOT__REVISION;
 
 	/**
-	 * The feature id for the '<em><b>Position</b></em>' containment reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Position</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GGRAPH__POSITION = GMODEL_ROOT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Size</b></em>' containment reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -406,16 +418,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Layout Options</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GGRAPH__LAYOUT_OPTIONS = GMODEL_ROOT_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the '<em>GGraph</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of structural features of the '<em>GGraph</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -423,8 +436,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The number of operations of the '<em>GGraph</em>' class.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -432,7 +445,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.impl.GNodeImpl <em>GNode</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see com.eclipsesource.glsp.graph.impl.GNodeImpl
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGNode()
 	 * @generated
@@ -441,17 +455,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GNODE__ID = GSHAPE_ELEMENT__ID;
 
 	/**
-	 * The feature id for the '<em><b>Css Classes</b></em>' attribute list. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Css Classes</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -459,16 +473,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GNODE__CHILDREN = GSHAPE_ELEMENT__CHILDREN;
 
 	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -476,26 +491,26 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Trace</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GNODE__TRACE = GSHAPE_ELEMENT__TRACE;
 
 	/**
-	 * The feature id for the '<em><b>Position</b></em>' containment reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Position</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GNODE__POSITION = GSHAPE_ELEMENT__POSITION;
 
 	/**
-	 * The feature id for the '<em><b>Size</b></em>' containment reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -503,16 +518,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Edge Placement</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GNODE__EDGE_PLACEMENT = GSHAPE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Layout</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Layout</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -520,16 +536,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Layout Options</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GNODE__LAYOUT_OPTIONS = GSHAPE_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the '<em>GNode</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of structural features of the '<em>GNode</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -537,8 +554,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The number of operations of the '<em>GNode</em>' class.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -546,7 +563,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.impl.GEdgeImpl <em>GEdge</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see com.eclipsesource.glsp.graph.impl.GEdgeImpl
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGEdge()
 	 * @generated
@@ -555,17 +573,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GEDGE__ID = GMODEL_ELEMENT__ID;
 
 	/**
-	 * The feature id for the '<em><b>Css Classes</b></em>' attribute list. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Css Classes</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -573,16 +591,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GEDGE__CHILDREN = GMODEL_ELEMENT__CHILDREN;
 
 	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -590,61 +609,62 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Trace</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GEDGE__TRACE = GMODEL_ELEMENT__TRACE;
 
 	/**
-	 * The feature id for the '<em><b>Source Id</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int GEDGE__SOURCE_ID = GMODEL_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Target Id</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int GEDGE__TARGET_ID = GMODEL_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
 	 * The feature id for the '<em><b>Routing Points</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEDGE__ROUTING_POINTS = GMODEL_ELEMENT_FEATURE_COUNT + 2;
+	int GEDGE__ROUTING_POINTS = GMODEL_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Source</b></em>' reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Source Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEDGE__SOURCE_ID = GMODEL_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Target Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEDGE__TARGET_ID = GMODEL_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GEDGE__SOURCE = GMODEL_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Target</b></em>' reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Target</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GEDGE__TARGET = GMODEL_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
-	 * The number of structural features of the '<em>GEdge</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of structural features of the '<em>GEdge</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -652,8 +672,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The number of operations of the '<em>GEdge</em>' class.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -661,7 +681,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.impl.GCompartmentImpl <em>GCompartment</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see com.eclipsesource.glsp.graph.impl.GCompartmentImpl
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGCompartment()
 	 * @generated
@@ -670,17 +691,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GCOMPARTMENT__ID = GSHAPE_ELEMENT__ID;
 
 	/**
-	 * The feature id for the '<em><b>Css Classes</b></em>' attribute list. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Css Classes</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -688,16 +709,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GCOMPARTMENT__CHILDREN = GSHAPE_ELEMENT__CHILDREN;
 
 	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -705,35 +727,35 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Trace</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GCOMPARTMENT__TRACE = GSHAPE_ELEMENT__TRACE;
 
 	/**
-	 * The feature id for the '<em><b>Position</b></em>' containment reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Position</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GCOMPARTMENT__POSITION = GSHAPE_ELEMENT__POSITION;
 
 	/**
-	 * The feature id for the '<em><b>Size</b></em>' containment reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GCOMPARTMENT__SIZE = GSHAPE_ELEMENT__SIZE;
 
 	/**
-	 * The feature id for the '<em><b>Layout</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Layout</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -741,25 +763,26 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Layout Options</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GCOMPARTMENT__LAYOUT_OPTIONS = GSHAPE_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>GCompartment</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of structural features of the '<em>GCompartment</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GCOMPARTMENT_FEATURE_COUNT = GSHAPE_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of operations of the '<em>GCompartment</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of operations of the '<em>GCompartment</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -767,7 +790,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.impl.GAlignableImpl <em>GAlignable</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see com.eclipsesource.glsp.graph.impl.GAlignableImpl
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGAlignable()
 	 * @generated
@@ -776,25 +800,26 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Alignment</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GALIGNABLE__ALIGNMENT = 0;
 
 	/**
-	 * The number of structural features of the '<em>GAlignable</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of structural features of the '<em>GAlignable</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GALIGNABLE_FEATURE_COUNT = 1;
 
 	/**
-	 * The number of operations of the '<em>GAlignable</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of operations of the '<em>GAlignable</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -802,7 +827,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.impl.GLabelImpl <em>GLabel</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see com.eclipsesource.glsp.graph.impl.GLabelImpl
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGLabel()
 	 * @generated
@@ -811,7 +837,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Alignment</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -819,7 +846,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Edge Placement</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -827,17 +855,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GLABEL__ID = GALIGNABLE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Css Classes</b></em>' attribute list. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Css Classes</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -845,16 +873,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GLABEL__CHILDREN = GALIGNABLE_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -862,26 +891,26 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Trace</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GLABEL__TRACE = GALIGNABLE_FEATURE_COUNT + 5;
 
 	/**
-	 * The feature id for the '<em><b>Position</b></em>' containment reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Position</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GLABEL__POSITION = GALIGNABLE_FEATURE_COUNT + 6;
 
 	/**
-	 * The feature id for the '<em><b>Size</b></em>' containment reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -889,17 +918,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Text</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GLABEL__TEXT = GALIGNABLE_FEATURE_COUNT + 8;
 
 	/**
-	 * The number of structural features of the '<em>GLabel</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of structural features of the '<em>GLabel</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -907,8 +936,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The number of operations of the '<em>GLabel</em>' class.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -916,7 +945,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.impl.GIssueMarkerImpl <em>GIssue Marker</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see com.eclipsesource.glsp.graph.impl.GIssueMarkerImpl
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGIssueMarker()
 	 * @generated
@@ -925,17 +955,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GISSUE_MARKER__ID = GSHAPE_ELEMENT__ID;
 
 	/**
-	 * The feature id for the '<em><b>Css Classes</b></em>' attribute list. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Css Classes</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -943,16 +973,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GISSUE_MARKER__CHILDREN = GSHAPE_ELEMENT__CHILDREN;
 
 	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -960,26 +991,26 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Trace</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GISSUE_MARKER__TRACE = GSHAPE_ELEMENT__TRACE;
 
 	/**
-	 * The feature id for the '<em><b>Position</b></em>' containment reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Position</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GISSUE_MARKER__POSITION = GSHAPE_ELEMENT__POSITION;
 
 	/**
-	 * The feature id for the '<em><b>Size</b></em>' containment reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -987,25 +1018,26 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Issues</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GISSUE_MARKER__ISSUES = GSHAPE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>GIssue Marker</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of structural features of the '<em>GIssue Marker</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GISSUE_MARKER_FEATURE_COUNT = GSHAPE_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of operations of the '<em>GIssue Marker</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of operations of the '<em>GIssue Marker</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1013,7 +1045,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.impl.GPortImpl <em>GPort</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see com.eclipsesource.glsp.graph.impl.GPortImpl
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGPort()
 	 * @generated
@@ -1022,17 +1055,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GPORT__ID = GSHAPE_ELEMENT__ID;
 
 	/**
-	 * The feature id for the '<em><b>Css Classes</b></em>' attribute list. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Css Classes</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1040,16 +1073,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GPORT__CHILDREN = GSHAPE_ELEMENT__CHILDREN;
 
 	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1057,35 +1091,35 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Trace</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GPORT__TRACE = GSHAPE_ELEMENT__TRACE;
 
 	/**
-	 * The feature id for the '<em><b>Position</b></em>' containment reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Position</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GPORT__POSITION = GSHAPE_ELEMENT__POSITION;
 
 	/**
-	 * The feature id for the '<em><b>Size</b></em>' containment reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GPORT__SIZE = GSHAPE_ELEMENT__SIZE;
 
 	/**
-	 * The number of structural features of the '<em>GPort</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of structural features of the '<em>GPort</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1093,8 +1127,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The number of operations of the '<em>GPort</em>' class.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1102,7 +1136,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.impl.GButtonImpl <em>GButton</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see com.eclipsesource.glsp.graph.impl.GButtonImpl
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGButton()
 	 * @generated
@@ -1111,17 +1146,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GBUTTON__ID = GSHAPE_ELEMENT__ID;
 
 	/**
-	 * The feature id for the '<em><b>Css Classes</b></em>' attribute list. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Css Classes</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1129,16 +1164,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GBUTTON__CHILDREN = GSHAPE_ELEMENT__CHILDREN;
 
 	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1146,44 +1182,44 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Trace</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GBUTTON__TRACE = GSHAPE_ELEMENT__TRACE;
 
 	/**
-	 * The feature id for the '<em><b>Position</b></em>' containment reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Position</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GBUTTON__POSITION = GSHAPE_ELEMENT__POSITION;
 
 	/**
-	 * The feature id for the '<em><b>Size</b></em>' containment reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GBUTTON__SIZE = GSHAPE_ELEMENT__SIZE;
 
 	/**
-	 * The feature id for the '<em><b>Enabled</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GBUTTON__ENABLED = GSHAPE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>GButton</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of structural features of the '<em>GButton</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1191,8 +1227,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The number of operations of the '<em>GButton</em>' class.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1200,7 +1236,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.GBoundsAware <em>GBounds Aware</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see com.eclipsesource.glsp.graph.GBoundsAware
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGBoundsAware()
 	 * @generated
@@ -1208,36 +1245,36 @@ public interface GraphPackage extends EPackage {
 	int GBOUNDS_AWARE = 11;
 
 	/**
-	 * The feature id for the '<em><b>Position</b></em>' containment reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Position</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GBOUNDS_AWARE__POSITION = 0;
 
 	/**
-	 * The feature id for the '<em><b>Size</b></em>' containment reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GBOUNDS_AWARE__SIZE = 1;
 
 	/**
-	 * The number of structural features of the '<em>GBounds Aware</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of structural features of the '<em>GBounds Aware</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GBOUNDS_AWARE_FEATURE_COUNT = 2;
 
 	/**
-	 * The number of operations of the '<em>GBounds Aware</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of operations of the '<em>GBounds Aware</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1245,7 +1282,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.impl.GPointImpl <em>GPoint</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see com.eclipsesource.glsp.graph.impl.GPointImpl
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGPoint()
 	 * @generated
@@ -1271,9 +1309,9 @@ public interface GraphPackage extends EPackage {
 	int GPOINT__Y = 1;
 
 	/**
-	 * The number of structural features of the '<em>GPoint</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of structural features of the '<em>GPoint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1281,8 +1319,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The number of operations of the '<em>GPoint</em>' class.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1290,7 +1328,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.impl.GDimensionImpl <em>GDimension</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see com.eclipsesource.glsp.graph.impl.GDimensionImpl
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGDimension()
 	 * @generated
@@ -1299,35 +1338,35 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Width</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GDIMENSION__WIDTH = 0;
 
 	/**
-	 * The feature id for the '<em><b>Height</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Height</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GDIMENSION__HEIGHT = 1;
 
 	/**
-	 * The number of structural features of the '<em>GDimension</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of structural features of the '<em>GDimension</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GDIMENSION_FEATURE_COUNT = 2;
 
 	/**
-	 * The number of operations of the '<em>GDimension</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of operations of the '<em>GDimension</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1335,7 +1374,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.impl.GLayoutOptionsImpl <em>GLayout Options</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see com.eclipsesource.glsp.graph.impl.GLayoutOptionsImpl
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGLayoutOptions()
 	 * @generated
@@ -1343,54 +1383,54 @@ public interface GraphPackage extends EPackage {
 	int GLAYOUT_OPTIONS = 14;
 
 	/**
-	 * The feature id for the '<em><b>Padding Left</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Padding Left</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GLAYOUT_OPTIONS__PADDING_LEFT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Padding Right</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Padding Right</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GLAYOUT_OPTIONS__PADDING_RIGHT = 1;
 
 	/**
-	 * The feature id for the '<em><b>Padding Top</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Padding Top</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GLAYOUT_OPTIONS__PADDING_TOP = 2;
 
 	/**
-	 * The feature id for the '<em><b>Padding Bottom</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Padding Bottom</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GLAYOUT_OPTIONS__PADDING_BOTTOM = 3;
 
 	/**
-	 * The feature id for the '<em><b>Padding Factor</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Padding Factor</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GLAYOUT_OPTIONS__PADDING_FACTOR = 4;
 
 	/**
-	 * The feature id for the '<em><b>Resize Container</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Resize Container</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1398,8 +1438,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>VGap</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1407,26 +1447,26 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>HGap</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GLAYOUT_OPTIONS__HGAP = 7;
 
 	/**
-	 * The feature id for the '<em><b>VAlign</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>VAlign</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GLAYOUT_OPTIONS__VALIGN = 8;
 
 	/**
-	 * The feature id for the '<em><b>HAlign</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>HAlign</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1434,16 +1474,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The number of structural features of the '<em>GLayout Options</em>' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GLAYOUT_OPTIONS_FEATURE_COUNT = 10;
 
 	/**
-	 * The number of operations of the '<em>GLayout Options</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of operations of the '<em>GLayout Options</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1451,7 +1492,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.GEdgeLayoutable <em>GEdge Layoutable</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see com.eclipsesource.glsp.graph.GEdgeLayoutable
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGEdgeLayoutable()
 	 * @generated
@@ -1460,7 +1502,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Edge Placement</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1468,16 +1511,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The number of structural features of the '<em>GEdge Layoutable</em>' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GEDGE_LAYOUTABLE_FEATURE_COUNT = 1;
 
 	/**
-	 * The number of operations of the '<em>GEdge Layoutable</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of operations of the '<em>GEdge Layoutable</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1485,7 +1529,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.impl.GEdgePlacementImpl <em>GEdge Placement</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see com.eclipsesource.glsp.graph.impl.GEdgePlacementImpl
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGEdgePlacement()
 	 * @generated
@@ -1493,18 +1538,18 @@ public interface GraphPackage extends EPackage {
 	int GEDGE_PLACEMENT = 16;
 
 	/**
-	 * The feature id for the '<em><b>Position</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Position</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GEDGE_PLACEMENT__POSITION = 0;
 
 	/**
-	 * The feature id for the '<em><b>Offset</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Offset</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1512,8 +1557,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Side</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1521,16 +1566,17 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The number of structural features of the '<em>GEdge Placement</em>' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GEDGE_PLACEMENT_FEATURE_COUNT = 3;
 
 	/**
-	 * The number of operations of the '<em>GEdge Placement</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of operations of the '<em>GEdge Placement</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1538,7 +1584,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.GLayouting <em>GLayouting</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see com.eclipsesource.glsp.graph.GLayouting
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGLayouting()
 	 * @generated
@@ -1546,9 +1593,9 @@ public interface GraphPackage extends EPackage {
 	int GLAYOUTING = 17;
 
 	/**
-	 * The feature id for the '<em><b>Layout</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Layout</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1556,25 +1603,26 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Layout Options</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GLAYOUTING__LAYOUT_OPTIONS = 1;
 
 	/**
-	 * The number of structural features of the '<em>GLayouting</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of structural features of the '<em>GLayouting</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GLAYOUTING_FEATURE_COUNT = 2;
 
 	/**
-	 * The number of operations of the '<em>GLayouting</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of operations of the '<em>GLayouting</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1582,7 +1630,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.impl.GBoundsImpl <em>GBounds</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see com.eclipsesource.glsp.graph.impl.GBoundsImpl
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGBounds()
 	 * @generated
@@ -1609,26 +1658,26 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Width</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GBOUNDS__WIDTH = 2;
 
 	/**
-	 * The feature id for the '<em><b>Height</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Height</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GBOUNDS__HEIGHT = 3;
 
 	/**
-	 * The number of structural features of the '<em>GBounds</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of structural features of the '<em>GBounds</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1636,8 +1685,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The number of operations of the '<em>GBounds</em>' class.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1645,7 +1694,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.impl.GIssueImpl <em>GIssue</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see com.eclipsesource.glsp.graph.impl.GIssueImpl
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGIssue()
 	 * @generated
@@ -1653,27 +1703,27 @@ public interface GraphPackage extends EPackage {
 	int GISSUE = 20;
 
 	/**
-	 * The feature id for the '<em><b>Severity</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Severity</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GISSUE__SEVERITY = 0;
 
 	/**
-	 * The feature id for the '<em><b>Message</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Message</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GISSUE__MESSAGE = 1;
 
 	/**
-	 * The number of structural features of the '<em>GIssue</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The number of structural features of the '<em>GIssue</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1681,8 +1731,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The number of operations of the '<em>GIssue</em>' class.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1690,7 +1740,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.GSide <em>GSide</em>}' enum.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see com.eclipsesource.glsp.graph.GSide
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGSide()
 	 * @generated
@@ -1699,7 +1750,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.GSeverity <em>GSeverity</em>}' enum.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see com.eclipsesource.glsp.graph.GSeverity
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGSeverity()
 	 * @generated
@@ -1708,7 +1760,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GModelElement <em>GModel Element</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>GModel Element</em>'.
 	 * @see com.eclipsesource.glsp.graph.GModelElement
 	 * @generated
@@ -1716,10 +1769,9 @@ public interface GraphPackage extends EPackage {
 	EClass getGModelElement();
 
 	/**
-	 * Returns the meta object for the attribute
-	 * '{@link com.eclipsesource.glsp.graph.GModelElement#getId <em>Id</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GModelElement#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Id</em>'.
 	 * @see com.eclipsesource.glsp.graph.GModelElement#getId()
 	 * @see #getGModelElement()
@@ -1729,7 +1781,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute list '{@link com.eclipsesource.glsp.graph.GModelElement#getCssClasses <em>Css Classes</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute list '<em>Css Classes</em>'.
 	 * @see com.eclipsesource.glsp.graph.GModelElement#getCssClasses()
 	 * @see #getGModelElement()
@@ -1739,7 +1792,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link com.eclipsesource.glsp.graph.GModelElement#getChildren <em>Children</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Children</em>'.
 	 * @see com.eclipsesource.glsp.graph.GModelElement#getChildren()
 	 * @see #getGModelElement()
@@ -1749,7 +1803,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the container reference '{@link com.eclipsesource.glsp.graph.GModelElement#getParent <em>Parent</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the container reference '<em>Parent</em>'.
 	 * @see com.eclipsesource.glsp.graph.GModelElement#getParent()
 	 * @see #getGModelElement()
@@ -1759,7 +1814,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GModelElement#getTrace <em>Trace</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Trace</em>'.
 	 * @see com.eclipsesource.glsp.graph.GModelElement#getTrace()
 	 * @see #getGModelElement()
@@ -1769,7 +1825,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GShapeElement <em>GShape Element</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>GShape Element</em>'.
 	 * @see com.eclipsesource.glsp.graph.GShapeElement
 	 * @generated
@@ -1778,7 +1835,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GGraph <em>GGraph</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>GGraph</em>'.
 	 * @see com.eclipsesource.glsp.graph.GGraph
 	 * @generated
@@ -1787,7 +1845,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the containment reference '{@link com.eclipsesource.glsp.graph.GGraph#getLayoutOptions <em>Layout Options</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Layout Options</em>'.
 	 * @see com.eclipsesource.glsp.graph.GGraph#getLayoutOptions()
 	 * @see #getGGraph()
@@ -1796,10 +1855,9 @@ public interface GraphPackage extends EPackage {
 	EReference getGGraph_LayoutOptions();
 
 	/**
-	 * Returns the meta object for class
-	 * '{@link com.eclipsesource.glsp.graph.GModelRoot <em>GModel Root</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GModelRoot <em>GModel Root</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>GModel Root</em>'.
 	 * @see com.eclipsesource.glsp.graph.GModelRoot
 	 * @generated
@@ -1808,7 +1866,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the containment reference '{@link com.eclipsesource.glsp.graph.GModelRoot#getCanvasBounds <em>Canvas Bounds</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Canvas Bounds</em>'.
 	 * @see com.eclipsesource.glsp.graph.GModelRoot#getCanvasBounds()
 	 * @see #getGModelRoot()
@@ -1818,7 +1877,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GModelRoot#getRevision <em>Revision</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Revision</em>'.
 	 * @see com.eclipsesource.glsp.graph.GModelRoot#getRevision()
 	 * @see #getGModelRoot()
@@ -1828,7 +1888,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GNode <em>GNode</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>GNode</em>'.
 	 * @see com.eclipsesource.glsp.graph.GNode
 	 * @generated
@@ -1837,7 +1898,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GEdge <em>GEdge</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>GEdge</em>'.
 	 * @see com.eclipsesource.glsp.graph.GEdge
 	 * @generated
@@ -1845,8 +1907,20 @@ public interface GraphPackage extends EPackage {
 	EClass getGEdge();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link com.eclipsesource.glsp.graph.GEdge#getRoutingPoints <em>Routing Points</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Routing Points</em>'.
+	 * @see com.eclipsesource.glsp.graph.GEdge#getRoutingPoints()
+	 * @see #getGEdge()
+	 * @generated
+	 */
+	EReference getGEdge_RoutingPoints();
+
+	/**
 	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GEdge#getSourceId <em>Source Id</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Source Id</em>'.
 	 * @see com.eclipsesource.glsp.graph.GEdge#getSourceId()
 	 * @see #getGEdge()
@@ -1856,7 +1930,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GEdge#getTargetId <em>Target Id</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Target Id</em>'.
 	 * @see com.eclipsesource.glsp.graph.GEdge#getTargetId()
 	 * @see #getGEdge()
@@ -1865,20 +1940,9 @@ public interface GraphPackage extends EPackage {
 	EAttribute getGEdge_TargetId();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link com.eclipsesource.glsp.graph.GEdge#getRoutingPoints <em>Routing Points</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Routing Points</em>'.
-	 * @see com.eclipsesource.glsp.graph.GEdge#getRoutingPoints()
-	 * @see #getGEdge()
-	 * @generated
-	 */
-	EReference getGEdge_RoutingPoints();
-
-	/**
-	 * Returns the meta object for the reference
-	 * '{@link com.eclipsesource.glsp.graph.GEdge#getSource <em>Source</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the meta object for the reference '{@link com.eclipsesource.glsp.graph.GEdge#getSource <em>Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Source</em>'.
 	 * @see com.eclipsesource.glsp.graph.GEdge#getSource()
 	 * @see #getGEdge()
@@ -1887,10 +1951,9 @@ public interface GraphPackage extends EPackage {
 	EReference getGEdge_Source();
 
 	/**
-	 * Returns the meta object for the reference
-	 * '{@link com.eclipsesource.glsp.graph.GEdge#getTarget <em>Target</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the meta object for the reference '{@link com.eclipsesource.glsp.graph.GEdge#getTarget <em>Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Target</em>'.
 	 * @see com.eclipsesource.glsp.graph.GEdge#getTarget()
 	 * @see #getGEdge()
@@ -1900,7 +1963,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GCompartment <em>GCompartment</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>GCompartment</em>'.
 	 * @see com.eclipsesource.glsp.graph.GCompartment
 	 * @generated
@@ -1909,7 +1973,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GLabel <em>GLabel</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>GLabel</em>'.
 	 * @see com.eclipsesource.glsp.graph.GLabel
 	 * @generated
@@ -1917,10 +1982,9 @@ public interface GraphPackage extends EPackage {
 	EClass getGLabel();
 
 	/**
-	 * Returns the meta object for the attribute
-	 * '{@link com.eclipsesource.glsp.graph.GLabel#getText <em>Text</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GLabel#getText <em>Text</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Text</em>'.
 	 * @see com.eclipsesource.glsp.graph.GLabel#getText()
 	 * @see #getGLabel()
@@ -1930,7 +1994,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GIssueMarker <em>GIssue Marker</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>GIssue Marker</em>'.
 	 * @see com.eclipsesource.glsp.graph.GIssueMarker
 	 * @generated
@@ -1939,7 +2004,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link com.eclipsesource.glsp.graph.GIssueMarker#getIssues <em>Issues</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Issues</em>'.
 	 * @see com.eclipsesource.glsp.graph.GIssueMarker#getIssues()
 	 * @see #getGIssueMarker()
@@ -1949,7 +2015,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GPort <em>GPort</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>GPort</em>'.
 	 * @see com.eclipsesource.glsp.graph.GPort
 	 * @generated
@@ -1957,10 +2024,9 @@ public interface GraphPackage extends EPackage {
 	EClass getGPort();
 
 	/**
-	 * Returns the meta object for class
-	 * '{@link com.eclipsesource.glsp.graph.GButton <em>GButton</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GButton <em>GButton</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>GButton</em>'.
 	 * @see com.eclipsesource.glsp.graph.GButton
 	 * @generated
@@ -1969,7 +2035,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GButton#isEnabled <em>Enabled</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Enabled</em>'.
 	 * @see com.eclipsesource.glsp.graph.GButton#isEnabled()
 	 * @see #getGButton()
@@ -1979,7 +2046,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GBoundsAware <em>GBounds Aware</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>GBounds Aware</em>'.
 	 * @see com.eclipsesource.glsp.graph.GBoundsAware
 	 * @generated
@@ -1987,24 +2055,22 @@ public interface GraphPackage extends EPackage {
 	EClass getGBoundsAware();
 
 	/**
-	 * Returns the meta object for the containment reference
-	 * '{@link org.eclipse.sprotty.BoundsAware#getPosition <em>Position</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the meta object for the containment reference '{@link com.eclipsesource.glsp.graph.GBoundsAware#getPosition <em>Position</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Position</em>'.
-	 * @see org.eclipse.sprotty.BoundsAware#getPosition()
+	 * @see com.eclipsesource.glsp.graph.GBoundsAware#getPosition()
 	 * @see #getGBoundsAware()
 	 * @generated
 	 */
 	EReference getGBoundsAware_Position();
 
 	/**
-	 * Returns the meta object for the containment reference
-	 * '{@link org.eclipse.sprotty.BoundsAware#getSize <em>Size</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the meta object for the containment reference '{@link com.eclipsesource.glsp.graph.GBoundsAware#getSize <em>Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Size</em>'.
-	 * @see org.eclipse.sprotty.BoundsAware#getSize()
+	 * @see com.eclipsesource.glsp.graph.GBoundsAware#getSize()
 	 * @see #getGBoundsAware()
 	 * @generated
 	 */
@@ -2012,7 +2078,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GPoint <em>GPoint</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>GPoint</em>'.
 	 * @see com.eclipsesource.glsp.graph.GPoint
 	 * @generated
@@ -2020,10 +2087,9 @@ public interface GraphPackage extends EPackage {
 	EClass getGPoint();
 
 	/**
-	 * Returns the meta object for the attribute
-	 * '{@link com.eclipsesource.glsp.graph.GPoint#getX <em>X</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GPoint#getX <em>X</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>X</em>'.
 	 * @see com.eclipsesource.glsp.graph.GPoint#getX()
 	 * @see #getGPoint()
@@ -2032,10 +2098,9 @@ public interface GraphPackage extends EPackage {
 	EAttribute getGPoint_X();
 
 	/**
-	 * Returns the meta object for the attribute
-	 * '{@link com.eclipsesource.glsp.graph.GPoint#getY <em>Y</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GPoint#getY <em>Y</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Y</em>'.
 	 * @see com.eclipsesource.glsp.graph.GPoint#getY()
 	 * @see #getGPoint()
@@ -2044,10 +2109,9 @@ public interface GraphPackage extends EPackage {
 	EAttribute getGPoint_Y();
 
 	/**
-	 * Returns the meta object for class
-	 * '{@link com.eclipsesource.glsp.graph.GDimension <em>GDimension</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GDimension <em>GDimension</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>GDimension</em>'.
 	 * @see com.eclipsesource.glsp.graph.GDimension
 	 * @generated
@@ -2056,7 +2120,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GDimension#getWidth <em>Width</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Width</em>'.
 	 * @see com.eclipsesource.glsp.graph.GDimension#getWidth()
 	 * @see #getGDimension()
@@ -2066,7 +2131,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GDimension#getHeight <em>Height</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Height</em>'.
 	 * @see com.eclipsesource.glsp.graph.GDimension#getHeight()
 	 * @see #getGDimension()
@@ -2076,7 +2142,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GLayoutOptions <em>GLayout Options</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>GLayout Options</em>'.
 	 * @see com.eclipsesource.glsp.graph.GLayoutOptions
 	 * @generated
@@ -2085,7 +2152,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getPaddingLeft <em>Padding Left</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Padding Left</em>'.
 	 * @see com.eclipsesource.glsp.graph.GLayoutOptions#getPaddingLeft()
 	 * @see #getGLayoutOptions()
@@ -2095,7 +2163,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getPaddingRight <em>Padding Right</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Padding Right</em>'.
 	 * @see com.eclipsesource.glsp.graph.GLayoutOptions#getPaddingRight()
 	 * @see #getGLayoutOptions()
@@ -2105,7 +2174,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getPaddingTop <em>Padding Top</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Padding Top</em>'.
 	 * @see com.eclipsesource.glsp.graph.GLayoutOptions#getPaddingTop()
 	 * @see #getGLayoutOptions()
@@ -2115,7 +2185,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getPaddingBottom <em>Padding Bottom</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Padding Bottom</em>'.
 	 * @see com.eclipsesource.glsp.graph.GLayoutOptions#getPaddingBottom()
 	 * @see #getGLayoutOptions()
@@ -2125,7 +2196,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getPaddingFactor <em>Padding Factor</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Padding Factor</em>'.
 	 * @see com.eclipsesource.glsp.graph.GLayoutOptions#getPaddingFactor()
 	 * @see #getGLayoutOptions()
@@ -2135,7 +2207,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GLayoutOptions#isResizeContainer <em>Resize Container</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Resize Container</em>'.
 	 * @see com.eclipsesource.glsp.graph.GLayoutOptions#isResizeContainer()
 	 * @see #getGLayoutOptions()
@@ -2145,7 +2218,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getVGap <em>VGap</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>VGap</em>'.
 	 * @see com.eclipsesource.glsp.graph.GLayoutOptions#getVGap()
 	 * @see #getGLayoutOptions()
@@ -2155,7 +2229,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getHGap <em>HGap</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>HGap</em>'.
 	 * @see com.eclipsesource.glsp.graph.GLayoutOptions#getHGap()
 	 * @see #getGLayoutOptions()
@@ -2165,7 +2240,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getVAlign <em>VAlign</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>VAlign</em>'.
 	 * @see com.eclipsesource.glsp.graph.GLayoutOptions#getVAlign()
 	 * @see #getGLayoutOptions()
@@ -2175,7 +2251,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getHAlign <em>HAlign</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>HAlign</em>'.
 	 * @see com.eclipsesource.glsp.graph.GLayoutOptions#getHAlign()
 	 * @see #getGLayoutOptions()
@@ -2185,7 +2262,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GEdgeLayoutable <em>GEdge Layoutable</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>GEdge Layoutable</em>'.
 	 * @see com.eclipsesource.glsp.graph.GEdgeLayoutable
 	 * @generated
@@ -2194,7 +2272,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the containment reference '{@link com.eclipsesource.glsp.graph.GEdgeLayoutable#getEdgePlacement <em>Edge Placement</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Edge Placement</em>'.
 	 * @see com.eclipsesource.glsp.graph.GEdgeLayoutable#getEdgePlacement()
 	 * @see #getGEdgeLayoutable()
@@ -2204,7 +2283,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GEdgePlacement <em>GEdge Placement</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>GEdge Placement</em>'.
 	 * @see com.eclipsesource.glsp.graph.GEdgePlacement
 	 * @generated
@@ -2213,7 +2293,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GEdgePlacement#getPosition <em>Position</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Position</em>'.
 	 * @see com.eclipsesource.glsp.graph.GEdgePlacement#getPosition()
 	 * @see #getGEdgePlacement()
@@ -2223,7 +2304,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GEdgePlacement#getOffset <em>Offset</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Offset</em>'.
 	 * @see com.eclipsesource.glsp.graph.GEdgePlacement#getOffset()
 	 * @see #getGEdgePlacement()
@@ -2233,7 +2315,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GEdgePlacement#getSide <em>Side</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Side</em>'.
 	 * @see com.eclipsesource.glsp.graph.GEdgePlacement#getSide()
 	 * @see #getGEdgePlacement()
@@ -2242,10 +2325,9 @@ public interface GraphPackage extends EPackage {
 	EAttribute getGEdgePlacement_Side();
 
 	/**
-	 * Returns the meta object for class
-	 * '{@link com.eclipsesource.glsp.graph.GLayouting <em>GLayouting</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GLayouting <em>GLayouting</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>GLayouting</em>'.
 	 * @see com.eclipsesource.glsp.graph.GLayouting
 	 * @generated
@@ -2254,7 +2336,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GLayouting#getLayout <em>Layout</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Layout</em>'.
 	 * @see com.eclipsesource.glsp.graph.GLayouting#getLayout()
 	 * @see #getGLayouting()
@@ -2264,7 +2347,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the containment reference '{@link com.eclipsesource.glsp.graph.GLayouting#getLayoutOptions <em>Layout Options</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Layout Options</em>'.
 	 * @see com.eclipsesource.glsp.graph.GLayouting#getLayoutOptions()
 	 * @see #getGLayouting()
@@ -2273,10 +2357,9 @@ public interface GraphPackage extends EPackage {
 	EReference getGLayouting_LayoutOptions();
 
 	/**
-	 * Returns the meta object for class
-	 * '{@link com.eclipsesource.glsp.graph.GBounds <em>GBounds</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GBounds <em>GBounds</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>GBounds</em>'.
 	 * @see com.eclipsesource.glsp.graph.GBounds
 	 * @generated
@@ -2284,10 +2367,9 @@ public interface GraphPackage extends EPackage {
 	EClass getGBounds();
 
 	/**
-	 * Returns the meta object for the attribute
-	 * '{@link com.eclipsesource.glsp.graph.GBounds#getX <em>X</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GBounds#getX <em>X</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>X</em>'.
 	 * @see com.eclipsesource.glsp.graph.GBounds#getX()
 	 * @see #getGBounds()
@@ -2296,10 +2378,9 @@ public interface GraphPackage extends EPackage {
 	EAttribute getGBounds_X();
 
 	/**
-	 * Returns the meta object for the attribute
-	 * '{@link com.eclipsesource.glsp.graph.GBounds#getY <em>Y</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GBounds#getY <em>Y</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Y</em>'.
 	 * @see com.eclipsesource.glsp.graph.GBounds#getY()
 	 * @see #getGBounds()
@@ -2308,10 +2389,9 @@ public interface GraphPackage extends EPackage {
 	EAttribute getGBounds_Y();
 
 	/**
-	 * Returns the meta object for the attribute
-	 * '{@link com.eclipsesource.glsp.graph.GBounds#getWidth <em>Width</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GBounds#getWidth <em>Width</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Width</em>'.
 	 * @see com.eclipsesource.glsp.graph.GBounds#getWidth()
 	 * @see #getGBounds()
@@ -2321,7 +2401,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GBounds#getHeight <em>Height</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Height</em>'.
 	 * @see com.eclipsesource.glsp.graph.GBounds#getHeight()
 	 * @see #getGBounds()
@@ -2330,10 +2411,9 @@ public interface GraphPackage extends EPackage {
 	EAttribute getGBounds_Height();
 
 	/**
-	 * Returns the meta object for class
-	 * '{@link com.eclipsesource.glsp.graph.GAlignable <em>GAlignable</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GAlignable <em>GAlignable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>GAlignable</em>'.
 	 * @see com.eclipsesource.glsp.graph.GAlignable
 	 * @generated
@@ -2342,7 +2422,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the containment reference '{@link com.eclipsesource.glsp.graph.GAlignable#getAlignment <em>Alignment</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Alignment</em>'.
 	 * @see com.eclipsesource.glsp.graph.GAlignable#getAlignment()
 	 * @see #getGAlignable()
@@ -2352,7 +2433,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GIssue <em>GIssue</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>GIssue</em>'.
 	 * @see com.eclipsesource.glsp.graph.GIssue
 	 * @generated
@@ -2361,7 +2443,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GIssue#getSeverity <em>Severity</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Severity</em>'.
 	 * @see com.eclipsesource.glsp.graph.GIssue#getSeverity()
 	 * @see #getGIssue()
@@ -2371,7 +2454,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GIssue#getMessage <em>Message</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Message</em>'.
 	 * @see com.eclipsesource.glsp.graph.GIssue#getMessage()
 	 * @see #getGIssue()
@@ -2381,7 +2465,8 @@ public interface GraphPackage extends EPackage {
 
 	/**
 	 * Returns the meta object for enum '{@link com.eclipsesource.glsp.graph.GSide <em>GSide</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for enum '<em>GSide</em>'.
 	 * @see com.eclipsesource.glsp.graph.GSide
 	 * @generated
@@ -2389,10 +2474,9 @@ public interface GraphPackage extends EPackage {
 	EEnum getGSide();
 
 	/**
-	 * Returns the meta object for enum
-	 * '{@link com.eclipsesource.glsp.graph.GSeverity <em>GSeverity</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the meta object for enum '{@link com.eclipsesource.glsp.graph.GSeverity <em>GSeverity</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for enum '<em>GSeverity</em>'.
 	 * @see com.eclipsesource.glsp.graph.GSeverity
 	 * @generated
@@ -2400,22 +2484,23 @@ public interface GraphPackage extends EPackage {
 	EEnum getGSeverity();
 
 	/**
-	 * Returns the factory that creates the instances of the model. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the factory that creates the instances of the model.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
 	GraphFactory getGraphFactory();
 
 	/**
-	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent
+	 * <!-- begin-user-doc -->
+	 * Defines literals for the meta objects that represent
 	 * <ul>
-	 * <li>each class,</li>
-	 * <li>each feature of each class,</li>
-	 * <li>each operation of each class,</li>
-	 * <li>each enum,</li>
-	 * <li>and each data type</li>
+	 *   <li>each class,</li>
+	 *   <li>each feature of each class,</li>
+	 *   <li>each operation of each class,</li>
+	 *   <li>each enum,</li>
+	 *   <li>and each data type</li>
 	 * </ul>
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2423,7 +2508,8 @@ public interface GraphPackage extends EPackage {
 	interface Literals {
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.GModelElement <em>GModel Element</em>}' class.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @see com.eclipsesource.glsp.graph.GModelElement
 		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGModelElement()
 		 * @generated
@@ -2431,44 +2517,49 @@ public interface GraphPackage extends EPackage {
 		EClass GMODEL_ELEMENT = eINSTANCE.getGModelElement();
 
 		/**
-		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature. <!--
-		 * begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GMODEL_ELEMENT__ID = eINSTANCE.getGModelElement_Id();
 
 		/**
 		 * The meta object literal for the '<em><b>Css Classes</b></em>' attribute list feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GMODEL_ELEMENT__CSS_CLASSES = eINSTANCE.getGModelElement_CssClasses();
 
 		/**
 		 * The meta object literal for the '<em><b>Children</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference GMODEL_ELEMENT__CHILDREN = eINSTANCE.getGModelElement_Children();
 
 		/**
 		 * The meta object literal for the '<em><b>Parent</b></em>' container reference feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference GMODEL_ELEMENT__PARENT = eINSTANCE.getGModelElement_Parent();
 
 		/**
 		 * The meta object literal for the '<em><b>Trace</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GMODEL_ELEMENT__TRACE = eINSTANCE.getGModelElement_Trace();
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.GShapeElement <em>GShape Element</em>}' class.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @see com.eclipsesource.glsp.graph.GShapeElement
 		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGShapeElement()
 		 * @generated
@@ -2477,7 +2568,8 @@ public interface GraphPackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.impl.GGraphImpl <em>GGraph</em>}' class.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @see com.eclipsesource.glsp.graph.impl.GGraphImpl
 		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGGraph()
 		 * @generated
@@ -2486,14 +2578,16 @@ public interface GraphPackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '<em><b>Layout Options</b></em>' containment reference feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference GGRAPH__LAYOUT_OPTIONS = eINSTANCE.getGGraph_LayoutOptions();
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.impl.GModelRootImpl <em>GModel Root</em>}' class.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @see com.eclipsesource.glsp.graph.impl.GModelRootImpl
 		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGModelRoot()
 		 * @generated
@@ -2502,21 +2596,24 @@ public interface GraphPackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '<em><b>Canvas Bounds</b></em>' containment reference feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference GMODEL_ROOT__CANVAS_BOUNDS = eINSTANCE.getGModelRoot_CanvasBounds();
 
 		/**
 		 * The meta object literal for the '<em><b>Revision</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GMODEL_ROOT__REVISION = eINSTANCE.getGModelRoot_Revision();
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.impl.GNodeImpl <em>GNode</em>}' class.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @see com.eclipsesource.glsp.graph.impl.GNodeImpl
 		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGNode()
 		 * @generated
@@ -2525,7 +2622,8 @@ public interface GraphPackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.impl.GEdgeImpl <em>GEdge</em>}' class.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @see com.eclipsesource.glsp.graph.impl.GEdgeImpl
 		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGEdge()
 		 * @generated
@@ -2533,43 +2631,49 @@ public interface GraphPackage extends EPackage {
 		EClass GEDGE = eINSTANCE.getGEdge();
 
 		/**
+		 * The meta object literal for the '<em><b>Routing Points</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference GEDGE__ROUTING_POINTS = eINSTANCE.getGEdge_RoutingPoints();
+
+		/**
 		 * The meta object literal for the '<em><b>Source Id</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GEDGE__SOURCE_ID = eINSTANCE.getGEdge_SourceId();
 
 		/**
 		 * The meta object literal for the '<em><b>Target Id</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GEDGE__TARGET_ID = eINSTANCE.getGEdge_TargetId();
 
 		/**
-		 * The meta object literal for the '<em><b>Routing Points</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference GEDGE__ROUTING_POINTS = eINSTANCE.getGEdge_RoutingPoints();
-
-		/**
 		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference GEDGE__SOURCE = eINSTANCE.getGEdge_Source();
 
 		/**
 		 * The meta object literal for the '<em><b>Target</b></em>' reference feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference GEDGE__TARGET = eINSTANCE.getGEdge_Target();
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.impl.GCompartmentImpl <em>GCompartment</em>}' class.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @see com.eclipsesource.glsp.graph.impl.GCompartmentImpl
 		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGCompartment()
 		 * @generated
@@ -2578,7 +2682,8 @@ public interface GraphPackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.impl.GLabelImpl <em>GLabel</em>}' class.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @see com.eclipsesource.glsp.graph.impl.GLabelImpl
 		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGLabel()
 		 * @generated
@@ -2587,14 +2692,16 @@ public interface GraphPackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '<em><b>Text</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GLABEL__TEXT = eINSTANCE.getGLabel_Text();
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.impl.GIssueMarkerImpl <em>GIssue Marker</em>}' class.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @see com.eclipsesource.glsp.graph.impl.GIssueMarkerImpl
 		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGIssueMarker()
 		 * @generated
@@ -2603,14 +2710,16 @@ public interface GraphPackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '<em><b>Issues</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference GISSUE_MARKER__ISSUES = eINSTANCE.getGIssueMarker_Issues();
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.impl.GPortImpl <em>GPort</em>}' class.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @see com.eclipsesource.glsp.graph.impl.GPortImpl
 		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGPort()
 		 * @generated
@@ -2619,7 +2728,8 @@ public interface GraphPackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.impl.GButtonImpl <em>GButton</em>}' class.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @see com.eclipsesource.glsp.graph.impl.GButtonImpl
 		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGButton()
 		 * @generated
@@ -2628,14 +2738,16 @@ public interface GraphPackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '<em><b>Enabled</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GBUTTON__ENABLED = eINSTANCE.getGButton_Enabled();
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.GBoundsAware <em>GBounds Aware</em>}' class.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @see com.eclipsesource.glsp.graph.GBoundsAware
 		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGBoundsAware()
 		 * @generated
@@ -2644,21 +2756,24 @@ public interface GraphPackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '<em><b>Position</b></em>' containment reference feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference GBOUNDS_AWARE__POSITION = eINSTANCE.getGBoundsAware_Position();
 
 		/**
 		 * The meta object literal for the '<em><b>Size</b></em>' containment reference feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference GBOUNDS_AWARE__SIZE = eINSTANCE.getGBoundsAware_Size();
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.impl.GPointImpl <em>GPoint</em>}' class.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @see com.eclipsesource.glsp.graph.impl.GPointImpl
 		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGPoint()
 		 * @generated
@@ -2666,24 +2781,25 @@ public interface GraphPackage extends EPackage {
 		EClass GPOINT = eINSTANCE.getGPoint();
 
 		/**
-		 * The meta object literal for the '<em><b>X</b></em>' attribute feature. <!--
-		 * begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 * The meta object literal for the '<em><b>X</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GPOINT__X = eINSTANCE.getGPoint_X();
 
 		/**
-		 * The meta object literal for the '<em><b>Y</b></em>' attribute feature. <!--
-		 * begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 * The meta object literal for the '<em><b>Y</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GPOINT__Y = eINSTANCE.getGPoint_Y();
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.impl.GDimensionImpl <em>GDimension</em>}' class.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @see com.eclipsesource.glsp.graph.impl.GDimensionImpl
 		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGDimension()
 		 * @generated
@@ -2692,21 +2808,24 @@ public interface GraphPackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '<em><b>Width</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GDIMENSION__WIDTH = eINSTANCE.getGDimension_Width();
 
 		/**
 		 * The meta object literal for the '<em><b>Height</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GDIMENSION__HEIGHT = eINSTANCE.getGDimension_Height();
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.impl.GLayoutOptionsImpl <em>GLayout Options</em>}' class.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @see com.eclipsesource.glsp.graph.impl.GLayoutOptionsImpl
 		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGLayoutOptions()
 		 * @generated
@@ -2715,77 +2834,88 @@ public interface GraphPackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '<em><b>Padding Left</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GLAYOUT_OPTIONS__PADDING_LEFT = eINSTANCE.getGLayoutOptions_PaddingLeft();
 
 		/**
 		 * The meta object literal for the '<em><b>Padding Right</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GLAYOUT_OPTIONS__PADDING_RIGHT = eINSTANCE.getGLayoutOptions_PaddingRight();
 
 		/**
 		 * The meta object literal for the '<em><b>Padding Top</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GLAYOUT_OPTIONS__PADDING_TOP = eINSTANCE.getGLayoutOptions_PaddingTop();
 
 		/**
 		 * The meta object literal for the '<em><b>Padding Bottom</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GLAYOUT_OPTIONS__PADDING_BOTTOM = eINSTANCE.getGLayoutOptions_PaddingBottom();
 
 		/**
 		 * The meta object literal for the '<em><b>Padding Factor</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GLAYOUT_OPTIONS__PADDING_FACTOR = eINSTANCE.getGLayoutOptions_PaddingFactor();
 
 		/**
 		 * The meta object literal for the '<em><b>Resize Container</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GLAYOUT_OPTIONS__RESIZE_CONTAINER = eINSTANCE.getGLayoutOptions_ResizeContainer();
 
 		/**
 		 * The meta object literal for the '<em><b>VGap</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GLAYOUT_OPTIONS__VGAP = eINSTANCE.getGLayoutOptions_VGap();
 
 		/**
 		 * The meta object literal for the '<em><b>HGap</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GLAYOUT_OPTIONS__HGAP = eINSTANCE.getGLayoutOptions_HGap();
 
 		/**
 		 * The meta object literal for the '<em><b>VAlign</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GLAYOUT_OPTIONS__VALIGN = eINSTANCE.getGLayoutOptions_VAlign();
 
 		/**
 		 * The meta object literal for the '<em><b>HAlign</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GLAYOUT_OPTIONS__HALIGN = eINSTANCE.getGLayoutOptions_HAlign();
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.GEdgeLayoutable <em>GEdge Layoutable</em>}' class.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @see com.eclipsesource.glsp.graph.GEdgeLayoutable
 		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGEdgeLayoutable()
 		 * @generated
@@ -2794,14 +2924,16 @@ public interface GraphPackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '<em><b>Edge Placement</b></em>' containment reference feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference GEDGE_LAYOUTABLE__EDGE_PLACEMENT = eINSTANCE.getGEdgeLayoutable_EdgePlacement();
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.impl.GEdgePlacementImpl <em>GEdge Placement</em>}' class.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @see com.eclipsesource.glsp.graph.impl.GEdgePlacementImpl
 		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGEdgePlacement()
 		 * @generated
@@ -2810,28 +2942,32 @@ public interface GraphPackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '<em><b>Position</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GEDGE_PLACEMENT__POSITION = eINSTANCE.getGEdgePlacement_Position();
 
 		/**
 		 * The meta object literal for the '<em><b>Offset</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GEDGE_PLACEMENT__OFFSET = eINSTANCE.getGEdgePlacement_Offset();
 
 		/**
 		 * The meta object literal for the '<em><b>Side</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GEDGE_PLACEMENT__SIDE = eINSTANCE.getGEdgePlacement_Side();
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.GLayouting <em>GLayouting</em>}' class.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @see com.eclipsesource.glsp.graph.GLayouting
 		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGLayouting()
 		 * @generated
@@ -2840,21 +2976,24 @@ public interface GraphPackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '<em><b>Layout</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GLAYOUTING__LAYOUT = eINSTANCE.getGLayouting_Layout();
 
 		/**
 		 * The meta object literal for the '<em><b>Layout Options</b></em>' containment reference feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference GLAYOUTING__LAYOUT_OPTIONS = eINSTANCE.getGLayouting_LayoutOptions();
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.impl.GBoundsImpl <em>GBounds</em>}' class.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @see com.eclipsesource.glsp.graph.impl.GBoundsImpl
 		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGBounds()
 		 * @generated
@@ -2862,38 +3001,41 @@ public interface GraphPackage extends EPackage {
 		EClass GBOUNDS = eINSTANCE.getGBounds();
 
 		/**
-		 * The meta object literal for the '<em><b>X</b></em>' attribute feature. <!--
-		 * begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 * The meta object literal for the '<em><b>X</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GBOUNDS__X = eINSTANCE.getGBounds_X();
 
 		/**
-		 * The meta object literal for the '<em><b>Y</b></em>' attribute feature. <!--
-		 * begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 * The meta object literal for the '<em><b>Y</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GBOUNDS__Y = eINSTANCE.getGBounds_Y();
 
 		/**
 		 * The meta object literal for the '<em><b>Width</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GBOUNDS__WIDTH = eINSTANCE.getGBounds_Width();
 
 		/**
 		 * The meta object literal for the '<em><b>Height</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GBOUNDS__HEIGHT = eINSTANCE.getGBounds_Height();
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.impl.GAlignableImpl <em>GAlignable</em>}' class.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @see com.eclipsesource.glsp.graph.impl.GAlignableImpl
 		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGAlignable()
 		 * @generated
@@ -2902,14 +3044,16 @@ public interface GraphPackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '<em><b>Alignment</b></em>' containment reference feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference GALIGNABLE__ALIGNMENT = eINSTANCE.getGAlignable_Alignment();
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.impl.GIssueImpl <em>GIssue</em>}' class.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @see com.eclipsesource.glsp.graph.impl.GIssueImpl
 		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGIssue()
 		 * @generated
@@ -2918,21 +3062,24 @@ public interface GraphPackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '<em><b>Severity</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GISSUE__SEVERITY = eINSTANCE.getGIssue_Severity();
 
 		/**
 		 * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute GISSUE__MESSAGE = eINSTANCE.getGIssue_Message();
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.GSide <em>GSide</em>}' enum.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @see com.eclipsesource.glsp.graph.GSide
 		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGSide()
 		 * @generated
@@ -2941,7 +3088,8 @@ public interface GraphPackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.GSeverity <em>GSeverity</em>}' enum.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @see com.eclipsesource.glsp.graph.GSeverity
 		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGSeverity()
 		 * @generated
@@ -2950,4 +3098,4 @@ public interface GraphPackage extends EPackage {
 
 	}
 
-} // GraphPackage
+} //GraphPackage

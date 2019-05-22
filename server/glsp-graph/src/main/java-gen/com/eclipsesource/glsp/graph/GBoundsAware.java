@@ -18,8 +18,9 @@ package com.eclipsesource.glsp.graph;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>GBounds
- * Aware</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>GBounds Aware</b></em>'.
+ * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
@@ -36,7 +37,8 @@ import org.eclipse.emf.ecore.EObject;
 public interface GBoundsAware extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Position</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Position</em>' containment reference.
 	 * @see #setPosition(GPoint)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGBoundsAware_Position()
@@ -47,8 +49,8 @@ public interface GBoundsAware extends EObject {
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GBoundsAware#getPosition <em>Position</em>}' containment reference.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Position</em>' containment reference.
 	 * @see #getPosition()
 	 * @generated
@@ -56,9 +58,9 @@ public interface GBoundsAware extends EObject {
 	void setPosition(GPoint value);
 
 	/**
-	 * Returns the value of the '<em><b>Size</b></em>' containment reference. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the value of the '<em><b>Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Size</em>' containment reference.
 	 * @see #setSize(GDimension)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGBoundsAware_Size()
@@ -69,7 +71,8 @@ public interface GBoundsAware extends EObject {
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GBoundsAware#getSize <em>Size</em>}' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Size</em>' containment reference.
 	 * @see #getSize()
 	 * @generated

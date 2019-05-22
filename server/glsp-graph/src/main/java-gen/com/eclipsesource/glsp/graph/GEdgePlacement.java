@@ -18,8 +18,9 @@ package com.eclipsesource.glsp.graph;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>GEdge
- * Placement</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>GEdge Placement</b></em>'.
+ * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
@@ -36,20 +37,22 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface GEdgePlacement extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Position</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the value of the '<em><b>Position</b></em>' attribute.
+	 * The default value is <code>"0"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Position</em>' attribute.
 	 * @see #setPosition(double)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGEdgePlacement_Position()
-	 * @model
+	 * @model default="0" required="true"
 	 * @generated
 	 */
 	double getPosition();
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GEdgePlacement#getPosition <em>Position</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Position</em>' attribute.
 	 * @see #getPosition()
 	 * @generated
@@ -57,20 +60,22 @@ public interface GEdgePlacement extends EObject {
 	void setPosition(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Offset</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the value of the '<em><b>Offset</b></em>' attribute.
+	 * The default value is <code>"0"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Offset</em>' attribute.
 	 * @see #setOffset(double)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGEdgePlacement_Offset()
-	 * @model
+	 * @model default="0" required="true"
 	 * @generated
 	 */
 	double getOffset();
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GEdgePlacement#getOffset <em>Offset</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Offset</em>' attribute.
 	 * @see #getOffset()
 	 * @generated
@@ -78,22 +83,24 @@ public interface GEdgePlacement extends EObject {
 	void setOffset(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Side</b></em>' attribute. The literals are
-	 * from the enumeration {@link com.eclipsesource.glsp.graph.GSide}. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the value of the '<em><b>Side</b></em>' attribute.
+	 * The default value is <code>"left"</code>.
+	 * The literals are from the enumeration {@link com.eclipsesource.glsp.graph.GSide}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Side</em>' attribute.
 	 * @see com.eclipsesource.glsp.graph.GSide
 	 * @see #setSide(GSide)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGEdgePlacement_Side()
-	 * @model
+	 * @model default="left"
 	 * @generated
 	 */
 	GSide getSide();
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GEdgePlacement#getSide <em>Side</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Side</em>' attribute.
 	 * @see com.eclipsesource.glsp.graph.GSide
 	 * @see #getSide()

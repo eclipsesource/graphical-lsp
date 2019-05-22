@@ -26,8 +26,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object
- * '<em><b>GDimension</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>GDimension</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
@@ -40,9 +41,9 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  */
 public class GDimensionImpl extends MinimalEObjectImpl.Container implements GDimension {
 	/**
-	 * The default value of the '{@link #getWidth() <em>Width</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getWidth() <em>Width</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getWidth()
 	 * @generated
 	 * @ordered
@@ -50,9 +51,9 @@ public class GDimensionImpl extends MinimalEObjectImpl.Container implements GDim
 	protected static final double WIDTH_EDEFAULT = 0.0;
 
 	/**
-	 * The cached value of the '{@link #getWidth() <em>Width</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getWidth() <em>Width</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getWidth()
 	 * @generated
 	 * @ordered
@@ -61,7 +62,8 @@ public class GDimensionImpl extends MinimalEObjectImpl.Container implements GDim
 
 	/**
 	 * The default value of the '{@link #getHeight() <em>Height</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getHeight()
 	 * @generated
 	 * @ordered
@@ -70,7 +72,8 @@ public class GDimensionImpl extends MinimalEObjectImpl.Container implements GDim
 
 	/**
 	 * The cached value of the '{@link #getHeight() <em>Height</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getHeight()
 	 * @generated
 	 * @ordered
@@ -78,15 +81,17 @@ public class GDimensionImpl extends MinimalEObjectImpl.Container implements GDim
 	protected double height = HEIGHT_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected GDimensionImpl() {
+	public GDimensionImpl() {
 		super();
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -95,7 +100,8 @@ public class GDimensionImpl extends MinimalEObjectImpl.Container implements GDim
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -104,7 +110,8 @@ public class GDimensionImpl extends MinimalEObjectImpl.Container implements GDim
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -116,7 +123,8 @@ public class GDimensionImpl extends MinimalEObjectImpl.Container implements GDim
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -125,7 +133,8 @@ public class GDimensionImpl extends MinimalEObjectImpl.Container implements GDim
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -137,7 +146,8 @@ public class GDimensionImpl extends MinimalEObjectImpl.Container implements GDim
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -152,7 +162,8 @@ public class GDimensionImpl extends MinimalEObjectImpl.Container implements GDim
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -169,7 +180,8 @@ public class GDimensionImpl extends MinimalEObjectImpl.Container implements GDim
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -186,7 +198,8 @@ public class GDimensionImpl extends MinimalEObjectImpl.Container implements GDim
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -201,7 +214,8 @@ public class GDimensionImpl extends MinimalEObjectImpl.Container implements GDim
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -218,4 +232,4 @@ public class GDimensionImpl extends MinimalEObjectImpl.Container implements GDim
 		return result.toString();
 	}
 
-} // GDimensionImpl
+} //GDimensionImpl

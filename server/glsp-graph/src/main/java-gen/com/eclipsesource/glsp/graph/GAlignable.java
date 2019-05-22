@@ -18,8 +18,9 @@ package com.eclipsesource.glsp.graph;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object
- * '<em><b>GAlignable</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>GAlignable</b></em>'.
+ * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
@@ -35,7 +36,8 @@ import org.eclipse.emf.ecore.EObject;
 public interface GAlignable extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Alignment</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Alignment</em>' containment reference.
 	 * @see #setAlignment(GPoint)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGAlignable_Alignment()
@@ -46,8 +48,8 @@ public interface GAlignable extends EObject {
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GAlignable#getAlignment <em>Alignment</em>}' containment reference.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Alignment</em>' containment reference.
 	 * @see #getAlignment()
 	 * @generated

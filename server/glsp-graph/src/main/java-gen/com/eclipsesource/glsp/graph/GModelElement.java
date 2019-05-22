@@ -20,8 +20,9 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>GModel
- * Element</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>GModel Element</b></em>'.
+ * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
@@ -41,8 +42,8 @@ import org.eclipse.emf.ecore.EObject;
 public interface GModelElement extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Id</em>' attribute.
 	 * @see #setId(String)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGModelElement_Id()
@@ -53,7 +54,8 @@ public interface GModelElement extends EObject {
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GModelElement#getId <em>Id</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Id</em>' attribute.
 	 * @see #getId()
 	 * @generated
@@ -76,7 +78,8 @@ public interface GModelElement extends EObject {
 	 * Returns the value of the '<em><b>Children</b></em>' containment reference list.
 	 * The list contents are of type {@link com.eclipsesource.glsp.graph.GModelElement}.
 	 * It is bidirectional and its opposite is '{@link com.eclipsesource.glsp.graph.GModelElement#getParent <em>Parent</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Children</em>' containment reference list.
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGModelElement_Children()
 	 * @see com.eclipsesource.glsp.graph.GModelElement#getParent
@@ -88,7 +91,8 @@ public interface GModelElement extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Parent</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link com.eclipsesource.glsp.graph.GModelElement#getChildren <em>Children</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Parent</em>' container reference.
 	 * @see #setParent(GModelElement)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGModelElement_Parent()
@@ -100,8 +104,8 @@ public interface GModelElement extends EObject {
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GModelElement#getParent <em>Parent</em>}' container reference.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Parent</em>' container reference.
 	 * @see #getParent()
 	 * @generated
@@ -109,9 +113,9 @@ public interface GModelElement extends EObject {
 	void setParent(GModelElement value);
 
 	/**
-	 * Returns the value of the '<em><b>Trace</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the value of the '<em><b>Trace</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Trace</em>' attribute.
 	 * @see #setTrace(String)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGModelElement_Trace()
@@ -122,7 +126,8 @@ public interface GModelElement extends EObject {
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GModelElement#getTrace <em>Trace</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Trace</em>' attribute.
 	 * @see #getTrace()
 	 * @generated

@@ -39,8 +39,9 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '<em><b>GModel
- * Root</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>GModel Root</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
@@ -58,9 +59,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class GModelRootImpl extends MinimalEObjectImpl.Container implements GModelRoot {
 	/**
-	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getId()
 	 * @generated
 	 * @ordered
@@ -68,9 +69,9 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 	protected static final String ID_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getId()
 	 * @generated
 	 * @ordered
@@ -79,7 +80,8 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 
 	/**
 	 * The cached value of the '{@link #getCssClasses() <em>Css Classes</em>}' attribute list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getCssClasses()
 	 * @generated
 	 * @ordered
@@ -88,7 +90,8 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 
 	/**
 	 * The cached value of the '{@link #getChildren() <em>Children</em>}' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getChildren()
 	 * @generated
 	 * @ordered
@@ -96,9 +99,9 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 	protected EList<GModelElement> children;
 
 	/**
-	 * The default value of the '{@link #getTrace() <em>Trace</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getTrace() <em>Trace</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getTrace()
 	 * @generated
 	 * @ordered
@@ -106,9 +109,9 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 	protected static final String TRACE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getTrace() <em>Trace</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getTrace() <em>Trace</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getTrace()
 	 * @generated
 	 * @ordered
@@ -117,7 +120,8 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 
 	/**
 	 * The cached value of the '{@link #getCanvasBounds() <em>Canvas Bounds</em>}' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getCanvasBounds()
 	 * @generated
 	 * @ordered
@@ -126,32 +130,36 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 
 	/**
 	 * The default value of the '{@link #getRevision() <em>Revision</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getRevision()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String REVISION_EDEFAULT = null;
+	protected static final int REVISION_EDEFAULT = 0;
 
 	/**
 	 * The cached value of the '{@link #getRevision() <em>Revision</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getRevision()
 	 * @generated
 	 * @ordered
 	 */
-	protected String revision = REVISION_EDEFAULT;
+	protected int revision = REVISION_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected GModelRootImpl() {
+	public GModelRootImpl() {
 		super();
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -160,7 +168,8 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -169,7 +178,8 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -181,7 +191,8 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -193,7 +204,8 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -206,7 +218,8 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -217,7 +230,8 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain basicSetParent(GModelElement newParent, NotificationChain msgs) {
@@ -226,7 +240,8 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -250,7 +265,8 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -259,7 +275,8 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -271,7 +288,8 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -280,7 +298,8 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain basicSetCanvasBounds(GBounds newCanvasBounds, NotificationChain msgs) {
@@ -298,7 +317,8 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -320,21 +340,23 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public String getRevision() {
+	public int getRevision() {
 		return revision;
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public void setRevision(String newRevision) {
-		String oldRevision = revision;
+	public void setRevision(int newRevision) {
+		int oldRevision = revision;
 		revision = newRevision;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GMODEL_ROOT__REVISION, oldRevision,
@@ -342,7 +364,8 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -360,7 +383,8 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -377,7 +401,8 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -391,7 +416,8 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -416,7 +442,8 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -444,14 +471,15 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 			setCanvasBounds((GBounds) newValue);
 			return;
 		case GraphPackage.GMODEL_ROOT__REVISION:
-			setRevision((String) newValue);
+			setRevision((Integer) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -483,7 +511,8 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -502,13 +531,14 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 		case GraphPackage.GMODEL_ROOT__CANVAS_BOUNDS:
 			return canvasBounds != null;
 		case GraphPackage.GMODEL_ROOT__REVISION:
-			return REVISION_EDEFAULT == null ? revision != null : !REVISION_EDEFAULT.equals(revision);
+			return revision != REVISION_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -529,4 +559,4 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 		return result.toString();
 	}
 
-} // GModelRootImpl
+} //GModelRootImpl

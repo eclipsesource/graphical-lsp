@@ -26,8 +26,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object
- * '<em><b>GPoint</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>GPoint</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
@@ -40,9 +41,9 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  */
 public class GPointImpl extends MinimalEObjectImpl.Container implements GPoint {
 	/**
-	 * The default value of the '{@link #getX() <em>X</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getX() <em>X</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getX()
 	 * @generated
 	 * @ordered
@@ -50,9 +51,9 @@ public class GPointImpl extends MinimalEObjectImpl.Container implements GPoint {
 	protected static final double X_EDEFAULT = 0.0;
 
 	/**
-	 * The cached value of the '{@link #getX() <em>X</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getX() <em>X</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getX()
 	 * @generated
 	 * @ordered
@@ -60,9 +61,9 @@ public class GPointImpl extends MinimalEObjectImpl.Container implements GPoint {
 	protected double x = X_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getY() <em>Y</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getY() <em>Y</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getY()
 	 * @generated
 	 * @ordered
@@ -70,9 +71,9 @@ public class GPointImpl extends MinimalEObjectImpl.Container implements GPoint {
 	protected static final double Y_EDEFAULT = 0.0;
 
 	/**
-	 * The cached value of the '{@link #getY() <em>Y</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getY() <em>Y</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getY()
 	 * @generated
 	 * @ordered
@@ -80,15 +81,17 @@ public class GPointImpl extends MinimalEObjectImpl.Container implements GPoint {
 	protected double y = Y_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected GPointImpl() {
+	public GPointImpl() {
 		super();
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -97,7 +100,8 @@ public class GPointImpl extends MinimalEObjectImpl.Container implements GPoint {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -106,7 +110,8 @@ public class GPointImpl extends MinimalEObjectImpl.Container implements GPoint {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -118,7 +123,8 @@ public class GPointImpl extends MinimalEObjectImpl.Container implements GPoint {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -127,7 +133,8 @@ public class GPointImpl extends MinimalEObjectImpl.Container implements GPoint {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -139,7 +146,8 @@ public class GPointImpl extends MinimalEObjectImpl.Container implements GPoint {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -154,7 +162,8 @@ public class GPointImpl extends MinimalEObjectImpl.Container implements GPoint {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -171,7 +180,8 @@ public class GPointImpl extends MinimalEObjectImpl.Container implements GPoint {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -188,7 +198,8 @@ public class GPointImpl extends MinimalEObjectImpl.Container implements GPoint {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -203,7 +214,8 @@ public class GPointImpl extends MinimalEObjectImpl.Container implements GPoint {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -220,4 +232,4 @@ public class GPointImpl extends MinimalEObjectImpl.Container implements GPoint {
 		return result.toString();
 	}
 
-} // GPointImpl
+} //GPointImpl

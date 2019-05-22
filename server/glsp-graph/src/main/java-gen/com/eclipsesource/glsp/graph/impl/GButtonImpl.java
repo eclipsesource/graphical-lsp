@@ -41,8 +41,9 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object
- * '<em><b>GButton</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>GButton</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
@@ -61,9 +62,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton {
 	/**
-	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getId()
 	 * @generated
 	 * @ordered
@@ -71,9 +72,9 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	protected static final String ID_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getId()
 	 * @generated
 	 * @ordered
@@ -82,7 +83,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 
 	/**
 	 * The cached value of the '{@link #getCssClasses() <em>Css Classes</em>}' attribute list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getCssClasses()
 	 * @generated
 	 * @ordered
@@ -91,7 +93,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 
 	/**
 	 * The cached value of the '{@link #getChildren() <em>Children</em>}' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getChildren()
 	 * @generated
 	 * @ordered
@@ -99,9 +102,9 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	protected EList<GModelElement> children;
 
 	/**
-	 * The default value of the '{@link #getTrace() <em>Trace</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getTrace() <em>Trace</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getTrace()
 	 * @generated
 	 * @ordered
@@ -109,9 +112,9 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	protected static final String TRACE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getTrace() <em>Trace</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getTrace() <em>Trace</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getTrace()
 	 * @generated
 	 * @ordered
@@ -120,7 +123,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 
 	/**
 	 * The cached value of the '{@link #getPosition() <em>Position</em>}' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getPosition()
 	 * @generated
 	 * @ordered
@@ -129,7 +133,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 
 	/**
 	 * The cached value of the '{@link #getSize() <em>Size</em>}' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getSize()
 	 * @generated
 	 * @ordered
@@ -138,7 +143,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 
 	/**
 	 * The default value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #isEnabled()
 	 * @generated
 	 * @ordered
@@ -147,7 +153,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 
 	/**
 	 * The cached value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #isEnabled()
 	 * @generated
 	 * @ordered
@@ -155,15 +162,17 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	protected boolean enabled = ENABLED_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected GButtonImpl() {
+	public GButtonImpl() {
 		super();
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -172,7 +181,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -181,7 +191,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -193,7 +204,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -205,7 +217,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -218,7 +231,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -229,7 +243,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain basicSetParent(GModelElement newParent, NotificationChain msgs) {
@@ -238,7 +253,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -261,7 +277,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -270,7 +287,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -282,7 +300,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -291,7 +310,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain basicSetPosition(GPoint newPosition, NotificationChain msgs) {
@@ -309,7 +329,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -331,7 +352,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -340,7 +362,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain basicSetSize(GDimension newSize, NotificationChain msgs) {
@@ -358,7 +381,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -379,7 +403,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -388,7 +413,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -400,7 +426,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -418,7 +445,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -437,7 +465,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -451,7 +480,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -478,7 +508,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -516,7 +547,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -551,7 +583,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -578,7 +611,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -597,7 +631,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -616,7 +651,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -637,4 +673,4 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 		return result.toString();
 	}
 
-} // GButtonImpl
+} //GButtonImpl

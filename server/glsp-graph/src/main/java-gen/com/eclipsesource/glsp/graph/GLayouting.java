@@ -18,8 +18,9 @@ package com.eclipsesource.glsp.graph;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object
- * '<em><b>GLayouting</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>GLayouting</b></em>'.
+ * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
@@ -35,9 +36,9 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface GLayouting extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Layout</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the value of the '<em><b>Layout</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Layout</em>' attribute.
 	 * @see #setLayout(String)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGLayouting_Layout()
@@ -48,7 +49,8 @@ public interface GLayouting extends EObject {
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GLayouting#getLayout <em>Layout</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Layout</em>' attribute.
 	 * @see #getLayout()
 	 * @generated
@@ -57,7 +59,8 @@ public interface GLayouting extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Layout Options</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Layout Options</em>' containment reference.
 	 * @see #setLayoutOptions(GLayoutOptions)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGLayouting_LayoutOptions()
@@ -68,8 +71,8 @@ public interface GLayouting extends EObject {
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GLayouting#getLayoutOptions <em>Layout Options</em>}' containment reference.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Layout Options</em>' containment reference.
 	 * @see #getLayoutOptions()
 	 * @generated

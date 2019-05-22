@@ -41,8 +41,9 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object
- * '<em><b>GPort</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>GPort</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
@@ -60,9 +61,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	/**
-	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getId()
 	 * @generated
 	 * @ordered
@@ -70,9 +71,9 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	protected static final String ID_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getId()
 	 * @generated
 	 * @ordered
@@ -81,7 +82,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 
 	/**
 	 * The cached value of the '{@link #getCssClasses() <em>Css Classes</em>}' attribute list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getCssClasses()
 	 * @generated
 	 * @ordered
@@ -90,7 +92,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 
 	/**
 	 * The cached value of the '{@link #getChildren() <em>Children</em>}' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getChildren()
 	 * @generated
 	 * @ordered
@@ -98,9 +101,9 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	protected EList<GModelElement> children;
 
 	/**
-	 * The default value of the '{@link #getTrace() <em>Trace</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getTrace() <em>Trace</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getTrace()
 	 * @generated
 	 * @ordered
@@ -108,9 +111,9 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	protected static final String TRACE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getTrace() <em>Trace</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getTrace() <em>Trace</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getTrace()
 	 * @generated
 	 * @ordered
@@ -119,7 +122,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 
 	/**
 	 * The cached value of the '{@link #getPosition() <em>Position</em>}' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getPosition()
 	 * @generated
 	 * @ordered
@@ -128,7 +132,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 
 	/**
 	 * The cached value of the '{@link #getSize() <em>Size</em>}' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getSize()
 	 * @generated
 	 * @ordered
@@ -136,15 +141,17 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	protected GDimension size;
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected GPortImpl() {
+	public GPortImpl() {
 		super();
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -153,7 +160,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -162,7 +170,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -174,7 +183,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -186,7 +196,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -199,7 +210,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -210,7 +222,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain basicSetParent(GModelElement newParent, NotificationChain msgs) {
@@ -219,7 +232,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -242,7 +256,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -251,7 +266,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -263,7 +279,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -272,7 +289,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain basicSetPosition(GPoint newPosition, NotificationChain msgs) {
@@ -290,7 +308,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -312,7 +331,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -321,7 +341,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain basicSetSize(GDimension newSize, NotificationChain msgs) {
@@ -339,7 +360,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -360,7 +382,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -378,7 +401,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -397,7 +421,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -411,7 +436,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -436,7 +462,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -471,7 +498,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -503,7 +531,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -528,7 +557,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -547,7 +577,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -566,7 +597,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -585,4 +617,4 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 		return result.toString();
 	}
 
-} // GPortImpl
+} //GPortImpl

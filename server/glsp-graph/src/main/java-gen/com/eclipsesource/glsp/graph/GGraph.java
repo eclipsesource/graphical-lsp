@@ -16,8 +16,9 @@
 package com.eclipsesource.glsp.graph;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object
- * '<em><b>GGraph</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>GGraph</b></em>'.
+ * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
@@ -33,7 +34,8 @@ package com.eclipsesource.glsp.graph;
 public interface GGraph extends GModelRoot, GBoundsAware {
 	/**
 	 * Returns the value of the '<em><b>Layout Options</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Layout Options</em>' containment reference.
 	 * @see #setLayoutOptions(GLayoutOptions)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGGraph_LayoutOptions()
@@ -44,8 +46,8 @@ public interface GGraph extends GModelRoot, GBoundsAware {
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GGraph#getLayoutOptions <em>Layout Options</em>}' containment reference.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Layout Options</em>' containment reference.
 	 * @see #getLayoutOptions()
 	 * @generated

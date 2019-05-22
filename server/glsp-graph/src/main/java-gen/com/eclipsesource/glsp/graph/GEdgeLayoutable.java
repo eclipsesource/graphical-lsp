@@ -18,8 +18,9 @@ package com.eclipsesource.glsp.graph;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>GEdge
- * Layoutable</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>GEdge Layoutable</b></em>'.
+ * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
@@ -35,7 +36,8 @@ import org.eclipse.emf.ecore.EObject;
 public interface GEdgeLayoutable extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Edge Placement</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Edge Placement</em>' containment reference.
 	 * @see #setEdgePlacement(GEdgePlacement)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGEdgeLayoutable_EdgePlacement()
@@ -46,8 +48,8 @@ public interface GEdgeLayoutable extends EObject {
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GEdgeLayoutable#getEdgePlacement <em>Edge Placement</em>}' containment reference.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Edge Placement</em>' containment reference.
 	 * @see #getEdgePlacement()
 	 * @generated

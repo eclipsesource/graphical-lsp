@@ -27,8 +27,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object
- * '<em><b>GIssue</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>GIssue</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
@@ -42,7 +43,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 public class GIssueImpl extends MinimalEObjectImpl.Container implements GIssue {
 	/**
 	 * The default value of the '{@link #getSeverity() <em>Severity</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getSeverity()
 	 * @generated
 	 * @ordered
@@ -51,7 +53,8 @@ public class GIssueImpl extends MinimalEObjectImpl.Container implements GIssue {
 
 	/**
 	 * The cached value of the '{@link #getSeverity() <em>Severity</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getSeverity()
 	 * @generated
 	 * @ordered
@@ -60,7 +63,8 @@ public class GIssueImpl extends MinimalEObjectImpl.Container implements GIssue {
 
 	/**
 	 * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getMessage()
 	 * @generated
 	 * @ordered
@@ -69,7 +73,8 @@ public class GIssueImpl extends MinimalEObjectImpl.Container implements GIssue {
 
 	/**
 	 * The cached value of the '{@link #getMessage() <em>Message</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getMessage()
 	 * @generated
 	 * @ordered
@@ -77,15 +82,17 @@ public class GIssueImpl extends MinimalEObjectImpl.Container implements GIssue {
 	protected String message = MESSAGE_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected GIssueImpl() {
+	public GIssueImpl() {
 		super();
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -94,7 +101,8 @@ public class GIssueImpl extends MinimalEObjectImpl.Container implements GIssue {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -103,7 +111,8 @@ public class GIssueImpl extends MinimalEObjectImpl.Container implements GIssue {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -116,7 +125,8 @@ public class GIssueImpl extends MinimalEObjectImpl.Container implements GIssue {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -125,7 +135,8 @@ public class GIssueImpl extends MinimalEObjectImpl.Container implements GIssue {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -137,7 +148,8 @@ public class GIssueImpl extends MinimalEObjectImpl.Container implements GIssue {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -152,7 +164,8 @@ public class GIssueImpl extends MinimalEObjectImpl.Container implements GIssue {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -169,7 +182,8 @@ public class GIssueImpl extends MinimalEObjectImpl.Container implements GIssue {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -186,7 +200,8 @@ public class GIssueImpl extends MinimalEObjectImpl.Container implements GIssue {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -201,7 +216,8 @@ public class GIssueImpl extends MinimalEObjectImpl.Container implements GIssue {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -218,4 +234,4 @@ public class GIssueImpl extends MinimalEObjectImpl.Container implements GIssue {
 		return result.toString();
 	}
 
-} // GIssueImpl
+} //GIssueImpl

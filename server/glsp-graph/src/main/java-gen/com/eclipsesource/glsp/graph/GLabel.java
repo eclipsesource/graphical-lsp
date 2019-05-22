@@ -16,8 +16,9 @@
 package com.eclipsesource.glsp.graph;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object
- * '<em><b>GLabel</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>GLabel</b></em>'.
+ * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
@@ -32,20 +33,21 @@ package com.eclipsesource.glsp.graph;
  */
 public interface GLabel extends GAlignable, GEdgeLayoutable, GShapeElement {
 	/**
-	 * Returns the value of the '<em><b>Text</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the value of the '<em><b>Text</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Text</em>' attribute.
 	 * @see #setText(String)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGLabel_Text()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	String getText();
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GLabel#getText <em>Text</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Text</em>' attribute.
 	 * @see #getText()
 	 * @generated

@@ -18,24 +18,26 @@ package com.eclipsesource.glsp.graph;
 import org.eclipse.emf.ecore.EFactory;
 
 /**
- * <!-- begin-user-doc --> The <b>Factory</b> for the model. It provides a
- * create method for each non-abstract class of the model. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * The <b>Factory</b> for the model.
+ * It provides a create method for each non-abstract class of the model.
+ * <!-- end-user-doc -->
  * @see com.eclipsesource.glsp.graph.GraphPackage
  * @generated
  */
 public interface GraphFactory extends EFactory {
 	/**
 	 * The singleton instance of the factory.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	GraphFactory eINSTANCE = com.eclipsesource.glsp.graph.impl.GraphFactoryImpl.init();
 
 	/**
 	 * Returns a new object of class '<em>GGraph</em>'.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return a new object of class '<em>GGraph</em>'.
 	 * @generated
 	 */
@@ -52,8 +54,8 @@ public interface GraphFactory extends EFactory {
 
 	/**
 	 * Returns a new object of class '<em>GNode</em>'.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return a new object of class '<em>GNode</em>'.
 	 * @generated
 	 */
@@ -61,8 +63,8 @@ public interface GraphFactory extends EFactory {
 
 	/**
 	 * Returns a new object of class '<em>GEdge</em>'.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return a new object of class '<em>GEdge</em>'.
 	 * @generated
 	 */
@@ -70,8 +72,8 @@ public interface GraphFactory extends EFactory {
 
 	/**
 	 * Returns a new object of class '<em>GCompartment</em>'.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return a new object of class '<em>GCompartment</em>'.
 	 * @generated
 	 */
@@ -79,8 +81,8 @@ public interface GraphFactory extends EFactory {
 
 	/**
 	 * Returns a new object of class '<em>GLabel</em>'.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return a new object of class '<em>GLabel</em>'.
 	 * @generated
 	 */
@@ -88,8 +90,8 @@ public interface GraphFactory extends EFactory {
 
 	/**
 	 * Returns a new object of class '<em>GIssue Marker</em>'.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return a new object of class '<em>GIssue Marker</em>'.
 	 * @generated
 	 */
@@ -97,8 +99,8 @@ public interface GraphFactory extends EFactory {
 
 	/**
 	 * Returns a new object of class '<em>GPort</em>'.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return a new object of class '<em>GPort</em>'.
 	 * @generated
 	 */
@@ -115,8 +117,8 @@ public interface GraphFactory extends EFactory {
 
 	/**
 	 * Returns a new object of class '<em>GPoint</em>'.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return a new object of class '<em>GPoint</em>'.
 	 * @generated
 	 */
@@ -133,8 +135,8 @@ public interface GraphFactory extends EFactory {
 
 	/**
 	 * Returns a new object of class '<em>GLayout Options</em>'.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return a new object of class '<em>GLayout Options</em>'.
 	 * @generated
 	 */
@@ -142,8 +144,8 @@ public interface GraphFactory extends EFactory {
 
 	/**
 	 * Returns a new object of class '<em>GEdge Placement</em>'.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return a new object of class '<em>GEdge Placement</em>'.
 	 * @generated
 	 */
@@ -169,8 +171,8 @@ public interface GraphFactory extends EFactory {
 
 	/**
 	 * Returns a new object of class '<em>GIssue</em>'.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return a new object of class '<em>GIssue</em>'.
 	 * @generated
 	 */
@@ -178,11 +180,11 @@ public interface GraphFactory extends EFactory {
 
 	/**
 	 * Returns the package supported by this factory.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the package supported by this factory.
 	 * @generated
 	 */
 	GraphPackage getGraphPackage();
 
-} // GraphFactory
+} //GraphFactory

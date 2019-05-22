@@ -15,27 +15,45 @@
  */
 package com.eclipsesource.glsp.graph.impl;
 
-import com.eclipsesource.glsp.graph.*;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
+import com.eclipsesource.glsp.graph.GAlignable;
+import com.eclipsesource.glsp.graph.GBounds;
+import com.eclipsesource.glsp.graph.GButton;
+import com.eclipsesource.glsp.graph.GCompartment;
+import com.eclipsesource.glsp.graph.GDimension;
+import com.eclipsesource.glsp.graph.GEdge;
+import com.eclipsesource.glsp.graph.GEdgePlacement;
+import com.eclipsesource.glsp.graph.GGraph;
+import com.eclipsesource.glsp.graph.GIssue;
+import com.eclipsesource.glsp.graph.GIssueMarker;
+import com.eclipsesource.glsp.graph.GLabel;
+import com.eclipsesource.glsp.graph.GLayoutOptions;
+import com.eclipsesource.glsp.graph.GModelRoot;
+import com.eclipsesource.glsp.graph.GNode;
+import com.eclipsesource.glsp.graph.GPoint;
+import com.eclipsesource.glsp.graph.GPort;
+import com.eclipsesource.glsp.graph.GSeverity;
+import com.eclipsesource.glsp.graph.GSide;
+import com.eclipsesource.glsp.graph.GraphFactory;
+import com.eclipsesource.glsp.graph.GraphPackage;
+
 /**
- * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
- * end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model <b>Factory</b>.
+ * <!-- end-user-doc -->
  * @generated
  */
 public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	/**
 	 * Creates the default factory implementation.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public static GraphFactory init() {
@@ -51,9 +69,9 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
-	 * 
+	 * Creates an instance of the factory.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public GraphFactoryImpl() {
@@ -61,7 +79,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -105,7 +124,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -121,7 +141,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -137,7 +158,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -147,7 +169,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -157,7 +180,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -167,7 +191,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -177,7 +202,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -187,7 +213,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -197,7 +224,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -207,7 +235,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -217,7 +246,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -227,7 +257,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -237,7 +268,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -247,7 +279,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -257,7 +290,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -267,7 +301,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -277,7 +312,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -287,7 +323,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -297,7 +334,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public GSide createGSideFromString(EDataType eDataType, String initialValue) {
@@ -309,7 +347,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public String convertGSideToString(EDataType eDataType, Object instanceValue) {
@@ -317,7 +356,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public GSeverity createGSeverityFromString(EDataType eDataType, String initialValue) {
@@ -329,7 +369,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public String convertGSeverityToString(EDataType eDataType, Object instanceValue) {
@@ -337,7 +378,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -346,7 +388,8 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @deprecated
 	 * @generated
 	 */
@@ -355,4 +398,4 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 		return GraphPackage.eINSTANCE;
 	}
 
-} // GraphFactoryImpl
+} //GraphFactoryImpl

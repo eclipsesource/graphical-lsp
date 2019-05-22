@@ -31,8 +31,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object
- * '<em><b>GGraph</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>GGraph</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
@@ -47,7 +48,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 public class GGraphImpl extends GModelRootImpl implements GGraph {
 	/**
 	 * The cached value of the '{@link #getPosition() <em>Position</em>}' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getPosition()
 	 * @generated
 	 * @ordered
@@ -56,7 +58,8 @@ public class GGraphImpl extends GModelRootImpl implements GGraph {
 
 	/**
 	 * The cached value of the '{@link #getSize() <em>Size</em>}' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getSize()
 	 * @generated
 	 * @ordered
@@ -65,7 +68,8 @@ public class GGraphImpl extends GModelRootImpl implements GGraph {
 
 	/**
 	 * The cached value of the '{@link #getLayoutOptions() <em>Layout Options</em>}' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getLayoutOptions()
 	 * @generated
 	 * @ordered
@@ -73,15 +77,17 @@ public class GGraphImpl extends GModelRootImpl implements GGraph {
 	protected GLayoutOptions layoutOptions;
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected GGraphImpl() {
+	public GGraphImpl() {
 		super();
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -90,7 +96,8 @@ public class GGraphImpl extends GModelRootImpl implements GGraph {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -99,7 +106,8 @@ public class GGraphImpl extends GModelRootImpl implements GGraph {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain basicSetPosition(GPoint newPosition, NotificationChain msgs) {
@@ -117,7 +125,8 @@ public class GGraphImpl extends GModelRootImpl implements GGraph {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -139,7 +148,8 @@ public class GGraphImpl extends GModelRootImpl implements GGraph {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -148,7 +158,8 @@ public class GGraphImpl extends GModelRootImpl implements GGraph {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain basicSetSize(GDimension newSize, NotificationChain msgs) {
@@ -166,7 +177,8 @@ public class GGraphImpl extends GModelRootImpl implements GGraph {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -187,7 +199,8 @@ public class GGraphImpl extends GModelRootImpl implements GGraph {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -196,7 +209,8 @@ public class GGraphImpl extends GModelRootImpl implements GGraph {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain basicSetLayoutOptions(GLayoutOptions newLayoutOptions, NotificationChain msgs) {
@@ -214,7 +228,8 @@ public class GGraphImpl extends GModelRootImpl implements GGraph {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -236,7 +251,8 @@ public class GGraphImpl extends GModelRootImpl implements GGraph {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -253,7 +269,8 @@ public class GGraphImpl extends GModelRootImpl implements GGraph {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -270,7 +287,8 @@ public class GGraphImpl extends GModelRootImpl implements GGraph {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -290,7 +308,8 @@ public class GGraphImpl extends GModelRootImpl implements GGraph {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -310,7 +329,8 @@ public class GGraphImpl extends GModelRootImpl implements GGraph {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -327,7 +347,8 @@ public class GGraphImpl extends GModelRootImpl implements GGraph {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -346,7 +367,8 @@ public class GGraphImpl extends GModelRootImpl implements GGraph {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -364,4 +386,4 @@ public class GGraphImpl extends GModelRootImpl implements GGraph {
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
-} // GGraphImpl
+} //GGraphImpl

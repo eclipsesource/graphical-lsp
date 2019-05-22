@@ -27,8 +27,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '<em><b>GEdge
- * Placement</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>GEdge Placement</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
@@ -43,7 +44,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements GEdgePlacement {
 	/**
 	 * The default value of the '{@link #getPosition() <em>Position</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getPosition()
 	 * @generated
 	 * @ordered
@@ -52,7 +54,8 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 
 	/**
 	 * The cached value of the '{@link #getPosition() <em>Position</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getPosition()
 	 * @generated
 	 * @ordered
@@ -61,7 +64,8 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 
 	/**
 	 * The default value of the '{@link #getOffset() <em>Offset</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getOffset()
 	 * @generated
 	 * @ordered
@@ -70,7 +74,8 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 
 	/**
 	 * The cached value of the '{@link #getOffset() <em>Offset</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getOffset()
 	 * @generated
 	 * @ordered
@@ -78,9 +83,9 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	protected double offset = OFFSET_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getSide() <em>Side</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getSide() <em>Side</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getSide()
 	 * @generated
 	 * @ordered
@@ -88,9 +93,9 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	protected static final GSide SIDE_EDEFAULT = GSide.LEFT;
 
 	/**
-	 * The cached value of the '{@link #getSide() <em>Side</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getSide() <em>Side</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getSide()
 	 * @generated
 	 * @ordered
@@ -98,15 +103,17 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	protected GSide side = SIDE_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected GEdgePlacementImpl() {
+	public GEdgePlacementImpl() {
 		super();
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -115,7 +122,8 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -124,7 +132,8 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -137,7 +146,8 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -146,7 +156,8 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -159,7 +170,8 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -168,7 +180,8 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -180,7 +193,8 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -197,7 +211,8 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -217,7 +232,8 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -237,7 +253,8 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -254,7 +271,8 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -273,4 +291,4 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 		return result.toString();
 	}
 
-} // GEdgePlacementImpl
+} //GEdgePlacementImpl

@@ -43,8 +43,9 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object
- * '<em><b>GLabel</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>GLabel</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
@@ -65,7 +66,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class GLabelImpl extends GAlignableImpl implements GLabel {
 	/**
 	 * The cached value of the '{@link #getEdgePlacement() <em>Edge Placement</em>}' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getEdgePlacement()
 	 * @generated
 	 * @ordered
@@ -73,9 +75,9 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	protected GEdgePlacement edgePlacement;
 
 	/**
-	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getId()
 	 * @generated
 	 * @ordered
@@ -83,9 +85,9 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	protected static final String ID_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getId()
 	 * @generated
 	 * @ordered
@@ -94,7 +96,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 
 	/**
 	 * The cached value of the '{@link #getCssClasses() <em>Css Classes</em>}' attribute list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getCssClasses()
 	 * @generated
 	 * @ordered
@@ -103,7 +106,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 
 	/**
 	 * The cached value of the '{@link #getChildren() <em>Children</em>}' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getChildren()
 	 * @generated
 	 * @ordered
@@ -111,9 +115,9 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	protected EList<GModelElement> children;
 
 	/**
-	 * The default value of the '{@link #getTrace() <em>Trace</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getTrace() <em>Trace</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getTrace()
 	 * @generated
 	 * @ordered
@@ -121,9 +125,9 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	protected static final String TRACE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getTrace() <em>Trace</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getTrace() <em>Trace</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getTrace()
 	 * @generated
 	 * @ordered
@@ -132,7 +136,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 
 	/**
 	 * The cached value of the '{@link #getPosition() <em>Position</em>}' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getPosition()
 	 * @generated
 	 * @ordered
@@ -141,7 +146,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 
 	/**
 	 * The cached value of the '{@link #getSize() <em>Size</em>}' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getSize()
 	 * @generated
 	 * @ordered
@@ -149,9 +155,9 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	protected GDimension size;
 
 	/**
-	 * The default value of the '{@link #getText() <em>Text</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getText() <em>Text</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getText()
 	 * @generated
 	 * @ordered
@@ -159,9 +165,9 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	protected static final String TEXT_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getText() <em>Text</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getText() <em>Text</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getText()
 	 * @generated
 	 * @ordered
@@ -169,15 +175,17 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	protected String text = TEXT_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected GLabelImpl() {
+	public GLabelImpl() {
 		super();
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -186,7 +194,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -195,7 +204,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain basicSetEdgePlacement(GEdgePlacement newEdgePlacement, NotificationChain msgs) {
@@ -213,7 +223,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -235,7 +246,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -244,7 +256,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -256,7 +269,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -268,7 +282,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -281,7 +296,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -292,7 +308,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain basicSetParent(GModelElement newParent, NotificationChain msgs) {
@@ -301,7 +318,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -324,7 +342,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -333,7 +352,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -345,7 +365,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -354,7 +375,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain basicSetPosition(GPoint newPosition, NotificationChain msgs) {
@@ -372,7 +394,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -394,7 +417,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -403,7 +427,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain basicSetSize(GDimension newSize, NotificationChain msgs) {
@@ -421,7 +446,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -442,7 +468,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -451,7 +478,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -463,7 +491,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -481,7 +510,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -502,7 +532,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -516,7 +547,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -545,7 +577,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -586,7 +619,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -624,7 +658,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -653,7 +688,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -702,7 +738,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -751,7 +788,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -772,4 +810,4 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 		return result.toString();
 	}
 
-} // GLabelImpl
+} //GLabelImpl

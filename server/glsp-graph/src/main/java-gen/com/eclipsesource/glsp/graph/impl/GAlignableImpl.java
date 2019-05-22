@@ -29,8 +29,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object
- * '<em><b>GAlignable</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>GAlignable</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
@@ -43,7 +44,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 public class GAlignableImpl extends MinimalEObjectImpl.Container implements GAlignable {
 	/**
 	 * The cached value of the '{@link #getAlignment() <em>Alignment</em>}' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getAlignment()
 	 * @generated
 	 * @ordered
@@ -51,15 +53,17 @@ public class GAlignableImpl extends MinimalEObjectImpl.Container implements GAli
 	protected GPoint alignment;
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected GAlignableImpl() {
+	public GAlignableImpl() {
 		super();
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -68,7 +72,8 @@ public class GAlignableImpl extends MinimalEObjectImpl.Container implements GAli
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -77,7 +82,8 @@ public class GAlignableImpl extends MinimalEObjectImpl.Container implements GAli
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain basicSetAlignment(GPoint newAlignment, NotificationChain msgs) {
@@ -95,7 +101,8 @@ public class GAlignableImpl extends MinimalEObjectImpl.Container implements GAli
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -117,7 +124,8 @@ public class GAlignableImpl extends MinimalEObjectImpl.Container implements GAli
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -130,7 +138,8 @@ public class GAlignableImpl extends MinimalEObjectImpl.Container implements GAli
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -143,7 +152,8 @@ public class GAlignableImpl extends MinimalEObjectImpl.Container implements GAli
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -157,7 +167,8 @@ public class GAlignableImpl extends MinimalEObjectImpl.Container implements GAli
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -171,7 +182,8 @@ public class GAlignableImpl extends MinimalEObjectImpl.Container implements GAli
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -183,4 +195,4 @@ public class GAlignableImpl extends MinimalEObjectImpl.Container implements GAli
 		return super.eIsSet(featureID);
 	}
 
-} // GAlignableImpl
+} //GAlignableImpl
