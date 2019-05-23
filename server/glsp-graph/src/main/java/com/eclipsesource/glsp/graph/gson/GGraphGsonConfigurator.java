@@ -21,15 +21,18 @@ import static com.eclipsesource.glsp.graph.GraphPackage.Literals.GGRAPH;
 import static com.eclipsesource.glsp.graph.GraphPackage.Literals.GLABEL;
 import static com.eclipsesource.glsp.graph.GraphPackage.Literals.GNODE;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 
-import com.eclipsesource.glsp.graph.GraphFactory;
 import com.eclipsesource.glsp.graph.GraphPackage;
+import com.google.common.collect.Lists;
 import com.google.gson.GsonBuilder;
 
 public class GGraphGsonConfigurator {
@@ -37,6 +40,11 @@ public class GGraphGsonConfigurator {
 	public static final String DEFAULT_TYPE_ATT = "type";
 
 	private Map<String, EClass> typeMap = new HashMap<>();
+	private List<EPackage> ePackages = new ArrayList<>();
+
+	public GGraphGsonConfigurator() {
+		withEPackages(Lists.newArrayList(GraphPackage.eINSTANCE));
+	}
 
 	public GGraphGsonConfigurator withDefaultTypeMap() {
 		Map<String, EClass> defaultTypes = new HashMap<>();
@@ -53,20 +61,31 @@ public class GGraphGsonConfigurator {
 		return this;
 	}
 
+	public GGraphGsonConfigurator withEPackages(List<EPackage> packages) {
+		ePackages.addAll(packages);
+		return this;
+	}
+
 	public GsonBuilder configureGsonBuilder(GsonBuilder gsonBuilder) {
-		gsonBuilder.registerTypeAdapterFactory(new GModelElementTypeAdapter.Factory(typeMap));
-		for (EClassifier classifier : GraphPackage.eINSTANCE.getEClassifiers()) {
-			if (classifier instanceof EClass && !((EClass) classifier).isAbstract()) {
-				// use implementation class instead of interface
-				gsonBuilder.registerTypeAdapter(classifier.getInstanceClass(),
-						new ClassBasedDeserializer(getImplementationClass(classifier)));
-			}
-		}
+		gsonBuilder.registerTypeAdapterFactory(new GModelElementTypeAdapter.Factory(DEFAULT_TYPE_ATT, typeMap));
+		configureClassesOfPackages(gsonBuilder);
+		gsonBuilder.addSerializationExclusionStrategy(new EObjectExclusionStrategy());
 		return gsonBuilder;
 	}
 
-	private Class<? extends EObject> getImplementationClass(EClassifier classifier) {
-		return GraphFactory.eINSTANCE.create((EClass) classifier).getClass();
+	protected void configureClassesOfPackages(GsonBuilder gsonBuilder) {
+		for (EPackage pkg : ePackages) {
+			for (EClassifier classifier : pkg.getEClassifiers()) {
+				if (classifier instanceof EClass && !((EClass) classifier).isAbstract()) {
+					gsonBuilder.registerTypeAdapter(classifier.getInstanceClass(),
+							new ClassBasedDeserializer(getImplementationClass((EClass) classifier, pkg)));
+				}
+			}
+		}
+	}
+
+	private Class<? extends EObject> getImplementationClass(EClass eClass, EPackage pkg) {
+		return pkg.getEFactoryInstance().create(eClass).getClass();
 	}
 
 }

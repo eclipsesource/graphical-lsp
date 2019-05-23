@@ -15,10 +15,16 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.graph.gson;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Optional;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -34,17 +40,21 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
 public class GModelElementTypeAdapter extends PropertyBasedTypeAdapter<GModelElement> {
 
-	private Gson gson;
-	private Map<String, EClass> typeMap;
+	private final Gson gson;
+	private final String discriminator;
+	private final Map<String, EClass> typeMap;
 
 	public static class Factory implements TypeAdapterFactory {
 
-		private Map<String, EClass> typeMap;
+		private final String typeAttribute;
+		private final Map<String, EClass> typeMap;
 
-		public Factory(Map<String, EClass> typeMap) {
+		public Factory(String typeAttribute, Map<String, EClass> typeMap) {
+			this.typeAttribute = typeAttribute;
 			this.typeMap = typeMap;
 		}
 
@@ -53,13 +63,14 @@ public class GModelElementTypeAdapter extends PropertyBasedTypeAdapter<GModelEle
 		public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
 			if (!GModelElement.class.isAssignableFrom(type.getRawType()))
 				return null;
-			return (TypeAdapter<T>) new GModelElementTypeAdapter(gson, typeMap);
+			return (TypeAdapter<T>) new GModelElementTypeAdapter(gson, typeAttribute, typeMap);
 		}
 
 	}
 
-	public GModelElementTypeAdapter(Gson gson, Map<String, EClass> typeMap) {
-		super(gson, GGraphGsonConfigurator.DEFAULT_TYPE_ATT);
+	public GModelElementTypeAdapter(Gson gson, String typeAttribute, Map<String, EClass> typeMap) {
+		super(gson, typeAttribute);
+		this.discriminator = typeAttribute;
 		this.gson = gson;
 		this.typeMap = typeMap;
 	}
@@ -71,6 +82,35 @@ public class GModelElementTypeAdapter extends PropertyBasedTypeAdapter<GModelEle
 			return (GModelElement) GraphFactory.eINSTANCE.create(eClass);
 		}
 		return null;
+	}
+
+	@Override
+	public void write(JsonWriter out, GModelElement value) throws IOException {
+		if (value == null) {
+			out.nullValue();
+		} else {
+			try {
+				out.beginObject();
+				Set<String> written = new HashSet<>();
+				writeProperties(out, value, value.getClass(), written);
+				if (!written.contains(discriminator)) {
+					writeDiscriminatorProperty(out, value);
+				}
+				out.endObject();
+			} catch (IllegalAccessException e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+
+	protected void writeDiscriminatorProperty(JsonWriter out, GModelElement value) throws IOException {
+		Optional<Entry<String, EClass>> entry = typeMap.entrySet().stream()
+				.filter(e -> value.eClass().equals(e.getValue())).findAny();
+		if (entry.isPresent()) {
+			out.name(discriminator);
+			out.value(entry.get().getKey());
+		}
+
 	}
 
 	@Override
@@ -114,6 +154,23 @@ public class GModelElementTypeAdapter extends PropertyBasedTypeAdapter<GModelEle
 			field.set(instance, value);
 		} catch (NoSuchFieldException e) {
 			// Ignore this property
+		}
+	}
+
+	@Override
+	protected void writeProperties(JsonWriter out, GModelElement instance, Class<?> type, Set<String> written)
+			throws IOException, IllegalAccessException {
+		for (Field field : type.getDeclaredFields()) {
+			if (!gson.excluder().excludeField(field, true)) {
+				int modifiers = field.getModifiers();
+				if (!Modifier.isTransient(modifiers) && !Modifier.isStatic(modifiers) && written.add(field.getName())) {
+					writeProperty(out, instance, field);
+				}
+			}
+		}
+		Class<?> superType = type.getSuperclass();
+		if (superType != null) {
+			writeProperties(out, instance, superType, written);
 		}
 	}
 

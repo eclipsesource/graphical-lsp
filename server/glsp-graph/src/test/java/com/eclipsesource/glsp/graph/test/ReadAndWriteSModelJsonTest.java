@@ -33,9 +33,14 @@ import org.junit.jupiter.api.Test;
 import com.eclipsesource.glsp.graph.GEdge;
 import com.eclipsesource.glsp.graph.GGraph;
 import com.eclipsesource.glsp.graph.GNode;
+import com.eclipsesource.glsp.graph.GraphFactory;
 import com.eclipsesource.glsp.graph.gson.GGraphGsonConfigurator;
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
 class ReadAndWriteSModelJsonTest {
@@ -50,7 +55,7 @@ class ReadAndWriteSModelJsonTest {
 	}
 
 	@Test
-	void testLoadingGraphWithCustomTypeMap() throws IOException {
+	void testReadingGraphWithCustomTypeMap() throws IOException {
 		Map<String, EClass> customTypes = new HashMap<>();
 		customTypes.put("mygraph", GGRAPH);
 		customTypes.put("mynode", GNODE);
@@ -63,7 +68,7 @@ class ReadAndWriteSModelJsonTest {
 	}
 
 	@Test
-	void testLoadingGraphWithTwoNodesAndOneEdge() throws IOException {
+	void testReadingGraphWithTwoNodesAndOneEdge() throws IOException {
 		GGraph graph = loadResource("graphWithTwoNodesAndOneEdge.graph");
 		assertEquals(42, graph.getRevision());
 		assertEquals("graphId", graph.getId());
@@ -85,10 +90,69 @@ class ReadAndWriteSModelJsonTest {
 		assertEquals("node2", edge.getTargetId());
 	}
 
+	@Test
+	void testWritingGraphWithTwoNodesAndOneEdge() {
+		GGraph graph = GraphFactory.eINSTANCE.createGGraph();
+		graph.setRevision(42);
+		graph.setId("graphId");
+
+		GNode node1 = GraphFactory.eINSTANCE.createGNode();
+		node1.setId("node1");
+		node1.setPosition(GraphFactory.eINSTANCE.createGPoint());
+		node1.getPosition().setX(10.0);
+		node1.getPosition().setY(20.0);
+
+		GNode node2 = GraphFactory.eINSTANCE.createGNode();
+		node2.setId("node2");
+		node2.setPosition(GraphFactory.eINSTANCE.createGPoint());
+		node2.getPosition().setX(30.0);
+		node2.getPosition().setY(40.0);
+
+		GEdge edge = GraphFactory.eINSTANCE.createGEdge();
+		edge.setId("edge12");
+		edge.setSourceId(node1.getId());
+		edge.setTargetId(node2.getId());
+
+		graph.getChildren().addAll(Lists.newArrayList(node1, node2, edge));
+
+		JsonObject jsonGraph = writeToJson(graph).getAsJsonObject();
+		assertEquals("graphId", jsonGraph.get("id").getAsString());
+		assertEquals(42, jsonGraph.get("revision").getAsInt());
+		assertEquals("graph", jsonGraph.get("type").getAsString());
+
+		JsonArray children = jsonGraph.get("children").getAsJsonArray();
+		assertEquals(3, children.size());
+
+		JsonObject node1Json = children.get(0).getAsJsonObject();
+		assertEquals("node1", node1Json.get("id").getAsString());
+		assertEquals("node", node1Json.get("type").getAsString());
+		JsonObject node1JsonPosition = node1Json.get("position").getAsJsonObject();
+		assertEquals(10.0, node1JsonPosition.get("x").getAsInt());
+		assertEquals(20.0, node1JsonPosition.get("y").getAsInt());
+
+		JsonObject node2Json = children.get(1).getAsJsonObject();
+		assertEquals("node2", node2Json.get("id").getAsString());
+		assertEquals("node", node2Json.get("type").getAsString());
+		JsonObject node2JsonPosition = node2Json.get("position").getAsJsonObject();
+		assertEquals(30.0, node2JsonPosition.get("x").getAsInt());
+		assertEquals(40.0, node2JsonPosition.get("y").getAsInt());
+
+		JsonObject edgeJson = children.get(2).getAsJsonObject();
+		assertEquals("edge12", edgeJson.get("id").getAsString());
+		assertEquals("edge", edgeJson.get("type").getAsString());
+		assertEquals("node1", edgeJson.get("sourceId").getAsString());
+		assertEquals("node2", edgeJson.get("targetId").getAsString());
+	}
+
 	private GGraph loadResource(String file) throws IOException {
 		Gson gson = gsonConfigurator.configureGsonBuilder(new GsonBuilder()).create();
 		JsonReader jsonReader = new JsonReader(new FileReader(RESOURCE_PATH + file));
 		return gson.fromJson(jsonReader, GGraph.class);
+	}
+
+	private JsonElement writeToJson(GGraph graph) {
+		Gson gson = gsonConfigurator.configureGsonBuilder(new GsonBuilder()).create();
+		return gson.toJsonTree(graph);
 	}
 
 }
