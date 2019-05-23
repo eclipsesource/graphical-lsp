@@ -39,7 +39,7 @@ export class SResizeHandleView implements IView {
         const position = this.getPosition(handle);
         if (position !== undefined) {
             const node = <circle class-sprotty-resize-handle={true} class-mouseover={handle.hoverFeedback}
-                cx={position.x} cy={position.y} />;   // Radius must be specified via CSS
+                cx={position.x} cy={position.y} r={this.getRadius()} />;
             setAttr(node, 'data-kind', handle.location);
             return node;
         }
@@ -61,5 +61,9 @@ export class SResizeHandleView implements IView {
             }
         }
         return undefined;
+    }
+
+    getRadius(): number {
+        return 7;
     }
 }
