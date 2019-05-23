@@ -22,6 +22,7 @@ import static com.eclipsesource.glsp.graph.GraphPackage.Literals.GLABEL;
 import static com.eclipsesource.glsp.graph.GraphPackage.Literals.GNODE;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
 import com.eclipsesource.glsp.graph.GraphPackage;
-import com.google.common.collect.Lists;
 import com.google.gson.GsonBuilder;
 
 public class GGraphGsonConfigurator {
@@ -43,10 +43,10 @@ public class GGraphGsonConfigurator {
 	private List<EPackage> ePackages = new ArrayList<>();
 
 	public GGraphGsonConfigurator() {
-		withEPackages(Lists.newArrayList(GraphPackage.eINSTANCE));
+		withEPackages(GraphPackage.eINSTANCE);
 	}
 
-	public GGraphGsonConfigurator withDefaultTypeMap() {
+	public GGraphGsonConfigurator withDefaultTypes() {
 		Map<String, EClass> defaultTypes = new HashMap<>();
 		defaultTypes.put("graph", GGRAPH);
 		defaultTypes.put("node", GNODE);
@@ -61,8 +61,8 @@ public class GGraphGsonConfigurator {
 		return this;
 	}
 
-	public GGraphGsonConfigurator withEPackages(List<EPackage> packages) {
-		ePackages.addAll(packages);
+	public GGraphGsonConfigurator withEPackages(EPackage... packages) {
+		ePackages.addAll(Arrays.asList(packages));
 		return this;
 	}
 
@@ -77,8 +77,9 @@ public class GGraphGsonConfigurator {
 		for (EPackage pkg : ePackages) {
 			for (EClassifier classifier : pkg.getEClassifiers()) {
 				if (classifier instanceof EClass && !((EClass) classifier).isAbstract()) {
+					Class<? extends EObject> implClass = getImplementationClass((EClass) classifier, pkg);
 					gsonBuilder.registerTypeAdapter(classifier.getInstanceClass(),
-							new ClassBasedDeserializer(getImplementationClass((EClass) classifier, pkg)));
+							new ClassBasedDeserializer(implClass));
 				}
 			}
 		}

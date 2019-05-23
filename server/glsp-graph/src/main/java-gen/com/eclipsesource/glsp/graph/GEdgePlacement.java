@@ -42,12 +42,12 @@ public interface GEdgePlacement extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Position</em>' attribute.
-	 * @see #setPosition(double)
+	 * @see #setPosition(Double)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGEdgePlacement_Position()
 	 * @model default="0" required="true"
 	 * @generated
 	 */
-	double getPosition();
+	Double getPosition();
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GEdgePlacement#getPosition <em>Position</em>}' attribute.
@@ -57,7 +57,7 @@ public interface GEdgePlacement extends EObject {
 	 * @see #getPosition()
 	 * @generated
 	 */
-	void setPosition(double value);
+	void setPosition(Double value);
 
 	/**
 	 * Returns the value of the '<em><b>Offset</b></em>' attribute.
@@ -65,12 +65,12 @@ public interface GEdgePlacement extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Offset</em>' attribute.
-	 * @see #setOffset(double)
+	 * @see #setOffset(Double)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGEdgePlacement_Offset()
 	 * @model default="0" required="true"
 	 * @generated
 	 */
-	double getOffset();
+	Double getOffset();
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GEdgePlacement#getOffset <em>Offset</em>}' attribute.
@@ -80,7 +80,7 @@ public interface GEdgePlacement extends EObject {
 	 * @see #getOffset()
 	 * @generated
 	 */
-	void setOffset(double value);
+	void setOffset(Double value);
 
 	/**
 	 * Returns the value of the '<em><b>Side</b></em>' attribute.

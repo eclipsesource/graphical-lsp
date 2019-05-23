@@ -50,7 +50,7 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double POSITION_EDEFAULT = 0.0;
+	protected static final Double POSITION_EDEFAULT = new Double(0.0);
 
 	/**
 	 * The cached value of the '{@link #getPosition() <em>Position</em>}' attribute.
@@ -60,7 +60,7 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected double position = POSITION_EDEFAULT;
+	protected Double position = POSITION_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getOffset() <em>Offset</em>}' attribute.
@@ -70,7 +70,7 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double OFFSET_EDEFAULT = 0.0;
+	protected static final Double OFFSET_EDEFAULT = new Double(0.0);
 
 	/**
 	 * The cached value of the '{@link #getOffset() <em>Offset</em>}' attribute.
@@ -80,7 +80,7 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected double offset = OFFSET_EDEFAULT;
+	protected Double offset = OFFSET_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getSide() <em>Side</em>}' attribute.
@@ -127,7 +127,7 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	@Override
-	public double getPosition() {
+	public Double getPosition() {
 		return position;
 	}
 
@@ -137,8 +137,8 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	@Override
-	public void setPosition(double newPosition) {
-		double oldPosition = position;
+	public void setPosition(Double newPosition) {
+		Double oldPosition = position;
 		position = newPosition;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GEDGE_PLACEMENT__POSITION, oldPosition,
@@ -151,7 +151,7 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	@Override
-	public double getOffset() {
+	public Double getOffset() {
 		return offset;
 	}
 
@@ -161,8 +161,8 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	@Override
-	public void setOffset(double newOffset) {
-		double oldOffset = offset;
+	public void setOffset(Double newOffset) {
+		Double oldOffset = offset;
 		offset = newOffset;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GEDGE_PLACEMENT__OFFSET, oldOffset,
@@ -261,9 +261,9 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case GraphPackage.GEDGE_PLACEMENT__POSITION:
-			return position != POSITION_EDEFAULT;
+			return POSITION_EDEFAULT == null ? position != null : !POSITION_EDEFAULT.equals(position);
 		case GraphPackage.GEDGE_PLACEMENT__OFFSET:
-			return offset != OFFSET_EDEFAULT;
+			return OFFSET_EDEFAULT == null ? offset != null : !OFFSET_EDEFAULT.equals(offset);
 		case GraphPackage.GEDGE_PLACEMENT__SIDE:
 			return side != SIDE_EDEFAULT;
 		}

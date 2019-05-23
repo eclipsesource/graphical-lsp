@@ -56,7 +56,7 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double PADDING_LEFT_EDEFAULT = 0.0;
+	protected static final Double PADDING_LEFT_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getPaddingLeft() <em>Padding Left</em>}' attribute.
@@ -66,7 +66,7 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected double paddingLeft = PADDING_LEFT_EDEFAULT;
+	protected Double paddingLeft = PADDING_LEFT_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getPaddingRight() <em>Padding Right</em>}' attribute.
@@ -76,7 +76,7 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double PADDING_RIGHT_EDEFAULT = 0.0;
+	protected static final Double PADDING_RIGHT_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getPaddingRight() <em>Padding Right</em>}' attribute.
@@ -86,7 +86,7 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected double paddingRight = PADDING_RIGHT_EDEFAULT;
+	protected Double paddingRight = PADDING_RIGHT_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getPaddingTop() <em>Padding Top</em>}' attribute.
@@ -96,7 +96,7 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double PADDING_TOP_EDEFAULT = 0.0;
+	protected static final Double PADDING_TOP_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getPaddingTop() <em>Padding Top</em>}' attribute.
@@ -106,7 +106,7 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected double paddingTop = PADDING_TOP_EDEFAULT;
+	protected Double paddingTop = PADDING_TOP_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getPaddingBottom() <em>Padding Bottom</em>}' attribute.
@@ -116,7 +116,7 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double PADDING_BOTTOM_EDEFAULT = 0.0;
+	protected static final Double PADDING_BOTTOM_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getPaddingBottom() <em>Padding Bottom</em>}' attribute.
@@ -126,7 +126,7 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected double paddingBottom = PADDING_BOTTOM_EDEFAULT;
+	protected Double paddingBottom = PADDING_BOTTOM_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getPaddingFactor() <em>Padding Factor</em>}' attribute.
@@ -136,7 +136,7 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double PADDING_FACTOR_EDEFAULT = 0.0;
+	protected static final Double PADDING_FACTOR_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getPaddingFactor() <em>Padding Factor</em>}' attribute.
@@ -146,7 +146,7 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected double paddingFactor = PADDING_FACTOR_EDEFAULT;
+	protected Double paddingFactor = PADDING_FACTOR_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #isResizeContainer() <em>Resize Container</em>}' attribute.
@@ -176,7 +176,7 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double VGAP_EDEFAULT = 0.0;
+	protected static final Double VGAP_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getVGap() <em>VGap</em>}' attribute.
@@ -186,7 +186,7 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected double vGap = VGAP_EDEFAULT;
+	protected Double vGap = VGAP_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getHGap() <em>HGap</em>}' attribute.
@@ -196,7 +196,7 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double HGAP_EDEFAULT = 0.0;
+	protected static final Double HGAP_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getHGap() <em>HGap</em>}' attribute.
@@ -206,7 +206,7 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected double hGap = HGAP_EDEFAULT;
+	protected Double hGap = HGAP_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getVAlign() <em>VAlign</em>}' attribute.
@@ -273,7 +273,7 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	@Override
-	public double getPaddingLeft() {
+	public Double getPaddingLeft() {
 		return paddingLeft;
 	}
 
@@ -283,8 +283,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	@Override
-	public void setPaddingLeft(double newPaddingLeft) {
-		double oldPaddingLeft = paddingLeft;
+	public void setPaddingLeft(Double newPaddingLeft) {
+		Double oldPaddingLeft = paddingLeft;
 		paddingLeft = newPaddingLeft;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GLAYOUT_OPTIONS__PADDING_LEFT,
@@ -297,7 +297,7 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	@Override
-	public double getPaddingRight() {
+	public Double getPaddingRight() {
 		return paddingRight;
 	}
 
@@ -307,8 +307,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	@Override
-	public void setPaddingRight(double newPaddingRight) {
-		double oldPaddingRight = paddingRight;
+	public void setPaddingRight(Double newPaddingRight) {
+		Double oldPaddingRight = paddingRight;
 		paddingRight = newPaddingRight;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GLAYOUT_OPTIONS__PADDING_RIGHT,
@@ -321,7 +321,7 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	@Override
-	public double getPaddingTop() {
+	public Double getPaddingTop() {
 		return paddingTop;
 	}
 
@@ -331,8 +331,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	@Override
-	public void setPaddingTop(double newPaddingTop) {
-		double oldPaddingTop = paddingTop;
+	public void setPaddingTop(Double newPaddingTop) {
+		Double oldPaddingTop = paddingTop;
 		paddingTop = newPaddingTop;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GLAYOUT_OPTIONS__PADDING_TOP,
@@ -345,7 +345,7 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	@Override
-	public double getPaddingBottom() {
+	public Double getPaddingBottom() {
 		return paddingBottom;
 	}
 
@@ -355,8 +355,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	@Override
-	public void setPaddingBottom(double newPaddingBottom) {
-		double oldPaddingBottom = paddingBottom;
+	public void setPaddingBottom(Double newPaddingBottom) {
+		Double oldPaddingBottom = paddingBottom;
 		paddingBottom = newPaddingBottom;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GLAYOUT_OPTIONS__PADDING_BOTTOM,
@@ -369,7 +369,7 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	@Override
-	public double getPaddingFactor() {
+	public Double getPaddingFactor() {
 		return paddingFactor;
 	}
 
@@ -379,8 +379,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	@Override
-	public void setPaddingFactor(double newPaddingFactor) {
-		double oldPaddingFactor = paddingFactor;
+	public void setPaddingFactor(Double newPaddingFactor) {
+		Double oldPaddingFactor = paddingFactor;
 		paddingFactor = newPaddingFactor;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GLAYOUT_OPTIONS__PADDING_FACTOR,
@@ -417,7 +417,7 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	@Override
-	public double getVGap() {
+	public Double getVGap() {
 		return vGap;
 	}
 
@@ -427,8 +427,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	@Override
-	public void setVGap(double newVGap) {
-		double oldVGap = vGap;
+	public void setVGap(Double newVGap) {
+		Double oldVGap = vGap;
 		vGap = newVGap;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GLAYOUT_OPTIONS__VGAP, oldVGap, vGap));
@@ -440,7 +440,7 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	@Override
-	public double getHGap() {
+	public Double getHGap() {
 		return hGap;
 	}
 
@@ -450,8 +450,8 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	@Override
-	public void setHGap(double newHGap) {
-		double oldHGap = hGap;
+	public void setHGap(Double newHGap) {
+		Double oldHGap = hGap;
 		hGap = newHGap;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GLAYOUT_OPTIONS__HGAP, oldHGap, hGap));
@@ -630,21 +630,23 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case GraphPackage.GLAYOUT_OPTIONS__PADDING_LEFT:
-			return paddingLeft != PADDING_LEFT_EDEFAULT;
+			return PADDING_LEFT_EDEFAULT == null ? paddingLeft != null : !PADDING_LEFT_EDEFAULT.equals(paddingLeft);
 		case GraphPackage.GLAYOUT_OPTIONS__PADDING_RIGHT:
-			return paddingRight != PADDING_RIGHT_EDEFAULT;
+			return PADDING_RIGHT_EDEFAULT == null ? paddingRight != null : !PADDING_RIGHT_EDEFAULT.equals(paddingRight);
 		case GraphPackage.GLAYOUT_OPTIONS__PADDING_TOP:
-			return paddingTop != PADDING_TOP_EDEFAULT;
+			return PADDING_TOP_EDEFAULT == null ? paddingTop != null : !PADDING_TOP_EDEFAULT.equals(paddingTop);
 		case GraphPackage.GLAYOUT_OPTIONS__PADDING_BOTTOM:
-			return paddingBottom != PADDING_BOTTOM_EDEFAULT;
+			return PADDING_BOTTOM_EDEFAULT == null ? paddingBottom != null
+					: !PADDING_BOTTOM_EDEFAULT.equals(paddingBottom);
 		case GraphPackage.GLAYOUT_OPTIONS__PADDING_FACTOR:
-			return paddingFactor != PADDING_FACTOR_EDEFAULT;
+			return PADDING_FACTOR_EDEFAULT == null ? paddingFactor != null
+					: !PADDING_FACTOR_EDEFAULT.equals(paddingFactor);
 		case GraphPackage.GLAYOUT_OPTIONS__RESIZE_CONTAINER:
 			return resizeContainer != RESIZE_CONTAINER_EDEFAULT;
 		case GraphPackage.GLAYOUT_OPTIONS__VGAP:
-			return vGap != VGAP_EDEFAULT;
+			return VGAP_EDEFAULT == null ? vGap != null : !VGAP_EDEFAULT.equals(vGap);
 		case GraphPackage.GLAYOUT_OPTIONS__HGAP:
-			return hGap != HGAP_EDEFAULT;
+			return HGAP_EDEFAULT == null ? hGap != null : !HGAP_EDEFAULT.equals(hGap);
 		case GraphPackage.GLAYOUT_OPTIONS__VALIGN:
 			return VALIGN_EDEFAULT == null ? vAlign != null : !VALIGN_EDEFAULT.equals(vAlign);
 		case GraphPackage.GLAYOUT_OPTIONS__HALIGN:

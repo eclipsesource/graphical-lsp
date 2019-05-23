@@ -1,1 +1,4 @@
 /target/
+/build.properties
+/plugin.properties
+/plugin.xml

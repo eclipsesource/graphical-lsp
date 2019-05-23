@@ -48,12 +48,12 @@ public interface GLayoutOptions extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Padding Left</em>' attribute.
-	 * @see #setPaddingLeft(double)
+	 * @see #setPaddingLeft(Double)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGLayoutOptions_PaddingLeft()
 	 * @model
 	 * @generated
 	 */
-	double getPaddingLeft();
+	Double getPaddingLeft();
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getPaddingLeft <em>Padding Left</em>}' attribute.
@@ -63,19 +63,19 @@ public interface GLayoutOptions extends EObject {
 	 * @see #getPaddingLeft()
 	 * @generated
 	 */
-	void setPaddingLeft(double value);
+	void setPaddingLeft(Double value);
 
 	/**
 	 * Returns the value of the '<em><b>Padding Right</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Padding Right</em>' attribute.
-	 * @see #setPaddingRight(double)
+	 * @see #setPaddingRight(Double)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGLayoutOptions_PaddingRight()
 	 * @model
 	 * @generated
 	 */
-	double getPaddingRight();
+	Double getPaddingRight();
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getPaddingRight <em>Padding Right</em>}' attribute.
@@ -85,19 +85,19 @@ public interface GLayoutOptions extends EObject {
 	 * @see #getPaddingRight()
 	 * @generated
 	 */
-	void setPaddingRight(double value);
+	void setPaddingRight(Double value);
 
 	/**
 	 * Returns the value of the '<em><b>Padding Top</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Padding Top</em>' attribute.
-	 * @see #setPaddingTop(double)
+	 * @see #setPaddingTop(Double)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGLayoutOptions_PaddingTop()
 	 * @model
 	 * @generated
 	 */
-	double getPaddingTop();
+	Double getPaddingTop();
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getPaddingTop <em>Padding Top</em>}' attribute.
@@ -107,19 +107,19 @@ public interface GLayoutOptions extends EObject {
 	 * @see #getPaddingTop()
 	 * @generated
 	 */
-	void setPaddingTop(double value);
+	void setPaddingTop(Double value);
 
 	/**
 	 * Returns the value of the '<em><b>Padding Bottom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Padding Bottom</em>' attribute.
-	 * @see #setPaddingBottom(double)
+	 * @see #setPaddingBottom(Double)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGLayoutOptions_PaddingBottom()
 	 * @model
 	 * @generated
 	 */
-	double getPaddingBottom();
+	Double getPaddingBottom();
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getPaddingBottom <em>Padding Bottom</em>}' attribute.
@@ -129,19 +129,19 @@ public interface GLayoutOptions extends EObject {
 	 * @see #getPaddingBottom()
 	 * @generated
 	 */
-	void setPaddingBottom(double value);
+	void setPaddingBottom(Double value);
 
 	/**
 	 * Returns the value of the '<em><b>Padding Factor</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Padding Factor</em>' attribute.
-	 * @see #setPaddingFactor(double)
+	 * @see #setPaddingFactor(Double)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGLayoutOptions_PaddingFactor()
 	 * @model
 	 * @generated
 	 */
-	double getPaddingFactor();
+	Double getPaddingFactor();
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getPaddingFactor <em>Padding Factor</em>}' attribute.
@@ -151,7 +151,7 @@ public interface GLayoutOptions extends EObject {
 	 * @see #getPaddingFactor()
 	 * @generated
 	 */
-	void setPaddingFactor(double value);
+	void setPaddingFactor(Double value);
 
 	/**
 	 * Returns the value of the '<em><b>Resize Container</b></em>' attribute.
@@ -180,12 +180,12 @@ public interface GLayoutOptions extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>VGap</em>' attribute.
-	 * @see #setVGap(double)
+	 * @see #setVGap(Double)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGLayoutOptions_VGap()
 	 * @model
 	 * @generated
 	 */
-	double getVGap();
+	Double getVGap();
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getVGap <em>VGap</em>}' attribute.
@@ -195,19 +195,19 @@ public interface GLayoutOptions extends EObject {
 	 * @see #getVGap()
 	 * @generated
 	 */
-	void setVGap(double value);
+	void setVGap(Double value);
 
 	/**
 	 * Returns the value of the '<em><b>HGap</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>HGap</em>' attribute.
-	 * @see #setHGap(double)
+	 * @see #setHGap(Double)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGLayoutOptions_HGap()
 	 * @model
 	 * @generated
 	 */
-	double getHGap();
+	Double getHGap();
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getHGap <em>HGap</em>}' attribute.
@@ -217,7 +217,7 @@ public interface GLayoutOptions extends EObject {
 	 * @see #getHGap()
 	 * @generated
 	 */
-	void setHGap(double value);
+	void setHGap(Double value);
 
 	/**
 	 * Returns the value of the '<em><b>VAlign</b></em>' attribute.

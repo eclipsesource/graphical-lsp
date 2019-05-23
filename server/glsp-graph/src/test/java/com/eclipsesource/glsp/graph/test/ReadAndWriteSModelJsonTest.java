@@ -51,7 +51,7 @@ class ReadAndWriteSModelJsonTest {
 
 	@BeforeEach
 	void initializeGsonConfigurator() {
-		gsonConfigurator = new GGraphGsonConfigurator().withDefaultTypeMap();
+		gsonConfigurator = new GGraphGsonConfigurator().withDefaultTypes();
 	}
 
 	@Test

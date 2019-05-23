@@ -26,14 +26,13 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.sprotty.server.json.PropertyBasedTypeAdapter;
 
 import com.eclipsesource.glsp.graph.GModelElement;
-import com.eclipsesource.glsp.graph.GraphFactory;
-import com.eclipsesource.glsp.graph.GraphPackage;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.TypeAdapter;
@@ -43,6 +42,8 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 public class GModelElementTypeAdapter extends PropertyBasedTypeAdapter<GModelElement> {
+
+	private static final Logger LOG = Logger.getLogger(GModelElementTypeAdapter.class);
 
 	private final Gson gson;
 	private final String discriminator;
@@ -78,9 +79,10 @@ public class GModelElementTypeAdapter extends PropertyBasedTypeAdapter<GModelEle
 	@Override
 	protected GModelElement createInstance(String parameter) {
 		EClass eClass = typeMap.get(parameter);
-		if (eClass != null && GraphPackage.Literals.GMODEL_ELEMENT.isSuperTypeOf(eClass)) {
-			return (GModelElement) GraphFactory.eINSTANCE.create(eClass);
+		if (eClass != null) {
+			return (GModelElement) eClass.getEPackage().getEFactoryInstance().create(eClass);
 		}
+		LOG.error("Cannot find class for type " + parameter);
 		return null;
 	}
 
@@ -161,7 +163,7 @@ public class GModelElementTypeAdapter extends PropertyBasedTypeAdapter<GModelEle
 	protected void writeProperties(JsonWriter out, GModelElement instance, Class<?> type, Set<String> written)
 			throws IOException, IllegalAccessException {
 		for (Field field : type.getDeclaredFields()) {
-			if (!gson.excluder().excludeField(field, true)) {
+			if (!gson.excluder().excludeField(field, true) && isSet(instance, field)) {
 				int modifiers = field.getModifiers();
 				if (!Modifier.isTransient(modifiers) && !Modifier.isStatic(modifiers) && written.add(field.getName())) {
 					writeProperty(out, instance, field);
@@ -172,6 +174,10 @@ public class GModelElementTypeAdapter extends PropertyBasedTypeAdapter<GModelEle
 		if (superType != null) {
 			writeProperties(out, instance, superType, written);
 		}
+	}
+
+	protected boolean isSet(GModelElement instance, Field field) {
+		return instance.eIsSet(instance.eClass().getEStructuralFeature(field.getName()));
 	}
 
 }

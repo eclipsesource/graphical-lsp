@@ -1223,28 +1223,30 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 
 		initEClass(gLayoutOptionsEClass, GLayoutOptions.class, "GLayoutOptions", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGLayoutOptions_PaddingLeft(), ecorePackage.getEDouble(), "paddingLeft", null, 0, 1,
+		initEAttribute(getGLayoutOptions_PaddingLeft(), ecorePackage.getEDoubleObject(), "paddingLeft", null, 0, 1,
 				GLayoutOptions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGLayoutOptions_PaddingRight(), ecorePackage.getEDouble(), "paddingRight", null, 0, 1,
+		initEAttribute(getGLayoutOptions_PaddingRight(), ecorePackage.getEDoubleObject(), "paddingRight", null, 0, 1,
 				GLayoutOptions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGLayoutOptions_PaddingTop(), ecorePackage.getEDouble(), "paddingTop", null, 0, 1,
+		initEAttribute(getGLayoutOptions_PaddingTop(), ecorePackage.getEDoubleObject(), "paddingTop", null, 0, 1,
 				GLayoutOptions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGLayoutOptions_PaddingBottom(), ecorePackage.getEDouble(), "paddingBottom", null, 0, 1,
+		initEAttribute(getGLayoutOptions_PaddingBottom(), ecorePackage.getEDoubleObject(), "paddingBottom", null, 0, 1,
 				GLayoutOptions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGLayoutOptions_PaddingFactor(), ecorePackage.getEDouble(), "paddingFactor", null, 0, 1,
+		initEAttribute(getGLayoutOptions_PaddingFactor(), ecorePackage.getEDoubleObject(), "paddingFactor", null, 0, 1,
 				GLayoutOptions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGLayoutOptions_ResizeContainer(), ecorePackage.getEBoolean(), "resizeContainer", null, 0, 1,
 				GLayoutOptions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGLayoutOptions_VGap(), ecorePackage.getEDouble(), "vGap", null, 0, 1, GLayoutOptions.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGLayoutOptions_HGap(), ecorePackage.getEDouble(), "hGap", null, 0, 1, GLayoutOptions.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGLayoutOptions_VGap(), ecorePackage.getEDoubleObject(), "vGap", null, 0, 1,
+				GLayoutOptions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGLayoutOptions_HGap(), ecorePackage.getEDoubleObject(), "hGap", null, 0, 1,
+				GLayoutOptions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGLayoutOptions_VAlign(), ecorePackage.getEString(), "vAlign", null, 0, 1,
 				GLayoutOptions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
@@ -1260,11 +1262,12 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 
 		initEClass(gEdgePlacementEClass, GEdgePlacement.class, "GEdgePlacement", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGEdgePlacement_Position(), ecorePackage.getEDouble(), "position", "0", 1, 1,
+		initEAttribute(getGEdgePlacement_Position(), ecorePackage.getEDoubleObject(), "position", "0", 1, 1,
 				GEdgePlacement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGEdgePlacement_Offset(), ecorePackage.getEDouble(), "offset", "0", 1, 1, GEdgePlacement.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGEdgePlacement_Offset(), ecorePackage.getEDoubleObject(), "offset", "0", 1, 1,
+				GEdgePlacement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGEdgePlacement_Side(), this.getGSide(), "side", "left", 0, 1, GEdgePlacement.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
