@@ -15,12 +15,14 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.handler;
 
+import static com.eclipsesource.glsp.server.util.SModelUtil.IS_CONNECTABLE;
+
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.eclipse.sprotty.SEdge;
+import org.eclipse.sprotty.SModelElement;
 import org.eclipse.sprotty.SModelRoot;
-import org.eclipse.sprotty.SNode;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
@@ -54,9 +56,9 @@ public class ReconnectEdgeHandler implements OperationHandler {
 
 		// check for existence of matching elements
 		SModelIndex index = modelState.getIndex();
-		Optional<SEdge> edge = index.findElement(action.getConnectionElementId(), SEdge.class);
-		Optional<SNode> source = index.findElement(action.getSourceElementId(), SNode.class);
-		Optional<SNode> target = index.findElement(action.getTargetElementId(), SNode.class);
+		Optional<SEdge> edge = index.findElementByClass(action.getConnectionElementId(), SEdge.class);
+		Optional<SModelElement> source = index.findElement(action.getSourceElementId(),IS_CONNECTABLE );
+		Optional<SModelElement> target = index.findElement(action.getTargetElementId(), IS_CONNECTABLE);
 		if (!edge.isPresent() || !source.isPresent() || !target.isPresent()) {
 			log.warn("Invalid edge, source or target ID: edge ID " + action.getConnectionElementId() + ", source ID "
 					+ action.getSourceElementId() + " and target ID " + action.getTargetElementId());

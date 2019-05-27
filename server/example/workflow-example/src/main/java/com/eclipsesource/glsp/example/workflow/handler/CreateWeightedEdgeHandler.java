@@ -15,6 +15,8 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.handler;
 
+import java.util.Optional;
+
 import org.eclipse.sprotty.SEdge;
 import org.eclipse.sprotty.SModelElement;
 
@@ -32,14 +34,15 @@ public class CreateWeightedEdgeHandler extends CreateConnectionOperationHandler 
 	}
 
 	@Override
-	protected SEdge createConnection(SModelElement source, SModelElement target, GraphicalModelState modelState) {
+	protected Optional<SEdge> createConnection(SModelElement source, SModelElement target,
+			GraphicalModelState modelState) {
 		WeightedEdge edge = new WeightedEdge();
 		edge.setSourceId(source.getId());
 		edge.setTargetId(target.getId());
 		edge.setType(elementTypeId);
 		edge.setProbability("high");
 		SModelUtil.generateId(edge, "weightedEdge", modelState);
-		return edge;
+		return Optional.of(edge);
 	}
 
 }
