@@ -54,9 +54,9 @@ public class ReconnectEdgeHandler implements OperationHandler {
 
 		// check for existence of matching elements
 		SModelIndex index = modelState.getIndex();
-		Optional<SEdge> edge = index.findElement(action.getConnectionElementId(), SEdge.class);
-		Optional<SNode> source = index.findElement(action.getSourceElementId(), SNode.class);
-		Optional<SNode> target = index.findElement(action.getTargetElementId(), SNode.class);
+		Optional<SEdge> edge = index.findElementByClass(action.getConnectionElementId(), SEdge.class);
+		Optional<SNode> source = index.findElementByClass(action.getSourceElementId(), SNode.class);
+		Optional<SNode> target = index.findElementByClass(action.getTargetElementId(), SNode.class);
 		if (!edge.isPresent() || !source.isPresent() || !target.isPresent()) {
 			log.warn("Invalid edge, source or target ID: edge ID " + action.getConnectionElementId() + ", source ID "
 					+ action.getSourceElementId() + " and target ID " + action.getTargetElementId());

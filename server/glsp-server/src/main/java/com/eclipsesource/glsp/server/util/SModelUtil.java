@@ -16,8 +16,11 @@
 package com.eclipsesource.glsp.server.util;
 
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import org.eclipse.sprotty.SModelElement;
+import org.eclipse.sprotty.SNode;
+import org.eclipse.sprotty.SPort;
 
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 
@@ -31,5 +34,13 @@ public final class SModelUtil {
 		element.setId(idProvider.apply(count));
 		return count;
 	}
+	
+	public static Predicate<SModelElement> IS_CONNECTABLE = new Predicate<SModelElement>() {
+
+		@Override
+		public boolean test(SModelElement modelElement) {
+			return modelElement instanceof SPort || modelElement instanceof SNode;
+		}
+	};
 
 }

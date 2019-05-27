@@ -15,13 +15,14 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.operationhandler;
 
+import static com.eclipsesource.glsp.server.util.SModelUtil.IS_CONNECTABLE;
+
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.eclipse.sprotty.SEdge;
 import org.eclipse.sprotty.SModelElement;
 import org.eclipse.sprotty.SModelRoot;
-import org.eclipse.sprotty.SNode;
 
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
@@ -59,22 +60,26 @@ public abstract class CreateConnectionOperationHandler implements OperationHandl
 
 		SModelIndex index = modelState.getIndex();
 
-		Optional<SNode> source = index.findElement(action.getSourceElementId(), SNode.class);
-		Optional<SNode> target = index.findElement(action.getTargetElementId(), SNode.class);
+		Optional<SModelElement> source = index.findElement(action.getSourceElementId(), IS_CONNECTABLE);
+		Optional<SModelElement> target = index.findElement(action.getTargetElementId(), IS_CONNECTABLE);
 		if (!source.isPresent() || !target.isPresent()) {
 			log.warn("Invalid source or target for source ID " + action.getSourceElementId() + " and target ID "
 					+ action.getTargetElementId());
 			return Optional.empty();
 		}
 
-		SEdge connection = createConnection(source.get(), target.get(), modelState);
+		Optional<SEdge> connection = createConnection(source.get(), target.get(), modelState);
+		if (!connection.isPresent()) {
+			log.warn(String.format("Creation of connection failed for source: %s , target: %s", source.get().getId(), target.get().getId()));
+			return Optional.empty();
+		}
 		SModelRoot currentModel = modelState.getRoot();
-		currentModel.getChildren().add(connection);
-		index.addToIndex(connection, currentModel);
+		currentModel.getChildren().add(connection.get());
+		index.addToIndex(connection.get(), currentModel);
 		return Optional.of(currentModel);
 	}
 
-	protected abstract SEdge createConnection(SModelElement source, SModelElement target,
+	protected abstract Optional<SEdge> createConnection(SModelElement source, SModelElement target,
 			GraphicalModelState modelState);
 
 }
