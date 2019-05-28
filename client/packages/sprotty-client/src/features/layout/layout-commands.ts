@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { inject } from "inversify";
+import { inject, injectable } from "inversify";
 import {
     Action,
     Bounds,
@@ -127,6 +127,7 @@ export class AlignElementsAction implements Action {
     }
 }
 
+@injectable()
 abstract class LayoutElementsCommand extends Command {
     constructor(@inject(TYPES.Action) protected action: ResizeElementsAction | AlignElementsAction,
         @inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher,
@@ -160,6 +161,7 @@ abstract class LayoutElementsCommand extends Command {
     }
 }
 
+@injectable()
 export class ResizeElementsCommand extends LayoutElementsCommand {
     static readonly KIND = 'layout:resize';
 
@@ -252,6 +254,7 @@ export class ResizeElementsCommand extends LayoutElementsCommand {
     }
 }
 
+@injectable()
 export class AlignElementsCommand extends LayoutElementsCommand {
     static readonly KIND = 'layout:align';
 
