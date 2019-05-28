@@ -20,12 +20,10 @@ import {
     BoundsAware,
     ElementAndBounds,
     findParentByFeature,
-    isBoundsAware,
     isViewport,
     KeyTool,
     MouseListener,
     Point,
-    Selectable,
     SetBoundsAction,
     SModelElement,
     SModelRoot,
@@ -35,11 +33,10 @@ import {
 
 import { GLSPViewerOptions } from "../../base/views/viewer-options";
 import { GLSP_TYPES } from "../../types";
-import { forEachElement, isSelected } from "../../utils/smodel-util";
+import { forEachElement, isNonRoutableSelectedBoundsAware, isSelected } from "../../utils/smodel-util";
 import { isBoundsAwareMoveable, isResizeable, ResizeHandleLocation, SResizeHandle } from "../change-bounds/model";
 import { IMouseTool } from "../mouse-tool/mouse-tool";
 import { ChangeBoundsOperationAction } from "../operation/operation-actions";
-import { isRoutable } from "../reconnect/model";
 import { SelectionListener, SelectionService } from "../select/selection-service";
 import {
     FeedbackMoveMouseListener,
@@ -316,8 +313,4 @@ function minWidth(element: SModelElement & BoundsAware): number {
 function minHeight(element: SModelElement & BoundsAware): number {
     // currently there are no element-specific constraints
     return 1;
-}
-
-function isNonRoutableSelectedBoundsAware(element: SModelElement): element is SModelElement & BoundsAware & Selectable {
-    return isBoundsAware(element) && isSelected(element) && !isRoutable(element);
 }

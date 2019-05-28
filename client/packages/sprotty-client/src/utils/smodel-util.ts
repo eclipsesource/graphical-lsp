@@ -13,9 +13,10 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { isSelectable, Selectable, SModelElement, SParentElement } from "sprotty/lib";
+import { BoundsAware, isBoundsAware, isSelectable, Selectable, SModelElement, SParentElement } from "sprotty/lib";
 
 import { isConfigurableNode, NodeEditConfig } from "../base/edit-config/edit-config";
+import { isRoutable } from "../features/reconnect/model";
 
 export function getIndex(element: SModelElement) {
     return element.root.index;
@@ -25,6 +26,12 @@ export function forEachElement<T>(element: SModelElement, predicate: (element: S
     getIndex(element).all()
         .filter(predicate)
         .forEach(runnable);
+}
+
+export function getMatchingElements<T>(element: SModelElement, predicate: (element: SModelElement) => element is SModelElement & T): (SModelElement & T)[] {
+    const matching: (SModelElement & T)[] = [];
+    forEachElement(element, predicate, item => matching.push(item));
+    return matching;
 }
 
 export function hasSelectedElements(element: SModelElement) {
@@ -74,3 +81,9 @@ export function isContainmentAllowed(element: SModelElement, containableElementT
     : element is SParentElement & NodeEditConfig {
     return isConfigurableNode(element) && element.isContainableElement(containableElementTypeId);
 }
+
+export function isNonRoutableSelectedBoundsAware(element: SModelElement): element is SelectableBoundsAware {
+    return isBoundsAware(element) && isSelected(element) && !isRoutable(element);
+}
+
+export type SelectableBoundsAware = SModelElement & BoundsAware & Selectable;
