@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -125,10 +126,10 @@ public class SModelIndex {
 	 * @param clazz     class of which the found element should be an instance
 	 * @return an optional with the element of type clazz or an empty optional
 	 */
-	public <T extends SModelElement> Optional<T> findElement(String elementId, Class<T> clazz) {
+	public <T extends SModelElement> Optional<T> findElementByClass(String elementId, Class<T> clazz) {
 		Optional<SModelElement> element = get(elementId);
 		if (element.isPresent()) {
-			return findElement(element.get(), clazz);
+			return findElementByClass(element.get(), clazz);
 		}
 		return Optional.empty();
 	}
@@ -141,7 +142,7 @@ public class SModelIndex {
 	 * @param clazz   class of which the found element should be an instance
 	 * @return an optional with the element of type clazz or an empty optional
 	 */
-	public <T extends SModelElement> Optional<T> findElement(SModelElement element, Class<T> clazz) {
+	public <T extends SModelElement> Optional<T> findElementByClass(SModelElement element, Class<T> clazz) {
 		if (element == null) {
 			return Optional.empty();
 		}
@@ -149,7 +150,46 @@ public class SModelIndex {
 			return Optional.of(clazz.cast(element));
 		}
 		SModelElement parent = getParent(element);
-		return parent != null ? findElement(parent, clazz) : Optional.empty();
+		return parent != null ? findElementByClass(parent, clazz) : Optional.empty();
+	}
+
+	/**
+	 * Returns the first element matching the predicate starting element with the
+	 * given id and walking up the parent hierarchy.
+	 * 
+	 * @param element   element to start the search from
+	 * @param predicate predicate which the element should match
+	 * @return an optional with the first element matching the predicate or an empty
+	 *         optional
+	 */
+	public Optional<SModelElement> findElement(String elementId, Predicate<SModelElement> predicate) {
+		Optional<SModelElement> element = get(elementId);
+		if (element.isPresent()) {
+			return findElement(element.get(), predicate);
+		}
+		return Optional.empty();
+	}
+
+	/**
+	 * Returns the first element matching the predicate starting from the given
+	 * element and walking up the parent hierarchy.
+	 * 
+	 * @param element   element to start the search from
+	 * @param predicate predicate which the element should match
+	 * @return an optional with the first element matching the predicate or an empty
+	 *         optional
+	 */
+	public Optional<SModelElement> findElement(SModelElement element, Predicate<SModelElement> predicate) {
+		if (element == null) {
+			return Optional.empty();
+		}
+
+		if (predicate.test(element)) {
+			return Optional.of(element);
+		}
+
+		SModelElement parent = getParent(element);
+		return parent != null ? findElement(parent, predicate) : Optional.empty();
 	}
 
 	/**

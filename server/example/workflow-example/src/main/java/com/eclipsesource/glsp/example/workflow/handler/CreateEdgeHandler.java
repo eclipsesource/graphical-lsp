@@ -15,6 +15,8 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.handler;
 
+import java.util.Optional;
+
 import org.eclipse.sprotty.SEdge;
 import org.eclipse.sprotty.SModelElement;
 
@@ -30,13 +32,14 @@ public class CreateEdgeHandler extends CreateConnectionOperationHandler {
 	}
 
 	@Override
-	protected SEdge createConnection(SModelElement source, SModelElement target, GraphicalModelState modelState) {
+	protected Optional<SEdge> createConnection(SModelElement source, SModelElement target,
+			GraphicalModelState modelState) {
 		SEdge edge = new SEdge();
 		edge.setSourceId(source.getId());
 		edge.setTargetId(target.getId());
 		edge.setType(elementTypeId);
 		SModelUtil.generateId(edge, "edge", modelState);
-		return edge;
+		return Optional.of(edge);
 	}
 
 }
