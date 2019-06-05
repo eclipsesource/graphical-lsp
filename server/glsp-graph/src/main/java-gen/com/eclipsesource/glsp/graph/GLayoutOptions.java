@@ -36,6 +36,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link com.eclipsesource.glsp.graph.GLayoutOptions#getHGap <em>HGap</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.GLayoutOptions#getVAlign <em>VAlign</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.GLayoutOptions#getHAlign <em>HAlign</em>}</li>
+ *   <li>{@link com.eclipsesource.glsp.graph.GLayoutOptions#getMinWidth <em>Min Width</em>}</li>
+ *   <li>{@link com.eclipsesource.glsp.graph.GLayoutOptions#getMinHeight <em>Min Height</em>}</li>
  * </ul>
  *
  * @see com.eclipsesource.glsp.graph.GraphPackage#getGLayoutOptions()
@@ -262,5 +264,49 @@ public interface GLayoutOptions extends EObject {
 	 * @generated
 	 */
 	void setHAlign(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Min Width</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Min Width</em>' attribute.
+	 * @see #setMinWidth(Double)
+	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGLayoutOptions_MinWidth()
+	 * @model
+	 * @generated
+	 */
+	Double getMinWidth();
+
+	/**
+	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getMinWidth <em>Min Width</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Min Width</em>' attribute.
+	 * @see #getMinWidth()
+	 * @generated
+	 */
+	void setMinWidth(Double value);
+
+	/**
+	 * Returns the value of the '<em><b>Min Height</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Min Height</em>' attribute.
+	 * @see #setMinHeight(Double)
+	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGLayoutOptions_MinHeight()
+	 * @model
+	 * @generated
+	 */
+	Double getMinHeight();
+
+	/**
+	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getMinHeight <em>Min Height</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Min Height</em>' attribute.
+	 * @see #getMinHeight()
+	 * @generated
+	 */
+	void setMinHeight(Double value);
 
 } // GLayoutOptions

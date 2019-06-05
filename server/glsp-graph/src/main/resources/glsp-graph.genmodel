@@ -80,6 +80,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute glsp-graph.ecore#//GLayoutOptions/hGap"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute glsp-graph.ecore#//GLayoutOptions/vAlign"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute glsp-graph.ecore#//GLayoutOptions/hAlign"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute glsp-graph.ecore#//GLayoutOptions/minWidth"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute glsp-graph.ecore#//GLayoutOptions/minHeight"/>
     </genClasses>
     <genClasses image="false" ecoreClass="glsp-graph.ecore#//GEdgeLayoutable">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference glsp-graph.ecore#//GEdgeLayoutable/edgePlacement"/>

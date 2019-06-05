@@ -18,6 +18,8 @@ package com.eclipsesource.glsp.api.action.kind;
 import java.util.List;
 
 import com.eclipsesource.glsp.api.action.Action;
+import com.eclipsesource.glsp.api.types.ElementAndAlignment;
+import com.eclipsesource.glsp.api.types.ElementAndBounds;
 
 public class ComputedBoundsAction extends Action {
 

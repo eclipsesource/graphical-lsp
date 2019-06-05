@@ -1473,13 +1473,31 @@ public interface GraphPackage extends EPackage {
 	int GLAYOUT_OPTIONS__HALIGN = 9;
 
 	/**
+	 * The feature id for the '<em><b>Min Width</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GLAYOUT_OPTIONS__MIN_WIDTH = 10;
+
+	/**
+	 * The feature id for the '<em><b>Min Height</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GLAYOUT_OPTIONS__MIN_HEIGHT = 11;
+
+	/**
 	 * The number of structural features of the '<em>GLayout Options</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GLAYOUT_OPTIONS_FEATURE_COUNT = 10;
+	int GLAYOUT_OPTIONS_FEATURE_COUNT = 12;
 
 	/**
 	 * The number of operations of the '<em>GLayout Options</em>' class.
@@ -2261,6 +2279,28 @@ public interface GraphPackage extends EPackage {
 	EAttribute getGLayoutOptions_HAlign();
 
 	/**
+	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getMinWidth <em>Min Width</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Min Width</em>'.
+	 * @see com.eclipsesource.glsp.graph.GLayoutOptions#getMinWidth()
+	 * @see #getGLayoutOptions()
+	 * @generated
+	 */
+	EAttribute getGLayoutOptions_MinWidth();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GLayoutOptions#getMinHeight <em>Min Height</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Min Height</em>'.
+	 * @see com.eclipsesource.glsp.graph.GLayoutOptions#getMinHeight()
+	 * @see #getGLayoutOptions()
+	 * @generated
+	 */
+	EAttribute getGLayoutOptions_MinHeight();
+
+	/**
 	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GEdgeLayoutable <em>GEdge Layoutable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2911,6 +2951,22 @@ public interface GraphPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute GLAYOUT_OPTIONS__HALIGN = eINSTANCE.getGLayoutOptions_HAlign();
+
+		/**
+		 * The meta object literal for the '<em><b>Min Width</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GLAYOUT_OPTIONS__MIN_WIDTH = eINSTANCE.getGLayoutOptions_MinWidth();
+
+		/**
+		 * The meta object literal for the '<em><b>Min Height</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GLAYOUT_OPTIONS__MIN_HEIGHT = eINSTANCE.getGLayoutOptions_MinHeight();
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.GEdgeLayoutable <em>GEdge Layoutable</em>}' class.

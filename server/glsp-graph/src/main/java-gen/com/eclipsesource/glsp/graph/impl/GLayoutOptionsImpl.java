@@ -43,6 +43,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GLayoutOptionsImpl#getHGap <em>HGap</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GLayoutOptionsImpl#getVAlign <em>VAlign</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GLayoutOptionsImpl#getHAlign <em>HAlign</em>}</li>
+ *   <li>{@link com.eclipsesource.glsp.graph.impl.GLayoutOptionsImpl#getMinWidth <em>Min Width</em>}</li>
+ *   <li>{@link com.eclipsesource.glsp.graph.impl.GLayoutOptionsImpl#getMinHeight <em>Min Height</em>}</li>
  * </ul>
  *
  * @generated
@@ -247,6 +249,46 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @ordered
 	 */
 	protected String hAlign = HALIGN_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getMinWidth() <em>Min Width</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMinWidth()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Double MIN_WIDTH_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getMinWidth() <em>Min Width</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMinWidth()
+	 * @generated
+	 * @ordered
+	 */
+	protected Double minWidth = MIN_WIDTH_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getMinHeight() <em>Min Height</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMinHeight()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Double MIN_HEIGHT_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getMinHeight() <em>Min Height</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMinHeight()
+	 * @generated
+	 * @ordered
+	 */
+	protected Double minHeight = MIN_HEIGHT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -511,6 +553,54 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	@Override
+	public Double getMinWidth() {
+		return minWidth;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setMinWidth(Double newMinWidth) {
+		Double oldMinWidth = minWidth;
+		minWidth = newMinWidth;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GLAYOUT_OPTIONS__MIN_WIDTH, oldMinWidth,
+					minWidth));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Double getMinHeight() {
+		return minHeight;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setMinHeight(Double newMinHeight) {
+		Double oldMinHeight = minHeight;
+		minHeight = newMinHeight;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GLAYOUT_OPTIONS__MIN_HEIGHT,
+					oldMinHeight, minHeight));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case GraphPackage.GLAYOUT_OPTIONS__PADDING_LEFT:
@@ -533,6 +623,10 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 			return getVAlign();
 		case GraphPackage.GLAYOUT_OPTIONS__HALIGN:
 			return getHAlign();
+		case GraphPackage.GLAYOUT_OPTIONS__MIN_WIDTH:
+			return getMinWidth();
+		case GraphPackage.GLAYOUT_OPTIONS__MIN_HEIGHT:
+			return getMinHeight();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -574,6 +668,12 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 			return;
 		case GraphPackage.GLAYOUT_OPTIONS__HALIGN:
 			setHAlign((String) newValue);
+			return;
+		case GraphPackage.GLAYOUT_OPTIONS__MIN_WIDTH:
+			setMinWidth((Double) newValue);
+			return;
+		case GraphPackage.GLAYOUT_OPTIONS__MIN_HEIGHT:
+			setMinHeight((Double) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -617,6 +717,12 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 		case GraphPackage.GLAYOUT_OPTIONS__HALIGN:
 			setHAlign(HALIGN_EDEFAULT);
 			return;
+		case GraphPackage.GLAYOUT_OPTIONS__MIN_WIDTH:
+			setMinWidth(MIN_WIDTH_EDEFAULT);
+			return;
+		case GraphPackage.GLAYOUT_OPTIONS__MIN_HEIGHT:
+			setMinHeight(MIN_HEIGHT_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -651,6 +757,10 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 			return VALIGN_EDEFAULT == null ? vAlign != null : !VALIGN_EDEFAULT.equals(vAlign);
 		case GraphPackage.GLAYOUT_OPTIONS__HALIGN:
 			return HALIGN_EDEFAULT == null ? hAlign != null : !HALIGN_EDEFAULT.equals(hAlign);
+		case GraphPackage.GLAYOUT_OPTIONS__MIN_WIDTH:
+			return MIN_WIDTH_EDEFAULT == null ? minWidth != null : !MIN_WIDTH_EDEFAULT.equals(minWidth);
+		case GraphPackage.GLAYOUT_OPTIONS__MIN_HEIGHT:
+			return MIN_HEIGHT_EDEFAULT == null ? minHeight != null : !MIN_HEIGHT_EDEFAULT.equals(minHeight);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -686,6 +796,10 @@ public class GLayoutOptionsImpl extends MinimalEObjectImpl.Container implements 
 		result.append(vAlign);
 		result.append(", hAlign: ");
 		result.append(hAlign);
+		result.append(", minWidth: ");
+		result.append(minWidth);
+		result.append(", minHeight: ");
+		result.append(minHeight);
 		result.append(')');
 		return result.toString();
 	}

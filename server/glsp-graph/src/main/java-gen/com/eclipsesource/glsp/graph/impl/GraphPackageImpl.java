@@ -757,6 +757,26 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 	 * @generated
 	 */
 	@Override
+	public EAttribute getGLayoutOptions_MinWidth() {
+		return (EAttribute) gLayoutOptionsEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getGLayoutOptions_MinHeight() {
+		return (EAttribute) gLayoutOptionsEClass.getEStructuralFeatures().get(11);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getGEdgeLayoutable() {
 		return gEdgeLayoutableEClass;
 	}
@@ -1052,6 +1072,8 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 		createEAttribute(gLayoutOptionsEClass, GLAYOUT_OPTIONS__HGAP);
 		createEAttribute(gLayoutOptionsEClass, GLAYOUT_OPTIONS__VALIGN);
 		createEAttribute(gLayoutOptionsEClass, GLAYOUT_OPTIONS__HALIGN);
+		createEAttribute(gLayoutOptionsEClass, GLAYOUT_OPTIONS__MIN_WIDTH);
+		createEAttribute(gLayoutOptionsEClass, GLAYOUT_OPTIONS__MIN_HEIGHT);
 
 		gEdgeLayoutableEClass = createEClass(GEDGE_LAYOUTABLE);
 		createEReference(gEdgeLayoutableEClass, GEDGE_LAYOUTABLE__EDGE_PLACEMENT);
@@ -1251,6 +1273,12 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 				GLayoutOptions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGLayoutOptions_HAlign(), ecorePackage.getEString(), "hAlign", null, 0, 1,
+				GLayoutOptions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGLayoutOptions_MinWidth(), ecorePackage.getEDoubleObject(), "minWidth", null, 0, 1,
+				GLayoutOptions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGLayoutOptions_MinHeight(), ecorePackage.getEDoubleObject(), "minHeight", null, 0, 1,
 				GLayoutOptions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
 

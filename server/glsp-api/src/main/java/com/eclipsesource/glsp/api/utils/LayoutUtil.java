@@ -21,8 +21,8 @@ import java.util.Optional;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import com.eclipsesource.glsp.api.action.kind.ComputedBoundsAction;
-import com.eclipsesource.glsp.api.action.kind.ElementAndAlignment;
-import com.eclipsesource.glsp.api.action.kind.ElementAndBounds;
+import com.eclipsesource.glsp.api.types.ElementAndAlignment;
+import com.eclipsesource.glsp.api.types.ElementAndBounds;
 import com.eclipsesource.glsp.graph.GAlignable;
 import com.eclipsesource.glsp.graph.GBounds;
 import com.eclipsesource.glsp.graph.GBoundsAware;
