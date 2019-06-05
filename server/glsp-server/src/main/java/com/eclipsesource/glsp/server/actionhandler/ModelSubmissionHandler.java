@@ -17,13 +17,12 @@ package com.eclipsesource.glsp.server.actionhandler;
 
 import java.util.Optional;
 
-import org.eclipse.sprotty.ILayoutEngine;
-import org.eclipse.sprotty.ServerLayoutKind;
-
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestBoundsAction;
 import com.eclipsesource.glsp.api.action.kind.SetModelAction;
 import com.eclipsesource.glsp.api.action.kind.UpdateModelAction;
+import com.eclipsesource.glsp.api.layout.ILayoutEngine;
+import com.eclipsesource.glsp.api.layout.ServerLayoutKind;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.graph.GModelRoot;
 import com.google.inject.Inject;
@@ -48,8 +47,7 @@ public class ModelSubmissionHandler {
 		GModelRoot newRoot = modelState.getRoot();
 		if (modelState.getServerOptions().getLayoutKind() == ServerLayoutKind.AUTOMATIC) {
 			if (layoutEngine != null) {
-				// TODO
-//				layoutEngine.layout(newRoot);
+				layoutEngine.layout(newRoot);
 			}
 		}
 		synchronized (modelLock) {

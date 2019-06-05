@@ -15,14 +15,13 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.di;
 
-import org.eclipse.sprotty.ILayoutEngine;
-
 import com.eclipsesource.glsp.api.action.ActionDispatcher;
 import com.eclipsesource.glsp.api.diagram.DiagramConfigurationProvider;
 import com.eclipsesource.glsp.api.factory.GraphGsonConfiguratorFactory;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
+import com.eclipsesource.glsp.api.layout.ILayoutEngine;
 import com.eclipsesource.glsp.api.markers.ModelValidator;
 import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
 import com.eclipsesource.glsp.api.model.ModelExpansionListener;
@@ -65,7 +64,7 @@ public abstract class GLSPModule extends AbstractModule {
 	protected abstract Class<? extends GLSPServer> bindGLSPServer();
 
 	protected abstract Class<? extends GraphGsonConfiguratorFactory> bindGraphGsonConfiguratorFactory();
-	
+
 	protected Class<? extends CommandPaletteActionProvider> bindCommandPaletteActionProvider() {
 		return CommandPaletteActionProvider.NullImpl.class;
 	}
@@ -85,7 +84,7 @@ public abstract class GLSPModule extends AbstractModule {
 	protected Class<? extends ModelExpansionListener> bindModelExpansionListener() {
 		return ModelExpansionListener.NullImpl.class;
 	}
-	
+
 	protected Class<? extends ModelFactory> bindModelFactory() {
 		return ModelFactory.NullImpl.class;
 	}

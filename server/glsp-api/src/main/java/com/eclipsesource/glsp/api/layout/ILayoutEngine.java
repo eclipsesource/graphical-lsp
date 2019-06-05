@@ -13,19 +13,27 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.utils;
+package com.eclipsesource.glsp.api.layout;
 
-import com.eclipsesource.glsp.api.layout.ServerLayoutKind;
+import com.eclipsesource.glsp.graph.GModelRoot;
 
-public class ServerOptions {
-	private ServerLayoutKind layoutKind = ServerLayoutKind.NONE;
+/**
+ * A layout engine is able to compute layout information for a model.
+ */
+public interface ILayoutEngine {
 
-	public ServerLayoutKind getLayoutKind() {
-		return layoutKind;
-	}
+	/**
+	 * Compute a layout for the given model and modify the model accordingly.
+	 */
+	public void layout(GModelRoot root);
 
-	public void setLayoutKind(ServerLayoutKind layoutKind) {
-		this.layoutKind = layoutKind;
+	/**
+	 * An implementation that does nothing.
+	 */
+	public static class NullImpl implements ILayoutEngine {
+		@Override
+		public void layout(GModelRoot root) {
+		}
 	}
 
 }

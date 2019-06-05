@@ -17,11 +17,10 @@ package com.eclipsesource.glsp.server.actionhandler;
 
 import java.util.Optional;
 
-import org.eclipse.sprotty.ILayoutEngine;
-import org.eclipse.sprotty.ServerLayoutKind;
-
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.LayoutAction;
+import com.eclipsesource.glsp.api.layout.ILayoutEngine;
+import com.eclipsesource.glsp.api.layout.ServerLayoutKind;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.google.inject.Inject;
 
@@ -40,8 +39,7 @@ public class LayoutActionHandler extends AbstractActionHandler {
 	protected Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		if (modelState.getServerOptions().getLayoutKind() == ServerLayoutKind.MANUAL) {
 			if (layoutEngine != null) {
-				// TODO
-//				layoutEngine.layout(modelState.getRoot());
+				layoutEngine.layout(modelState.getRoot());
 			}
 			return modelSubmissionHandler.doSubmitModel(true, modelState);
 		}
