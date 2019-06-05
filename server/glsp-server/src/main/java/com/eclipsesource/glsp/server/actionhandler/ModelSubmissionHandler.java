@@ -17,15 +17,14 @@ package com.eclipsesource.glsp.server.actionhandler;
 
 import java.util.Optional;
 
-import org.eclipse.sprotty.ILayoutEngine;
-import org.eclipse.sprotty.SModelRoot;
-import org.eclipse.sprotty.ServerLayoutKind;
-
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestBoundsAction;
 import com.eclipsesource.glsp.api.action.kind.SetModelAction;
 import com.eclipsesource.glsp.api.action.kind.UpdateModelAction;
+import com.eclipsesource.glsp.api.layout.ILayoutEngine;
+import com.eclipsesource.glsp.api.layout.ServerLayoutKind;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
+import com.eclipsesource.glsp.graph.GModelRoot;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -34,7 +33,6 @@ public class ModelSubmissionHandler {
 	@Inject
 	ILayoutEngine layoutEngine;
 	private Object modelLock = new Object();
-	private String lastSubmittedModelType;
 	private int revision = 0;
 
 	public Optional<Action> submit(boolean update, GraphicalModelState modelState) {
@@ -46,7 +44,7 @@ public class ModelSubmissionHandler {
 	}
 
 	public Optional<Action> doSubmitModel(boolean update, GraphicalModelState modelState) {
-		SModelRoot newRoot = modelState.getRoot();
+		GModelRoot newRoot = modelState.getRoot();
 		if (modelState.getServerOptions().getLayoutKind() == ServerLayoutKind.AUTOMATIC) {
 			if (layoutEngine != null) {
 				layoutEngine.layout(newRoot);
@@ -54,11 +52,9 @@ public class ModelSubmissionHandler {
 		}
 		synchronized (modelLock) {
 			if (newRoot.getRevision() == revision) {
-				String modelType = newRoot.getType();
-				if (update && modelType != null && modelType.equals(lastSubmittedModelType)) {
+				if (update) {
 					return Optional.of(new UpdateModelAction(newRoot, true));
 				} else {
-					lastSubmittedModelType = modelType;
 					return Optional.of(new SetModelAction(newRoot));
 				}
 			}

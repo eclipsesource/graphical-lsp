@@ -23,7 +23,6 @@ import com.eclipsesource.glsp.api.action.kind.CollapseExpandAction;
 import com.eclipsesource.glsp.api.action.kind.CollapseExpandAllAction;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.model.ModelExpansionListener;
-import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.google.inject.Inject;
 
 public class CollapseExpandActionHandler extends AbstractActionHandler {
@@ -52,7 +51,7 @@ public class CollapseExpandActionHandler extends AbstractActionHandler {
 		Set<String> expandedElements = modelState.getExpandedElements();
 		expandedElements.clear();
 		if (action.isExpand()) {
-			new SModelIndex(modelState.getRoot()).allIds().forEach(id -> expandedElements.add(id));
+			modelState.getIndex().allIds().forEach(id -> expandedElements.add(id));
 		}
 		if (expansionListener != null) {
 			expansionListener.expansionChanged(action);

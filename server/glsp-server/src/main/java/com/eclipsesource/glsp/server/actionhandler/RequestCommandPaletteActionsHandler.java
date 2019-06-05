@@ -19,14 +19,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import org.eclipse.sprotty.SModelRoot;
-
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestCommandPaletteActions;
 import com.eclipsesource.glsp.api.action.kind.SetCommandPaletteActions;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.provider.CommandPaletteActionProvider;
 import com.eclipsesource.glsp.api.types.LabeledAction;
+import com.eclipsesource.glsp.graph.GModelRoot;
 import com.google.inject.Inject;
 
 public class RequestCommandPaletteActionsHandler extends AbstractActionHandler {
@@ -42,7 +41,7 @@ public class RequestCommandPaletteActionsHandler extends AbstractActionHandler {
 	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		if (action instanceof RequestCommandPaletteActions) {
 			RequestCommandPaletteActions paletteAction = (RequestCommandPaletteActions) action;
-			SModelRoot root = modelState.getRoot();
+			GModelRoot root = modelState.getRoot();
 			List<String> selectedElementsIDs = paletteAction.getSelectedElementsIDs();
 			Set<LabeledAction> commandPaletteActions = commandPaletteActionProvider.getActions(root,
 					selectedElementsIDs);

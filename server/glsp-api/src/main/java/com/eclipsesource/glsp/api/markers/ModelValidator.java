@@ -18,18 +18,17 @@ package com.eclipsesource.glsp.api.markers;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.sprotty.SModelElement;
-
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
+import com.eclipsesource.glsp.graph.GModelElement;
 
 public interface ModelValidator {
 
-	public List<Marker> validate(GraphicalModelState modelState, SModelElement... elements);
+	public List<Marker> validate(GraphicalModelState modelState, GModelElement... elements);
 
 	final static class NullImpl implements ModelValidator {
 
 		@Override
-		public List<Marker> validate(GraphicalModelState modelState, SModelElement... elements) {
+		public List<Marker> validate(GraphicalModelState modelState, GModelElement... elements) {
 			return Collections.emptyList();
 		}
 	}

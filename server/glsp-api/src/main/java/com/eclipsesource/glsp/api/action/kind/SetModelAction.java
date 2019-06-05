@@ -15,25 +15,23 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import org.eclipse.sprotty.SModelRoot;
-
 import com.eclipsesource.glsp.api.action.Action;
+import com.eclipsesource.glsp.graph.GModelRoot;
 
 public class SetModelAction extends Action {
+	
+	private GModelRoot newRoot;
 
 	public SetModelAction() {
 		super(Action.Kind.SET_MODEL);
-
 	}
 
-	public SetModelAction(SModelRoot newRoot) {
+	public SetModelAction(GModelRoot newRoot) {
 		this();
 		this.newRoot = newRoot;
 	}
 
-	private SModelRoot newRoot;
-
-	public SModelRoot getNewRoot() {
+	public GModelRoot getNewRoot() {
 		return newRoot;
 	}
 

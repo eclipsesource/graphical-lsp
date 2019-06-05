@@ -16,9 +16,6 @@
 package com.eclipsesource.glsp.api.diagram;
 
 import java.util.List;
-import java.util.Map;
-
-import org.eclipse.sprotty.SModelElement;
 
 import com.eclipsesource.glsp.api.operations.Operation;
 import com.eclipsesource.glsp.api.types.EdgeTypeHint;
@@ -27,8 +24,6 @@ import com.eclipsesource.glsp.api.types.NodeTypeHint;
 public interface DiagramConfiguration {
 
 	String getDiagramType();
-
-	Map<String, Class<? extends SModelElement>> getTypeMappings();
 
 	List<NodeTypeHint> getNodeTypeHints();
 

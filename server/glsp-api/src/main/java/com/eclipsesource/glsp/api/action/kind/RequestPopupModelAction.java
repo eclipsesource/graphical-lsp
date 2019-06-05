@@ -15,20 +15,19 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import org.eclipse.sprotty.Bounds;
-
 import com.eclipsesource.glsp.api.action.Action;
+import com.eclipsesource.glsp.graph.GBounds;
 
 public class RequestPopupModelAction extends Action {
 
 	private String elementId;
-	private Bounds bounds;
+	private GBounds bounds;
 
 	public RequestPopupModelAction() {
 		super(Action.Kind.REQUEST_POPUP_MODEL);
 	}
 
-	public RequestPopupModelAction(String elementId, Bounds bounds) {
+	public RequestPopupModelAction(String elementId, GBounds bounds) {
 		this();
 		this.elementId = elementId;
 		this.bounds = bounds;
@@ -38,7 +37,7 @@ public class RequestPopupModelAction extends Action {
 		return elementId;
 	}
 
-	public Bounds getBounds() {
+	public GBounds getBounds() {
 		return bounds;
 	}
 

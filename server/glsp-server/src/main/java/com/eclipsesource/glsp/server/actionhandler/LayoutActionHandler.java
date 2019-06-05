@@ -17,11 +17,10 @@ package com.eclipsesource.glsp.server.actionhandler;
 
 import java.util.Optional;
 
-import org.eclipse.sprotty.ILayoutEngine;
-import org.eclipse.sprotty.ServerLayoutKind;
-
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.LayoutAction;
+import com.eclipsesource.glsp.api.layout.ILayoutEngine;
+import com.eclipsesource.glsp.api.layout.ServerLayoutKind;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.google.inject.Inject;
 

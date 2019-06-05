@@ -15,7 +15,7 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.utils;
 
-import org.eclipse.sprotty.ServerLayoutKind;
+import com.eclipsesource.glsp.api.layout.ServerLayoutKind;
 
 public class ServerOptions {
 	private ServerLayoutKind layoutKind = ServerLayoutKind.NONE;

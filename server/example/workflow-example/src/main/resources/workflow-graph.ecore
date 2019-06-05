@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="wfgraph" nsURI="http://www.eclipsesource.com/glsp/examples/workflow/graph"
+    nsPrefix="wfgraph">
+  <eClassifiers xsi:type="ecore:EClass" name="ActivityNode" abstract="true" eSuperTypes="../../../../glsp-graph/src/main/resources/glsp-graph.ecore#//GNode">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nodeType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DecisionNode" eSuperTypes="#//ActivityNode"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MergeNode" eSuperTypes="#//ActivityNode"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TaskNode" eSuperTypes="../../../../glsp-graph/src/main/resources/glsp-graph.ecore#//GNode">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="expanded" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="duration" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="0"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="taskType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="reference" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AutomatedTask" eSuperTypes="#//TaskNode"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ManualTask" eSuperTypes="#//TaskNode"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Icon" eSuperTypes="../../../../glsp-graph/src/main/resources/glsp-graph.ecore#//GCompartment">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="commandId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WeightedEdge" eSuperTypes="../../../../glsp-graph/src/main/resources/glsp-graph.ecore#//GEdge">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="probability" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LabelHeading" eSuperTypes="../../../../glsp-graph/src/main/resources/glsp-graph.ecore#//GLabel"/>
+  <eClassifiers xsi:type="ecore:EClass" name="LabelText" eSuperTypes="../../../../glsp-graph/src/main/resources/glsp-graph.ecore#//GLabel"/>
+  <eClassifiers xsi:type="ecore:EClass" name="LabelIcon" eSuperTypes="../../../../glsp-graph/src/main/resources/glsp-graph.ecore#//GLabel"/>
+</ecore:EPackage>

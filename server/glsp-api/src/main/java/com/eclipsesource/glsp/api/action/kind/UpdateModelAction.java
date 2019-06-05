@@ -15,25 +15,25 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import org.eclipse.sprotty.SModelRoot;
-
 import com.eclipsesource.glsp.api.action.Action;
+import com.eclipsesource.glsp.graph.GModelRoot;
 
 public class UpdateModelAction extends Action {
-	private SModelRoot newRoot;
+	
+	private GModelRoot newRoot;
 	private boolean animate = true;
 
 	public UpdateModelAction() {
 		super(Action.Kind.UPDATE_MODEL);
 	}
 
-	public UpdateModelAction(SModelRoot newRoot, boolean animate) {
+	public UpdateModelAction(GModelRoot newRoot, boolean animate) {
 		this();
 		this.newRoot = newRoot;
 		this.animate = animate;
 	}
 
-	public SModelRoot getNewRoot() {
+	public GModelRoot getNewRoot() {
 		return newRoot;
 	}
 

@@ -15,26 +15,22 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.handler;
 
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.COMP_HEADER;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.LABEL_HEADING;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.LABEL_ICON;
-
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.function.Function;
 
-import org.eclipse.sprotty.LayoutOptions;
-import org.eclipse.sprotty.Point;
-import org.eclipse.sprotty.SCompartment;
-import org.eclipse.sprotty.SLabel;
-import org.eclipse.sprotty.SModelElement;
-import org.eclipse.sprotty.SNode;
-
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.example.workflow.schema.Icon;
-import com.eclipsesource.glsp.example.workflow.schema.TaskNode;
+import com.eclipsesource.glsp.example.workflow.ModelTypes;
+import com.eclipsesource.glsp.example.workflow.wfgraph.Icon;
+import com.eclipsesource.glsp.example.workflow.wfgraph.TaskNode;
+import com.eclipsesource.glsp.example.workflow.wfgraph.WfgraphFactory;
+import com.eclipsesource.glsp.graph.GCompartment;
+import com.eclipsesource.glsp.graph.GLabel;
+import com.eclipsesource.glsp.graph.GLayoutOptions;
+import com.eclipsesource.glsp.graph.GNode;
+import com.eclipsesource.glsp.graph.GPoint;
+import com.eclipsesource.glsp.graph.GraphFactory;
 import com.eclipsesource.glsp.server.operationhandler.CreateNodeOperationHandler;
-import com.eclipsesource.glsp.server.util.SModelUtil;
+import com.eclipsesource.glsp.server.util.GModelUtil;
 
 public abstract class CreateTaskHandler extends CreateNodeOperationHandler {
 
@@ -48,10 +44,9 @@ public abstract class CreateTaskHandler extends CreateNodeOperationHandler {
 	}
 
 	@Override
-	protected SNode createNode(Optional<Point> point, GraphicalModelState modelState) {
-		TaskNode taskNode = new TaskNode();
-		taskNode.setType(elementTypeId);
-		int nodeCounter = SModelUtil.generateId(taskNode, "task", modelState);
+	protected GNode createNode(Optional<GPoint> point, GraphicalModelState modelState) {
+		TaskNode taskNode = (TaskNode) WfgraphFactory.eINSTANCE.create(ModelTypes.TYPE_MAP.get(elementTypeId));
+		int nodeCounter = GModelUtil.generateId(taskNode, "task", modelState);
 		taskNode.setName(labelProvider.apply(nodeCounter));
 		taskNode.setDuration(0);
 
@@ -61,31 +56,25 @@ public abstract class CreateTaskHandler extends CreateNodeOperationHandler {
 		}
 
 		taskNode.setLayout("vbox");
-		taskNode.setChildren(new ArrayList<SModelElement>());
 
-		SCompartment compHeader = new SCompartment();
+		GCompartment compHeader = GraphFactory.eINSTANCE.createGCompartment();
 		compHeader.setId(taskNode.getId() + "_header");
-		compHeader.setType(COMP_HEADER);
 		compHeader.setLayout("hbox");
-		compHeader.setChildren(new ArrayList<SModelElement>());
-		Icon icon = new Icon();
+		Icon icon = WfgraphFactory.eINSTANCE.createIcon();
 		icon.setId(taskNode.getId() + "_icon");
 		icon.setLayout("stack");
 		icon.setCommandId(SimulateCommandHandler.SIMULATE_COMMAND_ID);
-		LayoutOptions layoutOptions = new LayoutOptions();
+		GLayoutOptions layoutOptions = GraphFactory.eINSTANCE.createGLayoutOptions();
 		layoutOptions.setHAlign("center");
 		layoutOptions.setResizeContainer(false);
 		icon.setLayoutOptions(layoutOptions);
-		icon.setChildren(new ArrayList<SModelElement>());
-		SLabel iconLabel = new SLabel();
-		iconLabel.setType(LABEL_ICON);
+		GLabel iconLabel = WfgraphFactory.eINSTANCE.createLabelIcon();
 		iconLabel.setId(taskNode.getId() + "_ticon");
 		iconLabel.setText("" + taskNode.getTaskType().toUpperCase().charAt(0));
 		icon.getChildren().add(iconLabel);
 
-		SLabel heading = new SLabel();
+		GLabel heading = WfgraphFactory.eINSTANCE.createLabelHeading();
 		heading.setId("task" + nodeCounter + "_classname");
-		heading.setType(LABEL_HEADING);
 		heading.setText(labelProvider.apply(nodeCounter));
 		compHeader.getChildren().add(icon);
 		compHeader.getChildren().add(heading);

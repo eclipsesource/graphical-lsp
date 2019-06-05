@@ -16,21 +16,23 @@
 //TODO class is heavily based on the LayoutUtil of the sprotty repository. Change copyright header accordingly 
 package com.eclipsesource.glsp.api.utils;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
-import org.eclipse.sprotty.Alignable;
-import org.eclipse.sprotty.Bounds;
-import org.eclipse.sprotty.BoundsAware;
-import org.eclipse.sprotty.Dimension;
-import org.eclipse.sprotty.ElementAndAlignment;
-import org.eclipse.sprotty.ElementAndBounds;
-import org.eclipse.sprotty.Point;
-import org.eclipse.sprotty.SEdge;
-import org.eclipse.sprotty.SModelElement;
-import org.eclipse.sprotty.SModelRoot;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import com.eclipsesource.glsp.api.action.kind.ComputedBoundsAction;
+import com.eclipsesource.glsp.api.types.ElementAndAlignment;
+import com.eclipsesource.glsp.api.types.ElementAndBounds;
+import com.eclipsesource.glsp.graph.GAlignable;
+import com.eclipsesource.glsp.graph.GBounds;
+import com.eclipsesource.glsp.graph.GBoundsAware;
+import com.eclipsesource.glsp.graph.GDimension;
+import com.eclipsesource.glsp.graph.GEdge;
+import com.eclipsesource.glsp.graph.GModelElement;
+import com.eclipsesource.glsp.graph.GModelIndex;
+import com.eclipsesource.glsp.graph.GModelRoot;
+import com.eclipsesource.glsp.graph.GPoint;
+import com.eclipsesource.glsp.graph.GraphFactory;
 
 public final class LayoutUtil {
 
@@ -40,55 +42,71 @@ public final class LayoutUtil {
 	/**
 	 * Apply the computed bounds from the given action to the model.
 	 */
-	public static void applyBounds(SModelRoot root, ComputedBoundsAction action) {
-		SModelIndex index = new SModelIndex(root);
+	public static void applyBounds(GModelRoot root, ComputedBoundsAction action) {
+		GModelIndex index = GModelIndex.get(root);
 		for (ElementAndBounds b : action.getBounds()) {
-			Optional<SModelElement> element = index.get(b.getElementId());
-			if (element.isPresent() && element.get() instanceof BoundsAware) {
-				BoundsAware bae = (BoundsAware) element.get();
-				Bounds newBounds = b.getNewBounds();
-				bae.setPosition(new Point(newBounds.getX(), newBounds.getY()));
-				bae.setSize(new Dimension(newBounds.getWidth(), newBounds.getHeight()));
+			Optional<GModelElement> element = index.get(b.getElementId());
+			if (element.isPresent() && element.get() instanceof GBoundsAware) {
+				GBoundsAware bae = (GBoundsAware) element.get();
+				GBounds newBounds = b.getNewBounds();
+				bae.setPosition(asPoint(newBounds));
+				bae.setSize(asDimension(newBounds));
 			}
 		}
 		for (ElementAndAlignment a : action.getAlignments()) {
-			Optional<SModelElement> element = index.get(a.getElementId());
-			if (element.isPresent() && element.get() instanceof Alignable) {
-				Alignable alignable = (Alignable) element.get();
+			Optional<GModelElement> element = index.get(a.getElementId());
+			if (element.isPresent() && element.get() instanceof GAlignable) {
+				GAlignable alignable = (GAlignable) element.get();
 				alignable.setAlignment(a.getNewAlignment());
 			}
 		}
+	}
+
+	public static GPoint asPoint(GBounds bounds) {
+		GPoint point = GraphFactory.eINSTANCE.createGPoint();
+		point.setX(bounds.getX());
+		point.setY(bounds.getY());
+		return point;
+	}
+
+	public static GDimension asDimension(GBounds bounds) {
+		GDimension dimension = GraphFactory.eINSTANCE.createGDimension();
+		dimension.setHeight(bounds.getHeight());
+		dimension.setWidth(bounds.getWidth());
+		return dimension;
 	}
 
 	/**
 	 * Copy the layout of one model instance to another. Model elements are matched
 	 * by their id.
 	 */
-	public static void copyLayoutData(SModelRoot fromRoot, SModelRoot toRoot) {
-		SModelIndex oldIndex = new SModelIndex(fromRoot);
+	public static void copyLayoutData(GModelRoot fromRoot, GModelRoot toRoot) {
+		GModelIndex oldIndex = GModelIndex.get(fromRoot);
 		copyLayoutDataRecursively(toRoot, oldIndex);
 	}
 
-	private static void copyLayoutDataRecursively(SModelElement element, SModelIndex oldIndex) {
-		if (element instanceof BoundsAware) {
-			Optional<SModelElement> oldElement = oldIndex.get(element.getId());
-			if (oldElement.isPresent() && oldElement.get() instanceof BoundsAware) {
-				BoundsAware newBae = (BoundsAware) element;
-				BoundsAware oldBae = (BoundsAware) oldElement.get();
+	private static void copyLayoutDataRecursively(GModelElement element, GModelIndex oldIndex) {
+		if (element instanceof GBoundsAware) {
+			Optional<GModelElement> oldElement = oldIndex.get(element.getId());
+			if (oldElement.isPresent() && oldElement.get() instanceof GBoundsAware) {
+				GBoundsAware newBae = (GBoundsAware) element;
+				GBoundsAware oldBae = (GBoundsAware) oldElement.get();
 				if (oldBae.getPosition() != null)
-					newBae.setPosition(new Point(oldBae.getPosition()));
+					newBae.setPosition(EcoreUtil.copy(oldBae.getPosition()));
 				if (oldBae.getSize() != null)
-					newBae.setSize(new Dimension(oldBae.getSize()));
+					newBae.setSize(EcoreUtil.copy(oldBae.getSize()));
 			}
-		} else if (element instanceof SEdge) {
-			Optional<SModelElement> oldElement = oldIndex.get(element.getId());
-			if (oldElement.isPresent() && oldElement.get() instanceof SEdge
-					&& ((SEdge) oldElement.get()).getRoutingPoints() != null) {
-				((SEdge) element).setRoutingPoints(new ArrayList<>(((SEdge) oldElement.get()).getRoutingPoints()));
+		} else if (element instanceof GEdge) {
+			Optional<GModelElement> oldElement = oldIndex.get(element.getId());
+			if (oldElement.isPresent() && oldElement.get() instanceof GEdge
+					&& ((GEdge) oldElement.get()).getRoutingPoints() != null) {
+				GEdge gEdge = (GEdge) element;
+				gEdge.getRoutingPoints().clear();
+				gEdge.getRoutingPoints().addAll(EcoreUtil.copyAll(((GEdge) oldElement.get()).getRoutingPoints()));
 			}
 		}
 		if (element.getChildren() != null) {
-			for (SModelElement child : element.getChildren()) {
+			for (GModelElement child : element.getChildren()) {
 				copyLayoutDataRecursively(child, oldIndex);
 			}
 		}

@@ -15,60 +15,30 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow;
 
-import static com.eclipsesource.glsp.api.utils.DefaultModelTypes.EDGE;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.AUTOMATED_TASK;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.COMP_HEADER;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.DECISION_NODE;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.ICON;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.LABEL_HEADING;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.LABEL_ICON;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.LABEL_TEXT;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.MANUAL_TASK;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.MERGE_NODE;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.WEIGHTED_EDGE;
+import static com.eclipsesource.glsp.api.operations.Operation.Kind.CREATE_CONNECTION;
+import static com.eclipsesource.glsp.api.operations.Operation.Kind.CREATE_NODE;
+import static com.eclipsesource.glsp.example.workflow.ModelTypes.AUTOMATED_TASK;
+import static com.eclipsesource.glsp.example.workflow.ModelTypes.DECISION_NODE;
+import static com.eclipsesource.glsp.example.workflow.ModelTypes.MANUAL_TASK;
+import static com.eclipsesource.glsp.example.workflow.ModelTypes.MERGE_NODE;
+import static com.eclipsesource.glsp.example.workflow.ModelTypes.WEIGHTED_EDGE;
+import static com.eclipsesource.glsp.graph.DefaultTypes.EDGE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-
-import org.eclipse.sprotty.SCompartment;
-import org.eclipse.sprotty.SLabel;
-import org.eclipse.sprotty.SModelElement;
 
 import com.eclipsesource.glsp.api.diagram.DiagramConfiguration;
 import com.eclipsesource.glsp.api.operations.Group;
 import com.eclipsesource.glsp.api.operations.Operation;
 import com.eclipsesource.glsp.api.types.EdgeTypeHint;
 import com.eclipsesource.glsp.api.types.NodeTypeHint;
-import com.eclipsesource.glsp.api.utils.DefaultModelTypes;
-import com.eclipsesource.glsp.example.workflow.schema.ActivityNode;
-import com.eclipsesource.glsp.example.workflow.schema.Icon;
-import com.eclipsesource.glsp.example.workflow.schema.TaskNode;
-import com.eclipsesource.glsp.example.workflow.schema.WeightedEdge;
 
 public class WorfklowDiagramConfiguration implements DiagramConfiguration {
 
 	@Override
 	public String getDiagramType() {
 		return "workflow-diagram";
-	}
-
-	@Override
-	public Map<String, Class<? extends SModelElement>> getTypeMappings() {
-		Map<String, Class<? extends SModelElement>> mappings = DefaultModelTypes.getDefaultTypeMappings();
-
-		mappings.put(LABEL_HEADING, SLabel.class);
-		mappings.put(LABEL_TEXT, SLabel.class);
-		mappings.put(COMP_HEADER, SCompartment.class);
-		mappings.put(LABEL_ICON, SLabel.class);
-		mappings.put(WEIGHTED_EDGE, WeightedEdge.class);
-		mappings.put(ICON, Icon.class);
-		mappings.put(MERGE_NODE, ActivityNode.class);
-		mappings.put(DECISION_NODE, ActivityNode.class);
-		mappings.put(MANUAL_TASK, TaskNode.class);
-		mappings.put(AUTOMATED_TASK, TaskNode.class);
-		return mappings;
 	}
 
 	@Override
@@ -101,16 +71,12 @@ public class WorfklowDiagramConfiguration implements DiagramConfiguration {
 	public List<Operation> getOperations() {
 		Group nodeGroup = new Group("workflow.nodes", "Nodes");
 		Group edgeGroup = new Group("workflow.edges", "Edges");
-		Operation createAutomatedTask = new Operation("Automated Task", AUTOMATED_TASK, Operation.Kind.CREATE_NODE,
-				nodeGroup);
-		Operation createManualTask = new Operation("Manual Task", MANUAL_TASK, Operation.Kind.CREATE_NODE, nodeGroup);
-		Operation createDecisionNode = new Operation("Decision Node", DECISION_NODE, Operation.Kind.CREATE_NODE,
-				nodeGroup);
-		Operation createMergeNode = new Operation("Merge Node", MERGE_NODE, Operation.Kind.CREATE_NODE, nodeGroup);
-		Operation createWeightedEdge = new Operation("Weighted Edge", WEIGHTED_EDGE, Operation.Kind.CREATE_CONNECTION,
-				edgeGroup);
-		Operation createEdge = new Operation("Edge", EDGE, Operation.Kind.CREATE_CONNECTION, edgeGroup);
-
+		Operation createAutomatedTask = new Operation("Automated Task", AUTOMATED_TASK, CREATE_NODE, nodeGroup);
+		Operation createManualTask = new Operation("Manual Task", MANUAL_TASK, CREATE_NODE, nodeGroup);
+		Operation createDecisionNode = new Operation("Decision Node", DECISION_NODE, CREATE_NODE, nodeGroup);
+		Operation createMergeNode = new Operation("Merge Node", MERGE_NODE, CREATE_NODE, nodeGroup);
+		Operation createWeightedEdge = new Operation("Weighted Edge", WEIGHTED_EDGE, CREATE_CONNECTION, edgeGroup);
+		Operation createEdge = new Operation("Edge", EDGE, CREATE_CONNECTION, edgeGroup);
 		return Arrays.asList(createAutomatedTask, createManualTask, createDecisionNode, createMergeNode,
 				createWeightedEdge, createEdge);
 	}

@@ -15,15 +15,14 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import org.eclipse.sprotty.Point;
-
 import com.eclipsesource.glsp.api.action.Action;
+import com.eclipsesource.glsp.graph.GPoint;
 
 public class CreateNodeOperationAction extends AbstractOperationAction {
 
 	private String elementTypeId;
 
-	private Point location;
+	private GPoint location;
 
 	private String containerId;
 
@@ -36,12 +35,12 @@ public class CreateNodeOperationAction extends AbstractOperationAction {
 		this.elementTypeId = elementTypeId;
 	}
 
-	public CreateNodeOperationAction(String elementTypeId, Point location) {
+	public CreateNodeOperationAction(String elementTypeId, GPoint location) {
 		this(elementTypeId);
 		this.location = location;
 	}
 
-	public CreateNodeOperationAction(String elementTypeId, Point location, String containerId) {
+	public CreateNodeOperationAction(String elementTypeId, GPoint location, String containerId) {
 		this(elementTypeId, location);
 		this.containerId = containerId;
 	}
@@ -59,11 +58,11 @@ public class CreateNodeOperationAction extends AbstractOperationAction {
 		this.elementTypeId = elementTypeId;
 	}
 
-	public Point getLocation() {
+	public GPoint getLocation() {
 		return location;
 	}
 
-	public void setLocation(Point location) {
+	public void setLocation(GPoint location) {
 		this.location = location;
 	}
 
