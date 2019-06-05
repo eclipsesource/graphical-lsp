@@ -20,12 +20,12 @@ import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.log4j.Logger;
-import org.eclipse.sprotty.SModelElement;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.utils.ClientOptions;
+import com.eclipsesource.glsp.graph.GModelElement;
 
 public class SimulateCommandHandler implements ServerCommandHandler {
 	private static Logger logger = Logger.getLogger(SimulateCommandHandler.class);
@@ -42,7 +42,7 @@ public class SimulateCommandHandler implements ServerCommandHandler {
 		Optional<Action> result = Optional.empty();
 		if (SIMULATE_COMMAND_ID.equals(commandId)) {
 			ClientOptions.getValue(options, OPTIONS_INVOKER_ID).ifPresent(id -> {
-				Optional<SModelElement> invoker = modelState.getIndex().get(id);
+				Optional<GModelElement> invoker = modelState.getIndex().get(id);
 				if (!invoker.isPresent()) {
 					logger.info("Start simulation of " + invoker.get().getId());
 					double duration = ThreadLocalRandom.current().nextDouble(0d, 10d);

@@ -18,6 +18,7 @@ package com.eclipsesource.glsp.api.types;
 import java.util.List;
 
 public class NodeTypeHint extends ElementTypeHint {
+	
 	private boolean resizable;
 	private List<String> containableElementTypeIds;
 

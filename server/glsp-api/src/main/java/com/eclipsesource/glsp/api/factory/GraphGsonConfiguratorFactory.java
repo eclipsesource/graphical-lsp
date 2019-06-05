@@ -16,7 +16,14 @@
 package com.eclipsesource.glsp.api.factory;
 
 import com.eclipsesource.glsp.graph.gson.GGraphGsonConfigurator;
+import com.google.gson.GsonBuilder;
 
 public interface GraphGsonConfiguratorFactory {
+
 	public GGraphGsonConfigurator create();
+	
+	default GsonBuilder configureGson() {
+		return this.create().configureGsonBuilder(new GsonBuilder());
+	}
+
 }

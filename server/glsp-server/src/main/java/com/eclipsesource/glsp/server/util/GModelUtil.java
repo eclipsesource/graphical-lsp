@@ -18,28 +18,36 @@ package com.eclipsesource.glsp.server.util;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import org.eclipse.sprotty.SModelElement;
-import org.eclipse.sprotty.SNode;
-import org.eclipse.sprotty.SPort;
-
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
+import com.eclipsesource.glsp.graph.GModelElement;
+import com.eclipsesource.glsp.graph.GNode;
+import com.eclipsesource.glsp.graph.GPoint;
+import com.eclipsesource.glsp.graph.GPort;
+import com.eclipsesource.glsp.graph.GraphFactory;
 
-public final class SModelUtil {
-	private SModelUtil() {
+public final class GModelUtil {
+
+	private GModelUtil() {
 	}
 
-	public static int generateId(SModelElement element, String id, GraphicalModelState modelState) {
+	public static GPoint point(double x, double y) {
+		GPoint point = GraphFactory.eINSTANCE.createGPoint();
+		point.setX(x);
+		point.setY(y);
+		return point;
+	}
+
+	public static int generateId(GModelElement element, String id, GraphicalModelState modelState) {
 		Function<Integer, String> idProvider = i -> id + i;
-		int count = modelState.getIndex().getCounter(element.getType(), idProvider);
+		int count = modelState.getIndex().getCounter(element.eClass(), idProvider);
 		element.setId(idProvider.apply(count));
 		return count;
 	}
-	
-	public static Predicate<SModelElement> IS_CONNECTABLE = new Predicate<SModelElement>() {
 
+	public static Predicate<GModelElement> IS_CONNECTABLE = new Predicate<GModelElement>() {
 		@Override
-		public boolean test(SModelElement modelElement) {
-			return modelElement instanceof SPort || modelElement instanceof SNode;
+		public boolean test(GModelElement modelElement) {
+			return modelElement instanceof GPort || modelElement instanceof GNode;
 		}
 	};
 

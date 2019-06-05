@@ -17,28 +17,27 @@ package com.eclipsesource.glsp.example.workflow.handler;
 
 import java.util.Optional;
 
-import org.eclipse.sprotty.SEdge;
-import org.eclipse.sprotty.SModelElement;
-
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.api.utils.DefaultModelTypes;
+import com.eclipsesource.glsp.graph.DefaultTypes;
+import com.eclipsesource.glsp.graph.GEdge;
+import com.eclipsesource.glsp.graph.GModelElement;
+import com.eclipsesource.glsp.graph.GraphFactory;
 import com.eclipsesource.glsp.server.operationhandler.CreateConnectionOperationHandler;
-import com.eclipsesource.glsp.server.util.SModelUtil;
+import com.eclipsesource.glsp.server.util.GModelUtil;
 
 public class CreateEdgeHandler extends CreateConnectionOperationHandler {
 
 	public CreateEdgeHandler() {
-		super(DefaultModelTypes.EDGE);
+		super(DefaultTypes.EDGE);
 	}
 
 	@Override
-	protected Optional<SEdge> createConnection(SModelElement source, SModelElement target,
+	protected Optional<GEdge> createConnection(GModelElement source, GModelElement target,
 			GraphicalModelState modelState) {
-		SEdge edge = new SEdge();
+		GEdge edge = GraphFactory.eINSTANCE.createGEdge();
 		edge.setSourceId(source.getId());
 		edge.setTargetId(target.getId());
-		edge.setType(elementTypeId);
-		SModelUtil.generateId(edge, "edge", modelState);
+		GModelUtil.generateId(edge, "edge", modelState);
 		return Optional.of(edge);
 	}
 

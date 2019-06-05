@@ -15,61 +15,67 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.graph.GBounds;
+import java.util.function.Consumer;
 
-public class RequestPopupModelAction extends Action {
+import com.eclipsesource.glsp.graph.GPoint;
+
+public class ElementAndAlignment {
 
 	private String elementId;
-	private GBounds bounds;
 
-	public RequestPopupModelAction() {
-		super(Action.Kind.REQUEST_POPUP_MODEL);
+	private GPoint newAlignment;
+
+	public ElementAndAlignment() {
 	}
 
-	public RequestPopupModelAction(String elementId, GBounds bounds) {
-		this();
-		this.elementId = elementId;
-		this.bounds = bounds;
+	public ElementAndAlignment(final Consumer<ElementAndAlignment> initializer) {
+		initializer.accept(this);
 	}
 
 	public String getElementId() {
-		return elementId;
+		return this.elementId;
 	}
 
-	public GBounds getBounds() {
-		return bounds;
+	public void setElementId(final String elementId) {
+		this.elementId = elementId;
+	}
+
+	public GPoint getNewAlignment() {
+		return this.newAlignment;
+	}
+
+	public void setNewAlignment(final GPoint newAlignment) {
+		this.newAlignment = newAlignment;
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ElementAndAlignment other = (ElementAndAlignment) obj;
+		if (this.elementId == null) {
+			if (other.elementId != null)
+				return false;
+		} else if (!this.elementId.equals(other.elementId))
+			return false;
+		if (this.newAlignment == null) {
+			if (other.newAlignment != null)
+				return false;
+		} else if (!this.newAlignment.equals(other.newAlignment))
+			return false;
+		return true;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((bounds == null) ? 0 : bounds.hashCode());
-		result = prime * result + ((elementId == null) ? 0 : elementId.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		RequestPopupModelAction other = (RequestPopupModelAction) obj;
-		if (bounds == null) {
-			if (other.bounds != null)
-				return false;
-		} else if (!bounds.equals(other.bounds))
-			return false;
-		if (elementId == null) {
-			if (other.elementId != null)
-				return false;
-		} else if (!elementId.equals(other.elementId))
-			return false;
-		return true;
+		int result = 1;
+		result = prime * result + ((this.elementId == null) ? 0 : this.elementId.hashCode());
+		return prime * result + ((this.newAlignment == null) ? 0 : this.newAlignment.hashCode());
 	}
 
 }

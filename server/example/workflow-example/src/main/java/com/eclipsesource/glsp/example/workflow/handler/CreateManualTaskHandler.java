@@ -15,7 +15,7 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.handler;
 
-import com.eclipsesource.glsp.example.workflow.schema.ModelTypes;
+import com.eclipsesource.glsp.example.workflow.ModelTypes;
 
 public class CreateManualTaskHandler extends CreateTaskHandler {
 

@@ -15,6 +15,11 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.graph.gson;
 
+import static com.eclipsesource.glsp.graph.DefaultTypes.COMPARTMENT;
+import static com.eclipsesource.glsp.graph.DefaultTypes.EDGE;
+import static com.eclipsesource.glsp.graph.DefaultTypes.GRAPH;
+import static com.eclipsesource.glsp.graph.DefaultTypes.LABEL;
+import static com.eclipsesource.glsp.graph.DefaultTypes.NODE;
 import static com.eclipsesource.glsp.graph.GraphPackage.Literals.GCOMPARTMENT;
 import static com.eclipsesource.glsp.graph.GraphPackage.Literals.GEDGE;
 import static com.eclipsesource.glsp.graph.GraphPackage.Literals.GGRAPH;
@@ -48,11 +53,11 @@ public class GGraphGsonConfigurator {
 
 	public GGraphGsonConfigurator withDefaultTypes() {
 		Map<String, EClass> defaultTypes = new HashMap<>();
-		defaultTypes.put("graph", GGRAPH);
-		defaultTypes.put("node", GNODE);
-		defaultTypes.put("edge", GEDGE);
-		defaultTypes.put("comp", GCOMPARTMENT);
-		defaultTypes.put("label", GLABEL);
+		defaultTypes.put(GRAPH, GGRAPH);
+		defaultTypes.put(NODE, GNODE);
+		defaultTypes.put(EDGE, GEDGE);
+		defaultTypes.put(COMPARTMENT, GCOMPARTMENT);
+		defaultTypes.put(LABEL, GLABEL);
 		return withTypes(defaultTypes);
 	}
 

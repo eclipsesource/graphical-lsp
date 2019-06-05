@@ -15,21 +15,21 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.handler;
 
-import static com.eclipsesource.glsp.server.util.SModelUtil.IS_CONNECTABLE;
+import static com.eclipsesource.glsp.server.util.GModelUtil.IS_CONNECTABLE;
 
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
-import org.eclipse.sprotty.SEdge;
-import org.eclipse.sprotty.SModelElement;
-import org.eclipse.sprotty.SModelRoot;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ReconnectConnectionOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.api.utils.SModelIndex;
+import com.eclipsesource.glsp.graph.GEdge;
+import com.eclipsesource.glsp.graph.GModelElement;
+import com.eclipsesource.glsp.graph.GModelIndex;
+import com.eclipsesource.glsp.graph.GModelRoot;
 
 public class ReconnectEdgeHandler implements OperationHandler {
 	private static Logger log = Logger.getLogger(ReconnectEdgeHandler.class);
@@ -40,7 +40,7 @@ public class ReconnectEdgeHandler implements OperationHandler {
 	}
 
 	@Override
-	public Optional<SModelRoot> execute(AbstractOperationAction operationAction, GraphicalModelState modelState) {
+	public Optional<GModelRoot> execute(AbstractOperationAction operationAction, GraphicalModelState modelState) {
 		if (!(operationAction instanceof ReconnectConnectionOperationAction)) {
 			log.warn("Unexpected action " + operationAction);
 			return Optional.empty();
@@ -55,10 +55,10 @@ public class ReconnectEdgeHandler implements OperationHandler {
 		}
 
 		// check for existence of matching elements
-		SModelIndex index = modelState.getIndex();
-		Optional<SEdge> edge = index.findElementByClass(action.getConnectionElementId(), SEdge.class);
-		Optional<SModelElement> source = index.findElement(action.getSourceElementId(),IS_CONNECTABLE );
-		Optional<SModelElement> target = index.findElement(action.getTargetElementId(), IS_CONNECTABLE);
+		GModelIndex index = modelState.getIndex();
+		Optional<GEdge> edge = index.findElementByClass(action.getConnectionElementId(), GEdge.class);
+		Optional<GModelElement> source = index.findElement(action.getSourceElementId(), IS_CONNECTABLE);
+		Optional<GModelElement> target = index.findElement(action.getTargetElementId(), IS_CONNECTABLE);
 		if (!edge.isPresent() || !source.isPresent() || !target.isPresent()) {
 			log.warn("Invalid edge, source or target ID: edge ID " + action.getConnectionElementId() + ", source ID "
 					+ action.getSourceElementId() + " and target ID " + action.getTargetElementId());
@@ -68,9 +68,8 @@ public class ReconnectEdgeHandler implements OperationHandler {
 		// reconnect
 		edge.get().setSourceId(source.get().getId());
 		edge.get().setTargetId(target.get().getId());
-		edge.get().setRoutingPoints(null);
+		edge.get().getRoutingPoints().clear();
 
-		SModelRoot currentModel = modelState.getRoot();
-		return Optional.of(currentModel);
+		return Optional.of(modelState.getRoot());
 	}
 }

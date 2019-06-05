@@ -101,7 +101,7 @@ public interface GEdge extends GModelElement {
 	 * @return the value of the '<em>Source</em>' reference.
 	 * @see #setSource(GModelElement)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGEdge_Source()
-	 * @model transient="true" volatile="true" derived="true"
+	 * @model transient="true" volatile="true"
 	 * @generated
 	 */
 	GModelElement getSource();
@@ -123,7 +123,7 @@ public interface GEdge extends GModelElement {
 	 * @return the value of the '<em>Target</em>' reference.
 	 * @see #setTarget(GModelElement)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGEdge_Target()
-	 * @model transient="true" volatile="true" derived="true"
+	 * @model transient="true" volatile="true"
 	 * @generated
 	 */
 	GModelElement getTarget();

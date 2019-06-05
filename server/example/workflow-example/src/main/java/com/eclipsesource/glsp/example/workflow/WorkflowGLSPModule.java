@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import com.eclipsesource.glsp.api.diagram.DiagramConfiguration;
+import com.eclipsesource.glsp.api.factory.GraphGsonConfiguratorFactory;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
@@ -45,6 +46,11 @@ import com.eclipsesource.glsp.server.operationhandler.DeleteOperationHandler;
 
 @SuppressWarnings("serial")
 public class WorkflowGLSPModule extends DefaultGLSPModule {
+
+	@Override
+	protected Class<? extends GraphGsonConfiguratorFactory> bindGraphGsonConfiguratorFactory() {
+		return WorkflowGsonConfiguratorFactory.class;
+	}
 
 	@Override
 	public Class<? extends PopupModelFactory> bindPopupModelFactory() {

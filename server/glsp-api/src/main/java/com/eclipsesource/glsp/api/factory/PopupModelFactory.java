@@ -15,18 +15,19 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.factory;
 
-import org.eclipse.sprotty.SModelElement;
-import org.eclipse.sprotty.SModelRoot;
+import org.eclipse.sprotty.HtmlRoot;
 
 import com.eclipsesource.glsp.api.action.kind.RequestPopupModelAction;
+import com.eclipsesource.glsp.graph.GModelElement;
 
 public interface PopupModelFactory {
-	SModelRoot createPopuModel(SModelElement element, RequestPopupModelAction action);
+
+	HtmlRoot createPopuModel(GModelElement element, RequestPopupModelAction action);
 
 	public static class NullImpl implements PopupModelFactory {
 
 		@Override
-		public SModelRoot createPopuModel(SModelElement element, RequestPopupModelAction action) {
+		public HtmlRoot createPopuModel(GModelElement element, RequestPopupModelAction action) {
 			return null;
 		}
 

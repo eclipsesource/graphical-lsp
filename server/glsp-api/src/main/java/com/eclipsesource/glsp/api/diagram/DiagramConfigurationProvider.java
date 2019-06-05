@@ -16,15 +16,7 @@
 package com.eclipsesource.glsp.api.diagram;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
-
-import org.eclipse.lsp4j.jsonrpc.json.adapters.EnumTypeAdapter;
-import org.eclipse.sprotty.SModelElement;
-
-import com.eclipsesource.glsp.api.json.SModelElementTypeAdapter;
-import com.google.gson.GsonBuilder;
 
 public interface DiagramConfigurationProvider {
 
@@ -48,12 +40,4 @@ public interface DiagramConfigurationProvider {
 		return Optional.empty();
 	}
 
-	default GsonBuilder configureGSON() {
-		GsonBuilder builder = new GsonBuilder();
-		Map<String, Class<? extends SModelElement>> modelTypes = new HashMap<>();
-		getAll().stream().map(DiagramConfiguration::getTypeMappings).forEach(modelTypes::putAll);
-		builder.registerTypeAdapterFactory(new SModelElementTypeAdapter.Factory(modelTypes))
-				.registerTypeAdapterFactory(new EnumTypeAdapter.Factory());
-		return builder;
-	}
 }

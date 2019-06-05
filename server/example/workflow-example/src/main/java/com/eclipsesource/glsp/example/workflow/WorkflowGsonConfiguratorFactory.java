@@ -15,43 +15,14 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow;
 
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.AUTOMATED_TASK;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.DECISION_NODE;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.ICON;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.LABEL_HEADING;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.LABEL_ICON;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.LABEL_TEXT;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.MANUAL_TASK;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.MERGE_NODE;
-import static com.eclipsesource.glsp.example.workflow.schema.ModelTypes.WEIGHTED_EDGE;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import org.eclipse.emf.ecore.EClass;
-
 import com.eclipsesource.glsp.api.factory.GraphGsonConfiguratorFactory;
 import com.eclipsesource.glsp.example.workflow.wfgraph.WfgraphPackage;
-import com.eclipsesource.glsp.graph.GraphPackage;
 import com.eclipsesource.glsp.graph.gson.GGraphGsonConfigurator;
 
 public class WorkflowGsonConfiguratorFactory implements GraphGsonConfiguratorFactory {
 
 	public GGraphGsonConfigurator create() {
-		Map<String, EClass> types = new HashMap<>();
-		types.put("graph", GraphPackage.Literals.GGRAPH);
-		types.put("edge", GraphPackage.Literals.GEDGE);
-		types.put(LABEL_HEADING, WfgraphPackage.Literals.LABEL_HEADING);
-		types.put(LABEL_TEXT, WfgraphPackage.Literals.LABEL_TEXT);
-		types.put(LABEL_ICON, WfgraphPackage.Literals.LABEL_ICON);
-		types.put(WEIGHTED_EDGE, WfgraphPackage.Literals.WEIGHTED_EDGE);
-		types.put(ICON, WfgraphPackage.Literals.ICON);
-		types.put(DECISION_NODE, WfgraphPackage.Literals.DECISION_NODE);
-		types.put(MERGE_NODE, WfgraphPackage.Literals.MERGE_NODE);
-		types.put(MANUAL_TASK, WfgraphPackage.Literals.MANUAL_TASK);
-		types.put(AUTOMATED_TASK, WfgraphPackage.Literals.AUTOMATED_TASK);
-		types.put("comp:header", GraphPackage.Literals.GCOMPARTMENT);
-		return new GGraphGsonConfigurator().withEPackages(WfgraphPackage.eINSTANCE).withTypes(types);
+		return new GGraphGsonConfigurator().withEPackages(WfgraphPackage.eINSTANCE).withTypes(ModelTypes.TYPE_MAP);
 	}
 
 }

@@ -22,6 +22,7 @@ import com.eclipsesource.glsp.api.action.ActionDispatcher;
 import com.eclipsesource.glsp.api.di.GLSPModule;
 import com.eclipsesource.glsp.api.diagram.DiagramConfiguration;
 import com.eclipsesource.glsp.api.diagram.DiagramConfigurationProvider;
+import com.eclipsesource.glsp.api.factory.GraphGsonConfiguratorFactory;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.handler.ActionHandler;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
@@ -48,6 +49,7 @@ import com.eclipsesource.glsp.server.actionhandler.RequestTypeHintsActionHandler
 import com.eclipsesource.glsp.server.actionhandler.SaveModelActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.SelectActionHandler;
 import com.eclipsesource.glsp.server.diagram.DIDiagramConfigurationProvider;
+import com.eclipsesource.glsp.server.factory.DefaultGraphGsonConfiguratorFactory;
 import com.eclipsesource.glsp.server.jsonrpc.DefaultGLSPServer;
 import com.eclipsesource.glsp.server.model.DefaultModelStateProvider;
 import com.eclipsesource.glsp.server.model.FileBasedModelFactory;
@@ -59,6 +61,7 @@ import com.google.common.collect.Lists;
 import com.google.inject.multibindings.Multibinder;
 
 public abstract class DefaultGLSPModule extends GLSPModule {
+
 	protected Multibinder<ActionHandler> actionHandlerBinder;
 	protected Multibinder<ServerCommandHandler> serverCommandHandler;
 	protected Multibinder<OperationHandler> operationHandler;
@@ -81,6 +84,10 @@ public abstract class DefaultGLSPModule extends GLSPModule {
 	@Override
 	protected Class<? extends GLSPServer> bindGLSPServer() {
 		return DefaultGLSPServer.class;
+	}
+
+	protected Class<? extends GraphGsonConfiguratorFactory> bindGraphGsonConfiguratorFactory() {
+		return DefaultGraphGsonConfiguratorFactory.class;
 	}
 
 	@Override

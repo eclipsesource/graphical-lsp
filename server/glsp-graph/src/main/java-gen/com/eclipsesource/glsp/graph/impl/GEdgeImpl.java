@@ -17,10 +17,12 @@ package com.eclipsesource.glsp.graph.impl;
 
 import com.eclipsesource.glsp.graph.GEdge;
 import com.eclipsesource.glsp.graph.GModelElement;
+import com.eclipsesource.glsp.graph.GModelIndex;
 import com.eclipsesource.glsp.graph.GPoint;
 import com.eclipsesource.glsp.graph.GraphPackage;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -385,25 +387,24 @@ public class GEdgeImpl extends MinimalEObjectImpl.Container implements GEdge {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public GModelElement basicGetSource() {
-		// TODO: implement this method to return the 'Source' reference
-		// -> do not perform proxy resolution
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return findElement(this.getSourceId()).orElse(null);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void setSource(GModelElement newSource) {
-		// TODO: implement this method to set the 'Source' reference
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if (newSource == null) {
+			this.sourceId = null;
+			return;
+		}
+		this.sourceId = newSource.getId();
 	}
 
 	/**
@@ -420,25 +421,28 @@ public class GEdgeImpl extends MinimalEObjectImpl.Container implements GEdge {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public GModelElement basicGetTarget() {
-		// TODO: implement this method to return the 'Target' reference
-		// -> do not perform proxy resolution
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return findElement(this.getTargetId()).orElse(null);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void setTarget(GModelElement newTarget) {
-		// TODO: implement this method to set the 'Target' reference
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if (newTarget == null) {
+			this.targetId = null;
+			return;
+		}
+		this.targetId = newTarget.getId();
+	}
+
+	protected Optional<GModelElement> findElement(String elementId) {
+		return GModelIndex.get(this).get(elementId);
 	}
 
 	/**

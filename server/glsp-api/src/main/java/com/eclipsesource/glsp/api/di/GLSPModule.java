@@ -19,6 +19,7 @@ import org.eclipse.sprotty.ILayoutEngine;
 
 import com.eclipsesource.glsp.api.action.ActionDispatcher;
 import com.eclipsesource.glsp.api.diagram.DiagramConfigurationProvider;
+import com.eclipsesource.glsp.api.factory.GraphGsonConfiguratorFactory;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
@@ -54,6 +55,7 @@ public abstract class GLSPModule extends AbstractModule {
 		bind(ActionDispatcher.class).to(bindActionDispatcher());
 		bind(DiagramConfigurationProvider.class).to(bindDiagramConfigurationProvider());
 		bind(ModelStateProvider.class).to(bindModelStateProvider());
+		bind(GraphGsonConfiguratorFactory.class).to(bindGraphGsonConfiguratorFactory());
 	}
 
 	protected abstract Class<? extends ModelStateProvider> bindModelStateProvider();
@@ -62,6 +64,8 @@ public abstract class GLSPModule extends AbstractModule {
 
 	protected abstract Class<? extends GLSPServer> bindGLSPServer();
 
+	protected abstract Class<? extends GraphGsonConfiguratorFactory> bindGraphGsonConfiguratorFactory();
+	
 	protected Class<? extends CommandPaletteActionProvider> bindCommandPaletteActionProvider() {
 		return CommandPaletteActionProvider.NullImpl.class;
 	}
@@ -81,7 +85,7 @@ public abstract class GLSPModule extends AbstractModule {
 	protected Class<? extends ModelExpansionListener> bindModelExpansionListener() {
 		return ModelExpansionListener.NullImpl.class;
 	}
-
+	
 	protected Class<? extends ModelFactory> bindModelFactory() {
 		return ModelFactory.NullImpl.class;
 	}

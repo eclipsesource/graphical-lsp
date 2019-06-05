@@ -13,35 +13,14 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.example.workflow.schema;
+package com.eclipsesource.glsp.server.factory;
 
-import org.eclipse.sprotty.Point;
-import org.eclipse.sprotty.SShapeElement;
+import com.eclipsesource.glsp.api.factory.GraphGsonConfiguratorFactory;
+import com.eclipsesource.glsp.graph.gson.GGraphGsonConfigurator;
 
-public class Icon extends SShapeElement {
-	public static final String TYPE = "icon";
-	private String layout;
-	private String commandId;
-
-	public Icon() {
-		setType(Icon.TYPE);
-		setPosition(new Point());
+public class DefaultGraphGsonConfiguratorFactory implements GraphGsonConfiguratorFactory {
+	@Override
+	public GGraphGsonConfigurator create() {
+		return new GGraphGsonConfigurator().withDefaultTypes();
 	}
-
-	public String getCommandId() {
-		return commandId;
-	}
-
-	public void setCommandId(String commandId) {
-		this.commandId = commandId;
-	}
-
-	public String getLayout() {
-		return layout;
-	}
-
-	public void setLayout(String layout) {
-		this.layout = layout;
-	}
-
 }

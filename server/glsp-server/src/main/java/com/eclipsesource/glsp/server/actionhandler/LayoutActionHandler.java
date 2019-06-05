@@ -40,7 +40,8 @@ public class LayoutActionHandler extends AbstractActionHandler {
 	protected Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		if (modelState.getServerOptions().getLayoutKind() == ServerLayoutKind.MANUAL) {
 			if (layoutEngine != null) {
-				layoutEngine.layout(modelState.getRoot());
+				// TODO
+//				layoutEngine.layout(modelState.getRoot());
 			}
 			return modelSubmissionHandler.doSubmitModel(true, modelState);
 		}

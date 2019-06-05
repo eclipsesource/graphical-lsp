@@ -15,63 +15,66 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import org.eclipse.sprotty.HtmlRoot;
+import java.util.function.Consumer;
 
-import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.graph.GBounds;
 
-public class SetPopupModelAction extends Action {
+public class ElementAndBounds {
 
-	private HtmlRoot newRoot;
-	private GBounds bounds;
+	private String elementId;
+	private GBounds newBounds;
 
-	public SetPopupModelAction() {
-		super(Action.Kind.SET_POPUP_MODEL);
+	public ElementAndBounds() {
 	}
 
-	public SetPopupModelAction(HtmlRoot newRoot, GBounds bounds) {
-		this();
-		this.newRoot = newRoot;
-		this.bounds = bounds;
+	public ElementAndBounds(final Consumer<ElementAndBounds> initializer) {
+		initializer.accept(this);
 	}
 
-	public HtmlRoot getNewRoot() {
-		return newRoot;
+	public String getElementId() {
+		return this.elementId;
 	}
 
-	public GBounds getBounds() {
-		return bounds;
+	public void setElementId(final String elementId) {
+		this.elementId = elementId;
+	}
+
+	public GBounds getNewBounds() {
+		return this.newBounds;
+	}
+
+	public void setNewBounds(final GBounds newBounds) {
+		this.newBounds = newBounds;
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ElementAndBounds other = (ElementAndBounds) obj;
+		if (this.elementId == null) {
+			if (other.elementId != null)
+				return false;
+		} else if (!this.elementId.equals(other.elementId))
+			return false;
+		if (this.newBounds == null) {
+			if (other.newBounds != null)
+				return false;
+		} else if (!this.newBounds.equals(other.newBounds))
+			return false;
+		return true;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((bounds == null) ? 0 : bounds.hashCode());
-		result = prime * result + ((newRoot == null) ? 0 : newRoot.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		SetPopupModelAction other = (SetPopupModelAction) obj;
-		if (bounds == null) {
-			if (other.bounds != null)
-				return false;
-		} else if (!bounds.equals(other.bounds))
-			return false;
-		if (newRoot == null) {
-			if (other.newRoot != null)
-				return false;
-		} else if (!newRoot.equals(other.newRoot))
-			return false;
-		return true;
+		int result = 1;
+		result = prime * result + ((this.elementId == null) ? 0 : this.elementId.hashCode());
+		return prime * result + ((this.newBounds == null) ? 0 : this.newBounds.hashCode());
 	}
 
 }

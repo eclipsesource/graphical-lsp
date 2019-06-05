@@ -17,11 +17,10 @@ package com.eclipsesource.glsp.api.action.kind;
 
 import java.util.List;
 
-import org.eclipse.sprotty.ElementAndBounds;
-
 import com.eclipsesource.glsp.api.action.Action;
 
 public class SetBoundsAction extends Action {
+
 	private List<ElementAndBounds> bounds;
 
 	public SetBoundsAction() {

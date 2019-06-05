@@ -18,20 +18,19 @@ package com.eclipsesource.glsp.server.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.eclipse.sprotty.SModelRoot;
-
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.utils.ClientOptions.ParsedClientOptions;
-import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.eclipsesource.glsp.api.utils.ServerOptions;
+import com.eclipsesource.glsp.graph.GModelIndex;
+import com.eclipsesource.glsp.graph.GModelRoot;
 
 public class ModelStateImpl implements GraphicalModelState {
+
 	private ParsedClientOptions options;
 	private String clientId;
-	private SModelRoot currentModel;
+	private GModelRoot currentModel;
 	private Set<String> expandedElements;
 	private Set<String> selectedElements;
-	private SModelIndex currentModelIndex;
 	private ServerOptions serverOptions;
 
 	public ModelStateImpl() {
@@ -56,14 +55,13 @@ public class ModelStateImpl implements GraphicalModelState {
 	}
 
 	@Override
-	public SModelRoot getRoot() {
+	public GModelRoot getRoot() {
 		return currentModel;
 	}
 
 	@Override
-	public void setRoot(SModelRoot newRoot) {
+	public void setRoot(GModelRoot newRoot) {
 		this.currentModel = newRoot;
-		this.currentModelIndex = new SModelIndex(newRoot);
 	}
 
 	@Override
@@ -93,8 +91,8 @@ public class ModelStateImpl implements GraphicalModelState {
 	}
 
 	@Override
-	public SModelIndex getIndex() {
-		return currentModelIndex;
+	public GModelIndex getIndex() {
+		return GModelIndex.get(currentModel);
 	}
 
 	@Override

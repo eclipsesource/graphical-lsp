@@ -16,54 +16,55 @@
 package com.eclipsesource.glsp.server.model;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-import org.eclipse.sprotty.SGraph;
-import org.eclipse.sprotty.SModelRoot;
 
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
-import com.eclipsesource.glsp.api.diagram.DiagramConfigurationProvider;
+import com.eclipsesource.glsp.api.factory.GraphGsonConfiguratorFactory;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.utils.ClientOptions;
+import com.eclipsesource.glsp.graph.GGraph;
+import com.eclipsesource.glsp.graph.GModelRoot;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 
 /**
- * A base class which can be used for all modelfactories that load an SModel
- * from a file (typically .json)
+ * A base class which can be used for all model factories that load an SModel
+ * from a file (typically a json file)
  * 
  * @author Tobias Ortmayr
- *
  */
 public class FileBasedModelFactory implements ModelFactory {
 	private static Logger LOGGER = Logger.getLogger(FileBasedModelFactory.class);
 	private static final String FILE_PREFIX = "file://";
 
 	@Inject
-	private DiagramConfigurationProvider diagramManagerProvider;
-	private SModelRoot modelRoot;
+	private GraphGsonConfiguratorFactory gsonConfigurationFactory;
+	private GModelRoot modelRoot;
 
 	@Override
-	public SModelRoot loadModel(RequestModelAction action) {
+	public GModelRoot loadModel(RequestModelAction action) {
 		String sourceURI = action.getOptions().get(ClientOptions.SOURCE_URI);
-		try {
-			File modelFile = convertToFile(sourceURI);
-			if (modelFile != null && modelFile.exists()) {
-				String json = FileUtils.readFileToString(modelFile, "UTF8");
-				Gson gson = diagramManagerProvider.configureGSON().create();
-				modelRoot = gson.fromJson(json, SGraph.class);
+		File modelFile = convertToFile(sourceURI);
+		if (modelFile != null && modelFile.exists()) {
+			try (Reader reader = new InputStreamReader(new FileInputStream(modelFile), StandardCharsets.UTF_8)) {
+				Gson gson = gsonConfigurationFactory.configureGson().create();
+				modelRoot = gson.fromJson(reader, GGraph.class);
+			} catch (IOException e) {
+				LOGGER.error(e);
 			}
-		} catch (IOException e) {
-			LOGGER.error(e);
 		}
 		return modelRoot;
 	}
 
-	private File convertToFile(String sourceURI) {
+	protected File convertToFile(String sourceURI) {
 		if (sourceURI != null && sourceURI.startsWith(FILE_PREFIX)) {
-			return new File(sourceURI.replace(FILE_PREFIX, ""));
+			return new File(sourceURI.substring(FILE_PREFIX.length()));
 		}
 		return null;
 	}

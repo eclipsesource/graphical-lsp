@@ -1175,10 +1175,10 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGEdge_Source(), this.getGModelElement(), null, "source", null, 0, 1, GEdge.class,
 				IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
-				IS_DERIVED, IS_ORDERED);
+				!IS_DERIVED, IS_ORDERED);
 		initEReference(getGEdge_Target(), this.getGModelElement(), null, "target", null, 0, 1, GEdge.class,
 				IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
-				IS_DERIVED, IS_ORDERED);
+				!IS_DERIVED, IS_ORDERED);
 
 		initEClass(gCompartmentEClass, GCompartment.class, "GCompartment", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);

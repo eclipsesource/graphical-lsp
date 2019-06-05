@@ -13,26 +13,12 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.utils;
+package com.eclipsesource.glsp.graph;
 
-import java.util.HashMap;
-import java.util.Map;
+public final class DefaultTypes {
 
-import org.eclipse.sprotty.HtmlRoot;
-import org.eclipse.sprotty.PreRenderedElement;
-import org.eclipse.sprotty.SButton;
-import org.eclipse.sprotty.SCompartment;
-import org.eclipse.sprotty.SEdge;
-import org.eclipse.sprotty.SGraph;
-import org.eclipse.sprotty.SIssueMarker;
-import org.eclipse.sprotty.SLabel;
-import org.eclipse.sprotty.SModelElement;
-import org.eclipse.sprotty.SNode;
-import org.eclipse.sprotty.SPort;
-
-public final class DefaultModelTypes {
-	private DefaultModelTypes() {
-	};
+	private DefaultTypes() {
+	}
 
 	public static final String GRAPH = "graph";
 	public static final String NODE = "node";
@@ -46,20 +32,4 @@ public final class DefaultModelTypes {
 	public static final String HTML = "html";
 	public static final String PRE_RENDERED = "pre-rendered";
 
-	public static Map<String, Class<? extends SModelElement>> getDefaultTypeMappings() {
-		Map<String, Class<? extends SModelElement>> mapping = new HashMap<>();
-		mapping.put(GRAPH, SGraph.class);
-		mapping.put(NODE, SNode.class);
-		mapping.put(EDGE, SEdge.class);
-		mapping.put(PORT, SPort.class);
-		mapping.put(LABEL, SLabel.class);
-		mapping.put(COMPARTMENT, SCompartment.class);
-		mapping.put(BUTTON, SButton.class);
-		mapping.put(ISSUE_MARKER, SIssueMarker.class);
-
-		mapping.put(HTML, HtmlRoot.class);
-		mapping.put(PRE_RENDERED, PreRenderedElement.class);
-
-		return mapping;
-	}
 }

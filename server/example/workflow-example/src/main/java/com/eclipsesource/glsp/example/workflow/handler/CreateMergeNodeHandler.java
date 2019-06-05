@@ -17,14 +17,14 @@ package com.eclipsesource.glsp.example.workflow.handler;
 
 import java.util.Optional;
 
-import org.eclipse.sprotty.Point;
-import org.eclipse.sprotty.SNode;
-
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.example.workflow.schema.ActivityNode;
-import com.eclipsesource.glsp.example.workflow.schema.ModelTypes;
+import com.eclipsesource.glsp.example.workflow.ModelTypes;
+import com.eclipsesource.glsp.example.workflow.wfgraph.ActivityNode;
+import com.eclipsesource.glsp.example.workflow.wfgraph.WfgraphFactory;
+import com.eclipsesource.glsp.graph.GNode;
+import com.eclipsesource.glsp.graph.GPoint;
 import com.eclipsesource.glsp.server.operationhandler.CreateNodeOperationHandler;
-import com.eclipsesource.glsp.server.util.SModelUtil;
+import com.eclipsesource.glsp.server.util.GModelUtil;
 
 public class CreateMergeNodeHandler extends CreateNodeOperationHandler {
 
@@ -33,13 +33,13 @@ public class CreateMergeNodeHandler extends CreateNodeOperationHandler {
 	}
 
 	@Override
-	protected SNode createNode(Optional<Point> point, GraphicalModelState modelState) {
-		ActivityNode result = new ActivityNode();
+	protected GNode createNode(Optional<GPoint> point, GraphicalModelState modelState) {
+		ActivityNode result = WfgraphFactory.eINSTANCE.createMergeNode();
 		result.setNodeType("mergeNode");
-		result.setType(ModelTypes.MERGE_NODE);
 		point.ifPresent(result::setPosition);
 
-		SModelUtil.generateId(result, "activityNode", modelState);
+		GModelUtil.generateId(result, "activityNode", modelState);
+
 		return result;
 	}
 

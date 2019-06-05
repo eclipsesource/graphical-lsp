@@ -18,20 +18,19 @@ package com.eclipsesource.glsp.server.operationhandler;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
-import org.eclipse.sprotty.Bounds;
-import org.eclipse.sprotty.Dimension;
-import org.eclipse.sprotty.ElementAndBounds;
-import org.eclipse.sprotty.Point;
-import org.eclipse.sprotty.SModelElement;
-import org.eclipse.sprotty.SModelRoot;
-import org.eclipse.sprotty.SNode;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ChangeBoundsOperationAction;
+import com.eclipsesource.glsp.api.action.kind.ElementAndBounds;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.api.utils.SModelIndex;
+import com.eclipsesource.glsp.api.utils.LayoutUtil;
+import com.eclipsesource.glsp.graph.GBounds;
+import com.eclipsesource.glsp.graph.GModelElement;
+import com.eclipsesource.glsp.graph.GModelIndex;
+import com.eclipsesource.glsp.graph.GModelRoot;
+import com.eclipsesource.glsp.graph.GNode;
 
 /**
  * Generic handler implementation for {@link ChangeBoundsOperationAction}
@@ -46,48 +45,44 @@ public class ChangeBoundsOperationHandler implements OperationHandler {
 	}
 
 	@Override
-	public Optional<SModelRoot> execute(AbstractOperationAction action, GraphicalModelState modelState) {
+	public Optional<GModelRoot> execute(AbstractOperationAction action, GraphicalModelState modelState) {
 		ChangeBoundsOperationAction changeBoundsAction = (ChangeBoundsOperationAction) action;
 		for (ElementAndBounds element : changeBoundsAction.getNewBounds()) {
 			changeElementBounds(element.getElementId(), element.getNewBounds(), modelState);
 		}
-		SModelRoot currentModel = modelState.getRoot();
-		return Optional.of(currentModel);
+		return Optional.of(modelState.getRoot());
 	}
 
-	private Optional<SNode> changeElementBounds(String elementId, Bounds newBounds, GraphicalModelState modelState) {
+	private Optional<GNode> changeElementBounds(String elementId, GBounds newBounds, GraphicalModelState modelState) {
 		if (elementId == null || newBounds == null) {
 			log.warn("Invalid ChangeBounds Action; missing mandatory arguments");
 			return Optional.empty();
 		}
 
-		Optional<SNode> nodeToUpdate = findMovableNode(modelState, elementId);
+		Optional<GNode> nodeToUpdate = findMovableNode(modelState, elementId);
 		nodeToUpdate.ifPresent(node -> setBounds(node, newBounds));
 
 		return nodeToUpdate;
 	}
 
-	private static Optional<SNode> findMovableNode(GraphicalModelState modelState, String elementId) {
-		SModelIndex index = modelState.getIndex();
-		Optional<SModelElement> element = index.get(elementId);
+	private static Optional<GNode> findMovableNode(GraphicalModelState modelState, String elementId) {
+		GModelIndex index = modelState.getIndex();
+		Optional<GModelElement> element = index.get(elementId);
 		if (!element.isPresent()) {
 			log.warn("Element with id " + elementId + " not found");
 			return Optional.empty();
 		}
 
-		if (!(element.get() instanceof SNode)) {
+		if (!(element.get() instanceof GNode)) {
 			log.warn("Element " + elementId + " is not moveable");
 			return Optional.empty();
 		}
 
-		return Optional.of((SNode) element.get());
+		return Optional.of((GNode) element.get());
 	}
 
-	private static void setBounds(SNode node, Bounds bounds) {
-		Point newPosition = new Point(bounds.getX(), bounds.getY());
-		node.setPosition(newPosition);
-
-		Dimension newSize = new Dimension(bounds.getWidth(), bounds.getHeight());
-		node.setSize(newSize);
+	private static void setBounds(GNode node, GBounds bounds) {
+		node.setPosition(LayoutUtil.asPoint(bounds));
+		node.setSize(LayoutUtil.asDimension(bounds));
 	}
 }

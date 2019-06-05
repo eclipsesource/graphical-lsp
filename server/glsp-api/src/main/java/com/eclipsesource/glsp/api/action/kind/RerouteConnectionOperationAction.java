@@ -17,21 +17,20 @@ package com.eclipsesource.glsp.api.action.kind;
 
 import java.util.List;
 
-import org.eclipse.sprotty.Point;
-
 import com.eclipsesource.glsp.api.action.Action;
+import com.eclipsesource.glsp.graph.GPoint;
 
 public class RerouteConnectionOperationAction extends AbstractOperationAction {
 
 	private String connectionElementId;
-	private List<Point> routingPoints;
+	private List<GPoint> routingPoints;
 
 	public RerouteConnectionOperationAction() {
 		super(Action.Kind.REROUTE_CONNECTION_OPERATION);
 	}
 
 	public RerouteConnectionOperationAction(String operationKind, String connectionElementId,
-			List<Point> routingPoints) {
+			List<GPoint> routingPoints) {
 		super(operationKind);
 		this.connectionElementId = connectionElementId;
 		this.routingPoints = routingPoints;
@@ -45,11 +44,11 @@ public class RerouteConnectionOperationAction extends AbstractOperationAction {
 		this.connectionElementId = connectionElementId;
 	}
 
-	public List<Point> getRoutingPoints() {
+	public List<GPoint> getRoutingPoints() {
 		return routingPoints;
 	}
 
-	public void setRoutingPoints(List<Point> routingPoints) {
+	public void setRoutingPoints(List<GPoint> routingPoints) {
 		this.routingPoints = routingPoints;
 	}
 
