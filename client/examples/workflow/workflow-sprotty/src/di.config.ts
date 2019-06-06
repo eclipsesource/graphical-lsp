@@ -15,68 +15,62 @@
  ********************************************************************************/
 import "../css/diagram.css";
 
-import { ActivityNode } from "./model";
-import { ConsoleLogger } from "@glsp/sprotty-client/lib";
-import { Container } from "inversify";
-import { ContainerModule } from "inversify";
-import { DiamondNodeView } from "@glsp/sprotty-client/lib";
-import { ExpandButtonView } from "@glsp/sprotty-client/lib";
-import { GLSPGraph } from "@glsp/sprotty-client/lib";
-import { HtmlRoot } from "@glsp/sprotty-client/lib";
-import { HtmlRootView } from "@glsp/sprotty-client/lib";
-import { Icon } from "./model";
-import { IconView } from "./workflow-views";
-import { LogLevel } from "@glsp/sprotty-client/lib";
-import { PreRenderedElement } from "@glsp/sprotty-client/lib";
-import { PreRenderedView } from "@glsp/sprotty-client/lib";
-import { RectangularNode } from "@glsp/sprotty-client/lib";
-import { RectangularNodeView } from "@glsp/sprotty-client/lib";
-import { SButton } from "@glsp/sprotty-client/lib";
-import { SCompartment } from "@glsp/sprotty-client/lib";
-import { SCompartmentView } from "@glsp/sprotty-client/lib";
-import { SEdge } from "@glsp/sprotty-client/lib";
-import { SGraphView } from "@glsp/sprotty-client/lib";
-import { SLabel } from "@glsp/sprotty-client/lib";
-import { SLabelView } from "@glsp/sprotty-client/lib";
-import { SRoutingHandle } from "@glsp/sprotty-client/lib";
-import { SRoutingHandleView } from "@glsp/sprotty-client/lib";
-import { TaskNode } from "./model";
-import { TaskNodeView } from "./workflow-views";
-import { TYPES } from "@glsp/sprotty-client/lib";
-import { WeightedEdge } from "./model";
-import { WeightedEdgeView } from "./workflow-views";
-import { WorkflowEdgeView } from "./workflow-views";
-import { WorkflowModelFactory } from "./model-factory";
-
-import { boundsModule } from "@glsp/sprotty-client/lib";
-import { buttonModule } from "@glsp/sprotty-client/lib";
-import { commandPaletteModule } from "@glsp/sprotty-client/lib";
-import { configureModelElement } from "@glsp/sprotty-client/lib";
-import { decorationModule } from "@glsp/sprotty-client/lib";
-import { defaultGLSPModule } from "@glsp/sprotty-client/lib";
-import { defaultModule } from "@glsp/sprotty-client/lib";
-import { edgeLayoutModule } from "@glsp/sprotty-client/lib";
-import { expandModule } from "@glsp/sprotty-client/lib";
-import { exportModule } from "@glsp/sprotty-client/lib";
-import { fadeModule } from "@glsp/sprotty-client/lib";
-import { glspCommandPaletteModule } from "@glsp/sprotty-client/lib";
-import { glspMouseToolModule } from "@glsp/sprotty-client/lib";
-import { glspSelectModule } from "@glsp/sprotty-client/lib";
-import { hoverModule } from "@glsp/sprotty-client/lib";
-import { layoutCommandsModule } from "@glsp/sprotty-client/lib";
-import { modelHintsModule } from "@glsp/sprotty-client/lib";
-import { modelSourceModule } from "@glsp/sprotty-client/lib";
-import { openModule } from "@glsp/sprotty-client/lib";
-import { overrideGLSPViewerOptions } from "@glsp/sprotty-client/lib";
-import { paletteModule } from "@glsp/sprotty-client/lib";
-import { requestResponseModule } from "@glsp/sprotty-client/lib";
-import { routingModule } from "@glsp/sprotty-client/lib";
-import { saveModule } from "@glsp/sprotty-client/lib";
-import { toolFeedbackModule } from "@glsp/sprotty-client/lib";
-import { validationModule } from "@glsp/sprotty-client/lib";
-import { viewportModule } from "@glsp/sprotty-client/lib";
-
+import {
+    boundsModule,
+    buttonModule,
+    commandPaletteModule,
+    configureModelElement,
+    ConsoleLogger,
+    decorationModule,
+    defaultGLSPModule,
+    defaultModule,
+    DiamondNodeView,
+    edgeLayoutModule,
+    ExpandButtonView,
+    expandModule,
+    exportModule,
+    fadeModule,
+    glspCommandPaletteModule,
+    GLSPGraph,
+    glspMouseToolModule,
+    glspSelectModule,
+    hoverModule,
+    HtmlRoot,
+    HtmlRootView,
+    layoutCommandsModule,
+    LogLevel,
+    modelHintsModule,
+    modelSourceModule,
+    openModule,
+    overrideGLSPViewerOptions,
+    paletteModule,
+    PreRenderedElement,
+    PreRenderedView,
+    RectangularNode,
+    RectangularNodeView,
+    requestResponseModule,
+    routingModule,
+    saveModule,
+    SButton,
+    SCompartment,
+    SCompartmentView,
+    SEdge,
+    SGraphView,
+    SLabel,
+    SLabelView,
+    SRoutingHandle,
+    SRoutingHandleView,
+    toolFeedbackModule,
+    TYPES,
+    validationModule,
+    viewportModule
+} from "@glsp/sprotty-client/lib";
 import executeCommandModule from "@glsp/sprotty-client/lib/features/execute/di.config";
+import { Container, ContainerModule } from "inversify";
+
+import { ActivityNode, Icon, TaskNode, WeightedEdge } from "./model";
+import { WorkflowModelFactory } from "./model-factory";
+import { IconView, TaskNodeView, WeightedEdgeView, WorkflowEdgeView } from "./workflow-views";
 
 
 const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
@@ -115,8 +109,6 @@ export default function createContainer(widgetId: string): Container {
         layoutCommandsModule);
 
     overrideGLSPViewerOptions(container, {
-        needsClientLayout: true,
-        needsServerLayout: false,
         baseDiv: widgetId,
         hiddenDiv: widgetId + "_hidden",
         noElementOverlap: true

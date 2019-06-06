@@ -63,8 +63,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
 
         this.actionDispatcher.dispatch(new RequestModelAction({
             sourceUri: this.options.uri,
-            diagramType: this.options.diagramType,
-            needsClientLayout: "" + this.viewerOptions.needsClientLayout
+            diagramType: this.options.diagramType
         }));
         this.actionDispatcher.dispatch(new RequestOperationsAction());
         this.actionDispatcher.dispatch(new RequestTypeHintsAction(this.options.diagramType));

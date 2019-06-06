@@ -59,6 +59,10 @@ export class GLSPWebsocketDiagramServer extends WebSocketDiagramServer {
     public getSourceURI(): string {
         return this._sourceUri;
     }
+
+    protected handleComputedBounds(action: ComputedBoundsAction): boolean {
+        return true;
+    }
 }
 
 export function registerDefaultGLSPServerActions(registry: ActionHandlerRegistry, diagramServer: DiagramServer) {

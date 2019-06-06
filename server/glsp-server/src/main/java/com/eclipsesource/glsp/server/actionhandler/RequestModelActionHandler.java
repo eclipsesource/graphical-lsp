@@ -18,6 +18,7 @@ package com.eclipsesource.glsp.server.actionhandler;
 import java.util.Optional;
 
 import com.eclipsesource.glsp.api.action.Action;
+import com.eclipsesource.glsp.api.action.kind.RequestBoundsAction;
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
@@ -30,9 +31,6 @@ public class RequestModelActionHandler extends AbstractActionHandler {
 
 	@Inject
 	private ModelFactory modelFactory;
-
-	@Inject
-	private ModelSubmissionHandler submissionHandler;
 
 	@Override
 	public Optional<Action> execute(String clientId, Action action) {
@@ -52,7 +50,7 @@ public class RequestModelActionHandler extends AbstractActionHandler {
 			GModelRoot model = modelFactory.loadModel(requestAction);
 			modelState.setRoot(model);
 			modelState.setClientOptions(options);
-			return submissionHandler.submit(false, modelState);
+			return Optional.of(new RequestBoundsAction(modelState.getRoot()));
 		}
 		return Optional.empty();
 	}
