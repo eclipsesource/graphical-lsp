@@ -15,12 +15,15 @@
  ********************************************************************************/
 import { inject, injectable, multiInject, optional } from "inversify";
 import {
+    Action,
     ActionHandlerRegistry,
     Command,
     CommandActionHandler,
     CommandExecutionContext,
     CommandResult,
     ILogger,
+    SetModelAction,
+    SetModelCommand,
     SModelRoot,
     TYPES
 } from "sprotty/lib";
@@ -29,7 +32,24 @@ import { IFeedbackActionDispatcher } from "src/features/tool-feedback/feedback-a
 
 import { FeedbackCommand } from "../../features/tool-feedback/model";
 import { GLSP_TYPES } from "../../types";
+import { SelfInitializingActionHandler } from "../tool-manager/tool-manager-action-handler";
 
+/* ActionHandler that transforms a SetModelAction into an (feedback-aware) UpdateModelAction. This can be done because in sprotty
+*  UpdateModel behaves the same as SetModel if no model is present yet.*/
+export class SetModelActionHandler extends SelfInitializingActionHandler {
+    handle(action: Action): Action | void {
+        if (isSetModelAction(action)) {
+            return new UpdateModelAction(action.newRoot, false);
+        }
+    }
+
+    handledActionKinds = [SetModelCommand.KIND];
+}
+
+export function isSetModelAction(action: Action): action is SetModelAction {
+    return action !== undefined && (action.kind === SetModelCommand.KIND)
+        && (<SetModelAction>action).newRoot !== undefined;
+}
 
 export interface SModelRootListener {
     modelRootChanged(root: Readonly<SModelRoot>): void

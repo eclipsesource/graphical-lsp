@@ -19,8 +19,6 @@ import java.util.Map;
 import java.util.Optional;
 
 public final class ClientOptions {
-
-	public static final String NEEDS_CLIENT_LAYOUT = "needsClientLayout";
 	public static final String DIAGRAM_TYPE = "diagramType";
 	public static final String SOURCE_URI = "sourceUri";
 
@@ -32,18 +30,12 @@ public final class ClientOptions {
 	}
 
 	public static class ParsedClientOptions {
-		boolean needsClientLayout;
 		Optional<String> diagramType;
 		Optional<String> sourceUri;
 
 		private ParsedClientOptions(Map<String, String> options) {
-			needsClientLayout = getBoolValue(options, NEEDS_CLIENT_LAYOUT);
 			sourceUri = getValue(options, SOURCE_URI);
 			diagramType = getValue(options, DIAGRAM_TYPE);
-		}
-
-		public boolean needsClientLayout() {
-			return needsClientLayout;
 		}
 
 		public Optional<String> getSourceUri() {

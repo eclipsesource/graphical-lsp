@@ -19,6 +19,7 @@ import java.util.Optional;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
+import com.eclipsesource.glsp.api.action.kind.RequestBoundsAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
@@ -28,8 +29,6 @@ import com.google.inject.Inject;
 public class OperationActionHandler extends AbstractActionHandler {
 	@Inject
 	private OperationHandlerProvider operationHandlerProvider;
-	@Inject
-	private ModelSubmissionHandler submissionHandler;
 
 	@Override
 	public boolean handles(Action action) {
@@ -56,7 +55,7 @@ public class OperationActionHandler extends AbstractActionHandler {
 			OperationHandler handler = operationHandlerProvider.getHandler(action).get();
 			Optional<GModelRoot> modelRoot = handler.execute(action, modelState);
 			if (modelRoot.isPresent()) {
-				return submissionHandler.submit(true, modelState);
+				return Optional.of(new RequestBoundsAction(modelState.getRoot()));
 			}
 		}
 		return Optional.empty();
