@@ -43,11 +43,12 @@ public class GModelIndexImpl extends ECrossReferenceAdapter implements GModelInd
 
 	private final Map<String, GModelElement> idToElement = new HashMap<>();
 	private final Map<EClass, Set<GModelElement>> typeToElements = new HashMap<>();
+	private GModelElement root;
 
 	public GModelIndexImpl(EObject target) {
 		Preconditions.checkArgument(target instanceof GModelElement);
+		this.root = (GModelElement) target;
 		target.eAdapters().add(this);
-		setTarget(target);
 		addIfGModelElement(target);
 	}
 
@@ -134,7 +135,7 @@ public class GModelIndexImpl extends ECrossReferenceAdapter implements GModelInd
 
 	@Override
 	public GModelElement getRoot() {
-		return (GModelElement) this.getTarget();
+		return root;
 	}
 
 }
