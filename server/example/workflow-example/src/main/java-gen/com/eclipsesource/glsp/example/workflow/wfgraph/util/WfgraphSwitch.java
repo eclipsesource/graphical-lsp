@@ -17,12 +17,10 @@ package com.eclipsesource.glsp.example.workflow.wfgraph.util;
 
 import com.eclipsesource.glsp.example.workflow.wfgraph.*;
 
-import com.eclipsesource.glsp.graph.GAlignable;
 import com.eclipsesource.glsp.graph.GBoundsAware;
 import com.eclipsesource.glsp.graph.GCompartment;
 import com.eclipsesource.glsp.graph.GEdge;
 import com.eclipsesource.glsp.graph.GEdgeLayoutable;
-import com.eclipsesource.glsp.graph.GLabel;
 import com.eclipsesource.glsp.graph.GLayouting;
 import com.eclipsesource.glsp.graph.GModelElement;
 import com.eclipsesource.glsp.graph.GNode;
@@ -109,48 +107,6 @@ public class WfgraphSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case WfgraphPackage.DECISION_NODE: {
-			DecisionNode decisionNode = (DecisionNode) theEObject;
-			T result = caseDecisionNode(decisionNode);
-			if (result == null)
-				result = caseActivityNode(decisionNode);
-			if (result == null)
-				result = caseGNode(decisionNode);
-			if (result == null)
-				result = caseGShapeElement(decisionNode);
-			if (result == null)
-				result = caseGEdgeLayoutable(decisionNode);
-			if (result == null)
-				result = caseGLayouting(decisionNode);
-			if (result == null)
-				result = caseGModelElement(decisionNode);
-			if (result == null)
-				result = caseGBoundsAware(decisionNode);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case WfgraphPackage.MERGE_NODE: {
-			MergeNode mergeNode = (MergeNode) theEObject;
-			T result = caseMergeNode(mergeNode);
-			if (result == null)
-				result = caseActivityNode(mergeNode);
-			if (result == null)
-				result = caseGNode(mergeNode);
-			if (result == null)
-				result = caseGShapeElement(mergeNode);
-			if (result == null)
-				result = caseGEdgeLayoutable(mergeNode);
-			if (result == null)
-				result = caseGLayouting(mergeNode);
-			if (result == null)
-				result = caseGModelElement(mergeNode);
-			if (result == null)
-				result = caseGBoundsAware(mergeNode);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case WfgraphPackage.TASK_NODE: {
 			TaskNode taskNode = (TaskNode) theEObject;
 			T result = caseTaskNode(taskNode);
@@ -166,48 +122,6 @@ public class WfgraphSwitch<T> extends Switch<T> {
 				result = caseGModelElement(taskNode);
 			if (result == null)
 				result = caseGBoundsAware(taskNode);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case WfgraphPackage.AUTOMATED_TASK: {
-			AutomatedTask automatedTask = (AutomatedTask) theEObject;
-			T result = caseAutomatedTask(automatedTask);
-			if (result == null)
-				result = caseTaskNode(automatedTask);
-			if (result == null)
-				result = caseGNode(automatedTask);
-			if (result == null)
-				result = caseGShapeElement(automatedTask);
-			if (result == null)
-				result = caseGEdgeLayoutable(automatedTask);
-			if (result == null)
-				result = caseGLayouting(automatedTask);
-			if (result == null)
-				result = caseGModelElement(automatedTask);
-			if (result == null)
-				result = caseGBoundsAware(automatedTask);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case WfgraphPackage.MANUAL_TASK: {
-			ManualTask manualTask = (ManualTask) theEObject;
-			T result = caseManualTask(manualTask);
-			if (result == null)
-				result = caseTaskNode(manualTask);
-			if (result == null)
-				result = caseGNode(manualTask);
-			if (result == null)
-				result = caseGShapeElement(manualTask);
-			if (result == null)
-				result = caseGEdgeLayoutable(manualTask);
-			if (result == null)
-				result = caseGLayouting(manualTask);
-			if (result == null)
-				result = caseGModelElement(manualTask);
-			if (result == null)
-				result = caseGBoundsAware(manualTask);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -240,63 +154,6 @@ public class WfgraphSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case WfgraphPackage.LABEL_HEADING: {
-			LabelHeading labelHeading = (LabelHeading) theEObject;
-			T result = caseLabelHeading(labelHeading);
-			if (result == null)
-				result = caseGLabel(labelHeading);
-			if (result == null)
-				result = caseGAlignable(labelHeading);
-			if (result == null)
-				result = caseGEdgeLayoutable(labelHeading);
-			if (result == null)
-				result = caseGShapeElement(labelHeading);
-			if (result == null)
-				result = caseGModelElement(labelHeading);
-			if (result == null)
-				result = caseGBoundsAware(labelHeading);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case WfgraphPackage.LABEL_TEXT: {
-			LabelText labelText = (LabelText) theEObject;
-			T result = caseLabelText(labelText);
-			if (result == null)
-				result = caseGLabel(labelText);
-			if (result == null)
-				result = caseGAlignable(labelText);
-			if (result == null)
-				result = caseGEdgeLayoutable(labelText);
-			if (result == null)
-				result = caseGShapeElement(labelText);
-			if (result == null)
-				result = caseGModelElement(labelText);
-			if (result == null)
-				result = caseGBoundsAware(labelText);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case WfgraphPackage.LABEL_ICON: {
-			LabelIcon labelIcon = (LabelIcon) theEObject;
-			T result = caseLabelIcon(labelIcon);
-			if (result == null)
-				result = caseGLabel(labelIcon);
-			if (result == null)
-				result = caseGAlignable(labelIcon);
-			if (result == null)
-				result = caseGEdgeLayoutable(labelIcon);
-			if (result == null)
-				result = caseGShapeElement(labelIcon);
-			if (result == null)
-				result = caseGModelElement(labelIcon);
-			if (result == null)
-				result = caseGBoundsAware(labelIcon);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -318,36 +175,6 @@ public class WfgraphSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Decision Node</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Decision Node</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseDecisionNode(DecisionNode object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Merge Node</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Merge Node</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseMergeNode(MergeNode object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Task Node</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -359,36 +186,6 @@ public class WfgraphSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseTaskNode(TaskNode object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Automated Task</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Automated Task</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseAutomatedTask(AutomatedTask object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Manual Task</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Manual Task</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseManualTask(ManualTask object) {
 		return null;
 	}
 
@@ -419,51 +216,6 @@ public class WfgraphSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseWeightedEdge(WeightedEdge object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Label Heading</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Label Heading</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseLabelHeading(LabelHeading object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Label Text</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Label Text</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseLabelText(LabelText object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Label Icon</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Label Icon</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseLabelIcon(LabelIcon object) {
 		return null;
 	}
 
@@ -584,36 +336,6 @@ public class WfgraphSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseGEdge(GEdge object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>GAlignable</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>GAlignable</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseGAlignable(GAlignable object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>GLabel</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>GLabel</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseGLabel(GLabel object) {
 		return null;
 	}
 

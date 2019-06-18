@@ -15,6 +15,11 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.graph;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.eclipse.emf.ecore.EClass;
+
 public final class DefaultTypes {
 
 	private DefaultTypes() {
@@ -32,4 +37,16 @@ public final class DefaultTypes {
 	public static final String HTML = "html";
 	public static final String PRE_RENDERED = "pre-rendered";
 
+	public static Map<String, EClass> getDefaultTypeMappings() {
+		Map<String, EClass> mapping = new HashMap<>();
+		mapping.put(GRAPH, GraphPackage.Literals.GGRAPH);
+		mapping.put(NODE, GraphPackage.Literals.GNODE);
+		mapping.put(EDGE, GraphPackage.Literals.GEDGE);
+		mapping.put(PORT, GraphPackage.Literals.GPORT);
+		mapping.put(LABEL, GraphPackage.Literals.GLABEL);
+		mapping.put(COMPARTMENT, GraphPackage.Literals.GCOMPARTMENT);
+		mapping.put(BUTTON, GraphPackage.Literals.GBUTTON);
+		mapping.put(ISSUE_MARKER, GraphPackage.Literals.GISSUE_MARKER);
+		return mapping;
+	}
 }

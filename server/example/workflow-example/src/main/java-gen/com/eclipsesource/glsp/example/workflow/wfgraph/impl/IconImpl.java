@@ -17,9 +17,13 @@ package com.eclipsesource.glsp.example.workflow.wfgraph.impl;
 
 import com.eclipsesource.glsp.example.workflow.wfgraph.Icon;
 import com.eclipsesource.glsp.example.workflow.wfgraph.WfgraphPackage;
+
 import com.eclipsesource.glsp.graph.impl.GCompartmentImpl;
+
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.ecore.EClass;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**

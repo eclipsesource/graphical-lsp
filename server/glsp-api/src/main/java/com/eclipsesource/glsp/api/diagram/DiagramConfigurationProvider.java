@@ -16,7 +16,11 @@
 package com.eclipsesource.glsp.api.diagram;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+
+import org.eclipse.emf.ecore.EClass;
 
 public interface DiagramConfigurationProvider {
 
@@ -40,4 +44,9 @@ public interface DiagramConfigurationProvider {
 		return Optional.empty();
 	}
 
+	default Map<String, EClass> getCollectiveTypeMappings() {
+		Map<String, EClass> collectiveTypeMappings = new HashMap<>();
+		getAll().stream().map(DiagramConfiguration::getTypeMappings).forEach(collectiveTypeMappings::putAll);
+		return collectiveTypeMappings;
+	}
 }

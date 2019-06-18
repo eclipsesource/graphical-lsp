@@ -13,22 +13,9 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.example.workflow;
-
-import static com.eclipsesource.glsp.graph.DefaultTypes.EDGE;
-import static com.eclipsesource.glsp.graph.DefaultTypes.GRAPH;
-
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.eclipse.emf.ecore.EClass;
-
-import com.eclipsesource.glsp.example.workflow.wfgraph.WfgraphPackage;
-import com.eclipsesource.glsp.graph.GraphPackage;
+package com.eclipsesource.glsp.example.workflow.utils;
 
 public final class ModelTypes {
-
 	private ModelTypes() {
 	}
 
@@ -42,22 +29,4 @@ public final class ModelTypes {
 	public static final String MERGE_NODE = "activityNode:merge";
 	public static final String MANUAL_TASK = "task:manual";
 	public static final String AUTOMATED_TASK = "task:automated";
-
-	public static final Map<String, EClass> TYPE_MAP;
-	static {
-		Map<String, EClass> map = new HashMap<>();
-		map.put(GRAPH, GraphPackage.Literals.GGRAPH);
-		map.put(EDGE, GraphPackage.Literals.GEDGE);
-		map.put(LABEL_HEADING, WfgraphPackage.Literals.LABEL_HEADING);
-		map.put(LABEL_TEXT, WfgraphPackage.Literals.LABEL_TEXT);
-		map.put(LABEL_ICON, WfgraphPackage.Literals.LABEL_ICON);
-		map.put(WEIGHTED_EDGE, WfgraphPackage.Literals.WEIGHTED_EDGE);
-		map.put(ICON, WfgraphPackage.Literals.ICON);
-		map.put(DECISION_NODE, WfgraphPackage.Literals.DECISION_NODE);
-		map.put(MERGE_NODE, WfgraphPackage.Literals.MERGE_NODE);
-		map.put(MANUAL_TASK, WfgraphPackage.Literals.MANUAL_TASK);
-		map.put(AUTOMATED_TASK, WfgraphPackage.Literals.AUTOMATED_TASK);
-		map.put(COMP_HEADER, GraphPackage.Literals.GCOMPARTMENT);
-		TYPE_MAP = Collections.unmodifiableMap(map);
-	}
 }

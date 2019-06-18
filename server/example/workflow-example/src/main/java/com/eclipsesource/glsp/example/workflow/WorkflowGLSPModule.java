@@ -20,7 +20,6 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import com.eclipsesource.glsp.api.diagram.DiagramConfiguration;
-import com.eclipsesource.glsp.api.factory.GraphGsonConfiguratorFactory;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
@@ -40,17 +39,13 @@ import com.eclipsesource.glsp.example.workflow.handler.ReconnectEdgeHandler;
 import com.eclipsesource.glsp.example.workflow.handler.RerouteEdgeHandler;
 import com.eclipsesource.glsp.example.workflow.handler.SimulateCommandHandler;
 import com.eclipsesource.glsp.example.workflow.marker.WorkflowModelValidator;
+import com.eclipsesource.glsp.graph.GraphExtension;
 import com.eclipsesource.glsp.server.di.DefaultGLSPModule;
 import com.eclipsesource.glsp.server.operationhandler.ChangeBoundsOperationHandler;
 import com.eclipsesource.glsp.server.operationhandler.DeleteOperationHandler;
 
 @SuppressWarnings("serial")
 public class WorkflowGLSPModule extends DefaultGLSPModule {
-
-	@Override
-	protected Class<? extends GraphGsonConfiguratorFactory> bindGraphGsonConfiguratorFactory() {
-		return WorkflowGsonConfiguratorFactory.class;
-	}
 
 	@Override
 	public Class<? extends PopupModelFactory> bindPopupModelFactory() {
@@ -109,5 +104,10 @@ public class WorkflowGLSPModule extends DefaultGLSPModule {
 	@Override
 	protected Collection<Class<? extends DiagramConfiguration>> bindDiagramConfigurations() {
 		return Arrays.asList(WorfklowDiagramConfiguration.class);
+	}
+
+	@Override
+	protected Class<? extends GraphExtension> bindGraphExtension() {
+		return WFGraphExtension.class;
 	}
 }

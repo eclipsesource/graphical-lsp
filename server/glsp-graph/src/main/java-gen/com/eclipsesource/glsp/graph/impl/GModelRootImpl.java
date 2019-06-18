@@ -51,6 +51,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GModelRootImpl#getChildren <em>Children</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GModelRootImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GModelRootImpl#getTrace <em>Trace</em>}</li>
+ *   <li>{@link com.eclipsesource.glsp.graph.impl.GModelRootImpl#getType <em>Type</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GModelRootImpl#getCanvasBounds <em>Canvas Bounds</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GModelRootImpl#getRevision <em>Revision</em>}</li>
  * </ul>
@@ -117,6 +118,26 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 	 * @ordered
 	 */
 	protected String trace = TRACE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TYPE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected String type = TYPE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getCanvasBounds() <em>Canvas Bounds</em>}' containment reference.
@@ -293,6 +314,29 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 	 * @generated
 	 */
 	@Override
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setType(String newType) {
+		String oldType = type;
+		type = newType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GMODEL_ROOT__TYPE, oldType, type));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public GBounds getCanvasBounds() {
 		return canvasBounds;
 	}
@@ -433,6 +477,8 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 			return getParent();
 		case GraphPackage.GMODEL_ROOT__TRACE:
 			return getTrace();
+		case GraphPackage.GMODEL_ROOT__TYPE:
+			return getType();
 		case GraphPackage.GMODEL_ROOT__CANVAS_BOUNDS:
 			return getCanvasBounds();
 		case GraphPackage.GMODEL_ROOT__REVISION:
@@ -467,6 +513,9 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 		case GraphPackage.GMODEL_ROOT__TRACE:
 			setTrace((String) newValue);
 			return;
+		case GraphPackage.GMODEL_ROOT__TYPE:
+			setType((String) newValue);
+			return;
 		case GraphPackage.GMODEL_ROOT__CANVAS_BOUNDS:
 			setCanvasBounds((GBounds) newValue);
 			return;
@@ -500,6 +549,9 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 		case GraphPackage.GMODEL_ROOT__TRACE:
 			setTrace(TRACE_EDEFAULT);
 			return;
+		case GraphPackage.GMODEL_ROOT__TYPE:
+			setType(TYPE_EDEFAULT);
+			return;
 		case GraphPackage.GMODEL_ROOT__CANVAS_BOUNDS:
 			setCanvasBounds((GBounds) null);
 			return;
@@ -528,6 +580,8 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 			return getParent() != null;
 		case GraphPackage.GMODEL_ROOT__TRACE:
 			return TRACE_EDEFAULT == null ? trace != null : !TRACE_EDEFAULT.equals(trace);
+		case GraphPackage.GMODEL_ROOT__TYPE:
+			return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
 		case GraphPackage.GMODEL_ROOT__CANVAS_BOUNDS:
 			return canvasBounds != null;
 		case GraphPackage.GMODEL_ROOT__REVISION:
@@ -553,6 +607,8 @@ public class GModelRootImpl extends MinimalEObjectImpl.Container implements GMod
 		result.append(cssClasses);
 		result.append(", trace: ");
 		result.append(trace);
+		result.append(", type: ");
+		result.append(type);
 		result.append(", revision: ");
 		result.append(revision);
 		result.append(')');

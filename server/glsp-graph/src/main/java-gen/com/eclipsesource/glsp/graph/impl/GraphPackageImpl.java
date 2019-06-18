@@ -347,6 +347,16 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 	 * @generated
 	 */
 	@Override
+	public EAttribute getGModelElement_Type() {
+		return (EAttribute) gModelElementEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getGShapeElement() {
 		return gShapeElementEClass;
 	}
@@ -1017,6 +1027,7 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 		createEReference(gModelElementEClass, GMODEL_ELEMENT__CHILDREN);
 		createEReference(gModelElementEClass, GMODEL_ELEMENT__PARENT);
 		createEAttribute(gModelElementEClass, GMODEL_ELEMENT__TRACE);
+		createEAttribute(gModelElementEClass, GMODEL_ELEMENT__TYPE);
 
 		gShapeElementEClass = createEClass(GSHAPE_ELEMENT);
 
@@ -1167,6 +1178,8 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 				null, 0, 1, GModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGModelElement_Trace(), ecorePackage.getEString(), "trace", null, 0, 1, GModelElement.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGModelElement_Type(), ecorePackage.getEString(), "type", null, 0, 1, GModelElement.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(gShapeElementEClass, GShapeElement.class, "GShapeElement", IS_ABSTRACT, IS_INTERFACE,

@@ -32,6 +32,7 @@ import com.eclipsesource.glsp.api.provider.ActionProvider;
 import com.eclipsesource.glsp.api.provider.CommandPaletteActionProvider;
 import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
 import com.eclipsesource.glsp.api.provider.ServerCommandHandlerProvider;
+import com.eclipsesource.glsp.graph.GraphExtension;
 import com.google.inject.AbstractModule;
 
 public abstract class GLSPModule extends AbstractModule {
@@ -55,6 +56,7 @@ public abstract class GLSPModule extends AbstractModule {
 		bind(DiagramConfigurationProvider.class).to(bindDiagramConfigurationProvider());
 		bind(ModelStateProvider.class).to(bindModelStateProvider());
 		bind(GraphGsonConfiguratorFactory.class).to(bindGraphGsonConfiguratorFactory());
+		bind(GraphExtension.class).to(bindGraphExtension());
 	}
 
 	protected abstract Class<? extends ModelStateProvider> bindModelStateProvider();
@@ -115,5 +117,9 @@ public abstract class GLSPModule extends AbstractModule {
 
 	protected Class<? extends ActionDispatcher> bindActionDispatcher() {
 		return ActionDispatcher.NullImpl.class;
+	}
+	
+	protected  Class<? extends GraphExtension> bindGraphExtension(){
+		return null;
 	}
 }

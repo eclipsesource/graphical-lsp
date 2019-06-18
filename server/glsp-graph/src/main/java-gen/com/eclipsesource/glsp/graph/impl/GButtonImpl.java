@@ -53,6 +53,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GButtonImpl#getChildren <em>Children</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GButtonImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GButtonImpl#getTrace <em>Trace</em>}</li>
+ *   <li>{@link com.eclipsesource.glsp.graph.impl.GButtonImpl#getType <em>Type</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GButtonImpl#getPosition <em>Position</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GButtonImpl#getSize <em>Size</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GButtonImpl#isEnabled <em>Enabled</em>}</li>
@@ -120,6 +121,26 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 	 * @ordered
 	 */
 	protected String trace = TRACE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TYPE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected String type = TYPE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getPosition() <em>Position</em>}' containment reference.
@@ -297,6 +318,29 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 		trace = newTrace;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GBUTTON__TRACE, oldTrace, trace));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setType(String newType) {
+		String oldType = type;
+		type = newType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GBUTTON__TYPE, oldType, type));
 	}
 
 	/**
@@ -497,6 +541,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 			return getParent();
 		case GraphPackage.GBUTTON__TRACE:
 			return getTrace();
+		case GraphPackage.GBUTTON__TYPE:
+			return getType();
 		case GraphPackage.GBUTTON__POSITION:
 			return getPosition();
 		case GraphPackage.GBUTTON__SIZE:
@@ -532,6 +578,9 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 			return;
 		case GraphPackage.GBUTTON__TRACE:
 			setTrace((String) newValue);
+			return;
+		case GraphPackage.GBUTTON__TYPE:
+			setType((String) newValue);
 			return;
 		case GraphPackage.GBUTTON__POSITION:
 			setPosition((GPoint) newValue);
@@ -569,6 +618,9 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 		case GraphPackage.GBUTTON__TRACE:
 			setTrace(TRACE_EDEFAULT);
 			return;
+		case GraphPackage.GBUTTON__TYPE:
+			setType(TYPE_EDEFAULT);
+			return;
 		case GraphPackage.GBUTTON__POSITION:
 			setPosition((GPoint) null);
 			return;
@@ -600,6 +652,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 			return getParent() != null;
 		case GraphPackage.GBUTTON__TRACE:
 			return TRACE_EDEFAULT == null ? trace != null : !TRACE_EDEFAULT.equals(trace);
+		case GraphPackage.GBUTTON__TYPE:
+			return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
 		case GraphPackage.GBUTTON__POSITION:
 			return position != null;
 		case GraphPackage.GBUTTON__SIZE:
@@ -667,6 +721,8 @@ public class GButtonImpl extends MinimalEObjectImpl.Container implements GButton
 		result.append(cssClasses);
 		result.append(", trace: ");
 		result.append(trace);
+		result.append(", type: ");
+		result.append(type);
 		result.append(", enabled: ");
 		result.append(enabled);
 		result.append(')');

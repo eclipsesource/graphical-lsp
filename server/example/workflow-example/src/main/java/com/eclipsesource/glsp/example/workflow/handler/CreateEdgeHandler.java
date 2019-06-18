@@ -35,6 +35,7 @@ public class CreateEdgeHandler extends CreateConnectionOperationHandler {
 	protected Optional<GEdge> createConnection(GModelElement source, GModelElement target,
 			GraphicalModelState modelState) {
 		GEdge edge = GraphFactory.eINSTANCE.createGEdge();
+		edge.setType(elementTypeId);
 		edge.setSourceId(source.getId());
 		edge.setTargetId(target.getId());
 		GModelUtil.generateId(edge, "edge", modelState);

@@ -39,7 +39,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public abstract class ActivityNodeImpl extends GNodeImpl implements ActivityNode {
+public class ActivityNodeImpl extends GNodeImpl implements ActivityNode {
 	/**
 	 * The default value of the '{@link #getNodeType() <em>Node Type</em>}' attribute.
 	 * <!-- begin-user-doc -->

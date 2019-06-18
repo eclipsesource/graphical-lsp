@@ -17,22 +17,33 @@ package com.eclipsesource.glsp.example.workflow;
 
 import static com.eclipsesource.glsp.api.operations.Operation.Kind.CREATE_CONNECTION;
 import static com.eclipsesource.glsp.api.operations.Operation.Kind.CREATE_NODE;
-import static com.eclipsesource.glsp.example.workflow.ModelTypes.AUTOMATED_TASK;
-import static com.eclipsesource.glsp.example.workflow.ModelTypes.DECISION_NODE;
-import static com.eclipsesource.glsp.example.workflow.ModelTypes.MANUAL_TASK;
-import static com.eclipsesource.glsp.example.workflow.ModelTypes.MERGE_NODE;
-import static com.eclipsesource.glsp.example.workflow.ModelTypes.WEIGHTED_EDGE;
+import static com.eclipsesource.glsp.example.workflow.utils.ModelTypes.AUTOMATED_TASK;
+import static com.eclipsesource.glsp.example.workflow.utils.ModelTypes.COMP_HEADER;
+import static com.eclipsesource.glsp.example.workflow.utils.ModelTypes.DECISION_NODE;
+import static com.eclipsesource.glsp.example.workflow.utils.ModelTypes.ICON;
+import static com.eclipsesource.glsp.example.workflow.utils.ModelTypes.LABEL_HEADING;
+import static com.eclipsesource.glsp.example.workflow.utils.ModelTypes.LABEL_ICON;
+import static com.eclipsesource.glsp.example.workflow.utils.ModelTypes.LABEL_TEXT;
+import static com.eclipsesource.glsp.example.workflow.utils.ModelTypes.MANUAL_TASK;
+import static com.eclipsesource.glsp.example.workflow.utils.ModelTypes.MERGE_NODE;
+import static com.eclipsesource.glsp.example.workflow.utils.ModelTypes.WEIGHTED_EDGE;
 import static com.eclipsesource.glsp.graph.DefaultTypes.EDGE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+
+import org.eclipse.emf.ecore.EClass;
 
 import com.eclipsesource.glsp.api.diagram.DiagramConfiguration;
 import com.eclipsesource.glsp.api.operations.Group;
 import com.eclipsesource.glsp.api.operations.Operation;
 import com.eclipsesource.glsp.api.types.EdgeTypeHint;
 import com.eclipsesource.glsp.api.types.NodeTypeHint;
+import com.eclipsesource.glsp.example.workflow.wfgraph.WfgraphPackage;
+import com.eclipsesource.glsp.graph.DefaultTypes;
+import com.eclipsesource.glsp.graph.GraphPackage;
 
 public class WorfklowDiagramConfiguration implements DiagramConfiguration {
 
@@ -49,6 +60,23 @@ public class WorfklowDiagramConfiguration implements DiagramConfiguration {
 		nodeHints.add(createDefaultNodeTypeHint(MANUAL_TASK));
 		nodeHints.add(createDefaultNodeTypeHint(AUTOMATED_TASK));
 		return nodeHints;
+	}
+
+	@Override
+	public Map<String, EClass> getTypeMappings() {
+		Map<String, EClass> mappings = DefaultTypes.getDefaultTypeMappings();
+
+		mappings.put(LABEL_HEADING, GraphPackage.Literals.GLABEL);
+		mappings.put(LABEL_TEXT, GraphPackage.Literals.GLABEL);
+		mappings.put(COMP_HEADER, GraphPackage.Literals.GCOMPARTMENT);
+		mappings.put(LABEL_ICON, GraphPackage.Literals.GLABEL);
+		mappings.put(WEIGHTED_EDGE, GraphPackage.Literals.GEDGE);
+		mappings.put(ICON, WfgraphPackage.Literals.ICON);
+		mappings.put(MERGE_NODE, WfgraphPackage.Literals.ACTIVITY_NODE);
+		mappings.put(DECISION_NODE, WfgraphPackage.Literals.ACTIVITY_NODE);
+		mappings.put(MANUAL_TASK, WfgraphPackage.Literals.TASK_NODE);
+		mappings.put(AUTOMATED_TASK, WfgraphPackage.Literals.TASK_NODE);
+		return mappings;
 	}
 
 	@Override
@@ -80,5 +108,4 @@ public class WorfklowDiagramConfiguration implements DiagramConfiguration {
 		return Arrays.asList(createAutomatedTask, createManualTask, createDecisionNode, createMergeNode,
 				createWeightedEdge, createEdge);
 	}
-
 }

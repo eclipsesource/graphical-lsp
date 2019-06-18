@@ -19,7 +19,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.example.workflow.ModelTypes;
+import com.eclipsesource.glsp.example.workflow.utils.ModelTypes;
 import com.eclipsesource.glsp.example.workflow.wfgraph.Icon;
 import com.eclipsesource.glsp.example.workflow.wfgraph.TaskNode;
 import com.eclipsesource.glsp.example.workflow.wfgraph.WfgraphFactory;
@@ -37,6 +37,7 @@ public abstract class CreateTaskHandler extends CreateNodeOperationHandler {
 	private String taskType;
 	private Function<Integer, String> labelProvider;
 
+
 	public CreateTaskHandler(String elementTypeId, String taskType, Function<Integer, String> labelProvider) {
 		super(elementTypeId);
 		this.taskType = taskType;
@@ -45,7 +46,8 @@ public abstract class CreateTaskHandler extends CreateNodeOperationHandler {
 
 	@Override
 	protected GNode createNode(Optional<GPoint> point, GraphicalModelState modelState) {
-		TaskNode taskNode = (TaskNode) WfgraphFactory.eINSTANCE.create(ModelTypes.TYPE_MAP.get(elementTypeId));
+		TaskNode taskNode = (TaskNode) WfgraphFactory.eINSTANCE.createTaskNode();
+		taskNode.setType(elementTypeId);
 		int nodeCounter = GModelUtil.generateId(taskNode, "task", modelState);
 		taskNode.setName(labelProvider.apply(nodeCounter));
 		taskNode.setDuration(0);
@@ -58,9 +60,11 @@ public abstract class CreateTaskHandler extends CreateNodeOperationHandler {
 		taskNode.setLayout("vbox");
 
 		GCompartment compHeader = GraphFactory.eINSTANCE.createGCompartment();
+		compHeader.setType(ModelTypes.COMP_HEADER);
 		compHeader.setId(taskNode.getId() + "_header");
 		compHeader.setLayout("hbox");
 		Icon icon = WfgraphFactory.eINSTANCE.createIcon();
+		icon.setType(ModelTypes.ICON);
 		icon.setId(taskNode.getId() + "_icon");
 		icon.setLayout("stack");
 		icon.setCommandId(SimulateCommandHandler.SIMULATE_COMMAND_ID);
@@ -68,12 +72,14 @@ public abstract class CreateTaskHandler extends CreateNodeOperationHandler {
 		layoutOptions.setHAlign("center");
 		layoutOptions.setResizeContainer(false);
 		icon.setLayoutOptions(layoutOptions);
-		GLabel iconLabel = WfgraphFactory.eINSTANCE.createLabelIcon();
+		GLabel iconLabel = GraphFactory.eINSTANCE.createGLabel();
+		iconLabel.setType(ModelTypes.LABEL_ICON);;
 		iconLabel.setId(taskNode.getId() + "_ticon");
 		iconLabel.setText("" + taskNode.getTaskType().toUpperCase().charAt(0));
 		icon.getChildren().add(iconLabel);
 
-		GLabel heading = WfgraphFactory.eINSTANCE.createLabelHeading();
+		GLabel heading = GraphFactory.eINSTANCE.createGLabel();
+		heading.setType(ModelTypes.LABEL_HEADING);
 		heading.setId("task" + nodeCounter + "_classname");
 		heading.setText(labelProvider.apply(nodeCounter));
 		compHeader.getChildren().add(icon);
