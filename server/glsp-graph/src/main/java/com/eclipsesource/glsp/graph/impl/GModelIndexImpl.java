@@ -73,11 +73,19 @@ public class GModelIndexImpl extends ECrossReferenceAdapter implements GModelInd
 	}
 
 	protected void notifyAdd(GModelElement element) {
-		idToElement.put(element.getId(), element);
+		if (idToElement.put(element.getId(), element) == null) {
+			for (GModelElement child : element.getChildren()) {
+				notifyAdd(child);
+			}
+		}
 	}
 
 	protected void notifyRemove(GModelElement element) {
-		idToElement.remove(element.getId());
+		if (idToElement.remove(element.getId()) != null) {
+			for (GModelElement child : element.getChildren()) {
+				notifyRemove(child);
+			}
+		}
 	}
 
 	@Override
