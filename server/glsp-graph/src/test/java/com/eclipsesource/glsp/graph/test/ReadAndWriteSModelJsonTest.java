@@ -62,7 +62,7 @@ class ReadAndWriteSModelJsonTest {
 		customTypes.put("myedge", GEDGE);
 		gsonConfigurator.withTypes(customTypes);
 
-		GGraph graph = (GGraph) loadResource("graphWithCustomTypeMap.graph");
+		GGraph graph = loadResource("graphWithCustomTypeMap.graph");
 		assertTrue(graph.getChildren().get(0) instanceof GNode);
 		assertTrue(graph.getChildren().get(1) instanceof GEdge);
 	}
@@ -93,16 +93,19 @@ class ReadAndWriteSModelJsonTest {
 	@Test
 	void testWritingGraphWithTwoNodesAndOneEdge() {
 		GGraph graph = GraphFactory.eINSTANCE.createGGraph();
+		graph.setType("graph");
 		graph.setRevision(42);
 		graph.setId("graphId");
 
 		GNode node1 = GraphFactory.eINSTANCE.createGNode();
 		node1.setId("node1");
+		node1.setType("node");
 		node1.setPosition(GraphFactory.eINSTANCE.createGPoint());
 		node1.getPosition().setX(10.0);
 		node1.getPosition().setY(20.0);
 
 		GNode node2 = GraphFactory.eINSTANCE.createGNode();
+		node2.setType("node");
 		node2.setId("node2");
 		node2.setPosition(GraphFactory.eINSTANCE.createGPoint());
 		node2.getPosition().setX(30.0);
@@ -110,6 +113,7 @@ class ReadAndWriteSModelJsonTest {
 
 		GEdge edge = GraphFactory.eINSTANCE.createGEdge();
 		edge.setId("edge12");
+		edge.setType("edge");
 		edge.setSourceId(node1.getId());
 		edge.setTargetId(node2.getId());
 
