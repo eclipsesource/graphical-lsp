@@ -11,6 +11,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//GModelElement"
         eOpposite="#//GModelElement/children"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="trace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GShapeElement" abstract="true" interface="true"
       eSuperTypes="#//GModelElement #//GBoundsAware"/>

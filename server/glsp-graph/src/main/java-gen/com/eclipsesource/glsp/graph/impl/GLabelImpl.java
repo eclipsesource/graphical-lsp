@@ -56,6 +56,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GLabelImpl#getChildren <em>Children</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GLabelImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GLabelImpl#getTrace <em>Trace</em>}</li>
+ *   <li>{@link com.eclipsesource.glsp.graph.impl.GLabelImpl#getType <em>Type</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GLabelImpl#getPosition <em>Position</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GLabelImpl#getSize <em>Size</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GLabelImpl#getText <em>Text</em>}</li>
@@ -133,6 +134,26 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	 * @ordered
 	 */
 	protected String trace = TRACE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TYPE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected String type = TYPE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getPosition() <em>Position</em>}' containment reference.
@@ -370,6 +391,29 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 	 * @generated
 	 */
 	@Override
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setType(String newType) {
+		String oldType = type;
+		type = newType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GLABEL__TYPE, oldType, type));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public GPoint getPosition() {
 		return position;
 	}
@@ -566,6 +610,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 			return getParent();
 		case GraphPackage.GLABEL__TRACE:
 			return getTrace();
+		case GraphPackage.GLABEL__TYPE:
+			return getType();
 		case GraphPackage.GLABEL__POSITION:
 			return getPosition();
 		case GraphPackage.GLABEL__SIZE:
@@ -604,6 +650,9 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 			return;
 		case GraphPackage.GLABEL__TRACE:
 			setTrace((String) newValue);
+			return;
+		case GraphPackage.GLABEL__TYPE:
+			setType((String) newValue);
 			return;
 		case GraphPackage.GLABEL__POSITION:
 			setPosition((GPoint) newValue);
@@ -644,6 +693,9 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 		case GraphPackage.GLABEL__TRACE:
 			setTrace(TRACE_EDEFAULT);
 			return;
+		case GraphPackage.GLABEL__TYPE:
+			setType(TYPE_EDEFAULT);
+			return;
 		case GraphPackage.GLABEL__POSITION:
 			setPosition((GPoint) null);
 			return;
@@ -677,6 +729,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 			return getParent() != null;
 		case GraphPackage.GLABEL__TRACE:
 			return TRACE_EDEFAULT == null ? trace != null : !TRACE_EDEFAULT.equals(trace);
+		case GraphPackage.GLABEL__TYPE:
+			return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
 		case GraphPackage.GLABEL__POSITION:
 			return position != null;
 		case GraphPackage.GLABEL__SIZE:
@@ -714,6 +768,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 				return GraphPackage.GMODEL_ELEMENT__PARENT;
 			case GraphPackage.GLABEL__TRACE:
 				return GraphPackage.GMODEL_ELEMENT__TRACE;
+			case GraphPackage.GLABEL__TYPE:
+				return GraphPackage.GMODEL_ELEMENT__TYPE;
 			default:
 				return -1;
 			}
@@ -764,6 +820,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 				return GraphPackage.GLABEL__PARENT;
 			case GraphPackage.GMODEL_ELEMENT__TRACE:
 				return GraphPackage.GLABEL__TRACE;
+			case GraphPackage.GMODEL_ELEMENT__TYPE:
+				return GraphPackage.GLABEL__TYPE;
 			default:
 				return -1;
 			}
@@ -804,6 +862,8 @@ public class GLabelImpl extends GAlignableImpl implements GLabel {
 		result.append(cssClasses);
 		result.append(", trace: ");
 		result.append(trace);
+		result.append(", type: ");
+		result.append(type);
 		result.append(", text: ");
 		result.append(text);
 		result.append(')');

@@ -18,7 +18,7 @@ package com.eclipsesource.glsp.example.workflow.handler;
 import java.util.Optional;
 
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.example.workflow.ModelTypes;
+import com.eclipsesource.glsp.example.workflow.utils.ModelTypes;
 import com.eclipsesource.glsp.example.workflow.wfgraph.WfgraphFactory;
 import com.eclipsesource.glsp.graph.GEdge;
 import com.eclipsesource.glsp.graph.GModelElement;
@@ -36,6 +36,7 @@ public class CreateWeightedEdgeHandler extends CreateConnectionOperationHandler 
 	protected Optional<GEdge> createConnection(GModelElement source, GModelElement target,
 			GraphicalModelState modelState) {
 		GEdge edge = WfgraphFactory.eINSTANCE.createWeightedEdge();
+		edge.setType(elementTypeId);
 		edge.setSourceId(source.getId());
 		edge.setTargetId(target.getId());
 		GModelUtil.generateId(edge, "weightedEdge", modelState);

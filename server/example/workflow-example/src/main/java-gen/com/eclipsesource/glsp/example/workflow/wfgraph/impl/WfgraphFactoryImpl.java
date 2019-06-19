@@ -69,26 +69,14 @@ public class WfgraphFactoryImpl extends EFactoryImpl implements WfgraphFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case WfgraphPackage.DECISION_NODE:
-			return createDecisionNode();
-		case WfgraphPackage.MERGE_NODE:
-			return createMergeNode();
+		case WfgraphPackage.ACTIVITY_NODE:
+			return createActivityNode();
 		case WfgraphPackage.TASK_NODE:
 			return createTaskNode();
-		case WfgraphPackage.AUTOMATED_TASK:
-			return createAutomatedTask();
-		case WfgraphPackage.MANUAL_TASK:
-			return createManualTask();
 		case WfgraphPackage.ICON:
 			return createIcon();
 		case WfgraphPackage.WEIGHTED_EDGE:
 			return createWeightedEdge();
-		case WfgraphPackage.LABEL_HEADING:
-			return createLabelHeading();
-		case WfgraphPackage.LABEL_TEXT:
-			return createLabelText();
-		case WfgraphPackage.LABEL_ICON:
-			return createLabelIcon();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -100,20 +88,9 @@ public class WfgraphFactoryImpl extends EFactoryImpl implements WfgraphFactory {
 	 * @generated
 	 */
 	@Override
-	public DecisionNode createDecisionNode() {
-		DecisionNodeImpl decisionNode = new DecisionNodeImpl();
-		return decisionNode;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public MergeNode createMergeNode() {
-		MergeNodeImpl mergeNode = new MergeNodeImpl();
-		return mergeNode;
+	public ActivityNode createActivityNode() {
+		ActivityNodeImpl activityNode = new ActivityNodeImpl();
+		return activityNode;
 	}
 
 	/**
@@ -125,28 +102,6 @@ public class WfgraphFactoryImpl extends EFactoryImpl implements WfgraphFactory {
 	public TaskNode createTaskNode() {
 		TaskNodeImpl taskNode = new TaskNodeImpl();
 		return taskNode;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public AutomatedTask createAutomatedTask() {
-		AutomatedTaskImpl automatedTask = new AutomatedTaskImpl();
-		return automatedTask;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ManualTask createManualTask() {
-		ManualTaskImpl manualTask = new ManualTaskImpl();
-		return manualTask;
 	}
 
 	/**
@@ -169,39 +124,6 @@ public class WfgraphFactoryImpl extends EFactoryImpl implements WfgraphFactory {
 	public WeightedEdge createWeightedEdge() {
 		WeightedEdgeImpl weightedEdge = new WeightedEdgeImpl();
 		return weightedEdge;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public LabelHeading createLabelHeading() {
-		LabelHeadingImpl labelHeading = new LabelHeadingImpl();
-		return labelHeading;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public LabelText createLabelText() {
-		LabelTextImpl labelText = new LabelTextImpl();
-		return labelText;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public LabelIcon createLabelIcon() {
-		LabelIconImpl labelIcon = new LabelIconImpl();
-		return labelIcon;
 	}
 
 	/**

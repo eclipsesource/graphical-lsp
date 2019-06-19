@@ -29,6 +29,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference glsp-graph.ecore#//GModelElement/children"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference glsp-graph.ecore#//GModelElement/parent"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute glsp-graph.ecore#//GModelElement/trace"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute glsp-graph.ecore#//GModelElement/type"/>
     </genClasses>
     <genClasses image="false" ecoreClass="glsp-graph.ecore#//GShapeElement"/>
     <genClasses ecoreClass="glsp-graph.ecore#//GGraph">

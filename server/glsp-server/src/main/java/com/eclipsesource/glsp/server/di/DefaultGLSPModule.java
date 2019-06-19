@@ -86,6 +86,7 @@ public abstract class DefaultGLSPModule extends GLSPModule {
 		return DefaultGLSPServer.class;
 	}
 
+	@Override
 	protected Class<? extends GraphGsonConfiguratorFactory> bindGraphGsonConfiguratorFactory() {
 		return DefaultGraphGsonConfiguratorFactory.class;
 	}
@@ -146,5 +147,4 @@ public abstract class DefaultGLSPModule extends GLSPModule {
 	protected Class<? extends ActionDispatcher> bindActionDispatcher() {
 		return DIActionDispatcher.class;
 	}
-
 }

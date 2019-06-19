@@ -16,14 +16,7 @@
 package com.eclipsesource.glsp.example.workflow.wfgraph.impl;
 
 import com.eclipsesource.glsp.example.workflow.wfgraph.ActivityNode;
-import com.eclipsesource.glsp.example.workflow.wfgraph.AutomatedTask;
-import com.eclipsesource.glsp.example.workflow.wfgraph.DecisionNode;
 import com.eclipsesource.glsp.example.workflow.wfgraph.Icon;
-import com.eclipsesource.glsp.example.workflow.wfgraph.LabelHeading;
-import com.eclipsesource.glsp.example.workflow.wfgraph.LabelIcon;
-import com.eclipsesource.glsp.example.workflow.wfgraph.LabelText;
-import com.eclipsesource.glsp.example.workflow.wfgraph.ManualTask;
-import com.eclipsesource.glsp.example.workflow.wfgraph.MergeNode;
 import com.eclipsesource.glsp.example.workflow.wfgraph.TaskNode;
 import com.eclipsesource.glsp.example.workflow.wfgraph.WeightedEdge;
 import com.eclipsesource.glsp.example.workflow.wfgraph.WfgraphFactory;
@@ -56,35 +49,7 @@ public class WfgraphPackageImpl extends EPackageImpl implements WfgraphPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass decisionNodeEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass mergeNodeEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass taskNodeEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass automatedTaskEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass manualTaskEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -99,27 +64,6 @@ public class WfgraphPackageImpl extends EPackageImpl implements WfgraphPackage {
 	 * @generated
 	 */
 	private EClass weightedEdgeEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass labelHeadingEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass labelTextEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass labelIconEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -214,26 +158,6 @@ public class WfgraphPackageImpl extends EPackageImpl implements WfgraphPackage {
 	 * @generated
 	 */
 	@Override
-	public EClass getDecisionNode() {
-		return decisionNodeEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EClass getMergeNode() {
-		return mergeNodeEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EClass getTaskNode() {
 		return taskNodeEClass;
 	}
@@ -294,26 +218,6 @@ public class WfgraphPackageImpl extends EPackageImpl implements WfgraphPackage {
 	 * @generated
 	 */
 	@Override
-	public EClass getAutomatedTask() {
-		return automatedTaskEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EClass getManualTask() {
-		return manualTaskEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EClass getIcon() {
 		return iconEClass;
 	}
@@ -354,36 +258,6 @@ public class WfgraphPackageImpl extends EPackageImpl implements WfgraphPackage {
 	 * @generated
 	 */
 	@Override
-	public EClass getLabelHeading() {
-		return labelHeadingEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EClass getLabelText() {
-		return labelTextEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EClass getLabelIcon() {
-		return labelIconEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public WfgraphFactory getWfgraphFactory() {
 		return (WfgraphFactory) getEFactoryInstance();
 	}
@@ -411,10 +285,6 @@ public class WfgraphPackageImpl extends EPackageImpl implements WfgraphPackage {
 		activityNodeEClass = createEClass(ACTIVITY_NODE);
 		createEAttribute(activityNodeEClass, ACTIVITY_NODE__NODE_TYPE);
 
-		decisionNodeEClass = createEClass(DECISION_NODE);
-
-		mergeNodeEClass = createEClass(MERGE_NODE);
-
 		taskNodeEClass = createEClass(TASK_NODE);
 		createEAttribute(taskNodeEClass, TASK_NODE__NAME);
 		createEAttribute(taskNodeEClass, TASK_NODE__EXPANDED);
@@ -422,21 +292,11 @@ public class WfgraphPackageImpl extends EPackageImpl implements WfgraphPackage {
 		createEAttribute(taskNodeEClass, TASK_NODE__TASK_TYPE);
 		createEAttribute(taskNodeEClass, TASK_NODE__REFERENCE);
 
-		automatedTaskEClass = createEClass(AUTOMATED_TASK);
-
-		manualTaskEClass = createEClass(MANUAL_TASK);
-
 		iconEClass = createEClass(ICON);
 		createEAttribute(iconEClass, ICON__COMMAND_ID);
 
 		weightedEdgeEClass = createEClass(WEIGHTED_EDGE);
 		createEAttribute(weightedEdgeEClass, WEIGHTED_EDGE__PROBABILITY);
-
-		labelHeadingEClass = createEClass(LABEL_HEADING);
-
-		labelTextEClass = createEClass(LABEL_TEXT);
-
-		labelIconEClass = createEClass(LABEL_ICON);
 	}
 
 	/**
@@ -472,29 +332,16 @@ public class WfgraphPackageImpl extends EPackageImpl implements WfgraphPackage {
 
 		// Add supertypes to classes
 		activityNodeEClass.getESuperTypes().add(theGraphPackage.getGNode());
-		decisionNodeEClass.getESuperTypes().add(this.getActivityNode());
-		mergeNodeEClass.getESuperTypes().add(this.getActivityNode());
 		taskNodeEClass.getESuperTypes().add(theGraphPackage.getGNode());
-		automatedTaskEClass.getESuperTypes().add(this.getTaskNode());
-		manualTaskEClass.getESuperTypes().add(this.getTaskNode());
 		iconEClass.getESuperTypes().add(theGraphPackage.getGCompartment());
 		weightedEdgeEClass.getESuperTypes().add(theGraphPackage.getGEdge());
-		labelHeadingEClass.getESuperTypes().add(theGraphPackage.getGLabel());
-		labelTextEClass.getESuperTypes().add(theGraphPackage.getGLabel());
-		labelIconEClass.getESuperTypes().add(theGraphPackage.getGLabel());
 
 		// Initialize classes, features, and operations; add parameters
-		initEClass(activityNodeEClass, ActivityNode.class, "ActivityNode", IS_ABSTRACT, !IS_INTERFACE,
+		initEClass(activityNodeEClass, ActivityNode.class, "ActivityNode", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getActivityNode_NodeType(), ecorePackage.getEString(), "nodeType", null, 0, 1,
 				ActivityNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
-
-		initEClass(decisionNodeEClass, DecisionNode.class, "DecisionNode", !IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(mergeNodeEClass, MergeNode.class, "MergeNode", !IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(taskNodeEClass, TaskNode.class, "TaskNode", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -509,12 +356,6 @@ public class WfgraphPackageImpl extends EPackageImpl implements WfgraphPackage {
 		initEAttribute(getTaskNode_Reference(), ecorePackage.getEString(), "reference", null, 0, 1, TaskNode.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(automatedTaskEClass, AutomatedTask.class, "AutomatedTask", !IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(manualTaskEClass, ManualTask.class, "ManualTask", !IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(iconEClass, Icon.class, "Icon", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getIcon_CommandId(), ecorePackage.getEString(), "commandId", null, 0, 1, Icon.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -524,15 +365,6 @@ public class WfgraphPackageImpl extends EPackageImpl implements WfgraphPackage {
 		initEAttribute(getWeightedEdge_Probability(), ecorePackage.getEString(), "probability", null, 0, 1,
 				WeightedEdge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
-
-		initEClass(labelHeadingEClass, LabelHeading.class, "LabelHeading", !IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(labelTextEClass, LabelText.class, "LabelText", !IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(labelIconEClass, LabelIcon.class, "LabelIcon", !IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

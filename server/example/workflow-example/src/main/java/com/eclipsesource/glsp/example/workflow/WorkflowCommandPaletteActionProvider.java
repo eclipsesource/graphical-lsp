@@ -27,6 +27,7 @@ import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
 import com.eclipsesource.glsp.api.action.kind.DeleteOperationAction;
 import com.eclipsesource.glsp.api.provider.CommandPaletteActionProvider;
 import com.eclipsesource.glsp.api.types.LabeledAction;
+import com.eclipsesource.glsp.example.workflow.utils.ModelTypes;
 import com.eclipsesource.glsp.example.workflow.wfgraph.TaskNode;
 import com.eclipsesource.glsp.graph.GModelElement;
 import com.eclipsesource.glsp.graph.GModelIndex;

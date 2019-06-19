@@ -53,6 +53,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GPortImpl#getChildren <em>Children</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GPortImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GPortImpl#getTrace <em>Trace</em>}</li>
+ *   <li>{@link com.eclipsesource.glsp.graph.impl.GPortImpl#getType <em>Type</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GPortImpl#getPosition <em>Position</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GPortImpl#getSize <em>Size</em>}</li>
  * </ul>
@@ -119,6 +120,26 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 	 * @ordered
 	 */
 	protected String trace = TRACE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TYPE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected String type = TYPE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getPosition() <em>Position</em>}' containment reference.
@@ -276,6 +297,29 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 		trace = newTrace;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GPORT__TRACE, oldTrace, trace));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setType(String newType) {
+		String oldType = type;
+		type = newType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GPORT__TYPE, oldType, type));
 	}
 
 	/**
@@ -453,6 +497,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 			return getParent();
 		case GraphPackage.GPORT__TRACE:
 			return getTrace();
+		case GraphPackage.GPORT__TYPE:
+			return getType();
 		case GraphPackage.GPORT__POSITION:
 			return getPosition();
 		case GraphPackage.GPORT__SIZE:
@@ -487,6 +533,9 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 		case GraphPackage.GPORT__TRACE:
 			setTrace((String) newValue);
 			return;
+		case GraphPackage.GPORT__TYPE:
+			setType((String) newValue);
+			return;
 		case GraphPackage.GPORT__POSITION:
 			setPosition((GPoint) newValue);
 			return;
@@ -520,6 +569,9 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 		case GraphPackage.GPORT__TRACE:
 			setTrace(TRACE_EDEFAULT);
 			return;
+		case GraphPackage.GPORT__TYPE:
+			setType(TYPE_EDEFAULT);
+			return;
 		case GraphPackage.GPORT__POSITION:
 			setPosition((GPoint) null);
 			return;
@@ -548,6 +600,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 			return getParent() != null;
 		case GraphPackage.GPORT__TRACE:
 			return TRACE_EDEFAULT == null ? trace != null : !TRACE_EDEFAULT.equals(trace);
+		case GraphPackage.GPORT__TYPE:
+			return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
 		case GraphPackage.GPORT__POSITION:
 			return position != null;
 		case GraphPackage.GPORT__SIZE:
@@ -613,6 +667,8 @@ public class GPortImpl extends MinimalEObjectImpl.Container implements GPort {
 		result.append(cssClasses);
 		result.append(", trace: ");
 		result.append(trace);
+		result.append(", type: ");
+		result.append(type);
 		result.append(')');
 		return result.toString();
 	}

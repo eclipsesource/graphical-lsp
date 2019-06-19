@@ -24,14 +24,15 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.eclipsesource.glsp.example.workflow.WorkflowGsonConfiguratorFactory;
-import com.eclipsesource.glsp.example.workflow.wfgraph.AutomatedTask;
+import com.eclipsesource.glsp.api.factory.GraphGsonConfiguratorFactory;
+import com.eclipsesource.glsp.example.workflow.WorkflowGLSPModule;
+import com.eclipsesource.glsp.example.workflow.utils.ModelTypes;
 import com.eclipsesource.glsp.example.workflow.wfgraph.Icon;
-import com.eclipsesource.glsp.example.workflow.wfgraph.LabelIcon;
-import com.eclipsesource.glsp.example.workflow.wfgraph.ManualTask;
+import com.eclipsesource.glsp.example.workflow.wfgraph.TaskNode;
 import com.eclipsesource.glsp.example.workflow.wfgraph.WfgraphFactory;
 import com.eclipsesource.glsp.graph.GCompartment;
 import com.eclipsesource.glsp.graph.GGraph;
+import com.eclipsesource.glsp.graph.GLabel;
 import com.eclipsesource.glsp.graph.GLayoutOptions;
 import com.eclipsesource.glsp.graph.GModelElement;
 import com.eclipsesource.glsp.graph.GPoint;
@@ -43,6 +44,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 class ReadAndWriteWorkflowGraphJsonTest {
 
@@ -52,14 +55,15 @@ class ReadAndWriteWorkflowGraphJsonTest {
 
 	@BeforeEach
 	void initializeGsonConfigurator() {
-		gsonConfigurator = new WorkflowGsonConfiguratorFactory().create();
+		Injector injector = Guice.createInjector(new WorkflowGLSPModule());
+		gsonConfigurator = injector.getInstance(GraphGsonConfiguratorFactory.class).create();
 	}
 
 	@Test
 	void testReadingExampleWorkflowGraph() throws IOException {
-		GGraph graph = (GGraph) loadResource("example.wf");
+		GGraph graph = loadResource("example.wf");
 
-		ManualTask push = (ManualTask) getChildById(graph, "task1").get();
+		TaskNode push = (TaskNode) getChildById(graph, "task1").get();
 		assertEquals("Push", push.getName());
 		assertEquals(30, push.getDuration());
 
@@ -69,10 +73,10 @@ class ReadAndWriteWorkflowGraphJsonTest {
 		assertEquals("center", iconCompartement.getLayoutOptions().getHAlign());
 		assertEquals(false, iconCompartement.getLayoutOptions().isResizeContainer());
 
-		LabelIcon labelIcon = (LabelIcon) getChildById(iconCompartement, "task1_ticon").get();
+		GLabel labelIcon = (GLabel) getChildById(iconCompartement, "task1_ticon").get();
 		assertEquals("M", labelIcon.getText());
 
-		AutomatedTask chkWt = (AutomatedTask) getChildById(graph, "task2").get();
+		TaskNode chkWt = (TaskNode) getChildById(graph, "task2").get();
 		assertEquals("ChkWt", chkWt.getName());
 		assertEquals(10, chkWt.getDuration());
 		assertEquals(200.0, chkWt.getPosition().getX());
@@ -94,8 +98,9 @@ class ReadAndWriteWorkflowGraphJsonTest {
 		GGraph graph = GraphFactory.eINSTANCE.createGGraph();
 		graph.setRevision(42);
 		graph.setId("graphId");
+		graph.setType("graph");
 
-		ManualTask push = WfgraphFactory.eINSTANCE.createManualTask();
+		TaskNode push = WfgraphFactory.eINSTANCE.createTaskNode();
 		push.setId("task1");
 		push.setName("Push");
 		push.setExpanded(true);
@@ -106,8 +111,10 @@ class ReadAndWriteWorkflowGraphJsonTest {
 		pos.setX(10);
 		pos.setY(200);
 		push.setPosition(pos);
+		push.setType(ModelTypes.AUTOMATED_TASK);
 
 		GCompartment compHeader = GraphFactory.eINSTANCE.createGCompartment();
+		compHeader.setType(ModelTypes.COMP_HEADER);
 		compHeader.setLayout("hbox");
 		compHeader.setId("task1_header");
 
@@ -117,53 +124,50 @@ class ReadAndWriteWorkflowGraphJsonTest {
 		layoutOptions.setResizeContainer(false);
 		layoutOptions.setHAlign("center");
 		icon.setLayoutOptions(layoutOptions);
+		icon.setType(ModelTypes.ICON);
 		compHeader.getChildren().add(icon);
 
 		push.getChildren().add(compHeader);
 
 		graph.getChildren().add(push);
 
-		String expectedJson = "{"//
+		String expectedJson="{"
 				+ "\"id\":\"graphId\","//
 				+ "\"children\":"//
 				+ "["//
-				+ "{"//
-				+ "\"name\":\"Push\","//
+				+ "{\"name\":\"Push\","//
 				+ "\"expanded\":true,"//
 				+ "\"duration\":30,"//
-				+ "\"taskType\":\"manual\","//
-				+ "\"id\":\"task1\","//
+				+ "\"taskType\":\"manual\""//
+				+ ",\"id\":\"task1\""//
+				+ ",\"children\":"//
+				+ "["//
+				+ "{\"id\":\"task1_header\","//
 				+ "\"children\":"//
 				+ "["//
-				+ "{"//
-				+ "\"id\":\"task1_header\","//
-				+ "\"children\":"//
-				+ "["//
-				+ "{"//
+				+ "{\"type\":\"icon\","//
 				+ "\"layout\":\"stack\","//
 				+ "\"layoutOptions\":"//
-				+ "{"//
-				+ "\"resizeContainer\":false,"//
+				+ "{\"resizeContainer\":false,"//
 				+ "\"hAlign\":\"center\""//
-				+ "},"//
-				+ "\"type\":\"icon\""//
+				+ "}"//
 				+ "}"//
 				+ "],"//
-				+ "\"layout\":\"hbox\","//
-				+ "\"type\":\"comp:header\""//
+				+ "\"type\":\"comp:header\","//
+				+ "\"layout\":\"hbox\""//
 				+ "}"//
 				+ "],"//
+				+ "\"type\":\"task:automated\","//
 				+ "\"position\":"//
-				+ "{"//
-				+ "\"x\":10.0,"//
+				+ "{\"x\":10.0,"//
 				+ "\"y\":200.0"//
 				+ "},"//
-				+ "\"layout\":\"vbox\","//
-				+ "\"type\":\"task:manual\""//
-				+ "}"//
-				+ "],"//
-				+ "\"revision\":42,"//
-				+ "\"type\":\"graph\"}";
+				+ "\"layout\":\"vbox\"}],"//
+				+ "\"type\":\"graph\""//
+				+ ",\"revision\":42"//
+				+ "}";//
+
+		
 		JsonObject jsonGraph = writeToJson(graph).getAsJsonObject();
 		assertEquals(new JsonParser().parse(expectedJson), jsonGraph);
 	}

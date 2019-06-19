@@ -16,6 +16,11 @@
 package com.eclipsesource.glsp.api.diagram;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EPackage;
 
 import com.eclipsesource.glsp.api.operations.Operation;
 import com.eclipsesource.glsp.api.types.EdgeTypeHint;
@@ -25,11 +30,17 @@ public interface DiagramConfiguration {
 
 	String getDiagramType();
 
+	Map<String, EClass> getTypeMappings();
+
 	List<NodeTypeHint> getNodeTypeHints();
 
 	List<EdgeTypeHint> getEdgeTypeHints();
 
 	List<Operation> getOperations();
+
+	default Optional<EPackage> getEPackage(){
+		return Optional.empty();
+	}
 
 	default EdgeTypeHint createDefaultEdgeTypeHint(String elementId) {
 		return new EdgeTypeHint(elementId, true, true, true, null, null);

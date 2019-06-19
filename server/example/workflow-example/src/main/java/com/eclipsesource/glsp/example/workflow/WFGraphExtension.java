@@ -15,14 +15,24 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow;
 
-import com.eclipsesource.glsp.api.factory.GraphGsonConfiguratorFactory;
+import org.eclipse.emf.ecore.EFactory;
+import org.eclipse.emf.ecore.EPackage;
+
+import com.eclipsesource.glsp.example.workflow.wfgraph.WfgraphFactory;
 import com.eclipsesource.glsp.example.workflow.wfgraph.WfgraphPackage;
-import com.eclipsesource.glsp.graph.gson.GGraphGsonConfigurator;
+import com.eclipsesource.glsp.graph.GraphExtension;
 
-public class WorkflowGsonConfiguratorFactory implements GraphGsonConfiguratorFactory {
+public class WFGraphExtension implements GraphExtension{
 
-	public GGraphGsonConfigurator create() {
-		return new GGraphGsonConfigurator().withEPackages(WfgraphPackage.eINSTANCE).withTypes(ModelTypes.TYPE_MAP);
+
+	@Override
+	public EPackage getEPackage() {
+		return WfgraphPackage.eINSTANCE;
+	}
+
+	@Override
+	public EFactory getEFactory() {
+		return WfgraphFactory.eINSTANCE;
 	}
 
 }

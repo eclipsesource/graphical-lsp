@@ -57,6 +57,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GNodeImpl#getChildren <em>Children</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GNodeImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GNodeImpl#getTrace <em>Trace</em>}</li>
+ *   <li>{@link com.eclipsesource.glsp.graph.impl.GNodeImpl#getType <em>Type</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GNodeImpl#getPosition <em>Position</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GNodeImpl#getSize <em>Size</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GNodeImpl#getEdgePlacement <em>Edge Placement</em>}</li>
@@ -126,6 +127,26 @@ public class GNodeImpl extends MinimalEObjectImpl.Container implements GNode {
 	 * @ordered
 	 */
 	protected String trace = TRACE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TYPE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected String type = TYPE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getPosition() <em>Position</em>}' containment reference.
@@ -323,6 +344,29 @@ public class GNodeImpl extends MinimalEObjectImpl.Container implements GNode {
 		trace = newTrace;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GNODE__TRACE, oldTrace, trace));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setType(String newType) {
+		String oldType = type;
+		type = newType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GNODE__TYPE, oldType, type));
 	}
 
 	/**
@@ -631,6 +675,8 @@ public class GNodeImpl extends MinimalEObjectImpl.Container implements GNode {
 			return getParent();
 		case GraphPackage.GNODE__TRACE:
 			return getTrace();
+		case GraphPackage.GNODE__TYPE:
+			return getType();
 		case GraphPackage.GNODE__POSITION:
 			return getPosition();
 		case GraphPackage.GNODE__SIZE:
@@ -670,6 +716,9 @@ public class GNodeImpl extends MinimalEObjectImpl.Container implements GNode {
 			return;
 		case GraphPackage.GNODE__TRACE:
 			setTrace((String) newValue);
+			return;
+		case GraphPackage.GNODE__TYPE:
+			setType((String) newValue);
 			return;
 		case GraphPackage.GNODE__POSITION:
 			setPosition((GPoint) newValue);
@@ -713,6 +762,9 @@ public class GNodeImpl extends MinimalEObjectImpl.Container implements GNode {
 		case GraphPackage.GNODE__TRACE:
 			setTrace(TRACE_EDEFAULT);
 			return;
+		case GraphPackage.GNODE__TYPE:
+			setType(TYPE_EDEFAULT);
+			return;
 		case GraphPackage.GNODE__POSITION:
 			setPosition((GPoint) null);
 			return;
@@ -750,6 +802,8 @@ public class GNodeImpl extends MinimalEObjectImpl.Container implements GNode {
 			return getParent() != null;
 		case GraphPackage.GNODE__TRACE:
 			return TRACE_EDEFAULT == null ? trace != null : !TRACE_EDEFAULT.equals(trace);
+		case GraphPackage.GNODE__TYPE:
+			return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
 		case GraphPackage.GNODE__POSITION:
 			return position != null;
 		case GraphPackage.GNODE__SIZE:
@@ -857,6 +911,8 @@ public class GNodeImpl extends MinimalEObjectImpl.Container implements GNode {
 		result.append(cssClasses);
 		result.append(", trace: ");
 		result.append(trace);
+		result.append(", type: ");
+		result.append(type);
 		result.append(", layout: ");
 		result.append(layout);
 		result.append(')');

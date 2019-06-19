@@ -54,6 +54,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GEdgeImpl#getChildren <em>Children</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GEdgeImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GEdgeImpl#getTrace <em>Trace</em>}</li>
+ *   <li>{@link com.eclipsesource.glsp.graph.impl.GEdgeImpl#getType <em>Type</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GEdgeImpl#getRoutingPoints <em>Routing Points</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GEdgeImpl#getSourceId <em>Source Id</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GEdgeImpl#getTargetId <em>Target Id</em>}</li>
@@ -123,6 +124,26 @@ public class GEdgeImpl extends MinimalEObjectImpl.Container implements GEdge {
 	 * @ordered
 	 */
 	protected String trace = TRACE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TYPE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected String type = TYPE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getRoutingPoints() <em>Routing Points</em>}' containment reference list.
@@ -310,6 +331,29 @@ public class GEdgeImpl extends MinimalEObjectImpl.Container implements GEdge {
 		trace = newTrace;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GEDGE__TRACE, oldTrace, trace));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setType(String newType) {
+		String oldType = type;
+		type = newType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GEDGE__TYPE, oldType, type));
 	}
 
 	/**
@@ -515,6 +559,8 @@ public class GEdgeImpl extends MinimalEObjectImpl.Container implements GEdge {
 			return getParent();
 		case GraphPackage.GEDGE__TRACE:
 			return getTrace();
+		case GraphPackage.GEDGE__TYPE:
+			return getType();
 		case GraphPackage.GEDGE__ROUTING_POINTS:
 			return getRoutingPoints();
 		case GraphPackage.GEDGE__SOURCE_ID:
@@ -559,6 +605,9 @@ public class GEdgeImpl extends MinimalEObjectImpl.Container implements GEdge {
 		case GraphPackage.GEDGE__TRACE:
 			setTrace((String) newValue);
 			return;
+		case GraphPackage.GEDGE__TYPE:
+			setType((String) newValue);
+			return;
 		case GraphPackage.GEDGE__ROUTING_POINTS:
 			getRoutingPoints().clear();
 			getRoutingPoints().addAll((Collection<? extends GPoint>) newValue);
@@ -602,6 +651,9 @@ public class GEdgeImpl extends MinimalEObjectImpl.Container implements GEdge {
 		case GraphPackage.GEDGE__TRACE:
 			setTrace(TRACE_EDEFAULT);
 			return;
+		case GraphPackage.GEDGE__TYPE:
+			setType(TYPE_EDEFAULT);
+			return;
 		case GraphPackage.GEDGE__ROUTING_POINTS:
 			getRoutingPoints().clear();
 			return;
@@ -639,6 +691,8 @@ public class GEdgeImpl extends MinimalEObjectImpl.Container implements GEdge {
 			return getParent() != null;
 		case GraphPackage.GEDGE__TRACE:
 			return TRACE_EDEFAULT == null ? trace != null : !TRACE_EDEFAULT.equals(trace);
+		case GraphPackage.GEDGE__TYPE:
+			return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
 		case GraphPackage.GEDGE__ROUTING_POINTS:
 			return routingPoints != null && !routingPoints.isEmpty();
 		case GraphPackage.GEDGE__SOURCE_ID:
@@ -670,6 +724,8 @@ public class GEdgeImpl extends MinimalEObjectImpl.Container implements GEdge {
 		result.append(cssClasses);
 		result.append(", trace: ");
 		result.append(trace);
+		result.append(", type: ");
+		result.append(type);
 		result.append(", sourceId: ");
 		result.append(sourceId);
 		result.append(", targetId: ");
