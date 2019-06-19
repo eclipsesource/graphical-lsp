@@ -67,5 +67,5 @@ public class ActionTypeAdapter extends PropertyBasedTypeAdapter<Action> {
 			return (TypeAdapter<T>) new ActionTypeAdapter(gson, actions);
 		}
 	}
-	
+
 }

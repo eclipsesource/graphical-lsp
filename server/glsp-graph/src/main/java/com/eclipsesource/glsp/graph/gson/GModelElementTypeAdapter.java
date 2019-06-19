@@ -22,8 +22,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Optional;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -78,7 +76,7 @@ public class GModelElementTypeAdapter extends PropertyBasedTypeAdapter<GModelEle
 	protected GModelElement createInstance(String type) {
 		EClass eClass = typeMap.get(type);
 		if (eClass != null) {
-			GModelElement element= (GModelElement) eClass.getEPackage().getEFactoryInstance().create(eClass);
+			GModelElement element = (GModelElement) eClass.getEPackage().getEFactoryInstance().create(eClass);
 			element.setType(type);
 			return element;
 		}

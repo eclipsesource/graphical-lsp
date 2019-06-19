@@ -22,8 +22,7 @@ import com.eclipsesource.glsp.example.workflow.wfgraph.WfgraphFactory;
 import com.eclipsesource.glsp.example.workflow.wfgraph.WfgraphPackage;
 import com.eclipsesource.glsp.graph.GraphExtension;
 
-public class WFGraphExtension implements GraphExtension{
-
+public class WFGraphExtension implements GraphExtension {
 
 	@Override
 	public EPackage getEPackage() {

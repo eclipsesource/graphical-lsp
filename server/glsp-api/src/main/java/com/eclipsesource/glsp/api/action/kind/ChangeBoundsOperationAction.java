@@ -21,7 +21,7 @@ import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.types.ElementAndBounds;
 
 public class ChangeBoundsOperationAction extends AbstractOperationAction {
-	
+
 	private List<ElementAndBounds> newBounds;
 
 	public ChangeBoundsOperationAction() {

@@ -21,7 +21,7 @@ import com.google.gson.GsonBuilder;
 public interface GraphGsonConfiguratorFactory {
 
 	public GGraphGsonConfigurator create();
-	
+
 	default GsonBuilder configureGson() {
 		return this.create().configureGsonBuilder(new GsonBuilder());
 	}

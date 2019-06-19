@@ -118,8 +118,8 @@ public abstract class GLSPModule extends AbstractModule {
 	protected Class<? extends ActionDispatcher> bindActionDispatcher() {
 		return ActionDispatcher.NullImpl.class;
 	}
-	
-	protected  Class<? extends GraphExtension> bindGraphExtension(){
+
+	protected Class<? extends GraphExtension> bindGraphExtension() {
 		return null;
 	}
 }

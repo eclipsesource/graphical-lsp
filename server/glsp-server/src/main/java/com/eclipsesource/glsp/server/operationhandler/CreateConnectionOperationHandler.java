@@ -70,7 +70,8 @@ public abstract class CreateConnectionOperationHandler implements OperationHandl
 
 		Optional<GEdge> connection = createConnection(source.get(), target.get(), modelState);
 		if (!connection.isPresent()) {
-			log.warn(String.format("Creation of connection failed for source: %s , target: %s", source.get().getId(), target.get().getId()));
+			log.warn(String.format("Creation of connection failed for source: %s , target: %s", source.get().getId(),
+					target.get().getId()));
 			return Optional.empty();
 		}
 		GModelRoot currentModel = modelState.getRoot();
