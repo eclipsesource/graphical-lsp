@@ -28,13 +28,13 @@ import { GLSP_TYPES } from "../../types";
 import { RequestResponseSupport } from "../request-response/support";
 
 export class ValidateLabelEditAction implements Action {
-    static readonly KIND = "validateLabelEditAction";
+    static readonly KIND = "validateLabelEdit";
     kind = ValidateLabelEditAction.KIND;
     constructor(public readonly value: string, public readonly labelId: string) { }
 }
 
 export class SetLabelEditValidationResultAction implements Action {
-    static readonly KIND = "setLabelEditValidationResultAction";
+    static readonly KIND = "setLabelEditValidationResult";
     kind = SetLabelEditValidationResultAction.KIND;
     constructor(public readonly result: EditLabelValidationResult) { }
 }
