@@ -18,7 +18,7 @@ package com.eclipsesource.glsp.example.workflow.handler;
 import java.util.Optional;
 
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.example.workflow.ModelTypes;
+import com.eclipsesource.glsp.example.workflow.utils.ModelTypes;
 import com.eclipsesource.glsp.example.workflow.wfgraph.ActivityNode;
 import com.eclipsesource.glsp.example.workflow.wfgraph.WfgraphFactory;
 import com.eclipsesource.glsp.graph.GNode;
@@ -34,7 +34,8 @@ public class CreateMergeNodeHandler extends CreateNodeOperationHandler {
 
 	@Override
 	protected GNode createNode(Optional<GPoint> point, GraphicalModelState modelState) {
-		ActivityNode result = WfgraphFactory.eINSTANCE.createMergeNode();
+		ActivityNode result = WfgraphFactory.eINSTANCE.createActivityNode();
+		result.setType(elementTypeId);
 		result.setNodeType("mergeNode");
 		point.ifPresent(result::setPosition);
 

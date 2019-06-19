@@ -126,13 +126,22 @@ public interface GraphPackage extends EPackage {
 	int GMODEL_ELEMENT__TRACE = 4;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GMODEL_ELEMENT__TYPE = 5;
+
+	/**
 	 * The number of structural features of the '<em>GModel Element</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GMODEL_ELEMENT_FEATURE_COUNT = 5;
+	int GMODEL_ELEMENT_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>GModel Element</em>' class.
@@ -197,6 +206,15 @@ public interface GraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int GSHAPE_ELEMENT__TRACE = GMODEL_ELEMENT__TRACE;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GSHAPE_ELEMENT__TYPE = GMODEL_ELEMENT__TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Position</b></em>' containment reference.
@@ -290,6 +308,15 @@ public interface GraphPackage extends EPackage {
 	int GMODEL_ROOT__TRACE = GMODEL_ELEMENT__TRACE;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GMODEL_ROOT__TYPE = GMODEL_ELEMENT__TYPE;
+
+	/**
 	 * The feature id for the '<em><b>Canvas Bounds</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -379,6 +406,15 @@ public interface GraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int GGRAPH__TRACE = GMODEL_ROOT__TRACE;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GGRAPH__TYPE = GMODEL_ROOT__TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Canvas Bounds</b></em>' containment reference.
@@ -499,6 +535,15 @@ public interface GraphPackage extends EPackage {
 	int GNODE__TRACE = GSHAPE_ELEMENT__TRACE;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GNODE__TYPE = GSHAPE_ELEMENT__TYPE;
+
+	/**
 	 * The feature id for the '<em><b>Position</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -617,6 +662,15 @@ public interface GraphPackage extends EPackage {
 	int GEDGE__TRACE = GMODEL_ELEMENT__TRACE;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEDGE__TYPE = GMODEL_ELEMENT__TYPE;
+
+	/**
 	 * The feature id for the '<em><b>Routing Points</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -733,6 +787,15 @@ public interface GraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int GCOMPARTMENT__TRACE = GSHAPE_ELEMENT__TRACE;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GCOMPARTMENT__TYPE = GSHAPE_ELEMENT__TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Position</b></em>' containment reference.
@@ -899,13 +962,22 @@ public interface GraphPackage extends EPackage {
 	int GLABEL__TRACE = GALIGNABLE_FEATURE_COUNT + 5;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GLABEL__TYPE = GALIGNABLE_FEATURE_COUNT + 6;
+
+	/**
 	 * The feature id for the '<em><b>Position</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GLABEL__POSITION = GALIGNABLE_FEATURE_COUNT + 6;
+	int GLABEL__POSITION = GALIGNABLE_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Size</b></em>' containment reference.
@@ -914,7 +986,7 @@ public interface GraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GLABEL__SIZE = GALIGNABLE_FEATURE_COUNT + 7;
+	int GLABEL__SIZE = GALIGNABLE_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Text</b></em>' attribute.
@@ -923,7 +995,7 @@ public interface GraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GLABEL__TEXT = GALIGNABLE_FEATURE_COUNT + 8;
+	int GLABEL__TEXT = GALIGNABLE_FEATURE_COUNT + 9;
 
 	/**
 	 * The number of structural features of the '<em>GLabel</em>' class.
@@ -932,7 +1004,7 @@ public interface GraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GLABEL_FEATURE_COUNT = GALIGNABLE_FEATURE_COUNT + 9;
+	int GLABEL_FEATURE_COUNT = GALIGNABLE_FEATURE_COUNT + 10;
 
 	/**
 	 * The number of operations of the '<em>GLabel</em>' class.
@@ -997,6 +1069,15 @@ public interface GraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int GISSUE_MARKER__TRACE = GSHAPE_ELEMENT__TRACE;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GISSUE_MARKER__TYPE = GSHAPE_ELEMENT__TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Position</b></em>' containment reference.
@@ -1099,6 +1180,15 @@ public interface GraphPackage extends EPackage {
 	int GPORT__TRACE = GSHAPE_ELEMENT__TRACE;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GPORT__TYPE = GSHAPE_ELEMENT__TYPE;
+
+	/**
 	 * The feature id for the '<em><b>Position</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1188,6 +1278,15 @@ public interface GraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int GBUTTON__TRACE = GSHAPE_ELEMENT__TRACE;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GBUTTON__TYPE = GSHAPE_ELEMENT__TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Position</b></em>' containment reference.
@@ -1840,6 +1939,17 @@ public interface GraphPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGModelElement_Trace();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GModelElement#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see com.eclipsesource.glsp.graph.GModelElement#getType()
+	 * @see #getGModelElement()
+	 * @generated
+	 */
+	EAttribute getGModelElement_Type();
 
 	/**
 	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GShapeElement <em>GShape Element</em>}'.
@@ -2595,6 +2705,14 @@ public interface GraphPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute GMODEL_ELEMENT__TRACE = eINSTANCE.getGModelElement_Trace();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GMODEL_ELEMENT__TYPE = eINSTANCE.getGModelElement_Type();
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.GShapeElement <em>GShape Element</em>}' class.

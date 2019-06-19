@@ -35,22 +35,13 @@ public interface WfgraphFactory extends EFactory {
 	WfgraphFactory eINSTANCE = com.eclipsesource.glsp.example.workflow.wfgraph.impl.WfgraphFactoryImpl.init();
 
 	/**
-	 * Returns a new object of class '<em>Decision Node</em>'.
+	 * Returns a new object of class '<em>Activity Node</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Decision Node</em>'.
+	 * @return a new object of class '<em>Activity Node</em>'.
 	 * @generated
 	 */
-	DecisionNode createDecisionNode();
-
-	/**
-	 * Returns a new object of class '<em>Merge Node</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Merge Node</em>'.
-	 * @generated
-	 */
-	MergeNode createMergeNode();
+	ActivityNode createActivityNode();
 
 	/**
 	 * Returns a new object of class '<em>Task Node</em>'.
@@ -60,24 +51,6 @@ public interface WfgraphFactory extends EFactory {
 	 * @generated
 	 */
 	TaskNode createTaskNode();
-
-	/**
-	 * Returns a new object of class '<em>Automated Task</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Automated Task</em>'.
-	 * @generated
-	 */
-	AutomatedTask createAutomatedTask();
-
-	/**
-	 * Returns a new object of class '<em>Manual Task</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Manual Task</em>'.
-	 * @generated
-	 */
-	ManualTask createManualTask();
 
 	/**
 	 * Returns a new object of class '<em>Icon</em>'.
@@ -96,33 +69,6 @@ public interface WfgraphFactory extends EFactory {
 	 * @generated
 	 */
 	WeightedEdge createWeightedEdge();
-
-	/**
-	 * Returns a new object of class '<em>Label Heading</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Label Heading</em>'.
-	 * @generated
-	 */
-	LabelHeading createLabelHeading();
-
-	/**
-	 * Returns a new object of class '<em>Label Text</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Label Text</em>'.
-	 * @generated
-	 */
-	LabelText createLabelText();
-
-	/**
-	 * Returns a new object of class '<em>Label Icon</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Label Icon</em>'.
-	 * @generated
-	 */
-	LabelIcon createLabelIcon();
 
 	/**
 	 * Returns the package supported by this factory.

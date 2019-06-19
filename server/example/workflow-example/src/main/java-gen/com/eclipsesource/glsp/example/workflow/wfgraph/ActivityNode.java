@@ -30,7 +30,7 @@ import com.eclipsesource.glsp.graph.GNode;
  * </ul>
  *
  * @see com.eclipsesource.glsp.example.workflow.wfgraph.WfgraphPackage#getActivityNode()
- * @model abstract="true"
+ * @model
  * @generated
  */
 public interface ActivityNode extends GNode {

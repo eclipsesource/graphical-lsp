@@ -17,12 +17,10 @@ package com.eclipsesource.glsp.example.workflow.wfgraph.util;
 
 import com.eclipsesource.glsp.example.workflow.wfgraph.*;
 
-import com.eclipsesource.glsp.graph.GAlignable;
 import com.eclipsesource.glsp.graph.GBoundsAware;
 import com.eclipsesource.glsp.graph.GCompartment;
 import com.eclipsesource.glsp.graph.GEdge;
 import com.eclipsesource.glsp.graph.GEdgeLayoutable;
-import com.eclipsesource.glsp.graph.GLabel;
 import com.eclipsesource.glsp.graph.GLayouting;
 import com.eclipsesource.glsp.graph.GModelElement;
 import com.eclipsesource.glsp.graph.GNode;
@@ -96,28 +94,8 @@ public class WfgraphAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseDecisionNode(DecisionNode object) {
-			return createDecisionNodeAdapter();
-		}
-
-		@Override
-		public Adapter caseMergeNode(MergeNode object) {
-			return createMergeNodeAdapter();
-		}
-
-		@Override
 		public Adapter caseTaskNode(TaskNode object) {
 			return createTaskNodeAdapter();
-		}
-
-		@Override
-		public Adapter caseAutomatedTask(AutomatedTask object) {
-			return createAutomatedTaskAdapter();
-		}
-
-		@Override
-		public Adapter caseManualTask(ManualTask object) {
-			return createManualTaskAdapter();
 		}
 
 		@Override
@@ -128,21 +106,6 @@ public class WfgraphAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseWeightedEdge(WeightedEdge object) {
 			return createWeightedEdgeAdapter();
-		}
-
-		@Override
-		public Adapter caseLabelHeading(LabelHeading object) {
-			return createLabelHeadingAdapter();
-		}
-
-		@Override
-		public Adapter caseLabelText(LabelText object) {
-			return createLabelTextAdapter();
-		}
-
-		@Override
-		public Adapter caseLabelIcon(LabelIcon object) {
-			return createLabelIconAdapter();
 		}
 
 		@Override
@@ -186,16 +149,6 @@ public class WfgraphAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseGAlignable(GAlignable object) {
-			return createGAlignableAdapter();
-		}
-
-		@Override
-		public Adapter caseGLabel(GLabel object) {
-			return createGLabelAdapter();
-		}
-
-		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -229,34 +182,6 @@ public class WfgraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.example.workflow.wfgraph.DecisionNode <em>Decision Node</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see com.eclipsesource.glsp.example.workflow.wfgraph.DecisionNode
-	 * @generated
-	 */
-	public Adapter createDecisionNodeAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.example.workflow.wfgraph.MergeNode <em>Merge Node</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see com.eclipsesource.glsp.example.workflow.wfgraph.MergeNode
-	 * @generated
-	 */
-	public Adapter createMergeNodeAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.example.workflow.wfgraph.TaskNode <em>Task Node</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -267,34 +192,6 @@ public class WfgraphAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTaskNodeAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.example.workflow.wfgraph.AutomatedTask <em>Automated Task</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see com.eclipsesource.glsp.example.workflow.wfgraph.AutomatedTask
-	 * @generated
-	 */
-	public Adapter createAutomatedTaskAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.example.workflow.wfgraph.ManualTask <em>Manual Task</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see com.eclipsesource.glsp.example.workflow.wfgraph.ManualTask
-	 * @generated
-	 */
-	public Adapter createManualTaskAdapter() {
 		return null;
 	}
 
@@ -323,48 +220,6 @@ public class WfgraphAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createWeightedEdgeAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.example.workflow.wfgraph.LabelHeading <em>Label Heading</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see com.eclipsesource.glsp.example.workflow.wfgraph.LabelHeading
-	 * @generated
-	 */
-	public Adapter createLabelHeadingAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.example.workflow.wfgraph.LabelText <em>Label Text</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see com.eclipsesource.glsp.example.workflow.wfgraph.LabelText
-	 * @generated
-	 */
-	public Adapter createLabelTextAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.example.workflow.wfgraph.LabelIcon <em>Label Icon</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see com.eclipsesource.glsp.example.workflow.wfgraph.LabelIcon
-	 * @generated
-	 */
-	public Adapter createLabelIconAdapter() {
 		return null;
 	}
 
@@ -477,34 +332,6 @@ public class WfgraphAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGEdgeAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GAlignable <em>GAlignable</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see com.eclipsesource.glsp.graph.GAlignable
-	 * @generated
-	 */
-	public Adapter createGAlignableAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GLabel <em>GLabel</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see com.eclipsesource.glsp.graph.GLabel
-	 * @generated
-	 */
-	public Adapter createGLabelAdapter() {
 		return null;
 	}
 

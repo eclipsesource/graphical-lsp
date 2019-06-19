@@ -13,13 +13,31 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.example.workflow.handler;
+package com.eclipsesource.glsp.graph;
 
-import com.eclipsesource.glsp.example.workflow.utils.ModelTypes;
+import org.eclipse.emf.ecore.EFactory;
+import org.eclipse.emf.ecore.EPackage;
 
-public class CreateAutomatedTaskHandler extends CreateTaskHandler {
-
-	public CreateAutomatedTaskHandler() {
-		super(ModelTypes.AUTOMATED_TASK, "automated", i -> "AutomatedTask" + i);
+public interface GraphExtension {
+	/**
+	 * Unique identifier for this graph extension (Default: NSURI of the Epackage)
+	 *
+	 * @return Id as String
+	 */
+	default String getId() {
+		return getEPackage().getNsURI();
 	}
+
+	/**
+	 * Returns the EPackage for this {@link GraphExtension}
+	 */
+
+	EPackage getEPackage();
+
+	/**
+	 * Returns the EFactory for this {@link GraphExtension}
+	 * 
+	 * @return
+	 */
+	EFactory getEFactory();
 }

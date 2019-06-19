@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link com.eclipsesource.glsp.graph.GModelElement#getChildren <em>Children</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.GModelElement#getParent <em>Parent</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.GModelElement#getTrace <em>Trace</em>}</li>
+ *   <li>{@link com.eclipsesource.glsp.graph.GModelElement#getType <em>Type</em>}</li>
  * </ul>
  *
  * @see com.eclipsesource.glsp.graph.GraphPackage#getGModelElement()
@@ -133,5 +134,27 @@ public interface GModelElement extends EObject {
 	 * @generated
 	 */
 	void setTrace(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Type</em>' attribute.
+	 * @see #setType(String)
+	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGModelElement_Type()
+	 * @model
+	 * @generated
+	 */
+	String getType();
+
+	/**
+	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GModelElement#getType <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Type</em>' attribute.
+	 * @see #getType()
+	 * @generated
+	 */
+	void setType(String value);
 
 } // GModelElement

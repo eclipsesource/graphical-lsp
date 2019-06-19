@@ -15,13 +15,16 @@
  */
 package com.eclipsesource.glsp.example.workflow.wfgraph.impl;
 
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import com.eclipsesource.glsp.example.workflow.wfgraph.WeightedEdge;
 import com.eclipsesource.glsp.example.workflow.wfgraph.WfgraphPackage;
+
 import com.eclipsesource.glsp.graph.impl.GEdgeImpl;
+
+import org.eclipse.emf.common.notify.Notification;
+
+import org.eclipse.emf.ecore.EClass;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->

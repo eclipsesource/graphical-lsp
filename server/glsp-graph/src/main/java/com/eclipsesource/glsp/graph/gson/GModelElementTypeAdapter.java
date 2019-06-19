@@ -46,7 +46,6 @@ public class GModelElementTypeAdapter extends PropertyBasedTypeAdapter<GModelEle
 	private static final Logger LOG = Logger.getLogger(GModelElementTypeAdapter.class);
 
 	private final Gson gson;
-	private final String discriminator;
 	private final Map<String, EClass> typeMap;
 
 	public static class Factory implements TypeAdapterFactory {
@@ -71,18 +70,19 @@ public class GModelElementTypeAdapter extends PropertyBasedTypeAdapter<GModelEle
 
 	public GModelElementTypeAdapter(Gson gson, String typeAttribute, Map<String, EClass> typeMap) {
 		super(gson, typeAttribute);
-		this.discriminator = typeAttribute;
 		this.gson = gson;
 		this.typeMap = typeMap;
 	}
 
 	@Override
-	protected GModelElement createInstance(String parameter) {
-		EClass eClass = typeMap.get(parameter);
+	protected GModelElement createInstance(String type) {
+		EClass eClass = typeMap.get(type);
 		if (eClass != null) {
-			return (GModelElement) eClass.getEPackage().getEFactoryInstance().create(eClass);
+			GModelElement element= (GModelElement) eClass.getEPackage().getEFactoryInstance().create(eClass);
+			element.setType(type);
+			return element;
 		}
-		LOG.error("Cannot find class for type " + parameter);
+		LOG.error("Cannot find class for type " + type);
 		return null;
 	}
 
@@ -95,24 +95,11 @@ public class GModelElementTypeAdapter extends PropertyBasedTypeAdapter<GModelEle
 				out.beginObject();
 				Set<String> written = new HashSet<>();
 				writeProperties(out, value, value.getClass(), written);
-				if (!written.contains(discriminator)) {
-					writeDiscriminatorProperty(out, value);
-				}
 				out.endObject();
 			} catch (IllegalAccessException e) {
 				throw new RuntimeException(e);
 			}
 		}
-	}
-
-	protected void writeDiscriminatorProperty(JsonWriter out, GModelElement value) throws IOException {
-		Optional<Entry<String, EClass>> entry = typeMap.entrySet().stream()
-				.filter(e -> value.eClass().equals(e.getValue())).findAny();
-		if (entry.isPresent()) {
-			out.name(discriminator);
-			out.value(entry.get().getKey());
-		}
-
 	}
 
 	@Override

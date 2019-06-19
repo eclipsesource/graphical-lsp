@@ -55,6 +55,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GIssueMarkerImpl#getChildren <em>Children</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GIssueMarkerImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GIssueMarkerImpl#getTrace <em>Trace</em>}</li>
+ *   <li>{@link com.eclipsesource.glsp.graph.impl.GIssueMarkerImpl#getType <em>Type</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GIssueMarkerImpl#getPosition <em>Position</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GIssueMarkerImpl#getSize <em>Size</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GIssueMarkerImpl#getIssues <em>Issues</em>}</li>
@@ -122,6 +123,26 @@ public class GIssueMarkerImpl extends MinimalEObjectImpl.Container implements GI
 	 * @ordered
 	 */
 	protected String trace = TRACE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TYPE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected String type = TYPE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getPosition() <em>Position</em>}' containment reference.
@@ -290,6 +311,29 @@ public class GIssueMarkerImpl extends MinimalEObjectImpl.Container implements GI
 		trace = newTrace;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GISSUE_MARKER__TRACE, oldTrace, trace));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setType(String newType) {
+		String oldType = type;
+		type = newType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GISSUE_MARKER__TYPE, oldType, type));
 	}
 
 	/**
@@ -482,6 +526,8 @@ public class GIssueMarkerImpl extends MinimalEObjectImpl.Container implements GI
 			return getParent();
 		case GraphPackage.GISSUE_MARKER__TRACE:
 			return getTrace();
+		case GraphPackage.GISSUE_MARKER__TYPE:
+			return getType();
 		case GraphPackage.GISSUE_MARKER__POSITION:
 			return getPosition();
 		case GraphPackage.GISSUE_MARKER__SIZE:
@@ -517,6 +563,9 @@ public class GIssueMarkerImpl extends MinimalEObjectImpl.Container implements GI
 			return;
 		case GraphPackage.GISSUE_MARKER__TRACE:
 			setTrace((String) newValue);
+			return;
+		case GraphPackage.GISSUE_MARKER__TYPE:
+			setType((String) newValue);
 			return;
 		case GraphPackage.GISSUE_MARKER__POSITION:
 			setPosition((GPoint) newValue);
@@ -555,6 +604,9 @@ public class GIssueMarkerImpl extends MinimalEObjectImpl.Container implements GI
 		case GraphPackage.GISSUE_MARKER__TRACE:
 			setTrace(TRACE_EDEFAULT);
 			return;
+		case GraphPackage.GISSUE_MARKER__TYPE:
+			setType(TYPE_EDEFAULT);
+			return;
 		case GraphPackage.GISSUE_MARKER__POSITION:
 			setPosition((GPoint) null);
 			return;
@@ -586,6 +638,8 @@ public class GIssueMarkerImpl extends MinimalEObjectImpl.Container implements GI
 			return getParent() != null;
 		case GraphPackage.GISSUE_MARKER__TRACE:
 			return TRACE_EDEFAULT == null ? trace != null : !TRACE_EDEFAULT.equals(trace);
+		case GraphPackage.GISSUE_MARKER__TYPE:
+			return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
 		case GraphPackage.GISSUE_MARKER__POSITION:
 			return position != null;
 		case GraphPackage.GISSUE_MARKER__SIZE:
@@ -653,6 +707,8 @@ public class GIssueMarkerImpl extends MinimalEObjectImpl.Container implements GI
 		result.append(cssClasses);
 		result.append(", trace: ");
 		result.append(trace);
+		result.append(", type: ");
+		result.append(type);
 		result.append(')');
 		return result.toString();
 	}

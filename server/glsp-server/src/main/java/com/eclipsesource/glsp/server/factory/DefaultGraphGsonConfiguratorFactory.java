@@ -15,12 +15,24 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.factory;
 
+import com.eclipsesource.glsp.api.diagram.DiagramConfigurationProvider;
 import com.eclipsesource.glsp.api.factory.GraphGsonConfiguratorFactory;
+import com.eclipsesource.glsp.graph.GraphExtension;
 import com.eclipsesource.glsp.graph.gson.GGraphGsonConfigurator;
+import com.google.inject.Inject;
 
 public class DefaultGraphGsonConfiguratorFactory implements GraphGsonConfiguratorFactory {
-	@Override
+	@Inject
+	private DiagramConfigurationProvider diagramConfigurationProvider;
+	@Inject(optional = true)
+	private GraphExtension graphExtension;
+
 	public GGraphGsonConfigurator create() {
-		return new GGraphGsonConfigurator().withDefaultTypes();
+		GGraphGsonConfigurator configurator = new GGraphGsonConfigurator()
+				.withTypes(diagramConfigurationProvider.getCollectiveTypeMappings());
+		if (graphExtension != null) {
+			configurator = configurator.withEPackages(graphExtension.getEPackage());
+		}
+		return configurator;
 	}
 }
