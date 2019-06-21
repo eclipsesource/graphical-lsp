@@ -15,37 +15,36 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import java.util.List;
-
 import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.types.ElementAndBounds;
 
-public class ChangeBoundsOperationAction extends AbstractOperationAction {
-	
-	private List<ElementAndBounds> newBounds;
+public class ApplyLabelEditOperationAction extends AbstractOperationAction {
+	private String labelId;
+	private String text;
 
-	public ChangeBoundsOperationAction() {
-		super(Action.Kind.CHANGE_BOUNDS_OPERATION);
+	public ApplyLabelEditOperationAction() {
+		super(Action.Kind.APPLY_LABEL_EDIT_OPERATION);
 	}
 
-	public ChangeBoundsOperationAction(List<ElementAndBounds> newBounds) {
+	public ApplyLabelEditOperationAction(String labelId, String text) {
 		this();
-		this.newBounds = newBounds;
+		this.labelId = labelId;
+		this.text = text;
 	}
 
-	public List<ElementAndBounds> getNewBounds() {
-		return newBounds;
+	public String getLabelId() {
+		return labelId;
 	}
 
-	public void setNewBounds(List<ElementAndBounds> newBounds) {
-		this.newBounds = newBounds;
+	public String getText() {
+		return text;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((newBounds == null) ? 0 : newBounds.hashCode());
+		result = prime * result + ((labelId == null) ? 0 : labelId.hashCode());
+		result = prime * result + ((text == null) ? 0 : text.hashCode());
 		return result;
 	}
 
@@ -57,11 +56,16 @@ public class ChangeBoundsOperationAction extends AbstractOperationAction {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ChangeBoundsOperationAction other = (ChangeBoundsOperationAction) obj;
-		if (newBounds == null) {
-			if (other.newBounds != null)
+		ApplyLabelEditOperationAction other = (ApplyLabelEditOperationAction) obj;
+		if (labelId == null) {
+			if (other.labelId != null)
 				return false;
-		} else if (!newBounds.equals(other.newBounds))
+		} else if (!labelId.equals(other.labelId))
+			return false;
+		if (text == null) {
+			if (other.text != null)
+				return false;
+		} else if (!text.equals(other.text))
 			return false;
 		return true;
 	}

@@ -17,6 +17,7 @@ import { injectable } from "inversify";
 import {
     Action,
     ActionHandlerRegistry,
+    ApplyLabelEditAction,
     CollapseExpandAction,
     CollapseExpandAllAction,
     ComputedBoundsAction,
@@ -89,6 +90,7 @@ export function registerDefaultGLSPServerActions(registry: ActionHandlerRegistry
     registry.register(IdentifiableRequestAction.KIND, diagramServer);
     registry.register(RequestMarkersAction.KIND, diagramServer);
     registry.register(LayoutAction.KIND, diagramServer);
+    registry.register(ApplyLabelEditAction.KIND, diagramServer);
 
     // Register an empty handler for SwitchEditMode, to avoid runtime exceptions.
     // We don't want to support SwitchEditMode, but sprotty still sends some corresponding

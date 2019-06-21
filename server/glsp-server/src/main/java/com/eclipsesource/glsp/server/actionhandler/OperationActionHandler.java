@@ -44,6 +44,7 @@ public class OperationActionHandler extends AbstractActionHandler {
 		case Action.Kind.REROUTE_CONNECTION_OPERATION:
 		case Action.Kind.DELETE_ELEMENT_OPERATION:
 		case Action.Kind.CHANGE_BOUNDS_OPERATION:
+		case Action.Kind.APPLY_LABEL_EDIT_OPERATION:
 			return doHandle((AbstractOperationAction) action, modelState);
 		default:
 			return Optional.empty();
