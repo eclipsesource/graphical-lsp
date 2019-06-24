@@ -4,7 +4,8 @@ branches:
 matrix:
   include:
     - language: java
-      jdk: oraclejdk11
+      dist: trusty
+      jdk:  oraclejdk8
       before_script:
         - cd server
       cache:
