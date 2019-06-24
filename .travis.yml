@@ -31,14 +31,27 @@ matrix:
             - libxml2-utils
 
     - language: node_js
-      node_js:
-        - "8"
+      node_js: '10'
       before_script:
         - cd client
       cache:
         yarn: true
         directories:
           - node_modules
+      env:
+        global:
+          - CXX=g++-4.8
+          - NODE_OPTIONS="--max_old_space_size=4096"
+      addons:
+        apt:
+          update: true
+          packages:
+          - g++-4.8
+          - libsecret-1-dev
+          - xvfb
+          - libx11-dev
+          - libxkbfile-dev
+      install: false
       before_deploy:
       - printf "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}\n" >> ~/.npmrc
       - yarn
