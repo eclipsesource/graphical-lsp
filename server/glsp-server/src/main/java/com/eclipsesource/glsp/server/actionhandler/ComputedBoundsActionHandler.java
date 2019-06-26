@@ -17,12 +17,11 @@ package com.eclipsesource.glsp.server.actionhandler;
 
 import java.util.Optional;
 
-import org.eclipse.sprotty.SModelRoot;
-
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.ComputedBoundsAction;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.utils.LayoutUtil;
+import com.eclipsesource.glsp.graph.GModelRoot;
 import com.google.inject.Inject;
 
 public class ComputedBoundsActionHandler extends AbstractActionHandler {
@@ -40,7 +39,7 @@ public class ComputedBoundsActionHandler extends AbstractActionHandler {
 			ComputedBoundsAction computedBoundsAction = (ComputedBoundsAction) action;
 
 			synchronized (submissionHandler.getModelLock()) {
-				SModelRoot model = modelState.getRoot();
+				GModelRoot model = modelState.getRoot();
 				if (model != null && model.getRevision() == computedBoundsAction.getRevision()) {
 					LayoutUtil.applyBounds(model, computedBoundsAction);
 					return submissionHandler.doSubmitModel(true, modelState);

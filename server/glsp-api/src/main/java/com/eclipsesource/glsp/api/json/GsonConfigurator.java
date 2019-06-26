@@ -18,6 +18,7 @@ package com.eclipsesource.glsp.api.json;
 import org.eclipse.sprotty.server.json.EnumTypeAdapter;
 
 import com.eclipsesource.glsp.api.action.ActionRegistry;
+import com.eclipsesource.glsp.api.factory.GraphGsonConfiguratorFactory;
 import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapterFactory;
 import com.google.inject.Inject;
@@ -25,10 +26,12 @@ import com.google.inject.Inject;
 public class GsonConfigurator {
 
 	private ActionRegistry actionRegistry;
+	private GraphGsonConfiguratorFactory gsonConfigurationFactory;
 
 	@Inject
-	public GsonConfigurator(ActionRegistry actionRegistry) {
+	public GsonConfigurator(ActionRegistry actionRegistry, GraphGsonConfiguratorFactory gsonConfigurationFactory) {
 		this.actionRegistry = actionRegistry;
+		this.gsonConfigurationFactory = gsonConfigurationFactory;
 	}
 
 	protected TypeAdapterFactory getActionTypeAdapterFactory() {
@@ -38,7 +41,7 @@ public class GsonConfigurator {
 	public GsonBuilder configureGsonBuilder(GsonBuilder gsonBuilder) {
 		gsonBuilder.registerTypeAdapterFactory(getActionTypeAdapterFactory());
 		gsonBuilder.registerTypeAdapterFactory(new EnumTypeAdapter.Factory());
-		return gsonBuilder;
+		return gsonConfigurationFactory.create().configureGsonBuilder(gsonBuilder);
 	}
 
 }

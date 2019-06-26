@@ -16,6 +16,7 @@
 package com.eclipsesource.glsp.api.handler;
 
 public interface Handler<T> {
+	
 	default int getPriority() {
 		return Integer.MIN_VALUE;
 	}

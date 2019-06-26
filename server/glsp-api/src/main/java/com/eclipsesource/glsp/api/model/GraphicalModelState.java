@@ -17,13 +17,12 @@ package com.eclipsesource.glsp.api.model;
 
 import java.util.Set;
 
-import org.eclipse.sprotty.SModelRoot;
-
 import com.eclipsesource.glsp.api.utils.ClientOptions.ParsedClientOptions;
-import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.eclipsesource.glsp.api.utils.ServerOptions;
+import com.eclipsesource.glsp.graph.GModelIndex;
+import com.eclipsesource.glsp.graph.GModelRoot;
 
-public interface GraphicalModelState extends ModelState<SModelRoot> {
+public interface GraphicalModelState extends ModelState<GModelRoot> {
 	ParsedClientOptions getClientOptions();
 
 	void setClientOptions(ParsedClientOptions options);
@@ -36,7 +35,7 @@ public interface GraphicalModelState extends ModelState<SModelRoot> {
 
 	void setSelectedElements(Set<String> selectedElements);
 
-	SModelIndex getIndex();
+	GModelIndex getIndex();
 
 	void setServerOptions(ServerOptions options);
 

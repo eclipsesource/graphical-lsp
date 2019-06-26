@@ -13,7 +13,13 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action, ActionHandlerRegistry, ModelSource, registerDefaultGLSPServerActions } from "@glsp/sprotty-client/lib";
+import {
+    Action,
+    ActionHandlerRegistry,
+    ComputedBoundsAction,
+    ModelSource,
+    registerDefaultGLSPServerActions
+} from "@glsp/sprotty-client/lib";
 import { Emitter, Event } from "@theia/core/lib/common";
 import { injectable } from "inversify";
 import { TheiaDiagramServer } from "sprotty-theia/lib";
@@ -39,6 +45,9 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         return super.handle(action);
     }
 
+    protected handleComputedBounds(action: ComputedBoundsAction): boolean {
+        return true;
+    }
 }
 
 export interface NotifyingModelSource extends ModelSource {

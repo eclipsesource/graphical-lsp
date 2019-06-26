@@ -15,18 +15,17 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.factory;
 
-import org.eclipse.sprotty.SModelRoot;
-
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
+import com.eclipsesource.glsp.graph.GModelRoot;
 
 public interface ModelFactory {
 
-	SModelRoot loadModel(RequestModelAction action);
+	GModelRoot loadModel(RequestModelAction action);
 
 	public static class NullImpl implements ModelFactory {
 
 		@Override
-		public SModelRoot loadModel(RequestModelAction action) {
+		public GModelRoot loadModel(RequestModelAction action) {
 			return null;
 		}
 

@@ -18,14 +18,14 @@ package com.eclipsesource.glsp.example.workflow.handler;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
-import org.eclipse.sprotty.SEdge;
-import org.eclipse.sprotty.SModelRoot;
 
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.action.kind.RerouteConnectionOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.api.utils.SModelIndex;
+import com.eclipsesource.glsp.graph.GEdge;
+import com.eclipsesource.glsp.graph.GModelIndex;
+import com.eclipsesource.glsp.graph.GModelRoot;
 
 public class RerouteEdgeHandler implements OperationHandler {
 	private static Logger log = Logger.getLogger(RerouteEdgeHandler.class);
@@ -36,7 +36,7 @@ public class RerouteEdgeHandler implements OperationHandler {
 	}
 
 	@Override
-	public Optional<SModelRoot> execute(AbstractOperationAction operationAction, GraphicalModelState modelState) {
+	public Optional<GModelRoot> execute(AbstractOperationAction operationAction, GraphicalModelState modelState) {
 		if (!(operationAction instanceof RerouteConnectionOperationAction)) {
 			log.warn("Unexpected action " + operationAction);
 			return Optional.empty();
@@ -50,17 +50,16 @@ public class RerouteEdgeHandler implements OperationHandler {
 		}
 
 		// check for existence of matching elements
-		SModelIndex index = modelState.getIndex();
-		Optional<SEdge> edge = index.findElement(action.getConnectionElementId(), SEdge.class);
+		GModelIndex index = modelState.getIndex();
+		Optional<GEdge> edge = index.findElementByClass(action.getConnectionElementId(), GEdge.class);
 		if (!edge.isPresent()) {
 			log.warn("Invalid edge: edge ID " + action.getConnectionElementId());
 			return Optional.empty();
 		}
 
 		// reroute
-		edge.get().setRoutingPoints(action.getRoutingPoints());
+		edge.get().getRoutingPoints().addAll(action.getRoutingPoints());
 
-		SModelRoot currentModel = modelState.getRoot();
-		return Optional.of(currentModel);
+		return Optional.of(modelState.getRoot());
 	}
 }

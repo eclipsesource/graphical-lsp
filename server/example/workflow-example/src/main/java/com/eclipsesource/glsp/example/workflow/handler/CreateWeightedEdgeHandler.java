@@ -15,14 +15,15 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.handler;
 
-import org.eclipse.sprotty.SEdge;
-import org.eclipse.sprotty.SModelElement;
+import java.util.Optional;
 
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.example.workflow.schema.ModelTypes;
-import com.eclipsesource.glsp.example.workflow.schema.WeightedEdge;
+import com.eclipsesource.glsp.example.workflow.utils.ModelTypes;
+import com.eclipsesource.glsp.example.workflow.wfgraph.WfgraphFactory;
+import com.eclipsesource.glsp.graph.GEdge;
+import com.eclipsesource.glsp.graph.GModelElement;
 import com.eclipsesource.glsp.server.operationhandler.CreateConnectionOperationHandler;
-import com.eclipsesource.glsp.server.util.SModelUtil;
+import com.eclipsesource.glsp.server.util.GModelUtil;
 
 public class CreateWeightedEdgeHandler extends CreateConnectionOperationHandler {
 
@@ -32,14 +33,14 @@ public class CreateWeightedEdgeHandler extends CreateConnectionOperationHandler 
 	}
 
 	@Override
-	protected SEdge createConnection(SModelElement source, SModelElement target, GraphicalModelState modelState) {
-		WeightedEdge edge = new WeightedEdge();
+	protected Optional<GEdge> createConnection(GModelElement source, GModelElement target,
+			GraphicalModelState modelState) {
+		GEdge edge = WfgraphFactory.eINSTANCE.createWeightedEdge();
+		edge.setType(elementTypeId);
 		edge.setSourceId(source.getId());
 		edge.setTargetId(target.getId());
-		edge.setType(elementTypeId);
-		edge.setProbability("high");
-		SModelUtil.generateId(edge, "weightedEdge", modelState);
-		return edge;
+		GModelUtil.generateId(edge, "weightedEdge", modelState);
+		return Optional.of(edge);
 	}
 
 }

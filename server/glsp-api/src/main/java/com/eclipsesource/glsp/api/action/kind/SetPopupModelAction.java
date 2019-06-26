@@ -15,30 +15,31 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import org.eclipse.sprotty.Bounds;
-import org.eclipse.sprotty.SModelRoot;
+import org.eclipse.sprotty.HtmlRoot;
 
 import com.eclipsesource.glsp.api.action.Action;
+import com.eclipsesource.glsp.graph.GBounds;
 
 public class SetPopupModelAction extends Action {
-	private SModelRoot newRoot;
-	private Bounds bounds;
+
+	private HtmlRoot newRoot;
+	private GBounds bounds;
 
 	public SetPopupModelAction() {
 		super(Action.Kind.SET_POPUP_MODEL);
 	}
 
-	public SetPopupModelAction(SModelRoot newRoot, Bounds bounds) {
+	public SetPopupModelAction(HtmlRoot newRoot, GBounds bounds) {
 		this();
 		this.newRoot = newRoot;
 		this.bounds = bounds;
 	}
 
-	public SModelRoot getNewRoot() {
+	public HtmlRoot getNewRoot() {
 		return newRoot;
 	}
 
-	public Bounds getBounds() {
+	public GBounds getBounds() {
 		return bounds;
 	}
 

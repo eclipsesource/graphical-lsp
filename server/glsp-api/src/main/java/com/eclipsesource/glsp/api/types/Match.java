@@ -15,56 +15,44 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.types;
 
-import org.eclipse.sprotty.SModelElement;
+import com.eclipsesource.glsp.graph.GModelElement;
 
 public class Match {
-	private SModelElement left;
-	private SModelElement right;
-	private String leftParentId;
-	private String rightParentId;
+	
+	private GModelElement left;
+	private GModelElement right;
 
 	public Match() {
-
 	}
 
-	public Match(SModelElement left, SModelElement right, String leftParentId, String rightParentId) {
+	public Match(GModelElement left, GModelElement right) {
 		super();
 		this.left = left;
 		this.right = right;
-		this.leftParentId = leftParentId;
-		this.rightParentId = rightParentId;
 	}
 
-	public SModelElement getLeft() {
+	public GModelElement getLeft() {
 		return left;
 	}
 
-	public SModelElement getRight() {
+	public GModelElement getRight() {
 		return right;
 	}
 
 	public String getLeftParentId() {
-		return leftParentId;
+		return this.left.getParent().getId();
 	}
 
 	public String getRightParentId() {
-		return rightParentId;
+		return this.right.getParent().getId();
 	}
 
-	public void setLeft(SModelElement left) {
+	public void setLeft(GModelElement left) {
 		this.left = left;
 	}
 
-	public void setRight(SModelElement right) {
+	public void setRight(GModelElement right) {
 		this.right = right;
-	}
-
-	public void setLeftParentId(String leftParentId) {
-		this.leftParentId = leftParentId;
-	}
-
-	public void setRightParentId(String rightParentId) {
-		this.rightParentId = rightParentId;
 	}
 
 }

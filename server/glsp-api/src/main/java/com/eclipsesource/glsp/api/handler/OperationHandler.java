@@ -17,14 +17,13 @@ package com.eclipsesource.glsp.api.handler;
 
 import java.util.Optional;
 
-import org.eclipse.sprotty.SModelRoot;
-
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
+import com.eclipsesource.glsp.graph.GModelRoot;
 
 public interface OperationHandler extends Handler<AbstractOperationAction> {
 
-	Optional<SModelRoot> execute(AbstractOperationAction action, GraphicalModelState modelState);
+	Optional<GModelRoot> execute(AbstractOperationAction action, GraphicalModelState modelState);
 
 	@Override
 	default boolean handles(AbstractOperationAction action) {

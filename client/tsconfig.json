@@ -5,16 +5,16 @@
     "baseUrl": ".",
     "paths": {
       "@glsp/theia-integration": [
-        "packages/@glsp/theia-integration/src/*"
+        "packages/theia-integration/src/*"
       ],
       "@glsp/sprotty-client": [
-        "packages/@glsp/sprotty-client/src/*"
+        "packages/sprotty-client/src/*"
       ],
       "@glsp-examples/workflow-theia": [
-        "examples/workflow/@glsp-examples/workflow-theia/src/*"
+        "examples/workflow/workflow-theia/src/*"
       ],
       "@glsp-examples/workflow-sprotty": [
-        "examples/workflow/@glsp-examples/workflow-sprotty/src/*"
+        "examples/workflow/workflow-sprotty/src/*"
       ]
     },
     "plugins": [

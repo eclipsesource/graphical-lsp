@@ -18,14 +18,16 @@ package com.eclipsesource.glsp.example.workflow;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.eclipse.sprotty.Bounds;
 import org.eclipse.sprotty.HtmlRoot;
 import org.eclipse.sprotty.PreRenderedElement;
 import org.eclipse.sprotty.SModelElement;
-import org.eclipse.sprotty.SModelRoot;
 
 import com.eclipsesource.glsp.api.action.kind.RequestPopupModelAction;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
-import com.eclipsesource.glsp.example.workflow.schema.TaskNode;
+import com.eclipsesource.glsp.example.workflow.wfgraph.TaskNode;
+import com.eclipsesource.glsp.graph.GBounds;
+import com.eclipsesource.glsp.graph.GModelElement;
 
 public class WorkflowPopupFactory implements PopupModelFactory {
 
@@ -41,11 +43,12 @@ public class WorkflowPopupFactory implements PopupModelFactory {
 	private static final String NL = "<br>";
 
 	@Override
-	public SModelRoot createPopuModel(SModelElement element, RequestPopupModelAction action) {
-		if (element != null && element.getType().startsWith("task:")) {
+	public HtmlRoot createPopuModel(GModelElement element, RequestPopupModelAction action) {
+		if (element != null && element instanceof TaskNode) {
 			TaskNode task = (TaskNode) element;
 			HtmlRoot root = new HtmlRoot();
-			root.setCanvasBounds(action.getBounds());
+			GBounds bounds = action.getBounds();
+			root.setCanvasBounds(toBounds(bounds));
 			root.setType("html");
 			root.setId("sprotty-popup");
 			root.setChildren(new ArrayList<SModelElement>());
@@ -63,6 +66,10 @@ public class WorkflowPopupFactory implements PopupModelFactory {
 		}
 		return null;
 
+	}
+
+	private Bounds toBounds(GBounds bounds) {
+		return new Bounds(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
 	}
 
 }

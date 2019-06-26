@@ -23,7 +23,6 @@ import com.eclipsesource.glsp.api.action.kind.SelectAction;
 import com.eclipsesource.glsp.api.action.kind.SelectAllAction;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.model.ModelSelectionListener;
-import com.eclipsesource.glsp.api.utils.SModelIndex;
 import com.google.inject.Inject;
 
 public class SelectActionHandler extends AbstractActionHandler {
@@ -51,7 +50,7 @@ public class SelectActionHandler extends AbstractActionHandler {
 	private Optional<Action> handleSelectAllAction(SelectAllAction action, GraphicalModelState modelState) {
 		Set<String> selectedElements = modelState.getSelectedElements();
 		if (action.isSelect()) {
-			new SModelIndex(modelState.getRoot()).allIds().forEach(id -> selectedElements.add(id));
+			modelState.getIndex().allIds().forEach(id -> selectedElements.add(id));
 		} else
 			selectedElements.clear();
 		if (modelSelectionListener != null) {

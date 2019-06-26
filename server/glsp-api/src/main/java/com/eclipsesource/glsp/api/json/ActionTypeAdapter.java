@@ -29,6 +29,7 @@ import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
 
 public class ActionTypeAdapter extends PropertyBasedTypeAdapter<Action> {
+
 	private Map<String, Class<? extends Action>> actions;
 
 	public ActionTypeAdapter(Gson gson, Map<String, Class<? extends Action>> actions) {
@@ -66,7 +67,6 @@ public class ActionTypeAdapter extends PropertyBasedTypeAdapter<Action> {
 				return null;
 			return (TypeAdapter<T>) new ActionTypeAdapter(gson, actions);
 		}
-
 	}
 
 }

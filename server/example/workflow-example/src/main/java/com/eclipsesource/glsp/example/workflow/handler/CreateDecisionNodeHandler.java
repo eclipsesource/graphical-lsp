@@ -17,31 +17,29 @@ package com.eclipsesource.glsp.example.workflow.handler;
 
 import java.util.Optional;
 
-import org.eclipse.sprotty.Point;
-import org.eclipse.sprotty.SNode;
-
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.example.workflow.schema.ActivityNode;
-import com.eclipsesource.glsp.example.workflow.schema.ModelTypes;
+import com.eclipsesource.glsp.example.workflow.utils.ModelTypes;
+import com.eclipsesource.glsp.example.workflow.wfgraph.ActivityNode;
+import com.eclipsesource.glsp.example.workflow.wfgraph.WfgraphFactory;
+import com.eclipsesource.glsp.graph.GNode;
+import com.eclipsesource.glsp.graph.GPoint;
 import com.eclipsesource.glsp.server.operationhandler.CreateNodeOperationHandler;
-import com.eclipsesource.glsp.server.util.SModelUtil;
+import com.eclipsesource.glsp.server.util.GModelUtil;
 
 public class CreateDecisionNodeHandler extends CreateNodeOperationHandler {
 
 	public CreateDecisionNodeHandler() {
 		super(ModelTypes.DECISION_NODE);
-
 	}
 
 	@Override
-	protected SNode createNode(Optional<Point> point, GraphicalModelState modelState) {
-		ActivityNode result = new ActivityNode();
+	protected GNode createNode(Optional<GPoint> point, GraphicalModelState modelState) {
+		ActivityNode result = WfgraphFactory.eINSTANCE.createActivityNode();
+		result.setType(elementTypeId);
 		result.setNodeType("decisionNode");
-		result.setType(ModelTypes.DECISION_NODE);
 		point.ifPresent(result::setPosition);
 
-		SModelUtil.generateId(result, "activityNode", modelState);
-
+		GModelUtil.generateId(result, "activityNode", modelState);
 		return result;
 	}
 

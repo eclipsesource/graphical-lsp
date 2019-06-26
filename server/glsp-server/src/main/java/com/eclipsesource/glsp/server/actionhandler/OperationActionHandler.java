@@ -17,20 +17,18 @@ package com.eclipsesource.glsp.server.actionhandler;
 
 import java.util.Optional;
 
-import org.eclipse.sprotty.SModelRoot;
-
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
+import com.eclipsesource.glsp.api.action.kind.RequestBoundsAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
+import com.eclipsesource.glsp.graph.GModelRoot;
 import com.google.inject.Inject;
 
 public class OperationActionHandler extends AbstractActionHandler {
 	@Inject
 	private OperationHandlerProvider operationHandlerProvider;
-	@Inject
-	private ModelSubmissionHandler submissionHandler;
 
 	@Override
 	public boolean handles(Action action) {
@@ -46,6 +44,7 @@ public class OperationActionHandler extends AbstractActionHandler {
 		case Action.Kind.REROUTE_CONNECTION_OPERATION:
 		case Action.Kind.DELETE_ELEMENT_OPERATION:
 		case Action.Kind.CHANGE_BOUNDS_OPERATION:
+		case Action.Kind.APPLY_LABEL_EDIT_OPERATION:
 			return doHandle((AbstractOperationAction) action, modelState);
 		default:
 			return Optional.empty();
@@ -55,9 +54,9 @@ public class OperationActionHandler extends AbstractActionHandler {
 	public Optional<Action> doHandle(AbstractOperationAction action, GraphicalModelState modelState) {
 		if (operationHandlerProvider.isHandled(action)) {
 			OperationHandler handler = operationHandlerProvider.getHandler(action).get();
-			Optional<SModelRoot> modelRoot = handler.execute(action, modelState);
+			Optional<GModelRoot> modelRoot = handler.execute(action, modelState);
 			if (modelRoot.isPresent()) {
-				return submissionHandler.submit(true, modelState);
+				return Optional.of(new RequestBoundsAction(modelState.getRoot()));
 			}
 		}
 		return Optional.empty();

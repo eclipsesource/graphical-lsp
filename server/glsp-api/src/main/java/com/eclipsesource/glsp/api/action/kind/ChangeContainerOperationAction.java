@@ -15,33 +15,32 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import org.eclipse.sprotty.Point;
-
 import com.eclipsesource.glsp.api.action.Action;
+import com.eclipsesource.glsp.graph.GPoint;
 
 public class ChangeContainerOperationAction extends AbstractOperationAction {
 
 	private String elementId;
 	private String targetContainerId;
-	private Point location;
+	private GPoint location;
 
 	public ChangeContainerOperationAction() {
 		super(Action.Kind.CHANGE_CONTAINER_OPERATION);
 	}
 
-	public ChangeContainerOperationAction(String elementId, Point location) {
+	public ChangeContainerOperationAction(String elementId, GPoint location) {
 		this();
 		this.elementId = elementId;
 		this.location = location;
 	}
 
-	public ChangeContainerOperationAction(String elementId, Point location, String targetContainerId) {
+	public ChangeContainerOperationAction(String elementId, GPoint location, String targetContainerId) {
 		this(elementId, location);
 		this.targetContainerId = targetContainerId;
 	}
 
 	public ChangeContainerOperationAction(String elementId, String targetContainerId) {
-		this(elementId, (Point) null, targetContainerId);
+		this(elementId, (GPoint) null, targetContainerId);
 	}
 
 	public String getElementId() {
@@ -60,11 +59,11 @@ public class ChangeContainerOperationAction extends AbstractOperationAction {
 		this.targetContainerId = targetContainerId;
 	}
 
-	public Point getLocation() {
+	public GPoint getLocation() {
 		return location;
 	}
 
-	public void setLocation(Point location) {
+	public void setLocation(GPoint location) {
 		this.location = location;
 	}
 

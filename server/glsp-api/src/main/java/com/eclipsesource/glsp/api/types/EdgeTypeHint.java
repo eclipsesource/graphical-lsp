@@ -18,6 +18,7 @@ package com.eclipsesource.glsp.api.types;
 import java.util.List;
 
 public class EdgeTypeHint extends ElementTypeHint {
+	
 	private boolean routable;
 	private List<String> sourceElementTypeIds;
 	private List<String> targetElementTypeIds;

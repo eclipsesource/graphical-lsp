@@ -17,10 +17,9 @@ package com.eclipsesource.glsp.api.action.kind;
 
 import java.util.List;
 
-import org.eclipse.sprotty.ElementAndAlignment;
-import org.eclipse.sprotty.ElementAndBounds;
-
 import com.eclipsesource.glsp.api.action.Action;
+import com.eclipsesource.glsp.api.types.ElementAndAlignment;
+import com.eclipsesource.glsp.api.types.ElementAndBounds;
 
 public class ComputedBoundsAction extends Action {
 

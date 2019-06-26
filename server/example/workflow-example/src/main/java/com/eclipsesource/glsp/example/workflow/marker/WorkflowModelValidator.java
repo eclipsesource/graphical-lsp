@@ -20,23 +20,22 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-import org.eclipse.sprotty.SEdge;
-import org.eclipse.sprotty.SModelElement;
-
 import com.eclipsesource.glsp.api.markers.Marker;
 import com.eclipsesource.glsp.api.markers.MarkerKind;
 import com.eclipsesource.glsp.api.markers.ModelValidator;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.example.workflow.schema.ActivityNode;
-import com.eclipsesource.glsp.example.workflow.schema.TaskNode;
+import com.eclipsesource.glsp.example.workflow.wfgraph.ActivityNode;
+import com.eclipsesource.glsp.example.workflow.wfgraph.TaskNode;
+import com.eclipsesource.glsp.graph.GEdge;
+import com.eclipsesource.glsp.graph.GModelElement;
 
 public class WorkflowModelValidator implements ModelValidator {
 
 	@Override
-	public List<Marker> validate(GraphicalModelState modelState, SModelElement... elements) {
+	public List<Marker> validate(GraphicalModelState modelState, GModelElement... elements) {
 		List<Marker> markers = new ArrayList<Marker>();
 
-		for (SModelElement element : elements) {
+		for (GModelElement element : elements) {
 			if (element instanceof TaskNode) {
 				markers.addAll(validateTaskNode(modelState, element));
 			} else if (element instanceof ActivityNode) {
@@ -49,13 +48,13 @@ public class WorkflowModelValidator implements ModelValidator {
 			}
 			if (element.getChildren() != null) {
 				markers.addAll(validate(modelState,
-						element.getChildren().toArray(new SModelElement[element.getChildren().size()])));
+						element.getChildren().toArray(new GModelElement[element.getChildren().size()])));
 			}
 		}
 		return markers;
 	}
 
-	private static List<Marker> validateTaskNode(GraphicalModelState modelState, SModelElement taskNode) {
+	private static List<Marker> validateTaskNode(GraphicalModelState modelState, GModelElement taskNode) {
 		List<Marker> markers = new ArrayList<Marker>();
 		validateTaskNode_isAutomated(modelState, taskNode).ifPresent(m -> markers.add(m));
 		validateTaskNode_nameStartsUpperCase(modelState, taskNode).ifPresent(m -> markers.add(m));
@@ -63,7 +62,7 @@ public class WorkflowModelValidator implements ModelValidator {
 	}
 
 	private static Optional<Marker> validateTaskNode_isAutomated(GraphicalModelState modelState,
-			SModelElement element) {
+			GModelElement element) {
 		TaskNode taskNode = (TaskNode) element;
 		if ("automated".equals(taskNode.getTaskType())) {
 			return Optional
@@ -73,7 +72,7 @@ public class WorkflowModelValidator implements ModelValidator {
 	}
 
 	private static Optional<Marker> validateTaskNode_nameStartsUpperCase(GraphicalModelState modelState,
-			SModelElement element) {
+			GModelElement element) {
 		TaskNode taskNode = (TaskNode) element;
 		if (!Character.isUpperCase(taskNode.getName().charAt(0))) {
 			return Optional.of(new Marker("Task node name in upper case",
@@ -82,15 +81,15 @@ public class WorkflowModelValidator implements ModelValidator {
 		return Optional.empty();
 	}
 
-	private static List<Marker> validateDecisionNode(GraphicalModelState modelState, SModelElement decisionNode) {
+	private static List<Marker> validateDecisionNode(GraphicalModelState modelState, GModelElement decisionNode) {
 		List<Marker> markers = new ArrayList<Marker>();
 		validateDecisionNode_hasOneIncomingEdge(modelState, decisionNode).ifPresent(m -> markers.add(m));
 		return markers;
 	}
 
 	private static Optional<Marker> validateDecisionNode_hasOneIncomingEdge(GraphicalModelState modelState,
-			SModelElement decisionNode) {
-		Collection<SEdge> incomingEdges = modelState.getIndex().getIncomingEdges(decisionNode);
+			GModelElement decisionNode) {
+		Collection<GEdge> incomingEdges = modelState.getIndex().getIncomingEdges(decisionNode);
 		if (incomingEdges.size() > 1) {
 			return Optional.of(new Marker("Too many incoming edges", "Decision node may only have one incoming edge.",
 					decisionNode.getId(), MarkerKind.ERROR));
@@ -101,15 +100,15 @@ public class WorkflowModelValidator implements ModelValidator {
 		return Optional.empty();
 	}
 
-	private static List<Marker> validateMergeNode(GraphicalModelState modelState, SModelElement mergeNode) {
+	private static List<Marker> validateMergeNode(GraphicalModelState modelState, GModelElement mergeNode) {
 		List<Marker> markers = new ArrayList<Marker>();
 		validateMergeNode_hasOneOutgoingEdge(modelState, mergeNode).ifPresent(m -> markers.add(m));
 		return markers;
 	}
 
 	private static Optional<Marker> validateMergeNode_hasOneOutgoingEdge(GraphicalModelState modelState,
-			SModelElement mergeNode) {
-		Collection<SEdge> outgoingEdges = modelState.getIndex().getOutgoingEdges(mergeNode);
+			GModelElement mergeNode) {
+		Collection<GEdge> outgoingEdges = modelState.getIndex().getOutgoingEdges(mergeNode);
 		if (outgoingEdges.size() > 1) {
 			return Optional.of(new Marker("Too many outgoing edges", "Merge node may only have one outgoing edge.",
 					mergeNode.getId(), MarkerKind.ERROR));

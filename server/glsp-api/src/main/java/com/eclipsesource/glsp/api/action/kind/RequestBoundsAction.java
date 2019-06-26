@@ -15,23 +15,23 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import org.eclipse.sprotty.SModelRoot;
-
 import com.eclipsesource.glsp.api.action.Action;
+import com.eclipsesource.glsp.graph.GModelRoot;
 
 public class RequestBoundsAction extends Action {
-	private SModelRoot newRoot;
+	
+	private GModelRoot newRoot;
 
 	public RequestBoundsAction() {
 		super(Action.Kind.REQUEST_BOUNDS);
 	}
 
-	public RequestBoundsAction(SModelRoot newRoot) {
+	public RequestBoundsAction(GModelRoot newRoot) {
 		this();
 		this.newRoot = newRoot;
 	}
 
-	public SModelRoot getNewRoot() {
+	public GModelRoot getNewRoot() {
 		return newRoot;
 	}
 

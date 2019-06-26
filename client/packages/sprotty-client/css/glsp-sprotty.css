@@ -45,6 +45,7 @@
 }
 
 .sprotty-resize-handle {
+    /* radius does not work in Firefox */
     r: 7px;
     fill: #884;
     stroke: none;

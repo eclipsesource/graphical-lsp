@@ -58,6 +58,7 @@
 		<module>example/workflow-example</module>
 		<module>glsp-server</module>
 		<module>glsp-server-websocket</module>
+		<module>glsp-graph</module>
 	</modules>
 
 	<dependencies>
@@ -65,6 +66,18 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.4.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.4.2</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -77,18 +90,10 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<additionalJOption>-Xdoclint:none</additionalJOption>
 	</properties>
 
 	<build>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<targetPath>${project.build.directory}</targetPath>
-				<includes>
-					<include>log4j.properties</include>
-				</includes>
-			</resource>
-		</resources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -97,6 +102,11 @@
 					<source>1.8</source>
 					<target>1.8</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.1</version>
 			</plugin>
 		</plugins>
 	</build>
@@ -137,17 +147,37 @@
 								</goals>
 							</execution>
 						</executions>
-					</plugin>
-					<plugin>
+					</plugin>		
+				<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>2.10.4</version>
+						<version>3.1.0</version>
 						<executions>
 							<execution>
 								<id>attach-javadocs</id>
 								<goals>
 									<goal>jar</goal>
 								</goals>
+								<configuration>
+								   <additionalJOption>-Xdoclint:none</additionalJOption>
+									<tags>
+										<tag>
+											<name>generated</name>
+											<placement>a</placement>
+											<head></head>
+										</tag>
+											<tag>
+											<name>ordered</name>
+											<placement>a</placement>
+											<head></head>
+										</tag>
+											<tag>
+											<name>model</name>
+											<placement>a</placement>
+											<head>Model:</head>
+										</tag>
+									</tags>
+								</configuration>
 							</execution>
 						</executions>
 					</plugin>

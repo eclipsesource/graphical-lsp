@@ -19,6 +19,7 @@ import com.eclipsesource.glsp.api.action.kind.SelectAction;
 import com.eclipsesource.glsp.api.action.kind.SelectAllAction;
 
 public interface ModelSelectionListener {
+	
 	void selectionChanged(SelectAction acion);
 
 	void selectionChanged(SelectAllAction action);

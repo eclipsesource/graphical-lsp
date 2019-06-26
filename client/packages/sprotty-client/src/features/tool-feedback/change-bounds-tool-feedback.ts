@@ -14,7 +14,6 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { inject, injectable } from "inversify";
-import { element } from "prop-types";
 import { VNode } from "snabbdom/vnode";
 import {
     Action,
@@ -114,21 +113,8 @@ export class FeedbackMoveMouseListener extends MouseListener {
         return [];
     }
 
-    /**
-    * Used to check if 1D boxes (lines) overlap
-    */
-    isOverlapping1Dimension(x1: number, width1: number, x2: number, width2: number): boolean {
-        return x1 + width1 >= x2 && x2 + width2 >= x1;
-    }
 
-    /**
-    * Used to check if 2 bounds are overlapping
-    */
-    isOverlappingBounds(bounds1: Bounds, bounds2: Bounds): boolean {
-        return this.isOverlapping1Dimension(bounds1.x, bounds1.width, bounds2.x, bounds2.width) &&
-            this.isOverlapping1Dimension(bounds1.y, bounds1.height, bounds2.y, bounds2.height);
 
-    }
 
     /**
     * Used to return the collision target(s) or the collision chain in case of multiple selected elements
@@ -146,7 +132,7 @@ export class FeedbackMoveMouseListener extends MouseListener {
                                 width: element.size.width,
                                 height: element.size.height
                             };
-                            if (this.isOverlappingBounds(futureBounds, candidate.bounds) && !this.isOverlappingBounds(element.bounds, candidate.bounds)) {
+                            if (isOverlappingBounds(futureBounds, candidate.bounds) && !isOverlappingBounds(element.bounds, candidate.bounds)) {
                                 collisionChain.push(candidate);
                                 if (candidate.selected) {
                                     // Check what the selected candidate will collide with and add it to the chain
@@ -246,3 +232,19 @@ export class FeedbackMoveMouseListener extends MouseListener {
     }
 }
 
+
+/**
+* Used to check if 1D boxes (lines) overlap
+*/
+export function isOverlapping1Dimension(x1: number, width1: number, x2: number, width2: number): boolean {
+    return x1 + width1 >= x2 && x2 + width2 >= x1;
+}
+
+/**
+* Used to check if 2 bounds are overlapping
+*/
+export function isOverlappingBounds(bounds1: Bounds, bounds2: Bounds): boolean {
+    return isOverlapping1Dimension(bounds1.x, bounds1.width, bounds2.x, bounds2.width) &&
+        isOverlapping1Dimension(bounds1.y, bounds1.height, bounds2.y, bounds2.height);
+
+}

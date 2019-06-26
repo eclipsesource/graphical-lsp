@@ -15,15 +15,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import org.eclipse.sprotty.SModelElement;
-
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestMarkersAction;
 import com.eclipsesource.glsp.api.action.kind.SetMarkersAction;
 import com.eclipsesource.glsp.api.markers.Marker;
 import com.eclipsesource.glsp.api.markers.ModelValidator;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.api.utils.SModelIndex;
+import com.eclipsesource.glsp.graph.GModelElement;
+import com.eclipsesource.glsp.graph.GModelIndex;
 import com.google.inject.Inject;
 
 public class RequestMarkersHandler extends AbstractActionHandler {
@@ -40,9 +39,9 @@ public class RequestMarkersHandler extends AbstractActionHandler {
 			elementsIDs = Arrays.asList(modelState.getRoot().getId());
 		}
 		List<Marker> markers = new ArrayList<Marker>();
-		SModelIndex currentModelIndex = modelState.getIndex();
+		GModelIndex currentModelIndex = modelState.getIndex();
 		for (String elementID : elementsIDs) {
-			Optional<SModelElement> modelElement = currentModelIndex.get(elementID);
+			Optional<GModelElement> modelElement = currentModelIndex.get(elementID);
 			if (modelElement.isPresent()) {
 				markers.addAll(validator.validate(modelState, modelElement.get()));
 			}

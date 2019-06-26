@@ -15,23 +15,25 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.di;
 
-import org.eclipse.sprotty.ILayoutEngine;
-
-import com.eclipsesource.glsp.api.diagram.DiagramManagerProvider;
+import com.eclipsesource.glsp.api.action.ActionDispatcher;
+import com.eclipsesource.glsp.api.diagram.DiagramConfigurationProvider;
+import com.eclipsesource.glsp.api.factory.GraphGsonConfiguratorFactory;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
+import com.eclipsesource.glsp.api.labeledit.LabelEditValidator;
+import com.eclipsesource.glsp.api.layout.ILayoutEngine;
 import com.eclipsesource.glsp.api.markers.ModelValidator;
 import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
 import com.eclipsesource.glsp.api.model.ModelExpansionListener;
 import com.eclipsesource.glsp.api.model.ModelSelectionListener;
 import com.eclipsesource.glsp.api.model.ModelStateProvider;
-import com.eclipsesource.glsp.api.operations.OperationConfiguration;
 import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
 import com.eclipsesource.glsp.api.provider.ActionProvider;
 import com.eclipsesource.glsp.api.provider.CommandPaletteActionProvider;
 import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
 import com.eclipsesource.glsp.api.provider.ServerCommandHandlerProvider;
+import com.eclipsesource.glsp.graph.GraphExtension;
 import com.google.inject.AbstractModule;
 
 public abstract class GLSPModule extends AbstractModule {
@@ -45,22 +47,27 @@ public abstract class GLSPModule extends AbstractModule {
 		bind(ModelExpansionListener.class).to(bindModelExpansionListener());
 		bind(ModelElementOpenListener.class).to(bindModelElementOpenListener());
 		bind(ILayoutEngine.class).to(bindLayoutEngine());
-		bind(OperationConfiguration.class).to(bindOperationConfiguration());
 		bind(ActionProvider.class).to(bindActionProvider());
 		bind(ActionHandlerProvider.class).to(bindActionHandlerProvider());
 		bind(OperationHandlerProvider.class).to(bindOperatioHandlerProvider());
 		bind(ServerCommandHandlerProvider.class).to(bindServerCommandHandlerProvider());
 		bind(CommandPaletteActionProvider.class).to(bindCommandPaletteActionProvider());
 		bind(ModelValidator.class).to(bindModelValidator());
-		bind(DiagramManagerProvider.class).to(bindDiagramManagerProvider());
+		bind(ActionDispatcher.class).to(bindActionDispatcher());
+		bind(DiagramConfigurationProvider.class).to(bindDiagramConfigurationProvider());
+		bind(LabelEditValidator.class).to(bindLabelEditValidator());
 		bind(ModelStateProvider.class).to(bindModelStateProvider());
+		bind(GraphGsonConfiguratorFactory.class).to(bindGraphGsonConfiguratorFactory());
+		bind(GraphExtension.class).to(bindGraphExtension());
 	}
 
 	protected abstract Class<? extends ModelStateProvider> bindModelStateProvider();
 
-	protected abstract Class<? extends DiagramManagerProvider> bindDiagramManagerProvider();
+	protected abstract Class<? extends DiagramConfigurationProvider> bindDiagramConfigurationProvider();
 
 	protected abstract Class<? extends GLSPServer> bindGLSPServer();
+
+	protected abstract Class<? extends GraphGsonConfiguratorFactory> bindGraphGsonConfiguratorFactory();
 
 	protected Class<? extends CommandPaletteActionProvider> bindCommandPaletteActionProvider() {
 		return CommandPaletteActionProvider.NullImpl.class;
@@ -98,10 +105,6 @@ public abstract class GLSPModule extends AbstractModule {
 		return PopupModelFactory.NullImpl.class;
 	}
 
-	protected Class<? extends OperationConfiguration> bindOperationConfiguration() {
-		return OperationConfiguration.NullOperationConfiguration.class;
-	}
-
 	protected Class<? extends ILayoutEngine> bindLayoutEngine() {
 		return ILayoutEngine.NullImpl.class;
 	}
@@ -112,5 +115,17 @@ public abstract class GLSPModule extends AbstractModule {
 
 	protected Class<? extends ModelValidator> bindModelValidator() {
 		return ModelValidator.NullImpl.class;
+	}
+
+	protected Class<? extends ActionDispatcher> bindActionDispatcher() {
+		return ActionDispatcher.NullImpl.class;
+	}
+
+	protected Class<? extends LabelEditValidator> bindLabelEditValidator() {
+		return LabelEditValidator.NullImpl.class;
+	}
+
+	protected Class<? extends GraphExtension> bindGraphExtension() {
+		return null;
 	}
 }

@@ -15,11 +15,13 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.handler;
 
-import com.eclipsesource.glsp.example.workflow.schema.ModelTypes;
+import com.eclipsesource.glsp.example.workflow.utils.ModelTypes;
+import com.eclipsesource.glsp.example.workflow.wfgraph.TaskNode;
+import com.eclipsesource.glsp.example.workflow.wfgraph.WfgraphPackage;
 
 public class CreateManualTaskHandler extends CreateTaskHandler {
 
 	public CreateManualTaskHandler() {
-		super(ModelTypes.MANUAL_TASK, "manual", i -> "ManualTask" + i);
+		super(ModelTypes.MANUAL_TASK,"manual", i -> "ManualTask" + i);
 	}
 }

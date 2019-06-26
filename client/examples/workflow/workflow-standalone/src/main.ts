@@ -36,7 +36,6 @@ websocket.addEventListener('open', event => {
     actionDispatcher.dispatch(new RequestModelAction({
         sourceUri: `file://${examplePath}`,
         diagramType: "workflow-diagram",
-        needsClientLayout: "true"
     }));
     actionDispatcher.dispatch(new RequestOperationsAction());
     actionDispatcher.dispatch(new RequestTypeHintsAction("workflow-diagram"));

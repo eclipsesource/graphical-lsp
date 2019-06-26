@@ -16,17 +16,20 @@
 package com.eclipsesource.glsp.server.actionhandler;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-import org.eclipse.sprotty.SModelRoot;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.SaveModelAction;
-import com.eclipsesource.glsp.api.diagram.DiagramManagerProvider;
+import com.eclipsesource.glsp.api.factory.GraphGsonConfiguratorFactory;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
+import com.eclipsesource.glsp.graph.GGraph;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 
@@ -35,7 +38,7 @@ public class SaveModelActionHandler extends AbstractActionHandler {
 	private static final String FILE_PREFIX = "file://";
 
 	@Inject
-	DiagramManagerProvider diagramManagerProvider;
+	private GraphGsonConfiguratorFactory gsonConfigurationFactory;
 
 	@Override
 	public boolean handles(Action action) {
@@ -55,9 +58,9 @@ public class SaveModelActionHandler extends AbstractActionHandler {
 
 	private void saveModelState(GraphicalModelState modelState) {
 		convertToFile(modelState).ifPresent(file -> {
-			try {
-				Gson gson = diagramManagerProvider.configureGSON().create();
-				FileUtils.writeStringToFile(file, gson.toJson(modelState.getRoot(), SModelRoot.class), "UTF8");
+			try (Writer writer = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)) {
+				Gson gson = gsonConfigurationFactory.configureGson().create();
+				gson.toJson(modelState.getRoot(), GGraph.class, writer);
 			} catch (IOException e) {
 				LOG.error(e);
 			}
@@ -69,11 +72,10 @@ public class SaveModelActionHandler extends AbstractActionHandler {
 		if (sourceUriOpt.isPresent()) {
 			String uri = sourceUriOpt.get();
 			if (uri.startsWith(FILE_PREFIX)) {
-				return Optional.of(new File(uri.replace(FILE_PREFIX, "")));
+				return Optional.of(new File(uri.substring(FILE_PREFIX.length())));
 			}
 			LOG.warn("Could not parse the sourceUri parameter. Invalid format: " + uri);
 		}
 		return Optional.empty();
-
 	}
 }

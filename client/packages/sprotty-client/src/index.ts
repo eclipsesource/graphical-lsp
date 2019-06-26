@@ -15,8 +15,10 @@
  ********************************************************************************/
 import defaultGLSPModule from "./base/di.config";
 import glspCommandPaletteModule from "./features/command-palette/di.config";
+import glspEditLabelValidationModule from "./features/edit-label-validation/di.config";
 import executeModule from "./features/execute/di.config";
 import modelHintsModule from "./features/hints/di.config";
+import layoutCommandsModule from "./features/layout/di.config";
 import glspMouseToolModule from "./features/mouse-tool/di.config";
 import requestResponseModule from "./features/request-response/di.config";
 import saveModule from "./features/save/di.config";
@@ -53,6 +55,7 @@ export * from './features/tools/creation-tool';
 export * from './features/tools/default-tools';
 export * from './features/tools/delete-tool';
 export * from './features/validation/validate';
+export * from './features/layout/layout-commands';
 export * from './lib/model';
 export * from './types';
 export * from './utils/array-utils';
@@ -61,7 +64,7 @@ export * from './utils/smodel-util';
 export * from './utils/viewpoint-util';
 export {
     validationModule, saveModule, executeModule, paletteModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule, glspCommandPaletteModule, requestResponseModule, //
-    glspSelectModule, glspMouseToolModule
+    glspSelectModule, glspMouseToolModule, layoutCommandsModule, glspEditLabelValidationModule
 };
 
 
