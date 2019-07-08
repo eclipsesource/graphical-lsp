@@ -28,6 +28,7 @@ import com.eclipsesource.glsp.api.action.kind.IdentifiableResponseAction;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPClient;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
 import com.eclipsesource.glsp.api.jsonrpc.InitializeParameters;
+import com.eclipsesource.glsp.api.jsonrpc.GLSPClientProvider;
 import com.eclipsesource.glsp.api.model.ModelStateProvider;
 import com.eclipsesource.glsp.api.types.ServerStatus;
 import com.eclipsesource.glsp.api.types.ServerStatus.Severity;
@@ -39,6 +40,9 @@ public class DefaultGLSPServer<T> implements GLSPServer {
 
 	@Inject
 	private ModelStateProvider modelStateProvider;
+
+	@Inject
+	private GLSPClientProvider clientProxyProvider;
 	@Inject
 	private ActionDispatcher actionDispatcher;
 	static Logger log = Logger.getLogger(DefaultGLSPServer.class);
@@ -85,6 +89,13 @@ public class DefaultGLSPServer<T> implements GLSPServer {
 		log.debug("process " + message);
 		String clientId = message.getClientId();
 
+		{
+			// FIXME: It seems we don't get access to the clientId when the connection
+			// is initialized. ClientId is only retrieved through messages; so this
+			// is currently the earliest we can register the clientProxy
+			this.clientProxyProvider.register(clientId, clientProxy);
+		}
+
 		Action requestAction = message.getAction();
 		Optional<String> requestId = Optional.empty();
 		if (requestAction instanceof IdentifiableRequestAction) {
@@ -117,5 +128,6 @@ public class DefaultGLSPServer<T> implements GLSPServer {
 	@Override
 	public void exit(String clientId) {
 		modelStateProvider.remove(clientId);
+		clientProxyProvider.remove(clientId);
 	}
 }

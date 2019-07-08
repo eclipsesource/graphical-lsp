@@ -27,6 +27,7 @@ import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.handler.ActionHandler;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
+import com.eclipsesource.glsp.api.jsonrpc.GLSPClientProvider;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
 import com.eclipsesource.glsp.api.model.ModelStateProvider;
 import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
@@ -52,6 +53,7 @@ import com.eclipsesource.glsp.server.actionhandler.UndoRedoActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.ValidateLabelEditActionHandler;
 import com.eclipsesource.glsp.server.diagram.DIDiagramConfigurationProvider;
 import com.eclipsesource.glsp.server.factory.DefaultGraphGsonConfiguratorFactory;
+import com.eclipsesource.glsp.server.jsonrpc.DefaultGLSPClientProvider;
 import com.eclipsesource.glsp.server.jsonrpc.DefaultGLSPServer;
 import com.eclipsesource.glsp.server.model.DefaultModelStateProvider;
 import com.eclipsesource.glsp.server.model.FileBasedModelFactory;
@@ -149,5 +151,10 @@ public abstract class DefaultGLSPModule extends GLSPModule {
 	@Override
 	protected Class<? extends ActionDispatcher> bindActionDispatcher() {
 		return DIActionDispatcher.class;
+	}
+	
+	@Override
+	protected Class<? extends GLSPClientProvider> bindGSLPClientProvider() {
+		return DefaultGLSPClientProvider.class;
 	}
 }
