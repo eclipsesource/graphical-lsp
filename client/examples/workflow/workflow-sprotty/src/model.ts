@@ -18,10 +18,13 @@ import {
     boundsFeature,
     CommandExecutor,
     DiamondNode,
+    EditableLabel,
+    editLabelFeature,
     executeCommandFeature,
     Expandable,
     expandFeature,
     fadeFeature,
+    isEditableLabel,
     layoutableChildFeature,
     LayoutContainer,
     layoutContainerFeature,
@@ -29,20 +32,43 @@ import {
     nameFeature,
     RectangularNode,
     SEdge,
-    SShapeElement
+    SLabel,
+    SShapeElement,
+    WithEditableLabel,
+    withEditLabelFeature
 } from "@glsp/sprotty-client/lib";
 
 import { ActivityNodeSchema } from "./model-schema";
 
-export class TaskNode extends RectangularNode implements Expandable, Nameable {
+export class TaskNode extends RectangularNode implements Expandable, Nameable, WithEditableLabel {
     expanded: boolean;
     name: string = "";
     duration?: number;
     taskType?: string;
     reference?: string;
 
+    get editableLabel() {
+        const headerComp = this.children.find(element => element.type === 'comp:header');
+        if (headerComp) {
+            const label = headerComp.children.find(element => element.type === 'label:heading');
+            if (label && isEditableLabel(label)) {
+                return label;
+            }
+        }
+        return undefined;
+    }
+
     hasFeature(feature: symbol) {
-        return feature === expandFeature || feature === nameFeature || super.hasFeature(feature);
+        return feature === expandFeature
+            || feature === nameFeature
+            || feature === withEditLabelFeature
+            || super.hasFeature(feature);
+    }
+}
+
+export class TaskLabel extends SLabel implements EditableLabel {
+    hasFeature(feature: symbol) {
+        return feature === editLabelFeature || super.hasFeature(feature);
     }
 }
 

@@ -42,7 +42,7 @@
     "**/@theia/filesystem": "^0.7.1",
     "**/@theia/languages": "^0.7.1",
     "**/@theia/monaco": "^0.7.1",
-    "**/sprotty": "0.7.0-next.a87b3a1"
+    "**/sprotty": "0.7.0-next.cea0e2b"
   },
   "devDependencies": {
     "rimraf": "^2.6.1",

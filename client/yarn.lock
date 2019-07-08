@@ -1941,6 +1941,11 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
 
+balloon-css@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/balloon-css/-/balloon-css-0.5.0.tgz#6a3c065efab9ea5f509a95d4315df00aae114fa3"
+  integrity sha1-ajwGXvq56l9QmpXUMV3wCq4RT6M=
+
 base64-arraybuffer@^0.1.5:
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/base64-arraybuffer/-/base64-arraybuffer-0.1.5.tgz#73926771923b5a19747ad666aa5cd4bf9c6e9ce8"
@@ -9456,10 +9461,10 @@ sprotty-theia@0.7.0-next.6b63891:
     "@theia/monaco" next
     sprotty next
 
-sprotty@0.7.0-next.a87b3a1, sprotty@next:
-  version "0.7.0-next.a87b3a1"
-  resolved "https://registry.yarnpkg.com/sprotty/-/sprotty-0.7.0-next.a87b3a1.tgz#51972dcb1cad5a9c3cde5229e65fef54833da03f"
-  integrity sha512-5V6jf3UMAHcbPBYn0hNBD9xCgZDtxAMlLKV6DyOIoi3ZdrNMNAklmumQfU2pe+btC1Y3g2/ycOapbKQnWVkZyg==
+sprotty@0.7.0-next.cea0e2b, sprotty@next:
+  version "0.7.0-next.cea0e2b"
+  resolved "https://registry.yarnpkg.com/sprotty/-/sprotty-0.7.0-next.cea0e2b.tgz#5a67c2c83ed3027a9fde18c549802a12dc673fb2"
+  integrity sha512-yr6OAsDWp3pgFSVAiluyA/ZnScSCCc78mm2/Btk4kRHljleIUDpLoBAzZW+EBeyfHqfBpj37FpHfTXz2V+hm2A==
   dependencies:
     autocompleter "^4.0.2"
     file-saver "1.3.3"
