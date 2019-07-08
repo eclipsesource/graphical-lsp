@@ -19,8 +19,6 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 import org.apache.log4j.Logger;
-import org.eclipse.sprotty.ServerStatus;
-import org.eclipse.sprotty.ServerStatus.Severity;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.ActionDispatcher;
@@ -30,6 +28,8 @@ import com.eclipsesource.glsp.api.action.kind.IdentifiableResponseAction;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPClient;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
 import com.eclipsesource.glsp.api.model.ModelStateProvider;
+import com.eclipsesource.glsp.api.types.ServerStatus;
+import com.eclipsesource.glsp.api.types.ServerStatus.Severity;
 import com.google.inject.Inject;
 
 public class DefaultGLSPServer implements GLSPServer {
@@ -81,6 +81,7 @@ public class DefaultGLSPServer implements GLSPServer {
 		}
 	}
 
+	@Override
 	public ServerStatus getStatus() {
 		return status;
 	}

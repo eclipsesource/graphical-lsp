@@ -286,6 +286,26 @@ public class GraphSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case GraphPackage.GHTML_ROOT: {
+			GHtmlRoot gHtmlRoot = (GHtmlRoot) theEObject;
+			T result = caseGHtmlRoot(gHtmlRoot);
+			if (result == null)
+				result = caseGModelRoot(gHtmlRoot);
+			if (result == null)
+				result = caseGModelElement(gHtmlRoot);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case GraphPackage.GPRE_RENDERED_ELEMENT: {
+			GPreRenderedElement gPreRenderedElement = (GPreRenderedElement) theEObject;
+			T result = caseGPreRenderedElement(gPreRenderedElement);
+			if (result == null)
+				result = caseGModelElement(gPreRenderedElement);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -603,6 +623,36 @@ public class GraphSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseGIssue(GIssue object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>GHtml Root</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>GHtml Root</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGHtmlRoot(GHtmlRoot object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>GPre Rendered Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>GPre Rendered Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGPreRenderedElement(GPreRenderedElement object) {
 		return null;
 	}
 

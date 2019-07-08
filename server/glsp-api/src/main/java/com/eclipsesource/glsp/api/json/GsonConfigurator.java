@@ -15,10 +15,9 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.json;
 
-import org.eclipse.sprotty.server.json.EnumTypeAdapter;
-
 import com.eclipsesource.glsp.api.action.ActionRegistry;
 import com.eclipsesource.glsp.api.factory.GraphGsonConfiguratorFactory;
+import com.eclipsesource.glsp.graph.gson.EnumTypeAdapter;
 import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapterFactory;
 import com.google.inject.Inject;

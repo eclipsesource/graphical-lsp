@@ -13,22 +13,27 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.factory;
+package com.eclipsesource.glsp.api.types;
 
-import com.eclipsesource.glsp.api.action.kind.RequestPopupModelAction;
-import com.eclipsesource.glsp.graph.GHtmlRoot;
-import com.eclipsesource.glsp.graph.GModelElement;
+public class ServerStatus {
+	private Severity severity;
+	private String message;
 
-public interface PopupModelFactory {
+	public ServerStatus(Severity severity, String message) {
+		super();
+		this.severity = severity;
+		this.message = message;
+	}
 
-	GHtmlRoot createPopuModel(GModelElement element, RequestPopupModelAction action);
+	public String getMessage() {
+		return message;
+	}
 
-	public static class NullImpl implements PopupModelFactory {
+	public Severity getSeverity() {
+		return severity;
+	}
 
-		@Override
-		public GHtmlRoot createPopuModel(GModelElement element, RequestPopupModelAction action) {
-			return null;
-		}
-
+	public enum Severity {
+		FATAL, ERROR, WARNING, INFO, OK
 	}
 }

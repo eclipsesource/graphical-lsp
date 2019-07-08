@@ -15,9 +15,8 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
-import org.eclipse.sprotty.ServerStatus;
-
 import com.eclipsesource.glsp.api.action.Action;
+import com.eclipsesource.glsp.api.types.ServerStatus;
 
 public class ServerStatusAction extends Action {
 	private String severity;

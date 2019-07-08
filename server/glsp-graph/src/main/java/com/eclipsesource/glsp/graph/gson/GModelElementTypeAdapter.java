@@ -28,7 +28,6 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.sprotty.server.json.PropertyBasedTypeAdapter;
 
 import com.eclipsesource.glsp.graph.GModelElement;
 import com.google.gson.Gson;

@@ -15,6 +15,7 @@
  */
 package com.eclipsesource.glsp.graph.impl;
 
+import com.eclipsesource.glsp.graph.*;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
@@ -118,6 +119,10 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 			return createGAlignable();
 		case GraphPackage.GISSUE:
 			return createGIssue();
+		case GraphPackage.GHTML_ROOT:
+			return createGHtmlRoot();
+		case GraphPackage.GPRE_RENDERED_ELEMENT:
+			return createGPreRenderedElement();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -331,6 +336,28 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	public GIssue createGIssue() {
 		GIssueImpl gIssue = new GIssueImpl();
 		return gIssue;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public GHtmlRoot createGHtmlRoot() {
+		GHtmlRootImpl gHtmlRoot = new GHtmlRootImpl();
+		return gHtmlRoot;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public GPreRenderedElement createGPreRenderedElement() {
+		GPreRenderedElementImpl gPreRenderedElement = new GPreRenderedElementImpl();
+		return gPreRenderedElement;
 	}
 
 	/**

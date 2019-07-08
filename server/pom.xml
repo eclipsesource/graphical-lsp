@@ -79,6 +79,11 @@
 			<version>5.4.2</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>21.0</version>
+		</dependency>
 	</dependencies>
 
 	<distributionManagement>
@@ -147,8 +152,8 @@
 								</goals>
 							</execution>
 						</executions>
-					</plugin>		
-				<plugin>
+					</plugin>
+					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
 						<version>3.1.0</version>
@@ -159,19 +164,19 @@
 									<goal>jar</goal>
 								</goals>
 								<configuration>
-								   <additionalJOption>-Xdoclint:none</additionalJOption>
+									<additionalJOption>-Xdoclint:none</additionalJOption>
 									<tags>
 										<tag>
 											<name>generated</name>
 											<placement>a</placement>
 											<head></head>
 										</tag>
-											<tag>
+										<tag>
 											<name>ordered</name>
 											<placement>a</placement>
 											<head></head>
 										</tag>
-											<tag>
+										<tag>
 											<name>model</name>
 											<placement>a</placement>
 											<head>Model:</head>

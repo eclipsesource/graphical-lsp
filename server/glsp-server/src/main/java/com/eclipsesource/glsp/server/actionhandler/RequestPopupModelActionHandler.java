@@ -17,13 +17,12 @@ package com.eclipsesource.glsp.server.actionhandler;
 
 import java.util.Optional;
 
-import org.eclipse.sprotty.HtmlRoot;
-
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestPopupModelAction;
 import com.eclipsesource.glsp.api.action.kind.SetPopupModelAction;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
+import com.eclipsesource.glsp.graph.GHtmlRoot;
 import com.eclipsesource.glsp.graph.GModelElement;
 import com.google.inject.Inject;
 
@@ -42,7 +41,7 @@ public class RequestPopupModelActionHandler extends AbstractActionHandler {
 			RequestPopupModelAction requestAction = (RequestPopupModelAction) action;
 			Optional<GModelElement> element = modelState.getIndex().get(requestAction.getElementId());
 			if (popupModelFactory != null && element.isPresent()) {
-				HtmlRoot popupModel = popupModelFactory.createPopuModel(element.get(), requestAction);
+				GHtmlRoot popupModel = popupModelFactory.createPopuModel(element.get(), requestAction);
 				if (popupModel != null) {
 					return Optional.of(new SetPopupModelAction(popupModel, requestAction.getBounds()));
 				}

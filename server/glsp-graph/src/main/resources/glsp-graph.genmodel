@@ -109,5 +109,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute glsp-graph.ecore#//GIssue/severity"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute glsp-graph.ecore#//GIssue/message"/>
     </genClasses>
+    <genClasses ecoreClass="glsp-graph.ecore#//GHtmlRoot">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute glsp-graph.ecore#//GHtmlRoot/classes"/>
+    </genClasses>
+    <genClasses ecoreClass="glsp-graph.ecore#//GPreRenderedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute glsp-graph.ecore#//GPreRenderedElement/code"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

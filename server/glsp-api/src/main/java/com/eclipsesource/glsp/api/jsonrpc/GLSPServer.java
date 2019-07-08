@@ -19,9 +19,9 @@ import java.util.concurrent.CompletableFuture;
 
 import org.eclipse.lsp4j.jsonrpc.services.JsonNotification;
 import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
-import org.eclipse.sprotty.ServerStatus;
 
 import com.eclipsesource.glsp.api.action.ActionMessage;
+import com.eclipsesource.glsp.api.types.ServerStatus;
 
 public interface GLSPServer extends GLSPClientAware {
 
