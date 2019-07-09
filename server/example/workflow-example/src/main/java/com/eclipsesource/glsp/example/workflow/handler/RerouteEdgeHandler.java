@@ -18,6 +18,7 @@ package com.eclipsesource.glsp.example.workflow.handler;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
+import org.eclipse.emf.common.util.EList;
 
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.action.kind.RerouteConnectionOperationAction;
@@ -26,6 +27,7 @@ import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.graph.GEdge;
 import com.eclipsesource.glsp.graph.GModelIndex;
 import com.eclipsesource.glsp.graph.GModelRoot;
+import com.eclipsesource.glsp.graph.GPoint;
 
 public class RerouteEdgeHandler implements OperationHandler {
 	private static Logger log = Logger.getLogger(RerouteEdgeHandler.class);
@@ -58,7 +60,9 @@ public class RerouteEdgeHandler implements OperationHandler {
 		}
 
 		// reroute
-		edge.get().getRoutingPoints().addAll(action.getRoutingPoints());
+		EList<GPoint> routingPoints = edge.get().getRoutingPoints();
+		routingPoints.clear();
+		routingPoints.addAll(action.getRoutingPoints());
 
 		return Optional.of(modelState.getRoot());
 	}
