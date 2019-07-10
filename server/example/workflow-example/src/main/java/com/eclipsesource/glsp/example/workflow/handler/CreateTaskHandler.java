@@ -73,7 +73,6 @@ public abstract class CreateTaskHandler extends CreateNodeOperationHandler {
 		icon.setLayoutOptions(layoutOptions);
 		GLabel iconLabel = GraphFactory.eINSTANCE.createGLabel();
 		iconLabel.setType(ModelTypes.LABEL_ICON);
-		;
 		iconLabel.setId(taskNode.getId() + "_ticon");
 		iconLabel.setText("" + taskNode.getTaskType().toUpperCase().charAt(0));
 		icon.getChildren().add(iconLabel);
