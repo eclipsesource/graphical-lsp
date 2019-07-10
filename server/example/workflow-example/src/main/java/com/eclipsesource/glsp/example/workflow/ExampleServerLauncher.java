@@ -17,10 +17,8 @@ package com.eclipsesource.glsp.example.workflow;
 
 import org.apache.log4j.BasicConfigurator;
 
-import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
 import com.eclipsesource.glsp.server.launch.DefaultGLSPServerLauncher;
 import com.eclipsesource.glsp.server.launch.GLSPServerLauncher;
-import com.eclipsesource.glsp.server.websocket.DefaultWebsocketGLSPServer;
 import com.eclipsesource.glsp.server.websocket.WebsocketServerLauncher;
 
 public class ExampleServerLauncher {
@@ -29,14 +27,7 @@ public class ExampleServerLauncher {
 		GLSPServerLauncher launcher;
 
 		if (args.length == 1 && args[0].equals("websocket")) {
-			launcher = new WebsocketServerLauncher(new WorkflowGLSPModule() {
-
-				@Override
-				protected Class<? extends GLSPServer> bindGLSPServer() {
-					return DefaultWebsocketGLSPServer.class;
-				}
-
-			});
+			launcher = new WebsocketServerLauncher(new WorkflowGLSPModule(), "/workflow");
 			launcher.start("localhost", 8081);
 
 		} else {

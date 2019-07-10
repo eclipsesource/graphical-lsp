@@ -24,7 +24,7 @@ import createContainer from "./di.config";
 
 const container = createContainer();
 
-const websocket = new WebSocket("ws://localhost:8081/process");
+const websocket = new WebSocket("ws://localhost:8081/workflow");
 const loc = window.location.pathname;
 const currentDir = loc.substring(0, loc.lastIndexOf('/'));
 const examplePath = resolve(join(currentDir, '..', '..', 'workspace', 'example1.wf'));

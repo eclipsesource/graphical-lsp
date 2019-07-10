@@ -15,25 +15,14 @@
  ********************************************************************************/
 import { injectable } from "inversify";
 import {
-    Action,
-    ActionHandlerRegistry,
-    ApplyLabelEditAction,
-    CollapseExpandAction,
-    CollapseExpandAllAction,
-    ComputedBoundsAction,
-    DiagramServer,
-    ExportSvgAction,
-    ICommand,
-    LayoutAction,
-    OpenAction,
-    RequestBoundsCommand,
-    RequestModelAction,
-    RequestPopupModelAction,
-    ServerStatusAction,
-    SwitchEditModeCommand,
-    WebSocketDiagramServer
+    Action, ActionHandlerRegistry, ActionMessage,
+    ApplyLabelEditAction, CollapseExpandAction, CollapseExpandAllAction,
+    ComputedBoundsAction, DiagramServer, ExportSvgAction, ICommand, LayoutAction,
+    OpenAction, RequestBoundsCommand, RequestModelAction, RequestPopupModelAction,
+    ServerStatusAction, SwitchEditModeCommand
 } from "sprotty";
-
+import * as rpc from "vscode-ws-jsonrpc";
+import { NotificationType } from "vscode-ws-jsonrpc";
 import { RequestCommandPaletteActions } from "../features/command-palette/action-definitions";
 import { ExecuteServerCommandAction } from "../features/execute/execute-command";
 import { RequestTypeHintsAction } from "../features/hints/action-definition";
@@ -42,10 +31,30 @@ import { IdentifiableRequestAction } from "../features/request-response/action-d
 import { SaveModelAction } from "../features/save/save";
 import { RequestMarkersAction } from "../features/validation/validate";
 
-
 @injectable()
-export class GLSPWebsocketDiagramServer extends WebSocketDiagramServer {
+export class GLSPWebsocketDiagramServer extends DiagramServer {
     protected _sourceUri: string;
+    protected connection: rpc.MessageConnection;
+
+    listen(webSocket: WebSocket): void {
+        rpc.listen({
+            webSocket,
+            onConnection: (connection: rpc.MessageConnection) => {
+                connection.listen();
+                connection.onNotification(ActionMessageNotification.type, (message: ActionMessage) => this.messageReceived(message));
+                this.connection = connection;
+            }
+        });
+
+    }
+
+    protected sendMessage(message: ActionMessage): void {
+        if (this.connection) {
+            this.connection.sendNotification(ActionMessageNotification.type, message);
+        } else {
+            throw new Error('WebSocket is not connected');
+        }
+    }
 
     initialize(registry: ActionHandlerRegistry): void {
         registerDefaultGLSPServerActions(registry, this);
@@ -97,3 +106,8 @@ export function registerDefaultGLSPServerActions(registry: ActionHandlerRegistry
     // actions.
     registry.register(SwitchEditModeCommand.KIND, { handle: action => undefined });
 }
+
+namespace ActionMessageNotification {
+    export const type = new NotificationType<ActionMessage, void>('process');
+}
+
