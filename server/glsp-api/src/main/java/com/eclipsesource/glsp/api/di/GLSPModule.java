@@ -15,6 +15,8 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.di;
 
+import java.util.Optional;
+
 import com.eclipsesource.glsp.api.action.ActionDispatcher;
 import com.eclipsesource.glsp.api.diagram.DiagramConfigurationProvider;
 import com.eclipsesource.glsp.api.factory.GraphGsonConfiguratorFactory;
@@ -58,7 +60,7 @@ public abstract class GLSPModule extends AbstractModule {
 		bind(LabelEditValidator.class).to(bindLabelEditValidator());
 		bind(ModelStateProvider.class).to(bindModelStateProvider());
 		bind(GraphGsonConfiguratorFactory.class).to(bindGraphGsonConfiguratorFactory());
-		bind(GraphExtension.class).to(bindGraphExtension());
+		Optional.ofNullable(bindGraphExtension()).ifPresent(ext -> bind(GraphExtension.class).to(ext));
 	}
 
 	protected abstract Class<? extends ModelStateProvider> bindModelStateProvider();

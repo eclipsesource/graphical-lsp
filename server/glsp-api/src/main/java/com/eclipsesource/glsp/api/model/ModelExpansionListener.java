@@ -19,7 +19,7 @@ import com.eclipsesource.glsp.api.action.kind.CollapseExpandAction;
 import com.eclipsesource.glsp.api.action.kind.CollapseExpandAllAction;
 
 public interface ModelExpansionListener {
-	
+
 	void expansionChanged(CollapseExpandAction action);
 
 	void expansionChanged(CollapseExpandAllAction action);
@@ -35,5 +35,5 @@ public interface ModelExpansionListener {
 		}
 
 	}
-	
+
 }

@@ -25,6 +25,7 @@ import com.eclipsesource.glsp.graph.GEdge;
 import com.eclipsesource.glsp.graph.GEdgeLayoutable;
 import com.eclipsesource.glsp.graph.GEdgePlacement;
 import com.eclipsesource.glsp.graph.GGraph;
+import com.eclipsesource.glsp.graph.GHtmlRoot;
 import com.eclipsesource.glsp.graph.GIssue;
 import com.eclipsesource.glsp.graph.GIssueMarker;
 import com.eclipsesource.glsp.graph.GLabel;
@@ -35,6 +36,7 @@ import com.eclipsesource.glsp.graph.GModelRoot;
 import com.eclipsesource.glsp.graph.GNode;
 import com.eclipsesource.glsp.graph.GPoint;
 import com.eclipsesource.glsp.graph.GPort;
+import com.eclipsesource.glsp.graph.GPreRenderedElement;
 import com.eclipsesource.glsp.graph.GSeverity;
 import com.eclipsesource.glsp.graph.GShapeElement;
 import com.eclipsesource.glsp.graph.GSide;
@@ -202,6 +204,20 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 	 * @generated
 	 */
 	private EClass gIssueEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass gHtmlRootEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass gPreRenderedElementEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -977,6 +993,46 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 	 * @generated
 	 */
 	@Override
+	public EClass getGHtmlRoot() {
+		return gHtmlRootEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getGHtmlRoot_Classes() {
+		return (EAttribute) gHtmlRootEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getGPreRenderedElement() {
+		return gPreRenderedElementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getGPreRenderedElement_Code() {
+		return (EAttribute) gPreRenderedElementEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EEnum getGSide() {
 		return gSideEEnum;
 	}
@@ -1111,6 +1167,12 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 		createEAttribute(gIssueEClass, GISSUE__SEVERITY);
 		createEAttribute(gIssueEClass, GISSUE__MESSAGE);
 
+		gHtmlRootEClass = createEClass(GHTML_ROOT);
+		createEAttribute(gHtmlRootEClass, GHTML_ROOT__CLASSES);
+
+		gPreRenderedElementEClass = createEClass(GPRE_RENDERED_ELEMENT);
+		createEAttribute(gPreRenderedElementEClass, GPRE_RENDERED_ELEMENT__CODE);
+
 		// Create enums
 		gSideEEnum = createEEnum(GSIDE);
 		gSeverityEEnum = createEEnum(GSEVERITY);
@@ -1162,6 +1224,8 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 		gIssueMarkerEClass.getESuperTypes().add(this.getGShapeElement());
 		gPortEClass.getESuperTypes().add(this.getGShapeElement());
 		gButtonEClass.getESuperTypes().add(this.getGShapeElement());
+		gHtmlRootEClass.getESuperTypes().add(this.getGModelRoot());
+		gPreRenderedElementEClass.getESuperTypes().add(this.getGModelElement());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(gModelElementEClass, GModelElement.class, "GModelElement", IS_ABSTRACT, IS_INTERFACE,
@@ -1341,6 +1405,17 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGIssue_Message(), ecorePackage.getEString(), "message", null, 0, 1, GIssue.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(gHtmlRootEClass, GHtmlRoot.class, "GHtmlRoot", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGHtmlRoot_Classes(), ecorePackage.getEString(), "classes", null, 0, -1, GHtmlRoot.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(gPreRenderedElementEClass, GPreRenderedElement.class, "GPreRenderedElement", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGPreRenderedElement_Code(), ecorePackage.getEString(), "code", null, 0, 1,
+				GPreRenderedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(gSideEEnum, GSide.class, "GSide");

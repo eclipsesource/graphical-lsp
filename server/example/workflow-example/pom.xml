@@ -56,11 +56,6 @@
 			<version>1.2.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>org.eclipse.sprotty</groupId>
-			<artifactId>org.eclipse.sprotty.layout</artifactId>
-			<version>0.7.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
 			<version>3.0</version>

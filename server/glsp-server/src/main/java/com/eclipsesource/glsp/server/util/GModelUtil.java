@@ -19,6 +19,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
+import com.eclipsesource.glsp.graph.GBounds;
 import com.eclipsesource.glsp.graph.GModelElement;
 import com.eclipsesource.glsp.graph.GNode;
 import com.eclipsesource.glsp.graph.GPoint;
@@ -28,6 +29,15 @@ import com.eclipsesource.glsp.graph.GraphFactory;
 public final class GModelUtil {
 
 	private GModelUtil() {
+	}
+
+	public static GBounds bounds(double x, double y, double width, double height) {
+		GBounds bounds = GraphFactory.eINSTANCE.createGBounds();
+		bounds.setX(x);
+		bounds.setY(y);
+		bounds.setWidth(width);
+		bounds.setHeight(height);
+		return bounds;
 	}
 
 	public static GPoint point(double x, double y) {

@@ -38,7 +38,7 @@ public interface DiagramConfiguration {
 
 	List<Operation> getOperations();
 
-	default Optional<EPackage> getEPackage(){
+	default Optional<EPackage> getEPackage() {
 		return Optional.empty();
 	}
 

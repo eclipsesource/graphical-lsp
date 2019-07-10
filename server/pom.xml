@@ -79,6 +79,11 @@
 			<version>5.4.2</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>21.0</version>
+		</dependency>
 	</dependencies>
 
 	<distributionManagement>
@@ -108,6 +113,19 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.22.1</version>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 	<profiles>
@@ -135,20 +153,8 @@
 						</configuration>
 					</plugin>
 					<!-- To generate javadoc -->
+				
 					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-source-plugin</artifactId>
-						<version>3.0.1</version>
-						<executions>
-							<execution>
-								<id>attach-sources</id>
-								<goals>
-									<goal>jar-no-fork</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>		
-				<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
 						<version>3.1.0</version>
@@ -159,19 +165,19 @@
 									<goal>jar</goal>
 								</goals>
 								<configuration>
-								   <additionalJOption>-Xdoclint:none</additionalJOption>
+									<additionalJOption>-Xdoclint:none</additionalJOption>
 									<tags>
 										<tag>
 											<name>generated</name>
 											<placement>a</placement>
 											<head></head>
 										</tag>
-											<tag>
+										<tag>
 											<name>ordered</name>
 											<placement>a</placement>
 											<head></head>
 										</tag>
-											<tag>
+										<tag>
 											<name>model</name>
 											<placement>a</placement>
 											<head>Model:</head>

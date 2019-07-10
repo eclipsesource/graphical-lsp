@@ -15,19 +15,18 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import static com.eclipsesource.glsp.server.util.GModelUtil.bounds;
 
-import org.eclipse.sprotty.Bounds;
-import org.eclipse.sprotty.HtmlRoot;
-import org.eclipse.sprotty.PreRenderedElement;
-import org.eclipse.sprotty.SModelElement;
+import java.util.Arrays;
 
 import com.eclipsesource.glsp.api.action.kind.RequestPopupModelAction;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
 import com.eclipsesource.glsp.example.workflow.wfgraph.TaskNode;
 import com.eclipsesource.glsp.graph.GBounds;
+import com.eclipsesource.glsp.graph.GHtmlRoot;
 import com.eclipsesource.glsp.graph.GModelElement;
+import com.eclipsesource.glsp.graph.GPreRenderedElement;
+import com.eclipsesource.glsp.graph.GraphFactory;
 
 public class WorkflowPopupFactory implements PopupModelFactory {
 
@@ -43,21 +42,20 @@ public class WorkflowPopupFactory implements PopupModelFactory {
 	private static final String NL = "<br>";
 
 	@Override
-	public HtmlRoot createPopuModel(GModelElement element, RequestPopupModelAction action) {
+	public GHtmlRoot createPopuModel(GModelElement element, RequestPopupModelAction action) {
 		if (element != null && element instanceof TaskNode) {
 			TaskNode task = (TaskNode) element;
-			HtmlRoot root = new HtmlRoot();
+			GHtmlRoot root = GraphFactory.eINSTANCE.createGHtmlRoot();
 			GBounds bounds = action.getBounds();
-			root.setCanvasBounds(toBounds(bounds));
+			root.setCanvasBounds(bounds(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight()));
 			root.setType("html");
 			root.setId("sprotty-popup");
-			root.setChildren(new ArrayList<SModelElement>());
-			PreRenderedElement p1 = new PreRenderedElement();
+			GPreRenderedElement p1 = GraphFactory.eINSTANCE.createGPreRenderedElement();
 			p1.setType("pre-rendered");
 			p1.setId("popup-title");
 			p1.setCode("<div class=\"sprotty-popup-title\">" + generateTitle(task) + "</div>");
 
-			PreRenderedElement p2 = new PreRenderedElement();
+			GPreRenderedElement p2 = GraphFactory.eINSTANCE.createGPreRenderedElement();
 			p2.setType("pre-rendered");
 			p2.setId("popup-body");
 			p2.setCode("<div class=\"sprotty-popup-body\">" + generateBody(task) + "</div>");
@@ -66,10 +64,6 @@ public class WorkflowPopupFactory implements PopupModelFactory {
 		}
 		return null;
 
-	}
-
-	private Bounds toBounds(GBounds bounds) {
-		return new Bounds(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
 	}
 
 }

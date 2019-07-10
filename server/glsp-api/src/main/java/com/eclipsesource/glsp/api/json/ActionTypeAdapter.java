@@ -20,9 +20,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.sprotty.server.json.PropertyBasedTypeAdapter;
-
 import com.eclipsesource.glsp.api.action.Action;
+import com.eclipsesource.glsp.graph.gson.PropertyBasedTypeAdapter;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;

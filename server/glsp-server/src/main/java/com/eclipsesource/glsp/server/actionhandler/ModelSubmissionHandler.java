@@ -18,12 +18,10 @@ package com.eclipsesource.glsp.server.actionhandler;
 import java.util.Optional;
 
 import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.action.kind.RequestBoundsAction;
 import com.eclipsesource.glsp.api.action.kind.SetModelAction;
 import com.eclipsesource.glsp.api.action.kind.UpdateModelAction;
 import com.eclipsesource.glsp.api.layout.ILayoutEngine;
 import com.eclipsesource.glsp.api.layout.ServerLayoutKind;
-import com.eclipsesource.glsp.api.layout.ILayoutEngine.NullImpl;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.graph.GModelRoot;
 import com.google.inject.Inject;
@@ -32,15 +30,14 @@ import com.google.inject.Singleton;
 @Singleton
 public class ModelSubmissionHandler {
 	@Inject(optional = true)
-	ILayoutEngine layoutEngine= new ILayoutEngine.NullImpl();
+	ILayoutEngine layoutEngine = new ILayoutEngine.NullImpl();
 	private Object modelLock = new Object();
 	private int revision = 0;
-
 
 	public Optional<Action> doSubmitModel(boolean update, GraphicalModelState modelState) {
 		GModelRoot newRoot = modelState.getRoot();
 		if (modelState.getServerOptions().getLayoutKind() == ServerLayoutKind.AUTOMATIC) {
-				layoutEngine.layout(newRoot);
+			layoutEngine.layout(newRoot);
 		}
 		synchronized (modelLock) {
 			if (newRoot.getRevision() == revision) {

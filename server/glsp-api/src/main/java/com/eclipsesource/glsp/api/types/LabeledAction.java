@@ -22,7 +22,7 @@ import java.util.List;
 import com.eclipsesource.glsp.api.action.Action;
 
 public class LabeledAction {
-	
+
 	private String label;
 	private List<Action> actions;
 

@@ -18,7 +18,7 @@ package com.eclipsesource.glsp.api.types;
 import com.eclipsesource.glsp.graph.GModelElement;
 
 public class Match {
-	
+
 	private GModelElement left;
 	private GModelElement right;
 
