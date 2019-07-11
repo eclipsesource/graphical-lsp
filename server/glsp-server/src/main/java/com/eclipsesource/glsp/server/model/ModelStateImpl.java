@@ -18,17 +18,22 @@ package com.eclipsesource.glsp.server.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.emf.common.command.Command;
+import org.eclipse.emf.common.command.CommandStack;
+
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.utils.ClientOptions.ParsedClientOptions;
 import com.eclipsesource.glsp.api.utils.ServerOptions;
 import com.eclipsesource.glsp.graph.GModelIndex;
 import com.eclipsesource.glsp.graph.GModelRoot;
+import com.eclipsesource.glsp.server.command.GModelCommandStack;
 
 public class ModelStateImpl implements GraphicalModelState {
 
 	private ParsedClientOptions options;
 	private String clientId;
 	private GModelRoot currentModel;
+	private CommandStack commandStack;
 	private Set<String> expandedElements;
 	private Set<String> selectedElements;
 	private ServerOptions serverOptions;
@@ -62,6 +67,14 @@ public class ModelStateImpl implements GraphicalModelState {
 	@Override
 	public void setRoot(GModelRoot newRoot) {
 		this.currentModel = newRoot;
+		initializeCommandStack();
+	}
+
+	private void initializeCommandStack() {
+		if (commandStack != null) {
+			commandStack.flush();
+		}
+		commandStack = new GModelCommandStack();
 	}
 
 	@Override
@@ -93,6 +106,46 @@ public class ModelStateImpl implements GraphicalModelState {
 	@Override
 	public GModelIndex getIndex() {
 		return GModelIndex.get(currentModel);
+	}
+	
+	@Override
+	public void execute(Command command) {
+		if (commandStack == null) {
+			return;
+		}
+		commandStack.execute(command);
+	}
+	
+	@Override
+	public boolean canUndo() {
+		if (commandStack == null) {
+			return false;
+		}
+		return commandStack.canUndo();
+	}
+	
+	@Override
+	public boolean canRedo() {
+		if (commandStack == null) {
+			return false;
+		}
+		return commandStack.canRedo();
+	}
+	
+	@Override
+	public void undo() {
+		if (commandStack == null) {
+			return;
+		}
+		commandStack.undo();
+	}
+	
+	@Override
+	public void redo() {
+		if (commandStack == null) {
+			return;
+		}
+		commandStack.redo();
 	}
 
 	@Override

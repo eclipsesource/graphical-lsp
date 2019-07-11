@@ -29,7 +29,6 @@ import com.eclipsesource.glsp.api.utils.LayoutUtil;
 import com.eclipsesource.glsp.graph.GBounds;
 import com.eclipsesource.glsp.graph.GModelElement;
 import com.eclipsesource.glsp.graph.GModelIndex;
-import com.eclipsesource.glsp.graph.GModelRoot;
 import com.eclipsesource.glsp.graph.GNode;
 
 /**
@@ -45,24 +44,21 @@ public class ChangeBoundsOperationHandler implements OperationHandler {
 	}
 
 	@Override
-	public Optional<GModelRoot> execute(AbstractOperationAction action, GraphicalModelState modelState) {
+	public void execute(AbstractOperationAction action, GraphicalModelState modelState) {
 		ChangeBoundsOperationAction changeBoundsAction = (ChangeBoundsOperationAction) action;
 		for (ElementAndBounds element : changeBoundsAction.getNewBounds()) {
 			changeElementBounds(element.getElementId(), element.getNewBounds(), modelState);
 		}
-		return Optional.of(modelState.getRoot());
 	}
 
-	private Optional<GNode> changeElementBounds(String elementId, GBounds newBounds, GraphicalModelState modelState) {
+	private void changeElementBounds(String elementId, GBounds newBounds, GraphicalModelState modelState) {
 		if (elementId == null || newBounds == null) {
 			log.warn("Invalid ChangeBounds Action; missing mandatory arguments");
-			return Optional.empty();
+			return;
 		}
 
 		Optional<GNode> nodeToUpdate = findMovableNode(modelState, elementId);
 		nodeToUpdate.ifPresent(node -> setBounds(node, newBounds));
-
-		return nodeToUpdate;
 	}
 
 	private static Optional<GNode> findMovableNode(GraphicalModelState modelState, String elementId) {
@@ -84,5 +80,10 @@ public class ChangeBoundsOperationHandler implements OperationHandler {
 	private static void setBounds(GNode node, GBounds bounds) {
 		node.setPosition(LayoutUtil.asPoint(bounds));
 		node.setSize(LayoutUtil.asDimension(bounds));
+	}
+
+	@Override
+	public String getLabel(AbstractOperationAction action) {
+		return "Change bounds";
 	}
 }

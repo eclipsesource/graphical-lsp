@@ -29,6 +29,7 @@ import { RequestTypeHintsAction } from "../features/hints/action-definition";
 import { OperationKind, RequestOperationsAction } from "../features/operation/set-operations";
 import { IdentifiableRequestAction } from "../features/request-response/action-definitions";
 import { SaveModelAction } from "../features/save/save";
+import { GlspRedoAction, GlspUndoAction } from "../features/undo-redo/model";
 import { RequestMarkersAction } from "../features/validation/validate";
 
 @injectable()
@@ -60,6 +61,7 @@ export class GLSPWebsocketDiagramServer extends DiagramServer {
         registerDefaultGLSPServerActions(registry, this);
         this.clientId = this.viewerOptions.baseDiv;
     }
+
     handle(action: Action): void | ICommand | Action {
         if (action instanceof RequestModelAction && action.options !== undefined)
             this._sourceUri = action.options.sourceUri;
@@ -78,6 +80,8 @@ export class GLSPWebsocketDiagramServer extends DiagramServer {
 export function registerDefaultGLSPServerActions(registry: ActionHandlerRegistry, diagramServer: DiagramServer) {
     registry.register(RequestOperationsAction.KIND, diagramServer);
     registry.register(SaveModelAction.KIND, diagramServer);
+    registry.register(GlspUndoAction.KIND, diagramServer);
+    registry.register(GlspRedoAction.KIND, diagramServer);
     registry.register(OperationKind.CREATE_CONNECTION, diagramServer);
     registry.register(OperationKind.RECONNECT_CONNECTION, diagramServer);
     registry.register(OperationKind.REROUTE_CONNECTION, diagramServer);

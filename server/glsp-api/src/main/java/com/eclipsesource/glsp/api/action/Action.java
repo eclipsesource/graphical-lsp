@@ -92,6 +92,8 @@ public abstract class Action {
 		public static final String UPDATE_MODEL = "updateModel";
 		public static final String SELECT_ALL = "allSelected";
 		public static final String SAVE_MODEL = "saveModel";
+		public static final String UNDO = "glsp.undo";
+		public static final String REDO = "glsp.redo";
 		public static final String CREATE_CONNECTION_OPERATION = Operation.Kind.CREATE_CONNECTION;
 		public static final String RECONNECT_CONNECTION_OPERATION = Operation.Kind.RECONNECT_CONNECTION;
 		public static final String REROUTE_CONNECTION_OPERATION = Operation.Kind.REROUTE_CONNECTION;

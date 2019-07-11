@@ -29,7 +29,6 @@ public class CreateWeightedEdgeHandler extends CreateConnectionOperationHandler 
 
 	public CreateWeightedEdgeHandler() {
 		super(ModelTypes.WEIGHTED_EDGE);
-
 	}
 
 	@Override

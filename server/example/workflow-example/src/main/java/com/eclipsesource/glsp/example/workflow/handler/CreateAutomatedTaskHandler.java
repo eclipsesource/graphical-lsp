@@ -22,4 +22,5 @@ public class CreateAutomatedTaskHandler extends CreateTaskHandler {
 	public CreateAutomatedTaskHandler() {
 		super(ModelTypes.AUTOMATED_TASK, "automated", i -> "AutomatedTask" + i);
 	}
+	
 }
