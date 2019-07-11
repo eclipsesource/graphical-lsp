@@ -13,13 +13,18 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.websocket;
+package com.eclipsesource.glsp.server.websocket;
 
-import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
+import javax.websocket.Endpoint;
 
-public interface WebsocketGLSPServer extends GLSPServer {
+import com.google.inject.AbstractModule;
 
-	void setRemoteEndpoint(GLSPServerEndpoint endpoint);
+public class WebsocketModule extends AbstractModule {
 
-	GLSPServerEndpoint getRemoteEndpoint();
+	@Override
+	protected void configure() {
+		bind(Endpoint.class).to(GLSPServerEndpoint.class);
+
+	}
+
 }

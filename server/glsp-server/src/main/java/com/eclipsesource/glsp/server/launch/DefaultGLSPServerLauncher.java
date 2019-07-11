@@ -78,7 +78,7 @@ public class DefaultGLSPServerLauncher extends GLSPServerLauncher {
 	}
 
 	private void createClientConnection(AsynchronousSocketChannel socketChannel) {
-		Injector injector = Guice.createInjector(getModule());
+		Injector injector = Guice.createInjector(getGLSPModule());
 		GsonConfigurator gsonConf = injector.getInstance(GsonConfigurator.class);
 
 		InputStream in = Channels.newInputStream(socketChannel);

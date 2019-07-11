@@ -8652,6 +8652,11 @@ reconnecting-websocket@^3.0.7:
   resolved "https://registry.yarnpkg.com/reconnecting-websocket/-/reconnecting-websocket-3.2.2.tgz#8097514e926e9855e03c39e76efa2e3d1f371bee"
   integrity sha512-SWSfoXiaHVOqXuPWFgGWeUxKnb5HIY7I/Fh5C/hy4wUOgeOh7YIMXEiv5/eHBlNs4tNzCrO5YDR9AH62NWle0Q==
 
+reconnecting-websocket@^4.1.10:
+  version "4.1.10"
+  resolved "https://registry.yarnpkg.com/reconnecting-websocket/-/reconnecting-websocket-4.1.10.tgz#15485b5c5266ab6dd99187e23e8da207d24c4270"
+  integrity sha512-x6vgqa8q9KRuJyFkOvBKH1TfyTmN5OWQUf1MIsblfOSY29VE+iI9cKqmIuPvg9TO/hUBxdmUIVutDkcdbqFwZg==
+
 redent@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/redent/-/redent-1.0.0.tgz#cf916ab1fd5f1f16dfb20822dd6ec7f730c2afde"
@@ -10684,13 +10689,6 @@ vscode-ws-jsonrpc@^0.0.2-1:
   integrity sha512-hViHObJHtxD0KX8tvP6QL8fJGfH9mmDrEkdfLKj6Mf1uaxypoMBnjcZDCU3N4l7VriQiNRbohe/FlMrC3/0r7Q==
   dependencies:
     vscode-jsonrpc "^3.6.0"
-
-vscode-ws-jsonrpc@latest:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/vscode-ws-jsonrpc/-/vscode-ws-jsonrpc-0.0.3.tgz#090e2d324010c5bd2b4a94f21188431aa13eecf2"
-  integrity sha512-qf7uCmBwMuDXdjMERbpdyJe2296TteggeG6J/f6X2r2KVIJUDwxqlrqaW7Ru1OZsA2OgtNPFV1ig9gz8cnchsw==
-  dependencies:
-    vscode-jsonrpc "^4.0.0"
 
 watchpack@^1.5.0:
   version "1.6.0"

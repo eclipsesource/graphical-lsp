@@ -28,7 +28,8 @@
   },
   "dependencies": {
     "autocompleter": "^4.0.2",
-    "sprotty": "0.7.0-next.cea0e2b"
+    "sprotty": "0.7.0-next.cea0e2b",
+    "vscode-ws-jsonrpc": "^0.0.2-1"
   },
   "devDependencies": {
     "rimraf": "^2.6.1",
