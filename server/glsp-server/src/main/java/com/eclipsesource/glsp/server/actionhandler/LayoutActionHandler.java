@@ -19,6 +19,8 @@ import java.util.Optional;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.LayoutAction;
+import com.eclipsesource.glsp.api.action.kind.RequestBoundsAction;
+import com.eclipsesource.glsp.api.configuration.ServerConfiguration;
 import com.eclipsesource.glsp.api.layout.ILayoutEngine;
 import com.eclipsesource.glsp.api.layout.ServerLayoutKind;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
@@ -29,6 +31,8 @@ public class LayoutActionHandler extends AbstractActionHandler {
 	protected ILayoutEngine layoutEngine;
 	@Inject
 	protected ModelSubmissionHandler modelSubmissionHandler;
+	@Inject
+	protected ServerConfiguration serverConfiguration;
 
 	@Override
 	public boolean handles(Action action) {
@@ -37,11 +41,11 @@ public class LayoutActionHandler extends AbstractActionHandler {
 
 	@Override
 	protected Optional<Action> execute(Action action, GraphicalModelState modelState) {
-		if (modelState.getServerOptions().getLayoutKind() == ServerLayoutKind.MANUAL) {
+		if (serverConfiguration.getLayoutKind() == ServerLayoutKind.MANUAL) {
 			if (layoutEngine != null) {
 				layoutEngine.layout(modelState.getRoot());
 			}
-			return modelSubmissionHandler.doSubmitModel(true, modelState);
+			return Optional.of(new RequestBoundsAction(modelState.getRoot()));
 		}
 		return Optional.empty();
 	}

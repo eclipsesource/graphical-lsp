@@ -13,29 +13,20 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.server.util;
+package com.eclipsesource.glsp.api.configuration;
 
-import java.util.function.Function;
-import java.util.function.Predicate;
+import com.eclipsesource.glsp.api.layout.ServerLayoutKind;
 
-import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.graph.GModelElement;
-import com.eclipsesource.glsp.graph.GNode;
-import com.eclipsesource.glsp.graph.GPort;
+public interface ServerConfiguration {
 
-public class GModelUtil {
+	ServerLayoutKind getLayoutKind();
 
-	public static int generateId(GModelElement element, String id, GraphicalModelState modelState) {
-		Function<Integer, String> idProvider = i -> id + i;
-		int count = modelState.getIndex().getCounter(element.eClass(), idProvider);
-		element.setId(idProvider.apply(count));
-		return count;
+	public static class NullImpl implements ServerConfiguration {
+
+		@Override
+		public ServerLayoutKind getLayoutKind() {
+			return ServerLayoutKind.NONE;
+		}
 	}
 
-	public static Predicate<GModelElement> IS_CONNECTABLE = new Predicate<GModelElement>() {
-		@Override
-		public boolean test(GModelElement modelElement) {
-			return modelElement instanceof GPort || modelElement instanceof GNode;
-		}
-	};
 }

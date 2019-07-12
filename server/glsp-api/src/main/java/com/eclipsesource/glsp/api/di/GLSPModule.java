@@ -18,6 +18,7 @@ package com.eclipsesource.glsp.api.di;
 import java.util.Optional;
 
 import com.eclipsesource.glsp.api.action.ActionDispatcher;
+import com.eclipsesource.glsp.api.configuration.ServerConfiguration;
 import com.eclipsesource.glsp.api.diagram.DiagramConfigurationProvider;
 import com.eclipsesource.glsp.api.factory.GraphGsonConfiguratorFactory;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
@@ -37,6 +38,7 @@ import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
 import com.eclipsesource.glsp.api.provider.ServerCommandHandlerProvider;
 import com.eclipsesource.glsp.graph.GraphExtension;
 import com.google.inject.AbstractModule;
+import com.google.inject.Singleton;
 
 public abstract class GLSPModule extends AbstractModule {
 
@@ -60,6 +62,7 @@ public abstract class GLSPModule extends AbstractModule {
 		bind(LabelEditValidator.class).to(bindLabelEditValidator());
 		bind(ModelStateProvider.class).to(bindModelStateProvider());
 		bind(GraphGsonConfiguratorFactory.class).to(bindGraphGsonConfiguratorFactory());
+		bind(ServerConfiguration.class).to(bindServerConfiguration()).in(Singleton.class);
 		Optional.ofNullable(bindGraphExtension()).ifPresent(ext -> bind(GraphExtension.class).to(ext));
 	}
 
@@ -129,5 +132,9 @@ public abstract class GLSPModule extends AbstractModule {
 
 	protected Class<? extends GraphExtension> bindGraphExtension() {
 		return null;
+	}
+
+	protected Class<? extends ServerConfiguration> bindServerConfiguration() {
+		return ServerConfiguration.NullImpl.class;
 	}
 }

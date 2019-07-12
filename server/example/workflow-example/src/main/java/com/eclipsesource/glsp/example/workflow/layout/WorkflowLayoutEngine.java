@@ -13,19 +13,21 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.utils;
+package com.eclipsesource.glsp.example.workflow.layout;
 
-import com.eclipsesource.glsp.api.layout.ServerLayoutKind;
+import com.eclipsesource.glsp.graph.GGraph;
+import com.eclipsesource.glsp.graph.GModelRoot;
+import com.eclipsesource.glsp.layout.ElkLayoutEngine;
+import com.eclipsesource.glsp.layout.GLSPLayoutConfigurator;
 
-public class ServerOptions {
-	private ServerLayoutKind layoutKind = ServerLayoutKind.NONE;
-
-	public ServerLayoutKind getLayoutKind() {
-		return layoutKind;
-	}
-
-	public void setLayoutKind(ServerLayoutKind layoutKind) {
-		this.layoutKind = layoutKind;
+public class WorkflowLayoutEngine extends ElkLayoutEngine {
+	@Override
+	public void layout(GModelRoot root) {
+		if (root instanceof GGraph) {
+			GLSPLayoutConfigurator configurator = new GLSPLayoutConfigurator();
+			configurator.configureByType("graph");
+			this.layout((GGraph) root, configurator);
+		}
 	}
 
 }
