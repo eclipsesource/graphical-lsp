@@ -30,10 +30,10 @@ public class DIActionDispatcher implements ActionDispatcher {
 
 	@Inject
 	protected GLSPClientProvider clientProvider;
-	
+
 	@Inject
 	protected ActionHandlerProvider handlerProvider;
-	
+
 	@Override
 	public Optional<Action> dispatch(String clientId, Action action) {
 		Optional<ActionHandler> handler = handlerProvider.getHandler(action);
@@ -42,14 +42,12 @@ public class DIActionDispatcher implements ActionDispatcher {
 		}
 		return Optional.empty();
 	}
-	
+
 	@Override
 	public void send(String clientId, Action action) {
 		GLSPClient client = clientProvider.resolve(clientId);
 		if (client == null) {
-			System.err.println("Client not initialized yet; unable to trigger server-to-client notification");
-			return;
-			//throw new IllegalStateException();
+			throw new IllegalStateException("Unable to send a message to Client ID:" + clientId + ". This ID does not match any known client (Client disconnected or not initialized yet?)");
 		}
 		ActionMessage message = new ActionMessage(clientId, action);
 		client.process(message);
