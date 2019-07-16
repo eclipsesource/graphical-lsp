@@ -19,11 +19,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+import com.eclipsesource.glsp.api.configuration.ServerConfiguration;
 import com.eclipsesource.glsp.api.diagram.DiagramConfiguration;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
 import com.eclipsesource.glsp.api.labeledit.LabelEditValidator;
+import com.eclipsesource.glsp.api.layout.ILayoutEngine;
 import com.eclipsesource.glsp.api.markers.ModelValidator;
 import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
 import com.eclipsesource.glsp.api.model.ModelExpansionListener;
@@ -40,6 +42,7 @@ import com.eclipsesource.glsp.example.workflow.handler.ReconnectEdgeHandler;
 import com.eclipsesource.glsp.example.workflow.handler.RerouteEdgeHandler;
 import com.eclipsesource.glsp.example.workflow.handler.SimulateCommandHandler;
 import com.eclipsesource.glsp.example.workflow.labeledit.WorkflowLabelEditValidator;
+import com.eclipsesource.glsp.example.workflow.layout.WorkflowLayoutEngine;
 import com.eclipsesource.glsp.example.workflow.marker.WorkflowModelValidator;
 import com.eclipsesource.glsp.graph.GraphExtension;
 import com.eclipsesource.glsp.server.di.DefaultGLSPModule;
@@ -104,7 +107,7 @@ public class WorkflowGLSPModule extends DefaultGLSPModule {
 	protected Class<? extends ModelValidator> bindModelValidator() {
 		return WorkflowModelValidator.class;
 	}
-	
+
 	@Override
 	protected Class<? extends LabelEditValidator> bindLabelEditValidator() {
 		return WorkflowLabelEditValidator.class;
@@ -119,4 +122,15 @@ public class WorkflowGLSPModule extends DefaultGLSPModule {
 	protected Class<? extends GraphExtension> bindGraphExtension() {
 		return WFGraphExtension.class;
 	}
+
+	@Override
+	protected Class<? extends ILayoutEngine> bindLayoutEngine() {
+		return WorkflowLayoutEngine.class;
+	}
+
+	@Override
+	protected Class<? extends ServerConfiguration> bindServerConfiguration() {
+		return WorkflowServerConfiguration.class;
+	}
+
 }
