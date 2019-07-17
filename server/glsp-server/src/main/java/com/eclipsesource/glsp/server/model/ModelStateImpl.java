@@ -20,7 +20,6 @@ import java.util.Set;
 
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.utils.ClientOptions.ParsedClientOptions;
-import com.eclipsesource.glsp.api.utils.ServerOptions;
 import com.eclipsesource.glsp.graph.GModelIndex;
 import com.eclipsesource.glsp.graph.GModelRoot;
 
@@ -31,12 +30,10 @@ public class ModelStateImpl implements GraphicalModelState {
 	private GModelRoot currentModel;
 	private Set<String> expandedElements;
 	private Set<String> selectedElements;
-	private ServerOptions serverOptions;
 
 	public ModelStateImpl() {
 		expandedElements = new HashSet<>();
 		selectedElements = new HashSet<>();
-		serverOptions = new ServerOptions();
 	}
 
 	@Override
@@ -93,16 +90,6 @@ public class ModelStateImpl implements GraphicalModelState {
 	@Override
 	public GModelIndex getIndex() {
 		return GModelIndex.get(currentModel);
-	}
-
-	@Override
-	public ServerOptions getServerOptions() {
-		return serverOptions;
-	}
-
-	@Override
-	public void setServerOptions(ServerOptions serverOptions) {
-		this.serverOptions = serverOptions;
 	}
 
 }
