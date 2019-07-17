@@ -24,6 +24,7 @@ import com.eclipsesource.glsp.api.diagram.DiagramConfiguration;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
+import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
 import com.eclipsesource.glsp.api.labeledit.LabelEditValidator;
 import com.eclipsesource.glsp.api.layout.ILayoutEngine;
 import com.eclipsesource.glsp.api.markers.ModelValidator;
@@ -46,6 +47,7 @@ import com.eclipsesource.glsp.example.workflow.layout.WorkflowLayoutEngine;
 import com.eclipsesource.glsp.example.workflow.marker.WorkflowModelValidator;
 import com.eclipsesource.glsp.graph.GraphExtension;
 import com.eclipsesource.glsp.server.di.DefaultGLSPModule;
+import com.eclipsesource.glsp.server.jsonrpc.DefaultGLSPServer;
 import com.eclipsesource.glsp.server.operationhandler.ApplyLabelEditOperationHandler;
 import com.eclipsesource.glsp.server.operationhandler.ChangeBoundsOperationHandler;
 import com.eclipsesource.glsp.server.operationhandler.DeleteOperationHandler;
@@ -53,6 +55,11 @@ import com.eclipsesource.glsp.server.operationhandler.DeleteOperationHandler;
 @SuppressWarnings("serial")
 public class WorkflowGLSPModule extends DefaultGLSPModule {
 
+	@Override
+	protected Class<? extends GLSPServer> bindGLSPServer() {
+		return WorkflowGLSPServer.class;
+	}
+	
 	@Override
 	public Class<? extends PopupModelFactory> bindPopupModelFactory() {
 		return WorkflowPopupFactory.class;

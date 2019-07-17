@@ -27,12 +27,15 @@ import com.eclipsesource.glsp.api.action.kind.IdentifiableRequestAction;
 import com.eclipsesource.glsp.api.action.kind.IdentifiableResponseAction;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPClient;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
+import com.eclipsesource.glsp.api.jsonrpc.InitializeParameters;
 import com.eclipsesource.glsp.api.model.ModelStateProvider;
 import com.eclipsesource.glsp.api.types.ServerStatus;
 import com.eclipsesource.glsp.api.types.ServerStatus.Severity;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.inject.Inject;
 
-public class DefaultGLSPServer implements GLSPServer {
+public class DefaultGLSPServer<T> implements GLSPServer {
 
 	@Inject
 	private ModelStateProvider modelStateProvider;
@@ -43,12 +46,32 @@ public class DefaultGLSPServer implements GLSPServer {
 	private ServerStatus status;
 
 	private GLSPClient clientProxy;
+	private Class<T> optionsClazz;
 
 	public DefaultGLSPServer() {
+		this(null);
 	}
+	
+	public DefaultGLSPServer(Class<T> optionsClazz) {
+		this.optionsClazz = optionsClazz;
+	}	
 
 	@Override
-	public void initialize() {
+	public CompletableFuture<Boolean> initialize(InitializeParameters params) {
+		try {
+			if(optionsClazz != null && params.getOptions() instanceof JsonElement) {
+				T options = new Gson().fromJson((JsonElement)params.getOptions(), optionsClazz);
+				return handleOptions(options);
+			}
+			return handleOptions(null);			
+		} catch(Throwable ex) {
+			log.error("Could not initialize server due to corrupted options: " + params.getOptions(), ex);
+			return CompletableFuture.completedFuture(false);
+		}
+	}
+	
+	protected CompletableFuture<Boolean> handleOptions(T options) {
+		return CompletableFuture.completedFuture(true);
 	}
 
 	@Override
