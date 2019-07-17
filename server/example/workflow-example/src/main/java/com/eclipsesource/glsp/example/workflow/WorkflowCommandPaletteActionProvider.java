@@ -16,7 +16,7 @@
 package com.eclipsesource.glsp.example.workflow;
 
 import static com.eclipsesource.glsp.graph.DefaultTypes.EDGE;
-import static com.eclipsesource.glsp.server.util.GModelUtil.point;
+import static com.eclipsesource.glsp.graph.util.GraphUtil.point;
 
 import java.util.Iterator;
 import java.util.List;

@@ -59,6 +59,7 @@
 		<module>glsp-server</module>
 		<module>glsp-server-websocket</module>
 		<module>glsp-graph</module>
+		<module>glsp-layout</module>
 	</modules>
 
 	<dependencies>

@@ -23,7 +23,6 @@ import org.eclipse.emf.common.command.CommandStack;
 
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.utils.ClientOptions.ParsedClientOptions;
-import com.eclipsesource.glsp.api.utils.ServerOptions;
 import com.eclipsesource.glsp.graph.GModelIndex;
 import com.eclipsesource.glsp.graph.GModelRoot;
 import com.eclipsesource.glsp.server.command.GModelCommandStack;
@@ -36,12 +35,10 @@ public class ModelStateImpl implements GraphicalModelState {
 	private CommandStack commandStack;
 	private Set<String> expandedElements;
 	private Set<String> selectedElements;
-	private ServerOptions serverOptions;
 
 	public ModelStateImpl() {
 		expandedElements = new HashSet<>();
 		selectedElements = new HashSet<>();
-		serverOptions = new ServerOptions();
 	}
 
 	@Override
@@ -146,16 +143,6 @@ public class ModelStateImpl implements GraphicalModelState {
 			return;
 		}
 		commandStack.redo();
-	}
-
-	@Override
-	public ServerOptions getServerOptions() {
-		return serverOptions;
-	}
-
-	@Override
-	public void setServerOptions(ServerOptions serverOptions) {
-		this.serverOptions = serverOptions;
 	}
 
 }

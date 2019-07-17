@@ -46,7 +46,7 @@ public abstract class CreateTaskHandler extends CreateNodeOperationHandler {
 
 	@Override
 	protected GNode createNode(Optional<GPoint> point, GraphicalModelState modelState) {
-		TaskNode taskNode = (TaskNode) WfgraphFactory.eINSTANCE.createTaskNode();
+		TaskNode taskNode = WfgraphFactory.eINSTANCE.createTaskNode();
 		taskNode.setType(elementTypeId);
 		int nodeCounter = GModelUtil.generateId(taskNode, "task", modelState);
 		taskNode.setName(labelProvider.apply(nodeCounter));

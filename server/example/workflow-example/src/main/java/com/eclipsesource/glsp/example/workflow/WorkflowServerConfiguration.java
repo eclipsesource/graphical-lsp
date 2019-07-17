@@ -15,28 +15,14 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow;
 
-import org.apache.log4j.BasicConfigurator;
-import org.eclipse.elk.alg.layered.options.LayeredMetaDataProvider;
+import com.eclipsesource.glsp.api.configuration.ServerConfiguration;
+import com.eclipsesource.glsp.api.layout.ServerLayoutKind;
 
-import com.eclipsesource.glsp.layout.ElkLayoutEngine;
-import com.eclipsesource.glsp.server.launch.DefaultGLSPServerLauncher;
-import com.eclipsesource.glsp.server.launch.GLSPServerLauncher;
-import com.eclipsesource.glsp.server.websocket.WebsocketServerLauncher;
+public class WorkflowServerConfiguration implements ServerConfiguration {
 
-public class ExampleServerLauncher {
-	public static void main(String[] args) {
-		BasicConfigurator.configure();
-		ElkLayoutEngine.initialize(new LayeredMetaDataProvider());
-		GLSPServerLauncher launcher;
-
-		if (args.length == 1 && args[0].equals("websocket")) {
-			launcher = new WebsocketServerLauncher(new WorkflowGLSPModule(), "/workflow");
-			launcher.start("localhost", 8081);
-
-		} else {
-			launcher = new DefaultGLSPServerLauncher(new WorkflowGLSPModule());
-			launcher.start("localhost", 5007);
-		}
-
+	@Override
+	public ServerLayoutKind getLayoutKind() {
+		return ServerLayoutKind.MANUAL;
 	}
+
 }
