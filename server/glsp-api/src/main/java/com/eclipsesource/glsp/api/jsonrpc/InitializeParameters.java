@@ -15,31 +15,24 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.jsonrpc;
 
-import java.util.concurrent.CompletableFuture;
+import org.eclipse.lsp4j.jsonrpc.json.adapters.JsonElementTypeAdapter;
 
-import org.eclipse.lsp4j.jsonrpc.services.JsonNotification;
-import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
+import com.google.gson.annotations.JsonAdapter;
 
-import com.eclipsesource.glsp.api.action.ActionMessage;
-import com.eclipsesource.glsp.api.types.ServerStatus;
-
-public interface GLSPServer extends GLSPClientAware {
-
-	public interface Provider {
-		GLSPServer getGraphicalLanguageServer(String clientId);
+public class InitializeParameters {
+	@JsonAdapter(JsonElementTypeAdapter.Factory.class)
+	private Object options;
+	
+	public Object getOptions() {
+		return options;
 	}
-
-	@JsonRequest("initialize")
-	CompletableFuture<Boolean> initialize(InitializeParameters params);
-
-	@JsonNotification("process")
-	void process(ActionMessage message);
-
-	@JsonRequest("shutdown")
-	CompletableFuture<Object> shutdown();
-
-	@JsonNotification("exit")
-	void exit(String clientId);
-
-	ServerStatus getStatus();
+	
+	public void setOptions(Object options) {
+		this.options = options;
+	}
+	
+	@Override
+	public String toString() {
+		return "InitializeParameters[options = " + options + "]";
+	}
 }

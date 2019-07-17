@@ -21,6 +21,7 @@ import { LanguageContribution } from "@theia/languages/lib/common";
 import { inject, injectable } from "inversify";
 import { MessageConnection, NotificationType } from "vscode-jsonrpc";
 
+import { InitializeParameters } from "../../common";
 import { Connection, ConnectionProvider, createConnection, GLSPClient, GLSPClientOptions } from "./glsp-client-services";
 
 enum ClientState {
@@ -53,6 +54,7 @@ export class BaseGLSPClient implements GLSPClient {
         this.state = ClientState.Initial;
 
     }
+
     start(): Disposable {
         this.state = ClientState.Starting;
         this.resolveConnection().then((connection) => {
@@ -66,6 +68,13 @@ export class BaseGLSPClient implements GLSPClient {
             dispose: () => this.stop()
         };
 
+    }
+
+    initialize(params: InitializeParameters): Thenable<Boolean> {
+        if (this.connectionPromise && this.resolvedConnection) {
+            return this.resolvedConnection.initialize(params);
+        }
+        return Promise.resolve(false);
     }
 
     public stop(): Thenable<void> | undefined {

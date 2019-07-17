@@ -13,33 +13,26 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.jsonrpc;
+package com.eclipsesource.glsp.example.workflow;
 
 import java.util.concurrent.CompletableFuture;
 
-import org.eclipse.lsp4j.jsonrpc.services.JsonNotification;
-import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
+import org.apache.log4j.Logger;
 
-import com.eclipsesource.glsp.api.action.ActionMessage;
-import com.eclipsesource.glsp.api.types.ServerStatus;
+import com.eclipsesource.glsp.server.jsonrpc.DefaultGLSPServer;
 
-public interface GLSPServer extends GLSPClientAware {
-
-	public interface Provider {
-		GLSPServer getGraphicalLanguageServer(String clientId);
+public class WorkflowGLSPServer extends DefaultGLSPServer<WorkflowInitializeOptions> {
+	static Logger log = Logger.getLogger(WorkflowGLSPServer.class);
+	
+	public WorkflowGLSPServer() {
+		super(WorkflowInitializeOptions.class);
 	}
-
-	@JsonRequest("initialize")
-	CompletableFuture<Boolean> initialize(InitializeParameters params);
-
-	@JsonNotification("process")
-	void process(ActionMessage message);
-
-	@JsonRequest("shutdown")
-	CompletableFuture<Object> shutdown();
-
-	@JsonNotification("exit")
-	void exit(String clientId);
-
-	ServerStatus getStatus();
+	
+	@Override
+	public CompletableFuture<Boolean> handleOptions(WorkflowInitializeOptions options) {
+		if(options != null) {
+			log.debug(options.getTimestamp() + ": " + options.getMessage());			
+		}
+		return CompletableFuture.completedFuture(true);
+	}
 }

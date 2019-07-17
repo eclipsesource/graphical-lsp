@@ -23,7 +23,7 @@ import {
 } from "@theia/languages/lib/browser";
 import { Disposable, Message, MessageConnection, NotificationHandler, NotificationType } from "vscode-jsonrpc";
 
-import { ExitNotification, ShutdownRequest } from "../../common";
+import { ExitNotification, InitializeParameters, InitializeRequest, ShutdownRequest } from "../../common";
 
 
 export const GLSPClient = Symbol.for('GLSPClient');
@@ -31,6 +31,7 @@ export const GLSPClient = Symbol.for('GLSPClient');
 export interface GLSPClient {
     onReady(): Promise<void>
     start(): Disposable;
+    initialize(params: InitializeParameters): Thenable<Boolean>;
     stop(): Thenable<void> | undefined
     onNotification<P, RO>(type: NotificationType<P, RO>, handler: NotificationHandler<P>): void;
     sendNotification<P, RO>(type: NotificationType<P, RO>, params?: P): void;
@@ -57,6 +58,7 @@ export interface Connection {
     listen(): void
     onNotification<P, RO>(type: NotificationType<P, RO>, handler: NotificationHandler<P>): void;
     sendNotification<P, RO>(type: NotificationType<P, RO>, params?: P): void;
+    initialize(params: InitializeParameters): Thenable<Boolean>;
     shutdown(): Thenable<void>;
     exit(): void;
     dispose(): void;
@@ -76,6 +78,7 @@ export function createConnection(connection: MessageConnection, errorHandler: Co
         listen: () => connection.listen(),
         sendNotification: <P, RO>(type: NotificationType<P, RO>, params?: P): void => connection.sendNotification(type, params),
         onNotification: <P, RO>(type: NotificationType<P, RO>, handler: NotificationHandler<P>): void => connection.onNotification(type, handler),
+        initialize: (params: InitializeParameters) => connection.sendRequest(InitializeRequest.type, params),
         shutdown: () => connection.sendRequest(ShutdownRequest.type, undefined),
         exit: () => connection.sendNotification(ExitNotification.type),
         dispose: () => connection.dispose()
