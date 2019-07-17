@@ -99,8 +99,6 @@ export class NodeCreationToolMouseListener extends DragAwareMouseListener {
                 result.push(new EnableDefaultToolsAction());
             }
         }
-
-
         return result;
     }
 

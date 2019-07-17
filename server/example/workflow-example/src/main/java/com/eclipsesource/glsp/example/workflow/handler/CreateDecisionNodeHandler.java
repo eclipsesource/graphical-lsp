@@ -38,7 +38,6 @@ public class CreateDecisionNodeHandler extends CreateNodeOperationHandler {
 		result.setType(elementTypeId);
 		result.setNodeType("decisionNode");
 		point.ifPresent(result::setPosition);
-
 		GModelUtil.generateId(result, "activityNode", modelState);
 		return result;
 	}

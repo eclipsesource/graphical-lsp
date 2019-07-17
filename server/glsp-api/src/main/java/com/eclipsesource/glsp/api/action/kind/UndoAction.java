@@ -13,28 +13,14 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.model;
+package com.eclipsesource.glsp.api.action.kind;
 
-import org.eclipse.emf.common.command.Command;
+import com.eclipsesource.glsp.api.action.Action;
 
-public interface ModelState<T> {
+public class UndoAction extends Action {
 
-	String getClientId();
-
-	void setClientId(String clientId);
-
-	T getRoot();
-
-	void setRoot(T newRoot);
-
-	void execute(Command command);
-
-	boolean canUndo();
-
-	boolean canRedo();
-
-	void undo();
-
-	void redo();
+	public UndoAction() {
+		super(Action.Kind.UNDO);
+	}
 
 }

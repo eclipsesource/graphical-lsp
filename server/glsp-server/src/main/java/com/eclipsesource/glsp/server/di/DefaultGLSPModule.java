@@ -48,6 +48,7 @@ import com.eclipsesource.glsp.server.actionhandler.RequestPopupModelActionHandle
 import com.eclipsesource.glsp.server.actionhandler.RequestTypeHintsActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.SaveModelActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.SelectActionHandler;
+import com.eclipsesource.glsp.server.actionhandler.UndoRedoActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.ValidateLabelEditActionHandler;
 import com.eclipsesource.glsp.server.diagram.DIDiagramConfigurationProvider;
 import com.eclipsesource.glsp.server.factory.DefaultGraphGsonConfiguratorFactory;
@@ -135,9 +136,10 @@ public abstract class DefaultGLSPModule extends GLSPModule {
 		return Lists.newArrayList(CollapseExpandActionHandler.class, ComputedBoundsActionHandler.class,
 				OpenActionHandler.class, OperationActionHandler.class, RequestModelActionHandler.class,
 				RequestOperationsActionHandler.class, RequestPopupModelActionHandler.class,
-				SaveModelActionHandler.class, SelectActionHandler.class, ExecuteServerCommandActionHandler.class,
-				RequestTypeHintsActionHandler.class, RequestCommandPaletteActionsHandler.class,
-				RequestMarkersHandler.class, LayoutActionHandler.class, ValidateLabelEditActionHandler.class);
+				SaveModelActionHandler.class, UndoRedoActionHandler.class, SelectActionHandler.class,
+				ExecuteServerCommandActionHandler.class, RequestTypeHintsActionHandler.class,
+				RequestCommandPaletteActionsHandler.class, RequestMarkersHandler.class, LayoutActionHandler.class,
+				ValidateLabelEditActionHandler.class);
 	}
 
 	protected Collection<Class<? extends ServerCommandHandler>> bindServerCommandHandlers() {

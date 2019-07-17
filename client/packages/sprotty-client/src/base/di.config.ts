@@ -19,6 +19,7 @@ import { ContainerModule } from "inversify";
 import { configureCommand, Tool, TYPES } from "sprotty/lib";
 
 import { GLSP_TYPES } from "../types";
+import { GLSPCommandStack } from "./command-stack";
 import { FeedbackAwareUpdateModelCommand, SetModelActionHandler } from "./model/update-model-command";
 import { createToolFactory, ToolManagerActionHandler } from "./tool-manager/tool-manager-action-handler";
 import { defaultGLSPViewerOptions, GLSPViewerOptions } from "./views/viewer-options";
@@ -32,6 +33,7 @@ const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) =>
     configureCommand({ bind, isBound }, FeedbackAwareUpdateModelCommand);
     bind(TYPES.IActionHandlerInitializer).to(SetModelActionHandler);
 
+    rebind(TYPES.ICommandStack).to(GLSPCommandStack);
 
     bind<GLSPViewerOptions>(GLSP_TYPES.ViewerOptions).toConstantValue(defaultGLSPViewerOptions());
     if (isBound(TYPES.ViewerOptions)) {

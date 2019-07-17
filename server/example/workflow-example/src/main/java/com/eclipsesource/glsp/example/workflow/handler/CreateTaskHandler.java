@@ -18,6 +18,7 @@ package com.eclipsesource.glsp.example.workflow.handler;
 import java.util.Optional;
 import java.util.function.Function;
 
+import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.example.workflow.utils.ModelTypes;
 import com.eclipsesource.glsp.example.workflow.wfgraph.Icon;
@@ -86,6 +87,11 @@ public abstract class CreateTaskHandler extends CreateNodeOperationHandler {
 		taskNode.getChildren().add(compHeader);
 
 		return taskNode;
+	}
+	
+	@Override
+	public String getLabel(AbstractOperationAction action) {
+		return "Create task";
 	}
 
 }

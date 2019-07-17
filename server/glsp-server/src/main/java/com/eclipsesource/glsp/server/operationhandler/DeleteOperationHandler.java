@@ -32,7 +32,6 @@ import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.graph.GEdge;
 import com.eclipsesource.glsp.graph.GModelElement;
 import com.eclipsesource.glsp.graph.GModelIndex;
-import com.eclipsesource.glsp.graph.GModelRoot;
 import com.eclipsesource.glsp.graph.GNode;
 
 /**
@@ -48,22 +47,18 @@ public class DeleteOperationHandler implements OperationHandler {
 	}
 
 	@Override
-	public Optional<GModelRoot> execute(AbstractOperationAction execAction, GraphicalModelState modelState) {
+	public void execute(AbstractOperationAction execAction, GraphicalModelState modelState) {
 		DeleteOperationAction action = (DeleteOperationAction) execAction;
 		List<String> elementIds = action.getElementIds();
 		if (elementIds == null || elementIds.size() == 0) {
-			log.warn("Elements to delete are not specified");
-			return Optional.empty();
+			throw new IllegalArgumentException("Elements to delete are not specified");
 		}
 		GModelIndex index = modelState.getIndex();
 		allDependantsIds = new HashSet<>();
 		boolean success = elementIds.stream().allMatch(eId -> delete(eId, index, modelState));
 		if (!success) {
-			return Optional.empty();
+			log.warn("Could not delete all elements as requested (see messages above to find out why)");
 		}
-
-		GModelRoot currentModel = modelState.getRoot();
-		return Optional.of(currentModel);
 	}
 
 	protected boolean delete(String elementId, GModelIndex index, GraphicalModelState modelState) {
@@ -134,6 +129,11 @@ public class DeleteOperationHandler implements OperationHandler {
 			return element;
 		}
 		return findTopLevelElement(parent);
+	}
+
+	@Override
+	public String getLabel(AbstractOperationAction action) {
+		return "Delete element";
 	}
 
 }
