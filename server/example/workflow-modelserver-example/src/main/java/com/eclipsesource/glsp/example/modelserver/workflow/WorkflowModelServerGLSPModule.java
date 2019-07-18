@@ -13,7 +13,7 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.example.workflow;
+package com.eclipsesource.glsp.example.modelserver.workflow;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,6 +21,7 @@ import java.util.Collection;
 
 import com.eclipsesource.glsp.api.configuration.ServerConfiguration;
 import com.eclipsesource.glsp.api.diagram.DiagramConfiguration;
+import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
@@ -32,6 +33,13 @@ import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
 import com.eclipsesource.glsp.api.model.ModelExpansionListener;
 import com.eclipsesource.glsp.api.model.ModelSelectionListener;
 import com.eclipsesource.glsp.api.provider.CommandPaletteActionProvider;
+import com.eclipsesource.glsp.example.modelserver.workflow.model.WorkflowModelServerModelFactory;
+import com.eclipsesource.glsp.example.workflow.WFGraphExtension;
+import com.eclipsesource.glsp.example.workflow.WorkflowCommandPaletteActionProvider;
+import com.eclipsesource.glsp.example.workflow.WorkflowGLSPServer;
+import com.eclipsesource.glsp.example.workflow.WorkflowPopupFactory;
+import com.eclipsesource.glsp.example.workflow.WorkflowServerConfiguration;
+import com.eclipsesource.glsp.example.workflow.WorkflowServerListener;
 import com.eclipsesource.glsp.example.workflow.handler.CreateAutomatedTaskHandler;
 import com.eclipsesource.glsp.example.workflow.handler.CreateDecisionNodeHandler;
 import com.eclipsesource.glsp.example.workflow.handler.CreateEdgeHandler;
@@ -52,11 +60,16 @@ import com.eclipsesource.glsp.server.operationhandler.ChangeBoundsOperationHandl
 import com.eclipsesource.glsp.server.operationhandler.DeleteOperationHandler;
 
 @SuppressWarnings("serial")
-public class WorkflowGLSPModule extends DefaultGLSPModule {
+public class WorkflowModelServerGLSPModule extends DefaultGLSPModule {
 
 	@Override
 	protected Class<? extends GLSPServer> bindGLSPServer() {
 		return WorkflowGLSPServer.class;
+	}
+	
+	@Override
+	protected Class<? extends ModelFactory> bindModelFactory() {
+		return WorkflowModelServerModelFactory.class;
 	}
 	
 	@Override
@@ -121,7 +134,7 @@ public class WorkflowGLSPModule extends DefaultGLSPModule {
 
 	@Override
 	protected Collection<Class<? extends DiagramConfiguration>> bindDiagramConfigurations() {
-		return Arrays.asList(WorfklowDiagramConfiguration.class);
+		return Arrays.asList(WorfklowDiagramNotationConfiguration.class);
 	}
 
 	@Override
