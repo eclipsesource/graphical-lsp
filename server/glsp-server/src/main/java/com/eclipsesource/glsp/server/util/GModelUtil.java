@@ -18,18 +18,26 @@ package com.eclipsesource.glsp.server.util;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.eclipse.emf.ecore.EClass;
+
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.graph.GModelElement;
 import com.eclipsesource.glsp.graph.GNode;
 import com.eclipsesource.glsp.graph.GPort;
 
 public class GModelUtil {
-
+	public static Function<Integer, String> idAndIndex(String id) {
+		return i -> id + i;
+	}
+	
+	public static int generateId(EClass eClass, String id, GraphicalModelState modelState) {
+		return modelState.getIndex().getCounter(eClass, idAndIndex(id));
+	}
+	
 	public static int generateId(GModelElement element, String id, GraphicalModelState modelState) {
-		Function<Integer, String> idProvider = i -> id + i;
-		int count = modelState.getIndex().getCounter(element.eClass(), idProvider);
-		element.setId(idProvider.apply(count));
-		return count;
+		int index = generateId(element.eClass(), id, modelState);
+		element.setId(idAndIndex(id).apply(index));
+		return index;
 	}
 
 	public static Predicate<GModelElement> IS_CONNECTABLE = new Predicate<GModelElement>() {

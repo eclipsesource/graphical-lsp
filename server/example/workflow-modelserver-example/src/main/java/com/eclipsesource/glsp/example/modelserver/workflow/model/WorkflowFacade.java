@@ -29,6 +29,7 @@ import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.SemanticPr
 import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Shape;
 import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.WfnotationFactory;
 import com.eclipsesource.modelserver.coffee.model.coffee.Flow;
+import com.eclipsesource.modelserver.coffee.model.coffee.Machine;
 import com.eclipsesource.modelserver.coffee.model.coffee.Node;
 import com.eclipsesource.modelserver.coffee.model.coffee.Workflow;
 
@@ -40,6 +41,11 @@ public class WorkflowFacade {
 	public WorkflowFacade(Resource coffeeResource, Resource notationResource) {
 		this.coffeeResource = coffeeResource;
 		this.notationResource = notationResource;
+	}
+	
+	public Optional<Machine> getMachine() {
+		EObject content = this.coffeeResource.getContents().get(0);
+		return content instanceof Machine ? Optional.of((Machine)content) : Optional.empty();
 	}
 
 	public Diagram initializeNotation(Workflow workflow) {
@@ -99,6 +105,10 @@ public class WorkflowFacade {
 		proxy.setResolvedElement(coffeeResource.getEObject(proxy.getUri()));
 		return proxy;
 	}
+	
+	public <T extends DiagramElement> Optional<T> findDiagramElement(EObject semanticElement, Class<T> clazz) {
+		return findDiagramElement(semanticElement).map(elem -> safeCast(elem, clazz));
+	}
 
 	public Optional<DiagramElement> findDiagramElement(EObject semanticElement) {
 		if (semanticElement.eContainer() instanceof Workflow) {
@@ -144,4 +154,7 @@ public class WorkflowFacade {
 		return diagram instanceof Diagram && isDiagramElementForSemanticElement((Diagram) diagram, workflow);
 	}
 
+	private static <T> T safeCast(Object obj, Class<T> clazz) {
+		return clazz.isInstance(obj) ? clazz.cast(obj) : null;
+	}
 }
