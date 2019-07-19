@@ -5,7 +5,7 @@ matrix:
   include:
     - language: java
       dist: trusty
-      jdk:  oraclejdk8
+      jdk:  openjdk11
       before_script:
         - cd server
       cache:
@@ -55,7 +55,7 @@ matrix:
       before_deploy:
       - printf "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}\n" >> ~/.npmrc
       - yarn
-    
+
       deploy:
         provider: script
         script: bash ../scripts/deployNPM.sh
