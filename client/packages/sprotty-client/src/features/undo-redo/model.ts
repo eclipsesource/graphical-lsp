@@ -16,11 +16,11 @@
 import { Action } from "sprotty/lib";
 
 export class GlspUndoAction implements Action {
-    static readonly KIND = 'glsp.undo';
+    static readonly KIND = 'glspUndo';
     readonly kind = GlspUndoAction.KIND;
 }
 
 export class GlspRedoAction implements Action {
-    static readonly KIND = 'glsp.redo';
+    static readonly KIND = 'glspRedo';
     readonly kind = GlspRedoAction.KIND;
 }
