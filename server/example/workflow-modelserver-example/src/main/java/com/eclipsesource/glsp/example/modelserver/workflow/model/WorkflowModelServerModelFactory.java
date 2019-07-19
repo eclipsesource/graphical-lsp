@@ -13,40 +13,25 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.server.model;
+package com.eclipsesource.glsp.example.modelserver.workflow.model;
 
-import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-
+import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
+import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.api.model.ModelStateProvider;
-import com.google.inject.Singleton;
+import com.eclipsesource.glsp.api.utils.ClientOptions;
+import com.eclipsesource.glsp.graph.GModelRoot;
+import com.eclipsesource.glsp.graph.GraphFactory;
 
-@Singleton
-public class DefaultModelStateProvider implements ModelStateProvider {
-	
-	private Map<String, GraphicalModelState> clientModelStates;
-
-	public DefaultModelStateProvider() {
-		clientModelStates = new ConcurrentHashMap<>();
-	}
+public class WorkflowModelServerModelFactory implements ModelFactory {
 
 	@Override
-	public Optional<GraphicalModelState> getModelState(String clientId) {
-		return Optional.ofNullable(clientModelStates.get(clientId));
+	public GModelRoot loadModel(RequestModelAction action, GraphicalModelState modelState) {
+		WorkflowModelServerAccess modelAccess = new WorkflowModelServerAccess(
+				action.getOptions().get(ClientOptions.SOURCE_URI));
+		WorkflowFacade workflowFacade = modelAccess.getWorkflowFacade();
+		GModelRoot modelRoot = GraphFactory.eINSTANCE.createGModelRoot();
+		// TODO transform to GModel based on workflow facade
+		return modelRoot;
 	}
 
-	@Override
-	public GraphicalModelState create(String clientId) {
-		GraphicalModelState modelState = new ModelStateImpl();
-		clientModelStates.put(clientId, modelState);
-		return modelState;
-	}
-
-	@Override
-	public void remove(String clientId) {
-		clientModelStates.remove(clientId);
-	}
-	
 }
