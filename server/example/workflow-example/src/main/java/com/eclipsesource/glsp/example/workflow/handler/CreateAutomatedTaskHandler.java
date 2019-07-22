@@ -20,7 +20,7 @@ import com.eclipsesource.glsp.example.workflow.utils.ModelTypes;
 public class CreateAutomatedTaskHandler extends CreateTaskHandler {
 
 	public CreateAutomatedTaskHandler() {
-		super(ModelTypes.AUTOMATED_TASK, "automated", i -> "AutomatedTask" + i);
+		super(ModelTypes.AUTOMATED_TASK, i -> "AutomatedTask" + i);
 	}
-	
+
 }

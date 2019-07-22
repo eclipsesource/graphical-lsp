@@ -15,12 +15,29 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.handler;
 
+import java.util.Optional;
+
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.example.workflow.utils.ModelTypes;
+import com.eclipsesource.glsp.example.workflow.utils.WorkflowBuilder.ActivityNodeBuilder;
+import com.eclipsesource.glsp.graph.GNode;
+import com.eclipsesource.glsp.graph.GPoint;
+import com.eclipsesource.glsp.server.operationhandler.CreateNodeOperationHandler;
 
-public class CreateDecisionNodeHandler extends CreateActivityNodeHandler {
+public class CreateActivityNodeHandler extends CreateNodeOperationHandler {
 
-	public CreateDecisionNodeHandler() {
-		super(ModelTypes.DECISION_NODE);
+	public CreateActivityNodeHandler(String elementTypeId) {
+		super(elementTypeId);
+	}
+
+	@Override
+	protected GNode createNode(Optional<GPoint> point, GraphicalModelState modelState) {
+		String nodeType = ModelTypes.toNodeType(elementTypeId);
+		ActivityNodeBuilder builder = new ActivityNodeBuilder(modelState, elementTypeId, nodeType);
+		if (point.isPresent()) {
+			builder.setPosition(point.get().getX(), point.get().getY());
+		}
+		return builder.build();
 	}
 
 }

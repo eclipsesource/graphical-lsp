@@ -15,23 +15,166 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.modelserver.workflow.model;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+import org.apache.log4j.Logger;
+
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.utils.ClientOptions;
+import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.DiagramElement;
+import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Edge;
+import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Shape;
+import com.eclipsesource.glsp.example.workflow.utils.WorkflowBuilder.ActivityNodeBuilder;
+import com.eclipsesource.glsp.example.workflow.utils.WorkflowBuilder.EdgeBuilder;
+import com.eclipsesource.glsp.example.workflow.utils.WorkflowBuilder.TaskNodeBuilder;
+import com.eclipsesource.glsp.example.workflow.utils.WorkflowBuilder.WeightedEdgeBuilder;
+import com.eclipsesource.glsp.example.workflow.wfgraph.ActivityNode;
+import com.eclipsesource.glsp.example.workflow.wfgraph.TaskNode;
+import com.eclipsesource.glsp.example.workflow.wfgraph.WeightedEdge;
+import com.eclipsesource.glsp.graph.DefaultTypes;
+import com.eclipsesource.glsp.graph.GEdge;
 import com.eclipsesource.glsp.graph.GModelRoot;
+import com.eclipsesource.glsp.graph.GNode;
 import com.eclipsesource.glsp.graph.GraphFactory;
+import com.eclipsesource.modelserver.coffee.model.coffee.Flow;
+import com.eclipsesource.modelserver.coffee.model.coffee.Machine;
+import com.eclipsesource.modelserver.coffee.model.coffee.Node;
+import com.eclipsesource.modelserver.coffee.model.coffee.Task;
+import com.eclipsesource.modelserver.coffee.model.coffee.WeightedFlow;
+import com.eclipsesource.modelserver.coffee.model.coffee.Workflow;
 
 public class WorkflowModelServerModelFactory implements ModelFactory {
+	private static Logger LOGGER = Logger.getLogger(WorkflowModelServerModelFactory.class);
+	private static final String ROOT_ID = "sprotty";
+	private static final String OPTION_WORKFLOW_INDEX = "workflowIndex";
+	private static final int WORKFLOW_INDEX_DEFAULT = 0;
 
 	@Override
 	public GModelRoot loadModel(RequestModelAction action, GraphicalModelState modelState) {
-		WorkflowModelServerAccess modelAccess = new WorkflowModelServerAccess(
-				action.getOptions().get(ClientOptions.SOURCE_URI));
+		// 1. Load models and create workflow facade
+		Optional<String> sourceURI = ClientOptions.getValue(action.getOptions(), ClientOptions.SOURCE_URI);
+		if (sourceURI.isEmpty()) {
+			LOGGER.error("No source uri given to load model, return empty model.");
+			return createEmptyRoot();
+		}
+		WorkflowModelServerAccess modelAccess = new WorkflowModelServerAccess(sourceURI.get());
 		WorkflowFacade workflowFacade = modelAccess.getWorkflowFacade();
+		if (workflowFacade == null) {
+			return createEmptyRoot();
+		}
+
+		// 2. Check if request model action can be fulfilled
+		Optional<Integer> givenWorkflowIndex = ClientOptions.getIntValue(action.getOptions(), OPTION_WORKFLOW_INDEX);
+		int workflowIndex = givenWorkflowIndex.orElse(WORKFLOW_INDEX_DEFAULT);
+		if (givenWorkflowIndex.isEmpty()) {
+			LOGGER.warn("No workflow index given to create model, use workflow with index: " + workflowIndex);
+		}
+		Optional<Machine> machine = workflowFacade.getMachine();
+		if (machine.isEmpty() || workflowIndex < 0 || machine.get().getWorkflows().size() <= workflowIndex) {
+			LOGGER.error("No workflow with index " + workflowIndex + " in " + machine + ", return empty model.");
+			return createEmptyRoot();
+		}
+		Workflow workflow = machine.get().getWorkflows().get(workflowIndex);
+
+		// 3. Create model from semantic and notation models
+		GModelRoot root = createEmptyRoot();
+		if (modelState.getRoot() == null) {
+			modelState.setRoot(root);
+		}
+
+		// - ensure that we have a diagram element for each element in the workflow
+		workflowFacade.initializeNotation(workflow);
+
+		// - map nodes and remember mapping for edges
+		Map<Node, GNode> nodeMapping = new HashMap<>();
+		for (Node node : workflow.getNodes()) {
+			workflowFacade.findDiagramElement(node, Shape.class) //
+					.flatMap(shape -> toGNode(node, shape, modelState)) //
+					.ifPresent(gnode -> {
+						nodeMapping.put(node, gnode);
+						root.getChildren().add(gnode);
+					});
+		}
+
+		// - map edges
+		for (Flow flow : workflow.getFlows()) {
+			workflowFacade.findDiagramElement(flow, Edge.class)
+					.flatMap(edge -> toGEdge(flow, edge, nodeMapping, modelState)) //
+					.ifPresent(root.getChildren()::add);
+		}
+
+		return root;
+	}
+
+	private static GModelRoot createEmptyRoot() {
 		GModelRoot modelRoot = GraphFactory.eINSTANCE.createGModelRoot();
-		// TODO transform to GModel based on workflow facade
+		modelRoot.setType(DefaultTypes.GRAPH);
+		modelRoot.setId(ROOT_ID);
 		return modelRoot;
+	}
+
+	private static Optional<GEdge> toGEdge(Flow flow, Edge edge, Map<Node, GNode> nodeMapping,
+			GraphicalModelState modelState) {
+		GEdge gedge = flow instanceof WeightedFlow
+				? createWeightedEdge((WeightedFlow) flow, edge, nodeMapping, modelState)
+				: createEdge(flow, edge, nodeMapping, modelState);
+		return Optional.ofNullable(gedge);
+	}
+
+	private static Optional<GNode> toGNode(Node node, DiagramElement shape, GraphicalModelState modelState) {
+		GNode gnode = node instanceof Task //
+				? createTaskNode((Task) node, (Shape) shape, modelState)
+				: createActivityNode(node, (Shape) shape, modelState);
+		return Optional.ofNullable(gnode);
+	}
+
+	private static WeightedEdge createWeightedEdge(WeightedFlow flow, Edge edge, Map<Node, GNode> nodeMapping,
+			GraphicalModelState modelState) {
+		WeightedEdgeBuilder builder = new WeightedEdgeBuilder(modelState);
+		builder.setProbability(Double.toString(flow.getProbability()));
+		builder.setSource(nodeMapping.get(flow.getSource()));
+		builder.setTarget(nodeMapping.get(flow.getTarget()));
+		edge.getBendPoints().forEach(bendPoint -> builder.addRoutingPoint(bendPoint.getX(), bendPoint.getY()));
+		return builder.build();
+	}
+
+	private static GEdge createEdge(Flow flow, Edge edge, Map<Node, GNode> nodeMapping,
+			GraphicalModelState modelState) {
+		EdgeBuilder builder = new EdgeBuilder(modelState);
+		builder.setSource(nodeMapping.get(flow.getSource()));
+		builder.setTarget(nodeMapping.get(flow.getTarget()));
+		edge.getBendPoints().forEach(bendPoint -> builder.addRoutingPoint(bendPoint.getX(), bendPoint.getY()));
+		return builder.build();
+	}
+
+	private static TaskNode createTaskNode(Task task, Shape shape, GraphicalModelState modelState) {
+		String type = CoffeeTypeUtil.toType(task);
+		String nodeType = CoffeeTypeUtil.toNodeType(task);
+		TaskNodeBuilder builder = new TaskNodeBuilder(modelState, type, task.getName(), nodeType, task.getDuration());
+		if (shape.getPosition() != null) {
+			builder.setPosition(shape.getPosition().getX(), shape.getPosition().getY());
+		}
+		if (shape.getSize() != null) {
+			builder.setSize(shape.getSize().getWidth(), shape.getSize().getHeight());
+		}
+		return builder.build();
+	}
+
+	private static ActivityNode createActivityNode(Node node, Shape shape, GraphicalModelState modelState) {
+		String type = CoffeeTypeUtil.toType(node);
+		String nodeType = CoffeeTypeUtil.toNodeType(node);
+		ActivityNodeBuilder builder = new ActivityNodeBuilder(modelState, type, nodeType);
+		if (shape.getPosition() != null) {
+			builder.setPosition(shape.getPosition().getX(), shape.getPosition().getY());
+		}
+		if (shape.getSize() != null) {
+			builder.setSize(shape.getSize().getWidth(), shape.getSize().getHeight());
+		}
+		return builder.build();
 	}
 
 }
