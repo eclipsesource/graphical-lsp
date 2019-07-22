@@ -29,11 +29,11 @@ public class GModelUtil {
 	public static Function<Integer, String> idAndIndex(String id) {
 		return i -> id + i;
 	}
-	
+
 	public static int generateId(EClass eClass, String id, GraphicalModelState modelState) {
 		return modelState.getIndex().getCounter(eClass, idAndIndex(id));
 	}
-	
+
 	public static int generateId(GModelElement element, String id, GraphicalModelState modelState) {
 		int index = generateId(element.eClass(), id, modelState);
 		element.setId(idAndIndex(id).apply(index));

@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import org.apache.log4j.Logger;
+
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
@@ -46,26 +48,37 @@ import com.eclipsesource.modelserver.coffee.model.coffee.WeightedFlow;
 import com.eclipsesource.modelserver.coffee.model.coffee.Workflow;
 
 public class WorkflowModelServerModelFactory implements ModelFactory {
+	private static Logger LOGGER = Logger.getLogger(WorkflowModelServerModelFactory.class);
 	private static final String ROOT_ID = "sprotty";
+	private static final String OPTION_WORKFLOW_INDEX = "workflowIndex";
+	private static final int WORKFLOW_INDEX_DEFAULT = 0;
 
 	@Override
 	public GModelRoot loadModel(RequestModelAction action, GraphicalModelState modelState) {
 		// 1. Load models and create workflow facade
-		String sourceURI = action.getOptions().get(ClientOptions.SOURCE_URI);
-		WorkflowModelServerAccess modelAccess = new WorkflowModelServerAccess(sourceURI);
+		Optional<String> sourceURI = ClientOptions.getValue(action.getOptions(), ClientOptions.SOURCE_URI);
+		if (sourceURI.isEmpty()) {
+			LOGGER.error("No source uri given to load model, return empty model.");
+			return createEmptyRoot();
+		}
+		WorkflowModelServerAccess modelAccess = new WorkflowModelServerAccess(sourceURI.get());
 		WorkflowFacade workflowFacade = modelAccess.getWorkflowFacade();
-		if(workflowFacade == null) {
+		if (workflowFacade == null) {
 			return createEmptyRoot();
 		}
-		
-		// 2. Check if request model action can be fulfilled by checking which workflow to load
-		// TODO: Add parameter to RequestModelAction to determine which workflow to use
+
+		// 2. Check if request model action can be fulfilled
+		Optional<Integer> givenWorkflowIndex = ClientOptions.getIntValue(action.getOptions(), OPTION_WORKFLOW_INDEX);
+		int workflowIndex = givenWorkflowIndex.orElse(WORKFLOW_INDEX_DEFAULT);
+		if (givenWorkflowIndex.isEmpty()) {
+			LOGGER.warn("No workflow index given to create model, use workflow with index: " + workflowIndex);
+		}
 		Optional<Machine> machine = workflowFacade.getMachine();
-		if (machine.isEmpty() || machine.get().getWorkflows().isEmpty()) {
+		if (machine.isEmpty() || workflowIndex < 0 || machine.get().getWorkflows().size() <= workflowIndex) {
+			LOGGER.error("No workflow with index " + workflowIndex + " in " + machine + ", return empty model.");
 			return createEmptyRoot();
 		}
-		// now we simply use the first workflow in the model
-		Workflow workflow = machine.get().getWorkflows().get(0);
+		Workflow workflow = machine.get().getWorkflows().get(workflowIndex);
 
 		// 3. Create model from semantic and notation models
 		GModelRoot root = createEmptyRoot();

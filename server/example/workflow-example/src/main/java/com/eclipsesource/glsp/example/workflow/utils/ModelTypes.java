@@ -29,7 +29,7 @@ public final class ModelTypes {
 	public static final String MERGE_NODE = "activityNode:merge";
 	public static final String MANUAL_TASK = "task:manual";
 	public static final String AUTOMATED_TASK = "task:automated";
-	
+
 	public static String toNodeType(String type) {
 		switch (type) {
 		case DECISION_NODE:

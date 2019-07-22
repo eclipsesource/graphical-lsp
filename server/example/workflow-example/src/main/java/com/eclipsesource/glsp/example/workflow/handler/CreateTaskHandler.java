@@ -41,13 +41,14 @@ public abstract class CreateTaskHandler extends CreateNodeOperationHandler {
 	protected GNode createNode(Optional<GPoint> point, GraphicalModelState modelState) {
 		int nodeCounter = GModelUtil.generateId(WfgraphPackage.Literals.TASK_NODE, "task", modelState);
 		String name = labelProvider.apply(nodeCounter);
-		TaskNodeBuilder taskNodeBuilder = new TaskNodeBuilder(modelState, elementTypeId, name, ModelTypes.toNodeType(elementTypeId), 0);
+		String taskType = ModelTypes.toNodeType(elementTypeId);
+		TaskNodeBuilder taskNodeBuilder = new TaskNodeBuilder(modelState, elementTypeId, name, taskType, 0);
 		if (point.isPresent()) {
 			taskNodeBuilder.setPosition(point.get().getX(), point.get().getY());
 		}
 		return taskNodeBuilder.build();
 	}
-	
+
 	@Override
 	public String getLabel(AbstractOperationAction action) {
 		return "Create task";

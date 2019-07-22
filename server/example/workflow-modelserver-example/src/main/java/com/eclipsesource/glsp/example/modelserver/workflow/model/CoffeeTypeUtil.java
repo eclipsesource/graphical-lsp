@@ -24,54 +24,54 @@ import com.eclipsesource.modelserver.coffee.model.coffee.ManualTask;
 import com.eclipsesource.modelserver.coffee.model.coffee.Merge;
 import com.eclipsesource.modelserver.coffee.model.coffee.Node;
 
-public final class CoffeeTypeUtil {	
+public final class CoffeeTypeUtil {
 	public static final String FORK_NODE = "activityNode:fork";
 	public static final String JOIN_NODE = "activityNode:join";
-	
+
 	public static String toType(Node node) {
-		if(node instanceof AutomaticTask) {
+		if (node instanceof AutomaticTask) {
 			return ModelTypes.AUTOMATED_TASK;
 		}
-		if(node instanceof ManualTask) {
+		if (node instanceof ManualTask) {
 			return ModelTypes.MANUAL_TASK;
 		}
-		if(node instanceof Decision) {
+		if (node instanceof Decision) {
 			return ModelTypes.DECISION_NODE;
 		}
-		if(node instanceof Merge) {
+		if (node instanceof Merge) {
 			return ModelTypes.MERGE_NODE;
 		}
-		if(node instanceof Fork) {
+		if (node instanceof Fork) {
 			return FORK_NODE;
 		}
-		if(node instanceof Join) {
+		if (node instanceof Join) {
 			return JOIN_NODE;
 		}
 		return "unknown";
 	}
-	
+
 	public static String toNodeType(Node node) {
-		if(node instanceof AutomaticTask) {
+		if (node instanceof AutomaticTask) {
 			return "automated";
 		}
-		if(node instanceof ManualTask) {
-			return "manual";			
+		if (node instanceof ManualTask) {
+			return "manual";
 		}
-		if(node instanceof Decision) {
+		if (node instanceof Decision) {
 			return "decisionNode";
 		}
-		if(node instanceof Merge) {
+		if (node instanceof Merge) {
 			return "mergeNode";
 		}
-		if(node instanceof Fork) {
+		if (node instanceof Fork) {
 			return "forkNode";
 		}
-		if(node instanceof Join) {
+		if (node instanceof Join) {
 			return "joinNode";
 		}
 		return "unknown";
 	}
-	
+
 	private CoffeeTypeUtil() {
 	}
 }

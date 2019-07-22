@@ -22,5 +22,5 @@ public class CreateManualTaskHandler extends CreateTaskHandler {
 	public CreateManualTaskHandler() {
 		super(ModelTypes.MANUAL_TASK, i -> "ManualTask" + i);
 	}
-	
+
 }

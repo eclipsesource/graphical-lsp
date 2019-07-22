@@ -42,10 +42,10 @@ public class WorkflowFacade {
 		this.coffeeResource = coffeeResource;
 		this.notationResource = notationResource;
 	}
-	
+
 	public Optional<Machine> getMachine() {
 		EObject content = this.coffeeResource.getContents().get(0);
-		return content instanceof Machine ? Optional.of((Machine)content) : Optional.empty();
+		return content instanceof Machine ? Optional.of((Machine) content) : Optional.empty();
 	}
 
 	public Diagram initializeNotation(Workflow workflow) {
@@ -105,7 +105,7 @@ public class WorkflowFacade {
 		proxy.setResolvedElement(coffeeResource.getEObject(proxy.getUri()));
 		return proxy;
 	}
-	
+
 	public <T extends DiagramElement> Optional<T> findDiagramElement(EObject semanticElement, Class<T> clazz) {
 		return findDiagramElement(semanticElement).map(elem -> safeCast(elem, clazz));
 	}
