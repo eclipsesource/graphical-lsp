@@ -37,7 +37,6 @@ public abstract class CreateTaskHandler extends CreateNodeOperationHandler {
 	private String taskType;
 	private Function<Integer, String> labelProvider;
 
-
 	public CreateTaskHandler(String elementTypeId, String taskType, Function<Integer, String> labelProvider) {
 		super(elementTypeId);
 		this.taskType = taskType;
@@ -73,7 +72,7 @@ public abstract class CreateTaskHandler extends CreateNodeOperationHandler {
 		layoutOptions.setResizeContainer(false);
 		icon.setLayoutOptions(layoutOptions);
 		GLabel iconLabel = GraphFactory.eINSTANCE.createGLabel();
-		iconLabel.setType(ModelTypes.LABEL_ICON);;
+		iconLabel.setType(ModelTypes.LABEL_ICON);
 		iconLabel.setId(taskNode.getId() + "_ticon");
 		iconLabel.setText("" + taskNode.getTaskType().toUpperCase().charAt(0));
 		icon.getChildren().add(iconLabel);

@@ -1856,6 +1856,206 @@ public interface GraphPackage extends EPackage {
 	int GISSUE_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.impl.GHtmlRootImpl <em>GHtml Root</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.eclipsesource.glsp.graph.impl.GHtmlRootImpl
+	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGHtmlRoot()
+	 * @generated
+	 */
+	int GHTML_ROOT = 21;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GHTML_ROOT__ID = GMODEL_ROOT__ID;
+
+	/**
+	 * The feature id for the '<em><b>Css Classes</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GHTML_ROOT__CSS_CLASSES = GMODEL_ROOT__CSS_CLASSES;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GHTML_ROOT__CHILDREN = GMODEL_ROOT__CHILDREN;
+
+	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GHTML_ROOT__PARENT = GMODEL_ROOT__PARENT;
+
+	/**
+	 * The feature id for the '<em><b>Trace</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GHTML_ROOT__TRACE = GMODEL_ROOT__TRACE;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GHTML_ROOT__TYPE = GMODEL_ROOT__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Canvas Bounds</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GHTML_ROOT__CANVAS_BOUNDS = GMODEL_ROOT__CANVAS_BOUNDS;
+
+	/**
+	 * The feature id for the '<em><b>Revision</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GHTML_ROOT__REVISION = GMODEL_ROOT__REVISION;
+
+	/**
+	 * The feature id for the '<em><b>Classes</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GHTML_ROOT__CLASSES = GMODEL_ROOT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>GHtml Root</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GHTML_ROOT_FEATURE_COUNT = GMODEL_ROOT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>GHtml Root</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GHTML_ROOT_OPERATION_COUNT = GMODEL_ROOT_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.impl.GPreRenderedElementImpl <em>GPre Rendered Element</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.eclipsesource.glsp.graph.impl.GPreRenderedElementImpl
+	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGPreRenderedElement()
+	 * @generated
+	 */
+	int GPRE_RENDERED_ELEMENT = 22;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GPRE_RENDERED_ELEMENT__ID = GMODEL_ELEMENT__ID;
+
+	/**
+	 * The feature id for the '<em><b>Css Classes</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GPRE_RENDERED_ELEMENT__CSS_CLASSES = GMODEL_ELEMENT__CSS_CLASSES;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GPRE_RENDERED_ELEMENT__CHILDREN = GMODEL_ELEMENT__CHILDREN;
+
+	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GPRE_RENDERED_ELEMENT__PARENT = GMODEL_ELEMENT__PARENT;
+
+	/**
+	 * The feature id for the '<em><b>Trace</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GPRE_RENDERED_ELEMENT__TRACE = GMODEL_ELEMENT__TRACE;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GPRE_RENDERED_ELEMENT__TYPE = GMODEL_ELEMENT__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GPRE_RENDERED_ELEMENT__CODE = GMODEL_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>GPre Rendered Element</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GPRE_RENDERED_ELEMENT_FEATURE_COUNT = GMODEL_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>GPre Rendered Element</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GPRE_RENDERED_ELEMENT_OPERATION_COUNT = GMODEL_ELEMENT_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.GSide <em>GSide</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1863,7 +2063,7 @@ public interface GraphPackage extends EPackage {
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGSide()
 	 * @generated
 	 */
-	int GSIDE = 21;
+	int GSIDE = 23;
 
 	/**
 	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.GSeverity <em>GSeverity</em>}' enum.
@@ -1873,7 +2073,7 @@ public interface GraphPackage extends EPackage {
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGSeverity()
 	 * @generated
 	 */
-	int GSEVERITY = 22;
+	int GSEVERITY = 24;
 
 	/**
 	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GModelElement <em>GModel Element</em>}'.
@@ -2614,6 +2814,48 @@ public interface GraphPackage extends EPackage {
 	EAttribute getGIssue_Message();
 
 	/**
+	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GHtmlRoot <em>GHtml Root</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>GHtml Root</em>'.
+	 * @see com.eclipsesource.glsp.graph.GHtmlRoot
+	 * @generated
+	 */
+	EClass getGHtmlRoot();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link com.eclipsesource.glsp.graph.GHtmlRoot#getClasses <em>Classes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Classes</em>'.
+	 * @see com.eclipsesource.glsp.graph.GHtmlRoot#getClasses()
+	 * @see #getGHtmlRoot()
+	 * @generated
+	 */
+	EAttribute getGHtmlRoot_Classes();
+
+	/**
+	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GPreRenderedElement <em>GPre Rendered Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>GPre Rendered Element</em>'.
+	 * @see com.eclipsesource.glsp.graph.GPreRenderedElement
+	 * @generated
+	 */
+	EClass getGPreRenderedElement();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GPreRenderedElement#getCode <em>Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Code</em>'.
+	 * @see com.eclipsesource.glsp.graph.GPreRenderedElement#getCode()
+	 * @see #getGPreRenderedElement()
+	 * @generated
+	 */
+	EAttribute getGPreRenderedElement_Code();
+
+	/**
 	 * Returns the meta object for enum '{@link com.eclipsesource.glsp.graph.GSide <em>GSide</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3249,6 +3491,42 @@ public interface GraphPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute GISSUE__MESSAGE = eINSTANCE.getGIssue_Message();
+
+		/**
+		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.impl.GHtmlRootImpl <em>GHtml Root</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.eclipsesource.glsp.graph.impl.GHtmlRootImpl
+		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGHtmlRoot()
+		 * @generated
+		 */
+		EClass GHTML_ROOT = eINSTANCE.getGHtmlRoot();
+
+		/**
+		 * The meta object literal for the '<em><b>Classes</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GHTML_ROOT__CLASSES = eINSTANCE.getGHtmlRoot_Classes();
+
+		/**
+		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.impl.GPreRenderedElementImpl <em>GPre Rendered Element</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.eclipsesource.glsp.graph.impl.GPreRenderedElementImpl
+		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGPreRenderedElement()
+		 * @generated
+		 */
+		EClass GPRE_RENDERED_ELEMENT = eINSTANCE.getGPreRenderedElement();
+
+		/**
+		 * The meta object literal for the '<em><b>Code</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GPRE_RENDERED_ELEMENT__CODE = eINSTANCE.getGPreRenderedElement_Code();
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.GSide <em>GSide</em>}' enum.

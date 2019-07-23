@@ -17,14 +17,13 @@ package com.eclipsesource.glsp.server.actionhandler;
 
 import java.util.Optional;
 
-import org.eclipse.sprotty.ServerStatus;
-import org.eclipse.sprotty.ServerStatus.Severity;
-
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.ServerStatusAction;
 import com.eclipsesource.glsp.api.handler.ActionHandler;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.model.ModelStateProvider;
+import com.eclipsesource.glsp.api.types.ServerStatus;
+import com.eclipsesource.glsp.api.types.ServerStatus.Severity;
 import com.google.inject.Inject;
 
 public abstract class AbstractActionHandler implements ActionHandler {

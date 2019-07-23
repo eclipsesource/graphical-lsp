@@ -179,6 +179,24 @@ public interface GraphFactory extends EFactory {
 	GIssue createGIssue();
 
 	/**
+	 * Returns a new object of class '<em>GHtml Root</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>GHtml Root</em>'.
+	 * @generated
+	 */
+	GHtmlRoot createGHtmlRoot();
+
+	/**
+	 * Returns a new object of class '<em>GPre Rendered Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>GPre Rendered Element</em>'.
+	 * @generated
+	 */
+	GPreRenderedElement createGPreRenderedElement();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

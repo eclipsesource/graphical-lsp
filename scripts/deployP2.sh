@@ -22,16 +22,6 @@ then
     
     GLSP_SNAPSHOT_VERSION=$(resolve_version com.eclipsesource.glsp glsp-parent 1.2.0-SNAPSHOT)
     
-    cd ${REPO_DIR}/glsp-p2/targetplatforms || exit
-    
-    # Regenerate .target from tpd file
-    mvn clean install
-
-    cd .. 
-
-    # Build and deploy composite repository
-    mvn clean install -Pdeploy-composite
-
     git config user.name \""${GLSP_P2_USER}"\"
     git config user.mail \""${GLSP_P2_MAIL}"\"
     # Push changes to glsp-p2 repository

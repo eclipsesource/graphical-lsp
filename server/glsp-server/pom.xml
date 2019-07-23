@@ -58,10 +58,5 @@
 			<artifactId>guice</artifactId>
 			<version>3.0</version>
 		</dependency>
-		<dependency>
-			<groupId>org.eclipse.sprotty</groupId>
-			<artifactId>org.eclipse.sprotty</artifactId>
-			<version>0.7.0-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
 </project>

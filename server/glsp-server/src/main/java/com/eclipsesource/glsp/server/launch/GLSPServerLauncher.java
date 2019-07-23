@@ -46,8 +46,12 @@ public abstract class GLSPServerLauncher {
 
 	public abstract void shutdown();
 
-	public GLSPModule getModule() {
+	public GLSPModule getGLSPModule() {
 		return module;
+	}
+
+	public Injector getInjector() {
+		return injector;
 	}
 
 	public void setModule(GLSPModule module) {

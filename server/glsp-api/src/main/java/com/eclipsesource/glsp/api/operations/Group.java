@@ -16,7 +16,7 @@
 package com.eclipsesource.glsp.api.operations;
 
 public class Group {
-	
+
 	private String id;
 	private String label;
 	private Group parentGroup;

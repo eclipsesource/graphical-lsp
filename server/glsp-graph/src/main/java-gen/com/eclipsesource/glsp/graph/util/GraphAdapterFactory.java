@@ -185,6 +185,16 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseGHtmlRoot(GHtmlRoot object) {
+			return createGHtmlRootAdapter();
+		}
+
+		@Override
+		public Adapter caseGPreRenderedElement(GPreRenderedElement object) {
+			return createGPreRenderedElementAdapter();
+		}
+
+		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -494,6 +504,34 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGIssueAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GHtmlRoot <em>GHtml Root</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.eclipsesource.glsp.graph.GHtmlRoot
+	 * @generated
+	 */
+	public Adapter createGHtmlRootAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.eclipsesource.glsp.graph.GPreRenderedElement <em>GPre Rendered Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.eclipsesource.glsp.graph.GPreRenderedElement
+	 * @generated
+	 */
+	public Adapter createGPreRenderedElementAdapter() {
 		return null;
 	}
 

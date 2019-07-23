@@ -15,37 +15,36 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.websocket;
 
-import java.util.function.Consumer;
+import java.util.Collection;
 
-import com.eclipsesource.glsp.api.action.ActionMessage;
+import org.eclipse.lsp4j.jsonrpc.Launcher.Builder;
+import org.eclipse.lsp4j.websocket.WebSocketEndpoint;
+
+import com.eclipsesource.glsp.api.json.GsonConfigurator;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPClient;
-import com.eclipsesource.glsp.api.websocket.GLSPServerEndpoint;
-import com.eclipsesource.glsp.api.websocket.WebsocketGLSPServer;
-import com.eclipsesource.glsp.server.jsonrpc.DefaultGLSPServer;
+import com.eclipsesource.glsp.api.jsonrpc.GLSPClientAware;
+import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
+import com.google.inject.Inject;
 
-public class DefaultWebsocketGLSPServer extends DefaultGLSPServer implements WebsocketGLSPServer {
-	private GLSPServerEndpoint endpoint;
+public class GLSPServerEndpoint extends WebSocketEndpoint<GLSPClient> {
 
-	public DefaultWebsocketGLSPServer() {
-		connect(new WebsocketClient());
+	@Inject
+	private GLSPServer glspServer;
+
+	@Inject
+	private GsonConfigurator gsonConfigurator;
+
+	@Override
+	protected void configure(Builder<GLSPClient> builder) {
+		builder.setLocalService(glspServer);
+		builder.setRemoteInterface(GLSPClient.class);
+		builder.configureGson(gsonConfigurator::configureGsonBuilder);
 	}
 
-	public void setRemoteEndpoint(GLSPServerEndpoint endpoint) {
-		this.endpoint = endpoint;
+	@Override
+	protected void connect(Collection<Object> localServices, GLSPClient remoteProxy) {
+		localServices.stream().filter(GLSPClientAware.class::isInstance).map(GLSPClientAware.class::cast)
+				.forEach(ca -> ca.connect(remoteProxy));
 	}
 
-	public GLSPServerEndpoint getRemoteEndpoint() {
-		return this.endpoint;
-	}
-
-	private final class WebsocketClient implements GLSPClient {
-
-		@Override
-		public void process(ActionMessage message) {
-			Consumer<ActionMessage> remoteEndpoint = getRemoteEndpoint();
-			if (remoteEndpoint != null) {
-				remoteEndpoint.accept(message);
-			}
-		}
-	}
 }

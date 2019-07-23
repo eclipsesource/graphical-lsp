@@ -19,7 +19,7 @@ import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.graph.GModelRoot;
 
 public class RequestBoundsAction extends Action {
-	
+
 	private GModelRoot newRoot;
 
 	public RequestBoundsAction() {
