@@ -18,6 +18,9 @@ package com.eclipsesource.glsp.example.modelserver.workflow.model;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.URI;
@@ -27,7 +30,10 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.WfnotationPackage;
+import com.eclipsesource.glsp.graph.GNode;
 import com.eclipsesource.modelserver.coffee.model.coffee.CoffeePackage;
+import com.eclipsesource.modelserver.coffee.model.coffee.Flow;
+import com.eclipsesource.modelserver.coffee.model.coffee.Node;
 
 public class WorkflowModelServerAccess {
 
@@ -37,6 +43,10 @@ public class WorkflowModelServerAccess {
 
 	private String sourceURI;
 	private ResourceSet resourceSet;
+
+	private WorkflowFacade workflowFacade;
+
+	private Map<String, Node> idMapping;
 
 	public WorkflowModelServerAccess(String sourceURI) {
 		this.sourceURI = sourceURI;
@@ -51,14 +61,22 @@ public class WorkflowModelServerAccess {
 	}
 
 	public WorkflowFacade getWorkflowFacade() {
+		if (workflowFacade == null) {
+			createWorkflowFacade();
+		}
+		return workflowFacade;
+	}
+
+	protected WorkflowFacade createWorkflowFacade() {
 		try {
 			Resource notationResource = loadResource(convertToFile(sourceURI).getAbsolutePath());
 			Resource semanticResource = loadResource(convertToFile(getSemanticResource(sourceURI)).getAbsolutePath());
-			return new WorkflowFacade(semanticResource, notationResource);
+			workflowFacade = new WorkflowFacade(semanticResource, notationResource);
+			return workflowFacade;
 		} catch (IOException e) {
 			LOGGER.error(e);
+			return null;
 		}
-		return null;
 	}
 
 	private File convertToFile(String sourceURI) {
@@ -67,7 +85,7 @@ public class WorkflowModelServerAccess {
 		}
 		return null;
 	}
-	
+
 	private String getSemanticResource(String uri) {
 		return uri.replaceFirst(".coffeenotation", ".coffee");
 	}
@@ -80,6 +98,29 @@ public class WorkflowModelServerAccess {
 
 	private Resource createResource(String path) {
 		return resourceSet.createResource(URI.createFileURI(path));
+	}
+
+	public void setNodeMapping(Map<Node, GNode> mapping) {
+		initIdMap(mapping);
+	}
+
+	private void initIdMap(Map<Node, GNode> mapping) {
+		idMapping = new HashMap<>();
+		mapping.entrySet().forEach(entry -> idMapping.put(entry.getValue().getId(), entry.getKey()));
+	}
+
+	public Node getNodeById(String id) {
+		return idMapping.get(id);
+	}
+
+	public Optional<Flow> getFlow(Node source, Node target) {
+		return this.workflowFacade.getCurrentWorkflow().getFlows().stream()
+				.filter(flow -> source.equals(flow.getSource()) && target.equals(flow.getTarget())).findFirst();
+	}
+
+	public void save() throws IOException {
+		workflowFacade.getSemanticResource().save(Collections.emptyMap());
+		workflowFacade.getNotationResource().save(Collections.emptyMap());
 	}
 
 }

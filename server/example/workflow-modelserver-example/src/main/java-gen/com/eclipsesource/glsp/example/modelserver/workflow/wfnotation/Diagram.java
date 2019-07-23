@@ -18,15 +18,15 @@ package com.eclipsesource.glsp.example.modelserver.workflow.wfnotation;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Diagram</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object
+ * '<em><b>Diagram</b></em>'. <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Diagram#getElements <em>Elements</em>}</li>
+ * <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Diagram#getElements
+ * <em>Elements</em>}</li>
  * </ul>
  *
  * @see com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.WfnotationPackage#getDiagram()
@@ -35,10 +35,11 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface Diagram extends DiagramElement {
 	/**
-	 * Returns the value of the '<em><b>Elements</b></em>' containment reference list.
-	 * The list contents are of type {@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.DiagramElement}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Returns the value of the '<em><b>Elements</b></em>' containment reference
+	 * list. The list contents are of type
+	 * {@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.DiagramElement}.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Elements</em>' containment reference list.
 	 * @see com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.WfnotationPackage#getDiagram_Elements()
 	 * @model containment="true"

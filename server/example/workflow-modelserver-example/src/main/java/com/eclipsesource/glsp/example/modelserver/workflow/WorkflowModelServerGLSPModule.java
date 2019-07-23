@@ -19,82 +19,56 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import com.eclipsesource.glsp.api.configuration.ServerConfiguration;
 import com.eclipsesource.glsp.api.diagram.DiagramConfiguration;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
-import com.eclipsesource.glsp.api.factory.PopupModelFactory;
+import com.eclipsesource.glsp.api.handler.ActionHandler;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
-import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
-import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
-import com.eclipsesource.glsp.api.labeledit.LabelEditValidator;
-import com.eclipsesource.glsp.api.layout.ILayoutEngine;
-import com.eclipsesource.glsp.api.markers.ModelValidator;
-import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
-import com.eclipsesource.glsp.api.model.ModelExpansionListener;
-import com.eclipsesource.glsp.api.model.ModelSelectionListener;
-import com.eclipsesource.glsp.api.provider.CommandPaletteActionProvider;
+import com.eclipsesource.glsp.api.model.ModelStateProvider;
+import com.eclipsesource.glsp.example.modelserver.workflow.handler.ApplyLabelEditOperationHandler;
+import com.eclipsesource.glsp.example.modelserver.workflow.handler.ChangeBoundsOperationHandler;
+import com.eclipsesource.glsp.example.modelserver.workflow.handler.CreateAutomatedTaskHandler;
+import com.eclipsesource.glsp.example.modelserver.workflow.handler.CreateDecisionNodeHandler;
+import com.eclipsesource.glsp.example.modelserver.workflow.handler.CreateFlowHandler;
+import com.eclipsesource.glsp.example.modelserver.workflow.handler.CreateManualTaskHandler;
+import com.eclipsesource.glsp.example.modelserver.workflow.handler.CreateMergeNodeHandler;
+import com.eclipsesource.glsp.example.modelserver.workflow.handler.CreateWeightedFlowHandler;
+import com.eclipsesource.glsp.example.modelserver.workflow.handler.DeleteOperationHandler;
+import com.eclipsesource.glsp.example.modelserver.workflow.handler.ModelServerAwareOperationActionHandler;
+import com.eclipsesource.glsp.example.modelserver.workflow.handler.ModelServerAwareSaveActionHandler;
+import com.eclipsesource.glsp.example.modelserver.workflow.handler.ReconnectFlowHandler;
+import com.eclipsesource.glsp.example.modelserver.workflow.handler.RerouteEdgeHandler;
+import com.eclipsesource.glsp.example.modelserver.workflow.model.ModelServerAwareModelStateProvider;
 import com.eclipsesource.glsp.example.modelserver.workflow.model.WorkflowModelServerModelFactory;
-import com.eclipsesource.glsp.example.workflow.WFGraphExtension;
-import com.eclipsesource.glsp.example.workflow.WorkflowCommandPaletteActionProvider;
-import com.eclipsesource.glsp.example.workflow.WorkflowGLSPServer;
-import com.eclipsesource.glsp.example.workflow.WorkflowPopupFactory;
-import com.eclipsesource.glsp.example.workflow.WorkflowServerConfiguration;
-import com.eclipsesource.glsp.example.workflow.WorkflowServerListener;
-import com.eclipsesource.glsp.example.workflow.handler.CreateAutomatedTaskHandler;
-import com.eclipsesource.glsp.example.workflow.handler.CreateDecisionNodeHandler;
-import com.eclipsesource.glsp.example.workflow.handler.CreateEdgeHandler;
-import com.eclipsesource.glsp.example.workflow.handler.CreateManualTaskHandler;
-import com.eclipsesource.glsp.example.workflow.handler.CreateMergeNodeHandler;
-import com.eclipsesource.glsp.example.workflow.handler.CreateWeightedEdgeHandler;
-import com.eclipsesource.glsp.example.workflow.handler.DeleteWorkflowElementHandler;
-import com.eclipsesource.glsp.example.workflow.handler.ReconnectEdgeHandler;
-import com.eclipsesource.glsp.example.workflow.handler.RerouteEdgeHandler;
-import com.eclipsesource.glsp.example.workflow.handler.SimulateCommandHandler;
-import com.eclipsesource.glsp.example.workflow.labeledit.WorkflowLabelEditValidator;
-import com.eclipsesource.glsp.example.workflow.layout.WorkflowLayoutEngine;
-import com.eclipsesource.glsp.example.workflow.marker.WorkflowModelValidator;
-import com.eclipsesource.glsp.graph.GraphExtension;
-import com.eclipsesource.glsp.server.di.DefaultGLSPModule;
-import com.eclipsesource.glsp.server.operationhandler.ApplyLabelEditOperationHandler;
-import com.eclipsesource.glsp.server.operationhandler.ChangeBoundsOperationHandler;
-import com.eclipsesource.glsp.server.operationhandler.DeleteOperationHandler;
+import com.eclipsesource.glsp.example.workflow.WorkflowGLSPModule;
+import com.eclipsesource.glsp.server.actionhandler.OperationActionHandler;
+import com.eclipsesource.glsp.server.actionhandler.SaveModelActionHandler;
+import com.eclipsesource.glsp.server.actionhandler.UndoRedoActionHandler;
 
 @SuppressWarnings("serial")
-public class WorkflowModelServerGLSPModule extends DefaultGLSPModule {
+public class WorkflowModelServerGLSPModule extends WorkflowGLSPModule {
 
-	@Override
-	protected Class<? extends GLSPServer> bindGLSPServer() {
-		return WorkflowGLSPServer.class;
-	}
-	
 	@Override
 	protected Class<? extends ModelFactory> bindModelFactory() {
 		return WorkflowModelServerModelFactory.class;
 	}
-	
+
 	@Override
-	public Class<? extends PopupModelFactory> bindPopupModelFactory() {
-		return WorkflowPopupFactory.class;
+	protected Class<? extends ModelStateProvider> bindModelStateProvider() {
+		return ModelServerAwareModelStateProvider.class;
 	}
 
 	@Override
-	public Class<? extends ModelSelectionListener> bindModelSelectionListener() {
-		return WorkflowServerListener.class;
-	}
-
-	@Override
-	public Class<? extends ModelElementOpenListener> bindModelElementOpenListener() {
-		return WorkflowServerListener.class;
-	}
-
-	@Override
-	public Class<? extends ModelExpansionListener> bindModelExpansionListener() {
-		return WorkflowServerListener.class;
-	}
-
-	@Override
-	protected Class<? extends CommandPaletteActionProvider> bindCommandPaletteActionProvider() {
-		return WorkflowCommandPaletteActionProvider.class;
+	protected Collection<Class<? extends ActionHandler>> bindActionHandlers() {
+		Collection<Class<? extends ActionHandler>> defaultHandlers = super.bindActionHandlers();
+		// remove bindings that we are about to overwrite
+		defaultHandlers.remove(OperationActionHandler.class);
+		defaultHandlers.remove(SaveModelActionHandler.class);
+		defaultHandlers.remove(UndoRedoActionHandler.class);
+		// add bindings in place of the above
+		defaultHandlers.add(ModelServerAwareOperationActionHandler.class);
+		defaultHandlers.add(ModelServerAwareSaveActionHandler.class);
+		// TODO inject own undo/redo once incremental model server is ready
+		return defaultHandlers;
 	}
 
 	@Override
@@ -105,51 +79,20 @@ public class WorkflowModelServerGLSPModule extends DefaultGLSPModule {
 				add(CreateManualTaskHandler.class);
 				add(CreateDecisionNodeHandler.class);
 				add(CreateMergeNodeHandler.class);
-				add(CreateWeightedEdgeHandler.class);
-				add(CreateEdgeHandler.class);
-				add(ReconnectEdgeHandler.class);
-				add(RerouteEdgeHandler.class);
-				add(DeleteWorkflowElementHandler.class);
+				add(CreateFlowHandler.class);
+				add(CreateWeightedFlowHandler.class);
+				add(ReconnectFlowHandler.class);
 				add(ChangeBoundsOperationHandler.class);
 				add(DeleteOperationHandler.class);
 				add(ApplyLabelEditOperationHandler.class);
+				add(RerouteEdgeHandler.class);
 			}
 		};
 	}
 
 	@Override
-	protected Collection<Class<? extends ServerCommandHandler>> bindServerCommandHandlers() {
-		return Arrays.asList(SimulateCommandHandler.class);
-	}
-
-	@Override
-	protected Class<? extends ModelValidator> bindModelValidator() {
-		return WorkflowModelValidator.class;
-	}
-
-	@Override
-	protected Class<? extends LabelEditValidator> bindLabelEditValidator() {
-		return WorkflowLabelEditValidator.class;
-	}
-
-	@Override
 	protected Collection<Class<? extends DiagramConfiguration>> bindDiagramConfigurations() {
 		return Arrays.asList(WorfklowDiagramNotationConfiguration.class);
-	}
-
-	@Override
-	protected Class<? extends GraphExtension> bindGraphExtension() {
-		return WFGraphExtension.class;
-	}
-
-	@Override
-	protected Class<? extends ILayoutEngine> bindLayoutEngine() {
-		return WorkflowLayoutEngine.class;
-	}
-
-	@Override
-	protected Class<? extends ServerConfiguration> bindServerConfiguration() {
-		return WorkflowServerConfiguration.class;
 	}
 
 }

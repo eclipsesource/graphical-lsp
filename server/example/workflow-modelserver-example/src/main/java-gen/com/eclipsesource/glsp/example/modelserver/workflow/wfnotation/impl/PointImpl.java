@@ -26,24 +26,25 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Point</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object
+ * '<em><b>Point</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.impl.PointImpl#getX <em>X</em>}</li>
- *   <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.impl.PointImpl#getY <em>Y</em>}</li>
+ * <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.impl.PointImpl#getX
+ * <em>X</em>}</li>
+ * <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.impl.PointImpl#getY
+ * <em>Y</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class PointImpl extends MinimalEObjectImpl.Container implements Point {
 	/**
-	 * The default value of the '{@link #getX() <em>X</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The default value of the '{@link #getX() <em>X</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getX()
 	 * @generated
 	 * @ordered
@@ -51,9 +52,9 @@ public class PointImpl extends MinimalEObjectImpl.Container implements Point {
 	protected static final double X_EDEFAULT = 0.0;
 
 	/**
-	 * The cached value of the '{@link #getX() <em>X</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getX() <em>X</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getX()
 	 * @generated
 	 * @ordered
@@ -61,9 +62,9 @@ public class PointImpl extends MinimalEObjectImpl.Container implements Point {
 	protected double x = X_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getY() <em>Y</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The default value of the '{@link #getY() <em>Y</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getY()
 	 * @generated
 	 * @ordered
@@ -71,9 +72,9 @@ public class PointImpl extends MinimalEObjectImpl.Container implements Point {
 	protected static final double Y_EDEFAULT = 0.0;
 
 	/**
-	 * The cached value of the '{@link #getY() <em>Y</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getY() <em>Y</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getY()
 	 * @generated
 	 * @ordered
@@ -81,8 +82,8 @@ public class PointImpl extends MinimalEObjectImpl.Container implements Point {
 	protected double y = Y_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public PointImpl() {
@@ -90,8 +91,8 @@ public class PointImpl extends MinimalEObjectImpl.Container implements Point {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -100,8 +101,8 @@ public class PointImpl extends MinimalEObjectImpl.Container implements Point {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -110,8 +111,8 @@ public class PointImpl extends MinimalEObjectImpl.Container implements Point {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -123,8 +124,8 @@ public class PointImpl extends MinimalEObjectImpl.Container implements Point {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -133,8 +134,8 @@ public class PointImpl extends MinimalEObjectImpl.Container implements Point {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -146,8 +147,8 @@ public class PointImpl extends MinimalEObjectImpl.Container implements Point {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -162,8 +163,8 @@ public class PointImpl extends MinimalEObjectImpl.Container implements Point {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -180,8 +181,8 @@ public class PointImpl extends MinimalEObjectImpl.Container implements Point {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -198,8 +199,8 @@ public class PointImpl extends MinimalEObjectImpl.Container implements Point {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -214,8 +215,8 @@ public class PointImpl extends MinimalEObjectImpl.Container implements Point {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -232,4 +233,4 @@ public class PointImpl extends MinimalEObjectImpl.Container implements Point {
 		return result.toString();
 	}
 
-} //PointImpl
+} // PointImpl

@@ -18,15 +18,15 @@ package com.eclipsesource.glsp.example.modelserver.workflow.wfnotation;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Diagram Element</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '<em><b>Diagram
+ * Element</b></em>'. <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.DiagramElement#getSemanticElement <em>Semantic Element</em>}</li>
+ * <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.DiagramElement#getSemanticElement
+ * <em>Semantic Element</em>}</li>
  * </ul>
  *
  * @see com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.WfnotationPackage#getDiagramElement()
@@ -35,9 +35,9 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface DiagramElement extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Semantic Element</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Returns the value of the '<em><b>Semantic Element</b></em>' containment
+	 * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Semantic Element</em>' containment reference.
 	 * @see #setSemanticElement(SemanticProxy)
 	 * @see com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.WfnotationPackage#getDiagramElement_SemanticElement()
@@ -47,10 +47,13 @@ public interface DiagramElement extends EObject {
 	SemanticProxy getSemanticElement();
 
 	/**
-	 * Sets the value of the '{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.DiagramElement#getSemanticElement <em>Semantic Element</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+	 * Sets the value of the
+	 * '{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.DiagramElement#getSemanticElement
+	 * <em>Semantic Element</em>}' containment reference. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Semantic Element</em>' containment reference.
+	 * 
+	 * @param value the new value of the '<em>Semantic Element</em>' containment
+	 *              reference.
 	 * @see #getSemanticElement()
 	 * @generated
 	 */

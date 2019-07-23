@@ -26,6 +26,7 @@ import com.eclipsesource.glsp.graph.GNode;
 import com.eclipsesource.glsp.graph.GPort;
 
 public class GModelUtil {
+	
 	public static Function<Integer, String> idAndIndex(String id) {
 		return i -> id + i;
 	}

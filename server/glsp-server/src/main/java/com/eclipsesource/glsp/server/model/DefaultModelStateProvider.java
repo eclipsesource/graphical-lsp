@@ -39,9 +39,13 @@ public class DefaultModelStateProvider implements ModelStateProvider {
 
 	@Override
 	public GraphicalModelState create(String clientId) {
-		GraphicalModelState modelState = new ModelStateImpl();
+		GraphicalModelState modelState = createModelState();
 		clientModelStates.put(clientId, modelState);
 		return modelState;
+	}
+
+	protected GraphicalModelState createModelState() {
+		return new ModelStateImpl();
 	}
 
 	@Override

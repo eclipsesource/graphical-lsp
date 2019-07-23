@@ -29,24 +29,25 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Shape</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object
+ * '<em><b>Shape</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.impl.ShapeImpl#getPosition <em>Position</em>}</li>
- *   <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.impl.ShapeImpl#getSize <em>Size</em>}</li>
+ * <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.impl.ShapeImpl#getPosition
+ * <em>Position</em>}</li>
+ * <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.impl.ShapeImpl#getSize
+ * <em>Size</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class ShapeImpl extends DiagramElementImpl implements Shape {
 	/**
-	 * The cached value of the '{@link #getPosition() <em>Position</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getPosition() <em>Position</em>}'
+	 * containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getPosition()
 	 * @generated
 	 * @ordered
@@ -54,9 +55,9 @@ public class ShapeImpl extends DiagramElementImpl implements Shape {
 	protected Point position;
 
 	/**
-	 * The cached value of the '{@link #getSize() <em>Size</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getSize() <em>Size</em>}' containment
+	 * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getSize()
 	 * @generated
 	 * @ordered
@@ -64,8 +65,8 @@ public class ShapeImpl extends DiagramElementImpl implements Shape {
 	protected Dimension size;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public ShapeImpl() {
@@ -73,8 +74,8 @@ public class ShapeImpl extends DiagramElementImpl implements Shape {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -83,8 +84,8 @@ public class ShapeImpl extends DiagramElementImpl implements Shape {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -93,8 +94,8 @@ public class ShapeImpl extends DiagramElementImpl implements Shape {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetPosition(Point newPosition, NotificationChain msgs) {
@@ -112,8 +113,8 @@ public class ShapeImpl extends DiagramElementImpl implements Shape {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -135,8 +136,8 @@ public class ShapeImpl extends DiagramElementImpl implements Shape {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -145,8 +146,8 @@ public class ShapeImpl extends DiagramElementImpl implements Shape {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetSize(Dimension newSize, NotificationChain msgs) {
@@ -164,8 +165,8 @@ public class ShapeImpl extends DiagramElementImpl implements Shape {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -186,8 +187,8 @@ public class ShapeImpl extends DiagramElementImpl implements Shape {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -202,8 +203,8 @@ public class ShapeImpl extends DiagramElementImpl implements Shape {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -218,8 +219,8 @@ public class ShapeImpl extends DiagramElementImpl implements Shape {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -236,8 +237,8 @@ public class ShapeImpl extends DiagramElementImpl implements Shape {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -254,8 +255,8 @@ public class ShapeImpl extends DiagramElementImpl implements Shape {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -269,4 +270,4 @@ public class ShapeImpl extends DiagramElementImpl implements Shape {
 		return super.eIsSet(featureID);
 	}
 
-} //ShapeImpl
+} // ShapeImpl

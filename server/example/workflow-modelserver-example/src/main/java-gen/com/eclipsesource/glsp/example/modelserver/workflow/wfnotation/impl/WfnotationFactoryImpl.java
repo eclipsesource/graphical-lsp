@@ -26,16 +26,16 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Factory</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
+ * end-user-doc -->
+ * 
  * @generated
  */
 public class WfnotationFactoryImpl extends EFactoryImpl implements WfnotationFactory {
 	/**
-	 * Creates the default factory implementation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Creates the default factory implementation. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public static WfnotationFactory init() {
@@ -52,9 +52,9 @@ public class WfnotationFactoryImpl extends EFactoryImpl implements WfnotationFac
 	}
 
 	/**
-	 * Creates an instance of the factory.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
+	 * 
 	 * @generated
 	 */
 	public WfnotationFactoryImpl() {
@@ -62,8 +62,8 @@ public class WfnotationFactoryImpl extends EFactoryImpl implements WfnotationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -87,8 +87,8 @@ public class WfnotationFactoryImpl extends EFactoryImpl implements WfnotationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -98,8 +98,8 @@ public class WfnotationFactoryImpl extends EFactoryImpl implements WfnotationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -109,8 +109,8 @@ public class WfnotationFactoryImpl extends EFactoryImpl implements WfnotationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -120,8 +120,8 @@ public class WfnotationFactoryImpl extends EFactoryImpl implements WfnotationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -131,8 +131,8 @@ public class WfnotationFactoryImpl extends EFactoryImpl implements WfnotationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -142,8 +142,8 @@ public class WfnotationFactoryImpl extends EFactoryImpl implements WfnotationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -153,8 +153,8 @@ public class WfnotationFactoryImpl extends EFactoryImpl implements WfnotationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -163,8 +163,8 @@ public class WfnotationFactoryImpl extends EFactoryImpl implements WfnotationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @deprecated
 	 * @generated
 	 */
@@ -173,4 +173,4 @@ public class WfnotationFactoryImpl extends EFactoryImpl implements WfnotationFac
 		return WfnotationPackage.eINSTANCE;
 	}
 
-} //WfnotationFactoryImpl
+} // WfnotationFactoryImpl

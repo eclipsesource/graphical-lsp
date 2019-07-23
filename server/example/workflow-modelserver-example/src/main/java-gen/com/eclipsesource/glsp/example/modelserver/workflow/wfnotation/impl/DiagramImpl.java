@@ -31,23 +31,23 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Diagram</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object
+ * '<em><b>Diagram</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.impl.DiagramImpl#getElements <em>Elements</em>}</li>
+ * <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.impl.DiagramImpl#getElements
+ * <em>Elements</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class DiagramImpl extends DiagramElementImpl implements Diagram {
 	/**
-	 * The cached value of the '{@link #getElements() <em>Elements</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getElements() <em>Elements</em>}'
+	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getElements()
 	 * @generated
 	 * @ordered
@@ -55,8 +55,8 @@ public class DiagramImpl extends DiagramElementImpl implements Diagram {
 	protected EList<DiagramElement> elements;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public DiagramImpl() {
@@ -64,8 +64,8 @@ public class DiagramImpl extends DiagramElementImpl implements Diagram {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -74,8 +74,8 @@ public class DiagramImpl extends DiagramElementImpl implements Diagram {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -88,8 +88,8 @@ public class DiagramImpl extends DiagramElementImpl implements Diagram {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -102,8 +102,8 @@ public class DiagramImpl extends DiagramElementImpl implements Diagram {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -116,8 +116,8 @@ public class DiagramImpl extends DiagramElementImpl implements Diagram {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -133,8 +133,8 @@ public class DiagramImpl extends DiagramElementImpl implements Diagram {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -148,8 +148,8 @@ public class DiagramImpl extends DiagramElementImpl implements Diagram {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -161,4 +161,4 @@ public class DiagramImpl extends DiagramElementImpl implements Diagram {
 		return super.eIsSet(featureID);
 	}
 
-} //DiagramImpl
+} // DiagramImpl

@@ -16,16 +16,17 @@
 package com.eclipsesource.glsp.example.modelserver.workflow.wfnotation;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Shape</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object
+ * '<em><b>Shape</b></em>'. <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Shape#getPosition <em>Position</em>}</li>
- *   <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Shape#getSize <em>Size</em>}</li>
+ * <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Shape#getPosition
+ * <em>Position</em>}</li>
+ * <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Shape#getSize
+ * <em>Size</em>}</li>
  * </ul>
  *
  * @see com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.WfnotationPackage#getShape()
@@ -35,8 +36,8 @@ package com.eclipsesource.glsp.example.modelserver.workflow.wfnotation;
 public interface Shape extends DiagramElement {
 	/**
 	 * Returns the value of the '<em><b>Position</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Position</em>' containment reference.
 	 * @see #setPosition(Point)
 	 * @see com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.WfnotationPackage#getShape_Position()
@@ -46,9 +47,11 @@ public interface Shape extends DiagramElement {
 	Point getPosition();
 
 	/**
-	 * Sets the value of the '{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Shape#getPosition <em>Position</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Sets the value of the
+	 * '{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Shape#getPosition
+	 * <em>Position</em>}' containment reference. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
 	 * @param value the new value of the '<em>Position</em>' containment reference.
 	 * @see #getPosition()
 	 * @generated
@@ -56,9 +59,9 @@ public interface Shape extends DiagramElement {
 	void setPosition(Point value);
 
 	/**
-	 * Returns the value of the '<em><b>Size</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Returns the value of the '<em><b>Size</b></em>' containment reference. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Size</em>' containment reference.
 	 * @see #setSize(Dimension)
 	 * @see com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.WfnotationPackage#getShape_Size()
@@ -68,9 +71,11 @@ public interface Shape extends DiagramElement {
 	Dimension getSize();
 
 	/**
-	 * Sets the value of the '{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Shape#getSize <em>Size</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Sets the value of the
+	 * '{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Shape#getSize
+	 * <em>Size</em>}' containment reference. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
 	 * @param value the new value of the '<em>Size</em>' containment reference.
 	 * @see #getSize()
 	 * @generated

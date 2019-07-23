@@ -35,16 +35,25 @@ import com.eclipsesource.modelserver.coffee.model.coffee.Workflow;
 
 public class WorkflowFacade {
 
-	private Resource coffeeResource;
+	private Resource semanticResource;
 	private Resource notationResource;
+	private Workflow currentWorkflow;
 
 	public WorkflowFacade(Resource coffeeResource, Resource notationResource) {
-		this.coffeeResource = coffeeResource;
+		this.semanticResource = coffeeResource;
 		this.notationResource = notationResource;
 	}
 
+	public Resource getSemanticResource() {
+		return semanticResource;
+	}
+
+	public Resource getNotationResource() {
+		return notationResource;
+	}
+
 	public Optional<Machine> getMachine() {
-		EObject content = this.coffeeResource.getContents().get(0);
+		EObject content = this.semanticResource.getContents().get(0);
 		return content instanceof Machine ? Optional.of((Machine) content) : Optional.empty();
 	}
 
@@ -84,7 +93,7 @@ public class WorkflowFacade {
 	public SemanticProxy createProxy(EObject eObject) {
 		SemanticProxy proxy = WfnotationFactory.eINSTANCE.createSemanticProxy();
 		proxy.setResolvedElement(eObject);
-		proxy.setUri(coffeeResource.getURIFragment(eObject));
+		proxy.setUri(semanticResource.getURIFragment(eObject));
 		return proxy;
 	}
 
@@ -102,7 +111,7 @@ public class WorkflowFacade {
 	}
 
 	public SemanticProxy reResolved(SemanticProxy proxy) {
-		proxy.setResolvedElement(coffeeResource.getEObject(proxy.getUri()));
+		proxy.setResolvedElement(semanticResource.getEObject(proxy.getUri()));
 		return proxy;
 	}
 
@@ -152,6 +161,17 @@ public class WorkflowFacade {
 
 	public boolean isDiagramForWorkflow(EObject diagram, Workflow workflow) {
 		return diagram instanceof Diagram && isDiagramElementForSemanticElement((Diagram) diagram, workflow);
+	}
+
+	public void setCurrentWorkflowIndex(int workflowIndex) {
+		if (workflowIndex < 0 || getMachine().isEmpty() || workflowIndex >= getMachine().get().getWorkflows().size()) {
+			return;
+		}
+		currentWorkflow = getMachine().get().getWorkflows().get(workflowIndex);
+	}
+
+	public Workflow getCurrentWorkflow() {
+		return currentWorkflow;
 	}
 
 	private static <T> T safeCast(Object obj, Class<T> clazz) {

@@ -28,24 +28,25 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Semantic Proxy</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object
+ * '<em><b>Semantic Proxy</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.impl.SemanticProxyImpl#getUri <em>Uri</em>}</li>
- *   <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.impl.SemanticProxyImpl#getResolvedElement <em>Resolved Element</em>}</li>
+ * <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.impl.SemanticProxyImpl#getUri
+ * <em>Uri</em>}</li>
+ * <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.impl.SemanticProxyImpl#getResolvedElement
+ * <em>Resolved Element</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class SemanticProxyImpl extends MinimalEObjectImpl.Container implements SemanticProxy {
 	/**
-	 * The default value of the '{@link #getUri() <em>Uri</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The default value of the '{@link #getUri() <em>Uri</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getUri()
 	 * @generated
 	 * @ordered
@@ -53,9 +54,9 @@ public class SemanticProxyImpl extends MinimalEObjectImpl.Container implements S
 	protected static final String URI_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getUri() <em>Uri</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getUri() <em>Uri</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getUri()
 	 * @generated
 	 * @ordered
@@ -63,9 +64,9 @@ public class SemanticProxyImpl extends MinimalEObjectImpl.Container implements S
 	protected String uri = URI_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getResolvedElement() <em>Resolved Element</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getResolvedElement() <em>Resolved
+	 * Element</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getResolvedElement()
 	 * @generated
 	 * @ordered
@@ -73,8 +74,8 @@ public class SemanticProxyImpl extends MinimalEObjectImpl.Container implements S
 	protected EObject resolvedElement;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public SemanticProxyImpl() {
@@ -82,8 +83,8 @@ public class SemanticProxyImpl extends MinimalEObjectImpl.Container implements S
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -92,8 +93,8 @@ public class SemanticProxyImpl extends MinimalEObjectImpl.Container implements S
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -102,8 +103,8 @@ public class SemanticProxyImpl extends MinimalEObjectImpl.Container implements S
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -115,8 +116,8 @@ public class SemanticProxyImpl extends MinimalEObjectImpl.Container implements S
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -134,8 +135,8 @@ public class SemanticProxyImpl extends MinimalEObjectImpl.Container implements S
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EObject basicGetResolvedElement() {
@@ -143,8 +144,8 @@ public class SemanticProxyImpl extends MinimalEObjectImpl.Container implements S
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -157,8 +158,8 @@ public class SemanticProxyImpl extends MinimalEObjectImpl.Container implements S
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -175,8 +176,8 @@ public class SemanticProxyImpl extends MinimalEObjectImpl.Container implements S
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -193,8 +194,8 @@ public class SemanticProxyImpl extends MinimalEObjectImpl.Container implements S
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -211,8 +212,8 @@ public class SemanticProxyImpl extends MinimalEObjectImpl.Container implements S
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -227,8 +228,8 @@ public class SemanticProxyImpl extends MinimalEObjectImpl.Container implements S
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -243,4 +244,4 @@ public class SemanticProxyImpl extends MinimalEObjectImpl.Container implements S
 		return result.toString();
 	}
 
-} //SemanticProxyImpl
+} // SemanticProxyImpl

@@ -13,15 +13,32 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.example.modelserver.workflow;
+package com.eclipsesource.glsp.example.modelserver.workflow.handler;
 
-import com.eclipsesource.glsp.example.workflow.WorfklowDiagramConfiguration;
+import org.eclipse.emf.ecore.EClass;
 
-public class WorfklowDiagramNotationConfiguration extends WorfklowDiagramConfiguration {
+import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
+import com.eclipsesource.modelserver.coffee.model.coffee.Node;
+import com.eclipsesource.modelserver.coffee.model.coffee.Task;
+import com.google.common.base.Preconditions;
+
+public abstract class AbstractCreateTaskHandler extends AbstractCreateNodeHandler {
+
+	public AbstractCreateTaskHandler(String type, EClass eClass) {
+		super(type, eClass);
+	}
 
 	@Override
-	public String getDiagramType() {
-		return "workflow-diagram-notation";
+	public String getLabel(AbstractOperationAction action) {
+		return "Create task";
+	}
+
+	@Override
+	protected Node initializeNode(Node node, GraphicalModelState modelState) {
+		Preconditions.checkArgument(node instanceof Task);
+		((Task) node).setName("NewTask");
+		return node;
 	}
 
 }
