@@ -132,7 +132,7 @@ export class FeedbackMoveMouseListener extends MouseListener {
                                 width: element.size.width,
                                 height: element.size.height
                             };
-                            if (isOverlappingBounds(futureBounds, candidate.bounds) && !isOverlappingBounds(element.bounds, candidate.bounds)) {
+                            if (isOverlappingBounds(futureBounds, candidate.bounds) && (!isOverlappingBounds(element.bounds, candidate.bounds) || element.type === "Ghost")) {
                                 collisionChain.push(candidate);
                                 if (candidate.selected) {
                                     // Check what the selected candidate will collide with and add it to the chain
@@ -146,6 +146,16 @@ export class FeedbackMoveMouseListener extends MouseListener {
         }
 
         return collisionChain;
+    }
+
+    /**
+    * Returns bounds centered around the point
+    */
+    getCenteredBoundsToPointer(mousePoint: Point, bounds: Bounds): Bounds {
+        const middleX = mousePoint.x - bounds.width / 2;
+        const middleY = mousePoint.y - bounds.height / 2;
+        const shiftedBounds: Bounds = { x: middleX, y: middleY, width: bounds.width, height: bounds.height };
+        return shiftedBounds;
     }
 
     mouseMove(target: SModelElement, event: MouseEvent): Action[] {
@@ -170,10 +180,42 @@ export class FeedbackMoveMouseListener extends MouseListener {
                     if (isMoveable(element) && isResizeable(element)) {
                         // If noElementOverlap Option is set perform collision detection
                         if (this.glspViewerOptions.noElementOverlap) {
+                            /*console.log("Element id ", element.id);*/
+                            // Create copy to check possible bounds
+                            const ghostElement = Object.create(element);
+                            /**
+                             * Wrong jump seems to be caused by the fact that the ghost element is positioned
+                             * in relation to the mouse pointer and not to the original element it mirrors.
+                             * If I set it to the element bounds the ghost will not follow the pointer and stay perpetually stuck
+                             * to the original position of the element.
+                             *
+                             * Maybe add some relative offset to the mouse position for the selected element if the mouse is way the fuck out
+                             * of the element?! WTF
+                             *  */
+                            ghostElement.bounds = /*element.bounds; */ this.getCenteredBoundsToPointer(mousePoint, element.bounds);
+                            // Set type to Ghost to keep tracking it through elements
+                            ghostElement.type = "Ghost";
+                            ghostElement.id = element.id;
+                            // Check collision for gost element (to see when it has passed beyond obstacle)
+                            const collisionTargetsGhost: SModelElement[] = this.getCollisionChain(target, ghostElement, dx, dy, [])
+                                .filter(collidingElement => isSelectable(collidingElement) && !collidingElement.selected);
+
                             // After collision the mouse is back inside the element => change cursor back to default
                             if (this.hasCollided && includes(element.bounds, mousePoint)) {
                                 mouseOverElement = true;
                                 result.push(new ApplyCursorCSSFeedbackAction(CursorCSS.DEFAULT));
+                            }
+                            // If the ghost element has moved beyond the obstacle move the actual element there aswell
+                            if (this.hasCollided && collisionTargetsGhost.length === 0) {
+                                mouseOverElement = true;
+                                result.push(new ApplyCursorCSSFeedbackAction(CursorCSS.DEFAULT));
+                                /*// Maybe remove this check during debugging
+                                // Seems to do nothing either way*/
+                                if (element.id === ghostElement.id) {
+                                    console.log("Element and ghost", element, ghostElement);
+                                    element.bounds = ghostElement.bounds;
+                                }
+
                             }
                             // Get only the valid, non-slected collision targets to avoid in-selection collisions
                             const collisionTargets: SModelElement[] = this.getCollisionChain(target, element, dx, dy, [])
