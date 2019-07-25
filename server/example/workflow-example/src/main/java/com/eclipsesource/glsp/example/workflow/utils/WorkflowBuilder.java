@@ -226,8 +226,7 @@ public final class WorkflowBuilder {
 		private GLabel createCompartmentHeader(TaskNode taskNode) {
 			GLabel heading = GraphFactory.eINSTANCE.createGLabel();
 			heading.setType(ModelTypes.LABEL_HEADING);
-			int nodeCounter = GModelUtil.generateId(taskNode.eClass(), "task", modelState);
-			heading.setId("task" + nodeCounter + "_classname");
+			heading.setId(taskNode.getId() + "_classname");
 			heading.setText(taskNode.getName());
 			return heading;
 		}

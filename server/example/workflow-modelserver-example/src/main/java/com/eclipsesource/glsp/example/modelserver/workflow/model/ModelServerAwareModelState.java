@@ -13,15 +13,28 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.example.modelserver.workflow;
+package com.eclipsesource.glsp.example.modelserver.workflow.model;
 
-import com.eclipsesource.glsp.example.workflow.WorfklowDiagramConfiguration;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
+import com.eclipsesource.glsp.server.model.ModelStateImpl;
 
-public class WorfklowDiagramNotationConfiguration extends WorfklowDiagramConfiguration {
+public class ModelServerAwareModelState extends ModelStateImpl {
 
-	@Override
-	public String getDiagramType() {
-		return "workflow-diagram-notation";
+	private WorkflowModelServerAccess modelAccess;
+
+	public static WorkflowModelServerAccess getModelAccess(GraphicalModelState state) {
+		if (!(state instanceof ModelServerAwareModelState)) {
+			throw new IllegalArgumentException("Argument must be a ModelServerAwareModelState");
+		}
+		return ((ModelServerAwareModelState) state).getModelAccess();
+	}
+
+	public void setModelAccess(WorkflowModelServerAccess modelAccess) {
+		this.modelAccess = modelAccess;
+	}
+
+	public WorkflowModelServerAccess getModelAccess() {
+		return modelAccess;
 	}
 
 }

@@ -32,23 +32,23 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Edge</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object
+ * '<em><b>Edge</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.impl.EdgeImpl#getBendPoints <em>Bend Points</em>}</li>
+ * <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.impl.EdgeImpl#getBendPoints
+ * <em>Bend Points</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class EdgeImpl extends DiagramElementImpl implements Edge {
 	/**
-	 * The cached value of the '{@link #getBendPoints() <em>Bend Points</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getBendPoints() <em>Bend Points</em>}'
+	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getBendPoints()
 	 * @generated
 	 * @ordered
@@ -56,8 +56,8 @@ public class EdgeImpl extends DiagramElementImpl implements Edge {
 	protected EList<Point> bendPoints;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EdgeImpl() {
@@ -65,8 +65,8 @@ public class EdgeImpl extends DiagramElementImpl implements Edge {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -75,8 +75,8 @@ public class EdgeImpl extends DiagramElementImpl implements Edge {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -88,8 +88,8 @@ public class EdgeImpl extends DiagramElementImpl implements Edge {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -102,8 +102,8 @@ public class EdgeImpl extends DiagramElementImpl implements Edge {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -116,8 +116,8 @@ public class EdgeImpl extends DiagramElementImpl implements Edge {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -133,8 +133,8 @@ public class EdgeImpl extends DiagramElementImpl implements Edge {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -148,8 +148,8 @@ public class EdgeImpl extends DiagramElementImpl implements Edge {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -161,4 +161,4 @@ public class EdgeImpl extends DiagramElementImpl implements Edge {
 		return super.eIsSet(featureID);
 	}
 
-} //EdgeImpl
+} // EdgeImpl

@@ -13,15 +13,31 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.example.modelserver.workflow;
+package com.eclipsesource.glsp.example.modelserver.workflow.model;
 
-import com.eclipsesource.glsp.example.workflow.WorfklowDiagramConfiguration;
+import java.util.Map;
 
-public class WorfklowDiagramNotationConfiguration extends WorfklowDiagramConfiguration {
+import com.eclipsesource.glsp.graph.GModelRoot;
+import com.eclipsesource.glsp.graph.GNode;
+import com.eclipsesource.modelserver.coffee.model.coffee.Node;
 
-	@Override
-	public String getDiagramType() {
-		return "workflow-diagram-notation";
+public class MappedGModelRoot {
+
+	private GModelRoot root;
+	private Map<Node, GNode> mapping;
+
+	public MappedGModelRoot(GModelRoot root, Map<Node, GNode> mapping) {
+		super();
+		this.root = root;
+		this.mapping = mapping;
+	}
+
+	public Map<Node, GNode> getMapping() {
+		return mapping;
+	}
+
+	public GModelRoot getRoot() {
+		return root;
 	}
 
 }

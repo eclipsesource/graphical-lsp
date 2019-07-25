@@ -28,7 +28,7 @@ public interface GModelChangeNotifier {
 		EObject root = EcoreUtil.getRootContainer(element);
 		GModelChangeNotifier existingNotifier = (GModelChangeNotifierImpl) EcoreUtil.getExistingAdapter(root,
 				GModelChangeNotifierImpl.class);
-		return Optional.ofNullable(existingNotifier).orElseGet(() -> (create(element)));
+		return Optional.ofNullable(existingNotifier).orElseGet(() -> create(element));
 	}
 
 	public static GModelChangeNotifier create(GModelElement element) {

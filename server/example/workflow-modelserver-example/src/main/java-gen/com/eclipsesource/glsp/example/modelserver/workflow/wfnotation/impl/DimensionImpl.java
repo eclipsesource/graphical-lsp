@@ -26,24 +26,25 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Dimension</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object
+ * '<em><b>Dimension</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.impl.DimensionImpl#getWidth <em>Width</em>}</li>
- *   <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.impl.DimensionImpl#getHeight <em>Height</em>}</li>
+ * <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.impl.DimensionImpl#getWidth
+ * <em>Width</em>}</li>
+ * <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.impl.DimensionImpl#getHeight
+ * <em>Height</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class DimensionImpl extends MinimalEObjectImpl.Container implements Dimension {
 	/**
-	 * The default value of the '{@link #getWidth() <em>Width</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The default value of the '{@link #getWidth() <em>Width</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getWidth()
 	 * @generated
 	 * @ordered
@@ -51,9 +52,9 @@ public class DimensionImpl extends MinimalEObjectImpl.Container implements Dimen
 	protected static final double WIDTH_EDEFAULT = 0.0;
 
 	/**
-	 * The cached value of the '{@link #getWidth() <em>Width</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getWidth() <em>Width</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getWidth()
 	 * @generated
 	 * @ordered
@@ -62,8 +63,8 @@ public class DimensionImpl extends MinimalEObjectImpl.Container implements Dimen
 
 	/**
 	 * The default value of the '{@link #getHeight() <em>Height</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getHeight()
 	 * @generated
 	 * @ordered
@@ -72,8 +73,8 @@ public class DimensionImpl extends MinimalEObjectImpl.Container implements Dimen
 
 	/**
 	 * The cached value of the '{@link #getHeight() <em>Height</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getHeight()
 	 * @generated
 	 * @ordered
@@ -81,8 +82,8 @@ public class DimensionImpl extends MinimalEObjectImpl.Container implements Dimen
 	protected double height = HEIGHT_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public DimensionImpl() {
@@ -90,8 +91,8 @@ public class DimensionImpl extends MinimalEObjectImpl.Container implements Dimen
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -100,8 +101,8 @@ public class DimensionImpl extends MinimalEObjectImpl.Container implements Dimen
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -110,8 +111,8 @@ public class DimensionImpl extends MinimalEObjectImpl.Container implements Dimen
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -123,8 +124,8 @@ public class DimensionImpl extends MinimalEObjectImpl.Container implements Dimen
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -133,8 +134,8 @@ public class DimensionImpl extends MinimalEObjectImpl.Container implements Dimen
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -147,8 +148,8 @@ public class DimensionImpl extends MinimalEObjectImpl.Container implements Dimen
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -163,8 +164,8 @@ public class DimensionImpl extends MinimalEObjectImpl.Container implements Dimen
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -181,8 +182,8 @@ public class DimensionImpl extends MinimalEObjectImpl.Container implements Dimen
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -199,8 +200,8 @@ public class DimensionImpl extends MinimalEObjectImpl.Container implements Dimen
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -215,8 +216,8 @@ public class DimensionImpl extends MinimalEObjectImpl.Container implements Dimen
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -233,4 +234,4 @@ public class DimensionImpl extends MinimalEObjectImpl.Container implements Dimen
 		return result.toString();
 	}
 
-} //DimensionImpl
+} // DimensionImpl

@@ -62,6 +62,10 @@ public class WorkflowModelServerModelFactory implements ModelFactory {
 			return createEmptyRoot();
 		}
 		WorkflowModelServerAccess modelAccess = new WorkflowModelServerAccess(sourceURI.get());
+		if (modelState instanceof ModelServerAwareModelState) {
+			((ModelServerAwareModelState) modelState).setModelAccess(modelAccess);
+		}
+
 		WorkflowFacade workflowFacade = modelAccess.getWorkflowFacade();
 		if (workflowFacade == null) {
 			return createEmptyRoot();
@@ -78,18 +82,23 @@ public class WorkflowModelServerModelFactory implements ModelFactory {
 			LOGGER.error("No workflow with index " + workflowIndex + " in " + machine + ", return empty model.");
 			return createEmptyRoot();
 		}
-		Workflow workflow = machine.get().getWorkflows().get(workflowIndex);
 
-		// 3. Create model from semantic and notation models
+		// 3. Set current workflow
+		workflowFacade.setCurrentWorkflowIndex(workflowIndex);
+		MappedGModelRoot mappedGModelRoot = populate(workflowFacade, modelState);
+		modelAccess.setNodeMapping(mappedGModelRoot.getMapping());
+
+		return mappedGModelRoot.getRoot();
+	}
+
+	public static MappedGModelRoot populate(WorkflowFacade workflowFacade, GraphicalModelState modelState) {
+		Workflow workflow = workflowFacade.getCurrentWorkflow();
+
 		GModelRoot root = createEmptyRoot();
-		if (modelState.getRoot() == null) {
-			modelState.setRoot(root);
-		}
+		modelState.setRoot(root);
 
-		// - ensure that we have a diagram element for each element in the workflow
 		workflowFacade.initializeNotation(workflow);
 
-		// - map nodes and remember mapping for edges
 		Map<Node, GNode> nodeMapping = new HashMap<>();
 		for (Node node : workflow.getNodes()) {
 			workflowFacade.findDiagramElement(node, Shape.class) //
@@ -100,14 +109,12 @@ public class WorkflowModelServerModelFactory implements ModelFactory {
 					});
 		}
 
-		// - map edges
 		for (Flow flow : workflow.getFlows()) {
 			workflowFacade.findDiagramElement(flow, Edge.class)
 					.flatMap(edge -> toGEdge(flow, edge, nodeMapping, modelState)) //
 					.ifPresent(root.getChildren()::add);
 		}
-
-		return root;
+		return new MappedGModelRoot(root, nodeMapping);
 	}
 
 	private static GModelRoot createEmptyRoot() {

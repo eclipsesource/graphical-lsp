@@ -26,23 +26,24 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Diagram Element</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Diagram
+ * Element</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.impl.DiagramElementImpl#getSemanticElement <em>Semantic Element</em>}</li>
+ * <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.impl.DiagramElementImpl#getSemanticElement
+ * <em>Semantic Element</em>}</li>
  * </ul>
  *
  * @generated
  */
 public abstract class DiagramElementImpl extends MinimalEObjectImpl.Container implements DiagramElement {
 	/**
-	 * The cached value of the '{@link #getSemanticElement() <em>Semantic Element</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getSemanticElement() <em>Semantic
+	 * Element</em>}' containment reference. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
 	 * @see #getSemanticElement()
 	 * @generated
 	 * @ordered
@@ -50,8 +51,8 @@ public abstract class DiagramElementImpl extends MinimalEObjectImpl.Container im
 	protected SemanticProxy semanticElement;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public DiagramElementImpl() {
@@ -59,8 +60,8 @@ public abstract class DiagramElementImpl extends MinimalEObjectImpl.Container im
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -69,8 +70,8 @@ public abstract class DiagramElementImpl extends MinimalEObjectImpl.Container im
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -79,8 +80,8 @@ public abstract class DiagramElementImpl extends MinimalEObjectImpl.Container im
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetSemanticElement(SemanticProxy newSemanticElement, NotificationChain msgs) {
@@ -98,8 +99,8 @@ public abstract class DiagramElementImpl extends MinimalEObjectImpl.Container im
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -121,8 +122,8 @@ public abstract class DiagramElementImpl extends MinimalEObjectImpl.Container im
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -135,8 +136,8 @@ public abstract class DiagramElementImpl extends MinimalEObjectImpl.Container im
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -149,8 +150,8 @@ public abstract class DiagramElementImpl extends MinimalEObjectImpl.Container im
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -164,8 +165,8 @@ public abstract class DiagramElementImpl extends MinimalEObjectImpl.Container im
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -179,8 +180,8 @@ public abstract class DiagramElementImpl extends MinimalEObjectImpl.Container im
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -192,4 +193,4 @@ public abstract class DiagramElementImpl extends MinimalEObjectImpl.Container im
 		return super.eIsSet(featureID);
 	}
 
-} //DiagramElementImpl
+} // DiagramElementImpl

@@ -18,15 +18,15 @@ package com.eclipsesource.glsp.example.modelserver.workflow.wfnotation;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Edge</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object
+ * '<em><b>Edge</b></em>'. <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Edge#getBendPoints <em>Bend Points</em>}</li>
+ * <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Edge#getBendPoints
+ * <em>Bend Points</em>}</li>
  * </ul>
  *
  * @see com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.WfnotationPackage#getEdge()
@@ -35,10 +35,11 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface Edge extends DiagramElement {
 	/**
-	 * Returns the value of the '<em><b>Bend Points</b></em>' containment reference list.
-	 * The list contents are of type {@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Point}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Returns the value of the '<em><b>Bend Points</b></em>' containment reference
+	 * list. The list contents are of type
+	 * {@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Point}.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Bend Points</em>' containment reference list.
 	 * @see com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.WfnotationPackage#getEdge_BendPoints()
 	 * @model containment="true"

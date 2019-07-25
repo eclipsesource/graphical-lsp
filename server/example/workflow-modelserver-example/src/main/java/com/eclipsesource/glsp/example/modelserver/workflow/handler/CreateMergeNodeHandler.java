@@ -13,15 +13,15 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.example.modelserver.workflow;
+package com.eclipsesource.glsp.example.modelserver.workflow.handler;
 
-import com.eclipsesource.glsp.example.workflow.WorfklowDiagramConfiguration;
+import com.eclipsesource.glsp.example.workflow.utils.ModelTypes;
+import com.eclipsesource.modelserver.coffee.model.coffee.CoffeePackage;
 
-public class WorfklowDiagramNotationConfiguration extends WorfklowDiagramConfiguration {
+public class CreateMergeNodeHandler extends AbstractCreateNodeHandler {
 
-	@Override
-	public String getDiagramType() {
-		return "workflow-diagram-notation";
+	public CreateMergeNodeHandler() {
+		super(ModelTypes.MERGE_NODE, CoffeePackage.Literals.MERGE);
 	}
 
 }

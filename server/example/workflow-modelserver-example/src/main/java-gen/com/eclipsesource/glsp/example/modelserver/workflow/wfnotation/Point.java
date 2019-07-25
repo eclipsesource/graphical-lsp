@@ -18,16 +18,17 @@ package com.eclipsesource.glsp.example.modelserver.workflow.wfnotation;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Point</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object
+ * '<em><b>Point</b></em>'. <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Point#getX <em>X</em>}</li>
- *   <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Point#getY <em>Y</em>}</li>
+ * <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Point#getX
+ * <em>X</em>}</li>
+ * <li>{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Point#getY
+ * <em>Y</em>}</li>
  * </ul>
  *
  * @see com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.WfnotationPackage#getPoint()
@@ -36,9 +37,9 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Point extends EObject {
 	/**
-	 * Returns the value of the '<em><b>X</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Returns the value of the '<em><b>X</b></em>' attribute. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>X</em>' attribute.
 	 * @see #setX(double)
 	 * @see com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.WfnotationPackage#getPoint_X()
@@ -48,9 +49,10 @@ public interface Point extends EObject {
 	double getX();
 
 	/**
-	 * Sets the value of the '{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Point#getX <em>X</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Sets the value of the
+	 * '{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Point#getX
+	 * <em>X</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @param value the new value of the '<em>X</em>' attribute.
 	 * @see #getX()
 	 * @generated
@@ -58,9 +60,9 @@ public interface Point extends EObject {
 	void setX(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Y</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Returns the value of the '<em><b>Y</b></em>' attribute. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Y</em>' attribute.
 	 * @see #setY(double)
 	 * @see com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.WfnotationPackage#getPoint_Y()
@@ -70,9 +72,10 @@ public interface Point extends EObject {
 	double getY();
 
 	/**
-	 * Sets the value of the '{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Point#getY <em>Y</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Sets the value of the
+	 * '{@link com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Point#getY
+	 * <em>Y</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @param value the new value of the '<em>Y</em>' attribute.
 	 * @see #getY()
 	 * @generated
