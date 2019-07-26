@@ -173,7 +173,9 @@ export class EdgeCreationToolMouseListener extends DragAwareMouseListener {
     private reinitialize() {
         this.source = undefined;
         this.target = undefined;
-        this.tool.dispatchFeedback([new ApplyCursorCSSFeedbackAction(CursorCSS.OPERATION_NOT_ALLOWED)]);
+        this.currentTarget = undefined;
+        this.allowedTarget = false;
+        this.tool.dispatchFeedback([new RemoveFeedbackEdgeAction()]);
     }
 
     nonDraggingMouseUp(element: SModelElement, event: MouseEvent): Action[] {
