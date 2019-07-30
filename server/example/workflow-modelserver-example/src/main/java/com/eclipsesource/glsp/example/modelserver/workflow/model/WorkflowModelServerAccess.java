@@ -15,15 +15,20 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.modelserver.workflow.model;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -31,12 +36,15 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.WfnotationPackage;
 import com.eclipsesource.glsp.graph.GNode;
+import com.eclipsesource.modelserver.client.ModelServerClient;
+import com.eclipsesource.modelserver.client.Response;
+import com.eclipsesource.modelserver.client.SubscriptionListener;
 import com.eclipsesource.modelserver.coffee.model.coffee.CoffeePackage;
 import com.eclipsesource.modelserver.coffee.model.coffee.Flow;
 import com.eclipsesource.modelserver.coffee.model.coffee.Node;
+import com.google.common.base.Preconditions;
 
 public class WorkflowModelServerAccess {
-
 	private static Logger LOGGER = Logger.getLogger(WorkflowModelServerAccess.class);
 
 	private static final String FILE_PREFIX = "file://";
@@ -48,9 +56,30 @@ public class WorkflowModelServerAccess {
 
 	private Map<String, Node> idMapping;
 
-	public WorkflowModelServerAccess(String sourceURI) {
+	private ModelServerClient modelServerClient;
+	private SubscriptionListener subscriptionListener;
+
+	public WorkflowModelServerAccess(String sourceURI, ModelServerClient modelServerClient) {
+		Preconditions.checkNotNull(modelServerClient);
 		this.sourceURI = sourceURI;
+		this.modelServerClient = modelServerClient;
 		setupResourceSet();
+	}
+
+	public void subscribe(SubscriptionListener subscriptionListener) {
+		this.subscriptionListener = subscriptionListener;
+		this.modelServerClient.subscribe(getSemanticResource(sourceURI) + "?format=xmi", subscriptionListener);
+	}
+
+	public void unsubscribe() {
+		if (subscriptionListener != null) {
+			this.modelServerClient.unsubscribe(getSemanticResource(sourceURI));
+		}
+	}
+
+	public void update() {
+		EObject root = workflowFacade.getSemanticResource().getContents().get(0);
+		modelServerClient.update(getSemanticResource(sourceURI) + "?format=xmi", modelServerClient.encode(root, "xmi"));
 	}
 
 	public void setupResourceSet() {
@@ -67,13 +96,22 @@ public class WorkflowModelServerAccess {
 		return workflowFacade;
 	}
 
+	public void setWorkflowFacade(WorkflowFacade workflowFacade) {
+		this.workflowFacade = workflowFacade;
+	}
+
 	protected WorkflowFacade createWorkflowFacade() {
 		try {
-			Resource notationResource = loadResource(convertToFile(sourceURI).getAbsolutePath());
-			Resource semanticResource = loadResource(convertToFile(getSemanticResource(sourceURI)).getAbsolutePath());
+
+			Resource notationResource = loadResource(convertToFile(sourceURI).getAbsolutePath()); // leave local for now
+			String semanticXMI = modelServerClient.get(getSemanticResource(sourceURI) + "?format=xmi")
+					.thenApply(Response<String>::body).get();
+
+			Resource semanticResource = loadResource(convertToFile(getSemanticResource(sourceURI)).getAbsolutePath(),
+					semanticXMI);
 			workflowFacade = new WorkflowFacade(semanticResource, notationResource);
 			return workflowFacade;
-		} catch (IOException e) {
+		} catch (IOException | InterruptedException | ExecutionException e) {
 			LOGGER.error(e);
 			return null;
 		}
@@ -88,6 +126,18 @@ public class WorkflowModelServerAccess {
 
 	private String getSemanticResource(String uri) {
 		return uri.replaceFirst(".coffeenotation", ".coffee");
+	}
+
+	public static String toXMI(Resource resource) throws IOException {
+		OutputStream out = new ByteArrayOutputStream();
+		resource.save(out, Collections.EMPTY_MAP);
+		return out.toString();
+	}
+
+	private Resource loadResource(String path, String contents) throws IOException {
+		Resource resource = createResource(path);
+		resource.load(IOUtils.toInputStream(contents, "UTF8"), Collections.emptyMap());
+		return resource;
 	}
 
 	private Resource loadResource(String path) throws IOException {
@@ -123,4 +173,7 @@ public class WorkflowModelServerAccess {
 		workflowFacade.getNotationResource().save(Collections.emptyMap());
 	}
 
+	public ModelServerClient getModelServerClient() {
+		return this.modelServerClient;
+	}
 }

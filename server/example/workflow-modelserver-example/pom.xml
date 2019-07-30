@@ -90,6 +90,16 @@
 			<artifactId>com.eclipsesource.modelserver.coffee.model</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>com.eclipsesource.modelserver</groupId>
+			<artifactId>com.eclipsesource.modelserver.client</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.9</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

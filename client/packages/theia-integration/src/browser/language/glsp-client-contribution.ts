@@ -119,17 +119,17 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         this.toDeactivate.dispose();
     }
 
-    protected createInitializeParameters(): InitializeParameters {
-        const initOptions = this.createInitializeOptions();
-        return initOptions ? { options: initOptions } : {};
+    protected async createInitializeParameters(): Promise<InitializeParameters> {
+        const options = await this.createInitializeOptions();
+        return { options };
     }
 
-    protected createInitializeOptions(): any {
+    protected createInitializeOptions(): MaybePromise<any> {
         return undefined;
     }
 
-    initialize(): void {
-        const parameters = this.createInitializeParameters();
+    async initialize(): Promise<void> {
+        const parameters = await this.createInitializeParameters();
         this.glspClient.then(client => client.initialize(parameters)
             .then(success => {
                 if (!success) {

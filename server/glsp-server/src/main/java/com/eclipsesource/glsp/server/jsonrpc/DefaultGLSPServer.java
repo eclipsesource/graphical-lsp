@@ -26,9 +26,9 @@ import com.eclipsesource.glsp.api.action.ActionMessage;
 import com.eclipsesource.glsp.api.action.kind.IdentifiableRequestAction;
 import com.eclipsesource.glsp.api.action.kind.IdentifiableResponseAction;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPClient;
+import com.eclipsesource.glsp.api.jsonrpc.GLSPClientProvider;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
 import com.eclipsesource.glsp.api.jsonrpc.InitializeParameters;
-import com.eclipsesource.glsp.api.jsonrpc.GLSPClientProvider;
 import com.eclipsesource.glsp.api.model.ModelStateProvider;
 import com.eclipsesource.glsp.api.types.ServerStatus;
 import com.eclipsesource.glsp.api.types.ServerStatus.Severity;
@@ -39,12 +39,12 @@ import com.google.inject.Inject;
 public class DefaultGLSPServer<T> implements GLSPServer {
 
 	@Inject
-	private ModelStateProvider modelStateProvider;
+	protected ModelStateProvider modelStateProvider;
 
 	@Inject
-	private GLSPClientProvider clientProxyProvider;
+	protected GLSPClientProvider clientProxyProvider;
 	@Inject
-	private ActionDispatcher actionDispatcher;
+	protected ActionDispatcher actionDispatcher;
 	static Logger log = Logger.getLogger(DefaultGLSPServer.class);
 
 	private ServerStatus status;
@@ -63,12 +63,12 @@ public class DefaultGLSPServer<T> implements GLSPServer {
 	@Override
 	public CompletableFuture<Boolean> initialize(InitializeParameters params) {
 		try {
-			if(optionsClazz != null && params.getOptions() instanceof JsonElement) {
-				T options = new Gson().fromJson((JsonElement)params.getOptions(), optionsClazz);
+			if (optionsClazz != null && params.getOptions() instanceof JsonElement) {
+				T options = new Gson().fromJson((JsonElement) params.getOptions(), optionsClazz);
 				return handleOptions(options);
 			}
-			return handleOptions(null);			
-		} catch(Throwable ex) {
+			return handleOptions(null);
+		} catch (Throwable ex) {
 			log.error("Could not initialize server due to corrupted options: " + params.getOptions(), ex);
 			return CompletableFuture.completedFuture(false);
 		}

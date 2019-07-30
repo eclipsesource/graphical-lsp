@@ -16,20 +16,20 @@
 package com.eclipsesource.glsp.server.model;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CommandStack;
 
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.api.utils.ClientOptions.ParsedClientOptions;
 import com.eclipsesource.glsp.graph.GModelIndex;
 import com.eclipsesource.glsp.graph.GModelRoot;
 import com.eclipsesource.glsp.server.command.GModelCommandStack;
 
 public class ModelStateImpl implements GraphicalModelState {
 
-	private ParsedClientOptions options;
+	private Map<String, String> options;
 	private String clientId;
 	private GModelRoot currentModel;
 	private CommandStack commandStack;
@@ -42,7 +42,7 @@ public class ModelStateImpl implements GraphicalModelState {
 	}
 
 	@Override
-	public ParsedClientOptions getClientOptions() {
+	public Map<String, String> getClientOptions() {
 		return options;
 	}
 
@@ -85,7 +85,7 @@ public class ModelStateImpl implements GraphicalModelState {
 	}
 
 	@Override
-	public void setClientOptions(ParsedClientOptions options) {
+	public void setClientOptions(Map<String, String> options) {
 		this.options = options;
 	}
 

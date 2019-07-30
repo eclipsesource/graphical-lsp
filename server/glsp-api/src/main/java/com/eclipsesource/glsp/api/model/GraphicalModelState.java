@@ -15,16 +15,16 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.model;
 
+import java.util.Map;
 import java.util.Set;
 
-import com.eclipsesource.glsp.api.utils.ClientOptions.ParsedClientOptions;
 import com.eclipsesource.glsp.graph.GModelIndex;
 import com.eclipsesource.glsp.graph.GModelRoot;
 
 public interface GraphicalModelState extends ModelState<GModelRoot> {
-	ParsedClientOptions getClientOptions();
+	Map<String, String> getClientOptions();
 
-	void setClientOptions(ParsedClientOptions options);
+	void setClientOptions(Map<String, String> options);
 
 	Set<String> getExpandedElements();
 
