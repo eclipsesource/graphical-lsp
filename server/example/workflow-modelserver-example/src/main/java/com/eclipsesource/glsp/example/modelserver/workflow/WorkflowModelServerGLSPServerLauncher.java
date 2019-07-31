@@ -26,8 +26,7 @@ public class WorkflowModelServerGLSPServerLauncher {
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
 		ElkLayoutEngine.initialize(new LayeredMetaDataProvider());
-		GLSPServerLauncher launcher = new DefaultGLSPServerLauncher(new WorkflowModelServerGLSPModule()) {
-		};
+		GLSPServerLauncher launcher = new DefaultGLSPServerLauncher(new WorkflowModelServerGLSPModule());
 		launcher.start("localhost", 5008);
 	}
 }
