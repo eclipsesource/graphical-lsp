@@ -13,27 +13,23 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.example.modelserver.workflow.model;
+package com.eclipsesource.glsp.example.modelserver.workflow;
 
-import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.server.model.ModelStateImpl;
+import java.util.Optional;
 
-public class ModelServerAwareModelState extends ModelStateImpl {
+import com.eclipsesource.modelserver.client.ModelServerClient;
+import com.google.inject.Singleton;
 
-	private WorkflowModelServerAccess modelAccess;
+@Singleton
+public class ModelServerClientProvider {
+	private ModelServerClient modelServerClient;
 
-	public static WorkflowModelServerAccess getModelAccess(GraphicalModelState state) {
-		if (!(state instanceof ModelServerAwareModelState)) {
-			throw new IllegalArgumentException("Argument must be a ModelServerAwareModelState");
-		}
-		return ((ModelServerAwareModelState) state).getModelAccess();
+	public Optional<ModelServerClient> get() {
+		return Optional.ofNullable(modelServerClient);
 	}
 
-	public void setModelAccess(WorkflowModelServerAccess modelAccess) {
-		this.modelAccess = modelAccess;
+	public void setModelServerClient(ModelServerClient modelServerClient) {
+		this.modelServerClient = modelServerClient;
 	}
 
-	public WorkflowModelServerAccess getModelAccess() {
-		return modelAccess;
-	}
 }

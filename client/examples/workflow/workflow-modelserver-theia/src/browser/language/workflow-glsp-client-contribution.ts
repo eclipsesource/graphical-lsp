@@ -14,25 +14,34 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { BaseGLSPClientContribution } from "@glsp/theia-integration/lib/browser";
-import { injectable } from "inversify";
+import { ModelServerBackend } from "@modelserver/theia/lib/common";
+import { WorkspaceService } from "@theia/workspace/lib/browser";
+import { inject, injectable } from "inversify";
 
 import { WorkflowNotationLanguage } from "../../common/workflow-language";
 
 export interface WorkflowInitializeOptions {
     timestamp: Date,
-    message: string
+    modelserverURL: string;
+    workspaceRoot?: string;
 }
 
 @injectable()
 export class WorkflowGLSPClientContribution extends BaseGLSPClientContribution {
+    @inject(ModelServerBackend) protected readonly modelServerBackend: ModelServerBackend;
+    @inject(WorkspaceService) protected readonly workspaceService: WorkspaceService;
     readonly id = WorkflowNotationLanguage.Id;
     readonly name = WorkflowNotationLanguage.Name;
     readonly fileExtensions = [WorkflowNotationLanguage.FileExtension];
 
-    protected createInitializeOptions(): WorkflowInitializeOptions {
+    protected async createInitializeOptions(): Promise<WorkflowInitializeOptions> {
+        const options = await this.modelServerBackend.getLaunchOptions();
+        const workspaceRoot = await this.workspaceService.roots.then(roots => roots[0].uri);
+
         return {
             timestamp: new Date(),
-            message: "Custom Options Available"
+            modelserverURL: `http://${options.hostname}:${options.serverPort}/${options.baseURL}`,
+            workspaceRoot
         };
     }
 }

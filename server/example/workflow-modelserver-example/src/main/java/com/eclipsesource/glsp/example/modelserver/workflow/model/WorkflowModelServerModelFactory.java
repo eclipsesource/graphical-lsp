@@ -21,10 +21,12 @@ import java.util.Optional;
 
 import org.apache.log4j.Logger;
 
+import com.eclipsesource.glsp.api.action.ActionDispatcher;
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.utils.ClientOptions;
+import com.eclipsesource.glsp.example.modelserver.workflow.ModelServerClientProvider;
 import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.DiagramElement;
 import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Edge;
 import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Shape;
@@ -40,18 +42,25 @@ import com.eclipsesource.glsp.graph.GEdge;
 import com.eclipsesource.glsp.graph.GModelRoot;
 import com.eclipsesource.glsp.graph.GNode;
 import com.eclipsesource.glsp.graph.GraphFactory;
+import com.eclipsesource.modelserver.client.ModelServerClient;
 import com.eclipsesource.modelserver.coffee.model.coffee.Flow;
 import com.eclipsesource.modelserver.coffee.model.coffee.Machine;
 import com.eclipsesource.modelserver.coffee.model.coffee.Node;
 import com.eclipsesource.modelserver.coffee.model.coffee.Task;
 import com.eclipsesource.modelserver.coffee.model.coffee.WeightedFlow;
 import com.eclipsesource.modelserver.coffee.model.coffee.Workflow;
+import com.google.inject.Inject;
 
 public class WorkflowModelServerModelFactory implements ModelFactory {
 	private static Logger LOGGER = Logger.getLogger(WorkflowModelServerModelFactory.class);
 	private static final String ROOT_ID = "sprotty";
-	private static final String OPTION_WORKFLOW_INDEX = "workflowIndex";
-	private static final int WORKFLOW_INDEX_DEFAULT = 0;
+	public static final String OPTION_WORKFLOW_INDEX = "workflowIndex";
+	public static final int WORKFLOW_INDEX_DEFAULT = 0;
+
+	@Inject
+	private ModelServerClientProvider modelServerClientProvider;
+	@Inject
+	private ActionDispatcher actionDispatcher;
 
 	@Override
 	public GModelRoot loadModel(RequestModelAction action, GraphicalModelState modelState) {
@@ -61,7 +70,15 @@ public class WorkflowModelServerModelFactory implements ModelFactory {
 			LOGGER.error("No source uri given to load model, return empty model.");
 			return createEmptyRoot();
 		}
-		WorkflowModelServerAccess modelAccess = new WorkflowModelServerAccess(sourceURI.get());
+		Optional<ModelServerClient> modelServerClient = modelServerClientProvider.get();
+		if (modelServerClient.isEmpty()) {
+			LOGGER.error("Connection to modelserver has not been initialized, return empty model");
+			return createEmptyRoot();
+		}
+
+		WorkflowModelServerAccess modelAccess = new WorkflowModelServerAccess(sourceURI.get(), modelServerClient.get());
+		modelAccess.subscribe(new WorkflowSubscriptionListener(modelState, modelAccess, actionDispatcher));
+
 		if (modelState instanceof ModelServerAwareModelState) {
 			((ModelServerAwareModelState) modelState).setModelAccess(modelAccess);
 		}

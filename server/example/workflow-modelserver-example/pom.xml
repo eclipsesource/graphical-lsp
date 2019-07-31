@@ -90,6 +90,16 @@
 			<artifactId>com.eclipsesource.modelserver.coffee.model</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>com.eclipsesource.modelserver</groupId>
+			<artifactId>com.eclipsesource.modelserver.client</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.9</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -173,7 +183,7 @@
 							<transformers>
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>com.eclipsesource.glsp.example.workflow.ExampleServerLauncher</mainClass>
+									<mainClass>com.eclipsesource.glsp.example.modelserver.workflow.WorkflowModelServerGLSPServerLauncher</mainClass>
 								</transformer>
 							</transformers>
 							<filters>
@@ -220,14 +230,4 @@
 			</build>
 		</profile>
 	</profiles>
-	<repositories>
-	    <repository>
-	        <id>oss-sonatype</id>
-	        <name>oss-sonatype</name>
-	        <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-	        <snapshots>
-	            <enabled>true</enabled>
-	        </snapshots>
-	    </repository>
-	</repositories>
 </project>

@@ -19,14 +19,11 @@ import java.util.Optional;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
-import com.eclipsesource.glsp.api.action.kind.RequestBoundsAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
-import com.eclipsesource.glsp.example.modelserver.workflow.model.MappedGModelRoot;
 import com.eclipsesource.glsp.example.modelserver.workflow.model.ModelServerAwareModelState;
 import com.eclipsesource.glsp.example.modelserver.workflow.model.WorkflowModelServerAccess;
-import com.eclipsesource.glsp.example.modelserver.workflow.model.WorkflowModelServerModelFactory;
 import com.eclipsesource.glsp.server.actionhandler.OperationActionHandler;
 import com.google.inject.Inject;
 
@@ -41,12 +38,7 @@ public class ModelServerAwareOperationActionHandler extends OperationActionHandl
 			OperationHandler handler = operationHandlerProvider.getHandler(action).get();
 			handler.execute(action, modelState);
 			WorkflowModelServerAccess modelAccess = ModelServerAwareModelState.getModelAccess(modelState);
-			// FIXME ugly: this method writes into the parameter modelState rather than
-			// returning it only
-			MappedGModelRoot mappedGModelRoot = WorkflowModelServerModelFactory
-					.populate(modelAccess.getWorkflowFacade(), modelState);
-			modelAccess.setNodeMapping(mappedGModelRoot.getMapping());
-			return Optional.of(new RequestBoundsAction(modelState.getRoot()));
+			modelAccess.update();
 		}
 		return Optional.empty();
 	}

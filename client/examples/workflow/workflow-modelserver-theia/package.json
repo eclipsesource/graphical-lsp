@@ -16,6 +16,8 @@
   "dependencies": {
     "@glsp-examples/workflow-sprotty": "0.1.0",
     "@glsp/theia-integration": "0.1.0",
+    "@modelserver/theia": "next",
+    "@modelserver/coffee-theia": "next",
     "@theia/core": "^0.7.1",
     "@theia/editor": "^0.7.1",
     "@theia/filesystem": "^0.7.1",

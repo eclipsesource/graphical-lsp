@@ -18,11 +18,17 @@ package com.eclipsesource.glsp.api.types;
 public class ServerStatus {
 	private Severity severity;
 	private String message;
+	private String details;
 
 	public ServerStatus(Severity severity, String message) {
 		super();
 		this.severity = severity;
 		this.message = message;
+	}
+
+	public ServerStatus(Severity severity, String message, String details) {
+		this(severity, message);
+		this.details = details;
 	}
 
 	public String getMessage() {
@@ -31,6 +37,10 @@ public class ServerStatus {
 
 	public Severity getSeverity() {
 		return severity;
+	}
+
+	public String getDetails() {
+		return details;
 	}
 
 	public enum Severity {

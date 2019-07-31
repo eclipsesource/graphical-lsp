@@ -21,19 +21,12 @@ import org.eclipse.elk.alg.layered.options.LayeredMetaDataProvider;
 import com.eclipsesource.glsp.layout.ElkLayoutEngine;
 import com.eclipsesource.glsp.server.launch.DefaultGLSPServerLauncher;
 import com.eclipsesource.glsp.server.launch.GLSPServerLauncher;
-import com.eclipsesource.glsp.server.websocket.WebsocketServerLauncher;
 
 public class WorkflowModelServerGLSPServerLauncher {
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
 		ElkLayoutEngine.initialize(new LayeredMetaDataProvider());
-		GLSPServerLauncher launcher;
-		if (args.length == 1 && args[0].equals("websocket")) {
-			launcher = new WebsocketServerLauncher(new WorkflowModelServerGLSPModule(), "/workflow");
-			launcher.start("localhost", 8082);
-		} else {
-			launcher = new DefaultGLSPServerLauncher(new WorkflowModelServerGLSPModule());
-			launcher.start("localhost", 5008);
-		}
+		GLSPServerLauncher launcher = new DefaultGLSPServerLauncher(new WorkflowModelServerGLSPModule());
+		launcher.start("localhost", 5008);
 	}
 }

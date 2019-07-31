@@ -25,6 +25,7 @@ import com.eclipsesource.glsp.api.action.kind.SetOperationsAction;
 import com.eclipsesource.glsp.api.diagram.DiagramConfiguration;
 import com.eclipsesource.glsp.api.diagram.DiagramConfigurationProvider;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
+import com.eclipsesource.glsp.api.utils.ClientOptions;
 import com.google.inject.Inject;
 
 public class RequestOperationsActionHandler extends AbstractActionHandler {
@@ -61,7 +62,7 @@ public class RequestOperationsActionHandler extends AbstractActionHandler {
 		if (action.getDiagramType() != null && !action.getDiagramType().isEmpty()) {
 			return Optional.of(action.getDiagramType());
 		} else {
-			return modelState.getClientOptions().getDiagramType();
+			return ClientOptions.getValue(modelState.getClientOptions(), ClientOptions.DIAGRAM_TYPE);
 		}
 	}
 

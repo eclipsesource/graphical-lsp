@@ -23,6 +23,7 @@ import com.eclipsesource.glsp.api.diagram.DiagramConfiguration;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.handler.ActionHandler;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
+import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
 import com.eclipsesource.glsp.api.model.ModelStateProvider;
 import com.eclipsesource.glsp.example.modelserver.workflow.handler.ApplyLabelEditOperationHandler;
 import com.eclipsesource.glsp.example.modelserver.workflow.handler.ChangeBoundsOperationHandler;
@@ -55,6 +56,11 @@ public class WorkflowModelServerGLSPModule extends WorkflowGLSPModule {
 	@Override
 	protected Class<? extends ModelStateProvider> bindModelStateProvider() {
 		return ModelServerAwareModelStateProvider.class;
+	}
+
+	@Override
+	protected Class<? extends GLSPServer> bindGLSPServer() {
+		return WorkflowModelServerGLSPServer.class;
 	}
 
 	@Override

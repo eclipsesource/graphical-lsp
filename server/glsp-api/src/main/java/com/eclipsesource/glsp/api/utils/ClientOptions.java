@@ -25,29 +25,6 @@ public final class ClientOptions {
 	private ClientOptions() {
 	}
 
-	public static ParsedClientOptions parse(Map<String, String> options) {
-		return new ParsedClientOptions(options);
-	}
-
-	public static class ParsedClientOptions {
-		Optional<String> diagramType;
-		Optional<String> sourceUri;
-
-		private ParsedClientOptions(Map<String, String> options) {
-			sourceUri = getValue(options, SOURCE_URI);
-			diagramType = getValue(options, DIAGRAM_TYPE);
-		}
-
-		public Optional<String> getSourceUri() {
-			return sourceUri;
-		}
-
-		public Optional<String> getDiagramType() {
-			return diagramType;
-		}
-
-	}
-
 	public static Optional<String> getValue(Map<String, String> options, String key) {
 		return Optional.ofNullable(options.get(key));
 	}
