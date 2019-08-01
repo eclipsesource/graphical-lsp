@@ -127,10 +127,8 @@
 	<profiles>
 		<profile>
 			<id>fatjar</id>
-			<activation>
-				<property>
-					<name>fatjar</name>
-				</property>
+			activation>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 			<build>
 				<plugins>
