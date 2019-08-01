@@ -58,9 +58,16 @@ public class WorkflowFacade {
 	}
 
 	public Diagram initializeNotation(Workflow workflow) {
+		Optional<Diagram> existingDiagram = findDiagram(workflow);
+		Diagram diagram = existingDiagram.isPresent() ? existingDiagram.get() : createDiagram(workflow);
+		return initializeMissing(diagram);
+	}
+
+	private Diagram createDiagram(Workflow workflow) {
 		Diagram diagram = WfnotationFactory.eINSTANCE.createDiagram();
 		diagram.setSemanticElement(createProxy(workflow));
-		return initializeMissing(diagram);
+		notationResource.getContents().add(diagram);
+		return diagram;
 	}
 
 	public Diagram initializeMissing(Diagram diagram) {
