@@ -127,7 +127,7 @@
 	<profiles>
 		<profile>
 			<id>fatjar</id>
-			activation>
+			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<build>
