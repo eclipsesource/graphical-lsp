@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { GLSPClientContribution } from "@glsp/theia-integration/lib/browser";
-import { FrontendApplicationContribution, OpenHandler, WidgetFactory } from "@theia/core/lib/browser";
+import { FrontendApplicationContribution, OpenHandler, WidgetFactory, LabelProviderContribution } from "@theia/core/lib/browser";
 import { ContainerModule, interfaces } from "inversify";
 import { DiagramConfiguration, DiagramManager, DiagramManagerProvider } from "sprotty-theia/lib";
 
@@ -22,6 +22,7 @@ import { WorkflowDiagramConfiguration } from "./diagram/workflow-diagram-configu
 import { WorkflowDiagramManager } from "./diagram/workflow-diagram-manager";
 import { WorkflowGLSPDiagramClient } from "./diagram/workflow-glsp-diagram-client";
 import { WorkflowGLSPClientContribution } from "./language/workflow-glsp-client-contribution";
+import { WorkflowDiagramLabelProviderContribution } from "./diagram/workflow-diagram-label-provider-contribution";
 
 
 
@@ -44,5 +45,6 @@ export default new ContainerModule((bind: interfaces.Bind, unbind: interfaces.Un
             });
         };
     });
+    bind(LabelProviderContribution).to(WorkflowDiagramLabelProviderContribution);
 
 });
