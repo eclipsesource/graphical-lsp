@@ -15,6 +15,8 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.jsonrpc;
 
+import static com.eclipsesource.glsp.api.utils.ServerStatusUtil.error;
+
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -55,10 +57,10 @@ public class DefaultGLSPServer<T> implements GLSPServer {
 	public DefaultGLSPServer() {
 		this(null);
 	}
-	
+
 	public DefaultGLSPServer(Class<T> optionsClazz) {
 		this.optionsClazz = optionsClazz;
-	}	
+	}
 
 	@Override
 	public CompletableFuture<Boolean> initialize(InitializeParameters params) {
@@ -73,7 +75,7 @@ public class DefaultGLSPServer<T> implements GLSPServer {
 			return CompletableFuture.completedFuture(false);
 		}
 	}
-	
+
 	protected CompletableFuture<Boolean> handleOptions(T options) {
 		return CompletableFuture.completedFuture(true);
 	}
@@ -88,30 +90,31 @@ public class DefaultGLSPServer<T> implements GLSPServer {
 	public void process(ActionMessage message) {
 		log.debug("process " + message);
 		String clientId = message.getClientId();
-
-		{
+		try {
 			// FIXME: It seems we don't get access to the clientId when the connection
 			// is initialized. ClientId is only retrieved through messages; so this
 			// is currently the earliest we can register the clientProxy
 			this.clientProxyProvider.register(clientId, clientProxy);
-		}
 
-		Action requestAction = message.getAction();
-		Optional<String> requestId = Optional.empty();
-		if (requestAction instanceof IdentifiableRequestAction) {
-			// unwrap identifiable request
-			requestId = Optional.of(((IdentifiableRequestAction) requestAction).getId());
-			requestAction = ((IdentifiableRequestAction) requestAction).getAction();
-		}
+			Action requestAction = message.getAction();
+			Optional<String> requestId = Optional.empty();
+			if (requestAction instanceof IdentifiableRequestAction) {
+				// unwrap identifiable request
+				requestId = Optional.of(((IdentifiableRequestAction) requestAction).getId());
+				requestAction = ((IdentifiableRequestAction) requestAction).getAction();
+			}
 
-		Optional<Action> responseOpt = actionDispatcher.dispatch(clientId, requestAction);
+			Optional<Action> responseOpt = actionDispatcher.dispatch(clientId, requestAction);
 
-		if (responseOpt.isPresent()) {
-			// wrap identifiable response if necessary
-			Action response = requestId.<Action>map(id -> new IdentifiableResponseAction(id, responseOpt.get()))
-					.orElse(responseOpt.get());
-			ActionMessage responseMessage = new ActionMessage(clientId, response);
-			clientProxy.process(responseMessage);
+			if (responseOpt.isPresent()) {
+				// wrap identifiable response if necessary
+				Action response = requestId.<Action>map(id -> new IdentifiableResponseAction(id, responseOpt.get()))
+						.orElse(responseOpt.get());
+				actionDispatcher.send(clientId, response);
+			}
+		} catch (RuntimeException e) {
+			log.error(e);
+			actionDispatcher.send(clientId, error(e));
 		}
 	}
 

@@ -13,41 +13,29 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.action.kind;
+package com.eclipsesource.glsp.api.jsonrpc;
 
-import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.types.ServerStatus;
+public class GLSPServerException extends RuntimeException {
+	private static final long serialVersionUID = 1L;
 
-public class ServerStatusAction extends Action {
-	private String severity;
-	private String message;
-	private String details;
-
-	public ServerStatusAction() {
-		super(Action.Kind.SERVER_STATUS);
+	/**
+	 * Constructs a {@link GLSPServerException} with the specified message.
+	 *
+	 * @param message the error message
+	 */
+	public GLSPServerException(final String message) {
+		super(message);
 	}
 
-	public ServerStatusAction(ServerStatus status) {
-		this();
-		this.severity = status.getSeverity().toString();
-		this.message = status.getMessage();
-		this.details = status.getDetails();
-	}
-
-	public String getSeverity() {
-		return severity;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public String getDetails() {
-		return details;
-	}
-
-	public void setDetails(String details) {
-		this.details = details;
+	/**
+	 * Constructs a {@link GLSPServerException} with the specified message and an
+	 * additional exception.
+	 *
+	 * @param message   the error message
+	 * @param throwable a throwable as hint to the original cause of the error
+	 */
+	public GLSPServerException(final String message, final Throwable throwable) {
+		super(message, throwable);
 	}
 
 }
