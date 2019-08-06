@@ -52,22 +52,22 @@ export class WorkflowDiagramManager extends GLSPDiagramManager {
         };
     }
 
-    protected createServerOptions(options?: WidgetOpenerOptions) {
+    protected createServerOptions(options?: WidgetOpenerOptions): Object {
         if (WorkflowGLSPServerOpenerOptions.is(options)) {
             return options.serverOptions;
         }
-        return {};
+        return <Object>{};
     }
 
-    protected createQueryOptions(uri: URI) {
-        const queryOptions = {};
+    protected createQueryOptions(uri: URI): Object {
+        const queryOptions = <Object>{};
         if (!uri.query || uri.query.indexOf("=") < 0) {
             return queryOptions;
         }
         const keyValuePairs = uri.query.split("&");
         for (const keyValuePair of keyValuePairs) {
             const keyValue = keyValuePair.split("=");
-            queryOptions[keyValue[0]] = keyValue[1];
+            (<any>queryOptions)[keyValue[0]] = keyValue[1];
         }
         return queryOptions;
     }
