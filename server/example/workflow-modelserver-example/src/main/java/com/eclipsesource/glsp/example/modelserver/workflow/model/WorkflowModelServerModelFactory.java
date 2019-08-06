@@ -159,7 +159,7 @@ public class WorkflowModelServerModelFactory implements ModelFactory {
 	private static WeightedEdge createWeightedEdge(WeightedFlow flow, Edge edge, Map<Node, GNode> nodeMapping,
 			GraphicalModelState modelState) {
 		WeightedEdgeBuilder builder = new WeightedEdgeBuilder(modelState);
-		builder.setProbability(Double.toString(flow.getProbability()));
+		builder.setProbability(flow.getProbability().getName());
 		builder.setSource(nodeMapping.get(flow.getSource()));
 		builder.setTarget(nodeMapping.get(flow.getTarget()));
 		edge.getBendPoints().forEach(bendPoint -> builder.addRoutingPoint(bendPoint.getX(), bendPoint.getY()));

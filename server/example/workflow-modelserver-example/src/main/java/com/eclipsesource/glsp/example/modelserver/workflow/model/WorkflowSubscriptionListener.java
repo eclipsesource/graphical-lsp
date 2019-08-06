@@ -19,14 +19,12 @@ import static com.eclipsesource.glsp.api.utils.ServerStatusUtil.getDetails;
 import static com.eclipsesource.glsp.example.modelserver.workflow.model.WorkflowModelServerModelFactory.OPTION_WORKFLOW_INDEX;
 import static com.eclipsesource.glsp.example.modelserver.workflow.model.WorkflowModelServerModelFactory.WORKFLOW_INDEX_DEFAULT;
 
-import java.io.IOException;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,10 +37,10 @@ import com.eclipsesource.glsp.api.types.ServerStatus.Severity;
 import com.eclipsesource.glsp.api.utils.ClientOptions;
 import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.DiagramElement;
 import com.eclipsesource.modelserver.client.Response;
-import com.eclipsesource.modelserver.client.SubscriptionListener;
+import com.eclipsesource.modelserver.client.TypedSubscriptionListener;
 import com.google.common.collect.Lists;
 
-public class WorkflowSubscriptionListener implements SubscriptionListener {
+public class WorkflowSubscriptionListener implements TypedSubscriptionListener<EObject> {
 	private static Logger LOG = Logger.getLogger(WorkflowSubscriptionListener.class);
 	private ActionDispatcher actionDispatcher;
 	private WorkflowModelServerAccess modelServerAccess;
@@ -56,11 +54,11 @@ public class WorkflowSubscriptionListener implements SubscriptionListener {
 	}
 
 	@Override
-	public void onOpen(Response<String> response) {
+	public void onOpen(Response<EObject> response) {
 	}
 
 	@Override
-	public void onMessage(String response) {
+	public void onMessage(EObject response) {
 		LOG.debug("Update from model server received");
 		WorkflowFacade facade = modelServerAccess.getWorkflowFacade();
 		Resource semanticResource = facade.getSemanticResource();
@@ -89,19 +87,10 @@ public class WorkflowSubscriptionListener implements SubscriptionListener {
 
 	}
 
-	private boolean updateResource(Resource semanticResource, String modelAsXmi) {
-		try {
-			semanticResource.unload();
-			semanticResource.load(IOUtils.toInputStream(modelAsXmi, "UTF8"), Collections.emptyMap());
-			return true;
-
-		} catch (IOException e) {
-			String errorMsg = "Error occured during update process of resource with URI: " + semanticResource.getURI();
-			LOG.error(errorMsg, e);
-			actionDispatcher.dispatch(modelState.getClientId(),
-					new ServerStatusAction(new ServerStatus(Severity.ERROR, errorMsg)));
-			return false;
-		}
+	private boolean updateResource(Resource semanticResource, EObject newRoot) {
+		semanticResource.getContents().clear();
+		semanticResource.getContents().add(newRoot);
+		return true;
 	}
 
 	@Override
@@ -135,5 +124,4 @@ public class WorkflowSubscriptionListener implements SubscriptionListener {
 	public static Stream<?> toStream(Iterable<?> iterable) {
 		return StreamSupport.stream(iterable.spliterator(), false);
 	}
-
 }
