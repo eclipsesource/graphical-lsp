@@ -15,6 +15,7 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.modelserver.workflow.model;
 
+import static com.eclipsesource.glsp.api.utils.ServerStatusUtil.getDetails;
 import static com.eclipsesource.glsp.example.modelserver.workflow.model.WorkflowModelServerModelFactory.OPTION_WORKFLOW_INDEX;
 import static com.eclipsesource.glsp.example.modelserver.workflow.model.WorkflowModelServerModelFactory.WORKFLOW_INDEX_DEFAULT;
 
@@ -111,7 +112,7 @@ public class WorkflowSubscriptionListener implements SubscriptionListener {
 	public void onFailure(Throwable t) {
 		String errorMsg = "Subscribtion connection to modelserver failed!";
 		actionDispatcher.send(modelState.getClientId(),
-				new ServerStatusAction(new ServerStatus(Severity.ERROR, errorMsg, t.getStackTrace().toString())));
+				new ServerStatusAction(new ServerStatus(Severity.ERROR, errorMsg, getDetails(t))));
 		LOG.error(errorMsg, t);
 	}
 
@@ -127,7 +128,7 @@ public class WorkflowSubscriptionListener implements SubscriptionListener {
 	public void onFailure(Throwable t, Response<String> response) {
 		String errorMsg = "Subscribtion connection to modelserver failed:" + "\n" + response;
 		actionDispatcher.send(modelState.getClientId(),
-				new ServerStatusAction(new ServerStatus(Severity.ERROR, errorMsg, t.getStackTrace().toString())));
+				new ServerStatusAction(new ServerStatus(Severity.ERROR, errorMsg, getDetails(t))));
 		LOG.error(errorMsg, t);
 	}
 

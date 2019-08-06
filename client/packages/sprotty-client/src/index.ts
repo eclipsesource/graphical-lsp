@@ -64,6 +64,8 @@ export * from './utils/array-utils';
 export * from './utils/marker';
 export * from './utils/smodel-util';
 export * from './utils/viewpoint-util';
+
+export * from "./model-source/glsp-server-status";
 export {
     validationModule, saveModule, executeModule, paletteModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule, glspCommandPaletteModule, requestResponseModule, //
     glspSelectModule, glspMouseToolModule, layoutCommandsModule, glspEditLabelValidationModule

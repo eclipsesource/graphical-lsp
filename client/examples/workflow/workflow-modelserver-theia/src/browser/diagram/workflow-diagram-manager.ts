@@ -14,6 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { GLSPDiagramManager, GLSPTheiaSprottyConnector } from "@glsp/theia-integration/lib/browser";
+import { MessageService } from "@theia/core";
 import { WidgetManager, WidgetOpenerOptions } from "@theia/core/lib/browser";
 import URI from "@theia/core/lib/common/uri";
 import { EditorManager } from "@theia/editor/lib/browser";
@@ -36,9 +37,10 @@ export class WorkflowDiagramManager extends GLSPDiagramManager {
         @inject(WorkflowGLSPDiagramClient) diagramClient: WorkflowGLSPDiagramClient,
         @inject(TheiaFileSaver) fileSaver: TheiaFileSaver,
         @inject(WidgetManager) widgetManager: WidgetManager,
-        @inject(EditorManager) editorManager: EditorManager) {
+        @inject(EditorManager) editorManager: EditorManager,
+        @inject(MessageService) messageService: MessageService) {
         super();
-        this._diagramConnector = new GLSPTheiaSprottyConnector({ diagramClient, fileSaver, editorManager, widgetManager, diagramManager: this });
+        this._diagramConnector = new GLSPTheiaSprottyConnector({ diagramClient, fileSaver, editorManager, widgetManager, diagramManager: this, messageService });
     }
 
     protected createWidgetOptions(uri: URI, options?: WidgetOpenerOptions): Object {
