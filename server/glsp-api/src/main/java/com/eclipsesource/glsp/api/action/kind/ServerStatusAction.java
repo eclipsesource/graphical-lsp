@@ -50,4 +50,50 @@ public class ServerStatusAction extends Action {
 		this.details = details;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((details == null) ? 0 : details.hashCode());
+		result = prime * result + ((message == null) ? 0 : message.hashCode());
+		result = prime * result + ((severity == null) ? 0 : severity.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!super.equals(obj)) {
+			return false;
+		}
+		if (!(obj instanceof ServerStatusAction)) {
+			return false;
+		}
+		ServerStatusAction other = (ServerStatusAction) obj;
+		if (details == null) {
+			if (other.details != null) {
+				return false;
+			}
+		} else if (!details.equals(other.details)) {
+			return false;
+		}
+		if (message == null) {
+			if (other.message != null) {
+				return false;
+			}
+		} else if (!message.equals(other.message)) {
+			return false;
+		}
+		if (severity == null) {
+			if (other.severity != null) {
+				return false;
+			}
+		} else if (!severity.equals(other.severity)) {
+			return false;
+		}
+		return true;
+	}
+	
 }

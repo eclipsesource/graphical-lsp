@@ -16,14 +16,18 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.utils;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+
+import org.apache.log4j.Logger;
 
 import com.eclipsesource.glsp.api.action.kind.ServerStatusAction;
 import com.eclipsesource.glsp.api.types.ServerStatus;
 import com.eclipsesource.glsp.api.types.ServerStatus.Severity;
 
 public class ServerStatusUtil {
+	private static Logger LOGGER = Logger.getLogger(ServerStatusUtil.class);
 
 	public static ServerStatusAction info(String message) {
 		return new ServerStatusAction(new ServerStatus(Severity.INFO, message));
@@ -38,24 +42,40 @@ public class ServerStatusUtil {
 	}
 
 	public static ServerStatusAction error(Exception e) {
-		return error(e.getMessage(), printStacktrace(e.getCause()));
+		return error(getMessage(e), getDetails(e.getCause()));
 	}
 
 	private ServerStatusUtil() {
 	};
 
-	public static String printStacktrace(Throwable t) {
-		if (t == null) {
+	public static String getDetails(Throwable throwable) {
+		if (throwable == null) {
 			return null;
 		}
-		StringWriter sw = new StringWriter();
-		PrintWriter pw = new PrintWriter(sw);
-		t.printStackTrace(pw);
-		String result = "";
-		if (t.getMessage() != null) {
-			result += t.getMessage() + "\n";
+		StringBuilder result = new StringBuilder();
+		// message
+		if (throwable.getMessage() != null) {
+			result.append(throwable.getMessage() + "\n");
 		}
-		return result + sw.toString();
+		// stacktrace
+		try (StringWriter stackTraceWriter = new StringWriter();
+				PrintWriter printWriter = new PrintWriter(stackTraceWriter)) {
+			throwable.printStackTrace(printWriter);
+			result.append(stackTraceWriter.toString());
+		} catch (IOException ex) {
+			LOGGER.error("Could not write stacktrace.", ex);
+			return null;
+		}
+		return result.toString();
 	}
 
+	private static String getMessage(Exception e) {
+		if (e == null) {
+			return "<no-message>";
+		}
+		if (e.getMessage() != null) {
+			return e.getMessage();
+		}
+		return e.getClass().toString();
+	}
 }

@@ -68,12 +68,16 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
             widget.setStatus(status);
 
         if (status.severity === "ERROR") {
-            const details = isGLSPServerStatusAction(status) ? status.details : "";
-            this.messageService.error(status.message, "Show details").then(result => {
-                if (result === 'Show details') {
-                    showErrorDialog(status.message, details);
-                }
-            });
+            const details = isGLSPServerStatusAction(status) ? status.details : undefined;
+            if (details) {
+                this.messageService.error(status.message, "Show details").then(result => {
+                    if (result === 'Show details') {
+                        showErrorDialog(status.message, details);
+                    }
+                });
+            } else {
+                this.messageService.error(status.message, { timeout: -1 });
+            }
         }
     }
 
