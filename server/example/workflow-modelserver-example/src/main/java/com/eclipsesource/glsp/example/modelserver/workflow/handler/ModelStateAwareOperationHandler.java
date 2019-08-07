@@ -15,35 +15,32 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.modelserver.workflow.handler;
 
-import java.util.Optional;
+import org.apache.log4j.Logger;
 
-import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
 import com.eclipsesource.glsp.example.modelserver.workflow.model.ModelServerAwareModelState;
 import com.eclipsesource.glsp.example.modelserver.workflow.model.WorkflowModelServerAccess;
-import com.eclipsesource.glsp.server.actionhandler.OperationActionHandler;
-import com.google.inject.Inject;
 
-public class ModelServerAwareOperationActionHandler extends OperationActionHandler {
-
-	@Inject
-	private OperationHandlerProvider operationHandlerProvider;
-
+public abstract class ModelStateAwareOperationHandler implements OperationHandler {
+	protected static Logger LOGGER = Logger.getLogger(ModelStateAwareOperationHandler.class);
+	
 	@Override
-	public Optional<Action> doHandle(AbstractOperationAction action, GraphicalModelState modelState) {
-		if (operationHandlerProvider.isHandled(action)) {
-			OperationHandler handler = operationHandlerProvider.getHandler(action).get();
-			handler.execute(action, modelState);
-			if(!(handler instanceof ModelStateAwareOperationHandler)) {
-				// if the handler is not model state aware, we simply update the whole model
-				// this can be removed as soon as we ensure that all handlers that make updates, update accordingly
-				WorkflowModelServerAccess modelAccess = ModelServerAwareModelState.getModelAccess(modelState);
-				modelAccess.update();				
+	public void execute(AbstractOperationAction action, GraphicalModelState modelState) {
+		WorkflowModelServerAccess modelAccess = ModelServerAwareModelState.getModelAccess(modelState);
+		try {
+			doExecute(action, modelState, modelAccess);
+		} catch(Exception ex) {
+			if(ex instanceof RuntimeException) {
+				// simply re-throw
+				throw (RuntimeException)ex;				
+			} else {
+				// wrap
+				throw new RuntimeException(ex);
 			}
 		}
-		return Optional.empty();
 	}
+	
+	protected abstract void doExecute(AbstractOperationAction action, GraphicalModelState modelState, WorkflowModelServerAccess modelAccess) throws Exception;
 }

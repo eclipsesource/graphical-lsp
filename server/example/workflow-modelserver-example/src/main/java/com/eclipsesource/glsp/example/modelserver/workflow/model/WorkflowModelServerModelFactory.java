@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
+import org.eclipse.emf.common.notify.AdapterFactory;
 
 import com.eclipsesource.glsp.api.action.ActionDispatcher;
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
@@ -49,6 +50,7 @@ import com.eclipsesource.modelserver.coffee.model.coffee.Node;
 import com.eclipsesource.modelserver.coffee.model.coffee.Task;
 import com.eclipsesource.modelserver.coffee.model.coffee.WeightedFlow;
 import com.eclipsesource.modelserver.coffee.model.coffee.Workflow;
+import com.eclipsesource.modelserver.edit.CommandCodec;
 import com.google.inject.Inject;
 
 public class WorkflowModelServerModelFactory implements ModelFactory {
@@ -59,8 +61,15 @@ public class WorkflowModelServerModelFactory implements ModelFactory {
 
 	@Inject
 	private ModelServerClientProvider modelServerClientProvider;
+
 	@Inject
 	private ActionDispatcher actionDispatcher;
+
+	@Inject
+	private AdapterFactory adapterFactory;
+
+	@Inject
+	private CommandCodec commandCodec;
 
 	@Override
 	public GModelRoot loadModel(RequestModelAction action, GraphicalModelState modelState) {
@@ -76,7 +85,8 @@ public class WorkflowModelServerModelFactory implements ModelFactory {
 			return createEmptyRoot();
 		}
 
-		WorkflowModelServerAccess modelAccess = new WorkflowModelServerAccess(sourceURI.get(), modelServerClient.get());
+		WorkflowModelServerAccess modelAccess = new WorkflowModelServerAccess(sourceURI.get(), modelServerClient.get(),
+				adapterFactory, commandCodec);
 		modelAccess.subscribe(new WorkflowSubscriptionListener(modelState, modelAccess, actionDispatcher));
 
 		if (modelState instanceof ModelServerAwareModelState) {

@@ -23,29 +23,40 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import org.apache.log4j.Logger;
+import org.eclipse.emf.common.command.BasicCommandStack;
+import org.eclipse.emf.common.command.Command;
+import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
+import org.eclipse.emf.edit.domain.EditingDomain;
 
 import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.WfnotationPackage;
 import com.eclipsesource.glsp.graph.GNode;
 import com.eclipsesource.modelserver.client.ModelServerClient;
+import com.eclipsesource.modelserver.client.Response;
 import com.eclipsesource.modelserver.client.TypedSubscriptionListener;
 import com.eclipsesource.modelserver.coffee.model.coffee.CoffeePackage;
 import com.eclipsesource.modelserver.coffee.model.coffee.Flow;
 import com.eclipsesource.modelserver.coffee.model.coffee.Node;
+import com.eclipsesource.modelserver.command.CCommand;
+import com.eclipsesource.modelserver.common.codecs.EncodingException;
+import com.eclipsesource.modelserver.edit.CommandCodec;
 import com.google.common.base.Preconditions;
 
 public class WorkflowModelServerAccess {
 	private static Logger LOGGER = Logger.getLogger(WorkflowModelServerAccess.class);
 
 	private static final String FILE_PREFIX = "file://";
+	private static final String FORMAT_XMI = "xmi";
 
 	private String sourceURI;
 	private ResourceSet resourceSet;
@@ -57,16 +68,22 @@ public class WorkflowModelServerAccess {
 	private ModelServerClient modelServerClient;
 	private TypedSubscriptionListener<EObject> subscriptionListener;
 
-	public WorkflowModelServerAccess(String sourceURI, ModelServerClient modelServerClient) {
+	private EditingDomain editingDomain;
+	private CommandCodec commandCodec;
+
+	public WorkflowModelServerAccess(String sourceURI, ModelServerClient modelServerClient,
+			AdapterFactory adapterFactory, CommandCodec commandCodec) {		
 		Preconditions.checkNotNull(modelServerClient);
 		this.sourceURI = sourceURI;
 		this.modelServerClient = modelServerClient;
-		setupResourceSet();
+		this.resourceSet = setupResourceSet();
+		this.editingDomain = new AdapterFactoryEditingDomain(adapterFactory, new BasicCommandStack(), resourceSet);
+		this.commandCodec = commandCodec;
 	}
 
 	public void subscribe(TypedSubscriptionListener<EObject> subscriptionListener) {
 		this.subscriptionListener = subscriptionListener;
-		this.modelServerClient.subscribe(getSemanticResource(sourceURI), subscriptionListener, "xmi");
+		this.modelServerClient.subscribe(getSemanticResource(sourceURI), subscriptionListener, FORMAT_XMI);
 	}
 
 	public void unsubscribe() {
@@ -77,14 +94,15 @@ public class WorkflowModelServerAccess {
 
 	public void update() {
 		EObject root = workflowFacade.getSemanticResource().getContents().get(0);
-		modelServerClient.update(getSemanticResource(sourceURI), root, "xmi");
+		modelServerClient.update(getSemanticResource(sourceURI), root, FORMAT_XMI);
 	}
 
-	public void setupResourceSet() {
-		resourceSet = new ResourceSetImpl();
+	public ResourceSet setupResourceSet() {
+		ResourceSet resourceSet = new ResourceSetImpl();
 		resourceSet.getPackageRegistry().put(CoffeePackage.eINSTANCE.getNsURI(), CoffeePackage.eINSTANCE);
 		resourceSet.getPackageRegistry().put(WfnotationPackage.eINSTANCE.getNsURI(), WfnotationPackage.eINSTANCE);
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
+		return resourceSet;
 	}
 
 	public WorkflowFacade getWorkflowFacade() {
@@ -101,7 +119,7 @@ public class WorkflowModelServerAccess {
 	protected WorkflowFacade createWorkflowFacade() {
 		try {
 			Resource notationResource = loadResource(convertToFile(sourceURI).getAbsolutePath()); // leave local for now
-			EObject root = modelServerClient.get(getSemanticResource(sourceURI), "xmi")
+			EObject root = modelServerClient.get(getSemanticResource(sourceURI), FORMAT_XMI)
 					.thenApply(res -> res.body())
 					.get();
 
@@ -173,5 +191,18 @@ public class WorkflowModelServerAccess {
 
 	public ModelServerClient getModelServerClient() {
 		return this.modelServerClient;
+	}
+	
+	public EditingDomain getEditingDomain() {
+		return editingDomain;
+	}
+	
+	public CommandCodec getCommandCodec() {
+		return commandCodec;
+	}
+	
+	public CompletableFuture<Response<Boolean>> edit(Command command) throws EncodingException {
+		CCommand ccommand = getCommandCodec().encode(command);
+		return this.modelServerClient.edit(getSemanticResource(sourceURI), ccommand, FORMAT_XMI);
 	}
 }
