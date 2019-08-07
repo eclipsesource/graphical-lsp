@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
+
 import com.eclipsesource.glsp.api.diagram.DiagramConfiguration;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.handler.ActionHandler;
@@ -44,6 +47,8 @@ import com.eclipsesource.glsp.example.workflow.WorkflowGLSPModule;
 import com.eclipsesource.glsp.server.actionhandler.OperationActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.SaveModelActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.UndoRedoActionHandler;
+import com.eclipsesource.modelserver.edit.CommandCodec;
+import com.eclipsesource.modelserver.edit.DefaultCommandCodec;
 
 @SuppressWarnings("serial")
 public class WorkflowModelServerGLSPModule extends WorkflowGLSPModule {
@@ -99,6 +104,13 @@ public class WorkflowModelServerGLSPModule extends WorkflowGLSPModule {
 	@Override
 	protected Collection<Class<? extends DiagramConfiguration>> bindDiagramConfigurations() {
 		return Arrays.asList(WorfklowDiagramNotationConfiguration.class);
+	}
+	
+	@Override
+	protected void configure() {
+		super.configure();
+		bind(AdapterFactory.class).toInstance(new ComposedAdapterFactory());
+		bind(CommandCodec.class).toInstance(new DefaultCommandCodec());
 	}
 
 }

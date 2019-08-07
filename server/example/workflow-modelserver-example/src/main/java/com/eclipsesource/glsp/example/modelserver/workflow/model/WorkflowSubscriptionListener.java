@@ -24,8 +24,10 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import org.apache.log4j.Logger;
+import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.jetbrains.annotations.NotNull;
 
 import com.eclipsesource.glsp.api.action.ActionDispatcher;
@@ -38,9 +40,13 @@ import com.eclipsesource.glsp.api.utils.ClientOptions;
 import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.DiagramElement;
 import com.eclipsesource.modelserver.client.Response;
 import com.eclipsesource.modelserver.client.TypedSubscriptionListener;
+import com.eclipsesource.modelserver.coffee.model.coffee.Machine;
+import com.eclipsesource.modelserver.command.CCommand;
+import com.eclipsesource.modelserver.common.codecs.DecodingException;
 import com.google.common.collect.Lists;
 
 public class WorkflowSubscriptionListener implements TypedSubscriptionListener<EObject> {
+	private static final String TEMP_COMMAND_RESOURCE_URI = "command$1.command";
 	private static Logger LOG = Logger.getLogger(WorkflowSubscriptionListener.class);
 	private ActionDispatcher actionDispatcher;
 	private WorkflowModelServerAccess modelServerAccess;
@@ -84,10 +90,43 @@ public class WorkflowSubscriptionListener implements TypedSubscriptionListener<E
 				.populate(modelServerAccess.getWorkflowFacade(), modelState);
 		modelServerAccess.setNodeMapping(mappedGModelRoot.getMapping());
 		actionDispatcher.send(modelState.getClientId(), new RequestBoundsAction(modelState.getRoot()));
-
 	}
 
-	private boolean updateResource(Resource semanticResource, EObject newRoot) {
+	private boolean updateResource(Resource semanticResource, EObject response) {
+		if (response instanceof Machine) {
+			return updateRoot(semanticResource, (Machine)response);
+		}
+		if (response instanceof CCommand) {
+			return updateIncremental(semanticResource, (CCommand)response);
+		}
+		return false;
+	}
+
+	private boolean updateIncremental(Resource semanticResource, CCommand command) {
+		Resource commandResource = null;
+		try {
+			EditingDomain domain = modelServerAccess.getEditingDomain();
+			commandResource = createCommandResource(domain, command);
+			Command cmd = modelServerAccess.getCommandCodec().decode(domain, command);
+			domain.getCommandStack().execute(cmd);
+		} catch (DecodingException ex) {
+			LOG.error("Could not decode command: " + command, ex);
+			return false;
+		} finally {
+			if(commandResource != null) {
+				commandResource.getResourceSet().getResources().remove(commandResource);
+			}
+		}
+		return true;
+	}
+	
+	private Resource createCommandResource(EditingDomain domain, CCommand command) {
+		Resource resource = domain.createResource(TEMP_COMMAND_RESOURCE_URI);
+		resource.getContents().add(command);
+		return resource;
+	}
+
+	private boolean updateRoot(Resource semanticResource, Machine newRoot) {
 		semanticResource.getContents().clear();
 		semanticResource.getContents().add(newRoot);
 		return true;
