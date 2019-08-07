@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { BaseGLSPClientContribution } from "@glsp/theia-integration/lib/browser";
-import { ModelServerBackend } from "@modelserver/theia/lib/common";
+import { ModelServerClient } from "@modelserver/theia/lib/common";
 import { WorkspaceService } from "@theia/workspace/lib/browser";
 import { inject, injectable } from "inversify";
 
@@ -28,7 +28,7 @@ export interface WorkflowInitializeOptions {
 
 @injectable()
 export class WorkflowGLSPClientContribution extends BaseGLSPClientContribution {
-    @inject(ModelServerBackend) protected readonly modelServerBackend: ModelServerBackend;
+    @inject(ModelServerClient) protected readonly modelServerBackend: ModelServerClient;
     @inject(WorkspaceService) protected readonly workspaceService: WorkspaceService;
     readonly id = WorkflowNotationLanguage.Id;
     readonly name = WorkflowNotationLanguage.Name;

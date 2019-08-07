@@ -15,7 +15,6 @@
  ********************************************************************************/
 import { OpenerOptions } from "@theia/core/lib/browser";
 
-
 export interface WorkflowGLSPServerOpenerOptions extends OpenerOptions {
     serverOptions: any;
 }
