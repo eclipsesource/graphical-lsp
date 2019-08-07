@@ -12,7 +12,7 @@ matrix:
         directories:
           - "$HOME/.m2/repository"
       script:
-        - mvn clean verify
+        - mvn clean verify -U
       before_deploy:
        - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
        - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust

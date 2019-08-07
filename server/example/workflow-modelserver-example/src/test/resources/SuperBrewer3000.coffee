@@ -10,6 +10,6 @@
     <nodes xsi:type="com.eclipsesource.modelserver.coffee.model:AutomaticTask" name="Brew"/>
     <nodes xsi:type="com.eclipsesource.modelserver.coffee.model:ManualTask" name="CheckWt"/>
     <flows source="//@workflows.0/@nodes.0" target="//@workflows.0/@nodes.1"/>
-    <flows xsi:type="com.eclipsesource.modelserver.coffee.model:WeightedFlow" source="//@workflows.0/@nodes.0" target="//@workflows.0/@nodes.1" probability="0.8"/>
+    <flows xsi:type="com.eclipsesource.modelserver.coffee.model:WeightedFlow" source="//@workflows.0/@nodes.0" target="//@workflows.0/@nodes.1"/>
   </workflows>
 </com.eclipsesource.modelserver.coffee.model:Machine>
