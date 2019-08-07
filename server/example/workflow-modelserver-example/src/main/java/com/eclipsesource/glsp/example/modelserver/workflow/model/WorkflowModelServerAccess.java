@@ -25,7 +25,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -37,8 +36,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.WfnotationPackage;
 import com.eclipsesource.glsp.graph.GNode;
 import com.eclipsesource.modelserver.client.ModelServerClient;
-import com.eclipsesource.modelserver.client.Response;
-import com.eclipsesource.modelserver.client.SubscriptionListener;
+import com.eclipsesource.modelserver.client.TypedSubscriptionListener;
 import com.eclipsesource.modelserver.coffee.model.coffee.CoffeePackage;
 import com.eclipsesource.modelserver.coffee.model.coffee.Flow;
 import com.eclipsesource.modelserver.coffee.model.coffee.Node;
@@ -57,7 +55,7 @@ public class WorkflowModelServerAccess {
 	private Map<String, Node> idMapping;
 
 	private ModelServerClient modelServerClient;
-	private SubscriptionListener subscriptionListener;
+	private TypedSubscriptionListener<EObject> subscriptionListener;
 
 	public WorkflowModelServerAccess(String sourceURI, ModelServerClient modelServerClient) {
 		Preconditions.checkNotNull(modelServerClient);
@@ -66,9 +64,9 @@ public class WorkflowModelServerAccess {
 		setupResourceSet();
 	}
 
-	public void subscribe(SubscriptionListener subscriptionListener) {
+	public void subscribe(TypedSubscriptionListener<EObject> subscriptionListener) {
 		this.subscriptionListener = subscriptionListener;
-		this.modelServerClient.subscribe(getSemanticResource(sourceURI) + "?format=xmi", subscriptionListener);
+		this.modelServerClient.subscribe(getSemanticResource(sourceURI), subscriptionListener, "xmi");
 	}
 
 	public void unsubscribe() {
@@ -79,7 +77,7 @@ public class WorkflowModelServerAccess {
 
 	public void update() {
 		EObject root = workflowFacade.getSemanticResource().getContents().get(0);
-		modelServerClient.update(getSemanticResource(sourceURI) + "?format=xmi", modelServerClient.encode(root, "xmi"));
+		modelServerClient.update(getSemanticResource(sourceURI), root, "xmi");
 	}
 
 	public void setupResourceSet() {
@@ -102,13 +100,12 @@ public class WorkflowModelServerAccess {
 
 	protected WorkflowFacade createWorkflowFacade() {
 		try {
-
 			Resource notationResource = loadResource(convertToFile(sourceURI).getAbsolutePath()); // leave local for now
-			String semanticXMI = modelServerClient.get(getSemanticResource(sourceURI) + "?format=xmi")
-					.thenApply(Response<String>::body).get();
+			EObject root = modelServerClient.get(getSemanticResource(sourceURI), "xmi")
+					.thenApply(res -> res.body())
+					.get();
 
-			Resource semanticResource = loadResource(convertToFile(getSemanticResource(sourceURI)).getAbsolutePath(),
-					semanticXMI);
+			Resource semanticResource = loadResource(convertToFile(getSemanticResource(sourceURI)).getAbsolutePath(), root);
 			workflowFacade = new WorkflowFacade(semanticResource, notationResource);
 			return workflowFacade;
 		} catch (IOException | InterruptedException | ExecutionException e) {
@@ -134,9 +131,10 @@ public class WorkflowModelServerAccess {
 		return out.toString();
 	}
 
-	private Resource loadResource(String path, String contents) throws IOException {
+	private Resource loadResource(String path, EObject root) throws IOException {
 		Resource resource = createResource(path);
-		resource.load(IOUtils.toInputStream(contents, "UTF8"), Collections.emptyMap());
+		resource.getContents().clear();
+		resource.getContents().add(root);
 		return resource;
 	}
 

@@ -15,16 +15,15 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.modelserver.workflow;
 
-import java.net.MalformedURLException;
 import java.util.Date;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 import org.apache.log4j.Logger;
 
 import com.eclipsesource.glsp.example.modelserver.workflow.WorkflowModelServerGLSPServer.InitializeOptions;
 import com.eclipsesource.glsp.example.modelserver.workflow.model.ModelServerAwareModelState;
 import com.eclipsesource.glsp.server.jsonrpc.DefaultGLSPServer;
+import com.eclipsesource.modelserver.client.ModelServerClient;
 import com.eclipsesource.modelserver.client.Response;
 import com.google.inject.Inject;
 
@@ -43,16 +42,15 @@ public class WorkflowModelServerGLSPServer extends DefaultGLSPServer<InitializeO
 			Log.debug(String.format("[%s] Pinging modelserver at: '%s'", options.getTimestamp(),
 					options.getModelserverURL()));
 			try {
-				WorkflowModelServerClient client = new WorkflowModelServerClient(options.getModelserverURL(),
-						options.workspaceRoot);
+				@SuppressWarnings("resource")
+				ModelServerClient client = new ModelServerClient(options.getModelserverURL());
 				boolean alive = client.ping().thenApply(Response<Boolean>::body).get();
-
 				if (alive) {
 					modelServerClientProvider.setModelServerClient(client);
 					return CompletableFuture.completedFuture(true);
 				}
 
-			} catch (MalformedURLException | InterruptedException | ExecutionException e) {
+			} catch (Exception e) {
 				Log.error("Error during initialization of modelserver connection", e);
 			}
 		}
