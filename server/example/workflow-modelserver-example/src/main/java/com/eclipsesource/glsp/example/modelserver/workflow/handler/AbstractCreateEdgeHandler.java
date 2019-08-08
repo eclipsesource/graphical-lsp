@@ -22,20 +22,14 @@ import org.eclipse.emf.edit.command.AddCommand;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
-import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
-import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.example.modelserver.workflow.model.ModelServerAwareModelState;
-import com.eclipsesource.glsp.example.modelserver.workflow.model.ShapeUtil;
 import com.eclipsesource.glsp.example.modelserver.workflow.model.WorkflowFacade;
 import com.eclipsesource.glsp.example.modelserver.workflow.model.WorkflowModelServerAccess;
 import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Edge;
-import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Shape;
 import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.WfnotationFactory;
 import com.eclipsesource.modelserver.coffee.model.coffee.CoffeeFactory;
 import com.eclipsesource.modelserver.coffee.model.coffee.CoffeePackage;
 import com.eclipsesource.modelserver.coffee.model.coffee.Flow;
-import com.eclipsesource.modelserver.coffee.model.coffee.Node;
 import com.eclipsesource.modelserver.coffee.model.coffee.Workflow;
 
 public abstract class AbstractCreateEdgeHandler implements ModelStateAwareOperationHandler {
@@ -96,7 +90,8 @@ public abstract class AbstractCreateEdgeHandler implements ModelStateAwareOperat
 			edge.setSemanticElement(facace.createProxy(flow));
 			diagram.getElements().add(edge);
 		});
-		workflow.getNodes().remove(flow);
+		
+		workflow.getFlows().remove(flow);
 	}
 
 }

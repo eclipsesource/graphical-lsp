@@ -56,7 +56,6 @@ import com.google.common.base.Preconditions;
 public class WorkflowModelServerAccess {
 	private static Logger LOGGER = Logger.getLogger(WorkflowModelServerAccess.class);
 
-	private static final String FILE_PREFIX = "file://";
 	private static final String FORMAT_XMI = "xmi";
 
 	private String sourceURI;

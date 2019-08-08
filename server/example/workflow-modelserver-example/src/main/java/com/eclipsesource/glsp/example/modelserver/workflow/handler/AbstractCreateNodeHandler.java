@@ -22,9 +22,7 @@ import org.eclipse.emf.edit.command.AddCommand;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
-import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.example.modelserver.workflow.model.ModelServerAwareModelState;
 import com.eclipsesource.glsp.example.modelserver.workflow.model.ShapeUtil;
 import com.eclipsesource.glsp.example.modelserver.workflow.model.WorkflowFacade;
 import com.eclipsesource.glsp.example.modelserver.workflow.model.WorkflowModelServerAccess;
@@ -74,29 +72,26 @@ public abstract class AbstractCreateNodeHandler implements ModelStateAwareOperat
 
 		Command addCommand = AddCommand.create(modelAccess.getEditingDomain(), workflow,
 				CoffeePackage.Literals.WORKFLOW__NODES, node);
-		
-		createDiagramElement(workflowFacade,workflow, node,createNodeOperationAction);
-		
+
+		createDiagramElement(workflowFacade, workflow, node, createNodeOperationAction);
+
 		if (!modelAccess.edit(addCommand).thenApply(res -> res.body()).get()) {
 			throw new IllegalAccessError("Could not execute command: " + addCommand);
 		}
-	
 
 	}
-	
 
-	protected  void createDiagramElement(WorkflowFacade facace, Workflow workflow, Node node,
+	protected void createDiagramElement(WorkflowFacade facace, Workflow workflow, Node node,
 			CreateNodeOperationAction createNodeOperationAction) {
 		workflow.getNodes().add(node);
-		
-		
+
 		facace.findDiagram(workflow).ifPresent(diagram -> {
 			Shape shape = WfnotationFactory.eINSTANCE.createShape();
 			shape.setSemanticElement(facace.createProxy(node));
 			shape.setPosition(ShapeUtil.point(createNodeOperationAction.getLocation()));
 			diagram.getElements().add(shape);
 		});
-		
+
 		workflow.getNodes().remove(node);
 	}
 
