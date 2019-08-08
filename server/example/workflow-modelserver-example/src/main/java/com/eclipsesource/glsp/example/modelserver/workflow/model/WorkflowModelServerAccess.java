@@ -133,8 +133,8 @@ public class WorkflowModelServerAccess {
 	}
 
 	private File convertToFile(String sourceURI) {
-		if (sourceURI != null && sourceURI.startsWith(FILE_PREFIX)) {
-			return new File(sourceURI.substring(FILE_PREFIX.length()));
+		if (sourceURI != null) {
+			return new File(sourceURI);
 		}
 		return null;
 	}
