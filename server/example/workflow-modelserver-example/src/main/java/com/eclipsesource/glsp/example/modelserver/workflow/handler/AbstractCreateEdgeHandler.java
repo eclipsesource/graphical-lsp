@@ -15,23 +15,30 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.modelserver.workflow.handler;
 
+import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.edit.command.AddCommand;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
+import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.example.modelserver.workflow.model.ModelServerAwareModelState;
+import com.eclipsesource.glsp.example.modelserver.workflow.model.ShapeUtil;
 import com.eclipsesource.glsp.example.modelserver.workflow.model.WorkflowFacade;
 import com.eclipsesource.glsp.example.modelserver.workflow.model.WorkflowModelServerAccess;
 import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Edge;
+import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Shape;
 import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.WfnotationFactory;
 import com.eclipsesource.modelserver.coffee.model.coffee.CoffeeFactory;
+import com.eclipsesource.modelserver.coffee.model.coffee.CoffeePackage;
 import com.eclipsesource.modelserver.coffee.model.coffee.Flow;
+import com.eclipsesource.modelserver.coffee.model.coffee.Node;
 import com.eclipsesource.modelserver.coffee.model.coffee.Workflow;
 
-public abstract class AbstractCreateEdgeHandler implements OperationHandler {
+public abstract class AbstractCreateEdgeHandler implements ModelStateAwareOperationHandler {
 
 	protected String type;
 	private EClass eClass;
@@ -49,7 +56,7 @@ public abstract class AbstractCreateEdgeHandler implements OperationHandler {
 
 	@Override
 	public boolean handles(AbstractOperationAction action) {
-		return OperationHandler.super.handles(action)
+		return ModelStateAwareOperationHandler.super.handles(action)
 				? ((CreateConnectionOperationAction) action).getElementTypeId().equals(type)
 				: false;
 	}
@@ -60,21 +67,36 @@ public abstract class AbstractCreateEdgeHandler implements OperationHandler {
 	}
 
 	@Override
-	public void execute(AbstractOperationAction action, GraphicalModelState modelState) {
+	public void doExecute(AbstractOperationAction action, GraphicalModelState modelState,
+			WorkflowModelServerAccess modelAccess) throws Exception {
 		CreateConnectionOperationAction createConnectionAction = (CreateConnectionOperationAction) action;
-		WorkflowModelServerAccess modelAccess = ModelServerAwareModelState.getModelAccess(modelState);
 		WorkflowFacade workflowFacade = modelAccess.getWorkflowFacade();
 		Workflow workflow = workflowFacade.getCurrentWorkflow();
 
 		Flow flow = (Flow) CoffeeFactory.eINSTANCE.create(eClass);
 		flow.setSource(modelAccess.getNodeById(createConnectionAction.getSourceElementId()));
 		flow.setTarget(modelAccess.getNodeById(createConnectionAction.getTargetElementId()));
+
+		Command addCommand = AddCommand.create(modelAccess.getEditingDomain(), workflow,
+				CoffeePackage.Literals.WORKFLOW__FLOWS, flow);
+
+		createDiagramElement(workflowFacade, workflow, flow, createConnectionAction);
+
+		if (!modelAccess.edit(addCommand).thenApply(res -> res.body()).get()) {
+			throw new IllegalAccessError("Could not execute command: " + addCommand);
+		}
+	}
+
+	protected void createDiagramElement(WorkflowFacade facace, Workflow workflow, Flow flow,
+			CreateConnectionOperationAction createNodeOperationAction) {
 		workflow.getFlows().add(flow);
 
-		workflowFacade.findDiagram(workflow).ifPresent(diagram -> {
+		facace.findDiagram(workflow).ifPresent(diagram -> {
 			Edge edge = WfnotationFactory.eINSTANCE.createEdge();
-			edge.setSemanticElement(workflowFacade.createProxy(flow));
+			edge.setSemanticElement(facace.createProxy(flow));
 			diagram.getElements().add(edge);
 		});
+		workflow.getNodes().remove(flow);
 	}
+
 }
