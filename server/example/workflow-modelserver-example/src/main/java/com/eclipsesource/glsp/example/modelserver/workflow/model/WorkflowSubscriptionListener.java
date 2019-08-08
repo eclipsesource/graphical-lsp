@@ -38,14 +38,15 @@ import com.eclipsesource.glsp.api.types.ServerStatus;
 import com.eclipsesource.glsp.api.types.ServerStatus.Severity;
 import com.eclipsesource.glsp.api.utils.ClientOptions;
 import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.DiagramElement;
+import com.eclipsesource.modelserver.client.ModelServerNotification;
 import com.eclipsesource.modelserver.client.Response;
-import com.eclipsesource.modelserver.client.TypedSubscriptionListener;
+import com.eclipsesource.modelserver.client.XmiToEObjectSubscriptionListener;
 import com.eclipsesource.modelserver.coffee.model.coffee.Machine;
 import com.eclipsesource.modelserver.command.CCommand;
 import com.eclipsesource.modelserver.common.codecs.DecodingException;
 import com.google.common.collect.Lists;
 
-public class WorkflowSubscriptionListener implements TypedSubscriptionListener<EObject> {
+public class WorkflowSubscriptionListener extends XmiToEObjectSubscriptionListener {
 	private static final String TEMP_COMMAND_RESOURCE_URI = "command$1.command";
 	private static Logger LOG = Logger.getLogger(WorkflowSubscriptionListener.class);
 	private ActionDispatcher actionDispatcher;
@@ -58,23 +59,46 @@ public class WorkflowSubscriptionListener implements TypedSubscriptionListener<E
 		this.modelServerAccess = modelServerAccess;
 		this.modelState = modelState;
 	}
-
+	
 	@Override
-	public void onOpen(Response<EObject> response) {
+	public void onIncrementalUpdate(CCommand command) {
+		LOG.debug("Incremental update from model server received: " + command);
+		Resource commandResource = null;
+		try {
+			// execute command on semantic resource
+			EditingDomain domain = modelServerAccess.getEditingDomain();
+			commandResource = createCommandResource(domain, command);
+			Command cmd = modelServerAccess.getCommandCodec().decode(domain, command);
+			domain.getCommandStack().execute(cmd);
+			
+			// update notation resource
+			WorkflowFacade facade = modelServerAccess.getWorkflowFacade();
+			Resource notationResource = facade.getNotationResource();
+			updateNotationResource(facade, notationResource);
+		} catch (DecodingException ex) {
+			LOG.error("Could not decode command: " + command, ex);
+			throw new RuntimeException(ex);
+		} finally {
+			if(commandResource != null) {
+				commandResource.getResourceSet().getResources().remove(commandResource);
+			}
+		}
 	}
-
+	
 	@Override
-	public void onMessage(EObject response) {
-		LOG.debug("Update from model server received");
+	public void onFullUpdate(EObject root) {
+		LOG.debug("Full update from model server received");
+
 		WorkflowFacade facade = modelServerAccess.getWorkflowFacade();
 		Resource semanticResource = facade.getSemanticResource();
+		semanticResource.getContents().clear();
+		semanticResource.getContents().add(root);
+		
 		Resource notationResource = facade.getNotationResource();
+		updateNotationResource(facade, notationResource);
+	}
 
-		// Update the resource with the model information received from the server
-		if (!updateResource(semanticResource, response)) {
-			return;
-		}
-
+	private void updateNotationResource(WorkflowFacade facade, Resource notationResource) {
 		// Clear outdated resolved proxies of notation resource
 		Lists.newArrayList(notationResource.getAllContents()).stream().filter(DiagramElement.class::isInstance)
 				.map(DiagramElement.class::cast).forEach(e -> e.getSemanticElement().setResolvedElement(null));
@@ -92,48 +116,40 @@ public class WorkflowSubscriptionListener implements TypedSubscriptionListener<E
 		actionDispatcher.send(modelState.getClientId(), new RequestBoundsAction(modelState.getRoot()));
 	}
 
-	private boolean updateResource(Resource semanticResource, EObject response) {
-		if (response instanceof Machine) {
-			return updateRoot(semanticResource, (Machine)response);
-		}
-		if (response instanceof CCommand) {
-			return updateIncremental(semanticResource, (CCommand)response);
-		}
-		return false;
-	}
-
-	private boolean updateIncremental(Resource semanticResource, CCommand command) {
-		Resource commandResource = null;
-		try {
-			EditingDomain domain = modelServerAccess.getEditingDomain();
-			commandResource = createCommandResource(domain, command);
-			Command cmd = modelServerAccess.getCommandCodec().decode(domain, command);
-			domain.getCommandStack().execute(cmd);
-		} catch (DecodingException ex) {
-			LOG.error("Could not decode command: " + command, ex);
-			return false;
-		} finally {
-			if(commandResource != null) {
-				commandResource.getResourceSet().getResources().remove(commandResource);
-			}
-		}
-		return true;
-	}
-	
 	private Resource createCommandResource(EditingDomain domain, CCommand command) {
 		Resource resource = domain.createResource(TEMP_COMMAND_RESOURCE_URI);
 		resource.getContents().add(command);
 		return resource;
 	}
-
-	private boolean updateRoot(Resource semanticResource, Machine newRoot) {
-		semanticResource.getContents().clear();
-		semanticResource.getContents().add(newRoot);
-		return true;
-	}
-
+	
 	@Override
-	public void onClosing(int code, @NotNull String reason) {
+	public void onDirtyChange(boolean isDirty) {
+		LOG.debug("Dirty State Changed: " + isDirty);
+	}
+	
+	@Override
+	public void onUnknown(ModelServerNotification notification) {
+		// Try to see if we have an update if the notification type is not set properly
+		EObject data = notification.getData().flatMap(WorkflowSubscriptionListener::decode).orElse(null);
+		if(data instanceof CCommand) {
+			onIncrementalUpdate((CCommand)data);
+		} else if(data instanceof Machine) {
+			onFullUpdate((Machine)data);
+		} else {
+			LOG.warn("Unknown notification received: " + notification);			
+		}
+	}
+	
+	@Override
+	public void onError(Optional<String> message) {
+		String errorMsg = message.orElse("Error occurred on model server!");
+		actionDispatcher.send(modelState.getClientId(), new ServerStatusAction(new ServerStatus(Severity.ERROR, errorMsg)));
+		LOG.error(errorMsg);
+	}
+	
+	@Override
+	public void onSuccess(Optional<String> messasge) {
+		messasge.ifPresent(LOG::debug);
 	}
 
 	@Override
@@ -142,6 +158,10 @@ public class WorkflowSubscriptionListener implements TypedSubscriptionListener<E
 		actionDispatcher.send(modelState.getClientId(),
 				new ServerStatusAction(new ServerStatus(Severity.ERROR, errorMsg, getDetails(t))));
 		LOG.error(errorMsg, t);
+	}
+	
+	@Override
+	public void onClosing(int code, @NotNull String reason) {
 	}
 
 	@Override

@@ -43,7 +43,7 @@ import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Wfnotation
 import com.eclipsesource.glsp.graph.GNode;
 import com.eclipsesource.modelserver.client.ModelServerClient;
 import com.eclipsesource.modelserver.client.Response;
-import com.eclipsesource.modelserver.client.TypedSubscriptionListener;
+import com.eclipsesource.modelserver.client.NotificationSubscriptionListener;
 import com.eclipsesource.modelserver.coffee.model.coffee.CoffeePackage;
 import com.eclipsesource.modelserver.coffee.model.coffee.Flow;
 import com.eclipsesource.modelserver.coffee.model.coffee.Node;
@@ -66,7 +66,7 @@ public class WorkflowModelServerAccess {
 	private Map<String, Node> idMapping;
 
 	private ModelServerClient modelServerClient;
-	private TypedSubscriptionListener<EObject> subscriptionListener;
+	private NotificationSubscriptionListener<EObject> subscriptionListener;
 
 	private EditingDomain editingDomain;
 	private CommandCodec commandCodec;
@@ -81,7 +81,7 @@ public class WorkflowModelServerAccess {
 		this.commandCodec = commandCodec;
 	}
 
-	public void subscribe(TypedSubscriptionListener<EObject> subscriptionListener) {
+	public void subscribe(NotificationSubscriptionListener<EObject> subscriptionListener) {
 		this.subscriptionListener = subscriptionListener;
 		this.modelServerClient.subscribe(getSemanticResource(sourceURI), subscriptionListener, FORMAT_XMI);
 	}
