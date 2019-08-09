@@ -1,19 +1,18 @@
 package com.eclipsesource.glsp.example.modelserver.workflow.handler;
 
-import java.io.IOException;
 import java.util.Optional;
-
-import org.apache.log4j.Logger;
+import java.util.concurrent.ExecutionException;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.SaveModelAction;
+import com.eclipsesource.glsp.api.jsonrpc.GLSPServerException;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.example.modelserver.workflow.model.ModelServerAwareModelState;
+import com.eclipsesource.glsp.example.modelserver.workflow.model.WorkflowModelServerAccess;
 import com.eclipsesource.glsp.server.actionhandler.AbstractActionHandler;
 
 public class ModelServerAwareSaveActionHandler extends AbstractActionHandler {
 
-	private static final Logger LOG = Logger.getLogger(ModelServerAwareSaveActionHandler.class);
 
 	@Override
 	public boolean handles(Action action) {
@@ -22,21 +21,23 @@ public class ModelServerAwareSaveActionHandler extends AbstractActionHandler {
 
 	@Override
 	protected Optional<Action> execute(Action action, GraphicalModelState modelState) {
-		if (action instanceof SaveModelAction) {
-			SaveModelAction saveAction = (SaveModelAction) action;
-			if (saveAction != null) {
-				saveModelState(modelState);
+		try {
+			if (action instanceof SaveModelAction) {
+				SaveModelAction saveAction = (SaveModelAction) action;
+				if (saveAction != null) {
+					WorkflowModelServerAccess modelAccess = ModelServerAwareModelState.getModelAccess(modelState);
+					String modelURI = modelAccess.getWorkflowFacade().getSemanticResource().getURI().toString();
+					if (!modelAccess.getModelServerClient().save(modelURI).thenApply(res -> res.body()).get()) {
+						throw new GLSPServerException("Could not execute save action: " + action.toString());
+					}
+
+					modelAccess.save();
+				}
 			}
+		} catch (ExecutionException | InterruptedException e) {
+			throw new GLSPServerException("Could not execute save action: " + action.toString(), e);
 		}
 		return Optional.empty();
-	}
-
-	private void saveModelState(GraphicalModelState modelState) {
-		try {
-			ModelServerAwareModelState.getModelAccess(modelState).save();
-		} catch (IOException e) {
-			LOG.error("Error saving the model", e);
-		}
 	}
 
 }

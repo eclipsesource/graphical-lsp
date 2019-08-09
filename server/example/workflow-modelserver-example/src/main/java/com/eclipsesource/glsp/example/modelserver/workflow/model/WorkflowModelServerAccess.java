@@ -39,6 +39,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 
+import com.eclipsesource.glsp.api.jsonrpc.GLSPServerException;
 import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.WfnotationPackage;
 import com.eclipsesource.glsp.graph.GNode;
 import com.eclipsesource.modelserver.client.ModelServerClient;
@@ -72,7 +73,7 @@ public class WorkflowModelServerAccess {
 	private CommandCodec commandCodec;
 
 	public WorkflowModelServerAccess(String sourceURI, ModelServerClient modelServerClient,
-			AdapterFactory adapterFactory, CommandCodec commandCodec) {		
+			AdapterFactory adapterFactory, CommandCodec commandCodec) {
 		Preconditions.checkNotNull(modelServerClient);
 		this.sourceURI = sourceURI;
 		this.modelServerClient = modelServerClient;
@@ -120,10 +121,10 @@ public class WorkflowModelServerAccess {
 		try {
 			Resource notationResource = loadResource(convertToFile(sourceURI).getAbsolutePath()); // leave local for now
 			EObject root = modelServerClient.get(getSemanticResource(sourceURI), FORMAT_XMI)
-					.thenApply(res -> res.body())
-					.get();
+					.thenApply(res -> res.body()).get();
 
-			Resource semanticResource = loadResource(convertToFile(getSemanticResource(sourceURI)).getAbsolutePath(), root);
+			Resource semanticResource = loadResource(convertToFile(getSemanticResource(sourceURI)).getAbsolutePath(),
+					root);
 			workflowFacade = new WorkflowFacade(semanticResource, notationResource);
 			return workflowFacade;
 		} catch (IOException | InterruptedException | ExecutionException e) {
@@ -184,23 +185,27 @@ public class WorkflowModelServerAccess {
 				.filter(flow -> source.equals(flow.getSource()) && target.equals(flow.getTarget())).findFirst();
 	}
 
-	public void save() throws IOException {
-		workflowFacade.getSemanticResource().save(Collections.emptyMap());
-		workflowFacade.getNotationResource().save(Collections.emptyMap());
+	public void save() {
+		try {
+			workflowFacade.getNotationResource().save(Collections.emptyMap());
+		} catch (IOException e) {
+			throw new GLSPServerException("Could not save notation resource", e);
+		}
+
 	}
 
 	public ModelServerClient getModelServerClient() {
 		return this.modelServerClient;
 	}
-	
+
 	public EditingDomain getEditingDomain() {
 		return editingDomain;
 	}
-	
+
 	public CommandCodec getCommandCodec() {
 		return commandCodec;
 	}
-	
+
 	public CompletableFuture<Response<Boolean>> edit(Command command) throws EncodingException {
 		CCommand ccommand = getCommandCodec().encode(command);
 		return this.modelServerClient.edit(getSemanticResource(sourceURI), ccommand, FORMAT_XMI);
