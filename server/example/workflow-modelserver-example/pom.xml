@@ -183,6 +183,10 @@
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<mainClass>com.eclipsesource.glsp.example.modelserver.workflow.WorkflowModelServerGLSPServerLauncher</mainClass>
 								</transformer>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>plugin.properties</resource>
+								</transformer>
 							</transformers>
 							<filters>
 								<filter>
