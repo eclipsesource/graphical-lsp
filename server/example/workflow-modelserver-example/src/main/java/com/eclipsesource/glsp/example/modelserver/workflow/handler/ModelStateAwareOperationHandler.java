@@ -15,19 +15,15 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.modelserver.workflow.handler;
 
-import org.apache.log4j.Logger;
-
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.example.modelserver.workflow.model.ModelServerAwareModelState;
 import com.eclipsesource.glsp.example.modelserver.workflow.model.WorkflowModelServerAccess;
 
-public abstract class ModelStateAwareOperationHandler implements OperationHandler {
-	protected static Logger LOGGER = Logger.getLogger(ModelStateAwareOperationHandler.class);
-	
+public interface  ModelStateAwareOperationHandler extends OperationHandler {
 	@Override
-	public void execute(AbstractOperationAction action, GraphicalModelState modelState) {
+	default public void execute(AbstractOperationAction action, GraphicalModelState modelState) {
 		WorkflowModelServerAccess modelAccess = ModelServerAwareModelState.getModelAccess(modelState);
 		try {
 			doExecute(action, modelState, modelAccess);
@@ -42,5 +38,5 @@ public abstract class ModelStateAwareOperationHandler implements OperationHandle
 		}
 	}
 	
-	protected abstract void doExecute(AbstractOperationAction action, GraphicalModelState modelState, WorkflowModelServerAccess modelAccess) throws Exception;
+	public void doExecute(AbstractOperationAction action, GraphicalModelState modelState, WorkflowModelServerAccess modelAccess) throws Exception;
 }

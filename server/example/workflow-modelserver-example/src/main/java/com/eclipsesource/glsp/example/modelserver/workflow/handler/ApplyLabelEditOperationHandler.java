@@ -33,7 +33,7 @@ import com.eclipsesource.modelserver.coffee.model.coffee.CoffeePackage;
 import com.eclipsesource.modelserver.coffee.model.coffee.Node;
 import com.eclipsesource.modelserver.coffee.model.coffee.Task;
 
-public class ApplyLabelEditOperationHandler extends ModelStateAwareOperationHandler {
+public class ApplyLabelEditOperationHandler implements ModelStateAwareOperationHandler {
 
 	@Override
 	public Class<? extends Action> handlesActionType() {
@@ -41,7 +41,7 @@ public class ApplyLabelEditOperationHandler extends ModelStateAwareOperationHand
 	}
 
 	@Override
-	protected void doExecute(AbstractOperationAction action, GraphicalModelState modelState,
+	public void doExecute(AbstractOperationAction action, GraphicalModelState modelState,
 			WorkflowModelServerAccess modelAccess) throws Exception {
 		ApplyLabelEditOperationAction editLabelAction = (ApplyLabelEditOperationAction) action;
 		Optional<GModelElement> element = modelState.getIndex().get(editLabelAction.getLabelId());
