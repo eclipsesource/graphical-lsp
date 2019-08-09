@@ -32,7 +32,9 @@ public class ExampleServerLauncher {
 		if (args.length == 1 && args[0].equals("websocket")) {
 			launcher = new WebsocketServerLauncher(new WorkflowGLSPModule(), "/workflow");
 			launcher.start("localhost", 8081);
-
+		} else if (args.length == 1 && args[0].equals("rest")) {
+			launcher = new RestGLSPServerLauncher(new WorkflowGLSPModule());
+			launcher.start("localhost", 5007);
 		} else {
 			launcher = new DefaultGLSPServerLauncher(new WorkflowGLSPModule());
 			launcher.start("localhost", 5007);
