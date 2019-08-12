@@ -22,7 +22,7 @@ import java.util.Optional;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.notify.AdapterFactory;
 
-import com.eclipsesource.glsp.api.action.ActionDispatcher;
+import com.eclipsesource.glsp.api.action.ActionProcessor;
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
@@ -63,7 +63,7 @@ public class WorkflowModelServerModelFactory implements ModelFactory {
 	private ModelServerClientProvider modelServerClientProvider;
 
 	@Inject
-	private ActionDispatcher actionDispatcher;
+	private ActionProcessor actionProcessor;
 
 	@Inject
 	private AdapterFactory adapterFactory;
@@ -87,7 +87,7 @@ public class WorkflowModelServerModelFactory implements ModelFactory {
 
 		WorkflowModelServerAccess modelAccess = new WorkflowModelServerAccess(sourceURI.get(), modelServerClient.get(),
 				adapterFactory, commandCodec);
-		modelAccess.subscribe(new WorkflowSubscriptionListener(modelState, modelAccess, actionDispatcher));
+		modelAccess.subscribe(new WorkflowSubscriptionListener(modelState, modelAccess, actionProcessor));
 
 		if (modelState instanceof ModelServerAwareModelState) {
 			((ModelServerAwareModelState) modelState).setModelAccess(modelAccess);

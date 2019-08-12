@@ -17,7 +17,47 @@ package com.eclipsesource.glsp.api.action;
 
 import java.util.Optional;
 
-public interface ActionDispatcher {
+import com.eclipsesource.glsp.api.action.kind.IdentifiableRequestAction;
+import com.eclipsesource.glsp.api.action.kind.IdentifiableResponseAction;
+
+public interface ActionProcessor {
+
+	/**
+	 * <p>
+	 * Process the given action, dispatch to the corresponding handler, and optionally
+	 * send the reply Action to the client
+	 * </p>
+	 * 
+	 * @param clientId The client from which the action was received
+	 * @param action   The action to process
+	 */
+	default void process(String clientId, Action action) {
+		Optional<String> requestId = Optional.empty();
+		if (action instanceof IdentifiableRequestAction) {
+			// unwrap identifiable request
+			requestId = Optional.of(((IdentifiableRequestAction) action).getId());
+			action = ((IdentifiableRequestAction) action).getAction();
+		}
+
+		Optional<Action> responseOpt = dispatch(clientId, action);
+
+		if (responseOpt.isPresent()) {
+			// wrap identifiable response if necessary
+			Action response = requestId.<Action>map(id -> new IdentifiableResponseAction(id, responseOpt.get()))
+					.orElse(responseOpt.get());
+			send(clientId, response);
+		}
+
+	}
+
+	/**
+	 * @see ActionProcessor#process(String, Action)
+	 * 
+	 * @param message ActionMessage received from the client
+	 */
+	default void process(ActionMessage message) {
+		 process(message.getClientId(), message.getAction());
+	}
 
 	/**
 	 * <p>
@@ -33,18 +73,14 @@ public interface ActionDispatcher {
 	Optional<Action> dispatch(String clientId, Action action);
 
 	/**
-	 * Send the given action to the specified clientId. This method is intended to
-	 * be used for server-to-client communication, independently from any client
-	 * request (i.e. when it is not possible to simply "reply" to a Client action)
+	 * Send the given action to the specified clientId
 	 * 
-	 * @param clientId
-	 * 	The client to which the action should be sent
-	 * @param action
-	 * 	The action to send to the client
+	 * @param clientId The client to which the action should be sent
+	 * @param action   The action to send to the client
 	 */
 	void send(String clientId, Action action);
 
-	public static class NullImpl implements ActionDispatcher {
+	public static class NullImpl implements ActionProcessor {
 
 		@Override
 		public Optional<Action> dispatch(String clientId, Action action) {
