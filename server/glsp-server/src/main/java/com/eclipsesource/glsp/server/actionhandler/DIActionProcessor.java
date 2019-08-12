@@ -18,7 +18,7 @@ package com.eclipsesource.glsp.server.actionhandler;
 import java.util.Optional;
 
 import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.action.ActionDispatcher;
+import com.eclipsesource.glsp.api.action.ActionProcessor;
 import com.eclipsesource.glsp.api.action.ActionMessage;
 import com.eclipsesource.glsp.api.handler.ActionHandler;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPClient;
@@ -26,7 +26,7 @@ import com.eclipsesource.glsp.api.jsonrpc.GLSPClientProvider;
 import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
 import com.google.inject.Inject;
 
-public class DIActionDispatcher implements ActionDispatcher {
+public class DIActionProcessor implements ActionProcessor {
 
 	@Inject
 	protected GLSPClientProvider clientProvider;

@@ -17,7 +17,7 @@ package com.eclipsesource.glsp.api.di;
 
 import java.util.Optional;
 
-import com.eclipsesource.glsp.api.action.ActionDispatcher;
+import com.eclipsesource.glsp.api.action.ActionProcessor;
 import com.eclipsesource.glsp.api.configuration.ServerConfiguration;
 import com.eclipsesource.glsp.api.diagram.DiagramConfigurationProvider;
 import com.eclipsesource.glsp.api.factory.GraphGsonConfiguratorFactory;
@@ -58,7 +58,7 @@ public abstract class GLSPModule extends AbstractModule {
 		bind(ServerCommandHandlerProvider.class).to(bindServerCommandHandlerProvider());
 		bind(CommandPaletteActionProvider.class).to(bindCommandPaletteActionProvider());
 		bind(ModelValidator.class).to(bindModelValidator());
-		bind(ActionDispatcher.class).to(bindActionDispatcher());
+		bind(ActionProcessor.class).to(bindActionProcessor());
 		bind(DiagramConfigurationProvider.class).to(bindDiagramConfigurationProvider());
 		bind(LabelEditValidator.class).to(bindLabelEditValidator());
 		bind(ModelStateProvider.class).to(bindModelStateProvider());
@@ -126,8 +126,8 @@ public abstract class GLSPModule extends AbstractModule {
 		return ModelValidator.NullImpl.class;
 	}
 
-	protected Class<? extends ActionDispatcher> bindActionDispatcher() {
-		return ActionDispatcher.NullImpl.class;
+	protected Class<? extends ActionProcessor> bindActionProcessor() {
+		return ActionProcessor.NullImpl.class;
 	}
 
 	protected Class<? extends LabelEditValidator> bindLabelEditValidator() {

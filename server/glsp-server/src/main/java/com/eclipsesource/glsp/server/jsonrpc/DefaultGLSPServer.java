@@ -17,16 +17,12 @@ package com.eclipsesource.glsp.server.jsonrpc;
 
 import static com.eclipsesource.glsp.api.utils.ServerStatusUtil.error;
 
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 import org.apache.log4j.Logger;
 
-import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.action.ActionDispatcher;
 import com.eclipsesource.glsp.api.action.ActionMessage;
-import com.eclipsesource.glsp.api.action.kind.IdentifiableRequestAction;
-import com.eclipsesource.glsp.api.action.kind.IdentifiableResponseAction;
+import com.eclipsesource.glsp.api.action.ActionProcessor;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPClient;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPClientProvider;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
@@ -46,7 +42,7 @@ public class DefaultGLSPServer<T> implements GLSPServer {
 	@Inject
 	protected GLSPClientProvider clientProxyProvider;
 	@Inject
-	protected ActionDispatcher actionDispatcher;
+	protected ActionProcessor actionProcessor;
 	static Logger log = Logger.getLogger(DefaultGLSPServer.class);
 
 	private ServerStatus status;
@@ -95,26 +91,10 @@ public class DefaultGLSPServer<T> implements GLSPServer {
 			// is initialized. ClientId is only retrieved through messages; so this
 			// is currently the earliest we can register the clientProxy
 			this.clientProxyProvider.register(clientId, clientProxy);
-
-			Action requestAction = message.getAction();
-			Optional<String> requestId = Optional.empty();
-			if (requestAction instanceof IdentifiableRequestAction) {
-				// unwrap identifiable request
-				requestId = Optional.of(((IdentifiableRequestAction) requestAction).getId());
-				requestAction = ((IdentifiableRequestAction) requestAction).getAction();
-			}
-
-			Optional<Action> responseOpt = actionDispatcher.dispatch(clientId, requestAction);
-
-			if (responseOpt.isPresent()) {
-				// wrap identifiable response if necessary
-				Action response = requestId.<Action>map(id -> new IdentifiableResponseAction(id, responseOpt.get()))
-						.orElse(responseOpt.get());
-				actionDispatcher.send(clientId, response);
-			}
+			actionProcessor.process(message);
 		} catch (RuntimeException e) {
 			log.error(e);
-			actionDispatcher.send(clientId, error(e));
+			actionProcessor.send(clientId, error(e));
 		}
 	}
 

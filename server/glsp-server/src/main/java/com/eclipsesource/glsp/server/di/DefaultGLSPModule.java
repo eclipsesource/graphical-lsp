@@ -18,7 +18,7 @@ package com.eclipsesource.glsp.server.di;
 import java.util.Collection;
 import java.util.Collections;
 
-import com.eclipsesource.glsp.api.action.ActionDispatcher;
+import com.eclipsesource.glsp.api.action.ActionProcessor;
 import com.eclipsesource.glsp.api.di.GLSPModule;
 import com.eclipsesource.glsp.api.diagram.DiagramConfiguration;
 import com.eclipsesource.glsp.api.diagram.DiagramConfigurationProvider;
@@ -36,7 +36,7 @@ import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
 import com.eclipsesource.glsp.api.provider.ServerCommandHandlerProvider;
 import com.eclipsesource.glsp.server.actionhandler.CollapseExpandActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.ComputedBoundsActionHandler;
-import com.eclipsesource.glsp.server.actionhandler.DIActionDispatcher;
+import com.eclipsesource.glsp.server.actionhandler.DIActionProcessor;
 import com.eclipsesource.glsp.server.actionhandler.ExecuteServerCommandActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.LayoutActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.OpenActionHandler;
@@ -149,8 +149,8 @@ public abstract class DefaultGLSPModule extends GLSPModule {
 	}
 
 	@Override
-	protected Class<? extends ActionDispatcher> bindActionDispatcher() {
-		return DIActionDispatcher.class;
+	protected Class<? extends ActionProcessor> bindActionProcessor() {
+		return DIActionProcessor.class;
 	}
 	
 	@Override

@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.jetbrains.annotations.NotNull;
 
-import com.eclipsesource.glsp.api.action.ActionDispatcher;
+import com.eclipsesource.glsp.api.action.ActionProcessor;
 import com.eclipsesource.glsp.api.action.kind.RequestBoundsAction;
 import com.eclipsesource.glsp.api.action.kind.ServerStatusAction;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
@@ -49,13 +49,13 @@ import com.google.common.collect.Lists;
 public class WorkflowSubscriptionListener extends XmiToEObjectSubscriptionListener {
 	private static final String TEMP_COMMAND_RESOURCE_URI = "command$1.command";
 	private static Logger LOG = Logger.getLogger(WorkflowSubscriptionListener.class);
-	private ActionDispatcher actionDispatcher;
+	private ActionProcessor actionProcessor;
 	private WorkflowModelServerAccess modelServerAccess;
 	private GraphicalModelState modelState;
 
 	public WorkflowSubscriptionListener(GraphicalModelState modelState, WorkflowModelServerAccess modelServerAccess,
-			ActionDispatcher actionDispatcher) {
-		this.actionDispatcher = actionDispatcher;
+			ActionProcessor actionProcessor) {
+		this.actionProcessor = actionProcessor;
 		this.modelServerAccess = modelServerAccess;
 		this.modelState = modelState;
 	}
@@ -113,7 +113,7 @@ public class WorkflowSubscriptionListener extends XmiToEObjectSubscriptionListen
 		MappedGModelRoot mappedGModelRoot = WorkflowModelServerModelFactory
 				.populate(modelServerAccess.getWorkflowFacade(), modelState);
 		modelServerAccess.setNodeMapping(mappedGModelRoot.getMapping());
-		actionDispatcher.send(modelState.getClientId(), new RequestBoundsAction(modelState.getRoot()));
+		actionProcessor.send(modelState.getClientId(), new RequestBoundsAction(modelState.getRoot()));
 	}
 
 	private Resource createCommandResource(EditingDomain domain, CCommand command) {
@@ -143,7 +143,7 @@ public class WorkflowSubscriptionListener extends XmiToEObjectSubscriptionListen
 	@Override
 	public void onError(Optional<String> message) {
 		String errorMsg = message.orElse("Error occurred on model server!");
-		actionDispatcher.send(modelState.getClientId(), new ServerStatusAction(new ServerStatus(Severity.ERROR, errorMsg)));
+		actionProcessor.send(modelState.getClientId(), new ServerStatusAction(new ServerStatus(Severity.ERROR, errorMsg)));
 		LOG.error(errorMsg);
 	}
 	
@@ -155,7 +155,7 @@ public class WorkflowSubscriptionListener extends XmiToEObjectSubscriptionListen
 	@Override
 	public void onFailure(Throwable t) {
 		String errorMsg = "Subscribtion connection to modelserver failed!";
-		actionDispatcher.send(modelState.getClientId(),
+		actionProcessor.send(modelState.getClientId(),
 				new ServerStatusAction(new ServerStatus(Severity.ERROR, errorMsg, getDetails(t))));
 		LOG.error(errorMsg, t);
 	}
@@ -167,7 +167,7 @@ public class WorkflowSubscriptionListener extends XmiToEObjectSubscriptionListen
 	@Override
 	public void onClosed(int code, @NotNull String reason) {
 		String errorMsg = "Subscribtion connection to modelserver has been closed!";
-		actionDispatcher.send(modelState.getClientId(),
+		actionProcessor.send(modelState.getClientId(),
 				new ServerStatusAction(new ServerStatus(Severity.ERROR, errorMsg, reason)));
 		LOG.error(errorMsg + "\n" + reason);
 	}
@@ -175,7 +175,7 @@ public class WorkflowSubscriptionListener extends XmiToEObjectSubscriptionListen
 	@Override
 	public void onFailure(Throwable t, Response<String> response) {
 		String errorMsg = "Subscribtion connection to modelserver failed:" + "\n" + response;
-		actionDispatcher.send(modelState.getClientId(),
+		actionProcessor.send(modelState.getClientId(),
 				new ServerStatusAction(new ServerStatus(Severity.ERROR, errorMsg, getDetails(t))));
 		LOG.error(errorMsg, t);
 	}
