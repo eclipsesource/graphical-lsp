@@ -19,16 +19,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.types.LabeledAction;
-import com.eclipsesource.glsp.graph.GModelRoot;
 
 @FunctionalInterface
 public interface CommandPaletteActionProvider {
-	Set<LabeledAction> getActions(GModelRoot model, List<String> selectedElementIds);
+	Set<LabeledAction> getActions(GraphicalModelState modelState, List<String> selectedElementIds);
 
 	public static class NullImpl implements CommandPaletteActionProvider {
 		@Override
-		public Set<LabeledAction> getActions(GModelRoot model, List<String> selectedElementIds) {
+		public Set<LabeledAction> getActions(GraphicalModelState modelState, List<String> selectedElementIds) {
 			return Collections.emptySet();
 		}
 	}
