@@ -25,13 +25,13 @@ import java.util.Set;
 import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
 import com.eclipsesource.glsp.api.action.kind.CreateNodeOperationAction;
 import com.eclipsesource.glsp.api.action.kind.DeleteOperationAction;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.provider.CommandPaletteActionProvider;
 import com.eclipsesource.glsp.api.types.LabeledAction;
 import com.eclipsesource.glsp.example.workflow.utils.ModelTypes;
 import com.eclipsesource.glsp.example.workflow.wfgraph.TaskNode;
 import com.eclipsesource.glsp.graph.GModelElement;
 import com.eclipsesource.glsp.graph.GModelIndex;
-import com.eclipsesource.glsp.graph.GModelRoot;
 import com.eclipsesource.glsp.graph.GNode;
 import com.google.common.collect.Sets;
 
@@ -49,10 +49,10 @@ public class WorkflowCommandPaletteActionProvider implements CommandPaletteActio
 			CREATE_MANUAL_TASK, CREATE_MERGE_NODE, CREATE_DECISION_NODE);
 
 	@Override
-	public Set<LabeledAction> getActions(GModelRoot root, List<String> selectedElementsIDs) {
+	public Set<LabeledAction> getActions(GraphicalModelState modelState, List<String> selectedElementsIDs) {
 		Set<LabeledAction> actions = Sets.newLinkedHashSet();
 
-		GModelIndex index = GModelIndex.get(root);
+		GModelIndex index = modelState.getIndex();
 		Set<GModelElement> selectedElements = index.getAll(selectedElementsIDs);
 
 		// Create node actions are always possible
