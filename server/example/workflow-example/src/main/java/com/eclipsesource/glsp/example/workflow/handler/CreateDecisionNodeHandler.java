@@ -15,32 +15,12 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.handler;
 
-import java.util.Optional;
-
-import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.example.workflow.utils.ModelTypes;
-import com.eclipsesource.glsp.example.workflow.wfgraph.ActivityNode;
-import com.eclipsesource.glsp.example.workflow.wfgraph.WfgraphFactory;
-import com.eclipsesource.glsp.graph.GNode;
-import com.eclipsesource.glsp.graph.GPoint;
-import com.eclipsesource.glsp.server.operationhandler.CreateNodeOperationHandler;
-import com.eclipsesource.glsp.server.util.GModelUtil;
 
-public class CreateDecisionNodeHandler extends CreateNodeOperationHandler {
+public class CreateDecisionNodeHandler extends CreateActivityNodeHandler {
 
 	public CreateDecisionNodeHandler() {
 		super(ModelTypes.DECISION_NODE);
-	}
-
-	@Override
-	protected GNode createNode(Optional<GPoint> point, GraphicalModelState modelState) {
-		ActivityNode result = WfgraphFactory.eINSTANCE.createActivityNode();
-		result.setType(elementTypeId);
-		result.setNodeType("decisionNode");
-		point.ifPresent(result::setPosition);
-
-		GModelUtil.generateId(result, "activityNode", modelState);
-		return result;
 	}
 
 }

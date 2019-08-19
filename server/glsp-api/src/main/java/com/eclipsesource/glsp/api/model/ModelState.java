@@ -15,6 +15,8 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.model;
 
+import org.eclipse.emf.common.command.Command;
+
 public interface ModelState<T> {
 
 	String getClientId();
@@ -24,5 +26,15 @@ public interface ModelState<T> {
 	T getRoot();
 
 	void setRoot(T newRoot);
+
+	void execute(Command command);
+
+	boolean canUndo();
+
+	boolean canRedo();
+
+	void undo();
+
+	void redo();
 
 }

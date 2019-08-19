@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "dependencies": {
     "@glsp-examples/workflow-theia": "0.1.0",
+    "@glsp-examples/workflow-modelserver-theia": "0.1.0",
     "@theia/core": "^0.7.1",
     "@theia/editor": "^0.7.1",
     "@theia/filesystem": "^0.7.1",
@@ -16,7 +17,8 @@
     "@theia/process": "^0.7.1",
     "@theia/terminal": "^0.7.1",
     "@theia/typescript": "^0.7.1",
-    "@theia/workspace": "^0.7.1"
+    "@theia/workspace": "^0.7.1",
+    "@modelserver/coffee-theia": "next"
   },
   "devDependencies": {
     "@theia/cli": "^0.7.1"
@@ -24,7 +26,7 @@
   "scripts": {
     "prepare": "theia build --mode development",
     "start": "theia start --WORKFLOW_LSP=5007 --root-dir=../workspace",
-    "start:debug": "theia start --WORKFLOW_LSP=5007 --root-dir=../workspace --loglevel=debug",
+    "start:debug": "theia start --WORKFLOW_LSP=5007 --WORKFLOW_NOTATION_LSP=5008 --root-dir=../workspace --loglevel=debug",
     "watch": "theia build --watch --mode development"
   },
   "theia": {

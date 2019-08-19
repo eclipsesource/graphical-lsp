@@ -13,26 +13,29 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.server.actionhandler;
+package com.eclipsesource.glsp.api.jsonrpc;
 
-import java.util.Optional;
+public class GLSPServerException extends RuntimeException {
+	private static final long serialVersionUID = 1L;
 
-import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.action.ActionDispatcher;
-import com.eclipsesource.glsp.api.handler.ActionHandler;
-import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
-import com.google.inject.Inject;
-
-public class DIActionDispatcher implements ActionDispatcher {
-
-	@Inject
-	protected ActionHandlerProvider handlerProvider;
-
-	public Optional<Action> dispatch(String clientId, Action action) {
-		Optional<ActionHandler> handler = handlerProvider.getHandler(action);
-		if (handler.isPresent()) {
-			return handler.get().execute(clientId, action);
-		}
-		return Optional.empty();
+	/**
+	 * Constructs a {@link GLSPServerException} with the specified message.
+	 *
+	 * @param message the error message
+	 */
+	public GLSPServerException(final String message) {
+		super(message);
 	}
+
+	/**
+	 * Constructs a {@link GLSPServerException} with the specified message and an
+	 * additional exception.
+	 *
+	 * @param message   the error message
+	 * @param throwable a throwable as hint to the original cause of the error
+	 */
+	public GLSPServerException(final String message, final Throwable throwable) {
+		super(message, throwable);
+	}
+
 }

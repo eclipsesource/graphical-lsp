@@ -24,6 +24,7 @@ import { inject, injectable, multiInject } from "inversify";
 import { DiagramManagerProvider } from "sprotty-theia/lib";
 import { MessageConnection, ResponseError } from "vscode-jsonrpc";
 
+import { InitializeParameters } from "../../common";
 import { GLSPClientFactory } from "./glsp-client";
 import { GLSPClient, GLSPClientOptions } from "./glsp-client-services";
 
@@ -105,14 +106,42 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         }));
     }
     protected readonly toDeactivate = new DisposableCollection();
+
     activate(): Disposable {
         if (this.toDeactivate.disposed) {
-            this.doActivate(this.toDeactivate);
+            this.doActivate(this.toDeactivate)
+                .then(() => this.initialize());
         }
         return this.toDeactivate;
     }
+
     deactivate(): void {
         this.toDeactivate.dispose();
+    }
+
+    protected async createInitializeParameters(): Promise<InitializeParameters> {
+        const options = await this.createInitializeOptions();
+        return { options };
+    }
+
+    protected createInitializeOptions(): MaybePromise<any> {
+        return undefined;
+    }
+
+    async initialize(): Promise<void> {
+        const parameters = await this.createInitializeParameters();
+        this.glspClient.then(client => client.initialize(parameters)
+            .then(success => {
+                if (!success) {
+                    this.messageService.error(`Failed to initialize ${this.name} glsp server with ${JSON.stringify(parameters)}`, 'Retry')
+                        .then(retry => {
+                            if (retry) {
+                                this.initialize();
+                            }
+                        });
+                }
+            })
+        );
     }
 
     protected async doActivate(toDeactivate: DisposableCollection): Promise<void> {
@@ -174,7 +203,6 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
     protected createOptions(): GLSPClientOptions {
         return {
             initializationFailedHandler: err => this.handleInitializationFailed(err),
-
         };
     }
 

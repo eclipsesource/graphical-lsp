@@ -16,16 +16,17 @@
 package com.eclipsesource.glsp.api.factory;
 
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.graph.GModelRoot;
 
 public interface ModelFactory {
 
-	GModelRoot loadModel(RequestModelAction action);
+	GModelRoot loadModel(RequestModelAction action, GraphicalModelState modelState);
 
 	public static class NullImpl implements ModelFactory {
 
 		@Override
-		public GModelRoot loadModel(RequestModelAction action) {
+		public GModelRoot loadModel(RequestModelAction action, GraphicalModelState modelState) {
 			return null;
 		}
 

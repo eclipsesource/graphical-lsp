@@ -5,14 +5,14 @@ matrix:
   include:
     - language: java
       dist: trusty
-      jdk:  oraclejdk8
+      jdk:  openjdk11
       before_script:
         - cd server
       cache:
         directories:
           - "$HOME/.m2/repository"
       script:
-        - mvn clean verify
+        - mvn clean verify -U
       before_deploy:
        - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
        - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
@@ -55,7 +55,7 @@ matrix:
       before_deploy:
       - printf "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}\n" >> ~/.npmrc
       - yarn
-    
+
       deploy:
         provider: script
         script: bash ../scripts/deployNPM.sh

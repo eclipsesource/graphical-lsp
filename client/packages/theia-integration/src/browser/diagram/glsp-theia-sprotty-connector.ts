@@ -13,8 +13,9 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { ActionMessage, ExportSvgAction, ServerStatusAction } from "@glsp/sprotty-client/lib";
-import { WidgetManager } from "@theia/core/lib/browser";
+import { ActionMessage, ExportSvgAction, isGLSPServerStatusAction, ServerStatusAction } from "@glsp/sprotty-client/lib";
+import { MessageService } from "@theia/core";
+import { ConfirmDialog, WidgetManager } from "@theia/core/lib/browser";
 import { EditorManager } from "@theia/editor/lib/browser";
 import { DiagramManager, DiagramWidget, TheiaDiagramServer, TheiaFileSaver, TheiaSprottyConnector } from "sprotty-theia/lib";
 
@@ -26,7 +27,8 @@ export interface GLSPTheiaSprottyConnectorServices {
     readonly fileSaver: TheiaFileSaver,
     readonly editorManager: EditorManager,
     readonly widgetManager: WidgetManager,
-    readonly diagramManager: DiagramManager
+    readonly diagramManager: DiagramManager,
+    readonly messageService: MessageService
 }
 
 export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPTheiaSprottyConnectorServices {
@@ -37,6 +39,7 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
     readonly editorManager: EditorManager;
     readonly widgetManager: WidgetManager;
     readonly diagramManager: DiagramManager;
+    readonly messageService: MessageService;
 
     constructor(services: GLSPTheiaSprottyConnectorServices) {
         Object.assign(this, services);
@@ -60,8 +63,22 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
 
     showStatus(widgetId: string, status: ServerStatusAction): void {
         const widget = this.widgetManager.getWidgets(this.diagramManager.id).find(w => w.id === widgetId);
+
         if (widget instanceof DiagramWidget)
             widget.setStatus(status);
+
+        if (status.severity === "ERROR") {
+            const details = isGLSPServerStatusAction(status) ? status.details : undefined;
+            if (details) {
+                this.messageService.error(status.message, "Show details").then(result => {
+                    if (result === 'Show details') {
+                        showErrorDialog(status.message, details);
+                    }
+                });
+            } else {
+                this.messageService.error(status.message, { timeout: -1 });
+            }
+        }
     }
 
     sendMessage(message: ActionMessage) {
@@ -79,4 +96,10 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
             diagramServer.messageReceived(message);
         }
     }
+}
+
+export function showErrorDialog(title: string, msg: string) {
+    new ConfirmDialog({
+        title, msg
+    }).open();
 }

@@ -19,11 +19,12 @@ import java.util.Optional;
 
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.graph.GModelRoot;
 
 public interface OperationHandler extends Handler<AbstractOperationAction> {
 
-	Optional<GModelRoot> execute(AbstractOperationAction action, GraphicalModelState modelState);
+	void execute(AbstractOperationAction action, GraphicalModelState modelState);
+	
+	String getLabel(AbstractOperationAction action);
 
 	@Override
 	default boolean handles(AbstractOperationAction action) {

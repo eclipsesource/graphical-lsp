@@ -29,7 +29,8 @@ public interface GLSPServer extends GLSPClientAware {
 		GLSPServer getGraphicalLanguageServer(String clientId);
 	}
 
-	void initialize();
+	@JsonRequest("initialize")
+	CompletableFuture<Boolean> initialize(InitializeParameters params);
 
 	@JsonNotification("process")
 	void process(ActionMessage message);

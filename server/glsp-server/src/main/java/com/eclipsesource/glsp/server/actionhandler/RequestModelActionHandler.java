@@ -22,8 +22,6 @@ import com.eclipsesource.glsp.api.action.kind.RequestBoundsAction;
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.api.utils.ClientOptions;
-import com.eclipsesource.glsp.api.utils.ClientOptions.ParsedClientOptions;
 import com.eclipsesource.glsp.graph.GModelRoot;
 import com.google.inject.Inject;
 
@@ -46,10 +44,9 @@ public class RequestModelActionHandler extends AbstractActionHandler {
 	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		if (action instanceof RequestModelAction) {
 			RequestModelAction requestAction = (RequestModelAction) action;
-			ParsedClientOptions options = ClientOptions.parse(requestAction.getOptions());
-			GModelRoot model = modelFactory.loadModel(requestAction);
+			GModelRoot model = modelFactory.loadModel(requestAction, modelState);
 			modelState.setRoot(model);
-			modelState.setClientOptions(options);
+			modelState.setClientOptions(requestAction.getOptions());
 			return Optional.of(new RequestBoundsAction(modelState.getRoot()));
 		}
 		return Optional.empty();

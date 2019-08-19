@@ -18,9 +18,21 @@ import { injectable } from "inversify";
 
 import { WorkflowLanguage } from "../../common/workflow-language";
 
+export interface WorkflowInitializeOptions {
+    timestamp: Date,
+    message: string
+}
+
 @injectable()
 export class WorkflowGLSPClientContribution extends BaseGLSPClientContribution {
     readonly id = WorkflowLanguage.Id;
     readonly name = WorkflowLanguage.Name;
     readonly fileExtensions = [WorkflowLanguage.FileExtension];
+
+    protected createInitializeOptions(): WorkflowInitializeOptions {
+        return {
+            timestamp: new Date(),
+            message: "Custom Options Available"
+        };
+    }
 }

@@ -137,6 +137,7 @@ public class GModelIndexImpl extends ECrossReferenceAdapter implements GModelInd
 		return i;
 	}
 
+	@Override
 	public int getTypeCount(EClass eClass) {
 		return typeToElements.computeIfAbsent(eClass, t -> new HashSet<>()).size();
 	}

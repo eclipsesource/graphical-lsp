@@ -14,10 +14,19 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { ActionMessage } from "@glsp/sprotty-client/lib";
-import { NotificationType, NotificationType0, RequestType0 } from "vscode-jsonrpc";
+import { NotificationType, NotificationType0, RequestType, RequestType0 } from "vscode-jsonrpc";
+
+
+export interface InitializeParameters {
+    options?: any
+}
 
 export namespace ActionMessageNotification {
     export const type = new NotificationType<ActionMessage, void>('process');
+}
+
+export namespace InitializeRequest {
+    export const type = new RequestType<InitializeParameters, Boolean, void, void>('initialize');
 }
 
 export namespace ShutdownRequest {

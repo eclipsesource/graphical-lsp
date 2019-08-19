@@ -24,7 +24,6 @@ import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.graph.GModelElement;
 import com.eclipsesource.glsp.graph.GModelIndex;
-import com.eclipsesource.glsp.graph.GModelRoot;
 import com.eclipsesource.glsp.graph.GNode;
 import com.eclipsesource.glsp.graph.GPoint;
 
@@ -32,13 +31,13 @@ public abstract class CreateNodeOperationHandler implements OperationHandler {
 
 	protected String elementTypeId;
 
+	public CreateNodeOperationHandler(String elementTypeId) {
+		this.elementTypeId = elementTypeId;
+	}
+
 	@Override
 	public Class<? extends Action> handlesActionType() {
 		return CreateNodeOperationAction.class;
-	}
-
-	public CreateNodeOperationHandler(String elementTypeId) {
-		this.elementTypeId = elementTypeId;
 	}
 
 	@Override
@@ -49,7 +48,12 @@ public abstract class CreateNodeOperationHandler implements OperationHandler {
 	}
 
 	@Override
-	public Optional<GModelRoot> execute(AbstractOperationAction action, GraphicalModelState modelState) {
+	public String getLabel(AbstractOperationAction action) {
+		return "Create node";
+	}
+
+	@Override
+	public void execute(AbstractOperationAction action, GraphicalModelState modelState) {
 		CreateNodeOperationAction executeAction = (CreateNodeOperationAction) action;
 
 		GModelIndex index = modelState.getIndex();
@@ -62,7 +66,6 @@ public abstract class CreateNodeOperationHandler implements OperationHandler {
 		Optional<GPoint> point = Optional.of(executeAction.getLocation());
 		GModelElement element = createNode(point, modelState);
 		container.get().getChildren().add(element);
-		return Optional.of(modelState.getRoot());
 	}
 
 	protected abstract GNode createNode(Optional<GPoint> point, GraphicalModelState modelState);

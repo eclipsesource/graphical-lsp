@@ -157,4 +157,6 @@ public interface GModelIndex {
 		return Stream.concat(Stream.of(element), element.getChildren().stream());
 	}
 
+	int getTypeCount(EClass eClass);
+
 }

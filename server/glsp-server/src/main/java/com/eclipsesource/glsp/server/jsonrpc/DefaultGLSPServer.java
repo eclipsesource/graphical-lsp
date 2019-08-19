@@ -15,40 +15,65 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.jsonrpc;
 
-import java.util.Optional;
+import static com.eclipsesource.glsp.api.utils.ServerStatusUtil.error;
+
 import java.util.concurrent.CompletableFuture;
 
 import org.apache.log4j.Logger;
 
-import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.action.ActionDispatcher;
 import com.eclipsesource.glsp.api.action.ActionMessage;
-import com.eclipsesource.glsp.api.action.kind.IdentifiableRequestAction;
-import com.eclipsesource.glsp.api.action.kind.IdentifiableResponseAction;
+import com.eclipsesource.glsp.api.action.ActionProcessor;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPClient;
+import com.eclipsesource.glsp.api.jsonrpc.GLSPClientProvider;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
+import com.eclipsesource.glsp.api.jsonrpc.InitializeParameters;
 import com.eclipsesource.glsp.api.model.ModelStateProvider;
 import com.eclipsesource.glsp.api.types.ServerStatus;
 import com.eclipsesource.glsp.api.types.ServerStatus.Severity;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.inject.Inject;
 
-public class DefaultGLSPServer implements GLSPServer {
+public class DefaultGLSPServer<T> implements GLSPServer {
 
 	@Inject
-	private ModelStateProvider modelStateProvider;
+	protected ModelStateProvider modelStateProvider;
+
 	@Inject
-	private ActionDispatcher actionDispatcher;
+	protected GLSPClientProvider clientProxyProvider;
+	@Inject
+	protected ActionProcessor actionProcessor;
 	static Logger log = Logger.getLogger(DefaultGLSPServer.class);
 
 	private ServerStatus status;
 
 	private GLSPClient clientProxy;
+	private Class<T> optionsClazz;
 
 	public DefaultGLSPServer() {
+		this(null);
+	}
+
+	public DefaultGLSPServer(Class<T> optionsClazz) {
+		this.optionsClazz = optionsClazz;
 	}
 
 	@Override
-	public void initialize() {
+	public CompletableFuture<Boolean> initialize(InitializeParameters params) {
+		try {
+			if (optionsClazz != null && params.getOptions() instanceof JsonElement) {
+				T options = new Gson().fromJson((JsonElement) params.getOptions(), optionsClazz);
+				return handleOptions(options);
+			}
+			return handleOptions(null);
+		} catch (Throwable ex) {
+			log.error("Could not initialize server due to corrupted options: " + params.getOptions(), ex);
+			return CompletableFuture.completedFuture(false);
+		}
+	}
+
+	protected CompletableFuture<Boolean> handleOptions(T options) {
+		return CompletableFuture.completedFuture(true);
 	}
 
 	@Override
@@ -61,23 +86,15 @@ public class DefaultGLSPServer implements GLSPServer {
 	public void process(ActionMessage message) {
 		log.debug("process " + message);
 		String clientId = message.getClientId();
-
-		Action requestAction = message.getAction();
-		Optional<String> requestId = Optional.empty();
-		if (requestAction instanceof IdentifiableRequestAction) {
-			// unwrap identifiable request
-			requestId = Optional.of(((IdentifiableRequestAction) requestAction).getId());
-			requestAction = ((IdentifiableRequestAction) requestAction).getAction();
-		}
-
-		Optional<Action> responseOpt = actionDispatcher.dispatch(clientId, requestAction);
-
-		if (responseOpt.isPresent()) {
-			// wrap identifiable response if necessary
-			Action response = requestId.<Action>map(id -> new IdentifiableResponseAction(id, responseOpt.get()))
-					.orElse(responseOpt.get());
-			ActionMessage responseMessage = new ActionMessage(clientId, response);
-			clientProxy.process(responseMessage);
+		try {
+			// FIXME: It seems we don't get access to the clientId when the connection
+			// is initialized. ClientId is only retrieved through messages; so this
+			// is currently the earliest we can register the clientProxy
+			this.clientProxyProvider.register(clientId, clientProxy);
+			actionProcessor.process(message);
+		} catch (RuntimeException e) {
+			log.error(e);
+			actionProcessor.send(clientId, error(e));
 		}
 	}
 
@@ -94,5 +111,6 @@ public class DefaultGLSPServer implements GLSPServer {
 	@Override
 	public void exit(String clientId) {
 		modelStateProvider.remove(clientId);
+		clientProxyProvider.remove(clientId);
 	}
 }
