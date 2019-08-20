@@ -17,8 +17,7 @@
     "@theia/process": "^0.7.1",
     "@theia/terminal": "^0.7.1",
     "@theia/typescript": "^0.7.1",
-    "@theia/workspace": "^0.7.1",
-    "@modelserver/coffee-theia": "next"
+    "@theia/workspace": "^0.7.1"
   },
   "devDependencies": {
     "@theia/cli": "^0.7.1"
