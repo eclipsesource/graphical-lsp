@@ -33,6 +33,7 @@ import {
     SModelRoot,
     TYPES
 } from "sprotty/lib";
+import { FluentIterable, toArray } from "sprotty/lib/utils/iterable";
 
 import { GLSPViewerOptions } from "../../base/views/viewer-options";
 import { isNotUndefined } from "../../utils/smodel-util";
@@ -180,19 +181,11 @@ export class FeedbackMoveMouseListener extends MouseListener {
                     if (isMoveable(element) && isResizeable(element)) {
                         // If noElementOverlap Option is set perform collision detection
                         if (this.glspViewerOptions.noElementOverlap) {
-                            /*console.log("Element id ", element.id);*/
-                            // Create copy to check possible bounds
+
+                            // Create ghost element to check possible bounds
                             const ghostElement = Object.create(element);
-                            /**
-                             * Wrong jump seems to be caused by the fact that the ghost element is positioned
-                             * in relation to the mouse pointer and not to the original element it mirrors.
-                             * If I set it to the element bounds the ghost will not follow the pointer and stay perpetually stuck
-                             * to the original position of the element.
-                             *
-                             * Maybe add some relative offset to the mouse position for the selected element if the mouse is way the fuck out
-                             * of the element?! WTF
-                             *  */
-                            ghostElement.bounds = /*element.bounds; */ this.getCenteredBoundsToPointer(mousePoint, element.bounds);
+
+                            ghostElement.bounds = this.getCenteredBoundsToPointer(mousePoint, element.bounds);
                             // Set type to Ghost to keep tracking it through elements
                             ghostElement.type = "Ghost";
                             ghostElement.id = element.id;
@@ -205,14 +198,17 @@ export class FeedbackMoveMouseListener extends MouseListener {
                                 mouseOverElement = true;
                                 result.push(new ApplyCursorCSSFeedbackAction(CursorCSS.DEFAULT));
                             }
+
+                            const selectedElements: FluentIterable<SModelElement> = target.root.index.all()
+                                .filter(selected => isSelectable(selected) && selected.selected);
+
                             // If the ghost element has moved beyond the obstacle move the actual element there aswell
-                            if (this.hasCollided && collisionTargetsGhost.length === 0) {
+                            // But only if a single element is selected (multi-selection jumps are not supported)
+                            if (this.hasCollided && collisionTargetsGhost.length === 0 && toArray(selectedElements).length === 0) {
                                 mouseOverElement = true;
                                 result.push(new ApplyCursorCSSFeedbackAction(CursorCSS.DEFAULT));
-                                /*// Maybe remove this check during debugging
-                                // Seems to do nothing either way*/
+
                                 if (element.id === ghostElement.id) {
-                                    console.log("Element and ghost", element, ghostElement);
                                     element.bounds = ghostElement.bounds;
                                 }
 
@@ -224,6 +220,7 @@ export class FeedbackMoveMouseListener extends MouseListener {
                             if (collisionTargets.length > 0) {
                                 collisionTargets.forEach(collisionTarget => {
                                     if (isResizeable(collisionTarget)) {
+                                        console.log("Collision target", collisionTarget);
                                         willCollide = true;
                                         this.hasCollided = true;
                                         result.push(new ApplyCursorCSSFeedbackAction(CursorCSS.OVERLAP_FORBIDDEN));
