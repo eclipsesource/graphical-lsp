@@ -18,6 +18,7 @@ import { VNode } from "snabbdom/vnode";
 import {
     Action,
     Bounds,
+    BoundsAware,
     CommandExecutionContext,
     CommandResult,
     ElementMove,
@@ -29,6 +30,7 @@ import {
     MouseListener,
     MoveAction,
     Point,
+    PointToPointLine,
     SModelElement,
     SModelRoot,
     TYPES
@@ -159,6 +161,157 @@ export class FeedbackMoveMouseListener extends MouseListener {
         return shiftedBounds;
     }
 
+
+    // Remove thisd and use the one from the improved routing branch
+    getDistanceBetweenParallelLines(p1: Point, p2: Point, secondLine: PointToPointLine): Number {
+        const numerator: number = Math.abs((secondLine.a * p1.x) + (secondLine.b * p1.y) - secondLine.c);
+        const denominator: number = Math.sqrt(Math.pow(secondLine.a, 2) + Math.pow(secondLine.b, 2));
+        return numerator / denominator;
+    }
+
+    /**
+     * Snaps the element to the target in case of a collision
+     *
+     * Experiment with snapping to the closest edge.
+     */
+    snapElementToTarget(element: SModelElement & BoundsAware, target: SModelElement & BoundsAware, dx: number, dy: number) {
+        let snappedBounds: Bounds = element.bounds;
+
+        const elementTopLeft: Point = {
+            x: element.bounds.x,
+            y: element.bounds.y
+        };
+        const elementTopRight: Point = {
+            x: element.bounds.x + element.bounds.width,
+            y: element.bounds.y
+        };
+        const elementBottomLeft: Point = {
+            x: element.bounds.x,
+            y: element.bounds.y + element.bounds.height
+        };
+        const elementBottomRight: Point = {
+            x: element.bounds.x + element.bounds.width,
+            y: element.bounds.y + element.bounds.height
+        };
+
+
+        const targetTopLeft: Point = {
+            x: target.bounds.x,
+            y: target.bounds.y
+        };
+        const targetTopRight: Point = {
+            x: target.bounds.x + target.bounds.width,
+            y: target.bounds.y
+        };
+        const targetBottomLeft: Point = {
+            x: target.bounds.x,
+            y: target.bounds.y + target.bounds.height
+        };
+        const targetBottomRight: Point = {
+            x: target.bounds.x + target.bounds.width,
+            y: target.bounds.y + target.bounds.height
+        };
+
+
+        const targetTopLine: PointToPointLine = new PointToPointLine(targetTopLeft, targetTopRight);
+        const targetBottomLine: PointToPointLine = new PointToPointLine(targetBottomLeft, targetBottomRight);
+        const targetLeftLine: PointToPointLine = new PointToPointLine(targetTopLeft, targetBottomLeft);
+        const targetRightLine: PointToPointLine = new PointToPointLine(targetTopRight, targetBottomRight);
+
+        const distanceTop: Number = this.getDistanceBetweenParallelLines(elementBottomLeft, elementBottomRight, targetTopLine);
+        const distanceBottom: Number = this.getDistanceBetweenParallelLines(elementTopLeft, elementTopRight, targetBottomLine);
+        const distanceLeft: Number = this.getDistanceBetweenParallelLines(elementTopLeft, elementBottomLeft, targetRightLine);
+        const distanceRight: Number = this.getDistanceBetweenParallelLines(elementTopRight, elementBottomRight, targetLeftLine);
+
+        const minimumDistance = Math.min(distanceTop.valueOf(), distanceBottom.valueOf(), distanceLeft.valueOf(), distanceRight.valueOf());
+        if (minimumDistance === distanceTop) {
+            console.log("Top is closest");
+            snappedBounds = {
+                x: element.bounds.x,
+                y: target.bounds.y - 1 - element.bounds.height,
+                width: element.bounds.width,
+                height: element.bounds.height
+            };
+        }
+        if (minimumDistance === distanceBottom) {
+            console.log("Bottom is closest");
+            snappedBounds = {
+                x: element.bounds.x,
+                y: target.bounds.y + target.bounds.height + 1,
+                width: element.bounds.width,
+                height: element.bounds.height
+            };
+        }
+        if (minimumDistance === distanceLeft) {
+            console.log("Left is closest");
+            snappedBounds = {
+                x: target.bounds.x + target.bounds.width + 1,
+                y: element.bounds.y,
+                width: element.bounds.width,
+                height: element.bounds.height
+            };
+        }
+        if (minimumDistance === distanceRight) {
+            console.log("Right is closest");
+            snappedBounds = {
+                x: target.bounds.x - 1 - element.bounds.width,
+                y: element.bounds.y,
+                width: element.bounds.width,
+                height: element.bounds.height
+            };
+        }
+
+
+        /*
+                // Mainly horizontal movement
+                if (Math.abs(dx) >= Math.abs(dy)) {
+                    // Element is left of target
+                    if (element.bounds.x < target.bounds.x) {
+                        // Snap it to the right
+                        console.log("Snapping to the right");
+                        snappedBounds = {
+                            x: target.bounds.x - 1 - element.bounds.width,
+                            y: element.bounds.y,
+                            width: element.bounds.width,
+                            height: element.bounds.height
+                        };
+                    } else {
+                        // Element is right of target, snap it to the left
+                        console.log("Snapping to the left");
+                        snappedBounds = {
+                            x: target.bounds.x + target.bounds.width + 1,
+                            y: element.bounds.y,
+                            width: element.bounds.width,
+                            height: element.bounds.height
+                        };
+                    }
+                } else {
+                    // Mainly vertical movement
+                    // Element is above the target
+                    if (element.bounds.y < target.bounds.y) {
+                        // Snap it down
+                        console.log("Snapping down");
+                        snappedBounds = {
+                            x: element.bounds.x,
+                            y: target.bounds.y - 1 - element.bounds.height,
+                            width: element.bounds.width,
+                            height: element.bounds.height
+                        };
+                    } else {
+                        // Element is below the target, snap it up
+                        console.log("Snapping up");
+                        snappedBounds = {
+                            x: element.bounds.x,
+                            y: target.bounds.y + target.bounds.height + 1,
+                            width: element.bounds.width,
+                            height: element.bounds.height
+                        };
+                    }
+                }*/
+        // Set the snapped bounds
+        element.bounds = snappedBounds;
+    }
+
     mouseMove(target: SModelElement, event: MouseEvent): Action[] {
         const result: Action[] = [];
         if (event.buttons === 0)
@@ -220,7 +373,13 @@ export class FeedbackMoveMouseListener extends MouseListener {
                             if (collisionTargets.length > 0) {
                                 collisionTargets.forEach(collisionTarget => {
                                     if (isResizeable(collisionTarget)) {
-                                        console.log("Collision target", collisionTarget);
+                                        // console.log("Collision target", collisionTarget);
+                                        // Only snap on first collision to avoid erratic jumps
+                                        if (!this.hasCollided) {
+                                            this.snapElementToTarget(element, collisionTarget, dx, dy);
+                                        }
+
+
                                         willCollide = true;
                                         this.hasCollided = true;
                                         result.push(new ApplyCursorCSSFeedbackAction(CursorCSS.OVERLAP_FORBIDDEN));
