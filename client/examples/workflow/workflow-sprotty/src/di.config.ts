@@ -115,7 +115,8 @@ export default function createContainer(widgetId: string): Container {
     overrideGLSPViewerOptions(container, {
         baseDiv: widgetId,
         hiddenDiv: widgetId + "_hidden",
-        noElementOverlap: true
+        noElementOverlap: true,
+        needsClientLayout: true
     });
 
     return container;

@@ -21,6 +21,7 @@ import java.util.Optional;
 public final class ClientOptions {
 	public static final String DIAGRAM_TYPE = "diagramType";
 	public static final String SOURCE_URI = "sourceUri";
+	public static final String NEEDS_CLIENT_LAYOUT = "needsClientLayout";
 
 	private ClientOptions() {
 	}
