@@ -26,6 +26,7 @@ import com.eclipsesource.glsp.api.action.ActionProcessor;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPClient;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPClientProvider;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
+import com.eclipsesource.glsp.api.jsonrpc.GLSPServerException;
 import com.eclipsesource.glsp.api.jsonrpc.InitializeParameters;
 import com.eclipsesource.glsp.api.model.ModelStateProvider;
 import com.eclipsesource.glsp.api.types.ServerStatus;
@@ -92,7 +93,7 @@ public class DefaultGLSPServer<T> implements GLSPServer {
 			// is currently the earliest we can register the clientProxy
 			this.clientProxyProvider.register(clientId, clientProxy);
 			actionProcessor.process(message);
-		} catch (RuntimeException e) {
+		} catch (GLSPServerException e) {
 			log.error(e);
 			actionProcessor.send(clientId, error(e));
 		}
