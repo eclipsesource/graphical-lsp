@@ -13,31 +13,41 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.example.workflow.handler;
+package com.eclipsesource.graph.builder;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.graph.DefaultTypes;
-import com.eclipsesource.glsp.graph.GEdge;
-import com.eclipsesource.glsp.graph.GModelElement;
-import com.eclipsesource.glsp.server.operationhandler.CreateConnectionOperationHandler;
-import com.eclipsesource.graph.builder.impl.GEdgeBuilder;
+import com.eclipsesource.glsp.graph.GIssue;
+import com.eclipsesource.glsp.graph.GIssueMarker;
 
-public class CreateEdgeHandler extends CreateConnectionOperationHandler {
+public abstract class AbstractGIssueMarkerBuilder<T extends GIssueMarker, E extends AbstractGIssueMarkerBuilder<T, E>>
+		extends GShapeElementBuilder<T, E> {
 
-	public CreateEdgeHandler() {
-		super(DefaultTypes.EDGE);
+	protected List<GIssue> issues = new ArrayList<>();
+
+	public AbstractGIssueMarkerBuilder(String type) {
+		super(type);
+	}
+
+	public E setIssues(List<GIssue> issues) {
+		this.issues = issues;
+		return self();
+	}
+
+	public E addIssues(List<GIssue> issues) {
+		if (this.issues == null) {
+			return setIssues(issues);
+		} else {
+			this.issues.addAll(issues);
+			return self();
+		}
 	}
 
 	@Override
-	protected Optional<GEdge> createConnection(GModelElement source, GModelElement target,
-			GraphicalModelState modelState) {
-		GEdge edge = new GEdgeBuilder()
-				.setSource(source)
-				.setTarget(target)
-				.build();
-		return Optional.of(edge);
+	protected void setProperties(T issueMarker) {
+		super.setProperties(issueMarker);
+		issueMarker.getIssues().addAll(issues);
 	}
 
 }

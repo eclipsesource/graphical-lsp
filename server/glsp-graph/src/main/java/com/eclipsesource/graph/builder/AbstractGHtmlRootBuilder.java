@@ -13,31 +13,39 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.example.workflow.handler;
+package com.eclipsesource.graph.builder;
 
-import java.util.Optional;
+import java.util.List;
 
-import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.graph.DefaultTypes;
-import com.eclipsesource.glsp.graph.GEdge;
-import com.eclipsesource.glsp.graph.GModelElement;
-import com.eclipsesource.glsp.server.operationhandler.CreateConnectionOperationHandler;
-import com.eclipsesource.graph.builder.impl.GEdgeBuilder;
+import com.eclipsesource.glsp.graph.GHtmlRoot;
 
-public class CreateEdgeHandler extends CreateConnectionOperationHandler {
+public abstract class AbstractGHtmlRootBuilder<T extends GHtmlRoot, E extends AbstractGHtmlRootBuilder<T, E>>
+		extends GModelRootBuilder<T, E> {
 
-	public CreateEdgeHandler() {
-		super(DefaultTypes.EDGE);
+	protected List<String> classes;
+
+	public AbstractGHtmlRootBuilder(String type) {
+		super(type);
+	}
+
+	public E setClasses(List<String> classes) {
+		this.classes = classes;
+		return self();
+	}
+
+	public E addClasses(List<String> classes) {
+		if (this.classes == null) {
+			return setClasses(classes);
+		} else {
+			this.classes.addAll(classes);
+			return self();
+		}
 	}
 
 	@Override
-	protected Optional<GEdge> createConnection(GModelElement source, GModelElement target,
-			GraphicalModelState modelState) {
-		GEdge edge = new GEdgeBuilder()
-				.setSource(source)
-				.setTarget(target)
-				.build();
-		return Optional.of(edge);
+	protected void setProperties(T element) {
+		super.setProperties(element);
+		element.getClasses().addAll(classes);
 	}
 
 }

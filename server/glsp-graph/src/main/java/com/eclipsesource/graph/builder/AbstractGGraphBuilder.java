@@ -13,31 +13,32 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.example.workflow.handler;
+package com.eclipsesource.graph.builder;
 
 import java.util.Optional;
 
-import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.graph.DefaultTypes;
-import com.eclipsesource.glsp.graph.GEdge;
-import com.eclipsesource.glsp.graph.GModelElement;
-import com.eclipsesource.glsp.server.operationhandler.CreateConnectionOperationHandler;
-import com.eclipsesource.graph.builder.impl.GEdgeBuilder;
+import com.eclipsesource.glsp.graph.GGraph;
+import com.eclipsesource.glsp.graph.GLayoutOptions;
+import com.eclipsesource.graph.builder.impl.GLayoutOptionsBuilder;
 
-public class CreateEdgeHandler extends CreateConnectionOperationHandler {
+public abstract class AbstractGGraphBuilder<T extends GGraph, E extends AbstractGGraphBuilder<T, E>>
+		extends GModelRootBuilder<T, E> {
 
-	public CreateEdgeHandler() {
-		super(DefaultTypes.EDGE);
+	protected GLayoutOptions gLayoutOptions;
+
+	public AbstractGGraphBuilder(String type) {
+		super(type);
+	}
+
+	public E setGLayoutOptions(GLayoutOptions gLayoutOptions) {
+		this.gLayoutOptions = gLayoutOptions;
+		return self();
 	}
 
 	@Override
-	protected Optional<GEdge> createConnection(GModelElement source, GModelElement target,
-			GraphicalModelState modelState) {
-		GEdge edge = new GEdgeBuilder()
-				.setSource(source)
-				.setTarget(target)
-				.build();
-		return Optional.of(edge);
+	protected void setProperties(T element) {
+		super.setProperties(element);
+		element.setLayoutOptions(Optional.ofNullable(gLayoutOptions).orElse(new GLayoutOptionsBuilder().build()));
 	}
 
 }

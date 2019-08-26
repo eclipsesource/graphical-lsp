@@ -13,31 +13,27 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.example.workflow.handler;
+package com.eclipsesource.graph.builder;
 
-import java.util.Optional;
+import com.eclipsesource.glsp.graph.GButton;
 
-import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.graph.DefaultTypes;
-import com.eclipsesource.glsp.graph.GEdge;
-import com.eclipsesource.glsp.graph.GModelElement;
-import com.eclipsesource.glsp.server.operationhandler.CreateConnectionOperationHandler;
-import com.eclipsesource.graph.builder.impl.GEdgeBuilder;
+public abstract class AbstractGButtonBuilder<T extends GButton, E extends AbstractGButtonBuilder<T, E>>
+		extends GShapeElementBuilder<T, E> {
+	protected boolean enabled;
 
-public class CreateEdgeHandler extends CreateConnectionOperationHandler {
+	public AbstractGButtonBuilder(String type) {
+		super(type);
+	}
 
-	public CreateEdgeHandler() {
-		super(DefaultTypes.EDGE);
+	public E setEnabled(boolean enabled) {
+		this.enabled = enabled;
+		return self();
 	}
 
 	@Override
-	protected Optional<GEdge> createConnection(GModelElement source, GModelElement target,
-			GraphicalModelState modelState) {
-		GEdge edge = new GEdgeBuilder()
-				.setSource(source)
-				.setTarget(target)
-				.build();
-		return Optional.of(edge);
+	public void setProperties(T button) {
+		super.setProperties(button);
+		button.setEnabled(enabled);
 	}
 
 }

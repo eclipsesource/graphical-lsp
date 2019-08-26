@@ -13,31 +13,35 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.example.workflow.handler;
+package com.eclipsesource.graph.builder;
 
-import java.util.Optional;
+import com.eclipsesource.glsp.graph.GIssue;
+import com.eclipsesource.glsp.graph.GSeverity;
+import com.eclipsesource.glsp.graph.GraphFactory;
 
-import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.graph.DefaultTypes;
-import com.eclipsesource.glsp.graph.GEdge;
-import com.eclipsesource.glsp.graph.GModelElement;
-import com.eclipsesource.glsp.server.operationhandler.CreateConnectionOperationHandler;
-import com.eclipsesource.graph.builder.impl.GEdgeBuilder;
+public class GIssueBuilder extends GBuilder<GIssue> {
+	private GSeverity severity;
+	private String message;
 
-public class CreateEdgeHandler extends CreateConnectionOperationHandler {
+	public GIssueBuilder setSeverity(GSeverity severity) {
+		this.severity = severity;
+		return this;
+	}
 
-	public CreateEdgeHandler() {
-		super(DefaultTypes.EDGE);
+	public GIssueBuilder setMessage(String message) {
+		this.message = message;
+		return this;
 	}
 
 	@Override
-	protected Optional<GEdge> createConnection(GModelElement source, GModelElement target,
-			GraphicalModelState modelState) {
-		GEdge edge = new GEdgeBuilder()
-				.setSource(source)
-				.setTarget(target)
-				.build();
-		return Optional.of(edge);
+	protected GIssue instantiate() {
+		return GraphFactory.eINSTANCE.createGIssue();
+	}
+
+	@Override
+	protected void setProperties(GIssue issue) {
+		issue.setMessage(message);
+		issue.setSeverity(severity);
 	}
 
 }

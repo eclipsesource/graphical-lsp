@@ -32,7 +32,6 @@ import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.DiagramEle
 import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Edge;
 import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Shape;
 import com.eclipsesource.glsp.example.workflow.utils.WorkflowBuilder.ActivityNodeBuilder;
-import com.eclipsesource.glsp.example.workflow.utils.WorkflowBuilder.EdgeBuilder;
 import com.eclipsesource.glsp.example.workflow.utils.WorkflowBuilder.TaskNodeBuilder;
 import com.eclipsesource.glsp.example.workflow.utils.WorkflowBuilder.WeightedEdgeBuilder;
 import com.eclipsesource.glsp.example.workflow.wfgraph.ActivityNode;
@@ -43,6 +42,7 @@ import com.eclipsesource.glsp.graph.GEdge;
 import com.eclipsesource.glsp.graph.GModelRoot;
 import com.eclipsesource.glsp.graph.GNode;
 import com.eclipsesource.glsp.graph.GraphFactory;
+import com.eclipsesource.graph.builder.impl.GEdgeBuilder;
 import com.eclipsesource.modelserver.client.ModelServerClient;
 import com.eclipsesource.modelserver.coffee.model.coffee.Flow;
 import com.eclipsesource.modelserver.coffee.model.coffee.Machine;
@@ -168,17 +168,17 @@ public class WorkflowModelServerModelFactory implements ModelFactory {
 
 	private static WeightedEdge createWeightedEdge(WeightedFlow flow, Edge edge, Map<Node, GNode> nodeMapping,
 			GraphicalModelState modelState) {
-		WeightedEdgeBuilder builder = new WeightedEdgeBuilder(modelState);
-		builder.setProbability(flow.getProbability().getName());
-		builder.setSource(nodeMapping.get(flow.getSource()));
-		builder.setTarget(nodeMapping.get(flow.getTarget()));
+		WeightedEdgeBuilder builder = new WeightedEdgeBuilder()
+				.setProbability(flow.getProbability().getName())
+				.setSource(nodeMapping.get(flow.getSource()))
+				.setTarget(nodeMapping.get(flow.getTarget()));
 		edge.getBendPoints().forEach(bendPoint -> builder.addRoutingPoint(bendPoint.getX(), bendPoint.getY()));
 		return builder.build();
 	}
 
 	private static GEdge createEdge(Flow flow, Edge edge, Map<Node, GNode> nodeMapping,
 			GraphicalModelState modelState) {
-		EdgeBuilder builder = new EdgeBuilder(modelState);
+		GEdgeBuilder builder = new GEdgeBuilder();
 		builder.setSource(nodeMapping.get(flow.getSource()));
 		builder.setTarget(nodeMapping.get(flow.getTarget()));
 		edge.getBendPoints().forEach(bendPoint -> builder.addRoutingPoint(bendPoint.getX(), bendPoint.getY()));
@@ -188,7 +188,7 @@ public class WorkflowModelServerModelFactory implements ModelFactory {
 	private static TaskNode createTaskNode(Task task, Shape shape, GraphicalModelState modelState) {
 		String type = CoffeeTypeUtil.toType(task);
 		String nodeType = CoffeeTypeUtil.toNodeType(task);
-		TaskNodeBuilder builder = new TaskNodeBuilder(modelState, type, task.getName(), nodeType, task.getDuration());
+		TaskNodeBuilder builder = new TaskNodeBuilder(type, task.getName(), nodeType, task.getDuration());
 		if (shape.getPosition() != null) {
 			builder.setPosition(shape.getPosition().getX(), shape.getPosition().getY());
 		}
@@ -201,7 +201,7 @@ public class WorkflowModelServerModelFactory implements ModelFactory {
 	private static ActivityNode createActivityNode(Node node, Shape shape, GraphicalModelState modelState) {
 		String type = CoffeeTypeUtil.toType(node);
 		String nodeType = CoffeeTypeUtil.toNodeType(node);
-		ActivityNodeBuilder builder = new ActivityNodeBuilder(modelState, type, nodeType);
+		ActivityNodeBuilder builder = new ActivityNodeBuilder(type, nodeType);
 		if (shape.getPosition() != null) {
 			builder.setPosition(shape.getPosition().getX(), shape.getPosition().getY());
 		}
