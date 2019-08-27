@@ -13,30 +13,30 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.graph.builder.impl;
+package com.eclipsesource.glsp.graph.builder.impl;
 
 import com.eclipsesource.glsp.graph.DefaultTypes;
-import com.eclipsesource.glsp.graph.GNode;
+import com.eclipsesource.glsp.graph.GHtmlRoot;
 import com.eclipsesource.glsp.graph.GraphFactory;
-import com.eclipsesource.graph.builder.AbstractGNodeBuilder;
+import com.eclipsesource.glsp.graph.builder.AbstractGHtmlRootBuilder;
 
-public class GNodeBuilder extends AbstractGNodeBuilder<GNode, GNodeBuilder> {
+public class GHtmlRootBuilder extends AbstractGHtmlRootBuilder<GHtmlRoot, GHtmlRootBuilder> {
 
-	public GNodeBuilder() {
-		this(DefaultTypes.NODE);
+	public GHtmlRootBuilder() {
+		this(DefaultTypes.HTML);
 	}
 
-	public GNodeBuilder(String type) {
+	public GHtmlRootBuilder(String type) {
 		super(type);
 	}
 
 	@Override
-	protected GNode instantiate() {
-		return GraphFactory.eINSTANCE.createGNode();
+	protected GHtmlRoot instantiate() {
+		return GraphFactory.eINSTANCE.createGHtmlRoot();
 	}
 
 	@Override
-	protected GNodeBuilder self() {
+	protected GHtmlRootBuilder self() {
 		return this;
 	}
 

@@ -13,13 +13,13 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.graph.builder.impl;
+package com.eclipsesource.glsp.graph.builder.impl;
 
 import com.eclipsesource.glsp.graph.GBounds;
 import com.eclipsesource.glsp.graph.GDimension;
 import com.eclipsesource.glsp.graph.GPoint;
 import com.eclipsesource.glsp.graph.GraphFactory;
-import com.eclipsesource.graph.builder.GBuilder;
+import com.eclipsesource.glsp.graph.builder.GBuilder;
 
 public class GBoundsBuilder extends GBuilder<GBounds> {
 	private double x;

@@ -13,17 +13,32 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.graph.builder;
+package com.eclipsesource.glsp.graph.builder.impl;
 
-public abstract class GBuilder<T> {
+import com.eclipsesource.glsp.graph.DefaultTypes;
+import com.eclipsesource.glsp.graph.GPreRenderedElement;
+import com.eclipsesource.glsp.graph.GraphFactory;
+import com.eclipsesource.glsp.graph.builder.AbstractGPreRenderedElementBuilder;
 
-	protected abstract T instantiate();
+public class GPreRenderedElementBuilder
+		extends AbstractGPreRenderedElementBuilder<GPreRenderedElement, GPreRenderedElementBuilder> {
 
-	protected abstract void setProperties(T element);
-
-	public T build() {
-		final T element = instantiate();
-		setProperties(element);
-		return element;
+	public GPreRenderedElementBuilder() {
+		this(DefaultTypes.PRE_RENDERED);
 	}
+
+	public GPreRenderedElementBuilder(String type) {
+		super(type);
+	}
+
+	@Override
+	protected GPreRenderedElement instantiate() {
+		return GraphFactory.eINSTANCE.createGPreRenderedElement();
+	}
+
+	@Override
+	protected GPreRenderedElementBuilder self() {
+		return this;
+	}
+
 }

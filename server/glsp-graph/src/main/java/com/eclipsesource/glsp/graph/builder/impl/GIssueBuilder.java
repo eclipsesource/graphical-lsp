@@ -13,31 +13,36 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.graph.builder.impl;
+package com.eclipsesource.glsp.graph.builder.impl;
 
-import com.eclipsesource.glsp.graph.DefaultTypes;
-import com.eclipsesource.glsp.graph.GHtmlRoot;
+import com.eclipsesource.glsp.graph.GIssue;
+import com.eclipsesource.glsp.graph.GSeverity;
 import com.eclipsesource.glsp.graph.GraphFactory;
-import com.eclipsesource.graph.builder.AbstractGHtmlRootBuilder;
+import com.eclipsesource.glsp.graph.builder.GBuilder;
 
-public class GHtmlRootBuilder extends AbstractGHtmlRootBuilder<GHtmlRoot, GHtmlRootBuilder> {
+public class GIssueBuilder extends GBuilder<GIssue> {
+	private GSeverity severity;
+	private String message;
 
-	public GHtmlRootBuilder() {
-		this(DefaultTypes.HTML);
-	}
-
-	public GHtmlRootBuilder(String type) {
-		super(type);
-	}
-
-	@Override
-	protected GHtmlRoot instantiate() {
-		return GraphFactory.eINSTANCE.createGHtmlRoot();
-	}
-
-	@Override
-	protected GHtmlRootBuilder self() {
+	public GIssueBuilder severity(GSeverity severity) {
+		this.severity = severity;
 		return this;
+	}
+
+	public GIssueBuilder message(String message) {
+		this.message = message;
+		return this;
+	}
+
+	@Override
+	protected GIssue instantiate() {
+		return GraphFactory.eINSTANCE.createGIssue();
+	}
+
+	@Override
+	protected void setProperties(GIssue issue) {
+		issue.setMessage(message);
+		issue.setSeverity(severity);
 	}
 
 }

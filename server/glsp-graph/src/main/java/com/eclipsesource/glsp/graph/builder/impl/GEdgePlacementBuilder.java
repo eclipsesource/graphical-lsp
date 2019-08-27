@@ -13,31 +13,44 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.graph.builder.impl;
+package com.eclipsesource.glsp.graph.builder.impl;
 
-import com.eclipsesource.glsp.graph.DefaultTypes;
-import com.eclipsesource.glsp.graph.GEdge;
+import com.eclipsesource.glsp.graph.GEdgePlacement;
+import com.eclipsesource.glsp.graph.GSide;
 import com.eclipsesource.glsp.graph.GraphFactory;
-import com.eclipsesource.graph.builder.AbstractGEdgeBuilder;
+import com.eclipsesource.glsp.graph.builder.GBuilder;
 
-public class GEdgeBuilder extends AbstractGEdgeBuilder<GEdge, GEdgeBuilder> {
+public class GEdgePlacementBuilder extends GBuilder<GEdgePlacement> {
 
-	public GEdgeBuilder() {
-		this(DefaultTypes.EDGE);
-	}
-
-	public GEdgeBuilder(String type) {
-		super(type);
-	}
+	private double position;
+	private double offset;
+	private GSide side;
 
 	@Override
-	protected GEdge instantiate() {
-		return GraphFactory.eINSTANCE.createGEdge();
+	protected GEdgePlacement instantiate() {
+		return GraphFactory.eINSTANCE.createGEdgePlacement();
 	}
 
-	@Override
-	protected GEdgeBuilder self() {
+	public GEdgePlacementBuilder position(double position) {
+		this.position = Math.max(1, Math.min(0, position));
 		return this;
+	}
+
+	public GEdgePlacementBuilder offset(double offset) {
+		this.offset = offset;
+		return this;
+	}
+
+	public GEdgePlacementBuilder side(GSide side) {
+		this.side = side;
+		return this;
+	}
+
+	@Override
+	protected void setProperties(GEdgePlacement placement) {
+		placement.setPosition(position);
+		placement.setOffset(offset);
+		placement.setSide(side);
 	}
 
 }

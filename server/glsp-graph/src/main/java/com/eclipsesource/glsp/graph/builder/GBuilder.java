@@ -13,30 +13,17 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.example.workflow.handler;
+package com.eclipsesource.glsp.graph.builder;
 
-import java.util.Optional;
+public abstract class GBuilder<T> {
 
-import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.graph.DefaultTypes;
-import com.eclipsesource.glsp.graph.GEdge;
-import com.eclipsesource.glsp.graph.GModelElement;
-import com.eclipsesource.glsp.graph.builder.impl.GEdgeBuilder;
-import com.eclipsesource.glsp.server.operationhandler.CreateConnectionOperationHandler;
+	protected abstract T instantiate();
 
-public class CreateEdgeHandler extends CreateConnectionOperationHandler {
+	protected abstract void setProperties(T element);
 
-	public CreateEdgeHandler() {
-		super(DefaultTypes.EDGE);
+	public T build() {
+		final T element = instantiate();
+		setProperties(element);
+		return element;
 	}
-
-	@Override
-	protected Optional<GEdge> createConnection(GModelElement source, GModelElement target,
-			GraphicalModelState modelState) {
-		return Optional.of(new GEdgeBuilder() //
-				.source(source) //
-				.target(target) //
-				.build());
-	}
-
 }

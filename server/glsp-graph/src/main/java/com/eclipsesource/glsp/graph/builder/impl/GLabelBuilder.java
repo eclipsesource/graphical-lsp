@@ -13,30 +13,30 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.graph.builder.impl;
+package com.eclipsesource.glsp.graph.builder.impl;
 
 import com.eclipsesource.glsp.graph.DefaultTypes;
-import com.eclipsesource.glsp.graph.GCompartment;
+import com.eclipsesource.glsp.graph.GLabel;
 import com.eclipsesource.glsp.graph.GraphFactory;
-import com.eclipsesource.graph.builder.AbstractGCompartmentBuilder;
+import com.eclipsesource.glsp.graph.builder.AbstractGLabelBuilder;
 
-public class GCompartmentBuilder extends AbstractGCompartmentBuilder<GCompartment, GCompartmentBuilder> {
+public class GLabelBuilder extends AbstractGLabelBuilder<GLabel, GLabelBuilder> {
 
-	public GCompartmentBuilder() {
-		this(DefaultTypes.COMPARTMENT);
+	public GLabelBuilder() {
+		this(DefaultTypes.LABEL);
 	}
 
-	public GCompartmentBuilder(String type) {
+	public GLabelBuilder(String type) {
 		super(type);
 	}
 
 	@Override
-	protected GCompartment instantiate() {
-		return GraphFactory.eINSTANCE.createGCompartment();
+	protected GLabel instantiate() {
+		return GraphFactory.eINSTANCE.createGLabel();
 	}
 
 	@Override
-	protected GCompartmentBuilder self() {
+	protected GLabelBuilder self() {
 		return this;
 	}
 

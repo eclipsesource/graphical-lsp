@@ -13,43 +13,29 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.graph.builder;
+package com.eclipsesource.glsp.graph.builder;
 
-import com.eclipsesource.glsp.graph.GEdgePlacement;
+import com.eclipsesource.glsp.graph.GGraph;
 import com.eclipsesource.glsp.graph.GLayoutOptions;
-import com.eclipsesource.glsp.graph.GNode;
 
-public abstract class AbstractGNodeBuilder<T extends GNode, E extends AbstractGNodeBuilder<T, E>>
-		extends GShapeElementBuilder<T, E> {
+public abstract class AbstractGGraphBuilder<T extends GGraph, E extends AbstractGGraphBuilder<T, E>>
+		extends GModelRootBuilder<T, E> {
 
-	protected String layout;
-	protected GLayoutOptions layoutOptions;
-	protected GEdgePlacement edgePlacement;
+	protected GLayoutOptions gLayoutOptions;
 
-	public AbstractGNodeBuilder(String type) {
+	public AbstractGGraphBuilder(String type) {
 		super(type);
 	}
 
-	public E layoutOptions(GLayoutOptions layoutOptions) {
-		this.layoutOptions = layoutOptions;
-		return self();
-	}
-
-	public E edgePlacement(GEdgePlacement edgePlacement) {
-		this.edgePlacement = edgePlacement;
-		return self();
-	}
-
-	public E layout(String layout) {
-		this.layout = layout;
+	public E layoutOptions(GLayoutOptions gLayoutOptions) {
+		this.gLayoutOptions = gLayoutOptions;
 		return self();
 	}
 
 	@Override
-	protected void setProperties(T node) {
-		super.setProperties(node);
-		node.setLayoutOptions(layoutOptions);
-		node.setLayout(layout);
-		node.setEdgePlacement(edgePlacement);
+	protected void setProperties(T element) {
+		super.setProperties(element);
+		element.setLayoutOptions(gLayoutOptions);
 	}
+
 }
