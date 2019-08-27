@@ -13,30 +13,32 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.example.workflow.handler;
+package com.eclipsesource.graph.builder.impl;
 
-import java.util.Optional;
-
-import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.graph.DefaultTypes;
-import com.eclipsesource.glsp.graph.GEdge;
-import com.eclipsesource.glsp.graph.GModelElement;
-import com.eclipsesource.glsp.server.operationhandler.CreateConnectionOperationHandler;
-import com.eclipsesource.graph.builder.impl.GEdgeBuilder;
+import com.eclipsesource.glsp.graph.GPreRenderedElement;
+import com.eclipsesource.glsp.graph.GraphFactory;
+import com.eclipsesource.graph.builder.AbstractGPreRenderedElementBuilder;
 
-public class CreateEdgeHandler extends CreateConnectionOperationHandler {
+public class GPreRenderedElementBuilder
+		extends AbstractGPreRenderedElementBuilder<GPreRenderedElement, GPreRenderedElementBuilder> {
 
-	public CreateEdgeHandler() {
-		super(DefaultTypes.EDGE);
+	public GPreRenderedElementBuilder() {
+		this(DefaultTypes.PRE_RENDERED);
+	}
+
+	public GPreRenderedElementBuilder(String type) {
+		super(type);
 	}
 
 	@Override
-	protected Optional<GEdge> createConnection(GModelElement source, GModelElement target,
-			GraphicalModelState modelState) {
-		return Optional.of(new GEdgeBuilder() //
-				.source(source) //
-				.target(target) //
-				.build());
+	protected GPreRenderedElement instantiate() {
+		return GraphFactory.eINSTANCE.createGPreRenderedElement();
+	}
+
+	@Override
+	protected GPreRenderedElementBuilder self() {
+		return this;
 	}
 
 }

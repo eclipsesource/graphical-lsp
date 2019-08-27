@@ -15,245 +15,177 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.utils;
 
-import java.util.List;
-
-import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.example.workflow.handler.SimulateCommandHandler;
 import com.eclipsesource.glsp.example.workflow.wfgraph.ActivityNode;
 import com.eclipsesource.glsp.example.workflow.wfgraph.Icon;
 import com.eclipsesource.glsp.example.workflow.wfgraph.TaskNode;
 import com.eclipsesource.glsp.example.workflow.wfgraph.WeightedEdge;
 import com.eclipsesource.glsp.example.workflow.wfgraph.WfgraphFactory;
-import com.eclipsesource.glsp.graph.DefaultTypes;
 import com.eclipsesource.glsp.graph.GCompartment;
-import com.eclipsesource.glsp.graph.GDimension;
-import com.eclipsesource.glsp.graph.GEdge;
 import com.eclipsesource.glsp.graph.GLabel;
-import com.eclipsesource.glsp.graph.GLayoutOptions;
-import com.eclipsesource.glsp.graph.GModelElement;
-import com.eclipsesource.glsp.graph.GNode;
-import com.eclipsesource.glsp.graph.GPoint;
-import com.eclipsesource.glsp.graph.GraphFactory;
-import com.eclipsesource.glsp.graph.util.GraphUtil;
-import com.eclipsesource.glsp.server.util.GModelUtil;
-import com.google.common.collect.Lists;
+import com.eclipsesource.graph.builder.AbstractGCompartmentBuilder;
+import com.eclipsesource.graph.builder.AbstractGEdgeBuilder;
+import com.eclipsesource.graph.builder.AbstractGNodeBuilder;
+import com.eclipsesource.graph.builder.impl.GCompartmentBuilder;
+import com.eclipsesource.graph.builder.impl.GLabelBuilder;
+import com.eclipsesource.graph.builder.impl.GLayoutOptionsBuilder;
 
 public final class WorkflowBuilder {
 
-	public static abstract class GEdgeBuilder<T extends GEdge> {
-		protected GraphicalModelState modelState;
-		protected String id;
-		protected String type;
-		protected GModelElement source;
-		protected GModelElement target;
-		protected List<GPoint> routingPoints = Lists.newArrayList();
-
-		public GEdgeBuilder(GraphicalModelState modelState, String type) {
-			this.modelState = modelState;
-			this.type = type;
-		}
-
-		public GEdgeBuilder<T> setId(String id) {
-			this.id = id;
-			return this;
-		}
-
-		public GEdgeBuilder<T> setSource(GModelElement source) {
-			this.source = source;
-			return this;
-		}
-
-		public GEdgeBuilder<T> setTarget(GModelElement target) {
-			this.target = target;
-			return this;
-		}
-
-		public GEdgeBuilder<T> addRoutingPoint(double x, double y) {
-			this.routingPoints.add(GraphUtil.point(x, y));
-			return this;
-		}
-
-		protected T fillData(T edge, String genId) {
-			if (id == null) {
-				GModelUtil.generateId(edge, genId, modelState);
-			} else {
-				edge.setId(id);
-			}
-			edge.setType(type);
-			if (source != null) {
-				edge.setSource(source);
-				edge.setSourceId(source.getId());
-			}
-			if (target != null) {
-				edge.setTarget(source);
-				edge.setTargetId(target.getId());
-			}
-			this.routingPoints.forEach(edge.getRoutingPoints()::add);
-			return edge;
-		}
-
-		abstract public T build();
-
-	}
-
-	public static class EdgeBuilder extends GEdgeBuilder<GEdge> {
-		public EdgeBuilder(GraphicalModelState modelState) {
-			super(modelState, DefaultTypes.EDGE);
-		}
-
-		@Override
-		public GEdge build() {
-			GEdge edge = GraphFactory.eINSTANCE.createGEdge();
-			return fillData(edge, "edge");
-		}
-	}
-
-	public static class WeightedEdgeBuilder extends GEdgeBuilder<WeightedEdge> {
+	public static class WeightedEdgeBuilder extends AbstractGEdgeBuilder<WeightedEdge, WeightedEdgeBuilder> {
 
 		private String probability;
 
-		public WeightedEdgeBuilder(GraphicalModelState modelState) {
-			super(modelState, ModelTypes.WEIGHTED_EDGE);
+		public WeightedEdgeBuilder() {
+			super(ModelTypes.WEIGHTED_EDGE);
 		}
 
-		public void setProbability(String probability) {
+		public WeightedEdgeBuilder probability(String probability) {
 			this.probability = probability;
+			return self();
 		}
 
 		@Override
-		public WeightedEdge build() {
-			WeightedEdge edge = WfgraphFactory.eINSTANCE.createWeightedEdge();
-			fillData(edge, "weightedEdge");
+		protected void setProperties(WeightedEdge edge) {
+			super.setProperties(edge);
 			edge.setProbability(probability);
-			return edge;
+		}
+
+		@Override
+		protected WeightedEdge instantiate() {
+			return WfgraphFactory.eINSTANCE.createWeightedEdge();
+		}
+
+		@Override
+		protected WeightedEdgeBuilder self() {
+			return this;
 		}
 
 	}
 
-	private static abstract class GNodeBuilder<T extends GNode> {
-		protected GraphicalModelState modelState;
-		protected String id;
-		protected String type;
-		protected GPoint position;
-		protected GDimension size;
-
-		public GNodeBuilder(GraphicalModelState modelState, String type) {
-			this.modelState = modelState;
-			this.type = type;
-		}
-
-		public GNodeBuilder<T> setId(String id) {
-			this.id = id;
-			return this;
-		}
-
-		public GNodeBuilder<T> setPosition(double x, double y) {
-			this.position = GraphUtil.point(x, y);
-			return this;
-		}
-
-		public GNodeBuilder<T> setSize(double width, double height) {
-			this.size = GraphUtil.dimension(width, height);
-			return this;
-		}
-
-		protected T fillData(T node, String genId) {
-			if (id == null) {
-				GModelUtil.generateId(node, genId, modelState);
-			} else {
-				node.setId(id);
-			}
-			node.setType(type);
-			node.setPosition(position);
-			node.setSize(size);
-			return node;
-		}
-
-		abstract public T build();
-	}
-
-	public static class ActivityNodeBuilder extends GNodeBuilder<ActivityNode> {
+	public static class ActivityNodeBuilder extends AbstractGNodeBuilder<ActivityNode, ActivityNodeBuilder> {
 		protected String nodeType;
 
-		public ActivityNodeBuilder(GraphicalModelState modelState, String type, String nodeType) {
-			super(modelState, type);
+		public ActivityNodeBuilder(String type, String nodeType) {
+			super(type);
 			this.nodeType = nodeType;
 		}
 
-		public ActivityNode build() {
-			ActivityNode activityNode = WfgraphFactory.eINSTANCE.createActivityNode();
-			fillData(activityNode, "activityNode");
-			activityNode.setNodeType(nodeType);
-			return activityNode;
+		@Override
+		protected void setProperties(ActivityNode node) {
+			super.setProperties(node);
+			node.setNodeType(nodeType);
+		}
+
+		@Override
+		protected ActivityNode instantiate() {
+			return WfgraphFactory.eINSTANCE.createActivityNode();
+		}
+
+		@Override
+		protected ActivityNodeBuilder self() {
+			return this;
 		}
 	}
 
-	public static class TaskNodeBuilder extends GNodeBuilder<TaskNode> {
+	public static class TaskNodeBuilder extends AbstractGNodeBuilder<TaskNode, TaskNodeBuilder> {
 		private String name;
 		private String taskType;
 		private int duration;
 
-		public TaskNodeBuilder(GraphicalModelState modelState, String type, String name, String taskType,
-				int duration) {
-			super(modelState, type);
+		public TaskNodeBuilder(String type, String name, String taskType, int duration) {
+			super(type);
 			this.name = name;
 			this.taskType = taskType;
 			this.duration = duration;
+
 		}
 
-		public TaskNode build() {
-			TaskNode taskNode = WfgraphFactory.eINSTANCE.createTaskNode();
-			fillData(taskNode, "task");
+		@Override
+		protected TaskNode instantiate() {
+			return WfgraphFactory.eINSTANCE.createTaskNode();
+		}
+
+		@Override
+		protected TaskNodeBuilder self() {
+			return this;
+		}
+
+		@Override
+		public void setProperties(TaskNode taskNode) {
+			super.setProperties(taskNode);
 			taskNode.setName(name);
 			taskNode.setTaskType(taskType);
 			taskNode.setDuration(duration);
 			taskNode.setLayout("vbox");
 			taskNode.getChildren().add(createCompartment(taskNode));
-			return taskNode;
 		}
 
 		private GCompartment createCompartment(TaskNode taskNode) {
-			GCompartment compHeader = GraphFactory.eINSTANCE.createGCompartment();
-			compHeader.setType(ModelTypes.COMP_HEADER);
-			compHeader.setId(taskNode.getId() + "_header");
-			compHeader.setLayout("hbox");
-
-			compHeader.getChildren().add(createCompartmentIcon(taskNode));
-			compHeader.getChildren().add(createCompartmentHeader(taskNode));
-			return compHeader;
+			return new GCompartmentBuilder(ModelTypes.COMP_HEADER) //
+					.id(taskNode.getId() + "_header") //
+					.layout("hbox") //
+					.add(createCompartmentIcon(taskNode)) //
+					.add(createCompartmentHeader(taskNode)) //
+					.build();
 		}
 
 		private GLabel createCompartmentHeader(TaskNode taskNode) {
-			GLabel heading = GraphFactory.eINSTANCE.createGLabel();
-			heading.setType(ModelTypes.LABEL_HEADING);
-			heading.setId(taskNode.getId() + "_classname");
-			heading.setText(taskNode.getName());
-			return heading;
+			return new GLabelBuilder(ModelTypes.LABEL_HEADING) //
+					.id(taskNode.getId() + "_classname") //
+					.text(taskNode.getName()) //
+					.build();
 		}
 
 		private Icon createCompartmentIcon(TaskNode taskNode) {
-			Icon icon = WfgraphFactory.eINSTANCE.createIcon();
-			icon.setType(ModelTypes.ICON);
-			icon.setId(taskNode.getId() + "_icon");
-			icon.setLayout("stack");
-			icon.setCommandId(SimulateCommandHandler.SIMULATE_COMMAND_ID);
-
-			GLayoutOptions layoutOptions = GraphFactory.eINSTANCE.createGLayoutOptions();
-			layoutOptions.setHAlign("center");
-			layoutOptions.setResizeContainer(false);
-			icon.setLayoutOptions(layoutOptions);
-
-			icon.getChildren().add(createCompartmentIconLabel(taskNode));
-			return icon;
+			return new IconBuilder() //
+					.id(taskNode.getId() + "_icon") //
+					.layout("stack") //
+					.commandId(SimulateCommandHandler.SIMULATE_COMMAND_ID) //
+					.layoutOptions(new GLayoutOptionsBuilder() //
+							.hAlign("center") //
+							.resizeContainer(false) //
+							.build()) //
+					.add(createCompartmentIconLabel(taskNode)).build();
 		}
 
 		private GLabel createCompartmentIconLabel(TaskNode taskNode) {
-			GLabel iconLabel = GraphFactory.eINSTANCE.createGLabel();
-			iconLabel.setType(ModelTypes.LABEL_ICON);
-			iconLabel.setId(taskNode.getId() + "_ticon");
-			iconLabel.setText("" + taskNode.getTaskType().toUpperCase().charAt(0));
-			return iconLabel;
+			return new GLabelBuilder(ModelTypes.LABEL_ICON) //
+					.id(taskNode.getId() + "_ticon") //
+					.text("" + taskNode.getTaskType().toUpperCase().charAt(0)) //
+					.build();
 		}
+
+	}
+
+	public static class IconBuilder extends AbstractGCompartmentBuilder<Icon, IconBuilder> {
+		private String commandId;
+
+		public IconBuilder() {
+			super(ModelTypes.ICON);
+		}
+
+		public IconBuilder commandId(String commandId) {
+			this.commandId = commandId;
+			return self();
+		}
+
+		@Override
+		protected Icon instantiate() {
+			return WfgraphFactory.eINSTANCE.createIcon();
+		}
+
+		@Override
+		protected void setProperties(Icon comp) {
+			super.setProperties(comp);
+			comp.setCommandId(commandId);
+		}
+
+		@Override
+		protected IconBuilder self() {
+			return this;
+		}
+
 	}
 
 	private WorkflowBuilder() {

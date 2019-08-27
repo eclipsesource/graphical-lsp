@@ -23,26 +23,29 @@ import java.io.StringWriter;
 import org.apache.log4j.Logger;
 
 import com.eclipsesource.glsp.api.action.kind.ServerStatusAction;
-import com.eclipsesource.glsp.api.types.ServerStatus;
 import com.eclipsesource.glsp.api.types.ServerStatus.Severity;
 
 public class ServerStatusUtil {
 	private static Logger LOGGER = Logger.getLogger(ServerStatusUtil.class);
 
 	public static ServerStatusAction info(String message) {
-		return new ServerStatusAction(new ServerStatus(Severity.INFO, message));
+		return new ServerStatusAction(Severity.INFO, message);
 	}
 
 	public static ServerStatusAction warn(String message) {
-		return new ServerStatusAction(new ServerStatus(Severity.WARNING, message));
+		return new ServerStatusAction(Severity.WARNING, message);
 	}
 
 	public static ServerStatusAction error(String message, String details) {
-		return new ServerStatusAction(new ServerStatus(Severity.ERROR, message, details));
+		return new ServerStatusAction(Severity.ERROR, message, details);
 	}
 
 	public static ServerStatusAction error(Exception e) {
 		return error(getMessage(e), getDetails(e.getCause()));
+	}
+
+	public static ServerStatusAction clear() {
+		return new ServerStatusAction(null, null);
 	}
 
 	private ServerStatusUtil() {

@@ -38,7 +38,9 @@ public class ServerStatusAction extends Action {
 
 	public ServerStatusAction(ServerStatus status) {
 		this();
-		this.severity = status.getSeverity().toString();
+		if (status.getSeverity() != null) {
+			this.severity = status.getSeverity().toString();
+		}
 		this.message = status.getMessage();
 		this.details = status.getDetails();
 	}
@@ -104,5 +106,5 @@ public class ServerStatusAction extends Action {
 		}
 		return true;
 	}
-	
+
 }
