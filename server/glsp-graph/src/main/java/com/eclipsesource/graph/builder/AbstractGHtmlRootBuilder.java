@@ -28,18 +28,14 @@ public abstract class AbstractGHtmlRootBuilder<T extends GHtmlRoot, E extends Ab
 		super(type);
 	}
 
-	public E setClasses(List<String> classes) {
-		this.classes = classes;
+	public E addClass(String clazz) {
+		this.classes.add(clazz);
 		return self();
 	}
 
 	public E addClasses(List<String> classes) {
-		if (this.classes == null) {
-			return setClasses(classes);
-		} else {
-			this.classes.addAll(classes);
-			return self();
-		}
+		this.classes.addAll(classes);
+		return self();
 	}
 
 	@Override

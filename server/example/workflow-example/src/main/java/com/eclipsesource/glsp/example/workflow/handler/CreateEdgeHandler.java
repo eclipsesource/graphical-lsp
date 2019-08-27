@@ -33,11 +33,10 @@ public class CreateEdgeHandler extends CreateConnectionOperationHandler {
 	@Override
 	protected Optional<GEdge> createConnection(GModelElement source, GModelElement target,
 			GraphicalModelState modelState) {
-		GEdge edge = new GEdgeBuilder()
-				.setSource(source)
-				.setTarget(target)
-				.build();
-		return Optional.of(edge);
+		return Optional.of(new GEdgeBuilder() //
+				.source(source) //
+				.target(target) //
+				.build());
 	}
 
 }

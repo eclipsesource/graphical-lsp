@@ -34,12 +34,12 @@ public abstract class AbstractGEdgeBuilder<T extends GEdge, E extends AbstractGE
 		super(type);
 	}
 
-	public E setSource(GModelElement source) {
+	public E source(GModelElement source) {
 		this.source = source;
 		return self();
 	}
 
-	public E setTarget(GModelElement target) {
+	public E target(GModelElement target) {
 		this.target = target;
 		return self();
 	}
@@ -53,8 +53,8 @@ public abstract class AbstractGEdgeBuilder<T extends GEdge, E extends AbstractGE
 		return addRoutingPoint(GraphUtil.point(x, y));
 	}
 
-	public E setRoutingPoints(List<GPoint> routingPoints) {
-		this.routingPoints = routingPoints;
+	public E addRoutingPoints(List<GPoint> routingPoints) {
+		this.routingPoints.addAll(routingPoints);
 		return self();
 	}
 

@@ -40,7 +40,7 @@ public final class WorkflowBuilder {
 			super(ModelTypes.WEIGHTED_EDGE);
 		}
 
-		public WeightedEdgeBuilder setProbability(String probability) {
+		public WeightedEdgeBuilder probability(String probability) {
 			this.probability = probability;
 			return self();
 		}
@@ -93,8 +93,7 @@ public final class WorkflowBuilder {
 		private String taskType;
 		private int duration;
 
-		public TaskNodeBuilder(String type, String name, String taskType,
-				int duration) {
+		public TaskNodeBuilder(String type, String name, String taskType, int duration) {
 			super(type);
 			this.name = name;
 			this.taskType = taskType;
@@ -123,40 +122,37 @@ public final class WorkflowBuilder {
 		}
 
 		private GCompartment createCompartment(TaskNode taskNode) {
-			return new GCompartmentBuilder().setType(taskType)
-					.setType(ModelTypes.COMP_HEADER)
-					.setId(taskNode.getId() + "_header")
-					.setLayout("hbox")
-					.addChild(createCompartmentIcon(taskNode))
-					.addChild(createCompartmentHeader(taskNode))
+			return new GCompartmentBuilder(ModelTypes.COMP_HEADER) //
+					.id(taskNode.getId() + "_header") //
+					.layout("hbox") //
+					.add(createCompartmentIcon(taskNode)) //
+					.add(createCompartmentHeader(taskNode)) //
 					.build();
 		}
 
 		private GLabel createCompartmentHeader(TaskNode taskNode) {
-			return new GLabelBuilder()
-					.setType(ModelTypes.LABEL_HEADING)
-					.setId(taskNode.getId() + "_classname")
-					.setText(taskNode.getName())
+			return new GLabelBuilder(ModelTypes.LABEL_HEADING) //
+					.id(taskNode.getId() + "_classname") //
+					.text(taskNode.getName()) //
 					.build();
 		}
 
 		private Icon createCompartmentIcon(TaskNode taskNode) {
-			return new IconBuilder()
-					.setId(taskNode.getId() + "_icon")
-					.setLayout("stack")
-					.setCommandId(SimulateCommandHandler.SIMULATE_COMMAND_ID)
-					.setLayoutOptions(new GLayoutOptionsBuilder()
-							.setHAlign("center")
-							.setResizeContainer(false)
-							.build())
-					.addChild(createCompartmentIconLabel(taskNode)).build();
+			return new IconBuilder() //
+					.id(taskNode.getId() + "_icon") //
+					.layout("stack") //
+					.commandId(SimulateCommandHandler.SIMULATE_COMMAND_ID) //
+					.layoutOptions(new GLayoutOptionsBuilder() //
+							.hAlign("center") //
+							.resizeContainer(false) //
+							.build()) //
+					.add(createCompartmentIconLabel(taskNode)).build();
 		}
 
 		private GLabel createCompartmentIconLabel(TaskNode taskNode) {
-			return new GLabelBuilder()
-					.setType(ModelTypes.LABEL_ICON)
-					.setId(taskNode.getId() + "_ticon")
-					.setText("" + taskNode.getTaskType().toUpperCase().charAt(0))
+			return new GLabelBuilder(ModelTypes.LABEL_ICON) //
+					.id(taskNode.getId() + "_ticon") //
+					.text("" + taskNode.getTaskType().toUpperCase().charAt(0)) //
 					.build();
 		}
 
@@ -169,7 +165,7 @@ public final class WorkflowBuilder {
 			super(ModelTypes.ICON);
 		}
 
-		public IconBuilder setCommandId(String commandId) {
+		public IconBuilder commandId(String commandId) {
 			this.commandId = commandId;
 			return self();
 		}

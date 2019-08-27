@@ -8,10 +8,9 @@ public abstract class AbstractGPreRenderedElementBuilder<T extends GPreRenderedE
 
 	public AbstractGPreRenderedElementBuilder(String type) {
 		super(type);
-
 	}
 
-	public E setCode(String code) {
+	public E code(String code) {
 		this.code = code;
 		return self();
 	}

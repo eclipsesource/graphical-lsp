@@ -31,26 +31,31 @@ public abstract class GModelRootBuilder<T extends GModelRoot, E extends GModelRo
 		super(type);
 	}
 
-	public E setCanvasBounds(GBounds canvasBounds) {
+	public E canvasBounds(GBounds canvasBounds) {
 		this.canvasBounds = canvasBounds;
 		return self();
 	}
 
-	public E setCanvasBounds(GDimension dimension, GPoint position) {
-		this.canvasBounds = new GBoundsBuilder()
-				.setDimension(dimension)
-				.setPosition(position)
+	public E canvasBounds(GDimension dimension, GPoint position) {
+		this.canvasBounds = new GBoundsBuilder() //
+				.dimension(dimension) //
+				.position(position) //
 				.build();
 		return self();
 	}
 
-	public E setCanvasBounds(double x, double y, double width, double height) {
-		this.canvasBounds = new GBoundsBuilder()
-				.setX(x)
-				.setY(y)
-				.setWidth(width)
-				.setHeight(height)
+	public E canvasBounds(double x, double y, double width, double height) {
+		this.canvasBounds = new GBoundsBuilder() //
+				.x(x) //
+				.y(y) //
+				.width(width) //
+				.height(height) //
 				.build();
+		return self();
+	}
+
+	public E revision(int revision) {
+		this.revision = revision;
 		return self();
 	}
 

@@ -23,7 +23,11 @@ import com.eclipsesource.graph.builder.AbstractGHtmlRootBuilder;
 public class GHtmlRootBuilder extends AbstractGHtmlRootBuilder<GHtmlRoot, GHtmlRootBuilder> {
 
 	public GHtmlRootBuilder() {
-		super(DefaultTypes.HTML);
+		this(DefaultTypes.HTML);
+	}
+
+	public GHtmlRootBuilder(String type) {
+		super(type);
 	}
 
 	@Override

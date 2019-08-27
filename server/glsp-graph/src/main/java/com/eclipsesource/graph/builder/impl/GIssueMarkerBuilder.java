@@ -23,7 +23,11 @@ import com.eclipsesource.graph.builder.AbstractGIssueMarkerBuilder;
 public class GIssueMarkerBuilder extends AbstractGIssueMarkerBuilder<GIssueMarker, GIssueMarkerBuilder> {
 
 	public GIssueMarkerBuilder() {
-		super(DefaultTypes.ISSUE_MARKER);
+		this(DefaultTypes.ISSUE_MARKER);
+	}
+
+	public GIssueMarkerBuilder(String type) {
+		super(type);
 	}
 
 	@Override

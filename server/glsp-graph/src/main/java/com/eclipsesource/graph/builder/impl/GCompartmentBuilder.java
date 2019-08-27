@@ -23,7 +23,11 @@ import com.eclipsesource.graph.builder.AbstractGCompartmentBuilder;
 public class GCompartmentBuilder extends AbstractGCompartmentBuilder<GCompartment, GCompartmentBuilder> {
 
 	public GCompartmentBuilder() {
-		super(DefaultTypes.COMPARTMENT);
+		this(DefaultTypes.COMPARTMENT);
+	}
+
+	public GCompartmentBuilder(String type) {
+		super(type);
 	}
 
 	@Override

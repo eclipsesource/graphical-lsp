@@ -23,7 +23,11 @@ import com.eclipsesource.graph.builder.AbstractGGraphBuilder;
 public class GGraphBuilder extends AbstractGGraphBuilder<GGraph, GGraphBuilder> {
 
 	public GGraphBuilder() {
-		super(DefaultTypes.GRAPH);
+		this(DefaultTypes.GRAPH);
+	}
+
+	public GGraphBuilder(String type) {
+		super(type);
 	}
 
 	@Override

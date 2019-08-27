@@ -25,7 +25,7 @@ public abstract class AbstractGButtonBuilder<T extends GButton, E extends Abstra
 		super(type);
 	}
 
-	public E setEnabled(boolean enabled) {
+	public E enabled(boolean enabled) {
 		this.enabled = enabled;
 		return self();
 	}

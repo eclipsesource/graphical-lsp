@@ -30,18 +30,14 @@ public abstract class AbstractGIssueMarkerBuilder<T extends GIssueMarker, E exte
 		super(type);
 	}
 
-	public E setIssues(List<GIssue> issues) {
-		this.issues = issues;
+	public E addIssue(GIssue issue) {
+		this.issues.add(issue);
 		return self();
 	}
 
 	public E addIssues(List<GIssue> issues) {
-		if (this.issues == null) {
-			return setIssues(issues);
-		} else {
-			this.issues.addAll(issues);
-			return self();
-		}
+		this.issues.addAll(issues);
+		return self();
 	}
 
 	@Override

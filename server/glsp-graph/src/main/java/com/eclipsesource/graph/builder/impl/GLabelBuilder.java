@@ -23,7 +23,11 @@ import com.eclipsesource.graph.builder.AbstractGLabelBuilder;
 public class GLabelBuilder extends AbstractGLabelBuilder<GLabel, GLabelBuilder> {
 
 	public GLabelBuilder() {
-		super(DefaultTypes.LABEL);
+		this(DefaultTypes.LABEL);
+	}
+
+	public GLabelBuilder(String type) {
+		super(type);
 	}
 
 	@Override

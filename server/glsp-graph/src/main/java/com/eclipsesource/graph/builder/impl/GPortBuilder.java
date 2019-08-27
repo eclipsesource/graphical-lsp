@@ -23,7 +23,11 @@ import com.eclipsesource.graph.builder.GShapeElementBuilder;
 public class GPortBuilder extends GShapeElementBuilder<GPort, GPortBuilder> {
 
 	public GPortBuilder() {
-		super(DefaultTypes.PORT);
+		this(DefaultTypes.PORT);
+	}
+
+	public GPortBuilder(String type) {
+		super(type);
 	}
 
 	@Override

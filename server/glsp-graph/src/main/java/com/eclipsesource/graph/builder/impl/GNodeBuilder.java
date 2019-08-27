@@ -23,7 +23,11 @@ import com.eclipsesource.graph.builder.AbstractGNodeBuilder;
 public class GNodeBuilder extends AbstractGNodeBuilder<GNode, GNodeBuilder> {
 
 	public GNodeBuilder() {
-		super(DefaultTypes.NODE);
+		this(DefaultTypes.NODE);
+	}
+
+	public GNodeBuilder(String type) {
+		super(type);
 	}
 
 	@Override

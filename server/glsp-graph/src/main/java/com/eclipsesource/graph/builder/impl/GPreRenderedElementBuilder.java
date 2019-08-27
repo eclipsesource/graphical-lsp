@@ -24,7 +24,11 @@ public class GPreRenderedElementBuilder
 		extends AbstractGPreRenderedElementBuilder<GPreRenderedElement, GPreRenderedElementBuilder> {
 
 	public GPreRenderedElementBuilder() {
-		super(DefaultTypes.PRE_RENDERED);
+		this(DefaultTypes.PRE_RENDERED);
+	}
+
+	public GPreRenderedElementBuilder(String type) {
+		super(type);
 	}
 
 	@Override

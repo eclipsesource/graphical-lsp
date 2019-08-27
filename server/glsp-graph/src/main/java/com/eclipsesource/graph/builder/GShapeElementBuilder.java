@@ -30,22 +30,22 @@ public abstract class GShapeElementBuilder<T extends GShapeElement, E extends GS
 		super(type);
 	}
 
-	public E setSize(GDimension size) {
+	public E size(GDimension size) {
 		this.size = size;
 		return self();
 	}
 
-	public E setSize(double width, double height) {
-		return setSize(GraphUtil.dimension(width, height));
+	public E size(double width, double height) {
+		return size(GraphUtil.dimension(width, height));
 	}
 
-	public E setPosition(GPoint position) {
+	public E position(GPoint position) {
 		this.position = position;
 		return self();
 	}
 
-	public E setPosition(double x, double y) {
-		return setPosition(GraphUtil.point(x, y));
+	public E position(double x, double y) {
+		return position(GraphUtil.point(x, y));
 	}
 
 	@Override

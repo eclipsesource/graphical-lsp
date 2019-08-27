@@ -30,17 +30,17 @@ public abstract class AbstractGNodeBuilder<T extends GNode, E extends AbstractGN
 		super(type);
 	}
 
-	public E setLayoutOptions(GLayoutOptions layoutOptions) {
+	public E layoutOptions(GLayoutOptions layoutOptions) {
 		this.layoutOptions = layoutOptions;
 		return self();
 	}
 
-	public E setEdgePlacement(GEdgePlacement edgePlacement) {
+	public E edgePlacement(GEdgePlacement edgePlacement) {
 		this.edgePlacement = edgePlacement;
 		return self();
 	}
 
-	public E setLayout(String layout) {
+	public E layout(String layout) {
 		this.layout = layout;
 		return self();
 	}
@@ -51,6 +51,5 @@ public abstract class AbstractGNodeBuilder<T extends GNode, E extends AbstractGN
 		node.setLayoutOptions(layoutOptions);
 		node.setLayout(layout);
 		node.setEdgePlacement(edgePlacement);
-
 	}
 }

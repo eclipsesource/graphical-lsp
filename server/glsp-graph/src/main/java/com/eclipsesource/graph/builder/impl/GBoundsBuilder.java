@@ -27,33 +27,33 @@ public class GBoundsBuilder extends GBuilder<GBounds> {
 	private double width;
 	private double height;
 
-	public GBoundsBuilder setX(double x) {
+	public GBoundsBuilder x(double x) {
 		this.x = x;
 		return this;
 	}
 
-	public GBoundsBuilder setY(double y) {
+	public GBoundsBuilder y(double y) {
 		this.y = y;
 		return this;
 	}
 
-	public GBoundsBuilder setWidth(double width) {
+	public GBoundsBuilder width(double width) {
 		this.width = width;
 		return this;
 	}
 
-	public GBoundsBuilder setHeight(double height) {
+	public GBoundsBuilder height(double height) {
 		this.height = height;
 		return this;
 	}
 
-	public GBoundsBuilder setPosition(GPoint position) {
+	public GBoundsBuilder position(GPoint position) {
 		this.x = position.getX();
 		this.y = position.getY();
 		return this;
 	}
 
-	public GBoundsBuilder setDimension(GDimension dimension) {
+	public GBoundsBuilder dimension(GDimension dimension) {
 		this.height = dimension.getHeight();
 		this.width = dimension.getWidth();
 		return this;

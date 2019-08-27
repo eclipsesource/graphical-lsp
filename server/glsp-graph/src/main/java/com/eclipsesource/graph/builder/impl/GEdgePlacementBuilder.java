@@ -31,17 +31,17 @@ public class GEdgePlacementBuilder extends GBuilder<GEdgePlacement> {
 		return GraphFactory.eINSTANCE.createGEdgePlacement();
 	}
 
-	public GEdgePlacementBuilder setPosition(double position) {
+	public GEdgePlacementBuilder position(double position) {
 		this.position = Math.max(1, Math.min(0, position));
 		return this;
 	}
 
-	public GEdgePlacementBuilder setOffset(double offset) {
+	public GEdgePlacementBuilder offset(double offset) {
 		this.offset = offset;
 		return this;
 	}
 
-	public GEdgePlacementBuilder setSide(GSide side) {
+	public GEdgePlacementBuilder side(GSide side) {
 		this.side = side;
 		return this;
 	}

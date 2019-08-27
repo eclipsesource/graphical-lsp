@@ -33,11 +33,9 @@ public class CreateActivityNodeHandler extends CreateNodeOperationHandler {
 	@Override
 	protected GNode createNode(Optional<GPoint> point, GraphicalModelState modelState) {
 		String nodeType = ModelTypes.toNodeType(elementTypeId);
-		ActivityNodeBuilder builder = new ActivityNodeBuilder(elementTypeId, nodeType);
-		if (point.isPresent()) {
-			builder.setPosition(point.get().getX(), point.get().getY());
-		}
-		return builder.build();
+		return new ActivityNodeBuilder(elementTypeId, nodeType) //
+				.position(point.orElse(null)) //
+				.build();
 	}
 
 }

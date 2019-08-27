@@ -27,12 +27,12 @@ public abstract class AbstractGCompartmentBuilder<T extends GCompartment, E exte
 		super(type);
 	}
 
-	public E setLayoutOptions(GLayoutOptions layoutOptions) {
+	public E layoutOptions(GLayoutOptions layoutOptions) {
 		this.layoutOptions = layoutOptions;
 		return self();
 	}
 
-	public E setLayout(String layout) {
+	public E layout(String layout) {
 		this.layout = layout;
 		return self();
 	}

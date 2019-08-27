@@ -34,31 +34,18 @@ public abstract class GModelElementBuilder<T extends GModelElement, E extends GM
 		this.type = type;
 	}
 
-	public E setId(final String id) {
+	public E id(final String id) {
 		this.id = id;
 		return self();
 	}
 
-	public E setType(final String type) {
+	public E type(final String type) {
 		this.type = type;
 		return self();
 	}
 
-	public E setTrace(String trace) {
+	public E trace(String trace) {
 		this.trace = trace;
-		return self();
-	}
-
-	public E setCssClasses(final List<String> cssClasses) {
-		return setCssClasses(cssClasses, true);
-	}
-
-	public E setCssClasses(final List<String> cssClasses, boolean replaceExisting) {
-		if (this.cssClasses == null || replaceExisting) {
-			this.cssClasses = cssClasses;
-		} else {
-			this.cssClasses.addAll(cssClasses);
-		}
 		return self();
 	}
 
@@ -72,12 +59,12 @@ public abstract class GModelElementBuilder<T extends GModelElement, E extends GM
 		return self();
 	}
 
-	public E addChild(GModelElement child) {
+	public E add(GModelElement child) {
 		this.children.add(child);
 		return self();
 	}
 
-	public E addChildren(List<GModelElement> children) {
+	public E addAll(List<GModelElement> children) {
 		this.children.addAll(children);
 		return self();
 	}

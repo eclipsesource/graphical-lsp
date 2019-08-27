@@ -23,7 +23,11 @@ import com.eclipsesource.graph.builder.AbstractGEdgeBuilder;
 public class GEdgeBuilder extends AbstractGEdgeBuilder<GEdge, GEdgeBuilder> {
 
 	public GEdgeBuilder() {
-		super(DefaultTypes.EDGE);
+		this(DefaultTypes.EDGE);
+	}
+
+	public GEdgeBuilder(String type) {
+		super(type);
 	}
 
 	@Override

@@ -23,7 +23,11 @@ import com.eclipsesource.graph.builder.AbstractGButtonBuilder;
 public class GButtonBuilder extends AbstractGButtonBuilder<GButton, GButtonBuilder> {
 
 	public GButtonBuilder() {
-		super(DefaultTypes.BUTTON);
+		this(DefaultTypes.BUTTON);
+	}
+
+	public GButtonBuilder(String type) {
+		super(type);
 	}
 
 	@Override

@@ -35,62 +35,62 @@ public class GLayoutOptionsBuilder extends GBuilder<GLayoutOptions> {
 	private Double minWidth;
 	private Double minHeight;
 
-	public GLayoutOptionsBuilder setPaddingLeft(Double paddingLeft) {
+	public GLayoutOptionsBuilder paddingLeft(Double paddingLeft) {
 		this.paddingLeft = paddingLeft;
 		return this;
 	}
 
-	public GLayoutOptionsBuilder setPaddingRight(Double paddingRight) {
+	public GLayoutOptionsBuilder paddingRight(Double paddingRight) {
 		this.paddingRight = paddingRight;
 		return this;
 	}
 
-	public GLayoutOptionsBuilder setPaddingTop(Double paddingTop) {
+	public GLayoutOptionsBuilder paddingTop(Double paddingTop) {
 		this.paddingTop = paddingTop;
 		return this;
 	}
 
-	public GLayoutOptionsBuilder setPaddingBottom(Double paddingBottom) {
+	public GLayoutOptionsBuilder paddingBottom(Double paddingBottom) {
 		this.paddingBottom = paddingBottom;
 		return this;
 	}
 
-	public GLayoutOptionsBuilder setPaddingFactor(Double paddingFactor) {
+	public GLayoutOptionsBuilder paddingFactor(Double paddingFactor) {
 		this.paddingFactor = paddingFactor;
 		return this;
 	}
 
-	public GLayoutOptionsBuilder setResizeContainer(boolean resizeContainer) {
+	public GLayoutOptionsBuilder resizeContainer(boolean resizeContainer) {
 		this.resizeContainer = resizeContainer;
 		return this;
 	}
 
-	public GLayoutOptionsBuilder setVGap(Double vGap) {
+	public GLayoutOptionsBuilder vGap(Double vGap) {
 		this.vGap = vGap;
 		return this;
 	}
 
-	public GLayoutOptionsBuilder setHGap(Double hGap) {
+	public GLayoutOptionsBuilder hGap(Double hGap) {
 		this.hGap = hGap;
 		return this;
 	}
 
-	public GLayoutOptionsBuilder setVAlign(String vAlign) {
+	public GLayoutOptionsBuilder vAlign(String vAlign) {
 		this.vAlign = vAlign;
 		return this;
 	}
 
-	public GLayoutOptionsBuilder setHAlign(String hAlign) {
+	public GLayoutOptionsBuilder hAlign(String hAlign) {
 		this.hAlign = hAlign;
 		return this;
 	}
 
-	public GLayoutOptionsBuilder setMinWidth(Double minWidth) {
+	public GLayoutOptionsBuilder minWidth(Double minWidth) {
 		this.minWidth = minWidth;
 		return this;
 	}
 
-	public GLayoutOptionsBuilder setMinHeight(Double minHeight) {
+	public GLayoutOptionsBuilder minHeight(Double minHeight) {
 		this.minHeight = minHeight;
 		return this;
 	}

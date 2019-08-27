@@ -15,11 +15,8 @@
  ******************************************************************************/
 package com.eclipsesource.graph.builder;
 
-import java.util.Optional;
-
 import com.eclipsesource.glsp.graph.GGraph;
 import com.eclipsesource.glsp.graph.GLayoutOptions;
-import com.eclipsesource.graph.builder.impl.GLayoutOptionsBuilder;
 
 public abstract class AbstractGGraphBuilder<T extends GGraph, E extends AbstractGGraphBuilder<T, E>>
 		extends GModelRootBuilder<T, E> {
@@ -30,7 +27,7 @@ public abstract class AbstractGGraphBuilder<T extends GGraph, E extends Abstract
 		super(type);
 	}
 
-	public E setGLayoutOptions(GLayoutOptions gLayoutOptions) {
+	public E layoutOptions(GLayoutOptions gLayoutOptions) {
 		this.gLayoutOptions = gLayoutOptions;
 		return self();
 	}
@@ -38,7 +35,7 @@ public abstract class AbstractGGraphBuilder<T extends GGraph, E extends Abstract
 	@Override
 	protected void setProperties(T element) {
 		super.setProperties(element);
-		element.setLayoutOptions(Optional.ofNullable(gLayoutOptions).orElse(new GLayoutOptionsBuilder().build()));
+		element.setLayoutOptions(gLayoutOptions);
 	}
 
 }

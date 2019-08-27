@@ -13,22 +13,23 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.graph.builder;
+package com.eclipsesource.graph.builder.impl;
 
 import com.eclipsesource.glsp.graph.GIssue;
 import com.eclipsesource.glsp.graph.GSeverity;
 import com.eclipsesource.glsp.graph.GraphFactory;
+import com.eclipsesource.graph.builder.GBuilder;
 
 public class GIssueBuilder extends GBuilder<GIssue> {
 	private GSeverity severity;
 	private String message;
 
-	public GIssueBuilder setSeverity(GSeverity severity) {
+	public GIssueBuilder severity(GSeverity severity) {
 		this.severity = severity;
 		return this;
 	}
 
-	public GIssueBuilder setMessage(String message) {
+	public GIssueBuilder message(String message) {
 		this.message = message;
 		return this;
 	}

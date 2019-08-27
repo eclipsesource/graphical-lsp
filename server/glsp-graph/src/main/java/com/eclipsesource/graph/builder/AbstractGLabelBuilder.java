@@ -30,21 +30,21 @@ public abstract class AbstractGLabelBuilder<T extends GLabel, E extends Abstract
 		super(type);
 	}
 
-	public E setAlignment(GPoint alignment) {
+	public E alignment(GPoint alignment) {
 		this.alignment = alignment;
 		return self();
 	}
 
-	public E setAlignment(double x, double y) {
-		return setAlignment(GraphUtil.point(x, y));
+	public E alignment(double x, double y) {
+		return alignment(GraphUtil.point(x, y));
 	}
 
-	public E setEdgePlacement(GEdgePlacement edgePlacement) {
+	public E edgePlacement(GEdgePlacement edgePlacement) {
 		this.edgePlacement = edgePlacement;
 		return self();
 	}
 
-	public E setText(String text) {
+	public E text(String text) {
 		this.text = text;
 		return self();
 	}
