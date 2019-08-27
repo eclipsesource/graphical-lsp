@@ -13,44 +13,31 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.graph.builder.impl;
+package com.eclipsesource.glsp.graph.builder.impl;
 
-import com.eclipsesource.glsp.graph.GEdgePlacement;
-import com.eclipsesource.glsp.graph.GSide;
+import com.eclipsesource.glsp.graph.DefaultTypes;
+import com.eclipsesource.glsp.graph.GPort;
 import com.eclipsesource.glsp.graph.GraphFactory;
-import com.eclipsesource.graph.builder.GBuilder;
+import com.eclipsesource.glsp.graph.builder.GShapeElementBuilder;
 
-public class GEdgePlacementBuilder extends GBuilder<GEdgePlacement> {
+public class GPortBuilder extends GShapeElementBuilder<GPort, GPortBuilder> {
 
-	private double position;
-	private double offset;
-	private GSide side;
-
-	@Override
-	protected GEdgePlacement instantiate() {
-		return GraphFactory.eINSTANCE.createGEdgePlacement();
+	public GPortBuilder() {
+		this(DefaultTypes.PORT);
 	}
 
-	public GEdgePlacementBuilder position(double position) {
-		this.position = Math.max(1, Math.min(0, position));
-		return this;
-	}
-
-	public GEdgePlacementBuilder offset(double offset) {
-		this.offset = offset;
-		return this;
-	}
-
-	public GEdgePlacementBuilder side(GSide side) {
-		this.side = side;
-		return this;
+	public GPortBuilder(String type) {
+		super(type);
 	}
 
 	@Override
-	protected void setProperties(GEdgePlacement placement) {
-		placement.setPosition(position);
-		placement.setOffset(offset);
-		placement.setSide(side);
+	protected GPort instantiate() {
+		return GraphFactory.eINSTANCE.createGPort();
+	}
+
+	@Override
+	protected GPortBuilder self() {
+		return this;
 	}
 
 }

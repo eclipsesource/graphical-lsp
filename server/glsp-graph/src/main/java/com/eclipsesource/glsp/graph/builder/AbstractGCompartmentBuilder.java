@@ -13,37 +13,34 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.graph.builder;
+package com.eclipsesource.glsp.graph.builder;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.eclipsesource.glsp.graph.GCompartment;
+import com.eclipsesource.glsp.graph.GLayoutOptions;
 
-import com.eclipsesource.glsp.graph.GIssue;
-import com.eclipsesource.glsp.graph.GIssueMarker;
-
-public abstract class AbstractGIssueMarkerBuilder<T extends GIssueMarker, E extends AbstractGIssueMarkerBuilder<T, E>>
+public abstract class AbstractGCompartmentBuilder<T extends GCompartment, E extends AbstractGCompartmentBuilder<T, E>>
 		extends GShapeElementBuilder<T, E> {
+	protected String layout;
+	protected GLayoutOptions layoutOptions;
 
-	protected List<GIssue> issues = new ArrayList<>();
-
-	public AbstractGIssueMarkerBuilder(String type) {
+	public AbstractGCompartmentBuilder(String type) {
 		super(type);
 	}
 
-	public E addIssue(GIssue issue) {
-		this.issues.add(issue);
+	public E layoutOptions(GLayoutOptions layoutOptions) {
+		this.layoutOptions = layoutOptions;
 		return self();
 	}
 
-	public E addIssues(List<GIssue> issues) {
-		this.issues.addAll(issues);
+	public E layout(String layout) {
+		this.layout = layout;
 		return self();
 	}
 
 	@Override
-	protected void setProperties(T issueMarker) {
-		super.setProperties(issueMarker);
-		issueMarker.getIssues().addAll(issues);
+	protected void setProperties(T comp) {
+		super.setProperties(comp);
+		comp.setLayoutOptions(layoutOptions);
+		comp.setLayout(layout);
 	}
-
 }

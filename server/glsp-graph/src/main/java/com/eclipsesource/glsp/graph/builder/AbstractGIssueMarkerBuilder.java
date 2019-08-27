@@ -13,31 +13,37 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.graph.builder.impl;
+package com.eclipsesource.glsp.graph.builder;
 
-import com.eclipsesource.glsp.graph.DefaultTypes;
-import com.eclipsesource.glsp.graph.GPort;
-import com.eclipsesource.glsp.graph.GraphFactory;
-import com.eclipsesource.graph.builder.GShapeElementBuilder;
+import java.util.ArrayList;
+import java.util.List;
 
-public class GPortBuilder extends GShapeElementBuilder<GPort, GPortBuilder> {
+import com.eclipsesource.glsp.graph.GIssue;
+import com.eclipsesource.glsp.graph.GIssueMarker;
 
-	public GPortBuilder() {
-		this(DefaultTypes.PORT);
-	}
+public abstract class AbstractGIssueMarkerBuilder<T extends GIssueMarker, E extends AbstractGIssueMarkerBuilder<T, E>>
+		extends GShapeElementBuilder<T, E> {
 
-	public GPortBuilder(String type) {
+	protected List<GIssue> issues = new ArrayList<>();
+
+	public AbstractGIssueMarkerBuilder(String type) {
 		super(type);
 	}
 
-	@Override
-	protected GPort instantiate() {
-		return GraphFactory.eINSTANCE.createGPort();
+	public E addIssue(GIssue issue) {
+		this.issues.add(issue);
+		return self();
+	}
+
+	public E addIssues(List<GIssue> issues) {
+		this.issues.addAll(issues);
+		return self();
 	}
 
 	@Override
-	protected GPortBuilder self() {
-		return this;
+	protected void setProperties(T issueMarker) {
+		super.setProperties(issueMarker);
+		issueMarker.getIssues().addAll(issues);
 	}
 
 }

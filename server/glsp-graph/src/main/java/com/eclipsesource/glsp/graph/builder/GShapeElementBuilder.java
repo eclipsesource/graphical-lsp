@@ -13,35 +13,46 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.graph.builder;
+package com.eclipsesource.glsp.graph.builder;
 
-import java.util.List;
+import com.eclipsesource.glsp.graph.GDimension;
+import com.eclipsesource.glsp.graph.GPoint;
+import com.eclipsesource.glsp.graph.GShapeElement;
+import com.eclipsesource.glsp.graph.util.GraphUtil;
 
-import com.eclipsesource.glsp.graph.GHtmlRoot;
+public abstract class GShapeElementBuilder<T extends GShapeElement, E extends GShapeElementBuilder<T, E>>
+		extends GModelElementBuilder<T, E> {
 
-public abstract class AbstractGHtmlRootBuilder<T extends GHtmlRoot, E extends AbstractGHtmlRootBuilder<T, E>>
-		extends GModelRootBuilder<T, E> {
+	protected GDimension size;
+	protected GPoint position;
 
-	protected List<String> classes;
-
-	public AbstractGHtmlRootBuilder(String type) {
+	public GShapeElementBuilder(String type) {
 		super(type);
 	}
 
-	public E addClass(String clazz) {
-		this.classes.add(clazz);
+	public E size(GDimension size) {
+		this.size = size;
 		return self();
 	}
 
-	public E addClasses(List<String> classes) {
-		this.classes.addAll(classes);
+	public E size(double width, double height) {
+		return size(GraphUtil.dimension(width, height));
+	}
+
+	public E position(GPoint position) {
+		this.position = position;
 		return self();
+	}
+
+	public E position(double x, double y) {
+		return position(GraphUtil.point(x, y));
 	}
 
 	@Override
 	protected void setProperties(T element) {
 		super.setProperties(element);
-		element.getClasses().addAll(classes);
+		element.setSize(size);
+		element.setPosition(position);
 	}
 
 }

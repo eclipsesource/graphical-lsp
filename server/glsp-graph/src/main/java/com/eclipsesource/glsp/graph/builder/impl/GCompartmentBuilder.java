@@ -13,36 +13,31 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.graph.builder.impl;
+package com.eclipsesource.glsp.graph.builder.impl;
 
-import com.eclipsesource.glsp.graph.GIssue;
-import com.eclipsesource.glsp.graph.GSeverity;
+import com.eclipsesource.glsp.graph.DefaultTypes;
+import com.eclipsesource.glsp.graph.GCompartment;
 import com.eclipsesource.glsp.graph.GraphFactory;
-import com.eclipsesource.graph.builder.GBuilder;
+import com.eclipsesource.glsp.graph.builder.AbstractGCompartmentBuilder;
 
-public class GIssueBuilder extends GBuilder<GIssue> {
-	private GSeverity severity;
-	private String message;
+public class GCompartmentBuilder extends AbstractGCompartmentBuilder<GCompartment, GCompartmentBuilder> {
 
-	public GIssueBuilder severity(GSeverity severity) {
-		this.severity = severity;
-		return this;
+	public GCompartmentBuilder() {
+		this(DefaultTypes.COMPARTMENT);
 	}
 
-	public GIssueBuilder message(String message) {
-		this.message = message;
-		return this;
+	public GCompartmentBuilder(String type) {
+		super(type);
 	}
 
 	@Override
-	protected GIssue instantiate() {
-		return GraphFactory.eINSTANCE.createGIssue();
+	protected GCompartment instantiate() {
+		return GraphFactory.eINSTANCE.createGCompartment();
 	}
 
 	@Override
-	protected void setProperties(GIssue issue) {
-		issue.setMessage(message);
-		issue.setSeverity(severity);
+	protected GCompartmentBuilder self() {
+		return this;
 	}
 
 }

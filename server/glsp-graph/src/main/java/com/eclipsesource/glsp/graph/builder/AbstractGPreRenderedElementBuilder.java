@@ -1,4 +1,4 @@
-package com.eclipsesource.graph.builder;
+package com.eclipsesource.glsp.graph.builder;
 
 import com.eclipsesource.glsp.graph.GPreRenderedElement;
 

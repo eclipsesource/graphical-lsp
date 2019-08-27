@@ -13,12 +13,12 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.graph.builder.impl;
+package com.eclipsesource.glsp.graph.builder.impl;
 
 import com.eclipsesource.glsp.graph.DefaultTypes;
 import com.eclipsesource.glsp.graph.GGraph;
 import com.eclipsesource.glsp.graph.GraphFactory;
-import com.eclipsesource.graph.builder.AbstractGGraphBuilder;
+import com.eclipsesource.glsp.graph.builder.AbstractGGraphBuilder;
 
 public class GGraphBuilder extends AbstractGGraphBuilder<GGraph, GGraphBuilder> {
 

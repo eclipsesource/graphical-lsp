@@ -23,12 +23,12 @@ import com.eclipsesource.glsp.example.workflow.wfgraph.WeightedEdge;
 import com.eclipsesource.glsp.example.workflow.wfgraph.WfgraphFactory;
 import com.eclipsesource.glsp.graph.GCompartment;
 import com.eclipsesource.glsp.graph.GLabel;
-import com.eclipsesource.graph.builder.AbstractGCompartmentBuilder;
-import com.eclipsesource.graph.builder.AbstractGEdgeBuilder;
-import com.eclipsesource.graph.builder.AbstractGNodeBuilder;
-import com.eclipsesource.graph.builder.impl.GCompartmentBuilder;
-import com.eclipsesource.graph.builder.impl.GLabelBuilder;
-import com.eclipsesource.graph.builder.impl.GLayoutOptionsBuilder;
+import com.eclipsesource.glsp.graph.builder.AbstractGCompartmentBuilder;
+import com.eclipsesource.glsp.graph.builder.AbstractGEdgeBuilder;
+import com.eclipsesource.glsp.graph.builder.AbstractGNodeBuilder;
+import com.eclipsesource.glsp.graph.builder.impl.GCompartmentBuilder;
+import com.eclipsesource.glsp.graph.builder.impl.GLabelBuilder;
+import com.eclipsesource.glsp.graph.builder.impl.GLayoutOptionsBuilder;
 
 public final class WorkflowBuilder {
 

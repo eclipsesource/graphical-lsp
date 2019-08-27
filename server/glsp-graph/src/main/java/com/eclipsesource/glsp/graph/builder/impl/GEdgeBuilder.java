@@ -13,30 +13,30 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.graph.builder.impl;
+package com.eclipsesource.glsp.graph.builder.impl;
 
 import com.eclipsesource.glsp.graph.DefaultTypes;
-import com.eclipsesource.glsp.graph.GLabel;
+import com.eclipsesource.glsp.graph.GEdge;
 import com.eclipsesource.glsp.graph.GraphFactory;
-import com.eclipsesource.graph.builder.AbstractGLabelBuilder;
+import com.eclipsesource.glsp.graph.builder.AbstractGEdgeBuilder;
 
-public class GLabelBuilder extends AbstractGLabelBuilder<GLabel, GLabelBuilder> {
+public class GEdgeBuilder extends AbstractGEdgeBuilder<GEdge, GEdgeBuilder> {
 
-	public GLabelBuilder() {
-		this(DefaultTypes.LABEL);
+	public GEdgeBuilder() {
+		this(DefaultTypes.EDGE);
 	}
 
-	public GLabelBuilder(String type) {
+	public GEdgeBuilder(String type) {
 		super(type);
 	}
 
 	@Override
-	protected GLabel instantiate() {
-		return GraphFactory.eINSTANCE.createGLabel();
+	protected GEdge instantiate() {
+		return GraphFactory.eINSTANCE.createGEdge();
 	}
 
 	@Override
-	protected GLabelBuilder self() {
+	protected GEdgeBuilder self() {
 		return this;
 	}
 

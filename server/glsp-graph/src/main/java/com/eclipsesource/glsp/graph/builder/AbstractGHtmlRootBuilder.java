@@ -13,32 +13,35 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.graph.builder.impl;
+package com.eclipsesource.glsp.graph.builder;
 
-import com.eclipsesource.glsp.graph.DefaultTypes;
-import com.eclipsesource.glsp.graph.GPreRenderedElement;
-import com.eclipsesource.glsp.graph.GraphFactory;
-import com.eclipsesource.graph.builder.AbstractGPreRenderedElementBuilder;
+import java.util.List;
 
-public class GPreRenderedElementBuilder
-		extends AbstractGPreRenderedElementBuilder<GPreRenderedElement, GPreRenderedElementBuilder> {
+import com.eclipsesource.glsp.graph.GHtmlRoot;
 
-	public GPreRenderedElementBuilder() {
-		this(DefaultTypes.PRE_RENDERED);
-	}
+public abstract class AbstractGHtmlRootBuilder<T extends GHtmlRoot, E extends AbstractGHtmlRootBuilder<T, E>>
+		extends GModelRootBuilder<T, E> {
 
-	public GPreRenderedElementBuilder(String type) {
+	protected List<String> classes;
+
+	public AbstractGHtmlRootBuilder(String type) {
 		super(type);
 	}
 
-	@Override
-	protected GPreRenderedElement instantiate() {
-		return GraphFactory.eINSTANCE.createGPreRenderedElement();
+	public E addClass(String clazz) {
+		this.classes.add(clazz);
+		return self();
+	}
+
+	public E addClasses(List<String> classes) {
+		this.classes.addAll(classes);
+		return self();
 	}
 
 	@Override
-	protected GPreRenderedElementBuilder self() {
-		return this;
+	protected void setProperties(T element) {
+		super.setProperties(element);
+		element.getClasses().addAll(classes);
 	}
 
 }

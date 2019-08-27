@@ -13,34 +13,48 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.graph.builder;
+package com.eclipsesource.glsp.graph.builder;
 
-import com.eclipsesource.glsp.graph.GCompartment;
-import com.eclipsesource.glsp.graph.GLayoutOptions;
+import com.eclipsesource.glsp.graph.GEdgePlacement;
+import com.eclipsesource.glsp.graph.GLabel;
+import com.eclipsesource.glsp.graph.GPoint;
+import com.eclipsesource.glsp.graph.util.GraphUtil;
 
-public abstract class AbstractGCompartmentBuilder<T extends GCompartment, E extends AbstractGCompartmentBuilder<T, E>>
+public abstract class AbstractGLabelBuilder<T extends GLabel, E extends AbstractGLabelBuilder<T, E>>
 		extends GShapeElementBuilder<T, E> {
-	protected String layout;
-	protected GLayoutOptions layoutOptions;
+	protected GPoint alignment;
+	protected GEdgePlacement edgePlacement;
+	protected String text;
 
-	public AbstractGCompartmentBuilder(String type) {
+	public AbstractGLabelBuilder(String type) {
 		super(type);
 	}
 
-	public E layoutOptions(GLayoutOptions layoutOptions) {
-		this.layoutOptions = layoutOptions;
+	public E alignment(GPoint alignment) {
+		this.alignment = alignment;
 		return self();
 	}
 
-	public E layout(String layout) {
-		this.layout = layout;
+	public E alignment(double x, double y) {
+		return alignment(GraphUtil.point(x, y));
+	}
+
+	public E edgePlacement(GEdgePlacement edgePlacement) {
+		this.edgePlacement = edgePlacement;
+		return self();
+	}
+
+	public E text(String text) {
+		this.text = text;
 		return self();
 	}
 
 	@Override
-	protected void setProperties(T comp) {
-		super.setProperties(comp);
-		comp.setLayoutOptions(layoutOptions);
-		comp.setLayout(layout);
+	public void setProperties(T label) {
+		super.setProperties(label);
+		label.setAlignment(alignment);
+		label.setEdgePlacement(edgePlacement);
+		label.setText(text);
 	}
+
 }
