@@ -42,14 +42,15 @@ export class NavigationCommandPaletteActionProvider implements ICommandPaletteAc
     getActions(root: Readonly<SModelElement>): Promise<LabeledAction[]> {
         return Promise.resolve(toArray(root.index.all()
             .filter(isNameable)
-            .map(nameable => new LabeledAction(`Select ${name(nameable)}`, [new SelectAction([nameable.id]), new CenterAction([nameable.id])], 'fa-object-group'))));
+            .map(nameable => new LabeledAction(`Select ${name(nameable)}`,
+                [new SelectAction([nameable.id]), new CenterAction([nameable.id])], 'fa-object-group'))));
     }
 }
 
 @injectable()
 export class ServerCommandPaletteActionProvider implements ICommandPaletteActionProvider {
-    constructor(@inject(GLSP_TYPES.RequestResponseSupport) protected requestResponseSupport: RequestResponseSupport) {
-    }
+
+    constructor(@inject(GLSP_TYPES.RequestResponseSupport) protected requestResponseSupport: RequestResponseSupport) { }
 
     getActions(root: Readonly<SModelElement>, text: string, lastMousePosition?: Point): Promise<LabeledAction[]> {
         const selectedElementIds = Array.from(root.index.all().filter(isSelected).map(e => e.id));
