@@ -20,6 +20,7 @@ import static com.eclipsesource.glsp.graph.util.GraphUtil.point;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
@@ -33,30 +34,30 @@ import com.eclipsesource.glsp.example.workflow.wfgraph.TaskNode;
 import com.eclipsesource.glsp.graph.GModelElement;
 import com.eclipsesource.glsp.graph.GModelIndex;
 import com.eclipsesource.glsp.graph.GNode;
+import com.eclipsesource.glsp.graph.GPoint;
 import com.google.common.collect.Sets;
 
 public class WorkflowCommandPaletteActionProvider implements CommandPaletteActionProvider {
-	private static final LabeledAction CREATE_MERGE_NODE = new LabeledAction("Create Merge Node",
-			new CreateNodeOperationAction(ModelTypes.MERGE_NODE, point(0, 0), null));
-	private static final LabeledAction CREATE_DECISION_NODE = new LabeledAction("Create Decision Node",
-			new CreateNodeOperationAction(ModelTypes.DECISION_NODE, point(0, 0), null));
-	private static final LabeledAction CREATE_MANUAL_TASK = new LabeledAction("Create Manual Task",
-			new CreateNodeOperationAction(ModelTypes.MANUAL_TASK, point(0, 0), null));
-	private static final LabeledAction CREATE_AUTOMATED_TASK = new LabeledAction("Create Automated Task",
-			new CreateNodeOperationAction(ModelTypes.AUTOMATED_TASK, point(0, 0), null));
-
-	private static final Set<LabeledAction> CREATE_NODE_ACTIONS = Sets.newHashSet(CREATE_AUTOMATED_TASK,
-			CREATE_MANUAL_TASK, CREATE_MERGE_NODE, CREATE_DECISION_NODE);
 
 	@Override
-	public Set<LabeledAction> getActions(GraphicalModelState modelState, List<String> selectedElementsIDs) {
+	public Set<LabeledAction> getActions(GraphicalModelState modelState, List<String> selectedIds, String text,
+			Optional<GPoint> lastMousePosition) {
 		Set<LabeledAction> actions = Sets.newLinkedHashSet();
 
 		GModelIndex index = modelState.getIndex();
-		Set<GModelElement> selectedElements = index.getAll(selectedElementsIDs);
+		Set<GModelElement> selectedElements = index.getAll(selectedIds);
 
 		// Create node actions are always possible
-		actions.addAll(CREATE_NODE_ACTIONS);
+		actions.addAll(Sets.newHashSet(
+				new LabeledAction("Create Automated Task", "fa-plus-square",
+						new CreateNodeOperationAction(ModelTypes.AUTOMATED_TASK,
+								lastMousePosition.orElse(point(0, 0)))),
+				new LabeledAction("Create Manual Task", "fa-plus-square",
+						new CreateNodeOperationAction(ModelTypes.MANUAL_TASK, lastMousePosition.orElse(point(0, 0)))),
+				new LabeledAction("Create Merge Node", "fa-plus-square",
+						new CreateNodeOperationAction(ModelTypes.MERGE_NODE, lastMousePosition.orElse(point(0, 0)))),
+				new LabeledAction("Create Decision Node", "fa-plus-square", new CreateNodeOperationAction(
+						ModelTypes.DECISION_NODE, lastMousePosition.orElse(point(0, 0))))));
 
 		// Create edge actions between two nodes
 		if (selectedElements.size() == 1) {
@@ -69,17 +70,18 @@ public class WorkflowCommandPaletteActionProvider implements CommandPaletteActio
 			GModelElement firstElement = iterator.next();
 			GModelElement secondElement = iterator.next();
 			if (firstElement instanceof TaskNode && secondElement instanceof TaskNode) {
-				actions.add(createEdgeAction("Connect with Edge", (GNode) firstElement, (GNode) secondElement));
-				actions.add(createWeightedEdgeAction("Connect with Weighted Edge", (GNode) firstElement,
-						(GNode) secondElement));
+				GNode firstNode = (GNode) firstElement;
+				GNode secondNode = (GNode) secondElement;
+				actions.add(createEdgeAction("Connect with Edge", firstNode, secondNode));
+				actions.add(createWeightedEdgeAction("Connect with Weighted Edge", firstNode, secondNode));
 			}
 		}
 
 		// Delete action
 		if (selectedElements.size() == 1) {
-			actions.add(new LabeledAction("Delete", new DeleteOperationAction(selectedElementsIDs)));
+			actions.add(new LabeledAction("Delete", "fa-minus-square", new DeleteOperationAction(selectedIds)));
 		} else if (selectedElements.size() > 1) {
-			actions.add(new LabeledAction("Delete All", new DeleteOperationAction(selectedElementsIDs)));
+			actions.add(new LabeledAction("Delete All", "fa-minus-square", new DeleteOperationAction(selectedIds)));
 		}
 
 		return actions;
@@ -95,12 +97,13 @@ public class WorkflowCommandPaletteActionProvider implements CommandPaletteActio
 	}
 
 	private LabeledAction createWeightedEdgeAction(String label, GNode source, GNode node) {
-		return new LabeledAction(label,
+		return new LabeledAction(label, "fa-plus-square",
 				new CreateConnectionOperationAction(ModelTypes.WEIGHTED_EDGE, source.getId(), node.getId()));
 	}
 
 	private LabeledAction createEdgeAction(String label, GNode source, GNode node) {
-		return new LabeledAction(label, new CreateConnectionOperationAction(EDGE, source.getId(), node.getId()));
+		return new LabeledAction(label, "fa-plus-square",
+				new CreateConnectionOperationAction(EDGE, source.getId(), node.getId()));
 	}
 
 	private String getLabel(GNode node) {

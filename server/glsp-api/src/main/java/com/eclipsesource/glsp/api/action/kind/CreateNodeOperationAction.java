@@ -27,26 +27,25 @@ public class CreateNodeOperationAction extends AbstractOperationAction {
 	private String containerId;
 
 	public CreateNodeOperationAction() {
-		super(Action.Kind.CREATE_NODE_OPERATION);
+		this(null, null, null);
 	}
 
 	public CreateNodeOperationAction(String elementTypeId) {
-		this();
-		this.elementTypeId = elementTypeId;
+		this(elementTypeId, null, null);
 	}
 
 	public CreateNodeOperationAction(String elementTypeId, GPoint location) {
-		this(elementTypeId);
-		this.location = location;
+		this(elementTypeId, location, null);
+	}
+	
+	public CreateNodeOperationAction(String elementTypeId, String containerId) {
+		this(elementTypeId, null, containerId);
 	}
 
 	public CreateNodeOperationAction(String elementTypeId, GPoint location, String containerId) {
-		this(elementTypeId, location);
-		this.containerId = containerId;
-	}
-
-	public CreateNodeOperationAction(String elementTypeId, String containerId) {
-		this(elementTypeId);
+		super(Action.Kind.CREATE_NODE_OPERATION);
+		this.elementTypeId = elementTypeId;
+		this.location = location;
 		this.containerId = containerId;
 	}
 

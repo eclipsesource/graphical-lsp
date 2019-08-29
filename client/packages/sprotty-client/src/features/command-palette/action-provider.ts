@@ -22,9 +22,10 @@ import {
     isNameable,
     LabeledAction,
     name,
+    Point,
     SelectAction,
     SModelElement,
-    TYPES,
+    TYPES
 } from "sprotty/lib";
 import { toArray } from "sprotty/lib/utils/iterable";
 
@@ -36,25 +37,24 @@ import { isSetCommandPaletteActionsAction, RequestCommandPaletteActions } from "
 @injectable()
 export class NavigationCommandPaletteActionProvider implements ICommandPaletteActionProvider {
 
-    constructor(
-
-        @inject(TYPES.ILogger) protected logger: ILogger) { }
+    constructor(@inject(TYPES.ILogger) protected logger: ILogger) { }
 
     getActions(root: Readonly<SModelElement>): Promise<LabeledAction[]> {
         return Promise.resolve(toArray(root.index.all()
             .filter(isNameable)
-            .map(nameable => new LabeledAction(`Select ${name(nameable)}`, [new SelectAction([nameable.id]), new CenterAction([nameable.id])]))));
+            .map(nameable => new LabeledAction(`Select ${name(nameable)}`,
+                [new SelectAction([nameable.id]), new CenterAction([nameable.id])], 'fa-object-group'))));
     }
 }
 
 @injectable()
 export class ServerCommandPaletteActionProvider implements ICommandPaletteActionProvider {
-    constructor(@inject(GLSP_TYPES.RequestResponseSupport) protected requestResponseSupport: RequestResponseSupport) {
-    }
 
-    getActions(root: Readonly<SModelElement>): Promise<LabeledAction[]> {
-        const selectedElementIDs = Array.from(root.index.all().filter(isSelected).map(e => e.id));
-        const requestAction = new RequestCommandPaletteActions(selectedElementIDs);
+    constructor(@inject(GLSP_TYPES.RequestResponseSupport) protected requestResponseSupport: RequestResponseSupport) { }
+
+    getActions(root: Readonly<SModelElement>, text: string, lastMousePosition?: Point): Promise<LabeledAction[]> {
+        const selectedElementIds = Array.from(root.index.all().filter(isSelected).map(e => e.id));
+        const requestAction = new RequestCommandPaletteActions(selectedElementIds, text, lastMousePosition);
         const responseHandler = this.getPaletteActionsFromResponse;
         const promise = this.requestResponseSupport.dispatchRequest(requestAction, responseHandler);
         return promise;
