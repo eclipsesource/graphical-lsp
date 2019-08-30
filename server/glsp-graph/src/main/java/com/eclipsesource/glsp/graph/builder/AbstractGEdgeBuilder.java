@@ -27,7 +27,9 @@ public abstract class AbstractGEdgeBuilder<T extends GEdge, E extends AbstractGE
 		extends GModelElementBuilder<T, E> {
 
 	private GModelElement source;
+	private String sourceId;
 	private GModelElement target;
+	private String targetId;
 	private List<GPoint> routingPoints = new ArrayList<>();
 
 	public AbstractGEdgeBuilder(String type) {
@@ -36,11 +38,23 @@ public abstract class AbstractGEdgeBuilder<T extends GEdge, E extends AbstractGE
 
 	public E source(GModelElement source) {
 		this.source = source;
+		this.sourceId = source.getId();
+		return self();
+	}
+
+	public E sourceId(String sourceId) {
+		this.sourceId = sourceId;
 		return self();
 	}
 
 	public E target(GModelElement target) {
 		this.target = target;
+		this.targetId = target.getId();
+		return self();
+	}
+
+	public E targetId(String targetId) {
+		this.targetId = targetId;
 		return self();
 	}
 
@@ -61,16 +75,16 @@ public abstract class AbstractGEdgeBuilder<T extends GEdge, E extends AbstractGE
 	@Override
 	protected void setProperties(T edge) {
 		super.setProperties(edge);
+		edge.setSourceId(sourceId);
+		edge.setTargetId(targetId);
 		if (source != null) {
 			edge.setSource(source);
-			edge.setSourceId(source.getId());
 		}
 		if (target != null) {
 			edge.setTarget(target);
-			edge.setTargetId(target.getId());
+
 		}
 		edge.getRoutingPoints().addAll(routingPoints);
-
 	}
 
 }
