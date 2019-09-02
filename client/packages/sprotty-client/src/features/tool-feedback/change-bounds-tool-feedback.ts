@@ -162,11 +162,19 @@ export class FeedbackMoveMouseListener extends MouseListener {
     }
 
 
-    // Remove thisd and use the one from the improved routing branch
+    // Remove this and use the one from the improved routing branch
     getDistanceBetweenParallelLines(p1: Point, p2: Point, secondLine: PointToPointLine): Number {
         const numerator: number = Math.abs((secondLine.a * p1.x) + (secondLine.b * p1.y) - secondLine.c);
         const denominator: number = Math.sqrt(Math.pow(secondLine.a, 2) + Math.pow(secondLine.b, 2));
         return numerator / denominator;
+    }
+
+    getSnapDistance(distances: number[]): number {
+        distances.forEach(element => {
+
+        });
+
+        return 0;
     }
 
     /**
@@ -174,7 +182,7 @@ export class FeedbackMoveMouseListener extends MouseListener {
      *
      * Experiment with snapping to the closest edge.
      */
-    snapElementToTarget(element: SModelElement & BoundsAware, target: SModelElement & BoundsAware, dx: number, dy: number) {
+    snapElementToTarget(element: SModelElement & BoundsAware, target: SModelElement & BoundsAware, dx: number, dy: number): Bounds {
         let snappedBounds: Bounds = element.bounds;
 
         const elementTopLeft: Point = {
@@ -223,9 +231,33 @@ export class FeedbackMoveMouseListener extends MouseListener {
         const distanceLeft: Number = this.getDistanceBetweenParallelLines(elementTopLeft, elementBottomLeft, targetRightLine);
         const distanceRight: Number = this.getDistanceBetweenParallelLines(elementTopRight, elementBottomRight, targetLeftLine);
 
-        const minimumDistance = Math.min(distanceTop.valueOf(), distanceBottom.valueOf(), distanceLeft.valueOf(), distanceRight.valueOf());
+        const minimumCandidates = [];
+
+        // Overlap on the horizontal lines
+        if (isOverlapping1Dimension(element.bounds.x, element.bounds.width, target.bounds.x, target.bounds.width)) {
+            console.log("Overlapping horizontal lines");
+            minimumCandidates.push(distanceTop.valueOf());
+            minimumCandidates.push(distanceBottom.valueOf());
+        }
+        // Overlap on the horizontal lines
+        if (isOverlapping1Dimension(element.bounds.y, element.bounds.height, target.bounds.y, target.bounds.height)) {
+            console.log("Overlapping vertical lines");
+            minimumCandidates.push(distanceLeft.valueOf());
+            minimumCandidates.push(distanceRight.valueOf());
+        }
+
+
+        // const minimumCandidates = [distanceTop.valueOf(), distanceBottom.valueOf(), distanceLeft.valueOf(), distanceRight.valueOf()];
+        minimumCandidates.sort((a, b) => a - b);
+        console.log("Minimum candidates", minimumCandidates);
+        // const minimumDistance = Math.min(distanceTop.valueOf(), distanceBottom.valueOf(), distanceLeft.valueOf(), distanceRight.valueOf());
+
+        const minimumDistance = minimumCandidates[0];
+
+        // Add isOverlapping1Dimension check
+        // Maybe wrap it in a while statement and remove the wrong ones systematically
         if (minimumDistance === distanceTop) {
-            console.log("Top is closest");
+            console.log("Top is closest", distanceTop);
             snappedBounds = {
                 x: element.bounds.x,
                 y: target.bounds.y - 1 - element.bounds.height,
@@ -261,6 +293,7 @@ export class FeedbackMoveMouseListener extends MouseListener {
             };
         }
 
+        return snappedBounds;
 
         /*
                 // Mainly horizontal movement
@@ -309,7 +342,7 @@ export class FeedbackMoveMouseListener extends MouseListener {
                     }
                 }*/
         // Set the snapped bounds
-        element.bounds = snappedBounds;
+        // element.bounds = snappedBounds;
     }
 
     mouseMove(target: SModelElement, event: MouseEvent): Action[] {
@@ -373,10 +406,24 @@ export class FeedbackMoveMouseListener extends MouseListener {
                             if (collisionTargets.length > 0) {
                                 collisionTargets.forEach(collisionTarget => {
                                     if (isResizeable(collisionTarget)) {
-                                        // console.log("Collision target", collisionTarget);
+                                        console.log("Collision target", collisionTarget.id);
                                         // Only snap on first collision to avoid erratic jumps
                                         if (!this.hasCollided) {
-                                            this.snapElementToTarget(element, collisionTarget, dx, dy);
+                                            const snappedBounds = this.snapElementToTarget(element, collisionTarget, dx, dy);
+                                            const snapMoves: ElementMove[] = [];
+                                            snapMoves.push({
+                                                elementId: element.id,
+                                                fromPosition: {
+                                                    x: element.position.x,
+                                                    y: element.position.y
+                                                },
+                                                toPosition: {
+                                                    x: snappedBounds.x,
+                                                    y: snappedBounds.y
+                                                }
+                                            });
+                                            console.log("Pushing snap move", snapMoves);
+                                            result.push(new MoveAction(snapMoves, false));
                                         }
 
 
