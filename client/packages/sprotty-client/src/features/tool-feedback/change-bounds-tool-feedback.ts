@@ -169,23 +169,13 @@ export class FeedbackMoveMouseListener extends MouseListener {
         return numerator / denominator;
     }
 
-    getSnapDistance(distances: number[]): number {
-        distances.forEach(element => {
-
-        });
-
-        return 0;
-    }
-
     /**
      * Snaps the element to the target in case of a collision
-     *
-     * Experiment with snapping to the closest edge.
      */
-    snapElementToTarget(element: SModelElement & BoundsAware, target: SModelElement & BoundsAware): Bounds {
+    getSnappedBounds(element: SModelElement & BoundsAware, target: SModelElement & BoundsAware): Bounds {
         let snappedBounds: Bounds = element.bounds;
 
-        // Build points
+        // Build corner points
         const elementTopLeft: Point = {
             x: element.bounds.x,
             y: element.bounds.y
@@ -247,9 +237,8 @@ export class FeedbackMoveMouseListener extends MouseListener {
             minimumCandidates.push(distanceRight.valueOf());
         }
 
-        minimumCandidates.sort((a, b) => a - b);
-
         // Get minimum distance and then snap accordingly
+        minimumCandidates.sort((a, b) => a - b);
         const minimumDistance = minimumCandidates[0];
 
         if (minimumDistance === distanceTop) {
@@ -351,7 +340,7 @@ export class FeedbackMoveMouseListener extends MouseListener {
                                     if (isResizeable(collisionTarget)) {
                                         // Only snap on first collision to avoid erratic jumps
                                         if (!this.hasCollided) {
-                                            const snappedBounds = this.snapElementToTarget(element, collisionTarget);
+                                            const snappedBounds = this.getSnappedBounds(element, collisionTarget);
                                             const snapMoves: ElementMove[] = [];
                                             snapMoves.push({
                                                 elementId: element.id,
