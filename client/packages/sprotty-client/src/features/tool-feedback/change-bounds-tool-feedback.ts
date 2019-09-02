@@ -182,9 +182,10 @@ export class FeedbackMoveMouseListener extends MouseListener {
      *
      * Experiment with snapping to the closest edge.
      */
-    snapElementToTarget(element: SModelElement & BoundsAware, target: SModelElement & BoundsAware, dx: number, dy: number): Bounds {
+    snapElementToTarget(element: SModelElement & BoundsAware, target: SModelElement & BoundsAware): Bounds {
         let snappedBounds: Bounds = element.bounds;
 
+        // Build points
         const elementTopLeft: Point = {
             x: element.bounds.x,
             y: element.bounds.y
@@ -221,43 +222,37 @@ export class FeedbackMoveMouseListener extends MouseListener {
         };
 
 
+        // Build lines
         const targetTopLine: PointToPointLine = new PointToPointLine(targetTopLeft, targetTopRight);
         const targetBottomLine: PointToPointLine = new PointToPointLine(targetBottomLeft, targetBottomRight);
         const targetLeftLine: PointToPointLine = new PointToPointLine(targetTopLeft, targetBottomLeft);
         const targetRightLine: PointToPointLine = new PointToPointLine(targetTopRight, targetBottomRight);
 
+        // Compute distances
         const distanceTop: Number = this.getDistanceBetweenParallelLines(elementBottomLeft, elementBottomRight, targetTopLine);
         const distanceBottom: Number = this.getDistanceBetweenParallelLines(elementTopLeft, elementTopRight, targetBottomLine);
         const distanceLeft: Number = this.getDistanceBetweenParallelLines(elementTopLeft, elementBottomLeft, targetRightLine);
         const distanceRight: Number = this.getDistanceBetweenParallelLines(elementTopRight, elementBottomRight, targetLeftLine);
 
-        const minimumCandidates = [];
+        const minimumCandidates: number[] = [];
 
         // Overlap on the horizontal lines
         if (isOverlapping1Dimension(element.bounds.x, element.bounds.width, target.bounds.x, target.bounds.width)) {
-            console.log("Overlapping horizontal lines");
             minimumCandidates.push(distanceTop.valueOf());
             minimumCandidates.push(distanceBottom.valueOf());
         }
         // Overlap on the horizontal lines
         if (isOverlapping1Dimension(element.bounds.y, element.bounds.height, target.bounds.y, target.bounds.height)) {
-            console.log("Overlapping vertical lines");
             minimumCandidates.push(distanceLeft.valueOf());
             minimumCandidates.push(distanceRight.valueOf());
         }
 
-
-        // const minimumCandidates = [distanceTop.valueOf(), distanceBottom.valueOf(), distanceLeft.valueOf(), distanceRight.valueOf()];
         minimumCandidates.sort((a, b) => a - b);
-        console.log("Minimum candidates", minimumCandidates);
-        // const minimumDistance = Math.min(distanceTop.valueOf(), distanceBottom.valueOf(), distanceLeft.valueOf(), distanceRight.valueOf());
 
+        // Get minimum distance and then snap accordingly
         const minimumDistance = minimumCandidates[0];
 
-        // Add isOverlapping1Dimension check
-        // Maybe wrap it in a while statement and remove the wrong ones systematically
         if (minimumDistance === distanceTop) {
-            console.log("Top is closest", distanceTop);
             snappedBounds = {
                 x: element.bounds.x,
                 y: target.bounds.y - 1 - element.bounds.height,
@@ -266,7 +261,6 @@ export class FeedbackMoveMouseListener extends MouseListener {
             };
         }
         if (minimumDistance === distanceBottom) {
-            console.log("Bottom is closest");
             snappedBounds = {
                 x: element.bounds.x,
                 y: target.bounds.y + target.bounds.height + 1,
@@ -275,7 +269,6 @@ export class FeedbackMoveMouseListener extends MouseListener {
             };
         }
         if (minimumDistance === distanceLeft) {
-            console.log("Left is closest");
             snappedBounds = {
                 x: target.bounds.x + target.bounds.width + 1,
                 y: element.bounds.y,
@@ -284,7 +277,6 @@ export class FeedbackMoveMouseListener extends MouseListener {
             };
         }
         if (minimumDistance === distanceRight) {
-            console.log("Right is closest");
             snappedBounds = {
                 x: target.bounds.x - 1 - element.bounds.width,
                 y: element.bounds.y,
@@ -294,55 +286,6 @@ export class FeedbackMoveMouseListener extends MouseListener {
         }
 
         return snappedBounds;
-
-        /*
-                // Mainly horizontal movement
-                if (Math.abs(dx) >= Math.abs(dy)) {
-                    // Element is left of target
-                    if (element.bounds.x < target.bounds.x) {
-                        // Snap it to the right
-                        console.log("Snapping to the right");
-                        snappedBounds = {
-                            x: target.bounds.x - 1 - element.bounds.width,
-                            y: element.bounds.y,
-                            width: element.bounds.width,
-                            height: element.bounds.height
-                        };
-                    } else {
-                        // Element is right of target, snap it to the left
-                        console.log("Snapping to the left");
-                        snappedBounds = {
-                            x: target.bounds.x + target.bounds.width + 1,
-                            y: element.bounds.y,
-                            width: element.bounds.width,
-                            height: element.bounds.height
-                        };
-                    }
-                } else {
-                    // Mainly vertical movement
-                    // Element is above the target
-                    if (element.bounds.y < target.bounds.y) {
-                        // Snap it down
-                        console.log("Snapping down");
-                        snappedBounds = {
-                            x: element.bounds.x,
-                            y: target.bounds.y - 1 - element.bounds.height,
-                            width: element.bounds.width,
-                            height: element.bounds.height
-                        };
-                    } else {
-                        // Element is below the target, snap it up
-                        console.log("Snapping up");
-                        snappedBounds = {
-                            x: element.bounds.x,
-                            y: target.bounds.y + target.bounds.height + 1,
-                            width: element.bounds.width,
-                            height: element.bounds.height
-                        };
-                    }
-                }*/
-        // Set the snapped bounds
-        // element.bounds = snappedBounds;
     }
 
     mouseMove(target: SModelElement, event: MouseEvent): Action[] {
@@ -406,10 +349,9 @@ export class FeedbackMoveMouseListener extends MouseListener {
                             if (collisionTargets.length > 0) {
                                 collisionTargets.forEach(collisionTarget => {
                                     if (isResizeable(collisionTarget)) {
-                                        console.log("Collision target", collisionTarget.id);
                                         // Only snap on first collision to avoid erratic jumps
                                         if (!this.hasCollided) {
-                                            const snappedBounds = this.snapElementToTarget(element, collisionTarget, dx, dy);
+                                            const snappedBounds = this.snapElementToTarget(element, collisionTarget);
                                             const snapMoves: ElementMove[] = [];
                                             snapMoves.push({
                                                 elementId: element.id,
@@ -422,7 +364,6 @@ export class FeedbackMoveMouseListener extends MouseListener {
                                                     y: snappedBounds.y
                                                 }
                                             });
-                                            console.log("Pushing snap move", snapMoves);
                                             result.push(new MoveAction(snapMoves, false));
                                         }
 
