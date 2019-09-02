@@ -390,7 +390,7 @@ export class FeedbackMoveMouseListener extends MouseListener {
 
                             // If the ghost element has moved beyond the obstacle move the actual element there aswell
                             // But only if a single element is selected (multi-selection jumps are not supported)
-                            if (this.hasCollided && collisionTargetsGhost.length === 0 && toArray(selectedElements).length === 0) {
+                            if (this.hasCollided && collisionTargetsGhost.length === 0 && toArray(selectedElements).length === 1) {
                                 mouseOverElement = true;
                                 result.push(new ApplyCursorCSSFeedbackAction(CursorCSS.DEFAULT));
 
