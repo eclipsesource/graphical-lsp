@@ -38,6 +38,7 @@ import com.eclipsesource.glsp.graph.GModelElement;
 import com.eclipsesource.glsp.graph.GPoint;
 import com.eclipsesource.glsp.graph.GraphFactory;
 import com.eclipsesource.glsp.graph.gson.GGraphGsonConfigurator;
+import com.eclipsesource.glsp.graph.util.GConstants;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -106,7 +107,7 @@ class ReadAndWriteWorkflowGraphJsonTest {
 		push.setExpanded(true);
 		push.setDuration(30);
 		push.setTaskType("manual");
-		push.setLayout("vbox");
+		push.setLayout(GConstants.Layout.VBOX);
 		GPoint pos = GraphFactory.eINSTANCE.createGPoint();
 		pos.setX(10);
 		pos.setY(200);
@@ -115,7 +116,7 @@ class ReadAndWriteWorkflowGraphJsonTest {
 
 		GCompartment compHeader = GraphFactory.eINSTANCE.createGCompartment();
 		compHeader.setType(ModelTypes.COMP_HEADER);
-		compHeader.setLayout("hbox");
+		compHeader.setLayout(GConstants.Layout.HBOX);
 		compHeader.setId("task1_header");
 
 		Icon icon = WfgraphFactory.eINSTANCE.createIcon();
@@ -131,7 +132,7 @@ class ReadAndWriteWorkflowGraphJsonTest {
 
 		graph.getChildren().add(push);
 
-		String expectedJson="{"
+		String expectedJson = "{"
 				+ "\"id\":\"graphId\","//
 				+ "\"children\":"//
 				+ "["//
@@ -167,7 +168,6 @@ class ReadAndWriteWorkflowGraphJsonTest {
 				+ ",\"revision\":42"//
 				+ "}";//
 
-		
 		JsonObject jsonGraph = writeToJson(graph).getAsJsonObject();
 		assertEquals(new JsonParser().parse(expectedJson), jsonGraph);
 	}

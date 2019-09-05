@@ -503,6 +503,16 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 	 * @generated
 	 */
 	@Override
+	public EAttribute getGEdge_RouterKind() {
+		return (EAttribute) gEdgeEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getGCompartment() {
 		return gCompartmentEClass;
 	}
@@ -1102,6 +1112,7 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 		createEAttribute(gEdgeEClass, GEDGE__TARGET_ID);
 		createEReference(gEdgeEClass, GEDGE__SOURCE);
 		createEReference(gEdgeEClass, GEDGE__TARGET);
+		createEAttribute(gEdgeEClass, GEDGE__ROUTER_KIND);
 
 		gCompartmentEClass = createEClass(GCOMPARTMENT);
 
@@ -1278,6 +1289,8 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 		initEReference(getGEdge_Target(), this.getGModelElement(), null, "target", null, 0, 1, GEdge.class,
 				IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGEdge_RouterKind(), ecorePackage.getEString(), "routerKind", null, 0, 1, GEdge.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(gCompartmentEClass, GCompartment.class, "GCompartment", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);

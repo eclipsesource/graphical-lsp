@@ -29,6 +29,7 @@ import com.eclipsesource.glsp.graph.builder.AbstractGNodeBuilder;
 import com.eclipsesource.glsp.graph.builder.impl.GCompartmentBuilder;
 import com.eclipsesource.glsp.graph.builder.impl.GLabelBuilder;
 import com.eclipsesource.glsp.graph.builder.impl.GLayoutOptionsBuilder;
+import com.eclipsesource.glsp.graph.util.GConstants;
 
 public final class WorkflowBuilder {
 
@@ -117,14 +118,14 @@ public final class WorkflowBuilder {
 			taskNode.setName(name);
 			taskNode.setTaskType(taskType);
 			taskNode.setDuration(duration);
-			taskNode.setLayout("vbox");
+			taskNode.setLayout(GConstants.Layout.VBOX);
 			taskNode.getChildren().add(createCompartment(taskNode));
 		}
 
 		private GCompartment createCompartment(TaskNode taskNode) {
 			return new GCompartmentBuilder(ModelTypes.COMP_HEADER) //
 					.id(taskNode.getId() + "_header") //
-					.layout("hbox") //
+					.layout(GConstants.Layout.HBOX) //
 					.add(createCompartmentIcon(taskNode)) //
 					.add(createCompartmentHeader(taskNode)) //
 					.build();
@@ -140,7 +141,7 @@ public final class WorkflowBuilder {
 		private Icon createCompartmentIcon(TaskNode taskNode) {
 			return new IconBuilder() //
 					.id(taskNode.getId() + "_icon") //
-					.layout("stack") //
+					.layout(GConstants.Layout.STACK) //
 					.commandId(SimulateCommandHandler.SIMULATE_COMMAND_ID) //
 					.layoutOptions(new GLayoutOptionsBuilder() //
 							.hAlign("center") //
