@@ -26,11 +26,12 @@ import com.eclipsesource.glsp.graph.util.GraphUtil;
 public abstract class AbstractGEdgeBuilder<T extends GEdge, E extends AbstractGEdgeBuilder<T, E>>
 		extends GModelElementBuilder<T, E> {
 
-	private GModelElement source;
-	private String sourceId;
-	private GModelElement target;
-	private String targetId;
-	private List<GPoint> routingPoints = new ArrayList<>();
+	protected GModelElement source;
+	protected String sourceId;
+	protected GModelElement target;
+	protected String targetId;
+	protected List<GPoint> routingPoints = new ArrayList<>();
+	protected String routerKind;
 
 	public AbstractGEdgeBuilder(String type) {
 		super(type);
@@ -72,11 +73,17 @@ public abstract class AbstractGEdgeBuilder<T extends GEdge, E extends AbstractGE
 		return self();
 	}
 
+	public E routerKind(String routerKind) {
+		this.routerKind = routerKind;
+		return self();
+	}
+
 	@Override
 	protected void setProperties(T edge) {
 		super.setProperties(edge);
 		edge.setSourceId(sourceId);
 		edge.setTargetId(targetId);
+		edge.setRouterKind(routerKind);
 		if (source != null) {
 			edge.setSource(source);
 		}

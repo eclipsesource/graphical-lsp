@@ -716,13 +716,22 @@ public interface GraphPackage extends EPackage {
 	int GEDGE__TARGET = GMODEL_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
+	 * The feature id for the '<em><b>Router Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEDGE__ROUTER_KIND = GMODEL_ELEMENT_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>GEdge</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEDGE_FEATURE_COUNT = GMODEL_ELEMENT_FEATURE_COUNT + 5;
+	int GEDGE_FEATURE_COUNT = GMODEL_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of operations of the '<em>GEdge</em>' class.
@@ -2290,6 +2299,17 @@ public interface GraphPackage extends EPackage {
 	EReference getGEdge_Target();
 
 	/**
+	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GEdge#getRouterKind <em>Router Kind</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Router Kind</em>'.
+	 * @see com.eclipsesource.glsp.graph.GEdge#getRouterKind()
+	 * @see #getGEdge()
+	 * @generated
+	 */
+	EAttribute getGEdge_RouterKind();
+
+	/**
 	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GCompartment <em>GCompartment</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3069,6 +3089,14 @@ public interface GraphPackage extends EPackage {
 		 * @generated
 		 */
 		EReference GEDGE__TARGET = eINSTANCE.getGEdge_Target();
+
+		/**
+		 * The meta object literal for the '<em><b>Router Kind</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GEDGE__ROUTER_KIND = eINSTANCE.getGEdge_RouterKind();
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.impl.GCompartmentImpl <em>GCompartment</em>}' class.
