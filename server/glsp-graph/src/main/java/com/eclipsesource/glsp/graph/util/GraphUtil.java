@@ -34,6 +34,10 @@ public final class GraphUtil {
 		return bounds;
 	}
 
+	public static GBounds copy(GBounds toCopy) {
+		return bounds(toCopy.getX(), toCopy.getY(), toCopy.getWidth(), toCopy.getHeight());
+	}
+
 	public static GPoint point(double x, double y) {
 		GPoint point = GraphFactory.eINSTANCE.createGPoint();
 		point.setX(x);
@@ -41,10 +45,18 @@ public final class GraphUtil {
 		return point;
 	}
 
+	public static GPoint copy(GPoint toCopy) {
+		return point(toCopy.getX(), toCopy.getY());
+	}
+
 	public static GDimension dimension(double width, double height) {
 		GDimension dimension = GraphFactory.eINSTANCE.createGDimension();
 		dimension.setWidth(width);
 		dimension.setHeight(height);
 		return dimension;
+	}
+
+	public static GDimension copy(GDimension toCopy) {
+		return dimension(toCopy.getWidth(), toCopy.getHeight());
 	}
 }
