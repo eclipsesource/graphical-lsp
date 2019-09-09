@@ -15,7 +15,7 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.layout;
 
-import com.eclipsesource.glsp.graph.GModelRoot;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 
 /**
  * A layout engine is able to compute layout information for a model.
@@ -25,14 +25,14 @@ public interface ILayoutEngine {
 	/**
 	 * Compute a layout for the given model and modify the model accordingly.
 	 */
-	public void layout(GModelRoot root);
+	public void layout(GraphicalModelState modelState);
 
 	/**
 	 * An implementation that does nothing.
 	 */
 	public static class NullImpl implements ILayoutEngine {
 		@Override
-		public void layout(GModelRoot root) {
+		public void layout(GraphicalModelState modelState) {
 		}
 	}
 

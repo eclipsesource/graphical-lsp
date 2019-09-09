@@ -43,7 +43,7 @@ public class LayoutActionHandler extends AbstractActionHandler {
 	protected Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		if (serverConfiguration.getLayoutKind() == ServerLayoutKind.MANUAL) {
 			if (layoutEngine != null) {
-				layoutEngine.layout(modelState.getRoot());
+				layoutEngine.layout(modelState);
 			}
 			return Optional.of(new RequestBoundsAction(modelState.getRoot()));
 		}
