@@ -31,7 +31,7 @@ import com.google.inject.Inject;
 public class RequestTypeHintsActionHandler extends AbstractActionHandler {
 	private Logger LOG = Logger.getLogger(RequestTypeHintsActionHandler.class);
 	@Inject
-	private DiagramConfigurationProvider diagramConfigurationProvider;
+	protected DiagramConfigurationProvider diagramConfigurationProvider;
 
 	@Override
 	public boolean handles(Action action) {

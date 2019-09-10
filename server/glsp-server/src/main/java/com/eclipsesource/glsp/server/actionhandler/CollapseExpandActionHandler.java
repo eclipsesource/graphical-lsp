@@ -27,7 +27,7 @@ import com.google.inject.Inject;
 
 public class CollapseExpandActionHandler extends AbstractActionHandler {
 	@Inject
-	ModelExpansionListener expansionListener;
+	protected ModelExpansionListener expansionListener;
 
 	@Override
 	public boolean handles(Action action) {
