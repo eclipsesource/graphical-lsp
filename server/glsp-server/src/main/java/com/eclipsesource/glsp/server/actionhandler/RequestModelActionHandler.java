@@ -30,7 +30,7 @@ import com.google.inject.Inject;
 public class RequestModelActionHandler extends AbstractActionHandler {
 
 	@Inject
-	private ModelFactory modelFactory;
+	protected ModelFactory modelFactory;
 
 	@Override
 	public Optional<Action> execute(String clientId, Action action) {

@@ -29,7 +29,7 @@ import com.google.inject.Inject;
 
 public class RequestCommandPaletteActionsHandler extends AbstractActionHandler {
 	@Inject
-	private CommandPaletteActionProvider commandPaletteActionProvider;
+	protected CommandPaletteActionProvider commandPaletteActionProvider;
 
 	@Override
 	public boolean handles(Action action) {

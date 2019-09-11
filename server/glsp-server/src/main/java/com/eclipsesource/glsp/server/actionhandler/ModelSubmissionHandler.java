@@ -40,7 +40,7 @@ public class ModelSubmissionHandler {
 	public Optional<Action> doSubmitModel(boolean update, GraphicalModelState modelState) {
 		GModelRoot newRoot = modelState.getRoot();
 		if (serverConfiguration.getLayoutKind() == ServerLayoutKind.AUTOMATIC) {
-			layoutEngine.layout(newRoot);
+			layoutEngine.layout(modelState);
 		}
 		synchronized (modelLock) {
 			if (newRoot.getRevision() == revision) {

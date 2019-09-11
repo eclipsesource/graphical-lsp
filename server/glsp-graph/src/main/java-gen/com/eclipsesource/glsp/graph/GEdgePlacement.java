@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link com.eclipsesource.glsp.graph.GEdgePlacement#getPosition <em>Position</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.GEdgePlacement#getOffset <em>Offset</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.GEdgePlacement#getSide <em>Side</em>}</li>
+ *   <li>{@link com.eclipsesource.glsp.graph.GEdgePlacement#isRotate <em>Rotate</em>}</li>
  * </ul>
  *
  * @see com.eclipsesource.glsp.graph.GraphPackage#getGEdgePlacement()
@@ -85,27 +86,46 @@ public interface GEdgePlacement extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Side</b></em>' attribute.
 	 * The default value is <code>"left"</code>.
-	 * The literals are from the enumeration {@link com.eclipsesource.glsp.graph.GSide}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Side</em>' attribute.
-	 * @see com.eclipsesource.glsp.graph.GSide
-	 * @see #setSide(GSide)
+	 * @see #setSide(String)
 	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGEdgePlacement_Side()
 	 * @model default="left"
 	 * @generated
 	 */
-	GSide getSide();
+	String getSide();
 
 	/**
 	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GEdgePlacement#getSide <em>Side</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Side</em>' attribute.
-	 * @see com.eclipsesource.glsp.graph.GSide
 	 * @see #getSide()
 	 * @generated
 	 */
-	void setSide(GSide value);
+	void setSide(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Rotate</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Rotate</em>' attribute.
+	 * @see #setRotate(boolean)
+	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGEdgePlacement_Rotate()
+	 * @model
+	 * @generated
+	 */
+	boolean isRotate();
+
+	/**
+	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GEdgePlacement#isRotate <em>Rotate</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Rotate</em>' attribute.
+	 * @see #isRotate()
+	 * @generated
+	 */
+	void setRotate(boolean value);
 
 } // GEdgePlacement

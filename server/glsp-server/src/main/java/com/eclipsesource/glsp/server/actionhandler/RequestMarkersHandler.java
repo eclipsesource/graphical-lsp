@@ -28,7 +28,7 @@ import com.google.inject.Inject;
 public class RequestMarkersHandler extends AbstractActionHandler {
 
 	@Inject
-	private ModelValidator validator;
+	protected ModelValidator validator;
 
 	@Override
 	public Optional<Action> execute(Action action, GraphicalModelState modelState) {

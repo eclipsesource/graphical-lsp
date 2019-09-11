@@ -15,18 +15,18 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.layout;
 
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.graph.GGraph;
-import com.eclipsesource.glsp.graph.GModelRoot;
 import com.eclipsesource.glsp.layout.ElkLayoutEngine;
 import com.eclipsesource.glsp.layout.GLSPLayoutConfigurator;
 
 public class WorkflowLayoutEngine extends ElkLayoutEngine {
 	@Override
-	public void layout(GModelRoot root) {
-		if (root instanceof GGraph) {
+	public void layout(GraphicalModelState modelState) {
+		if (modelState.getRoot() instanceof GGraph) {
 			GLSPLayoutConfigurator configurator = new GLSPLayoutConfigurator();
 			configurator.configureByType("graph");
-			this.layout((GGraph) root, configurator);
+			this.layout((GGraph) modelState.getRoot(), configurator);
 		}
 	}
 

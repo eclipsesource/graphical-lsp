@@ -25,7 +25,7 @@ import com.google.inject.Inject;
 
 public class OpenActionHandler extends AbstractActionHandler {
 	@Inject
-	private ModelElementOpenListener modelElementOpenListener;
+	protected ModelElementOpenListener modelElementOpenListener;
 
 	@Override
 	public boolean handles(Action action) {

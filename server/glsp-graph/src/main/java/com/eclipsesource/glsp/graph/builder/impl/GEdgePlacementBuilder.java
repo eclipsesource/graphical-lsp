@@ -16,7 +16,6 @@
 package com.eclipsesource.glsp.graph.builder.impl;
 
 import com.eclipsesource.glsp.graph.GEdgePlacement;
-import com.eclipsesource.glsp.graph.GSide;
 import com.eclipsesource.glsp.graph.GraphFactory;
 import com.eclipsesource.glsp.graph.builder.GBuilder;
 
@@ -24,7 +23,8 @@ public class GEdgePlacementBuilder extends GBuilder<GEdgePlacement> {
 
 	private double position;
 	private double offset;
-	private GSide side;
+	private String side;
+	private boolean rotate;
 
 	@Override
 	protected GEdgePlacement instantiate() {
@@ -32,7 +32,8 @@ public class GEdgePlacementBuilder extends GBuilder<GEdgePlacement> {
 	}
 
 	public GEdgePlacementBuilder position(double position) {
-		this.position = Math.max(1, Math.min(0, position));
+
+		this.position = Math.min(1, Math.max(0, position));
 		return this;
 	}
 
@@ -41,8 +42,13 @@ public class GEdgePlacementBuilder extends GBuilder<GEdgePlacement> {
 		return this;
 	}
 
-	public GEdgePlacementBuilder side(GSide side) {
+	public GEdgePlacementBuilder side(String side) {
 		this.side = side;
+		return this;
+	}
+
+	public GEdgePlacementBuilder rotate(boolean rotate) {
+		this.rotate = rotate;
 		return this;
 	}
 
@@ -51,6 +57,7 @@ public class GEdgePlacementBuilder extends GBuilder<GEdgePlacement> {
 		placement.setPosition(position);
 		placement.setOffset(offset);
 		placement.setSide(side);
+		placement.setRotate(rotate);
 	}
 
 }

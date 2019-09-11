@@ -26,7 +26,7 @@ import com.google.inject.Inject;
 
 public class ExecuteServerCommandActionHandler extends AbstractActionHandler {
 	@Inject
-	ServerCommandHandlerProvider commandHandlerProvider;
+	protected ServerCommandHandlerProvider commandHandlerProvider;
 
 	@Override
 	public boolean handles(Action action) {

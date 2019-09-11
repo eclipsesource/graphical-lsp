@@ -11,13 +11,6 @@
   <foreignModel>glsp-graph.ecore</foreignModel>
   <genPackages prefix="Graph" basePackage="com.eclipsesource.glsp" disposableProviderFactory="true"
       fileExtensions="graph" ecorePackage="glsp-graph.ecore#/">
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="glsp-graph.ecore#//GSide">
-      <genEnumLiterals ecoreEnumLiteral="glsp-graph.ecore#//GSide/left"/>
-      <genEnumLiterals ecoreEnumLiteral="glsp-graph.ecore#//GSide/right"/>
-      <genEnumLiterals ecoreEnumLiteral="glsp-graph.ecore#//GSide/top"/>
-      <genEnumLiterals ecoreEnumLiteral="glsp-graph.ecore#//GSide/bottom"/>
-      <genEnumLiterals ecoreEnumLiteral="glsp-graph.ecore#//GSide/on"/>
-    </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="glsp-graph.ecore#//GSeverity">
       <genEnumLiterals ecoreEnumLiteral="glsp-graph.ecore#//GSeverity/error"/>
       <genEnumLiterals ecoreEnumLiteral="glsp-graph.ecore#//GSeverity/warning"/>
@@ -92,6 +85,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute glsp-graph.ecore#//GEdgePlacement/position"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute glsp-graph.ecore#//GEdgePlacement/offset"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute glsp-graph.ecore#//GEdgePlacement/side"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute glsp-graph.ecore#//GEdgePlacement/rotate"/>
     </genClasses>
     <genClasses image="false" ecoreClass="glsp-graph.ecore#//GLayouting">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute glsp-graph.ecore#//GLayouting/layout"/>

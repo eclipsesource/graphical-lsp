@@ -28,7 +28,7 @@ import com.google.inject.Inject;
 
 public class RequestPopupModelActionHandler extends AbstractActionHandler {
 	@Inject
-	private PopupModelFactory popupModelFactory;
+	protected PopupModelFactory popupModelFactory;
 
 	@Override
 	public boolean handles(Action action) {
