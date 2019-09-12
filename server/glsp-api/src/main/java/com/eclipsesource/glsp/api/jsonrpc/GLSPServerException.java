@@ -15,6 +15,9 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.jsonrpc;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
 public class GLSPServerException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
@@ -38,4 +41,42 @@ public class GLSPServerException extends RuntimeException {
 		super(message, throwable);
 	}
 
+	/**
+	 * Tries to retrieve the value from the specified {@link Optional}. Throws a
+	 * {@link GLSPServerException} with the specified message if no value is present
+	 * 
+	 * @param <T>              type of the optional value
+	 * @param optional         the optional
+	 * @param exceptionMessage the exepctionMessage
+	 * @return the value
+	 * @throws GLSPServerException if value not present
+	 */
+	public static <T> T getOrThrow(Optional<T> optional, String exceptionMessage) {
+		try {
+			return optional.get();
+		} catch (NoSuchElementException ex) {
+			throw new GLSPServerException(exceptionMessage, ex);
+		}
+	}
+
+	/**
+	 * Tries to retrieve and cast the value from the specified optional. Throws a
+	 * {@link GLSPServerException} with the specified message if no value is present
+	 * 
+	 * @param <T>              type of the optional value after casting
+	 * @param optional         the optional
+	 * @param clazz            class of T
+	 * @param exceptionMessage the exepctionMessage
+	 * @return the value as T
+	 * @throws GLSPServerException if value not present or could not an instance of
+	 *                             T
+	 */
+	public static <T> T getOrThrow(Optional<?> optional, Class<T> clazz, String exceptionMessage) {
+		try {
+			Object toCast = optional.get();
+			return clazz.cast(toCast);
+		} catch (NoSuchElementException | ClassCastException ex) {
+			throw new GLSPServerException(exceptionMessage, ex);
+		}
+	}
 }

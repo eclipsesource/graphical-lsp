@@ -63,7 +63,7 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
 
     showStatus(widgetId: string, status: ServerStatusAction): void {
         const widget = this.widgetManager.getWidgets(this.diagramManager.id).find(w => w.id === widgetId);
-        if (!status.message || status.message === "")
+        if (!status.message)
             if (widget instanceof DiagramWidget)
                 widget.setStatus(status);
 

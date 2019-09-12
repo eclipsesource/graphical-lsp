@@ -45,7 +45,7 @@ public class ServerStatusUtil {
 	}
 
 	public static ServerStatusAction clear() {
-		return new ServerStatusAction(null, null);
+		return new ServerStatusAction(Severity.OK, "");
 	}
 
 	private ServerStatusUtil() {

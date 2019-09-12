@@ -67,11 +67,22 @@ public class ModelStateImpl implements GraphicalModelState {
 		initializeCommandStack();
 	}
 
-	private void initializeCommandStack() {
+	protected void initializeCommandStack() {
 		if (commandStack != null) {
 			commandStack.flush();
 		}
 		commandStack = new GModelCommandStack();
+	}
+
+	public CommandStack getCommandStack() {
+		return commandStack;
+	}
+
+	protected void setCommandStack(final CommandStack commandStack) {
+		if (this.commandStack != null) {
+			this.commandStack.flush();
+		}
+		this.commandStack = commandStack;
 	}
 
 	@Override
