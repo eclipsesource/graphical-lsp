@@ -27,7 +27,7 @@ import com.google.inject.Inject;
 
 public class SelectActionHandler extends AbstractActionHandler {
 	@Inject
-	ModelSelectionListener modelSelectionListener;
+	protected ModelSelectionListener modelSelectionListener;
 
 	@Override
 	public boolean handles(Action action) {

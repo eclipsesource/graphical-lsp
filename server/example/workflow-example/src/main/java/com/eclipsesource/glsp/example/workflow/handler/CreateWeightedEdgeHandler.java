@@ -33,8 +33,10 @@ public class CreateWeightedEdgeHandler extends CreateConnectionOperationHandler 
 	@Override
 	protected Optional<GEdge> createConnection(GModelElement source, GModelElement target,
 			GraphicalModelState modelState) {
-		GEdge edge = new WeightedEdgeBuilder(modelState).setSource(source).setTarget(target).build();
-		return Optional.of(edge);
+		return Optional.of(new WeightedEdgeBuilder() //
+				.source(source) //
+				.target(target) //
+				.build());
 	}
 
 }

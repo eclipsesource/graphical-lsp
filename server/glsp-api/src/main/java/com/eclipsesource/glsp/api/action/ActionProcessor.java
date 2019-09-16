@@ -47,7 +47,6 @@ public interface ActionProcessor {
 					.orElse(responseOpt.get());
 			send(clientId, response);
 		}
-
 	}
 
 	/**

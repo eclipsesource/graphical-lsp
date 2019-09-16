@@ -60,6 +60,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GEdgeImpl#getTargetId <em>Target Id</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GEdgeImpl#getSource <em>Source</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GEdgeImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link com.eclipsesource.glsp.graph.impl.GEdgeImpl#getRouterKind <em>Router Kind</em>}</li>
  * </ul>
  *
  * @generated
@@ -194,6 +195,26 @@ public class GEdgeImpl extends MinimalEObjectImpl.Container implements GEdge {
 	 * @ordered
 	 */
 	protected String targetId = TARGET_ID_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getRouterKind() <em>Router Kind</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRouterKind()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ROUTER_KIND_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getRouterKind() <em>Router Kind</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRouterKind()
+	 * @generated
+	 * @ordered
+	 */
+	protected String routerKind = ROUTER_KIND_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -485,6 +506,30 @@ public class GEdgeImpl extends MinimalEObjectImpl.Container implements GEdge {
 		this.targetId = newTarget.getId();
 	}
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getRouterKind() {
+		return routerKind;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setRouterKind(String newRouterKind) {
+		String oldRouterKind = routerKind;
+		routerKind = newRouterKind;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GEDGE__ROUTER_KIND, oldRouterKind,
+					routerKind));
+	}
+
 	protected Optional<GModelElement> findElement(String elementId) {
 		return GModelIndex.get(this).get(elementId);
 	}
@@ -575,6 +620,8 @@ public class GEdgeImpl extends MinimalEObjectImpl.Container implements GEdge {
 			if (resolve)
 				return getTarget();
 			return basicGetTarget();
+		case GraphPackage.GEDGE__ROUTER_KIND:
+			return getRouterKind();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -624,6 +671,9 @@ public class GEdgeImpl extends MinimalEObjectImpl.Container implements GEdge {
 		case GraphPackage.GEDGE__TARGET:
 			setTarget((GModelElement) newValue);
 			return;
+		case GraphPackage.GEDGE__ROUTER_KIND:
+			setRouterKind((String) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -669,6 +719,9 @@ public class GEdgeImpl extends MinimalEObjectImpl.Container implements GEdge {
 		case GraphPackage.GEDGE__TARGET:
 			setTarget((GModelElement) null);
 			return;
+		case GraphPackage.GEDGE__ROUTER_KIND:
+			setRouterKind(ROUTER_KIND_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -703,6 +756,8 @@ public class GEdgeImpl extends MinimalEObjectImpl.Container implements GEdge {
 			return basicGetSource() != null;
 		case GraphPackage.GEDGE__TARGET:
 			return basicGetTarget() != null;
+		case GraphPackage.GEDGE__ROUTER_KIND:
+			return ROUTER_KIND_EDEFAULT == null ? routerKind != null : !ROUTER_KIND_EDEFAULT.equals(routerKind);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -730,6 +785,8 @@ public class GEdgeImpl extends MinimalEObjectImpl.Container implements GEdge {
 		result.append(sourceId);
 		result.append(", targetId: ");
 		result.append(targetId);
+		result.append(", routerKind: ");
+		result.append(routerKind);
 		result.append(')');
 		return result.toString();
 	}

@@ -28,7 +28,7 @@ import com.google.inject.Inject;
 
 public class OperationActionHandler extends AbstractActionHandler {
 	@Inject
-	private OperationHandlerProvider operationHandlerProvider;
+	protected OperationHandlerProvider operationHandlerProvider;
 
 	@Override
 	public boolean handles(Action action) {

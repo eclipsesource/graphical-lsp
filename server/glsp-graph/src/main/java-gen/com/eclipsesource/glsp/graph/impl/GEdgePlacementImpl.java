@@ -16,7 +16,6 @@
 package com.eclipsesource.glsp.graph.impl;
 
 import com.eclipsesource.glsp.graph.GEdgePlacement;
-import com.eclipsesource.glsp.graph.GSide;
 import com.eclipsesource.glsp.graph.GraphPackage;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -37,6 +36,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GEdgePlacementImpl#getPosition <em>Position</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GEdgePlacementImpl#getOffset <em>Offset</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.impl.GEdgePlacementImpl#getSide <em>Side</em>}</li>
+ *   <li>{@link com.eclipsesource.glsp.graph.impl.GEdgePlacementImpl#isRotate <em>Rotate</em>}</li>
  * </ul>
  *
  * @generated
@@ -90,7 +90,7 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected static final GSide SIDE_EDEFAULT = GSide.LEFT;
+	protected static final String SIDE_EDEFAULT = "left";
 
 	/**
 	 * The cached value of the '{@link #getSide() <em>Side</em>}' attribute.
@@ -100,7 +100,27 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected GSide side = SIDE_EDEFAULT;
+	protected String side = SIDE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isRotate() <em>Rotate</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isRotate()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ROTATE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isRotate() <em>Rotate</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isRotate()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean rotate = ROTATE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -175,7 +195,7 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	@Override
-	public GSide getSide() {
+	public String getSide() {
 		return side;
 	}
 
@@ -185,11 +205,35 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	@Override
-	public void setSide(GSide newSide) {
-		GSide oldSide = side;
-		side = newSide == null ? SIDE_EDEFAULT : newSide;
+	public void setSide(String newSide) {
+		String oldSide = side;
+		side = newSide;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GEDGE_PLACEMENT__SIDE, oldSide, side));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean isRotate() {
+		return rotate;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setRotate(boolean newRotate) {
+		boolean oldRotate = rotate;
+		rotate = newRotate;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.GEDGE_PLACEMENT__ROTATE, oldRotate,
+					rotate));
 	}
 
 	/**
@@ -206,6 +250,8 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 			return getOffset();
 		case GraphPackage.GEDGE_PLACEMENT__SIDE:
 			return getSide();
+		case GraphPackage.GEDGE_PLACEMENT__ROTATE:
+			return isRotate();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -225,7 +271,10 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 			setOffset((Double) newValue);
 			return;
 		case GraphPackage.GEDGE_PLACEMENT__SIDE:
-			setSide((GSide) newValue);
+			setSide((String) newValue);
+			return;
+		case GraphPackage.GEDGE_PLACEMENT__ROTATE:
+			setRotate((Boolean) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -248,6 +297,9 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 		case GraphPackage.GEDGE_PLACEMENT__SIDE:
 			setSide(SIDE_EDEFAULT);
 			return;
+		case GraphPackage.GEDGE_PLACEMENT__ROTATE:
+			setRotate(ROTATE_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -265,7 +317,9 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 		case GraphPackage.GEDGE_PLACEMENT__OFFSET:
 			return OFFSET_EDEFAULT == null ? offset != null : !OFFSET_EDEFAULT.equals(offset);
 		case GraphPackage.GEDGE_PLACEMENT__SIDE:
-			return side != SIDE_EDEFAULT;
+			return SIDE_EDEFAULT == null ? side != null : !SIDE_EDEFAULT.equals(side);
+		case GraphPackage.GEDGE_PLACEMENT__ROTATE:
+			return rotate != ROTATE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -287,6 +341,8 @@ public class GEdgePlacementImpl extends MinimalEObjectImpl.Container implements 
 		result.append(offset);
 		result.append(", side: ");
 		result.append(side);
+		result.append(", rotate: ");
+		result.append(rotate);
 		result.append(')');
 		return result.toString();
 	}

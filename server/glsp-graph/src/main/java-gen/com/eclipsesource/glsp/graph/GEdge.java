@@ -31,6 +31,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link com.eclipsesource.glsp.graph.GEdge#getTargetId <em>Target Id</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.GEdge#getSource <em>Source</em>}</li>
  *   <li>{@link com.eclipsesource.glsp.graph.GEdge#getTarget <em>Target</em>}</li>
+ *   <li>{@link com.eclipsesource.glsp.graph.GEdge#getRouterKind <em>Router Kind</em>}</li>
  * </ul>
  *
  * @see com.eclipsesource.glsp.graph.GraphPackage#getGEdge()
@@ -137,5 +138,27 @@ public interface GEdge extends GModelElement {
 	 * @generated
 	 */
 	void setTarget(GModelElement value);
+
+	/**
+	 * Returns the value of the '<em><b>Router Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Router Kind</em>' attribute.
+	 * @see #setRouterKind(String)
+	 * @see com.eclipsesource.glsp.graph.GraphPackage#getGEdge_RouterKind()
+	 * @model
+	 * @generated
+	 */
+	String getRouterKind();
+
+	/**
+	 * Sets the value of the '{@link com.eclipsesource.glsp.graph.GEdge#getRouterKind <em>Router Kind</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Router Kind</em>' attribute.
+	 * @see #getRouterKind()
+	 * @generated
+	 */
+	void setRouterKind(String value);
 
 } // GEdge

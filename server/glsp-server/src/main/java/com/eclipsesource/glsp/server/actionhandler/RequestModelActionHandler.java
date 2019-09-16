@@ -20,15 +20,17 @@ import java.util.Optional;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.RequestBoundsAction;
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
+import com.eclipsesource.glsp.api.action.kind.SetModelAction;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
+import com.eclipsesource.glsp.api.utils.ClientOptions;
 import com.eclipsesource.glsp.graph.GModelRoot;
 import com.google.inject.Inject;
 
 public class RequestModelActionHandler extends AbstractActionHandler {
 
 	@Inject
-	private ModelFactory modelFactory;
+	protected ModelFactory modelFactory;
 
 	@Override
 	public Optional<Action> execute(String clientId, Action action) {
@@ -47,7 +49,13 @@ public class RequestModelActionHandler extends AbstractActionHandler {
 			GModelRoot model = modelFactory.loadModel(requestAction, modelState);
 			modelState.setRoot(model);
 			modelState.setClientOptions(requestAction.getOptions());
-			return Optional.of(new RequestBoundsAction(modelState.getRoot()));
+
+			boolean needsClientLayout = ClientOptions.getBoolValue(requestAction.getOptions(),
+					ClientOptions.NEEDS_CLIENT_LAYOUT);
+
+			Action responseAction = needsClientLayout ? new RequestBoundsAction(modelState.getRoot())
+					: new SetModelAction(modelState.getRoot());
+			return Optional.of(responseAction);
 		}
 		return Optional.empty();
 	}

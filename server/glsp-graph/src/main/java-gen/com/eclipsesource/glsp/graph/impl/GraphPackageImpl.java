@@ -39,7 +39,6 @@ import com.eclipsesource.glsp.graph.GPort;
 import com.eclipsesource.glsp.graph.GPreRenderedElement;
 import com.eclipsesource.glsp.graph.GSeverity;
 import com.eclipsesource.glsp.graph.GShapeElement;
-import com.eclipsesource.glsp.graph.GSide;
 import com.eclipsesource.glsp.graph.GraphFactory;
 import com.eclipsesource.glsp.graph.GraphPackage;
 
@@ -218,13 +217,6 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 	 * @generated
 	 */
 	private EClass gPreRenderedElementEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum gSideEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -495,6 +487,16 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 	@Override
 	public EReference getGEdge_Target() {
 		return (EReference) gEdgeEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getGEdge_RouterKind() {
+		return (EAttribute) gEdgeEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -863,6 +865,16 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 	 * @generated
 	 */
 	@Override
+	public EAttribute getGEdgePlacement_Rotate() {
+		return (EAttribute) gEdgePlacementEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getGLayouting() {
 		return gLayoutingEClass;
 	}
@@ -1033,16 +1045,6 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 	 * @generated
 	 */
 	@Override
-	public EEnum getGSide() {
-		return gSideEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EEnum getGSeverity() {
 		return gSeverityEEnum;
 	}
@@ -1102,6 +1104,7 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 		createEAttribute(gEdgeEClass, GEDGE__TARGET_ID);
 		createEReference(gEdgeEClass, GEDGE__SOURCE);
 		createEReference(gEdgeEClass, GEDGE__TARGET);
+		createEAttribute(gEdgeEClass, GEDGE__ROUTER_KIND);
 
 		gCompartmentEClass = createEClass(GCOMPARTMENT);
 
@@ -1149,6 +1152,7 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 		createEAttribute(gEdgePlacementEClass, GEDGE_PLACEMENT__POSITION);
 		createEAttribute(gEdgePlacementEClass, GEDGE_PLACEMENT__OFFSET);
 		createEAttribute(gEdgePlacementEClass, GEDGE_PLACEMENT__SIDE);
+		createEAttribute(gEdgePlacementEClass, GEDGE_PLACEMENT__ROTATE);
 
 		gLayoutingEClass = createEClass(GLAYOUTING);
 		createEAttribute(gLayoutingEClass, GLAYOUTING__LAYOUT);
@@ -1174,7 +1178,6 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 		createEAttribute(gPreRenderedElementEClass, GPRE_RENDERED_ELEMENT__CODE);
 
 		// Create enums
-		gSideEEnum = createEEnum(GSIDE);
 		gSeverityEEnum = createEEnum(GSEVERITY);
 	}
 
@@ -1278,6 +1281,8 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 		initEReference(getGEdge_Target(), this.getGModelElement(), null, "target", null, 0, 1, GEdge.class,
 				IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGEdge_RouterKind(), ecorePackage.getEString(), "routerKind", null, 0, 1, GEdge.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(gCompartmentEClass, GCompartment.class, "GCompartment", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -1373,8 +1378,11 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 		initEAttribute(getGEdgePlacement_Offset(), ecorePackage.getEDoubleObject(), "offset", "0", 1, 1,
 				GEdgePlacement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGEdgePlacement_Side(), this.getGSide(), "side", "left", 0, 1, GEdgePlacement.class,
+		initEAttribute(getGEdgePlacement_Side(), ecorePackage.getEString(), "side", "left", 0, 1, GEdgePlacement.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGEdgePlacement_Rotate(), ecorePackage.getEBoolean(), "rotate", null, 0, 1,
+				GEdgePlacement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
 
 		initEClass(gLayoutingEClass, GLayouting.class, "GLayouting", IS_ABSTRACT, IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -1418,13 +1426,6 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
-		initEEnum(gSideEEnum, GSide.class, "GSide");
-		addEEnumLiteral(gSideEEnum, GSide.LEFT);
-		addEEnumLiteral(gSideEEnum, GSide.RIGHT);
-		addEEnumLiteral(gSideEEnum, GSide.TOP);
-		addEEnumLiteral(gSideEEnum, GSide.BOTTOM);
-		addEEnumLiteral(gSideEEnum, GSide.ON);
-
 		initEEnum(gSeverityEEnum, GSeverity.class, "GSeverity");
 		addEEnumLiteral(gSeverityEEnum, GSeverity.ERROR);
 		addEEnumLiteral(gSeverityEEnum, GSeverity.WARNING);

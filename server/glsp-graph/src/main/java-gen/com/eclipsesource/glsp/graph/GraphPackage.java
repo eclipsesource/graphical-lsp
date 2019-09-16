@@ -716,13 +716,22 @@ public interface GraphPackage extends EPackage {
 	int GEDGE__TARGET = GMODEL_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
+	 * The feature id for the '<em><b>Router Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEDGE__ROUTER_KIND = GMODEL_ELEMENT_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>GEdge</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEDGE_FEATURE_COUNT = GMODEL_ELEMENT_FEATURE_COUNT + 5;
+	int GEDGE_FEATURE_COUNT = GMODEL_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of operations of the '<em>GEdge</em>' class.
@@ -1682,13 +1691,22 @@ public interface GraphPackage extends EPackage {
 	int GEDGE_PLACEMENT__SIDE = 2;
 
 	/**
+	 * The feature id for the '<em><b>Rotate</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEDGE_PLACEMENT__ROTATE = 3;
+
+	/**
 	 * The number of structural features of the '<em>GEdge Placement</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEDGE_PLACEMENT_FEATURE_COUNT = 3;
+	int GEDGE_PLACEMENT_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>GEdge Placement</em>' class.
@@ -2056,16 +2074,6 @@ public interface GraphPackage extends EPackage {
 	int GPRE_RENDERED_ELEMENT_OPERATION_COUNT = GMODEL_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.GSide <em>GSide</em>}' enum.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see com.eclipsesource.glsp.graph.GSide
-	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGSide()
-	 * @generated
-	 */
-	int GSIDE = 23;
-
-	/**
 	 * The meta object id for the '{@link com.eclipsesource.glsp.graph.GSeverity <em>GSeverity</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2073,7 +2081,7 @@ public interface GraphPackage extends EPackage {
 	 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGSeverity()
 	 * @generated
 	 */
-	int GSEVERITY = 24;
+	int GSEVERITY = 23;
 
 	/**
 	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GModelElement <em>GModel Element</em>}'.
@@ -2288,6 +2296,17 @@ public interface GraphPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGEdge_Target();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GEdge#getRouterKind <em>Router Kind</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Router Kind</em>'.
+	 * @see com.eclipsesource.glsp.graph.GEdge#getRouterKind()
+	 * @see #getGEdge()
+	 * @generated
+	 */
+	EAttribute getGEdge_RouterKind();
 
 	/**
 	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GCompartment <em>GCompartment</em>}'.
@@ -2675,6 +2694,17 @@ public interface GraphPackage extends EPackage {
 	EAttribute getGEdgePlacement_Side();
 
 	/**
+	 * Returns the meta object for the attribute '{@link com.eclipsesource.glsp.graph.GEdgePlacement#isRotate <em>Rotate</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Rotate</em>'.
+	 * @see com.eclipsesource.glsp.graph.GEdgePlacement#isRotate()
+	 * @see #getGEdgePlacement()
+	 * @generated
+	 */
+	EAttribute getGEdgePlacement_Rotate();
+
+	/**
 	 * Returns the meta object for class '{@link com.eclipsesource.glsp.graph.GLayouting <em>GLayouting</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2854,16 +2884,6 @@ public interface GraphPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGPreRenderedElement_Code();
-
-	/**
-	 * Returns the meta object for enum '{@link com.eclipsesource.glsp.graph.GSide <em>GSide</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>GSide</em>'.
-	 * @see com.eclipsesource.glsp.graph.GSide
-	 * @generated
-	 */
-	EEnum getGSide();
 
 	/**
 	 * Returns the meta object for enum '{@link com.eclipsesource.glsp.graph.GSeverity <em>GSeverity</em>}'.
@@ -3069,6 +3089,14 @@ public interface GraphPackage extends EPackage {
 		 * @generated
 		 */
 		EReference GEDGE__TARGET = eINSTANCE.getGEdge_Target();
+
+		/**
+		 * The meta object literal for the '<em><b>Router Kind</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GEDGE__ROUTER_KIND = eINSTANCE.getGEdge_RouterKind();
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.impl.GCompartmentImpl <em>GCompartment</em>}' class.
@@ -3381,6 +3409,14 @@ public interface GraphPackage extends EPackage {
 		EAttribute GEDGE_PLACEMENT__SIDE = eINSTANCE.getGEdgePlacement_Side();
 
 		/**
+		 * The meta object literal for the '<em><b>Rotate</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GEDGE_PLACEMENT__ROTATE = eINSTANCE.getGEdgePlacement_Rotate();
+
+		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.GLayouting <em>GLayouting</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3527,16 +3563,6 @@ public interface GraphPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute GPRE_RENDERED_ELEMENT__CODE = eINSTANCE.getGPreRenderedElement_Code();
-
-		/**
-		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.GSide <em>GSide</em>}' enum.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see com.eclipsesource.glsp.graph.GSide
-		 * @see com.eclipsesource.glsp.graph.impl.GraphPackageImpl#getGSide()
-		 * @generated
-		 */
-		EEnum GSIDE = eINSTANCE.getGSide();
 
 		/**
 		 * The meta object literal for the '{@link com.eclipsesource.glsp.graph.GSeverity <em>GSeverity</em>}' enum.

@@ -19,6 +19,10 @@
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.sprotty svg text::selection {
+    background: none;
+}
+
 .sprotty-hidden {
     display: block;
     position: absolute;

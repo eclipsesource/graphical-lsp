@@ -64,8 +64,8 @@ public class FileBasedModelFactory implements ModelFactory {
 	}
 
 	protected File convertToFile(String sourceURI) {
-		if (sourceURI != null && sourceURI.startsWith(FILE_PREFIX)) {
-			return new File(sourceURI.substring(FILE_PREFIX.length()));
+		if (sourceURI != null) {
+			return new File(sourceURI.replace(FILE_PREFIX, ""));
 		}
 		return null;
 	}

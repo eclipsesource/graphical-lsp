@@ -17,6 +17,7 @@ package com.eclipsesource.glsp.api.action.kind;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.types.ServerStatus;
+import com.eclipsesource.glsp.api.types.ServerStatus.Severity;
 
 public class ServerStatusAction extends Action {
 	private String severity;
@@ -27,9 +28,19 @@ public class ServerStatusAction extends Action {
 		super(Action.Kind.SERVER_STATUS);
 	}
 
+	public ServerStatusAction(Severity severity, String message) {
+		this(new ServerStatus(severity, message));
+	}
+
+	public ServerStatusAction(Severity severity, String message, String details) {
+		this(new ServerStatus(severity, message, details));
+	}
+
 	public ServerStatusAction(ServerStatus status) {
 		this();
-		this.severity = status.getSeverity().toString();
+		if (status.getSeverity() != null) {
+			this.severity = status.getSeverity().toString();
+		}
 		this.message = status.getMessage();
 		this.details = status.getDetails();
 	}
@@ -95,5 +106,5 @@ public class ServerStatusAction extends Action {
 		}
 		return true;
 	}
-	
+
 }

@@ -39,7 +39,7 @@ public class SaveModelActionHandler extends AbstractActionHandler {
 	private static final String FILE_PREFIX = "file://";
 
 	@Inject
-	private GraphGsonConfiguratorFactory gsonConfigurationFactory;
+	protected GraphGsonConfiguratorFactory gsonConfigurationFactory;
 
 	@Override
 	public boolean handles(Action action) {

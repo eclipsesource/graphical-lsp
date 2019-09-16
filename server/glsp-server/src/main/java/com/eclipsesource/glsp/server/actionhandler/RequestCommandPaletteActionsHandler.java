@@ -29,7 +29,7 @@ import com.google.inject.Inject;
 
 public class RequestCommandPaletteActionsHandler extends AbstractActionHandler {
 	@Inject
-	private CommandPaletteActionProvider commandPaletteActionProvider;
+	protected CommandPaletteActionProvider commandPaletteActionProvider;
 
 	@Override
 	public boolean handles(Action action) {
@@ -40,9 +40,9 @@ public class RequestCommandPaletteActionsHandler extends AbstractActionHandler {
 	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
 		if (action instanceof RequestCommandPaletteActions) {
 			RequestCommandPaletteActions paletteAction = (RequestCommandPaletteActions) action;
-			List<String> selectedElementsIDs = paletteAction.getSelectedElementsIDs();
+			List<String> selectedElementIds = paletteAction.getSelectedElementIds();
 			Set<LabeledAction> commandPaletteActions = commandPaletteActionProvider.getActions(modelState,
-					selectedElementsIDs);
+					selectedElementIds, paletteAction.getText(), paletteAction.getLastMousePosition());
 			return Optional.of(new SetCommandPaletteActions(commandPaletteActions));
 		}
 		return Optional.empty();
