@@ -13,26 +13,31 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.server.actionhandler;
+package com.eclipsesource.glsp.example.modelserver.workflow.model;
 
-import java.util.Optional;
+import java.util.Map;
 
-import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.action.ActionDispatcher;
-import com.eclipsesource.glsp.api.handler.ActionHandler;
-import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
-import com.google.inject.Inject;
+import com.eclipsesource.glsp.graph.GModelRoot;
+import com.eclipsesource.glsp.graph.GNode;
+import com.eclipsesource.modelserver.coffee.model.coffee.Node;
 
-public class DIActionDispatcher implements ActionDispatcher {
+public class MappedGModelRoot {
 
-	@Inject
-	protected ActionHandlerProvider handlerProvider;
+	private GModelRoot root;
+	private Map<Node, GNode> mapping;
 
-	public Optional<Action> dispatch(String clientId, Action action) {
-		Optional<ActionHandler> handler = handlerProvider.getHandler(action);
-		if (handler.isPresent()) {
-			return handler.get().execute(clientId, action);
-		}
-		return Optional.empty();
+	public MappedGModelRoot(GModelRoot root, Map<Node, GNode> mapping) {
+		super();
+		this.root = root;
+		this.mapping = mapping;
 	}
+
+	public Map<Node, GNode> getMapping() {
+		return mapping;
+	}
+
+	public GModelRoot getRoot() {
+		return root;
+	}
+
 }

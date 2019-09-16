@@ -13,8 +13,10 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { injectable } from "inversify";
-import { CommandStack, SModelRoot } from "sprotty/lib";
+import { inject, injectable } from "inversify";
+import { CommandStack, IActionDispatcher, SModelRoot, TYPES } from "sprotty/lib";
+
+import { GlspRedoAction, GlspUndoAction } from "../features/undo-redo/model";
 
 /**
  * Provides access to the current `SModelRoot` instance.
@@ -42,10 +44,22 @@ export type IReadonlyModelAccessProvider = () => Promise<IReadonlyModelAccess>;
 @injectable()
 export class GLSPCommandStack extends CommandStack implements IReadonlyModelAccess {
 
+    @inject(TYPES.IActionDispatcherProvider) protected actionDispatcher: () => Promise<IActionDispatcher>;
+
     get model(): Promise<SModelRoot> {
         return this.currentPromise.then(
             state => this.modelFactory.createRoot(state.root)
         );
+    }
+
+    undo(): Promise<SModelRoot> {
+        this.actionDispatcher().then(dispatcher => dispatcher.dispatch(new GlspUndoAction()));
+        return this.thenUpdate();
+    }
+
+    redo(): Promise<SModelRoot> {
+        this.actionDispatcher().then(dispatcher => dispatcher.dispatch(new GlspRedoAction()));
+        return this.thenUpdate();
     }
 }
 

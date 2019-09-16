@@ -21,31 +21,9 @@ import java.util.Optional;
 public final class ClientOptions {
 	public static final String DIAGRAM_TYPE = "diagramType";
 	public static final String SOURCE_URI = "sourceUri";
+	public static final String NEEDS_CLIENT_LAYOUT = "needsClientLayout";
 
 	private ClientOptions() {
-	}
-
-	public static ParsedClientOptions parse(Map<String, String> options) {
-		return new ParsedClientOptions(options);
-	}
-
-	public static class ParsedClientOptions {
-		Optional<String> diagramType;
-		Optional<String> sourceUri;
-
-		private ParsedClientOptions(Map<String, String> options) {
-			sourceUri = getValue(options, SOURCE_URI);
-			diagramType = getValue(options, DIAGRAM_TYPE);
-		}
-
-		public Optional<String> getSourceUri() {
-			return sourceUri;
-		}
-
-		public Optional<String> getDiagramType() {
-			return diagramType;
-		}
-
 	}
 
 	public static Optional<String> getValue(Map<String, String> options, String key) {

@@ -55,6 +55,7 @@ export * from './features/tools/change-bounds-tool';
 export * from './features/tools/creation-tool';
 export * from './features/tools/default-tools';
 export * from './features/tools/delete-tool';
+export * from './features/undo-redo/model';
 export * from './features/validation/validate';
 export * from './features/layout/layout-commands';
 export * from './lib/model';
@@ -63,6 +64,8 @@ export * from './utils/array-utils';
 export * from './utils/marker';
 export * from './utils/smodel-util';
 export * from './utils/viewpoint-util';
+
+export * from "./model-source/glsp-server-status";
 export {
     validationModule, saveModule, executeModule, paletteModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule, glspCommandPaletteModule, requestResponseModule, //
     glspSelectModule, glspMouseToolModule, layoutCommandsModule, glspEditLabelValidationModule

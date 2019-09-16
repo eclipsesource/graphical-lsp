@@ -23,12 +23,12 @@ import com.eclipsesource.glsp.api.action.kind.RequestBoundsAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
-import com.eclipsesource.glsp.graph.GModelRoot;
+import com.eclipsesource.glsp.server.command.GModelRecordingCommand;
 import com.google.inject.Inject;
 
 public class OperationActionHandler extends AbstractActionHandler {
 	@Inject
-	private OperationHandlerProvider operationHandlerProvider;
+	protected OperationHandlerProvider operationHandlerProvider;
 
 	@Override
 	public boolean handles(Action action) {
@@ -54,10 +54,11 @@ public class OperationActionHandler extends AbstractActionHandler {
 	public Optional<Action> doHandle(AbstractOperationAction action, GraphicalModelState modelState) {
 		if (operationHandlerProvider.isHandled(action)) {
 			OperationHandler handler = operationHandlerProvider.getHandler(action).get();
-			Optional<GModelRoot> modelRoot = handler.execute(action, modelState);
-			if (modelRoot.isPresent()) {
-				return Optional.of(new RequestBoundsAction(modelState.getRoot()));
-			}
+			String label = handler.getLabel(action);
+			GModelRecordingCommand command = new GModelRecordingCommand(modelState.getRoot(), label,
+					() -> handler.execute(action, modelState));
+			modelState.execute(command);
+			return Optional.of(new RequestBoundsAction(modelState.getRoot()));
 		}
 		return Optional.empty();
 	}

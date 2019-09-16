@@ -13,19 +13,27 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.action;
+package com.eclipsesource.glsp.example.modelserver.workflow.model;
 
-import java.util.Optional;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
+import com.eclipsesource.glsp.server.model.ModelStateImpl;
 
-public interface ActionDispatcher {
+public class ModelServerAwareModelState extends ModelStateImpl {
 
-	Optional<Action> dispatch(String clientId, Action action);
+	private WorkflowModelServerAccess modelAccess;
 
-	public static class NullImpl implements ActionDispatcher {
-
-		@Override
-		public Optional<Action> dispatch(String clientId, Action action) {
-			return Optional.empty();
+	public static WorkflowModelServerAccess getModelAccess(GraphicalModelState state) {
+		if (!(state instanceof ModelServerAwareModelState)) {
+			throw new IllegalArgumentException("Argument must be a ModelServerAwareModelState");
 		}
+		return ((ModelServerAwareModelState) state).getModelAccess();
+	}
+
+	public void setModelAccess(WorkflowModelServerAccess modelAccess) {
+		this.modelAccess = modelAccess;
+	}
+
+	public WorkflowModelServerAccess getModelAccess() {
+		return modelAccess;
 	}
 }

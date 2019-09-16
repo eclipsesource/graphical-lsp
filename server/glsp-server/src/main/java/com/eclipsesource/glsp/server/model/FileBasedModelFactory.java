@@ -27,6 +27,7 @@ import org.apache.log4j.Logger;
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
 import com.eclipsesource.glsp.api.factory.GraphGsonConfiguratorFactory;
 import com.eclipsesource.glsp.api.factory.ModelFactory;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.utils.ClientOptions;
 import com.eclipsesource.glsp.graph.GGraph;
 import com.eclipsesource.glsp.graph.GModelRoot;
@@ -48,7 +49,7 @@ public class FileBasedModelFactory implements ModelFactory {
 	private GModelRoot modelRoot;
 
 	@Override
-	public GModelRoot loadModel(RequestModelAction action) {
+	public GModelRoot loadModel(RequestModelAction action, GraphicalModelState modelState) {
 		String sourceURI = action.getOptions().get(ClientOptions.SOURCE_URI);
 		File modelFile = convertToFile(sourceURI);
 		if (modelFile != null && modelFile.exists()) {
@@ -63,8 +64,8 @@ public class FileBasedModelFactory implements ModelFactory {
 	}
 
 	protected File convertToFile(String sourceURI) {
-		if (sourceURI != null && sourceURI.startsWith(FILE_PREFIX)) {
-			return new File(sourceURI.substring(FILE_PREFIX.length()));
+		if (sourceURI != null) {
+			return new File(sourceURI.replace(FILE_PREFIX, ""));
 		}
 		return null;
 	}

@@ -15,7 +15,7 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow;
 
-import static com.eclipsesource.glsp.server.util.GModelUtil.bounds;
+import static com.eclipsesource.glsp.graph.util.GraphUtil.bounds;
 
 import java.util.Arrays;
 

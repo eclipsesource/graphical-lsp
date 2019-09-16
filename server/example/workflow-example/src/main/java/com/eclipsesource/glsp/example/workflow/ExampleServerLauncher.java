@@ -16,7 +16,9 @@
 package com.eclipsesource.glsp.example.workflow;
 
 import org.apache.log4j.BasicConfigurator;
+import org.eclipse.elk.alg.layered.options.LayeredMetaDataProvider;
 
+import com.eclipsesource.glsp.layout.ElkLayoutEngine;
 import com.eclipsesource.glsp.server.launch.DefaultGLSPServerLauncher;
 import com.eclipsesource.glsp.server.launch.GLSPServerLauncher;
 import com.eclipsesource.glsp.server.websocket.WebsocketServerLauncher;
@@ -24,6 +26,7 @@ import com.eclipsesource.glsp.server.websocket.WebsocketServerLauncher;
 public class ExampleServerLauncher {
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
+		ElkLayoutEngine.initialize(new LayeredMetaDataProvider());
 		GLSPServerLauncher launcher;
 
 		if (args.length == 1 && args[0].equals("websocket")) {

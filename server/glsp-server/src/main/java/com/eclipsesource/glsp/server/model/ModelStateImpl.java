@@ -16,31 +16,33 @@
 package com.eclipsesource.glsp.server.model;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.emf.common.command.Command;
+import org.eclipse.emf.common.command.CommandStack;
+
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.api.utils.ClientOptions.ParsedClientOptions;
-import com.eclipsesource.glsp.api.utils.ServerOptions;
 import com.eclipsesource.glsp.graph.GModelIndex;
 import com.eclipsesource.glsp.graph.GModelRoot;
+import com.eclipsesource.glsp.server.command.GModelCommandStack;
 
 public class ModelStateImpl implements GraphicalModelState {
 
-	private ParsedClientOptions options;
+	private Map<String, String> options;
 	private String clientId;
 	private GModelRoot currentModel;
+	private CommandStack commandStack;
 	private Set<String> expandedElements;
 	private Set<String> selectedElements;
-	private ServerOptions serverOptions;
 
 	public ModelStateImpl() {
 		expandedElements = new HashSet<>();
 		selectedElements = new HashSet<>();
-		serverOptions = new ServerOptions();
 	}
 
 	@Override
-	public ParsedClientOptions getClientOptions() {
+	public Map<String, String> getClientOptions() {
 		return options;
 	}
 
@@ -62,6 +64,26 @@ public class ModelStateImpl implements GraphicalModelState {
 	@Override
 	public void setRoot(GModelRoot newRoot) {
 		this.currentModel = newRoot;
+		initializeCommandStack();
+	}
+
+	protected void initializeCommandStack() {
+		if (commandStack != null) {
+			commandStack.flush();
+		}
+		commandStack = new GModelCommandStack();
+	}
+
+	public CommandStack getCommandStack() {
+		return commandStack;
+	}
+
+	protected void setCommandStack(final CommandStack commandStack) {
+		if (this.commandStack != null) {
+			this.commandStack.flush();
+		}
+
+		this.commandStack = commandStack;
 	}
 
 	@Override
@@ -75,7 +97,7 @@ public class ModelStateImpl implements GraphicalModelState {
 	}
 
 	@Override
-	public void setClientOptions(ParsedClientOptions options) {
+	public void setClientOptions(Map<String, String> options) {
 		this.options = options;
 	}
 
@@ -94,15 +116,45 @@ public class ModelStateImpl implements GraphicalModelState {
 	public GModelIndex getIndex() {
 		return GModelIndex.get(currentModel);
 	}
-
+	
 	@Override
-	public ServerOptions getServerOptions() {
-		return serverOptions;
+	public void execute(Command command) {
+		if (commandStack == null) {
+			return;
+		}
+		commandStack.execute(command);
 	}
-
+	
 	@Override
-	public void setServerOptions(ServerOptions serverOptions) {
-		this.serverOptions = serverOptions;
+	public boolean canUndo() {
+		if (commandStack == null) {
+			return false;
+		}
+		return commandStack.canUndo();
+	}
+	
+	@Override
+	public boolean canRedo() {
+		if (commandStack == null) {
+			return false;
+		}
+		return commandStack.canRedo();
+	}
+	
+	@Override
+	public void undo() {
+		if (commandStack == null) {
+			return;
+		}
+		commandStack.undo();
+	}
+	
+	@Override
+	public void redo() {
+		if (commandStack == null) {
+			return;
+		}
+		commandStack.redo();
 	}
 
 }

@@ -17,19 +17,32 @@ package com.eclipsesource.glsp.api.action.kind;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.types.ServerStatus;
+import com.eclipsesource.glsp.api.types.ServerStatus.Severity;
 
 public class ServerStatusAction extends Action {
 	private String severity;
 	private String message;
+	private String details;
 
 	public ServerStatusAction() {
 		super(Action.Kind.SERVER_STATUS);
 	}
 
+	public ServerStatusAction(Severity severity, String message) {
+		this(new ServerStatus(severity, message));
+	}
+
+	public ServerStatusAction(Severity severity, String message, String details) {
+		this(new ServerStatus(severity, message, details));
+	}
+
 	public ServerStatusAction(ServerStatus status) {
 		this();
-		this.severity = status.getSeverity().toString();
+		if (status.getSeverity() != null) {
+			this.severity = status.getSeverity().toString();
+		}
 		this.message = status.getMessage();
+		this.details = status.getDetails();
 	}
 
 	public String getSeverity() {
@@ -40,10 +53,19 @@ public class ServerStatusAction extends Action {
 		return message;
 	}
 
+	public String getDetails() {
+		return details;
+	}
+
+	public void setDetails(String details) {
+		this.details = details;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
+		result = prime * result + ((details == null) ? 0 : details.hashCode());
 		result = prime * result + ((message == null) ? 0 : message.hashCode());
 		result = prime * result + ((severity == null) ? 0 : severity.hashCode());
 		return result;
@@ -51,23 +73,37 @@ public class ServerStatusAction extends Action {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (!super.equals(obj))
+		}
+		if (!super.equals(obj)) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (!(obj instanceof ServerStatusAction)) {
 			return false;
+		}
 		ServerStatusAction other = (ServerStatusAction) obj;
+		if (details == null) {
+			if (other.details != null) {
+				return false;
+			}
+		} else if (!details.equals(other.details)) {
+			return false;
+		}
 		if (message == null) {
-			if (other.message != null)
+			if (other.message != null) {
 				return false;
-		} else if (!message.equals(other.message))
+			}
+		} else if (!message.equals(other.message)) {
 			return false;
+		}
 		if (severity == null) {
-			if (other.severity != null)
+			if (other.severity != null) {
 				return false;
-		} else if (!severity.equals(other.severity))
+			}
+		} else if (!severity.equals(other.severity)) {
 			return false;
+		}
 		return true;
 	}
 

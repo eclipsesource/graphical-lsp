@@ -19,8 +19,6 @@ import static com.eclipsesource.glsp.server.util.GModelUtil.IS_CONNECTABLE;
 
 import java.util.Optional;
 
-import org.apache.log4j.Logger;
-
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.action.kind.CreateConnectionOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
@@ -31,11 +29,16 @@ import com.eclipsesource.glsp.graph.GModelIndex;
 import com.eclipsesource.glsp.graph.GModelRoot;
 
 public abstract class CreateConnectionOperationHandler implements OperationHandler {
-	private static Logger log = Logger.getLogger(CreateConnectionOperationHandler.class);
+
 	protected final String elementTypeId;
 
 	public CreateConnectionOperationHandler(String elementTypeId) {
 		this.elementTypeId = elementTypeId;
+	}
+	
+	@Override
+	public String getLabel(AbstractOperationAction action) {
+		return "Create edge";
 	}
 
 	@Override
@@ -51,11 +54,10 @@ public abstract class CreateConnectionOperationHandler implements OperationHandl
 	}
 
 	@Override
-	public Optional<GModelRoot> execute(AbstractOperationAction operationAction, GraphicalModelState modelState) {
+	public void execute(AbstractOperationAction operationAction, GraphicalModelState modelState) {
 		CreateConnectionOperationAction action = (CreateConnectionOperationAction) operationAction;
 		if (action.getSourceElementId() == null || action.getTargetElementId() == null) {
-			log.warn("Incomplete create connection action");
-			return Optional.empty();
+			throw new IllegalArgumentException("Incomplete create connection action");
 		}
 
 		GModelIndex index = modelState.getIndex();
@@ -63,20 +65,18 @@ public abstract class CreateConnectionOperationHandler implements OperationHandl
 		Optional<GModelElement> source = index.findElement(action.getSourceElementId(), IS_CONNECTABLE);
 		Optional<GModelElement> target = index.findElement(action.getTargetElementId(), IS_CONNECTABLE);
 		if (!source.isPresent() || !target.isPresent()) {
-			log.warn("Invalid source or target for source ID " + action.getSourceElementId() + " and target ID "
-					+ action.getTargetElementId());
-			return Optional.empty();
+			throw new IllegalArgumentException("Invalid source or target for source ID " + action.getSourceElementId()
+					+ " and target ID " + action.getTargetElementId());
 		}
 
 		Optional<GEdge> connection = createConnection(source.get(), target.get(), modelState);
 		if (!connection.isPresent()) {
-			log.warn(String.format("Creation of connection failed for source: %s , target: %s", source.get().getId(),
-					target.get().getId()));
-			return Optional.empty();
+			throw new IllegalArgumentException(
+					String.format("Creation of connection failed for source: %s , target: %s", source.get().getId(),
+							target.get().getId()));
 		}
 		GModelRoot currentModel = modelState.getRoot();
 		currentModel.getChildren().add(connection.get());
-		return Optional.of(currentModel);
 	}
 
 	protected abstract Optional<GEdge> createConnection(GModelElement source, GModelElement target,

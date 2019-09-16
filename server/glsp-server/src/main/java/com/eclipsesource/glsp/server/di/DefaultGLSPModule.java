@@ -17,8 +17,9 @@ package com.eclipsesource.glsp.server.di;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
-import com.eclipsesource.glsp.api.action.ActionDispatcher;
+import com.eclipsesource.glsp.api.action.ActionProcessor;
 import com.eclipsesource.glsp.api.di.GLSPModule;
 import com.eclipsesource.glsp.api.diagram.DiagramConfiguration;
 import com.eclipsesource.glsp.api.diagram.DiagramConfigurationProvider;
@@ -27,6 +28,7 @@ import com.eclipsesource.glsp.api.factory.ModelFactory;
 import com.eclipsesource.glsp.api.handler.ActionHandler;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.handler.ServerCommandHandler;
+import com.eclipsesource.glsp.api.jsonrpc.GLSPClientProvider;
 import com.eclipsesource.glsp.api.jsonrpc.GLSPServer;
 import com.eclipsesource.glsp.api.model.ModelStateProvider;
 import com.eclipsesource.glsp.api.provider.ActionHandlerProvider;
@@ -35,7 +37,7 @@ import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
 import com.eclipsesource.glsp.api.provider.ServerCommandHandlerProvider;
 import com.eclipsesource.glsp.server.actionhandler.CollapseExpandActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.ComputedBoundsActionHandler;
-import com.eclipsesource.glsp.server.actionhandler.DIActionDispatcher;
+import com.eclipsesource.glsp.server.actionhandler.DIActionProcessor;
 import com.eclipsesource.glsp.server.actionhandler.ExecuteServerCommandActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.LayoutActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.OpenActionHandler;
@@ -48,9 +50,11 @@ import com.eclipsesource.glsp.server.actionhandler.RequestPopupModelActionHandle
 import com.eclipsesource.glsp.server.actionhandler.RequestTypeHintsActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.SaveModelActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.SelectActionHandler;
+import com.eclipsesource.glsp.server.actionhandler.UndoRedoActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.ValidateLabelEditActionHandler;
 import com.eclipsesource.glsp.server.diagram.DIDiagramConfigurationProvider;
 import com.eclipsesource.glsp.server.factory.DefaultGraphGsonConfiguratorFactory;
+import com.eclipsesource.glsp.server.jsonrpc.DefaultGLSPClientProvider;
 import com.eclipsesource.glsp.server.jsonrpc.DefaultGLSPServer;
 import com.eclipsesource.glsp.server.model.DefaultModelStateProvider;
 import com.eclipsesource.glsp.server.model.FileBasedModelFactory;
@@ -68,6 +72,14 @@ public abstract class DefaultGLSPModule extends GLSPModule {
 	protected Multibinder<OperationHandler> operationHandler;
 	protected Multibinder<DiagramConfiguration> diagramConfiguration;
 
+	private final List<Class<? extends ActionHandler>> defaultActionHandlers = Lists.newArrayList(
+			CollapseExpandActionHandler.class, ComputedBoundsActionHandler.class, OpenActionHandler.class,
+			OperationActionHandler.class, RequestModelActionHandler.class, RequestOperationsActionHandler.class,
+			RequestPopupModelActionHandler.class, SaveModelActionHandler.class, UndoRedoActionHandler.class,
+			SelectActionHandler.class, ExecuteServerCommandActionHandler.class, RequestTypeHintsActionHandler.class,
+			RequestCommandPaletteActionsHandler.class, RequestMarkersHandler.class, LayoutActionHandler.class,
+			ValidateLabelEditActionHandler.class);
+
 	@Override
 	protected void configure() {
 		super.configure();
@@ -80,6 +92,17 @@ public abstract class DefaultGLSPModule extends GLSPModule {
 		bindServerCommandHandlers().forEach(h -> serverCommandHandler.addBinding().to(h));
 		bindOperationHandlers().forEach(h -> operationHandler.addBinding().to(h));
 		bindDiagramConfigurations().forEach(h -> diagramConfiguration.addBinding().to(h));
+	}
+
+	protected void rebind(Class<? extends ActionHandler> defaultBinding, Class<? extends ActionHandler> newBinding) {
+		if (defaultActionHandlers.contains(defaultBinding)) {
+			defaultActionHandlers.remove(defaultBinding);
+		}
+		defaultActionHandlers.add(newBinding);
+	}
+
+	protected Collection<Class<? extends ActionHandler>> bindActionHandlers() {
+		return defaultActionHandlers;
 	}
 
 	@Override
@@ -131,21 +154,17 @@ public abstract class DefaultGLSPModule extends GLSPModule {
 
 	protected abstract Collection<Class<? extends DiagramConfiguration>> bindDiagramConfigurations();
 
-	protected Collection<Class<? extends ActionHandler>> bindActionHandlers() {
-		return Lists.newArrayList(CollapseExpandActionHandler.class, ComputedBoundsActionHandler.class,
-				OpenActionHandler.class, OperationActionHandler.class, RequestModelActionHandler.class,
-				RequestOperationsActionHandler.class, RequestPopupModelActionHandler.class,
-				SaveModelActionHandler.class, SelectActionHandler.class, ExecuteServerCommandActionHandler.class,
-				RequestTypeHintsActionHandler.class, RequestCommandPaletteActionsHandler.class,
-				RequestMarkersHandler.class, LayoutActionHandler.class, ValidateLabelEditActionHandler.class);
-	}
-
 	protected Collection<Class<? extends ServerCommandHandler>> bindServerCommandHandlers() {
 		return Collections.emptySet();
 	}
 
 	@Override
-	protected Class<? extends ActionDispatcher> bindActionDispatcher() {
-		return DIActionDispatcher.class;
+	protected Class<? extends ActionProcessor> bindActionProcessor() {
+		return DIActionProcessor.class;
+	}
+
+	@Override
+	protected Class<? extends GLSPClientProvider> bindGSLPClientProvider() {
+		return DefaultGLSPClientProvider.class;
 	}
 }

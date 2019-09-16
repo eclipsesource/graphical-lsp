@@ -13,19 +13,15 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-package com.eclipsesource.glsp.api.utils;
+package com.eclipsesource.glsp.example.modelserver.workflow.handler;
 
-import com.eclipsesource.glsp.api.layout.ServerLayoutKind;
+import com.eclipsesource.glsp.example.workflow.utils.ModelTypes;
+import com.eclipsesource.modelserver.coffee.model.coffee.CoffeePackage;
 
-public class ServerOptions {
-	private ServerLayoutKind layoutKind = ServerLayoutKind.NONE;
+public class CreateMergeNodeHandler extends AbstractCreateNodeHandler {
 
-	public ServerLayoutKind getLayoutKind() {
-		return layoutKind;
-	}
-
-	public void setLayoutKind(ServerLayoutKind layoutKind) {
-		this.layoutKind = layoutKind;
+	public CreateMergeNodeHandler() {
+		super(ModelTypes.MERGE_NODE, CoffeePackage.Literals.MERGE);
 	}
 
 }

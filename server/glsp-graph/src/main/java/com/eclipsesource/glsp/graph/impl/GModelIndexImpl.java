@@ -28,6 +28,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -74,6 +75,7 @@ public class GModelIndexImpl extends ECrossReferenceAdapter implements GModelInd
 
 	protected void notifyAdd(GModelElement element) {
 		if (idToElement.put(element.getId(), element) == null) {
+			getTypeSet(element.eClass()).add(element);
 			for (GModelElement child : element.getChildren()) {
 				notifyAdd(child);
 			}
@@ -82,6 +84,7 @@ public class GModelIndexImpl extends ECrossReferenceAdapter implements GModelInd
 
 	protected void notifyRemove(GModelElement element) {
 		if (idToElement.remove(element.getId()) != null) {
+			getTypeSet(element.eClass()).remove(element);
 			for (GModelElement child : element.getChildren()) {
 				notifyRemove(child);
 			}
@@ -91,6 +94,24 @@ public class GModelIndexImpl extends ECrossReferenceAdapter implements GModelInd
 	@Override
 	public boolean isAdapterForType(Object type) {
 		return GModelIndexImpl.class.equals(type);
+	}
+
+	@Override
+	protected void handleContainment(Notification notification) {
+		super.handleContainment(notification);
+		switch (notification.getEventType()) {
+		case Notification.REMOVE: {
+			Notifier oldValue = (Notifier) notification.getOldValue();
+			removeAdapter(oldValue);
+			break;
+		}
+		case Notification.REMOVE_MANY: {
+			for (Object oldValue : (Collection<?>) notification.getOldValue()) {
+				removeAdapter((Notifier) oldValue);
+			}
+			break;
+		}
+		}
 	}
 
 	@Override
@@ -137,8 +158,13 @@ public class GModelIndexImpl extends ECrossReferenceAdapter implements GModelInd
 		return i;
 	}
 
+	private Set<GModelElement> getTypeSet(EClass eClass) {
+		return typeToElements.computeIfAbsent(eClass, t -> new HashSet<>());
+	}
+
+	@Override
 	public int getTypeCount(EClass eClass) {
-		return typeToElements.computeIfAbsent(eClass, t -> new HashSet<>()).size();
+		return getTypeSet(eClass).size();
 	}
 
 	@Override

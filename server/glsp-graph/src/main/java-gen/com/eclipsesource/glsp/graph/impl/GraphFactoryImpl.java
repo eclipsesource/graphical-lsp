@@ -23,27 +23,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
-import com.eclipsesource.glsp.graph.GAlignable;
-import com.eclipsesource.glsp.graph.GBounds;
-import com.eclipsesource.glsp.graph.GButton;
-import com.eclipsesource.glsp.graph.GCompartment;
-import com.eclipsesource.glsp.graph.GDimension;
-import com.eclipsesource.glsp.graph.GEdge;
-import com.eclipsesource.glsp.graph.GEdgePlacement;
-import com.eclipsesource.glsp.graph.GGraph;
-import com.eclipsesource.glsp.graph.GIssue;
-import com.eclipsesource.glsp.graph.GIssueMarker;
-import com.eclipsesource.glsp.graph.GLabel;
-import com.eclipsesource.glsp.graph.GLayoutOptions;
-import com.eclipsesource.glsp.graph.GModelRoot;
-import com.eclipsesource.glsp.graph.GNode;
-import com.eclipsesource.glsp.graph.GPoint;
-import com.eclipsesource.glsp.graph.GPort;
-import com.eclipsesource.glsp.graph.GSeverity;
-import com.eclipsesource.glsp.graph.GSide;
-import com.eclipsesource.glsp.graph.GraphFactory;
-import com.eclipsesource.glsp.graph.GraphPackage;
-
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model <b>Factory</b>.
@@ -136,8 +115,6 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-		case GraphPackage.GSIDE:
-			return createGSideFromString(eDataType, initialValue);
 		case GraphPackage.GSEVERITY:
 			return createGSeverityFromString(eDataType, initialValue);
 		default:
@@ -153,8 +130,6 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-		case GraphPackage.GSIDE:
-			return convertGSideToString(eDataType, instanceValue);
 		case GraphPackage.GSEVERITY:
 			return convertGSeverityToString(eDataType, instanceValue);
 		default:
@@ -358,28 +333,6 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	public GPreRenderedElement createGPreRenderedElement() {
 		GPreRenderedElementImpl gPreRenderedElement = new GPreRenderedElementImpl();
 		return gPreRenderedElement;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GSide createGSideFromString(EDataType eDataType, String initialValue) {
-		GSide result = GSide.get(initialValue);
-		if (result == null)
-			throw new IllegalArgumentException(
-					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertGSideToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

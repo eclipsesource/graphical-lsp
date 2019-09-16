@@ -1,4 +1,5 @@
 /*******************************************************************************
+ * Copyright (c) 2017-2018 TypeFox and others.
  * Copyright (c) 2019 EclipseSource and others.
  *  
  *   This program and the accompanying materials are made available under the
@@ -13,7 +14,6 @@
  *  
  *   SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ******************************************************************************/
-//TODO class is heavily based on the LayoutUtil of the sprotty repository. Change copyright header accordingly 
 package com.eclipsesource.glsp.api.utils;
 
 import java.util.Optional;

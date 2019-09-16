@@ -21,9 +21,8 @@ import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.graph.DefaultTypes;
 import com.eclipsesource.glsp.graph.GEdge;
 import com.eclipsesource.glsp.graph.GModelElement;
-import com.eclipsesource.glsp.graph.GraphFactory;
+import com.eclipsesource.glsp.graph.builder.impl.GEdgeBuilder;
 import com.eclipsesource.glsp.server.operationhandler.CreateConnectionOperationHandler;
-import com.eclipsesource.glsp.server.util.GModelUtil;
 
 public class CreateEdgeHandler extends CreateConnectionOperationHandler {
 
@@ -34,12 +33,10 @@ public class CreateEdgeHandler extends CreateConnectionOperationHandler {
 	@Override
 	protected Optional<GEdge> createConnection(GModelElement source, GModelElement target,
 			GraphicalModelState modelState) {
-		GEdge edge = GraphFactory.eINSTANCE.createGEdge();
-		edge.setType(elementTypeId);
-		edge.setSourceId(source.getId());
-		edge.setTargetId(target.getId());
-		GModelUtil.generateId(edge, "edge", modelState);
-		return Optional.of(edge);
+		return Optional.of(new GEdgeBuilder() //
+				.source(source) //
+				.target(target) //
+				.build());
 	}
 
 }

@@ -25,12 +25,13 @@ import com.eclipsesource.glsp.api.action.kind.SetTypeHintsAction;
 import com.eclipsesource.glsp.api.diagram.DiagramConfiguration;
 import com.eclipsesource.glsp.api.diagram.DiagramConfigurationProvider;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
+import com.eclipsesource.glsp.api.utils.ClientOptions;
 import com.google.inject.Inject;
 
 public class RequestTypeHintsActionHandler extends AbstractActionHandler {
 	private Logger LOG = Logger.getLogger(RequestTypeHintsActionHandler.class);
 	@Inject
-	private DiagramConfigurationProvider diagramConfigurationProvider;
+	protected DiagramConfigurationProvider diagramConfigurationProvider;
 
 	@Override
 	public boolean handles(Action action) {
@@ -62,7 +63,7 @@ public class RequestTypeHintsActionHandler extends AbstractActionHandler {
 		if (action.getDiagramType() == null && !action.getDiagramType().isEmpty()) {
 			return Optional.of(action.getDiagramType());
 		} else {
-			return modelState.getClientOptions().getDiagramType();
+			return ClientOptions.getValue(modelState.getClientOptions(), ClientOptions.DIAGRAM_TYPE);
 		}
 	}
 }

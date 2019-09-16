@@ -18,6 +18,7 @@ package com.eclipsesource.glsp.api.types;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import com.eclipsesource.glsp.api.action.Action;
 
@@ -25,15 +26,24 @@ public class LabeledAction {
 
 	private String label;
 	private List<Action> actions;
+	private String icon = null;
 
-	public LabeledAction(String label, List<Action> actions) {
+	public LabeledAction(String label, String icon, List<Action> actions) {
 		this.label = label;
-		setActions(actions);
+		this.actions = actions;
+		this.icon = icon;
+	}
+	
+	public LabeledAction(String label, List<Action> actions) {
+		this(label, null, actions);
 	}
 
 	public LabeledAction(String label, Action... actions) {
-		this.label = label;
-		setActions(Arrays.asList(actions));
+		this(label, Arrays.asList(actions));
+	}
+	
+	public LabeledAction(String label, String icon, Action... actions) {
+		this(label, icon, Arrays.asList(actions));
 	}
 
 	public void setLabel(String label) {
@@ -54,4 +64,50 @@ public class LabeledAction {
 	public Collection<Action> getActions() {
 		return actions;
 	}
+	
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+	
+	public Optional<String> getIcon() {
+		return Optional.ofNullable(icon);
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((actions == null) ? 0 : actions.hashCode());
+		result = prime * result + ((icon == null) ? 0 : icon.hashCode());
+		result = prime * result + ((label == null) ? 0 : label.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		LabeledAction other = (LabeledAction) obj;
+		if (actions == null) {
+			if (other.actions != null)
+				return false;
+		} else if (!actions.equals(other.actions))
+			return false;
+		if (icon == null) {
+			if (other.icon != null)
+				return false;
+		} else if (!icon.equals(other.icon))
+			return false;
+		if (label == null) {
+			if (other.label != null)
+				return false;
+		} else if (!label.equals(other.label))
+			return false;
+		return true;
+	}
+	
 }

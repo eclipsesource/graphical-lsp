@@ -29,7 +29,7 @@ import com.google.inject.Inject;
 public class ValidateLabelEditActionHandler extends AbstractActionHandler {
 
 	@Inject
-	private LabelEditValidator editLabelValidator;
+	protected LabelEditValidator editLabelValidator;
 
 	@Override
 	public boolean handles(Action action) {

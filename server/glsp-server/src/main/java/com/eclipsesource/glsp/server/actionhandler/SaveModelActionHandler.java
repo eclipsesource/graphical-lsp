@@ -29,6 +29,7 @@ import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.SaveModelAction;
 import com.eclipsesource.glsp.api.factory.GraphGsonConfiguratorFactory;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
+import com.eclipsesource.glsp.api.utils.ClientOptions;
 import com.eclipsesource.glsp.graph.GGraph;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
@@ -38,7 +39,7 @@ public class SaveModelActionHandler extends AbstractActionHandler {
 	private static final String FILE_PREFIX = "file://";
 
 	@Inject
-	private GraphGsonConfiguratorFactory gsonConfigurationFactory;
+	protected GraphGsonConfiguratorFactory gsonConfigurationFactory;
 
 	@Override
 	public boolean handles(Action action) {
@@ -68,7 +69,7 @@ public class SaveModelActionHandler extends AbstractActionHandler {
 	}
 
 	private Optional<File> convertToFile(GraphicalModelState modelState) {
-		Optional<String> sourceUriOpt = modelState.getClientOptions().getSourceUri();
+		Optional<String> sourceUriOpt = ClientOptions.getValue(modelState.getClientOptions(), ClientOptions.SOURCE_URI);
 		if (sourceUriOpt.isPresent()) {
 			String uri = sourceUriOpt.get();
 			if (uri.startsWith(FILE_PREFIX)) {
