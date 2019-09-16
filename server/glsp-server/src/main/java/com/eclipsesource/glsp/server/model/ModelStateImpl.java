@@ -82,6 +82,7 @@ public class ModelStateImpl implements GraphicalModelState {
 		if (this.commandStack != null) {
 			this.commandStack.flush();
 		}
+
 		this.commandStack = commandStack;
 	}
 
