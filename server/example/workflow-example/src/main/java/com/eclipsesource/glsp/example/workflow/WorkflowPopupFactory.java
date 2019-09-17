@@ -18,9 +18,11 @@ package com.eclipsesource.glsp.example.workflow;
 import static com.eclipsesource.glsp.graph.util.GraphUtil.bounds;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import com.eclipsesource.glsp.api.action.kind.RequestPopupModelAction;
 import com.eclipsesource.glsp.api.factory.PopupModelFactory;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.example.workflow.wfgraph.TaskNode;
 import com.eclipsesource.glsp.graph.GBounds;
 import com.eclipsesource.glsp.graph.GHtmlRoot;
@@ -42,7 +44,7 @@ public class WorkflowPopupFactory implements PopupModelFactory {
 	private static final String NL = "<br>";
 
 	@Override
-	public GHtmlRoot createPopuModel(GModelElement element, RequestPopupModelAction action) {
+	public Optional<GHtmlRoot> createPopupModel(GModelElement element, RequestPopupModelAction action, GraphicalModelState modelState) {
 		if (element != null && element instanceof TaskNode) {
 			TaskNode task = (TaskNode) element;
 			GHtmlRoot root = GraphFactory.eINSTANCE.createGHtmlRoot();
@@ -60,9 +62,9 @@ public class WorkflowPopupFactory implements PopupModelFactory {
 			p2.setId("popup-body");
 			p2.setCode("<div class=\"sprotty-popup-body\">" + generateBody(task) + "</div>");
 			root.getChildren().addAll(Arrays.asList(p1, p2));
-			return root;
+			return Optional.of(root);
 		}
-		return null;
+		return Optional.empty();
 
 	}
 
