@@ -16,7 +16,7 @@
 import { injectable } from "inversify";
 import {
     Action, ActionHandlerRegistry, ActionMessage,
-    ApplyLabelEditAction, CollapseExpandAction, CollapseExpandAllAction,
+    CollapseExpandAction, CollapseExpandAllAction,
     ComputedBoundsAction, DiagramServer, ExportSvgAction, ICommand, LayoutAction,
     OpenAction, RequestBoundsCommand, RequestModelAction, RequestPopupModelAction,
     ServerStatusAction, SwitchEditModeCommand
@@ -31,6 +31,7 @@ import { IdentifiableRequestAction } from "../features/request-response/action-d
 import { SaveModelAction } from "../features/save/save";
 import { GlspRedoAction, GlspUndoAction } from "../features/undo-redo/model";
 import { RequestMarkersAction } from "../features/validation/validate";
+import { SaveModelEdgesAction } from "../features/change-bounds/edges";
 
 @injectable()
 export class GLSPWebsocketDiagramServer extends DiagramServer {
@@ -71,10 +72,6 @@ export class GLSPWebsocketDiagramServer extends DiagramServer {
     public getSourceURI(): string {
         return this._sourceUri;
     }
-
-    protected handleComputedBounds(action: ComputedBoundsAction): boolean {
-        return true;
-    }
 }
 
 export function registerDefaultGLSPServerActions(registry: ActionHandlerRegistry, diagramServer: DiagramServer) {
@@ -103,7 +100,7 @@ export function registerDefaultGLSPServerActions(registry: ActionHandlerRegistry
     registry.register(IdentifiableRequestAction.KIND, diagramServer);
     registry.register(RequestMarkersAction.KIND, diagramServer);
     registry.register(LayoutAction.KIND, diagramServer);
-    registry.register(ApplyLabelEditAction.KIND, diagramServer);
+    registry.register(SaveModelEdgesAction.KIND, diagramServer);
 
     // Register an empty handler for SwitchEditMode, to avoid runtime exceptions.
     // We don't want to support SwitchEditMode, but sprotty still sends some corresponding
