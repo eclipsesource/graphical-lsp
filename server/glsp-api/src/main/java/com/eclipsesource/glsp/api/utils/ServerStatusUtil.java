@@ -40,8 +40,12 @@ public class ServerStatusUtil {
 		return new ServerStatusAction(Severity.ERROR, message, details);
 	}
 
+	public static ServerStatusAction error(String message, Throwable cause) {
+		return new ServerStatusAction(Severity.ERROR, message, getDetails(cause));
+	}
+
 	public static ServerStatusAction error(Exception e) {
-		return error(getMessage(e), getDetails(e.getCause()));
+		return error(getMessage(e), getDetails(e));
 	}
 
 	public static ServerStatusAction clear() {
