@@ -58,6 +58,41 @@ public class WorkflowGLSPModule extends DefaultGLSPModule {
 	protected Class<? extends GLSPServer> bindGLSPServer() {
 		return WorkflowGLSPServer.class;
 	}
+
+	@Override
+	protected Class<? extends ServerConfiguration> bindServerConfiguration() {
+		return WorkflowServerConfiguration.class;
+	}
+	
+	@Override
+	protected Collection<Class<? extends DiagramConfiguration>> bindDiagramConfigurations() {
+		return Arrays.asList(WorfklowDiagramConfiguration.class);
+	}
+
+	@Override
+	protected Class<? extends GraphExtension> bindGraphExtension() {
+		return WFGraphExtension.class;
+	}
+	
+	@Override
+	protected Collection<Class<? extends OperationHandler>> bindOperationHandlers() {
+		return new ArrayList<Class<? extends OperationHandler>>() {
+			{
+				add(CreateAutomatedTaskHandler.class);
+				add(CreateManualTaskHandler.class);
+				add(CreateDecisionNodeHandler.class);
+				add(CreateMergeNodeHandler.class);
+				add(CreateWeightedEdgeHandler.class);
+				add(CreateEdgeHandler.class);
+				add(ReconnectEdgeHandler.class);
+				add(RerouteEdgeHandler.class);
+				add(DeleteWorkflowElementHandler.class);
+				add(ChangeBoundsOperationHandler.class);
+				add(DeleteOperationHandler.class);
+				add(ApplyLabelEditOperationHandler.class);
+			}
+		};
+	}
 	
 	@Override
 	public Class<? extends PopupModelFactory> bindPopupModelFactory() {
@@ -85,26 +120,6 @@ public class WorkflowGLSPModule extends DefaultGLSPModule {
 	}
 
 	@Override
-	protected Collection<Class<? extends OperationHandler>> bindOperationHandlers() {
-		return new ArrayList<Class<? extends OperationHandler>>() {
-			{
-				add(CreateAutomatedTaskHandler.class);
-				add(CreateManualTaskHandler.class);
-				add(CreateDecisionNodeHandler.class);
-				add(CreateMergeNodeHandler.class);
-				add(CreateWeightedEdgeHandler.class);
-				add(CreateEdgeHandler.class);
-				add(ReconnectEdgeHandler.class);
-				add(RerouteEdgeHandler.class);
-				add(DeleteWorkflowElementHandler.class);
-				add(ChangeBoundsOperationHandler.class);
-				add(DeleteOperationHandler.class);
-				add(ApplyLabelEditOperationHandler.class);
-			}
-		};
-	}
-
-	@Override
 	protected Collection<Class<? extends ServerCommandHandler>> bindServerCommandHandlers() {
 		return Arrays.asList(SimulateCommandHandler.class);
 	}
@@ -120,23 +135,8 @@ public class WorkflowGLSPModule extends DefaultGLSPModule {
 	}
 
 	@Override
-	protected Collection<Class<? extends DiagramConfiguration>> bindDiagramConfigurations() {
-		return Arrays.asList(WorfklowDiagramConfiguration.class);
-	}
-
-	@Override
-	protected Class<? extends GraphExtension> bindGraphExtension() {
-		return WFGraphExtension.class;
-	}
-
-	@Override
 	protected Class<? extends ILayoutEngine> bindLayoutEngine() {
 		return WorkflowLayoutEngine.class;
-	}
-
-	@Override
-	protected Class<? extends ServerConfiguration> bindServerConfiguration() {
-		return WorkflowServerConfiguration.class;
 	}
 
 }

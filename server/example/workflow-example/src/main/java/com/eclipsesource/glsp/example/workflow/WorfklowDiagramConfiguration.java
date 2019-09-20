@@ -53,13 +53,17 @@ public class WorfklowDiagramConfiguration implements DiagramConfiguration {
 	}
 
 	@Override
-	public List<NodeTypeHint> getNodeTypeHints() {
-		List<NodeTypeHint> nodeHints = new ArrayList<>();
-		nodeHints.add(createDefaultNodeTypeHint(DECISION_NODE));
-		nodeHints.add(createDefaultNodeTypeHint(MERGE_NODE));
-		nodeHints.add(createDefaultNodeTypeHint(MANUAL_TASK));
-		nodeHints.add(createDefaultNodeTypeHint(AUTOMATED_TASK));
-		return nodeHints;
+	public List<Operation> getOperations() {
+		Group nodeGroup = new Group("workflow.nodes", "Nodes");
+		Group edgeGroup = new Group("workflow.edges", "Edges");
+		Operation createAutomatedTask = new Operation("Automated Task", AUTOMATED_TASK, CREATE_NODE, nodeGroup);
+		Operation createManualTask = new Operation("Manual Task", MANUAL_TASK, CREATE_NODE, nodeGroup);
+		Operation createDecisionNode = new Operation("Decision Node", DECISION_NODE, CREATE_NODE, nodeGroup);
+		Operation createMergeNode = new Operation("Merge Node", MERGE_NODE, CREATE_NODE, nodeGroup);
+		Operation createWeightedEdge = new Operation("Weighted Edge", WEIGHTED_EDGE, CREATE_CONNECTION, edgeGroup);
+		Operation createEdge = new Operation("Edge", EDGE, CREATE_CONNECTION, edgeGroup);
+		return Arrays.asList(createAutomatedTask, createManualTask, createDecisionNode, createMergeNode,
+				createWeightedEdge, createEdge);
 	}
 
 	@Override
@@ -77,6 +81,16 @@ public class WorfklowDiagramConfiguration implements DiagramConfiguration {
 		mappings.put(MANUAL_TASK, WfgraphPackage.Literals.TASK_NODE);
 		mappings.put(AUTOMATED_TASK, WfgraphPackage.Literals.TASK_NODE);
 		return mappings;
+	}
+
+	@Override
+	public List<NodeTypeHint> getNodeTypeHints() {
+		List<NodeTypeHint> nodeHints = new ArrayList<>();
+		nodeHints.add(createDefaultNodeTypeHint(DECISION_NODE));
+		nodeHints.add(createDefaultNodeTypeHint(MERGE_NODE));
+		nodeHints.add(createDefaultNodeTypeHint(MANUAL_TASK));
+		nodeHints.add(createDefaultNodeTypeHint(AUTOMATED_TASK));
+		return nodeHints;
 	}
 
 	@Override
@@ -98,17 +112,4 @@ public class WorfklowDiagramConfiguration implements DiagramConfiguration {
 		return hint;
 	}
 
-	@Override
-	public List<Operation> getOperations() {
-		Group nodeGroup = new Group("workflow.nodes", "Nodes");
-		Group edgeGroup = new Group("workflow.edges", "Edges");
-		Operation createAutomatedTask = new Operation("Automated Task", AUTOMATED_TASK, CREATE_NODE, nodeGroup);
-		Operation createManualTask = new Operation("Manual Task", MANUAL_TASK, CREATE_NODE, nodeGroup);
-		Operation createDecisionNode = new Operation("Decision Node", DECISION_NODE, CREATE_NODE, nodeGroup);
-		Operation createMergeNode = new Operation("Merge Node", MERGE_NODE, CREATE_NODE, nodeGroup);
-		Operation createWeightedEdge = new Operation("Weighted Edge", WEIGHTED_EDGE, CREATE_CONNECTION, edgeGroup);
-		Operation createEdge = new Operation("Edge", EDGE, CREATE_CONNECTION, edgeGroup);
-		return Arrays.asList(createAutomatedTask, createManualTask, createDecisionNode, createMergeNode,
-				createWeightedEdge, createEdge);
-	}
 }
