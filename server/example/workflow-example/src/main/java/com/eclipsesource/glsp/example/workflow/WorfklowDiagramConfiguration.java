@@ -82,8 +82,11 @@ public class WorfklowDiagramConfiguration implements DiagramConfiguration {
 	@Override
 	public List<EdgeTypeHint> getEdgeTypeHints() {
 		List<EdgeTypeHint> edgeHints = new ArrayList<EdgeTypeHint>();
-		edgeHints.add(createDefaultEdgeTypeHint(WEIGHTED_EDGE));
-		edgeHints.add(createDefaultEdgeTypeHint(EDGE));
+		edgeHints.add(createDefaultEdgeTypeHint(EDGE));		
+		EdgeTypeHint weightedEdgeHint = DiagramConfiguration.super.createDefaultEdgeTypeHint(WEIGHTED_EDGE);
+		weightedEdgeHint.setSourceElementTypeIds(Arrays.asList(DECISION_NODE));
+		weightedEdgeHint.setTargetElementTypeIds(Arrays.asList(MANUAL_TASK, AUTOMATED_TASK));
+		edgeHints.add(weightedEdgeHint);
 		return edgeHints;
 	}
 
