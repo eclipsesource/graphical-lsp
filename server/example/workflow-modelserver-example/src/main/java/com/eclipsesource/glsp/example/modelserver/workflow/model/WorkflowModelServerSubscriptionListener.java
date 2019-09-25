@@ -46,14 +46,14 @@ import com.eclipsesource.modelserver.command.CCommand;
 import com.eclipsesource.modelserver.common.codecs.DecodingException;
 import com.google.common.collect.Lists;
 
-public class WorkflowSubscriptionListener extends XmiToEObjectSubscriptionListener {
+public class WorkflowModelServerSubscriptionListener extends XmiToEObjectSubscriptionListener {
 	private static final String TEMP_COMMAND_RESOURCE_URI = "command$1.command";
-	private static Logger LOG = Logger.getLogger(WorkflowSubscriptionListener.class);
+	private static Logger LOG = Logger.getLogger(WorkflowModelServerSubscriptionListener.class);
 	private ActionProcessor actionProcessor;
 	private WorkflowModelServerAccess modelServerAccess;
 	private GraphicalModelState modelState;
 
-	public WorkflowSubscriptionListener(GraphicalModelState modelState, WorkflowModelServerAccess modelServerAccess,
+	public WorkflowModelServerSubscriptionListener(GraphicalModelState modelState, WorkflowModelServerAccess modelServerAccess,
 			ActionProcessor actionProcessor) {
 		this.actionProcessor = actionProcessor;
 		this.modelServerAccess = modelServerAccess;
@@ -130,7 +130,7 @@ public class WorkflowSubscriptionListener extends XmiToEObjectSubscriptionListen
 	@Override
 	public void onUnknown(ModelServerNotification notification) {
 		// Try to see if we have an update if the notification type is not set properly
-		EObject data = notification.getData().flatMap(WorkflowSubscriptionListener::decode).orElse(null);
+		EObject data = notification.getData().flatMap(WorkflowModelServerSubscriptionListener::decode).orElse(null);
 		if(data instanceof CCommand) {
 			onIncrementalUpdate((CCommand)data);
 		} else if(data instanceof Machine) {
