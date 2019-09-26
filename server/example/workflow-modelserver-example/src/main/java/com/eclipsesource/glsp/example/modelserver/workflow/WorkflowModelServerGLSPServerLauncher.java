@@ -21,12 +21,14 @@ import org.eclipse.elk.alg.layered.options.LayeredMetaDataProvider;
 import com.eclipsesource.glsp.layout.ElkLayoutEngine;
 import com.eclipsesource.glsp.server.launch.DefaultGLSPServerLauncher;
 import com.eclipsesource.glsp.server.launch.GLSPServerLauncher;
+import com.eclipsesource.modelserver.command.CCommandPackage;
 
 public class WorkflowModelServerGLSPServerLauncher {
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
 		ElkLayoutEngine.initialize(new LayeredMetaDataProvider());
 		GLSPServerLauncher launcher = new DefaultGLSPServerLauncher(new WorkflowModelServerGLSPModule());
+		CCommandPackage.eINSTANCE.eClass();
 		launcher.start("localhost", 5008);
 	}
 }

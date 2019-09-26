@@ -87,7 +87,7 @@ public class WorkflowModelServerModelFactory implements ModelFactory {
 
 		WorkflowModelServerAccess modelAccess = new WorkflowModelServerAccess(sourceURI.get(), modelServerClient.get(),
 				adapterFactory, commandCodec);
-		modelAccess.subscribe(new WorkflowSubscriptionListener(modelState, modelAccess, actionProcessor));
+		modelAccess.subscribe(new WorkflowModelServerSubscriptionListener(modelState, modelAccess, actionProcessor));
 
 		if (modelState instanceof ModelServerAwareModelState) {
 			((ModelServerAwareModelState) modelState).setModelAccess(modelAccess);
