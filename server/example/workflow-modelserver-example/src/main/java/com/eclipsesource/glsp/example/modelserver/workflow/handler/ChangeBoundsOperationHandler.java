@@ -20,7 +20,6 @@ import java.util.Optional;
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ChangeBoundsOperationAction;
-import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.types.ElementAndBounds;
 import com.eclipsesource.glsp.example.modelserver.workflow.model.ModelServerAwareModelState;
@@ -31,7 +30,7 @@ import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Shape;
 import com.eclipsesource.glsp.graph.GBounds;
 import com.eclipsesource.modelserver.coffee.model.coffee.Node;
 
-public class ChangeBoundsOperationHandler implements OperationHandler {
+public class ChangeBoundsOperationHandler implements ModelStateAwareOperationHandler {
 
 	@Override
 	public Class<? extends Action> handlesActionType() {
@@ -43,14 +42,6 @@ public class ChangeBoundsOperationHandler implements OperationHandler {
 		return "Move or resize element";
 	}
 
-	@Override
-	public void execute(AbstractOperationAction action, GraphicalModelState modelState) {
-		ChangeBoundsOperationAction changeBoundsAction = (ChangeBoundsOperationAction) action;
-		for (ElementAndBounds element : changeBoundsAction.getNewBounds()) {
-			changeElementBounds(element.getElementId(), element.getNewBounds(), modelState);
-		}
-	}
-
 	private void changeElementBounds(String elementId, GBounds newBounds, GraphicalModelState modelState) {
 		WorkflowModelServerAccess modelAccess = ModelServerAwareModelState.getModelAccess(modelState);
 		Node node = modelAccess.getNodeById(elementId);
@@ -58,10 +49,18 @@ public class ChangeBoundsOperationHandler implements OperationHandler {
 		if (element.isEmpty() || !(element.get() instanceof Shape)) {
 			throw new IllegalArgumentException("Could not find shape for node " + elementId);
 		}
-
 		Shape shape = (Shape) element.get();
 		shape.setPosition(ShapeUtil.point(newBounds.getX(), newBounds.getY()));
 		shape.setSize(ShapeUtil.dimension(newBounds.getWidth(), newBounds.getHeight()));
+	}
+
+	@Override
+	public void doExecute(AbstractOperationAction action, GraphicalModelState modelState,
+			WorkflowModelServerAccess modelAccess) throws Exception {
+		ChangeBoundsOperationAction changeBoundsAction = (ChangeBoundsOperationAction) action;
+		for (ElementAndBounds element : changeBoundsAction.getNewBounds()) {
+			changeElementBounds(element.getElementId(), element.getNewBounds(), modelState);
+		}
 	}
 
 }
