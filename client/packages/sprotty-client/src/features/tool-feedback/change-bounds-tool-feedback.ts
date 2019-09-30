@@ -27,6 +27,7 @@ import {
     isMoveable,
     isSelectable,
     isViewport,
+    Locateable,
     MouseListener,
     MoveAction,
     Point,
@@ -116,9 +117,6 @@ export class FeedbackMoveMouseListener extends MouseListener {
         return [];
     }
 
-
-
-
     /**
     * Used to return the collision target(s) or the collision chain in case of multiple selected elements
     */
@@ -147,7 +145,6 @@ export class FeedbackMoveMouseListener extends MouseListener {
                     }
                 });
         }
-
         return collisionChain;
     }
 
@@ -161,7 +158,6 @@ export class FeedbackMoveMouseListener extends MouseListener {
         return shiftedBounds;
     }
 
-
     // Remove this and use the one from the improved routing branch
     getDistanceBetweenParallelLines(p1: Point, p2: Point, secondLine: PointToPointLine): Number {
         const numerator: number = Math.abs((secondLine.a * p1.x) + (secondLine.b * p1.y) - secondLine.c);
@@ -173,56 +169,53 @@ export class FeedbackMoveMouseListener extends MouseListener {
      * Snaps the element to the target in case of a collision
      */
     getSnappedBounds(element: SModelElement & BoundsAware, target: SModelElement & BoundsAware): Bounds {
-        let snappedBounds: Bounds = element.bounds;
+        let snappedBounds = element.bounds;
 
         // Build corner points
-        const elementTopLeft: Point = {
+        const elementTopLeft = {
             x: element.bounds.x,
             y: element.bounds.y
         };
-        const elementTopRight: Point = {
+        const elementTopRight = {
             x: element.bounds.x + element.bounds.width,
             y: element.bounds.y
         };
-        const elementBottomLeft: Point = {
+        const elementBottomLeft = {
             x: element.bounds.x,
             y: element.bounds.y + element.bounds.height
         };
-        const elementBottomRight: Point = {
+        const elementBottomRight = {
             x: element.bounds.x + element.bounds.width,
             y: element.bounds.y + element.bounds.height
         };
-
-
-        const targetTopLeft: Point = {
+        const targetTopLeft = {
             x: target.bounds.x,
             y: target.bounds.y
         };
-        const targetTopRight: Point = {
+        const targetTopRight = {
             x: target.bounds.x + target.bounds.width,
             y: target.bounds.y
         };
-        const targetBottomLeft: Point = {
+        const targetBottomLeft = {
             x: target.bounds.x,
             y: target.bounds.y + target.bounds.height
         };
-        const targetBottomRight: Point = {
+        const targetBottomRight = {
             x: target.bounds.x + target.bounds.width,
             y: target.bounds.y + target.bounds.height
         };
-
 
         // Build lines
-        const targetTopLine: PointToPointLine = new PointToPointLine(targetTopLeft, targetTopRight);
-        const targetBottomLine: PointToPointLine = new PointToPointLine(targetBottomLeft, targetBottomRight);
-        const targetLeftLine: PointToPointLine = new PointToPointLine(targetTopLeft, targetBottomLeft);
-        const targetRightLine: PointToPointLine = new PointToPointLine(targetTopRight, targetBottomRight);
+        const targetTopLine = new PointToPointLine(targetTopLeft, targetTopRight);
+        const targetBottomLine = new PointToPointLine(targetBottomLeft, targetBottomRight);
+        const targetLeftLine = new PointToPointLine(targetTopLeft, targetBottomLeft);
+        const targetRightLine = new PointToPointLine(targetTopRight, targetBottomRight);
 
         // Compute distances
-        const distanceTop: Number = this.getDistanceBetweenParallelLines(elementBottomLeft, elementBottomRight, targetTopLine);
-        const distanceBottom: Number = this.getDistanceBetweenParallelLines(elementTopLeft, elementTopRight, targetBottomLine);
-        const distanceLeft: Number = this.getDistanceBetweenParallelLines(elementTopLeft, elementBottomLeft, targetRightLine);
-        const distanceRight: Number = this.getDistanceBetweenParallelLines(elementTopRight, elementBottomRight, targetLeftLine);
+        const distanceTop = this.getDistanceBetweenParallelLines(elementBottomLeft, elementBottomRight, targetTopLine);
+        const distanceBottom = this.getDistanceBetweenParallelLines(elementTopLeft, elementTopRight, targetBottomLine);
+        const distanceLeft = this.getDistanceBetweenParallelLines(elementTopLeft, elementBottomLeft, targetRightLine);
+        const distanceRight = this.getDistanceBetweenParallelLines(elementTopRight, elementBottomRight, targetLeftLine);
 
         const minimumCandidates: number[] = [];
 
@@ -273,7 +266,6 @@ export class FeedbackMoveMouseListener extends MouseListener {
                 height: element.bounds.height
             };
         }
-
         return snappedBounds;
     }
 
@@ -289,9 +281,7 @@ export class FeedbackMoveMouseListener extends MouseListener {
             const dx = (event.pageX - this.lastDragPosition.x) / zoom;
             const dy = (event.pageY - this.lastDragPosition.y) / zoom;
             const nodeMoves: ElementMove[] = [];
-            let willCollide: boolean = false;
-            let mouseOverElement: boolean = false;
-            const collisionOccured: boolean = false;
+            let isValidMove: boolean = true;
 
             target.root.index.all()
                 .filter(element => isSelectable(element) && element.selected)
@@ -299,75 +289,10 @@ export class FeedbackMoveMouseListener extends MouseListener {
                     if (isMoveable(element) && isResizeable(element)) {
                         // If noElementOverlap Option is set perform collision detection
                         if (this.glspViewerOptions.noElementOverlap) {
-
-                            // Create ghost element to check possible bounds
-                            const ghostElement = Object.create(element);
-
-                            ghostElement.bounds = this.getCenteredBoundsToPointer(mousePoint, element.bounds);
-                            // Set type to Ghost to keep tracking it through elements
-                            ghostElement.type = "Ghost";
-                            ghostElement.id = element.id;
-                            // Check collision for gost element (to see when it has passed beyond obstacle)
-                            const collisionTargetsGhost: SModelElement[] = this.getCollisionChain(target, ghostElement, dx, dy, [])
-                                .filter(collidingElement => isSelectable(collidingElement) && !collidingElement.selected);
-
-                            // After collision the mouse is back inside the element => change cursor back to default
-                            if (this.hasCollided && includes(element.bounds, mousePoint)) {
-                                mouseOverElement = true;
-                                result.push(new ApplyCursorCSSFeedbackAction(CursorCSS.DEFAULT));
-                            }
-
-                            const selectedElements: FluentIterable<SModelElement> = target.root.index.all()
-                                .filter(selected => isSelectable(selected) && selected.selected);
-
-                            // If the ghost element has moved beyond the obstacle move the actual element there aswell
-                            // But only if a single element is selected (multi-selection jumps are not supported)
-                            if (this.hasCollided && collisionTargetsGhost.length === 0 && toArray(selectedElements).length === 1) {
-                                mouseOverElement = true;
-                                result.push(new ApplyCursorCSSFeedbackAction(CursorCSS.DEFAULT));
-
-                                if (element.id === ghostElement.id) {
-                                    element.bounds = ghostElement.bounds;
-                                }
-
-                            }
-                            // Get only the valid, non-slected collision targets to avoid in-selection collisions
-                            const collisionTargets: SModelElement[] = this.getCollisionChain(target, element, dx, dy, [])
-                                .filter(collidingElement => isSelectable(collidingElement) && !collidingElement.selected);
-
-                            if (collisionTargets.length > 0) {
-                                collisionTargets.forEach(collisionTarget => {
-                                    if (isResizeable(collisionTarget)) {
-                                        // Only snap on first collision to avoid erratic jumps
-                                        if (!this.hasCollided) {
-                                            const snappedBounds = this.getSnappedBounds(element, collisionTarget);
-                                            const snapMoves: ElementMove[] = [];
-                                            snapMoves.push({
-                                                elementId: element.id,
-                                                fromPosition: {
-                                                    x: element.position.x,
-                                                    y: element.position.y
-                                                },
-                                                toPosition: {
-                                                    x: snappedBounds.x,
-                                                    y: snappedBounds.y
-                                                }
-                                            });
-                                            result.push(new MoveAction(snapMoves, false));
-                                        }
-
-
-                                        willCollide = true;
-                                        this.hasCollided = true;
-                                        result.push(new ApplyCursorCSSFeedbackAction(CursorCSS.OVERLAP_FORBIDDEN));
-                                    }
-                                });
-                            }
+                            isValidMove = this.attemptNonCollidingMove(element, mousePoint, target, dx, dy, result);
                         }
                     }
-                    if (isMoveable(element) && !collisionOccured && ((!willCollide && !this.hasCollided) ||
-                        (this.hasCollided && !willCollide && mouseOverElement))) {
-                        this.hasCollided = false;
+                    if (isMoveable(element) && isValidMove) {
                         nodeMoves.push({
                             elementId: element.id,
                             fromPosition: {
@@ -386,7 +311,6 @@ export class FeedbackMoveMouseListener extends MouseListener {
                 result.push(new MoveAction(nodeMoves, false));
             }
         }
-
         return result;
     }
 
@@ -405,8 +329,81 @@ export class FeedbackMoveMouseListener extends MouseListener {
     decorate(vnode: VNode, element: SModelElement): VNode {
         return vnode;
     }
-}
 
+    /*
+    * Attempts to perform a non-colliding element move. Returns true if successful and false otherwise
+    */
+    attemptNonCollidingMove(element: SModelElement & BoundsAware & Locateable, mousePoint: Point, target: SModelElement, dx: number, dy: number, result: Action[]): boolean {
+        let mouseOverElement: boolean = false;
+        let willOverlap: boolean = false;
+        // Create ghost element to check possible bounds
+        const ghostElement = Object.create(element);
+
+        ghostElement.bounds = this.getCenteredBoundsToPointer(mousePoint, element.bounds);
+        // Set type to Ghost to keep tracking it through elements
+        ghostElement.type = "Ghost";
+        ghostElement.id = element.id;
+        // Check collision for gost element (to see when it has passed beyond obstacle)
+        const collisionTargetsGhost: SModelElement[] = this.getCollisionChain(target, ghostElement, dx, dy, [])
+            .filter(collidingElement => isSelectable(collidingElement) && !collidingElement.selected);
+
+        // After collision the mouse is back inside the element => change cursor back to default
+        if (this.hasCollided && includes(element.bounds, mousePoint)) {
+            mouseOverElement = true;
+            result.push(new ApplyCursorCSSFeedbackAction(CursorCSS.DEFAULT));
+        }
+
+        const selectedElements: FluentIterable<SModelElement> = target.root.index.all()
+            .filter(selected => isSelectable(selected) && selected.selected);
+
+        // If the ghost element has moved beyond the obstacle move the actual element there aswell
+        // But only if a single element is selected (multi-selection jumps are not supported)
+        if (this.hasCollided && collisionTargetsGhost.length === 0 && toArray(selectedElements).length === 1) {
+            mouseOverElement = true;
+            result.push(new ApplyCursorCSSFeedbackAction(CursorCSS.DEFAULT));
+
+            if (element.id === ghostElement.id) {
+                element.bounds = ghostElement.bounds;
+            }
+        }
+        // Get only the valid, non-slected collision targets to avoid in-selection collisions
+        const collisionTargets: SModelElement[] = this.getCollisionChain(target, element, dx, dy, [])
+            .filter(collidingElement => isSelectable(collidingElement) && !collidingElement.selected);
+
+        if (collisionTargets.length > 0) {
+            collisionTargets.forEach(collisionTarget => {
+                if (isResizeable(collisionTarget)) {
+                    // Only snap on first collision to avoid erratic jumps
+                    if (!this.hasCollided) {
+                        const snappedBounds = this.getSnappedBounds(element, collisionTarget);
+                        const snapMoves: ElementMove[] = [];
+                        snapMoves.push({
+                            elementId: element.id,
+                            fromPosition: {
+                                x: element.position.x,
+                                y: element.position.y
+                            },
+                            toPosition: {
+                                x: snappedBounds.x,
+                                y: snappedBounds.y
+                            }
+                        });
+                        result.push(new MoveAction(snapMoves, false));
+                    }
+                    willOverlap = true;
+                    this.hasCollided = true;
+                    result.push(new ApplyCursorCSSFeedbackAction(CursorCSS.OVERLAP_FORBIDDEN));
+                }
+            });
+        }
+        if ((!willOverlap && !this.hasCollided) ||
+            (this.hasCollided && !willOverlap && mouseOverElement)) {
+            this.hasCollided = false;
+            return true;
+        }
+        return false;
+    }
+}
 
 /**
 * Used to check if 1D boxes (lines) overlap
