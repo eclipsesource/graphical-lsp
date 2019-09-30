@@ -13,22 +13,12 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action, KeyListener, SModelRoot } from "sprotty/lib";
-import { matchesKeystroke } from "sprotty/lib/utils/keyboard";
+import { Action } from "sprotty/lib";
 
 import { ElementAndRoutingPoints } from "../tools/change-bounds-tool";
 
-export class SaveModelEdgesAction implements Action {
-    static readonly KIND = "saveModelEdges";
-    readonly kind = SaveModelEdgesAction.KIND;
+export class ChangeRoutingPointsAction implements Action {
+    static readonly KIND = "changeRoutingPoints";
+    readonly kind = ChangeRoutingPointsAction.KIND;
     constructor(public newRoutingPoints: ElementAndRoutingPoints[]) { }
-}
-
-export class SaveModelKeyboardListener extends KeyListener {
-    keyDown(element: SModelRoot, event: KeyboardEvent): Action[] {
-        if (matchesKeystroke(event, 'KeyS', 'ctrlCmd')) {
-            return [new SaveModelEdgesAction([])];
-        }
-        return [];
-    }
 }

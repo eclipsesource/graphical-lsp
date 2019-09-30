@@ -52,6 +52,7 @@ export * from './features/tool-feedback/creation-tool-feedback';
 export * from './features/tool-feedback/model';
 export * from './features/tool-palette/tool-palette';
 export * from './features/tools/change-bounds-tool';
+export * from './features/tools/routing-handler';
 export * from './features/tools/creation-tool';
 export * from './features/tools/default-tools';
 export * from './features/tools/delete-tool';
