@@ -36,7 +36,6 @@ import com.google.inject.Inject;
 
 public class SaveModelActionHandler extends AbstractActionHandler {
 	private static final Logger LOG = Logger.getLogger(SaveModelActionHandler.class);
-	private static final String FILE_PREFIX = "file://";
 
 	@Inject
 	protected GraphGsonConfiguratorFactory gsonConfigurationFactory;
@@ -71,11 +70,7 @@ public class SaveModelActionHandler extends AbstractActionHandler {
 	private Optional<File> convertToFile(GraphicalModelState modelState) {
 		Optional<String> sourceUriOpt = ClientOptions.getValue(modelState.getClientOptions(), ClientOptions.SOURCE_URI);
 		if (sourceUriOpt.isPresent()) {
-			String uri = sourceUriOpt.get();
-			if (uri.startsWith(FILE_PREFIX)) {
-				return Optional.of(new File(uri.substring(FILE_PREFIX.length())));
-			}
-			LOG.warn("Could not parse the sourceUri parameter. Invalid format: " + uri);
+			return Optional.of(new File(sourceUriOpt.get()));
 		}
 		return Optional.empty();
 	}
