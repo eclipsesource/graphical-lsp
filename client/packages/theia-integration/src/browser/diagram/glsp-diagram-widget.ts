@@ -25,15 +25,16 @@ import {
     SaveModelAction,
     TYPES
 } from "@glsp/sprotty-client/lib";
-import { Saveable, SaveableSource } from "@theia/core/lib/browser";
+import { Navigatable, Saveable, SaveableSource } from "@theia/core/lib/browser";
 import { Disposable, DisposableCollection, Emitter, Event, MaybePromise } from "@theia/core/lib/common";
+import URI from "@theia/core/lib/common/uri";
 import { EditorPreferences } from "@theia/editor/lib/browser";
 import { Container } from "inversify";
 import { DiagramWidget, DiagramWidgetOptions, TheiaSprottyConnector } from "sprotty-theia/lib";
 
 import { GLSPTheiaDiagramServer, NotifyingModelSource } from "./glsp-theia-diagram-server";
 
-export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
+export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource, Navigatable {
     saveable = new SaveableGLSPModelSource(this.actionDispatcher, this.diContainer.get<ModelSource>(TYPES.ModelSource));
 
     constructor(options: DiagramWidgetOptions, readonly widgetId: string, readonly diContainer: Container,
@@ -68,6 +69,14 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         }));
         this.actionDispatcher.dispatch(new RequestOperationsAction());
         this.actionDispatcher.dispatch(new RequestTypeHintsAction(this.options.diagramType));
+    }
+
+    getResourceUri(): URI | undefined {
+        return this.uri;
+    }
+
+    createMoveToUri(resourceUri: URI): URI | undefined {
+        return this.uri.withPath(resourceUri.path);
     }
 }
 
