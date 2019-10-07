@@ -13,12 +13,11 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Widget } from "@phosphor/widgets";
 import { WidgetOpenerOptions } from "@theia/core/lib/browser";
 import URI from "@theia/core/lib/common/uri";
 import { EditorPreferences } from "@theia/editor/lib/browser";
 import { inject, injectable } from "inversify";
-import { DiagramManager, DiagramWidgetOptions } from "sprotty-theia/lib";
+import { DiagramManager, DiagramWidget, DiagramWidgetOptions } from "sprotty-theia/lib";
 
 import { GLSPDiagramWidget } from "./glsp-diagram-widget";
 import { GLSPTheiaSprottyConnector } from "./glsp-theia-sprotty-connector";
@@ -29,7 +28,7 @@ export abstract class GLSPDiagramManager extends DiagramManager {
     protected readonly editorPreferences: EditorPreferences;
     abstract get fileExtensions(): string[];
 
-    async createWidget(options?: any): Promise<Widget> {
+    async createWidget(options?: any): Promise<DiagramWidget> {
         if (DiagramWidgetOptions.is(options)) {
             const clientId = this.createClientId();
             const config = this.diagramConfigurationRegistry.get(options.diagramType);

@@ -16,8 +16,8 @@
 import { inject, injectable } from "inversify";
 import {
     Action,
-    Bounds,
     BoundsAware,
+    Dimension,
     ElementAndBounds,
     findParentByFeature,
     isViewport,
@@ -33,7 +33,7 @@ import {
 
 import { GLSPViewerOptions } from "../../base/views/viewer-options";
 import { GLSP_TYPES } from "../../types";
-import { forEachElement, isNonRoutableSelectedBoundsAware, isSelected } from "../../utils/smodel-util";
+import { forEachElement, isNonRoutableSelectedBoundsAware, isSelected, toElementAndBounds } from "../../utils/smodel-util";
 import { isBoundsAwareMoveable, isResizeable, ResizeHandleLocation, SResizeHandle } from "../change-bounds/model";
 import { IMouseTool } from "../mouse-tool/mouse-tool";
 import { ChangeBoundsOperationAction } from "../operation/operation-actions";
@@ -280,29 +280,32 @@ class ChangeBoundsListener extends MouseListener implements SelectionListener {
 }
 
 function createChangeBoundsAction(element: SModelElement & BoundsAware): Action[] {
-    if (isValidBoundChange(element, element.bounds)) {
-        return [new ChangeBoundsOperationAction([{ elementId: element.id, newBounds: element.bounds }])];
+    if (isValidBoundChange(element, element.bounds, element.bounds)) {
+        return [new ChangeBoundsOperationAction([toElementAndBounds(element)])];
     }
     return [];
 }
 
 function createElementAndBounds(element: SModelElement & BoundsAware): ElementAndBounds[] {
-    if (isValidBoundChange(element, element.bounds)) {
-        return [{ elementId: element.id, newBounds: element.bounds }];
+    if (isValidBoundChange(element, element.bounds, element.bounds)) {
+        return [toElementAndBounds(element)];
     }
     return [];
 }
 
 function createSetBoundsAction(element: SModelElement & BoundsAware, x: number, y: number, width: number, height: number): Action[] {
-    const bounds = { x: x, y: y, width: width, height: height };
-    if (isValidBoundChange(element, bounds)) {
-        return [new SetBoundsAction([{ elementId: element.id, newBounds: bounds }])];
+    const newPosition = { x, y };
+    const newSize = { width, height };
+    if (isValidBoundChange(element, newPosition, newSize)) {
+        return [new SetBoundsAction([{ elementId: element.id, newPosition, newSize }])];
+
     }
     return [];
 }
 
-function isValidBoundChange(element: SModelElement & BoundsAware, bounds: Bounds): boolean {
-    return bounds.width >= minWidth(element) && bounds.height >= minHeight(element);
+
+function isValidBoundChange(element: SModelElement & BoundsAware, newPosition: Point, newSize: Dimension): boolean {
+    return newSize.width >= minWidth(element) && newSize.height >= minHeight(element);
 }
 
 function minWidth(element: SModelElement & BoundsAware): number {
@@ -314,3 +317,5 @@ function minHeight(element: SModelElement & BoundsAware): number {
     // currently there are no element-specific constraints
     return 1;
 }
+
+

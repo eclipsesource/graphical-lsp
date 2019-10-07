@@ -18,7 +18,7 @@ import {
     Action,
     Command,
     CommandExecutionContext,
-    CommandResult,
+    CommandReturn,
     IActionDispatcher,
     SIssue,
     SIssueMarker,
@@ -108,18 +108,18 @@ export class SetMarkersCommand extends Command {
         super();
     }
 
-    execute(context: CommandExecutionContext): CommandResult {
+    execute(context: CommandExecutionContext): CommandReturn {
         const markers: Marker[] = this.action.markers;
         const applyMarkersAction: ApplyMarkersAction = new ApplyMarkersAction(markers);
         this.validationFeedbackEmitter.registerValidationFeedbackAction(applyMarkersAction);
         return context.root;
     }
 
-    undo(context: CommandExecutionContext): CommandResult {
+    undo(context: CommandExecutionContext): CommandReturn {
         return context.root;
     }
 
-    redo(context: CommandExecutionContext): CommandResult {
+    redo(context: CommandExecutionContext): CommandReturn {
         return this.execute(context);
     }
 }
@@ -146,7 +146,7 @@ export class ApplyMarkersCommand extends FeedbackCommand {
         super();
     }
 
-    execute(context: CommandExecutionContext): CommandResult {
+    execute(context: CommandExecutionContext): CommandReturn {
         const markers: Marker[] = this.action.markers;
         for (const marker of markers) {
             const modelElement: SModelElement | undefined = context.root.index.getById(marker.elementId);
@@ -159,11 +159,11 @@ export class ApplyMarkersCommand extends FeedbackCommand {
         return context.root;
     }
 
-    undo(context: CommandExecutionContext): CommandResult {
+    undo(context: CommandExecutionContext): CommandReturn {
         return context.root;
     }
 
-    redo(context: CommandExecutionContext): CommandResult {
+    redo(context: CommandExecutionContext): CommandReturn {
         return this.execute(context);
     }
 }
@@ -256,7 +256,7 @@ export class ClearMarkersCommand extends Command {
         super();
     }
 
-    execute(context: CommandExecutionContext): CommandResult {
+    execute(context: CommandExecutionContext): CommandReturn {
         const markers: Marker[] = this.action.markers;
         for (const marker of markers) {
             const modelElement: SModelElement | undefined = context.root.index.getById(marker.elementId);
@@ -278,11 +278,11 @@ export class ClearMarkersCommand extends Command {
         return context.root;
     }
 
-    undo(context: CommandExecutionContext): CommandResult {
+    undo(context: CommandExecutionContext): CommandReturn {
         return context.root;
     }
 
-    redo(context: CommandExecutionContext): CommandResult {
+    redo(context: CommandExecutionContext): CommandReturn {
         return this.execute(context);
     }
 }

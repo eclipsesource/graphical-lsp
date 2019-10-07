@@ -14,16 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { inject, injectable, interfaces } from "inversify";
-import {
-    Action,
-    ActionHandlerRegistry,
-    IActionHandler,
-    IActionHandlerInitializer,
-    ICommand,
-    Tool,
-    ToolManager,
-    TYPES,
-} from "sprotty/lib";
+import { Action, IActionHandler, ICommand, Tool, ToolManager, TYPES } from "sprotty/lib";
 
 import { isSetOperationsAction, OperationKind, SetOperationsAction } from "../../features/operation/set-operations";
 import { EdgeCreationTool, NodeCreationTool } from "../../features/tools/creation-tool";
@@ -31,22 +22,9 @@ import { MouseDeleteTool } from "../../features/tools/delete-tool";
 import { GLSP_TYPES } from "../../types";
 
 @injectable()
-export abstract class SelfInitializingActionHandler implements IActionHandler, IActionHandlerInitializer {
-
-    initialize(registry: ActionHandlerRegistry) {
-        this.handledActionKinds.forEach(kind => registry.register(kind, this));
-    }
-
-    abstract handle(action: Action): ICommand | Action | void;
-    abstract handledActionKinds: string[];
-}
-
-@injectable()
-export class ToolManagerActionHandler extends SelfInitializingActionHandler {
+export class GLSPToolManagerActionHandler implements IActionHandler {
     @inject(GLSP_TYPES.IToolFactory) readonly toolFactory: (operationKind: string) => Tool;
     @inject(TYPES.IToolManager) readonly toolManager: ToolManager;
-
-    readonly handledActionKinds = [SetOperationsAction.KIND];
 
     handle(action: Action): void | ICommand | Action {
         if (isSetOperationsAction(action)) {
