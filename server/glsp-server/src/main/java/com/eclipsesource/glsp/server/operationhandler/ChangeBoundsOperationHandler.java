@@ -15,7 +15,7 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.operationhandler;
 
-import java.util.Optional;
+import static com.eclipsesource.glsp.api.jsonrpc.GLSPServerException.getOrThrow;
 
 import org.apache.log4j.Logger;
 
@@ -25,11 +25,10 @@ import com.eclipsesource.glsp.api.action.kind.ChangeBoundsOperationAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.types.ElementAndBounds;
-import com.eclipsesource.glsp.api.utils.LayoutUtil;
-import com.eclipsesource.glsp.graph.GBounds;
-import com.eclipsesource.glsp.graph.GModelElement;
+import com.eclipsesource.glsp.graph.GDimension;
 import com.eclipsesource.glsp.graph.GModelIndex;
 import com.eclipsesource.glsp.graph.GNode;
+import com.eclipsesource.glsp.graph.GPoint;
 
 /**
  * Generic handler implementation for {@link ChangeBoundsOperationAction}
@@ -47,39 +46,23 @@ public class ChangeBoundsOperationHandler implements OperationHandler {
 	public void execute(AbstractOperationAction action, GraphicalModelState modelState) {
 		ChangeBoundsOperationAction changeBoundsAction = (ChangeBoundsOperationAction) action;
 		for (ElementAndBounds element : changeBoundsAction.getNewBounds()) {
-			changeElementBounds(element.getElementId(), element.getNewBounds(), modelState);
+			changeElementBounds(element.getElementId(), element.getNewPosition(), element.getNewSize(), modelState);
 		}
 	}
 
-	private void changeElementBounds(String elementId, GBounds newBounds, GraphicalModelState modelState) {
-		if (elementId == null || newBounds == null) {
+	private void changeElementBounds(String elementId, GPoint newPosition, GDimension newSize,
+			GraphicalModelState modelState) {
+		if (elementId == null) {
 			log.warn("Invalid ChangeBounds Action; missing mandatory arguments");
 			return;
 		}
 
-		Optional<GNode> nodeToUpdate = findMovableNode(modelState, elementId);
-		nodeToUpdate.ifPresent(node -> setBounds(node, newBounds));
-	}
-
-	private static Optional<GNode> findMovableNode(GraphicalModelState modelState, String elementId) {
 		GModelIndex index = modelState.getIndex();
-		Optional<GModelElement> element = index.get(elementId);
-		if (!element.isPresent()) {
-			log.warn("Element with id " + elementId + " not found");
-			return Optional.empty();
-		}
+		GNode nodeToUpdate = getOrThrow(index.findElementByClass(elementId, GNode.class),
+				"GNode with id " + elementId + " not found");
 
-		if (!(element.get() instanceof GNode)) {
-			log.warn("Element " + elementId + " is not moveable");
-			return Optional.empty();
-		}
-
-		return Optional.of((GNode) element.get());
-	}
-
-	private static void setBounds(GNode node, GBounds bounds) {
-		node.setPosition(LayoutUtil.asPoint(bounds));
-		node.setSize(LayoutUtil.asDimension(bounds));
+		nodeToUpdate.setPosition(newPosition);
+		nodeToUpdate.setSize(newSize);
 	}
 
 	@Override

@@ -20,7 +20,7 @@ import {
     AnchorComputerRegistry,
     center,
     CommandExecutionContext,
-    CommandResult,
+    CommandReturn,
     EdgeRouterRegistry,
     ElementMove,
     euclideanDistance,
@@ -75,7 +75,7 @@ export class ShowEdgeReconnectHandlesFeedbackCommand extends FeedbackCommand {
         super();
     }
 
-    execute(context: CommandExecutionContext): CommandResult {
+    execute(context: CommandExecutionContext): CommandReturn {
         const index = context.root.index;
         index.all().filter(isRoutable).forEach(removeReconnectHandles);
 
@@ -97,7 +97,7 @@ export class HideEdgeReconnectHandlesFeedbackCommand extends FeedbackCommand {
         super();
     }
 
-    execute(context: CommandExecutionContext): CommandResult {
+    execute(context: CommandExecutionContext): CommandReturn {
         const index = context.root.index;
         index.all().filter(isRoutable).forEach(removeReconnectHandles);
         return context.root;
@@ -134,7 +134,7 @@ export class DrawFeedbackEdgeSourceCommand extends FeedbackCommand {
         super();
     }
 
-    execute(context: CommandExecutionContext): CommandResult {
+    execute(context: CommandExecutionContext): CommandReturn {
         drawFeedbackEdgeSource(context, this.action.targetId, this.action.elementTypeId);
         return context.root;
     }

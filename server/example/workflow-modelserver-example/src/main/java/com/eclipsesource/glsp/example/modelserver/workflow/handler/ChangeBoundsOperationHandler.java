@@ -27,7 +27,8 @@ import com.eclipsesource.glsp.example.modelserver.workflow.model.ShapeUtil;
 import com.eclipsesource.glsp.example.modelserver.workflow.model.WorkflowModelServerAccess;
 import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.DiagramElement;
 import com.eclipsesource.glsp.example.modelserver.workflow.wfnotation.Shape;
-import com.eclipsesource.glsp.graph.GBounds;
+import com.eclipsesource.glsp.graph.GDimension;
+import com.eclipsesource.glsp.graph.GPoint;
 import com.eclipsesource.modelserver.coffee.model.coffee.Node;
 
 public class ChangeBoundsOperationHandler implements ModelStateAwareOperationHandler {
@@ -42,7 +43,17 @@ public class ChangeBoundsOperationHandler implements ModelStateAwareOperationHan
 		return "Move or resize element";
 	}
 
-	private void changeElementBounds(String elementId, GBounds newBounds, GraphicalModelState modelState) {
+
+	@Override
+	public void execute(AbstractOperationAction action, GraphicalModelState modelState) {
+		ChangeBoundsOperationAction changeBoundsAction = (ChangeBoundsOperationAction) action;
+		for (ElementAndBounds element : changeBoundsAction.getNewBounds()) {
+			changeElementBounds(element.getElementId(), element.getNewPosition(), element.getNewSize(), modelState);
+		}
+	}
+
+	private void changeElementBounds(String elementId, GPoint newPosition, GDimension newSize,
+			GraphicalModelState modelState) {
 		WorkflowModelServerAccess modelAccess = ModelServerAwareModelState.getModelAccess(modelState);
 		Node node = modelAccess.getNodeById(elementId);
 		Optional<DiagramElement> element = modelAccess.getWorkflowFacade().findDiagramElement(node);
@@ -50,8 +61,8 @@ public class ChangeBoundsOperationHandler implements ModelStateAwareOperationHan
 			throw new IllegalArgumentException("Could not find shape for node " + elementId);
 		}
 		Shape shape = (Shape) element.get();
-		shape.setPosition(ShapeUtil.point(newBounds.getX(), newBounds.getY()));
-		shape.setSize(ShapeUtil.dimension(newBounds.getWidth(), newBounds.getHeight()));
+		shape.setPosition(ShapeUtil.point(newPosition));
+		shape.setSize(ShapeUtil.dimension(newSize));
 	}
 
 	@Override

@@ -64,7 +64,7 @@ export class GLSPWebsocketDiagramServer extends DiagramServer {
 
     handle(action: Action): void | ICommand | Action {
         if (action instanceof RequestModelAction && action.options !== undefined)
-            this._sourceUri = action.options.sourceUri;
+            this._sourceUri = <string>action.options.sourceUri;
         return super.handle(action);
     }
 

@@ -28,21 +28,13 @@
   ],
   "dependencies": {
     "@glsp/sprotty-client": "0.1.0",
-    "@theia/core": "^0.7.1",
-    "@theia/editor": "^0.7.1",
-    "@theia/filesystem": "^0.7.1",
-    "@theia/languages": "^0.7.1",
-    "@theia/monaco": "^0.7.1",
+    "@theia/core": "^0.11.0",
+    "@theia/editor": "^0.11.0",
+    "@theia/filesystem": "^0.11.0",
+    "@theia/languages": "^0.11.0",
+    "@theia/monaco": "^0.11.0",
     "@types/node": "^8.0.14",
-    "sprotty-theia": "0.7.0-next.6b63891"
-  },
-  "resolutions": {
-    "**/@theia/core": "^0.7.1",
-    "**/@theia/editor": "^0.7.1",
-    "**/@theia/filesystem": "^0.7.1",
-    "**/@theia/languages": "^0.7.1",
-    "**/@theia/monaco": "^0.7.1",
-    "**/sprotty": "0.7.0-next.cea0e2b"
+    "sprotty-theia": "0.7.0-next.22d2f8a"
   },
   "devDependencies": {
     "rimraf": "^2.6.1",
