@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { inject, injectable } from "inversify";
+import { inject, injectable, optional } from "inversify";
 import {
     Action,
     BoundsAware,
@@ -31,10 +31,10 @@ import {
     Tool
 } from "sprotty/lib";
 
-import { GLSPViewerOptions } from "../../base/views/viewer-options";
 import { GLSP_TYPES } from "../../types";
 import { forEachElement, isNonRoutableSelectedBoundsAware, isSelected, toElementAndBounds } from "../../utils/smodel-util";
 import { isBoundsAwareMoveable, isResizeable, ResizeHandleLocation, SResizeHandle } from "../change-bounds/model";
+import { IMovementRestrictor } from "../change-bounds/movement-restrictor";
 import { IMouseTool } from "../mouse-tool/mouse-tool";
 import { ChangeBoundsOperationAction } from "../operation/operation-actions";
 import { SelectionListener, SelectionService } from "../select/selection-service";
@@ -70,11 +70,11 @@ export class ChangeBoundsTool implements Tool {
         @inject(GLSP_TYPES.MouseTool) protected mouseTool: IMouseTool,
         @inject(KeyTool) protected keyTool: KeyTool,
         @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher,
-        @inject(GLSP_TYPES.ViewerOptions) protected opts: GLSPViewerOptions) { }
+        @inject(GLSP_TYPES.IMovementRestrictor) @optional() protected movementRestrictor?: IMovementRestrictor) { }
 
     enable() {
         // install feedback move mouse listener for client-side move updates
-        this.feedbackMoveMouseListener = new FeedbackMoveMouseListener(this.opts);
+        this.feedbackMoveMouseListener = new FeedbackMoveMouseListener(this.movementRestrictor);
         this.mouseTool.register(this.feedbackMoveMouseListener);
 
         // instlal change bounds listener for client-side resize updates and server-side updates

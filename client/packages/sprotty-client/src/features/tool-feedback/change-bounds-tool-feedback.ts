@@ -17,33 +17,25 @@ import { inject, injectable } from "inversify";
 import { VNode } from "snabbdom/vnode";
 import {
     Action,
-    Bounds,
-    BoundsAware,
     CommandExecutionContext,
     CommandReturn,
     ElementMove,
     findParentByFeature,
-    includes,
-    isBoundsAware,
     isMoveable,
     isSelectable,
     isViewport,
-    Locateable,
     MouseListener,
     MoveAction,
     Point,
-    PointToPointLine,
     SModelElement,
     SModelRoot,
     TYPES
 } from "sprotty/lib";
-import { FluentIterable, toArray } from "sprotty/lib/utils/iterable";
 
-import { GLSPViewerOptions } from "../../base/views/viewer-options";
 import { isNotUndefined } from "../../utils/smodel-util";
 import { getAbsolutePosition } from "../../utils/viewpoint-util";
 import { addResizeHandles, isBoundsAwareMoveable, isResizeable, removeResizeHandles } from "../change-bounds/model";
-import { ApplyCursorCSSFeedbackAction, CursorCSS } from "./cursor-feedback";
+import { IMovementRestrictor } from "../change-bounds/movement-restrictor";
 import { FeedbackCommand } from "./model";
 
 export class ShowChangeBoundsToolResizeFeedbackAction implements Action {
@@ -103,8 +95,7 @@ export class HideChangeBoundsToolResizeFeedbackCommand extends FeedbackCommand {
 export class FeedbackMoveMouseListener extends MouseListener {
     hasDragged = false;
     lastDragPosition: Point | undefined;
-    hasCollided = false;
-    constructor(protected glspViewerOptions: GLSPViewerOptions) { super(); }
+    constructor(protected movementRestrictor?: IMovementRestrictor) { super(); }
     mouseDown(target: SModelElement, event: MouseEvent): Action[] {
         if (event.button === 0) {
             const moveable = findParentByFeature(target, isMoveable);
@@ -118,157 +109,7 @@ export class FeedbackMoveMouseListener extends MouseListener {
         return [];
     }
 
-    /**
-    * Used to return the collision target(s) or the collision chain in case of multiple selected elements
-    */
-    getCollisionChain(target: SModelElement, element: SModelElement, dx: number, dy: number, collisionChain: SModelElement[]): SModelElement[] {
-        if (isBoundsAwareMoveable(element)) {
-            target.root.index.all()
-                .filter(candidate => isSelectable(candidate) && element.id !== candidate.id && collisionChain.indexOf(candidate) < 0)
-                .forEach(candidate => {
-                    if (isMoveable(element) && isMoveable(candidate)) {
-                        if (isBoundsAware(element) && isBoundsAware(candidate)) {
-                            const futureBounds: Bounds = {
-                                x: element.position.x + dx,
-                                y: element.position.y + dy,
-                                width: element.bounds.width,
-                                height: element.bounds.height
-                            };
-                            if (isOverlappingBounds(futureBounds, candidate.bounds) && (!isOverlappingBounds(element.bounds, candidate.bounds) || element.type === "Ghost")) {
-                                collisionChain.push(candidate);
-                                if (isSelectable(candidate) && candidate.selected) {
-                                    // Check what the selected candidate will collide with and add it to the chain
-                                    collisionChain.push.apply(collisionChain, this.getCollisionChain(target, candidate, dx, dy, collisionChain));
 
-                                }
-                            }
-                        }
-                    }
-                });
-        }
-        return collisionChain;
-    }
-
-    /**
-    * Returns bounds centered around the point
-    */
-    getCenteredBoundsToPointer(mousePoint: Point, bounds: Bounds): Bounds {
-        const middleX = mousePoint.x - bounds.width / 2;
-        const middleY = mousePoint.y - bounds.height / 2;
-        const shiftedBounds: Bounds = { x: middleX, y: middleY, width: bounds.width, height: bounds.height };
-        return shiftedBounds;
-    }
-
-    // Remove this and use the one from the improved routing branch
-    getDistanceBetweenParallelLines(p1: Point, p2: Point, secondLine: PointToPointLine): Number {
-        const numerator: number = Math.abs((secondLine.a * p1.x) + (secondLine.b * p1.y) - secondLine.c);
-        const denominator: number = Math.sqrt(Math.pow(secondLine.a, 2) + Math.pow(secondLine.b, 2));
-        return numerator / denominator;
-    }
-
-    /**
-     * Snaps the element to the target in case of a collision
-     */
-    getSnappedBounds(element: SModelElement & BoundsAware, target: SModelElement & BoundsAware): Bounds {
-        let snappedBounds = element.bounds;
-
-        // Build corner points
-        const elementTopLeft = {
-            x: element.bounds.x,
-            y: element.bounds.y
-        };
-        const elementTopRight = {
-            x: element.bounds.x + element.bounds.width,
-            y: element.bounds.y
-        };
-        const elementBottomLeft = {
-            x: element.bounds.x,
-            y: element.bounds.y + element.bounds.height
-        };
-        const elementBottomRight = {
-            x: element.bounds.x + element.bounds.width,
-            y: element.bounds.y + element.bounds.height
-        };
-        const targetTopLeft = {
-            x: target.bounds.x,
-            y: target.bounds.y
-        };
-        const targetTopRight = {
-            x: target.bounds.x + target.bounds.width,
-            y: target.bounds.y
-        };
-        const targetBottomLeft = {
-            x: target.bounds.x,
-            y: target.bounds.y + target.bounds.height
-        };
-        const targetBottomRight = {
-            x: target.bounds.x + target.bounds.width,
-            y: target.bounds.y + target.bounds.height
-        };
-
-        // Build lines
-        const targetTopLine = new PointToPointLine(targetTopLeft, targetTopRight);
-        const targetBottomLine = new PointToPointLine(targetBottomLeft, targetBottomRight);
-        const targetLeftLine = new PointToPointLine(targetTopLeft, targetBottomLeft);
-        const targetRightLine = new PointToPointLine(targetTopRight, targetBottomRight);
-
-        // Compute distances
-        const distanceTop = this.getDistanceBetweenParallelLines(elementBottomLeft, elementBottomRight, targetTopLine);
-        const distanceBottom = this.getDistanceBetweenParallelLines(elementTopLeft, elementTopRight, targetBottomLine);
-        const distanceLeft = this.getDistanceBetweenParallelLines(elementTopLeft, elementBottomLeft, targetRightLine);
-        const distanceRight = this.getDistanceBetweenParallelLines(elementTopRight, elementBottomRight, targetLeftLine);
-
-        const minimumCandidates: number[] = [];
-
-        // Overlap on the horizontal lines
-        if (isOverlapping1Dimension(element.bounds.x, element.bounds.width, target.bounds.x, target.bounds.width)) {
-            minimumCandidates.push(distanceTop.valueOf());
-            minimumCandidates.push(distanceBottom.valueOf());
-        }
-        // Overlap on the horizontal lines
-        if (isOverlapping1Dimension(element.bounds.y, element.bounds.height, target.bounds.y, target.bounds.height)) {
-            minimumCandidates.push(distanceLeft.valueOf());
-            minimumCandidates.push(distanceRight.valueOf());
-        }
-
-        // Get minimum distance and then snap accordingly
-        minimumCandidates.sort((a, b) => a - b);
-        const minimumDistance = minimumCandidates[0];
-
-        if (minimumDistance === distanceTop) {
-            snappedBounds = {
-                x: element.bounds.x,
-                y: target.bounds.y - 1 - element.bounds.height,
-                width: element.bounds.width,
-                height: element.bounds.height
-            };
-        }
-        if (minimumDistance === distanceBottom) {
-            snappedBounds = {
-                x: element.bounds.x,
-                y: target.bounds.y + target.bounds.height + 1,
-                width: element.bounds.width,
-                height: element.bounds.height
-            };
-        }
-        if (minimumDistance === distanceLeft) {
-            snappedBounds = {
-                x: target.bounds.x + target.bounds.width + 1,
-                y: element.bounds.y,
-                width: element.bounds.width,
-                height: element.bounds.height
-            };
-        }
-        if (minimumDistance === distanceRight) {
-            snappedBounds = {
-                x: target.bounds.x - 1 - element.bounds.width,
-                y: element.bounds.y,
-                width: element.bounds.width,
-                height: element.bounds.height
-            };
-        }
-        return snappedBounds;
-    }
 
     mouseMove(target: SModelElement, event: MouseEvent): Action[] {
         const result: Action[] = [];
@@ -288,9 +129,9 @@ export class FeedbackMoveMouseListener extends MouseListener {
                 .filter(element => isSelectable(element) && element.selected)
                 .forEach(element => {
                     if (isBoundsAwareMoveable(element)) {
-                        // If noElementOverlap Option is set perform collision detection
-                        if (this.glspViewerOptions.noElementOverlap) {
-                            isValidMove = this.attemptNonCollidingMove(element, mousePoint, target, dx, dy, result);
+                        // If a movement restrictor is bound attemt a non restricted move
+                        if (this.movementRestrictor) {
+                            isValidMove = this.movementRestrictor.attemptMove(element, mousePoint, target, { x: dx, y: dy }, result);
                         }
                     }
                     if (isMoveable(element) && isValidMove) {
@@ -308,7 +149,7 @@ export class FeedbackMoveMouseListener extends MouseListener {
                     }
                 });
             this.lastDragPosition = { x: event.pageX, y: event.pageY };
-            if (nodeMoves.length > 0 && !this.hasCollided) {
+            if (nodeMoves.length > 0 && isValidMove) {
                 result.push(new MoveAction(nodeMoves, false));
             }
         }
@@ -331,93 +172,5 @@ export class FeedbackMoveMouseListener extends MouseListener {
         return vnode;
     }
 
-    /*
-    * Attempts to perform a non-colliding element move. Returns true if successful and false otherwise
-    */
-    attemptNonCollidingMove(element: SModelElement & BoundsAware & Locateable, mousePoint: Point, target: SModelElement, dx: number, dy: number, result: Action[]): boolean {
-        let mouseOverElement: boolean = false;
-        let willOverlap: boolean = false;
-        // Create ghost element to check possible bounds
-        const ghostElement = Object.create(element);
-
-        ghostElement.bounds = this.getCenteredBoundsToPointer(mousePoint, element.bounds);
-        // Set type to Ghost to keep tracking it through elements
-        ghostElement.type = "Ghost";
-        ghostElement.id = element.id;
-        // Check collision for gost element (to see when it has passed beyond obstacle)
-        const collisionTargetsGhost: SModelElement[] = this.getCollisionChain(target, ghostElement, dx, dy, [])
-            .filter(collidingElement => isSelectable(collidingElement) && !collidingElement.selected);
-
-        // After collision the mouse is back inside the element => change cursor back to default
-        if (this.hasCollided && includes(element.bounds, mousePoint)) {
-            mouseOverElement = true;
-            result.push(new ApplyCursorCSSFeedbackAction(CursorCSS.DEFAULT));
-        }
-
-        const selectedElements: FluentIterable<SModelElement> = target.root.index.all()
-            .filter(selected => isSelectable(selected) && selected.selected);
-
-        // If the ghost element has moved beyond the obstacle move the actual element there aswell
-        // But only if a single element is selected (multi-selection jumps are not supported)
-        if (this.hasCollided && collisionTargetsGhost.length === 0 && toArray(selectedElements).length === 1) {
-            mouseOverElement = true;
-            result.push(new ApplyCursorCSSFeedbackAction(CursorCSS.DEFAULT));
-
-            if (element.id === ghostElement.id) {
-                element.bounds = ghostElement.bounds;
-            }
-        }
-        // Get only the valid, non-slected collision targets to avoid in-selection collisions
-        const collisionTargets: SModelElement[] = this.getCollisionChain(target, element, dx, dy, [])
-            .filter(collidingElement => isSelectable(collidingElement) && !collidingElement.selected);
-
-        if (collisionTargets.length > 0) {
-            collisionTargets.forEach(collisionTarget => {
-                if (isBoundsAware(collisionTarget)) {
-                    // Only snap on first collision to avoid erratic jumps
-                    if (!this.hasCollided) {
-                        const snappedBounds = this.getSnappedBounds(element, collisionTarget);
-                        const snapMoves: ElementMove[] = [];
-                        snapMoves.push({
-                            elementId: element.id,
-                            fromPosition: {
-                                x: element.position.x,
-                                y: element.position.y
-                            },
-                            toPosition: {
-                                x: snappedBounds.x,
-                                y: snappedBounds.y
-                            }
-                        });
-                        result.push(new MoveAction(snapMoves, false));
-                    }
-                    willOverlap = true;
-                    this.hasCollided = true;
-                    result.push(new ApplyCursorCSSFeedbackAction(CursorCSS.OVERLAP_FORBIDDEN));
-                }
-            });
-        }
-        if ((!willOverlap && !this.hasCollided) ||
-            (this.hasCollided && !willOverlap && mouseOverElement)) {
-            this.hasCollided = false;
-            return true;
-        }
-        return false;
-    }
-}
-
-/**
-* Used to check if 1D boxes (lines) overlap
-*/
-export function isOverlapping1Dimension(x1: number, width1: number, x2: number, width2: number): boolean {
-    return x1 + width1 >= x2 && x2 + width2 >= x1;
-}
-
-/**
-* Used to check if 2 bounds are overlapping
-*/
-export function isOverlappingBounds(bounds1: Bounds, bounds2: Bounds): boolean {
-    return isOverlapping1Dimension(bounds1.x, bounds1.width, bounds2.x, bounds2.width) &&
-        isOverlapping1Dimension(bounds1.y, bounds1.height, bounds2.y, bounds2.height);
 
 }
