@@ -93,8 +93,9 @@ public class DefaultGLSPServer<T> implements GLSPServer {
 			this.clientProxyProvider.register(clientId, clientProxy);
 			actionProcessor.process(message);
 		} catch (RuntimeException e) {
-			log.error(e);
-			actionProcessor.send(clientId, error(e));
+			String errorMsg = "Could not process message:" + message;
+			log.error("[ERROR] " + errorMsg, e);
+			actionProcessor.send(clientId, error("[GLSP-Server] " + errorMsg, e));
 		}
 	}
 

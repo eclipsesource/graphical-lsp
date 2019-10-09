@@ -17,11 +17,12 @@ import { inject, injectable } from "inversify";
 import {
     Action,
     CommandExecutionContext,
-    CommandResult,
+    CommandReturn,
+    IActionHandler,
     ICommand,
     SModelElement,
     SModelElementSchema,
-    TYPES,
+    TYPES
 } from "sprotty/lib";
 
 import {
@@ -32,14 +33,13 @@ import {
     isEdgeEditConfig,
     isNodeEditConfig,
     NodeEditConfig,
-    nodeEditConfig,
+    nodeEditConfig
 } from "../../base/edit-config/edit-config";
-import { SelfInitializingActionHandler } from "../../base/tool-manager/tool-manager-action-handler";
 import { GLSP_TYPES } from "../../types";
 import { contains } from "../../utils/array-utils";
 import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
 import { FeedbackCommand } from "../tool-feedback/model";
-import { EdgeTypeHint, isSetTypeHintsAction, NodeTypeHint, SetTypeHintsAction } from "./action-definition";
+import { EdgeTypeHint, isSetTypeHintsAction, NodeTypeHint } from "./action-definition";
 
 
 @injectable()
@@ -55,7 +55,7 @@ export class ApplyEditConfigCommand extends FeedbackCommand {
     constructor(@inject(TYPES.Action) protected action: ApplyEditConfigAction) {
         super();
     }
-    execute(context: CommandExecutionContext): CommandResult {
+    execute(context: CommandExecutionContext): CommandReturn {
         context.root.index.all().forEach(element => {
             const config = this.action.editConfigs.get(element.type);
             if (config) {
@@ -67,11 +67,10 @@ export class ApplyEditConfigCommand extends FeedbackCommand {
 }
 
 @injectable()
-export class TypeHintsEditConfigProvider extends SelfInitializingActionHandler implements IEditConfigProvider {
+export class TypeHintsEditConfigProvider implements IActionHandler, IEditConfigProvider {
     @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackActionDispatcher: IFeedbackActionDispatcher;
 
     protected editConfigs: Map<string, EditConfig> = new Map;
-    readonly handledActionKinds = [SetTypeHintsAction.KIND];
 
     handle(action: Action): ICommand | Action | void {
         if (isSetTypeHintsAction(action)) {

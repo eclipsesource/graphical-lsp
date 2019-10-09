@@ -20,7 +20,7 @@ import {
     Bounds,
     BoundsAware,
     CommandExecutionContext,
-    CommandResult,
+    CommandReturn,
     ElementMove,
     findParentByFeature,
     includes,
@@ -63,7 +63,7 @@ export class ShowChangeBoundsToolResizeFeedbackCommand extends FeedbackCommand {
         super();
     }
 
-    execute(context: CommandExecutionContext): CommandResult {
+    execute(context: CommandExecutionContext): CommandReturn {
         const index = context.root.index;
         index.all().filter(isResizeable).forEach(removeResizeHandles);
 
@@ -85,7 +85,7 @@ export class HideChangeBoundsToolResizeFeedbackCommand extends FeedbackCommand {
         super();
     }
 
-    execute(context: CommandExecutionContext): CommandResult {
+    execute(context: CommandExecutionContext): CommandReturn {
         const index = context.root.index;
         index.all().filter(isResizeable).forEach(removeResizeHandles);
         return context.root;

@@ -29,6 +29,7 @@
     border-width: 0px;
     border-color: #bbb;
     border-radius: 5px;
+    color: black;
 }
 
 /* Css for header compartment */
@@ -40,6 +41,7 @@
     font-weight: bold;
     background: #CCCCCC;
     border: 1px solid rgba(60, 60, 60, 0.6);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .header-icon i {

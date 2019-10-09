@@ -16,10 +16,10 @@
 import { inject, injectable } from "inversify";
 import {
     Action,
-    Bounds,
     Command,
     CommandExecutionContext,
-    CommandResult,
+    CommandReturn,
+    Dimension,
     ElementAndBounds,
     ElementMove,
     IActionDispatcher,
@@ -171,7 +171,7 @@ export class ResizeElementsCommand extends LayoutElementsCommand {
         super(action, actionDispatcher, selectionService);
     }
 
-    execute(context: CommandExecutionContext): CommandResult {
+    execute(context: CommandExecutionContext): CommandReturn {
         const elements = this.getActionElements(context);
         if (elements.length > 1) {
             switch (this.action.dimension) {
@@ -194,8 +194,8 @@ export class ResizeElementsCommand extends LayoutElementsCommand {
         this.dispatchResizeActions(elements, (element, bounds) => {
             // resize around center
             const halfDiffWidth = 0.5 * (targetWidth - element.bounds.width);
-            bounds.newBounds.x = element.bounds.x - halfDiffWidth;
-            bounds.newBounds.width = targetWidth;
+            bounds.newPosition.x = element.bounds.x - halfDiffWidth;
+            bounds.newSize.width = targetWidth;
         });
     }
 
@@ -204,8 +204,8 @@ export class ResizeElementsCommand extends LayoutElementsCommand {
         this.dispatchResizeActions(elements, (element, bounds) => {
             // resize around middle
             const halfDiffHeight = 0.5 * (targetHeight - element.bounds.height);
-            bounds.newBounds.y = element.bounds.y - halfDiffHeight;
-            bounds.newBounds.height = targetHeight;
+            bounds.newPosition.y = element.bounds.y - halfDiffHeight;
+            bounds.newSize.height = targetHeight;
         });
     }
 
@@ -216,10 +216,10 @@ export class ResizeElementsCommand extends LayoutElementsCommand {
             // resize around center and middle
             const halfDiffWidth = 0.5 * (targetWidth - element.bounds.width);
             const halfDiffHeight = 0.5 * (targetHeight - element.bounds.height);
-            bounds.newBounds.x = element.bounds.x - halfDiffWidth;
-            bounds.newBounds.y = element.bounds.y - halfDiffHeight;
-            bounds.newBounds.width = targetWidth;
-            bounds.newBounds.height = targetHeight;
+            bounds.newPosition.x = element.bounds.x - halfDiffWidth;
+            bounds.newPosition.y = element.bounds.y - halfDiffHeight;
+            bounds.newSize.width = targetWidth;
+            bounds.newSize.height = targetHeight;
         });
     }
 
@@ -232,9 +232,11 @@ export class ResizeElementsCommand extends LayoutElementsCommand {
     createElementAndBounds(element: SelectableBoundsAware, change: (element: SelectableBoundsAware, bounds: WriteableElementAndBounds) => void) {
         const bounds: WriteableElementAndBounds = {
             elementId: element.id,
-            newBounds: {
+            newPosition: {
                 x: element.bounds.x,
-                y: element.bounds.y,
+                y: element.bounds.y
+            },
+            newSize: {
                 width: element.bounds.width,
                 height: element.bounds.height
             }
@@ -243,12 +245,12 @@ export class ResizeElementsCommand extends LayoutElementsCommand {
         return bounds;
     }
 
-    undo(context: CommandExecutionContext): CommandResult {
+    undo(context: CommandExecutionContext): CommandReturn {
         // we dispatch another action which can be undone, so no explicit implementation necessary
         return context.root;
     }
 
-    redo(context: CommandExecutionContext): CommandResult {
+    redo(context: CommandExecutionContext): CommandReturn {
         // we dispatch another action which can be redone, so no explicit implementation necessary
         return context.root;
     }
@@ -264,7 +266,7 @@ export class AlignElementsCommand extends LayoutElementsCommand {
         super(action, actionDispatcher, selectionService);
     }
 
-    execute(context: CommandExecutionContext): CommandResult {
+    execute(context: CommandExecutionContext): CommandReturn {
         const elements = this.getActionElements(context);
         if (elements.length > 1) {
             switch (this.action.alignment) {
@@ -365,21 +367,23 @@ export class AlignElementsCommand extends LayoutElementsCommand {
     createElementAndBounds(element: SelectableBoundsAware, move: ElementMove): ElementAndBounds {
         return {
             elementId: element.id,
-            newBounds: {
+            newPosition: {
                 x: move.toPosition.x,
-                y: move.toPosition.y,
+                y: move.toPosition.y
+            },
+            newSize: {
                 width: element.bounds.width,
                 height: element.bounds.height
             }
         };
     }
 
-    undo(context: CommandExecutionContext): CommandResult {
+    undo(context: CommandExecutionContext): CommandReturn {
         // we dispatch another action which can be undone, so no explicit implementation necessary
         return context.root;
     }
 
-    redo(context: CommandExecutionContext): CommandResult {
+    redo(context: CommandExecutionContext): CommandReturn {
         // we dispatch another action which can be redone, so no explicit implementation necessary
         return context.root;
     }
@@ -407,13 +411,11 @@ interface WriteableElementMove extends ElementMove {
     toPosition: WriteablePoint;
 }
 
-interface WriteableElementAndBounds extends ElementAndBounds {
-    newBounds: WriteableBounds;
+interface WriteableDimension extends Dimension {
+    width: number
+    height: number
 }
-
-interface WriteableBounds extends Bounds {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
+interface WriteableElementAndBounds extends ElementAndBounds {
+    newPosition: WriteablePoint;
+    newSize: WriteableDimension
 }

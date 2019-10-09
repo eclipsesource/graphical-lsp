@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { ContainerModule } from "inversify";
-import { configureCommand, configureView, LocationDecorator, MoveCommand, TYPES } from "sprotty/lib";
+import { configureCommand, configureView, LocationPostprocessor, MoveCommand, TYPES } from "sprotty/lib";
 
 import { GLSP_TYPES } from "../../types";
 import { SResizeHandle } from "../change-bounds/model";
@@ -57,8 +57,8 @@ const toolFeedbackModule = new ContainerModule((bind, _unbind, isBound) => {
 
     configureCommand({ bind, isBound }, SwitchRoutingModeCommand);
 
-    bind(TYPES.IVNodeDecorator).to(LocationDecorator);
-    bind(TYPES.HiddenVNodeDecorator).to(LocationDecorator);
+    bind(TYPES.IVNodePostprocessor).to(LocationPostprocessor);
+    bind(TYPES.HiddenVNodePostprocessor).to(LocationPostprocessor);
 });
 
 export default toolFeedbackModule;

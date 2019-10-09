@@ -17,12 +17,14 @@ package com.eclipsesource.glsp.api.types;
 
 import java.util.function.Consumer;
 
-import com.eclipsesource.glsp.graph.GBounds;
+import com.eclipsesource.glsp.graph.GDimension;
+import com.eclipsesource.glsp.graph.GPoint;
 
 public class ElementAndBounds {
 
 	private String elementId;
-	private GBounds newBounds;
+	private GPoint newPosition;
+	private GDimension newSize;
 
 	public ElementAndBounds() {
 	}
@@ -32,23 +34,41 @@ public class ElementAndBounds {
 	}
 
 	public String getElementId() {
-		return this.elementId;
+		return elementId;
 	}
 
-	public void setElementId(final String elementId) {
+	public void setElementId(String elementId) {
 		this.elementId = elementId;
 	}
 
-	public GBounds getNewBounds() {
-		return this.newBounds;
+	public GPoint getNewPosition() {
+		return newPosition;
 	}
 
-	public void setNewBounds(final GBounds newBounds) {
-		this.newBounds = newBounds;
+	public void setNewPosition(GPoint newPosition) {
+		this.newPosition = newPosition;
+	}
+
+	public GDimension getNewSize() {
+		return newSize;
+	}
+
+	public void setNewSize(GDimension newSize) {
+		this.newSize = newSize;
 	}
 
 	@Override
-	public boolean equals(final Object obj) {
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((elementId == null) ? 0 : elementId.hashCode());
+		result = prime * result + ((newPosition == null) ? 0 : newPosition.hashCode());
+		result = prime * result + ((newSize == null) ? 0 : newSize.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -56,25 +76,21 @@ public class ElementAndBounds {
 		if (getClass() != obj.getClass())
 			return false;
 		ElementAndBounds other = (ElementAndBounds) obj;
-		if (this.elementId == null) {
+		if (elementId == null) {
 			if (other.elementId != null)
 				return false;
-		} else if (!this.elementId.equals(other.elementId))
+		} else if (!elementId.equals(other.elementId))
 			return false;
-		if (this.newBounds == null) {
-			if (other.newBounds != null)
+		if (newPosition == null) {
+			if (other.newPosition != null)
 				return false;
-		} else if (!this.newBounds.equals(other.newBounds))
+		} else if (!newPosition.equals(other.newPosition))
+			return false;
+		if (newSize == null) {
+			if (other.newSize != null)
+				return false;
+		} else if (!newSize.equals(other.newSize))
 			return false;
 		return true;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((this.elementId == null) ? 0 : this.elementId.hashCode());
-		return prime * result + ((this.newBounds == null) ? 0 : this.newBounds.hashCode());
-	}
-
 }

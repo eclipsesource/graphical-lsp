@@ -20,7 +20,8 @@ import {
     Command,
     CommandActionHandler,
     CommandExecutionContext,
-    CommandResult,
+    CommandReturn,
+    IActionHandler,
     ILogger,
     SetModelAction,
     SetModelCommand,
@@ -32,11 +33,11 @@ import { IFeedbackActionDispatcher } from "src/features/tool-feedback/feedback-a
 
 import { FeedbackCommand } from "../../features/tool-feedback/model";
 import { GLSP_TYPES } from "../../types";
-import { SelfInitializingActionHandler } from "../tool-manager/tool-manager-action-handler";
 
 /* ActionHandler that transforms a SetModelAction into an (feedback-aware) UpdateModelAction. This can be done because in sprotty
 *  UpdateModel behaves the same as SetModel if no model is present yet.*/
-export class SetModelActionHandler extends SelfInitializingActionHandler {
+@injectable()
+export class SetModelActionHandler implements IActionHandler {
     handle(action: Action): Action | void {
         if (isSetModelAction(action)) {
             return new UpdateModelAction(action.newRoot, false);
@@ -69,7 +70,7 @@ export class FeedbackAwareUpdateModelCommand extends UpdateModelCommand {
         super(action);
     }
 
-    protected performUpdate(oldRoot: SModelRoot, newRoot: SModelRoot, context: CommandExecutionContext): CommandResult {
+    protected performUpdate(oldRoot: SModelRoot, newRoot: SModelRoot, context: CommandExecutionContext): CommandReturn {
         if (this.feedbackActionDispatcher) {
             // Create a temporary context wich defines the `newRoot` as `root`
             // This way we do not corrupt the redo/undo behavior of the super class

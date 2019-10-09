@@ -181,7 +181,7 @@ export class EdgeCreationToolMouseListener extends DragAwareMouseListener {
     nonDraggingMouseUp(element: SModelElement, event: MouseEvent): Action[] {
         const result: Action[] = [];
         if (event.button === 0) {
-            if (this.source === undefined) {
+            if (!this.isSourceSelected()) {
                 if (this.currentTarget && this.allowedTarget) {
                     this.source = this.currentTarget.id;
                     this.tool.dispatchFeedback([new DrawFeedbackEdgeAction(this.elementTypeId, this.source)]);
@@ -191,7 +191,7 @@ export class EdgeCreationToolMouseListener extends DragAwareMouseListener {
                     this.target = this.currentTarget.id;
                 }
             }
-            if (this.source !== undefined && this.target !== undefined) {
+            if (this.isSourceSelected() && this.isTargetSelected()) {
                 result.push(new CreateConnectionOperationAction(this.elementTypeId, this.source, this.target));
                 if (!isCtrlOrCmd(event)) {
                     result.push(new EnableDefaultToolsAction());
@@ -205,14 +205,27 @@ export class EdgeCreationToolMouseListener extends DragAwareMouseListener {
         return result;
     }
 
+    private isSourceSelected() {
+        return this.source !== undefined;
+    }
+
+    private isTargetSelected() {
+        return this.target !== undefined;
+    }
+
+
     mouseOver(target: SModelElement, event: MouseEvent): Action[] {
         const newCurrentTarget = findParentByFeature(target, isConnectable);
         if (newCurrentTarget !== this.currentTarget) {
             this.currentTarget = newCurrentTarget;
             if (this.currentTarget) {
-                this.allowedTarget = this.edgeEditConfig ? this.edgeEditConfig.isAllowedTarget(this.currentTarget) : false;
+                if (!this.isSourceSelected()) {
+                    this.allowedTarget = this.isAllowedSource(newCurrentTarget);
+                } else if (!this.isTargetSelected()) {
+                    this.allowedTarget = this.isAllowedTarget(newCurrentTarget);
+                }
                 if (this.allowedTarget) {
-                    const action = this.source === undefined ? new ApplyCursorCSSFeedbackAction(CursorCSS.EDGE_CREATION_SOURCE) :
+                    const action = !this.isSourceSelected() ? new ApplyCursorCSSFeedbackAction(CursorCSS.EDGE_CREATION_SOURCE) :
                         new ApplyCursorCSSFeedbackAction(CursorCSS.EDGE_CREATION_TARGET);
                     return [action];
                 }
@@ -220,5 +233,13 @@ export class EdgeCreationToolMouseListener extends DragAwareMouseListener {
             return [new ApplyCursorCSSFeedbackAction(CursorCSS.OPERATION_NOT_ALLOWED)];
         }
         return [];
+    }
+
+    private isAllowedSource(element: SModelElement | undefined): boolean {
+        return element !== undefined && this.edgeEditConfig ? this.edgeEditConfig.isAllowedSource(element) : false;
+    }
+
+    private isAllowedTarget(element: SModelElement | undefined): boolean {
+        return element !== undefined && this.edgeEditConfig ? this.edgeEditConfig.isAllowedTarget(element) : false;
     }
 }

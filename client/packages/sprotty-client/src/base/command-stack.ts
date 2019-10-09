@@ -18,39 +18,10 @@ import { CommandStack, IActionDispatcher, SModelRoot, TYPES } from "sprotty/lib"
 
 import { GlspRedoAction, GlspUndoAction } from "../features/undo-redo/model";
 
-/**
- * Provides access to the current `SModelRoot` instance.
- *
- * This is useful if you need to query the model for some tasks,
- *  e.g., determine the list of elements, etc.
- *
- * Note that this provider will only return a copy of the current instance.
- * Thus, changes to the returned `SModelRoot` won't have any effect.
- * Changes of the `SModelRoot` should be performed inside a command.
- */
-export interface IReadonlyModelAccess {
-    /**
-     * The current `SModelRoot` instance.
-     *
-     * Note that this is a copy of the current instance.
-     * Thus, changes to the returned `SModelRoot` won't have any effect.
-     * Changes of the `SModelRoot` should be performed inside a command.
-     */
-    readonly model: Promise<SModelRoot>;
-}
-
-export type IReadonlyModelAccessProvider = () => Promise<IReadonlyModelAccess>;
-
 @injectable()
-export class GLSPCommandStack extends CommandStack implements IReadonlyModelAccess {
+export class GLSPCommandStack extends CommandStack {
 
     @inject(TYPES.IActionDispatcherProvider) protected actionDispatcher: () => Promise<IActionDispatcher>;
-
-    get model(): Promise<SModelRoot> {
-        return this.currentPromise.then(
-            state => this.modelFactory.createRoot(state.root)
-        );
-    }
 
     undo(): Promise<SModelRoot> {
         this.actionDispatcher().then(dispatcher => dispatcher.dispatch(new GlspUndoAction()));

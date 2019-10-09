@@ -19,11 +19,14 @@ import java.util.Optional;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.action.kind.AbstractOperationAction;
+import com.eclipsesource.glsp.api.action.kind.RequestBoundsAction;
 import com.eclipsesource.glsp.api.handler.OperationHandler;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.provider.OperationHandlerProvider;
+import com.eclipsesource.glsp.example.modelserver.workflow.model.MappedGModelRoot;
 import com.eclipsesource.glsp.example.modelserver.workflow.model.ModelServerAwareModelState;
 import com.eclipsesource.glsp.example.modelserver.workflow.model.WorkflowModelServerAccess;
+import com.eclipsesource.glsp.example.modelserver.workflow.model.WorkflowModelServerModelFactory;
 import com.eclipsesource.glsp.server.actionhandler.OperationActionHandler;
 import com.google.inject.Inject;
 
@@ -37,11 +40,19 @@ public class ModelServerAwareOperationActionHandler extends OperationActionHandl
 		if (operationHandlerProvider.isHandled(action)) {
 			OperationHandler handler = operationHandlerProvider.getHandler(action).get();
 			handler.execute(action, modelState);
-			if(!(handler instanceof ModelStateAwareOperationHandler)) {
+			if (!(handler instanceof ModelStateAwareOperationHandler)) {
+				if (handler instanceof DeleteOperationHandler) {
+					WorkflowModelServerAccess modelAccess = ModelServerAwareModelState.getModelAccess(modelState);
+					MappedGModelRoot mappedGModelRoot = WorkflowModelServerModelFactory
+							.populate(modelAccess.getWorkflowFacade(), modelState, false);
+					modelAccess.setNodeMapping(mappedGModelRoot.getMapping());
+					return Optional.of(new RequestBoundsAction(modelState.getRoot()));
+				}
 				// if the handler is not model state aware, we simply update the whole model
-				// this can be removed as soon as we ensure that all handlers that make updates, update accordingly
+				// this can be removed as soon as we ensure that all handlers that make updates,
+				// update accordingly
 				WorkflowModelServerAccess modelAccess = ModelServerAwareModelState.getModelAccess(modelState);
-				modelAccess.update();				
+				modelAccess.update();
 			}
 		}
 		return Optional.empty();

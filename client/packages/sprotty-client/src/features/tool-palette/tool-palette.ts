@@ -20,14 +20,14 @@ import {
     EnableDefaultToolsAction,
     EnableToolsAction,
     IActionDispatcher,
+    IActionHandler,
     ICommand,
     SetUIExtensionVisibilityAction,
     SModelRoot,
     TYPES
 } from "sprotty/lib";
 
-import { SelfInitializingActionHandler } from "../../base/tool-manager/tool-manager-action-handler";
-import { isSetOperationsAction, Operation, parentGroup, SetOperationsAction } from "../operation/set-operations";
+import { isSetOperationsAction, Operation, parentGroup } from "../operation/set-operations";
 import { deriveToolId } from "../tools/creation-tool";
 import { MouseDeleteTool } from "../tools/delete-tool";
 import { RequestMarkersAction } from "../validation/validate";
@@ -190,10 +190,8 @@ function changeCSSClass(element: Element, css: string) {
         element.classList.add(css);
 }
 @injectable()
-export class ToolPaletteActionHandler extends SelfInitializingActionHandler {
+export class ToolPaletteActionHandler implements IActionHandler {
     @inject(ToolPalette) protected readonly toolPalette: ToolPalette;
-
-    readonly handledActionKinds = [SetOperationsAction.KIND, EnableDefaultToolsAction.KIND];
 
     handle(action: Action): ICommand | Action | void {
         if (isSetOperationsAction(action)) {

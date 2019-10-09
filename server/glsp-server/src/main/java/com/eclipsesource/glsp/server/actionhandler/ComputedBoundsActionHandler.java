@@ -41,7 +41,7 @@ public class ComputedBoundsActionHandler extends AbstractActionHandler {
 			synchronized (submissionHandler.getModelLock()) {
 				GModelRoot model = modelState.getRoot();
 				if (model != null && model.getRevision() == computedBoundsAction.getRevision()) {
-					LayoutUtil.applyBounds(model, computedBoundsAction);
+					LayoutUtil.applyBounds(model, computedBoundsAction, modelState);
 					return submissionHandler.doSubmitModel(true, modelState);
 				}
 			}
