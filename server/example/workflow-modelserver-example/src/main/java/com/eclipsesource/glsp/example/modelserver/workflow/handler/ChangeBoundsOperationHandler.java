@@ -43,9 +43,17 @@ public class ChangeBoundsOperationHandler implements ModelStateAwareOperationHan
 		return "Move or resize element";
 	}
 
-
 	@Override
 	public void execute(AbstractOperationAction action, GraphicalModelState modelState) {
+		ChangeBoundsOperationAction changeBoundsAction = (ChangeBoundsOperationAction) action;
+		for (ElementAndBounds element : changeBoundsAction.getNewBounds()) {
+			changeElementBounds(element.getElementId(), element.getNewPosition(), element.getNewSize(), modelState);
+		}
+	}
+
+	@Override
+	public void doExecute(AbstractOperationAction action, GraphicalModelState modelState,
+			WorkflowModelServerAccess modelAccess) throws Exception {
 		ChangeBoundsOperationAction changeBoundsAction = (ChangeBoundsOperationAction) action;
 		for (ElementAndBounds element : changeBoundsAction.getNewBounds()) {
 			changeElementBounds(element.getElementId(), element.getNewPosition(), element.getNewSize(), modelState);
@@ -63,15 +71,6 @@ public class ChangeBoundsOperationHandler implements ModelStateAwareOperationHan
 		Shape shape = (Shape) element.get();
 		shape.setPosition(ShapeUtil.point(newPosition));
 		shape.setSize(ShapeUtil.dimension(newSize));
-	}
-
-	@Override
-	public void doExecute(AbstractOperationAction action, GraphicalModelState modelState,
-			WorkflowModelServerAccess modelAccess) throws Exception {
-		ChangeBoundsOperationAction changeBoundsAction = (ChangeBoundsOperationAction) action;
-		for (ElementAndBounds element : changeBoundsAction.getNewBounds()) {
-			changeElementBounds(element.getElementId(), element.getNewBounds(), modelState);
-		}
 	}
 
 }
