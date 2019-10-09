@@ -28,6 +28,7 @@ import {
     defaultModule,
     DiamondNodeView,
     edgeLayoutModule,
+    editLabelFeature,
     ExpandButtonView,
     expandModule,
     exportModule,
@@ -71,20 +72,19 @@ import {
 import executeCommandModule from "@glsp/sprotty-client/lib/features/execute/di.config";
 import { Container, ContainerModule } from "inversify";
 
-import { ActivityNode, Icon, TaskLabel, TaskNode, WeightedEdge } from "./model";
-import { WorkflowModelFactory } from "./model-factory";
+import { ActivityNode, Icon, TaskNode, WeightedEdge } from "./model";
 import { ForkOrJoinNodeView, IconView, TaskNodeView, WeightedEdgeView, WorkflowEdgeView } from "./workflow-views";
-
 
 const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
     rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
-    rebind(TYPES.IModelFactory).to(WorkflowModelFactory).inSingletonScope();
     const context = { bind, unbind, isBound, rebind };
     configureModelElement(context, 'graph', GLSPGraph, SGraphView);
     configureModelElement(context, 'task:automated', TaskNode, TaskNodeView);
     configureModelElement(context, 'task:manual', TaskNode, TaskNodeView);
-    configureModelElement(context, 'label:heading', TaskLabel, SLabelView);
+    configureModelElement(context, 'label:heading', SLabel, SLabelView, {
+        enable: [editLabelFeature]
+    });
     configureModelElement(context, 'comp:comp', SCompartment, SCompartmentView);
     configureModelElement(context, 'comp:header', SCompartment, SCompartmentView);
     configureModelElement(context, 'label:icon', SLabel, SLabelView);

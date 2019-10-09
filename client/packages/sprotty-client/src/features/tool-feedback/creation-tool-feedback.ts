@@ -19,7 +19,7 @@ import {
     AnchorComputerRegistry,
     center,
     CommandExecutionContext,
-    CommandResult,
+    CommandReturn,
     euclideanDistance,
     findChildrenAtPosition,
     findParentByFeature,
@@ -56,7 +56,7 @@ export class DrawFeedbackEdgeCommand extends FeedbackCommand {
         super();
     }
 
-    execute(context: CommandExecutionContext): CommandResult {
+    execute(context: CommandExecutionContext): CommandReturn {
         drawFeedbackEdge(context, this.action.sourceId, this.action.elementTypeId);
         return context.root;
     }
@@ -71,7 +71,7 @@ export class RemoveFeedbackEdgeAction implements Action {
 export class RemoveFeedbackEdgeCommand extends FeedbackCommand {
     static readonly KIND = 'removeFeedbackEdgeCommand';
 
-    execute(context: CommandExecutionContext): CommandResult {
+    execute(context: CommandExecutionContext): CommandReturn {
         removeFeedbackEdge(context.root);
         return context.root;
     }

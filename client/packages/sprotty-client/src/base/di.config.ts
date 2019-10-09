@@ -16,22 +16,24 @@
 import "../../css/glsp-sprotty.css";
 
 import { ContainerModule } from "inversify";
-import { configureCommand, Tool, TYPES } from "sprotty/lib";
+import { configureActionHandler, configureCommand, SetModelCommand, Tool, TYPES } from "sprotty/lib";
 
+import { SetOperationsAction } from "../features/operation/set-operations";
 import { GLSP_TYPES } from "../types";
 import { GLSPCommandStack } from "./command-stack";
 import { FeedbackAwareUpdateModelCommand, SetModelActionHandler } from "./model/update-model-command";
-import { createToolFactory, ToolManagerActionHandler } from "./tool-manager/tool-manager-action-handler";
+import { createToolFactory, GLSPToolManagerActionHandler } from "./tool-manager/tool-manager-action-handler";
 import { defaultGLSPViewerOptions, GLSPViewerOptions } from "./views/viewer-options";
 
-const defaultGLSPModule = new ContainerModule((bind, unbind, isBound, rebind) => {
+const defaultGLSPModule = new ContainerModule((bind, _unbind, isBound, rebind) => {
+    const context = { bind, _unbind, isBound, rebind };
     // Tool manager initialization ------------------------------------
-    bind(TYPES.IActionHandlerInitializer).to(ToolManagerActionHandler);
+    configureActionHandler(context, SetOperationsAction.KIND, GLSPToolManagerActionHandler);
     bind(GLSP_TYPES.IToolFactory).toFactory<Tool>((createToolFactory()));
 
     // Model update initialization ------------------------------------
-    configureCommand({ bind, isBound }, FeedbackAwareUpdateModelCommand);
-    bind(TYPES.IActionHandlerInitializer).to(SetModelActionHandler);
+    configureCommand(context, FeedbackAwareUpdateModelCommand);
+    configureActionHandler(context, SetModelCommand.KIND, SetModelActionHandler);
 
     rebind(TYPES.ICommandStack).to(GLSPCommandStack);
 

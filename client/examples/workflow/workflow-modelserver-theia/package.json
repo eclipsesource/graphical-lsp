@@ -18,11 +18,11 @@
     "@glsp-examples/workflow-sprotty": "0.1.0",
     "@glsp/theia-integration": "0.1.0",
     "@modelserver/theia": "next",
-    "@theia/core": "^0.7.1",
-    "@theia/editor": "^0.7.1",
-    "@theia/filesystem": "^0.7.1",
-    "@theia/languages": "^0.7.1",
-    "@theia/monaco": "^0.7.1",
+    "@theia/core": "^0.11.0",
+    "@theia/editor": "^0.11.0",
+    "@theia/filesystem": "^0.11.0",
+    "@theia/languages": "^0.11.0",
+    "@theia/monaco": "^0.11.0",
     "@types/node": "^8.0.14"
   },
   "devDependencies": {

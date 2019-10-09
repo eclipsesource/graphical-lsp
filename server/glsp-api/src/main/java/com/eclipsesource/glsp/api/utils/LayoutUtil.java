@@ -16,11 +16,14 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.utils;
 
+import static com.eclipsesource.glsp.api.jsonrpc.GLSPServerException.getOrThrow;
+
 import java.util.Optional;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import com.eclipsesource.glsp.api.action.kind.ComputedBoundsAction;
+import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.types.ElementAndAlignment;
 import com.eclipsesource.glsp.api.types.ElementAndBounds;
 import com.eclipsesource.glsp.graph.GAlignable;
@@ -33,6 +36,7 @@ import com.eclipsesource.glsp.graph.GModelIndex;
 import com.eclipsesource.glsp.graph.GModelRoot;
 import com.eclipsesource.glsp.graph.GPoint;
 import com.eclipsesource.glsp.graph.GraphFactory;
+import com.eclipsesource.glsp.graph.util.GraphUtil;
 
 public final class LayoutUtil {
 
@@ -42,21 +46,23 @@ public final class LayoutUtil {
 	/**
 	 * Apply the computed bounds from the given action to the model.
 	 */
-	public static void applyBounds(GModelRoot root, ComputedBoundsAction action) {
-		GModelIndex index = GModelIndex.get(root);
+	public static void applyBounds(GModelRoot root, ComputedBoundsAction action, GraphicalModelState modelState) {
+		GModelIndex index = modelState.getIndex();
 		for (ElementAndBounds b : action.getBounds()) {
-			Optional<GModelElement> element = index.get(b.getElementId());
-			if (element.isPresent() && element.get() instanceof GBoundsAware) {
-				GBoundsAware bae = (GBoundsAware) element.get();
-				GBounds newBounds = b.getNewBounds();
-				bae.setPosition(asPoint(newBounds));
-				bae.setSize(asDimension(newBounds));
+			GModelElement element = getOrThrow(index.get(b.getElementId()),
+					"Model element not found! ID: " + b.getElementId());
+			if (element instanceof GBoundsAware) {
+				GBoundsAware bae = (GBoundsAware) element;
+				if (b.getNewPosition() != null)
+					bae.setPosition(GraphUtil.copy(b.getNewPosition()));
+				bae.setSize(GraphUtil.copy(b.getNewSize()));
 			}
 		}
 		for (ElementAndAlignment a : action.getAlignments()) {
-			Optional<GModelElement> element = index.get(a.getElementId());
-			if (element.isPresent() && element.get() instanceof GAlignable) {
-				GAlignable alignable = (GAlignable) element.get();
+			GModelElement element = getOrThrow(index.get(a.getElementId()),
+					"Model element not found! ID: " + a.getElementId());
+			if (element instanceof GAlignable) {
+				GAlignable alignable = (GAlignable) element;
 				alignable.setAlignment(a.getNewAlignment());
 			}
 		}

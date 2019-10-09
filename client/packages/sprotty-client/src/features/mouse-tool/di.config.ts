@@ -19,7 +19,7 @@ import { MouseTool } from "sprotty";
 import { GLSP_TYPES } from "../../types";
 import { RankingMouseTool } from "./mouse-tool";
 
-const glspMouseToolModule = new ContainerModule((bind, unbind, isBound, rebind) => {
+const glspMouseToolModule = new ContainerModule((bind, _unbind, _isBound, rebind) => {
     bind(RankingMouseTool).toSelf().inSingletonScope();
     bind(GLSP_TYPES.MouseTool).toService(RankingMouseTool);
     rebind(MouseTool).toService(RankingMouseTool);
