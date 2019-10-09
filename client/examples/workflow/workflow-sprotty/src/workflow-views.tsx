@@ -28,7 +28,7 @@ import { injectable } from "inversify";
 import * as snabbdom from "snabbdom-jsx";
 import { VNode } from "snabbdom/vnode";
 
-import { Icon, TaskNode, WeightedEdge } from "./model";
+import { ActivityNode, Icon, TaskNode, WeightedEdge } from "./model";
 
 const JSX = { createElement: snabbdom.svg };
 
@@ -46,12 +46,22 @@ export class TaskNodeView extends RectangularNodeView {
             {context.renderChildren(node)}
         </g>;
         return graph;
-
-
     }
 
     protected getRoundedCornerRadius(node: SShapeElement): number {
         return 5;
+    }
+}
+
+@injectable()
+export class ForkOrJoinNodeView extends RectangularNodeView {
+    render(node: ActivityNode, context: RenderingContext): VNode {
+        const graph = <g>
+            <rect class-sprotty-node={true} class-forkOrJoin={true}
+                class-mouseover={node.hoverFeedback} class-selected={node.selected}
+                width={10} height={Math.max(50, node.bounds.height)}></rect>
+        </g>;
+        return graph;
     }
 }
 

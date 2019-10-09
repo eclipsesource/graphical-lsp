@@ -35,6 +35,8 @@ import com.eclipsesource.glsp.api.provider.CommandPaletteActionProvider;
 import com.eclipsesource.glsp.example.workflow.handler.CreateAutomatedTaskHandler;
 import com.eclipsesource.glsp.example.workflow.handler.CreateDecisionNodeHandler;
 import com.eclipsesource.glsp.example.workflow.handler.CreateEdgeHandler;
+import com.eclipsesource.glsp.example.workflow.handler.CreateForkNodeHandler;
+import com.eclipsesource.glsp.example.workflow.handler.CreateJoinNodeHandler;
 import com.eclipsesource.glsp.example.workflow.handler.CreateManualTaskHandler;
 import com.eclipsesource.glsp.example.workflow.handler.CreateMergeNodeHandler;
 import com.eclipsesource.glsp.example.workflow.handler.CreateWeightedEdgeHandler;
@@ -63,7 +65,7 @@ public class WorkflowGLSPModule extends DefaultGLSPModule {
 	protected Class<? extends ServerConfiguration> bindServerConfiguration() {
 		return WorkflowServerConfiguration.class;
 	}
-	
+
 	@Override
 	protected Collection<Class<? extends DiagramConfiguration>> bindDiagramConfigurations() {
 		return Arrays.asList(WorfklowDiagramConfiguration.class);
@@ -73,7 +75,7 @@ public class WorkflowGLSPModule extends DefaultGLSPModule {
 	protected Class<? extends GraphExtension> bindGraphExtension() {
 		return WFGraphExtension.class;
 	}
-	
+
 	@Override
 	protected Collection<Class<? extends OperationHandler>> bindOperationHandlers() {
 		return new ArrayList<Class<? extends OperationHandler>>() {
@@ -82,6 +84,8 @@ public class WorkflowGLSPModule extends DefaultGLSPModule {
 				add(CreateManualTaskHandler.class);
 				add(CreateDecisionNodeHandler.class);
 				add(CreateMergeNodeHandler.class);
+				add(CreateForkNodeHandler.class);
+				add(CreateJoinNodeHandler.class);
 				add(CreateWeightedEdgeHandler.class);
 				add(CreateEdgeHandler.class);
 				add(ReconnectEdgeHandler.class);
@@ -93,7 +97,7 @@ public class WorkflowGLSPModule extends DefaultGLSPModule {
 			}
 		};
 	}
-	
+
 	@Override
 	public Class<? extends PopupModelFactory> bindPopupModelFactory() {
 		return WorkflowPopupFactory.class;

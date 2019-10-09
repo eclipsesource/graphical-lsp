@@ -27,6 +27,8 @@ public final class ModelTypes {
 	public static final String ICON = "icon";
 	public static final String DECISION_NODE = "activityNode:decision";
 	public static final String MERGE_NODE = "activityNode:merge";
+	public static final String FORK_NODE = "activityNode:fork";
+	public static final String JOIN_NODE = "activityNode:join";
 	public static final String MANUAL_TASK = "task:manual";
 	public static final String AUTOMATED_TASK = "task:automated";
 
@@ -36,6 +38,10 @@ public final class ModelTypes {
 			return "decisionNode";
 		case MERGE_NODE:
 			return "mergeNode";
+		case FORK_NODE:
+			return "forkNode";
+		case JOIN_NODE:
+			return "joinNode";
 		case MANUAL_TASK:
 			return "manual";
 		case AUTOMATED_TASK:
