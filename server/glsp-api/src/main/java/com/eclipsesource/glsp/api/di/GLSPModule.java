@@ -58,7 +58,7 @@ public abstract class GLSPModule extends AbstractModule {
 		bind(ServerCommandHandlerProvider.class).to(bindServerCommandHandlerProvider());
 		bind(CommandPaletteActionProvider.class).to(bindCommandPaletteActionProvider());
 		bind(ModelValidator.class).to(bindModelValidator());
-		bind(ActionProcessor.class).to(bindActionProcessor());
+		bind(ActionProcessor.class).to(bindActionProcessor()).in(Singleton.class);;
 		bind(DiagramConfigurationProvider.class).to(bindDiagramConfigurationProvider());
 		bind(LabelEditValidator.class).to(bindLabelEditValidator());
 		bind(ModelStateProvider.class).to(bindModelStateProvider());

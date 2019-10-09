@@ -87,3 +87,17 @@ export function isNonRoutableSelectedBoundsAware(element: SModelElement): elemen
 }
 
 export type SelectableBoundsAware = SModelElement & BoundsAware & Selectable;
+
+export function toElementAndBounds(element: SModelElement & BoundsAware) {
+    return {
+        elementId: element.id,
+        newPosition: {
+            x: element.bounds.x,
+            y: element.bounds.y
+        },
+        newSize: {
+            width: element.bounds.width,
+            height: element.bounds.height
+        }
+    };
+}

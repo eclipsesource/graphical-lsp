@@ -17,22 +17,23 @@ import {
     Bounds,
     boundsFeature,
     CommandExecutor,
+    connectableFeature,
+    deletableFeature,
     DiamondNode,
-    EditableLabel,
-    editLabelFeature,
     executeCommandFeature,
-    Expandable,
-    expandFeature,
     fadeFeature,
+    hoverFeedbackFeature,
     isEditableLabel,
     layoutableChildFeature,
     LayoutContainer,
     layoutContainerFeature,
+    moveFeature,
     Nameable,
     nameFeature,
+    popupFeature,
     RectangularNode,
     SEdge,
-    SLabel,
+    selectFeature,
     SShapeElement,
     WithEditableLabel,
     withEditLabelFeature
@@ -40,8 +41,9 @@ import {
 
 import { ActivityNodeSchema } from "./model-schema";
 
-export class TaskNode extends RectangularNode implements Expandable, Nameable, WithEditableLabel {
-    expanded: boolean;
+export class TaskNode extends RectangularNode implements Nameable, WithEditableLabel {
+    static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature,
+        moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature];
     name: string = "";
     duration?: number;
     taskType?: string;
@@ -57,19 +59,6 @@ export class TaskNode extends RectangularNode implements Expandable, Nameable, W
         }
         return undefined;
     }
-
-    hasFeature(feature: symbol) {
-        return feature === expandFeature
-            || feature === nameFeature
-            || feature === withEditLabelFeature
-            || super.hasFeature(feature);
-    }
-}
-
-export class TaskLabel extends SLabel implements EditableLabel {
-    hasFeature(feature: symbol) {
-        return feature === editLabelFeature || super.hasFeature(feature);
-    }
 }
 
 export class WeightedEdge extends SEdge {
@@ -83,14 +72,12 @@ export class ActivityNode extends DiamondNode {
         height: 32
     };
     strokeWidth = 1;
-
-    hasFeature(feature: symbol): boolean {
-        return super.hasFeature(feature);
-    }
 }
 
 
 export class Icon extends SShapeElement implements LayoutContainer, CommandExecutor {
+    static readonly DEFAULT_FEATURES = [boundsFeature, layoutContainerFeature, layoutableChildFeature, fadeFeature, executeCommandFeature];
+
     commandId: string;
     layout: string;
     layoutOptions?: { [key: string]: string | number | boolean; };
@@ -99,10 +86,4 @@ export class Icon extends SShapeElement implements LayoutContainer, CommandExecu
         width: 32,
         height: 32
     };
-
-    hasFeature(feature: symbol): boolean {
-        return feature === executeCommandFeature
-            || feature === boundsFeature || feature === layoutContainerFeature
-            || feature === layoutableChildFeature || feature === fadeFeature;
-    }
 }
