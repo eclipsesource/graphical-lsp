@@ -28,6 +28,7 @@ import {
     defaultModule,
     DiamondNodeView,
     edgeLayoutModule,
+    editLabelFeature,
     ExpandButtonView,
     expandModule,
     exportModule,
@@ -68,8 +69,7 @@ import {
     toolFeedbackModule,
     TYPES,
     validationModule,
-    viewportModule,
-    withEditLabelFeature
+    viewportModule
 } from "@glsp/sprotty-client/lib";
 import executeCommandModule from "@glsp/sprotty-client/lib/features/execute/di.config";
 import { Container, ContainerModule } from "inversify";
@@ -86,7 +86,7 @@ const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind
     configureModelElement(context, 'task:automated', TaskNode, TaskNodeView);
     configureModelElement(context, 'task:manual', TaskNode, TaskNodeView);
     configureModelElement(context, 'label:heading', SLabel, SLabelView, {
-        enable: [withEditLabelFeature]
+        enable: [editLabelFeature]
     });
     configureModelElement(context, 'comp:comp', SCompartment, SCompartmentView);
     configureModelElement(context, 'comp:header', SCompartment, SCompartmentView);
