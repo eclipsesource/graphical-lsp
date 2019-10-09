@@ -53,13 +53,13 @@ public class WorkflowModelServerSubscriptionListener extends XmiToEObjectSubscri
 	private WorkflowModelServerAccess modelServerAccess;
 	private GraphicalModelState modelState;
 
-	public WorkflowModelServerSubscriptionListener(GraphicalModelState modelState, WorkflowModelServerAccess modelServerAccess,
-			ActionProcessor actionProcessor) {
+	public WorkflowModelServerSubscriptionListener(GraphicalModelState modelState,
+			WorkflowModelServerAccess modelServerAccess, ActionProcessor actionProcessor) {
 		this.actionProcessor = actionProcessor;
 		this.modelServerAccess = modelServerAccess;
 		this.modelState = modelState;
 	}
-	
+
 	@Override
 	public void onIncrementalUpdate(CCommand command) {
 		LOG.debug("Incremental update from model server received: " + command);
@@ -68,9 +68,10 @@ public class WorkflowModelServerSubscriptionListener extends XmiToEObjectSubscri
 			// execute command on semantic resource
 			EditingDomain domain = modelServerAccess.getEditingDomain();
 			commandResource = createCommandResource(domain, command);
+			command.getObjectsToAdd().forEach(GModelIdAdpater::addGModelIdAdpater);
 			Command cmd = modelServerAccess.getCommandCodec().decode(domain, command);
 			domain.getCommandStack().execute(cmd);
-			
+
 			// update notation resource
 			WorkflowFacade facade = modelServerAccess.getWorkflowFacade();
 			Resource notationResource = facade.getNotationResource();
@@ -79,12 +80,12 @@ public class WorkflowModelServerSubscriptionListener extends XmiToEObjectSubscri
 			LOG.error("Could not decode command: " + command, ex);
 			throw new RuntimeException(ex);
 		} finally {
-			if(commandResource != null) {
+			if (commandResource != null) {
 				commandResource.getResourceSet().getResources().remove(commandResource);
 			}
 		}
 	}
-	
+
 	@Override
 	public void onFullUpdate(EObject root) {
 		LOG.debug("Full update from model server received");
@@ -93,7 +94,7 @@ public class WorkflowModelServerSubscriptionListener extends XmiToEObjectSubscri
 		Resource semanticResource = facade.getSemanticResource();
 		semanticResource.getContents().clear();
 		semanticResource.getContents().add(root);
-		
+
 		Resource notationResource = facade.getNotationResource();
 		updateNotationResource(facade, notationResource);
 	}
@@ -111,7 +112,7 @@ public class WorkflowModelServerSubscriptionListener extends XmiToEObjectSubscri
 
 		// Re-populate GModel and initiate a client model update
 		MappedGModelRoot mappedGModelRoot = WorkflowModelServerModelFactory
-				.populate(modelServerAccess.getWorkflowFacade(), modelState);
+				.populate(modelServerAccess.getWorkflowFacade(), modelState, false);
 		modelServerAccess.setNodeMapping(mappedGModelRoot.getMapping());
 		actionProcessor.send(modelState.getClientId(), new RequestBoundsAction(modelState.getRoot()));
 	}
@@ -121,32 +122,33 @@ public class WorkflowModelServerSubscriptionListener extends XmiToEObjectSubscri
 		resource.getContents().add(command);
 		return resource;
 	}
-	
+
 	@Override
 	public void onDirtyChange(boolean isDirty) {
 		LOG.debug("Dirty State Changed: " + isDirty);
 	}
-	
+
 	@Override
 	public void onUnknown(ModelServerNotification notification) {
 		// Try to see if we have an update if the notification type is not set properly
 		EObject data = notification.getData().flatMap(WorkflowModelServerSubscriptionListener::decode).orElse(null);
-		if(data instanceof CCommand) {
-			onIncrementalUpdate((CCommand)data);
-		} else if(data instanceof Machine) {
-			onFullUpdate((Machine)data);
+		if (data instanceof CCommand) {
+			onIncrementalUpdate((CCommand) data);
+		} else if (data instanceof Machine) {
+			onFullUpdate(data);
 		} else {
-			LOG.warn("Unknown notification received: " + notification);			
+			LOG.warn("Unknown notification received: " + notification);
 		}
 	}
-	
+
 	@Override
 	public void onError(Optional<String> message) {
 		String errorMsg = message.orElse("Error occurred on model server!");
-		actionProcessor.send(modelState.getClientId(), new ServerStatusAction(new ServerStatus(Severity.ERROR, errorMsg)));
+		actionProcessor.send(modelState.getClientId(),
+				new ServerStatusAction(new ServerStatus(Severity.ERROR, errorMsg)));
 		LOG.error(errorMsg);
 	}
-	
+
 	@Override
 	public void onSuccess(Optional<String> messasge) {
 		messasge.ifPresent(LOG::debug);
@@ -159,7 +161,7 @@ public class WorkflowModelServerSubscriptionListener extends XmiToEObjectSubscri
 				new ServerStatusAction(new ServerStatus(Severity.ERROR, errorMsg, getDetails(t))));
 		LOG.error(errorMsg, t);
 	}
-	
+
 	@Override
 	public void onClosing(int code, @NotNull String reason) {
 	}

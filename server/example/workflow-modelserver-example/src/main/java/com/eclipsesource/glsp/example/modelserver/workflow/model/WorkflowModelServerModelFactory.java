@@ -15,12 +15,16 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.modelserver.workflow.model;
 
+import static com.eclipsesource.glsp.api.jsonrpc.GLSPServerException.getOrThrow;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.ecore.EObject;
 
 import com.eclipsesource.glsp.api.action.ActionProcessor;
 import com.eclipsesource.glsp.api.action.kind.RequestModelAction;
@@ -112,18 +116,24 @@ public class WorkflowModelServerModelFactory implements ModelFactory {
 
 		// 3. Set current workflow
 		workflowFacade.setCurrentWorkflowIndex(workflowIndex);
-		MappedGModelRoot mappedGModelRoot = populate(workflowFacade, modelState);
+		MappedGModelRoot mappedGModelRoot = populate(workflowFacade, modelState, true);
 		modelAccess.setNodeMapping(mappedGModelRoot.getMapping());
 
 		return mappedGModelRoot.getRoot();
 	}
 
-	public static MappedGModelRoot populate(WorkflowFacade workflowFacade, GraphicalModelState modelState) {
+	public static MappedGModelRoot populate(WorkflowFacade workflowFacade, GraphicalModelState modelState,
+			boolean intial) {
 		Workflow workflow = workflowFacade.getCurrentWorkflow();
 
 		GModelRoot root = createEmptyRoot();
 		modelState.setRoot(root);
-
+		if (intial) {
+			for (TreeIterator<EObject> iterator = workflow.eAllContents(); iterator.hasNext();) {
+				EObject semanticElement = iterator.next();
+				GModelIdAdpater.addGModelIdAdpater(semanticElement);
+			}
+		}
 		workflowFacade.initializeNotation(workflow);
 
 		Map<Node, GNode> nodeMapping = new HashMap<>();
@@ -152,42 +162,50 @@ public class WorkflowModelServerModelFactory implements ModelFactory {
 
 	private static Optional<GEdge> toGEdge(Flow flow, Edge edge, Map<Node, GNode> nodeMapping,
 			GraphicalModelState modelState) {
+		String gModelId = getOrThrow(GModelIdAdpater.getGModelId(flow),
+				"Could not retrieve GModel id for semanatic element: " + flow);
 		GEdge gedge = flow instanceof WeightedFlow
-				? createWeightedEdge((WeightedFlow) flow, edge, nodeMapping, modelState)
-				: createEdge(flow, edge, nodeMapping, modelState);
+				? createWeightedEdge((WeightedFlow) flow, edge, nodeMapping, modelState, gModelId)
+				: createEdge(flow, edge, nodeMapping, modelState, gModelId);
 		return Optional.ofNullable(gedge);
 	}
 
 	private static Optional<GNode> toGNode(Node node, DiagramElement shape, GraphicalModelState modelState) {
+		String gModelId = getOrThrow(GModelIdAdpater.getGModelId(node),
+				"Could not retrieve GModel id for semanatic element: " + node);
 		GNode gnode = node instanceof Task //
-				? createTaskNode((Task) node, (Shape) shape, modelState)
-				: createActivityNode(node, (Shape) shape, modelState);
+				? createTaskNode((Task) node, (Shape) shape, modelState, gModelId)
+				: createActivityNode(node, (Shape) shape, modelState, gModelId);
 		return Optional.ofNullable(gnode);
 	}
 
 	private static WeightedEdge createWeightedEdge(WeightedFlow flow, Edge edge, Map<Node, GNode> nodeMapping,
-			GraphicalModelState modelState) {
+			GraphicalModelState modelState, String gModelId) {
 		WeightedEdgeBuilder builder = new WeightedEdgeBuilder() //
+				.id(gModelId)//
 				.probability(flow.getProbability().getName()) //
 				.source(nodeMapping.get(flow.getSource())) //
 				.target(nodeMapping.get(flow.getTarget()));
+
 		edge.getBendPoints().forEach(bendPoint -> builder.addRoutingPoint(bendPoint.getX(), bendPoint.getY()));
 		return builder.build();
 	}
 
 	private static GEdge createEdge(Flow flow, Edge edge, Map<Node, GNode> nodeMapping,
-			GraphicalModelState modelState) {
-		GEdgeBuilder builder = new GEdgeBuilder();
-		builder.source(nodeMapping.get(flow.getSource()));
-		builder.target(nodeMapping.get(flow.getTarget()));
+			GraphicalModelState modelState, String gModelId) {
+		GEdgeBuilder builder = new GEdgeBuilder()
+				.id(gModelId)//
+				.source(nodeMapping.get(flow.getSource()))//
+				.target(nodeMapping.get(flow.getTarget()));
 		edge.getBendPoints().forEach(bendPoint -> builder.addRoutingPoint(bendPoint.getX(), bendPoint.getY()));
 		return builder.build();
 	}
 
-	private static TaskNode createTaskNode(Task task, Shape shape, GraphicalModelState modelState) {
+	private static TaskNode createTaskNode(Task task, Shape shape, GraphicalModelState modelState, String gModelId) {
 		String type = CoffeeTypeUtil.toType(task);
 		String nodeType = CoffeeTypeUtil.toNodeType(task);
-		TaskNodeBuilder builder = new TaskNodeBuilder(type, task.getName(), nodeType, task.getDuration());
+		TaskNodeBuilder builder = new TaskNodeBuilder(type, task.getName(), nodeType, task.getDuration())
+				.id(gModelId);
 		if (shape.getPosition() != null) {
 			builder.position(shape.getPosition().getX(), shape.getPosition().getY());
 		}
@@ -197,10 +215,11 @@ public class WorkflowModelServerModelFactory implements ModelFactory {
 		return builder.build();
 	}
 
-	private static ActivityNode createActivityNode(Node node, Shape shape, GraphicalModelState modelState) {
+	private static ActivityNode createActivityNode(Node node, Shape shape, GraphicalModelState modelState,
+			String gModelId) {
 		String type = CoffeeTypeUtil.toType(node);
 		String nodeType = CoffeeTypeUtil.toNodeType(node);
-		ActivityNodeBuilder builder = new ActivityNodeBuilder(type, nodeType);
+		ActivityNodeBuilder builder = new ActivityNodeBuilder(type, nodeType).id(gModelId);
 		if (shape.getPosition() != null) {
 			builder.position(shape.getPosition().getX(), shape.getPosition().getY());
 		}
