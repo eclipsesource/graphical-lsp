@@ -20,7 +20,9 @@ import static com.eclipsesource.glsp.api.operations.Operation.Kind.CREATE_NODE;
 import static com.eclipsesource.glsp.example.workflow.utils.ModelTypes.AUTOMATED_TASK;
 import static com.eclipsesource.glsp.example.workflow.utils.ModelTypes.COMP_HEADER;
 import static com.eclipsesource.glsp.example.workflow.utils.ModelTypes.DECISION_NODE;
+import static com.eclipsesource.glsp.example.workflow.utils.ModelTypes.FORK_NODE;
 import static com.eclipsesource.glsp.example.workflow.utils.ModelTypes.ICON;
+import static com.eclipsesource.glsp.example.workflow.utils.ModelTypes.JOIN_NODE;
 import static com.eclipsesource.glsp.example.workflow.utils.ModelTypes.LABEL_HEADING;
 import static com.eclipsesource.glsp.example.workflow.utils.ModelTypes.LABEL_ICON;
 import static com.eclipsesource.glsp.example.workflow.utils.ModelTypes.LABEL_TEXT;
@@ -60,16 +62,17 @@ public class WorfklowDiagramConfiguration implements DiagramConfiguration {
 		Operation createManualTask = new Operation("Manual Task", MANUAL_TASK, CREATE_NODE, nodeGroup);
 		Operation createDecisionNode = new Operation("Decision Node", DECISION_NODE, CREATE_NODE, nodeGroup);
 		Operation createMergeNode = new Operation("Merge Node", MERGE_NODE, CREATE_NODE, nodeGroup);
+		Operation createForkNode = new Operation("Fork Node", FORK_NODE, CREATE_NODE, nodeGroup);
+		Operation createJoinNode = new Operation("Join Node", JOIN_NODE, CREATE_NODE, nodeGroup);
 		Operation createWeightedEdge = new Operation("Weighted Edge", WEIGHTED_EDGE, CREATE_CONNECTION, edgeGroup);
 		Operation createEdge = new Operation("Edge", EDGE, CREATE_CONNECTION, edgeGroup);
-		return Arrays.asList(createAutomatedTask, createManualTask, createDecisionNode, createMergeNode,
-				createWeightedEdge, createEdge);
+		return Arrays.asList(createAutomatedTask, createManualTask, createDecisionNode, createMergeNode, createForkNode,
+				createJoinNode, createWeightedEdge, createEdge);
 	}
 
 	@Override
 	public Map<String, EClass> getTypeMappings() {
 		Map<String, EClass> mappings = DefaultTypes.getDefaultTypeMappings();
-
 		mappings.put(LABEL_HEADING, GraphPackage.Literals.GLABEL);
 		mappings.put(LABEL_TEXT, GraphPackage.Literals.GLABEL);
 		mappings.put(COMP_HEADER, GraphPackage.Literals.GCOMPARTMENT);
@@ -78,6 +81,8 @@ public class WorfklowDiagramConfiguration implements DiagramConfiguration {
 		mappings.put(ICON, WfgraphPackage.Literals.ICON);
 		mappings.put(MERGE_NODE, WfgraphPackage.Literals.ACTIVITY_NODE);
 		mappings.put(DECISION_NODE, WfgraphPackage.Literals.ACTIVITY_NODE);
+		mappings.put(FORK_NODE, WfgraphPackage.Literals.ACTIVITY_NODE);
+		mappings.put(JOIN_NODE, WfgraphPackage.Literals.ACTIVITY_NODE);
 		mappings.put(MANUAL_TASK, WfgraphPackage.Literals.TASK_NODE);
 		mappings.put(AUTOMATED_TASK, WfgraphPackage.Literals.TASK_NODE);
 		return mappings;
@@ -88,6 +93,8 @@ public class WorfklowDiagramConfiguration implements DiagramConfiguration {
 		List<NodeTypeHint> nodeHints = new ArrayList<>();
 		nodeHints.add(createDefaultNodeTypeHint(DECISION_NODE));
 		nodeHints.add(createDefaultNodeTypeHint(MERGE_NODE));
+		nodeHints.add(createDefaultNodeTypeHint(FORK_NODE));
+		nodeHints.add(createDefaultNodeTypeHint(JOIN_NODE));
 		nodeHints.add(createDefaultNodeTypeHint(MANUAL_TASK));
 		nodeHints.add(createDefaultNodeTypeHint(AUTOMATED_TASK));
 		return nodeHints;
@@ -96,10 +103,10 @@ public class WorfklowDiagramConfiguration implements DiagramConfiguration {
 	@Override
 	public List<EdgeTypeHint> getEdgeTypeHints() {
 		List<EdgeTypeHint> edgeHints = new ArrayList<EdgeTypeHint>();
-		edgeHints.add(createDefaultEdgeTypeHint(EDGE));		
+		edgeHints.add(createDefaultEdgeTypeHint(EDGE));
 		EdgeTypeHint weightedEdgeHint = DiagramConfiguration.super.createDefaultEdgeTypeHint(WEIGHTED_EDGE);
 		weightedEdgeHint.setSourceElementTypeIds(Arrays.asList(DECISION_NODE));
-		weightedEdgeHint.setTargetElementTypeIds(Arrays.asList(MANUAL_TASK, AUTOMATED_TASK));
+		weightedEdgeHint.setTargetElementTypeIds(Arrays.asList(MANUAL_TASK, AUTOMATED_TASK, FORK_NODE, JOIN_NODE));
 		edgeHints.add(weightedEdgeHint);
 		return edgeHints;
 	}
@@ -107,8 +114,10 @@ public class WorfklowDiagramConfiguration implements DiagramConfiguration {
 	@Override
 	public EdgeTypeHint createDefaultEdgeTypeHint(String elementId) {
 		EdgeTypeHint hint = DiagramConfiguration.super.createDefaultEdgeTypeHint(elementId);
-		hint.setSourceElementTypeIds(Arrays.asList(MANUAL_TASK, AUTOMATED_TASK, DECISION_NODE, MERGE_NODE));
-		hint.setTargetElementTypeIds(Arrays.asList(MANUAL_TASK, AUTOMATED_TASK, DECISION_NODE, MERGE_NODE));
+		hint.setSourceElementTypeIds(
+				Arrays.asList(MANUAL_TASK, AUTOMATED_TASK, DECISION_NODE, MERGE_NODE, FORK_NODE, JOIN_NODE));
+		hint.setTargetElementTypeIds(
+				Arrays.asList(MANUAL_TASK, AUTOMATED_TASK, DECISION_NODE, MERGE_NODE, FORK_NODE, JOIN_NODE));
 		return hint;
 	}
 

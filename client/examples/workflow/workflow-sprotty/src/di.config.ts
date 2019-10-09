@@ -51,8 +51,6 @@ import {
     paletteModule,
     PreRenderedElement,
     PreRenderedView,
-    RectangularNode,
-    RectangularNodeView,
     requestResponseModule,
     routingModule,
     saveModule,
@@ -75,7 +73,7 @@ import { Container, ContainerModule } from "inversify";
 
 import { ActivityNode, Icon, TaskLabel, TaskNode, WeightedEdge } from "./model";
 import { WorkflowModelFactory } from "./model-factory";
-import { IconView, TaskNodeView, WeightedEdgeView, WorkflowEdgeView } from "./workflow-views";
+import { ForkOrJoinNodeView, IconView, TaskNodeView, WeightedEdgeView, WorkflowEdgeView } from "./workflow-views";
 
 
 const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
@@ -100,7 +98,8 @@ const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind
     configureModelElement(context, 'icon', Icon, IconView);
     configureModelElement(context, 'activityNode:merge', ActivityNode, DiamondNodeView);
     configureModelElement(context, 'activityNode:decision', ActivityNode, DiamondNodeView);
-    configureModelElement(context, 'node', RectangularNode, RectangularNodeView);
+    configureModelElement(context, 'activityNode:fork', ActivityNode, ForkOrJoinNodeView);
+    configureModelElement(context, 'activityNode:join', ActivityNode, ForkOrJoinNodeView);
 });
 
 export default function createContainer(widgetId: string): Container {
