@@ -15,29 +15,12 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.example.workflow.handler;
 
-import java.util.Optional;
-
-import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.example.workflow.utils.ModelTypes;
-import com.eclipsesource.glsp.example.workflow.utils.WorkflowBuilder.WeightedEdgeBuilder;
-import com.eclipsesource.glsp.graph.GEdge;
-import com.eclipsesource.glsp.graph.GModelElement;
-import com.eclipsesource.glsp.server.operationhandler.CreateConnectionOperationHandler;
 
-public class CreateWeightedEdgeHandler extends CreateConnectionOperationHandler {
+public class CreateForkNodeHandler extends CreateActivityNodeHandler {
 
-	public CreateWeightedEdgeHandler() {
-		super(ModelTypes.WEIGHTED_EDGE);
-	}
-
-	@Override
-	protected Optional<GEdge> createConnection(GModelElement source, GModelElement target,
-			GraphicalModelState modelState) {
-		return Optional.of(new WeightedEdgeBuilder() //
-				.source(source) //
-				.target(target) //
-				.probability("medium") //
-				.build());
+	public CreateForkNodeHandler() {
+		super(ModelTypes.FORK_NODE);
 	}
 
 }

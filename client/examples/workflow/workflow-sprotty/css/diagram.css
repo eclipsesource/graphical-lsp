@@ -32,7 +32,7 @@
 
 .sprotty-node {
     fill: #cdc;
-    stroke: #152;
+    stroke: rgb(0, 0, 0);
     stroke-width: 0;
     font-weight: bold;
 }
@@ -133,6 +133,14 @@
     fill: lightblue;
 }
 
+.sprotty-node.forkOrJoin {
+    fill: black;
+}
+
+.sprotty-node.forkOrJoin.selected {
+    stroke: rgb(87, 87, 214);
+}
+
 text {
     stroke-width: 0;
     stroke: #000;
@@ -150,12 +158,12 @@ text {
     fill: lightblue;
 }
 
-.sprotty-edge.weighted.medium, .sprotty-edge.weighted.medium .arrow {
-    stroke: blue
+.sprotty-edge.weighted, .sprotty-edge.weighted .arrow, .sprotty-edge.weighted.medium, .sprotty-edge.weighted.medium .arrow {
+    stroke: rgb(53, 53, 226);
 }
 
-.sprotty-edge.weighted.medium .arrow {
-    fill: blue;
+.sprotty-edge.weighted .arrow, .sprotty-edge.weighted.medium .arrow {
+    fill: rgb(53, 53, 226);
 }
 
 .sprotty-edge.weighted.high, .sprotty-edge.weighted.high .arrow {
@@ -174,6 +182,7 @@ polygon.sprotty-node {
 
 .sprotty-node.selected {
     stroke-width: 5;
+    stroke: rgb(87, 87, 214);
 }
 
 svg {

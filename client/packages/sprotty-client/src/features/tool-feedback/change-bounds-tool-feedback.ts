@@ -24,6 +24,7 @@ import {
     ElementMove,
     findParentByFeature,
     includes,
+    isBoundsAware,
     isMoveable,
     isSelectable,
     isViewport,
@@ -41,7 +42,7 @@ import { FluentIterable, toArray } from "sprotty/lib/utils/iterable";
 import { GLSPViewerOptions } from "../../base/views/viewer-options";
 import { isNotUndefined } from "../../utils/smodel-util";
 import { getAbsolutePosition } from "../../utils/viewpoint-util";
-import { addResizeHandles, isResizeable, removeResizeHandles } from "../change-bounds/model";
+import { addResizeHandles, isBoundsAwareMoveable, isResizeable, removeResizeHandles } from "../change-bounds/model";
 import { ApplyCursorCSSFeedbackAction, CursorCSS } from "./cursor-feedback";
 import { FeedbackCommand } from "./model";
 
@@ -121,21 +122,21 @@ export class FeedbackMoveMouseListener extends MouseListener {
     * Used to return the collision target(s) or the collision chain in case of multiple selected elements
     */
     getCollisionChain(target: SModelElement, element: SModelElement, dx: number, dy: number, collisionChain: SModelElement[]): SModelElement[] {
-        if (isMoveable(element) && isResizeable(element)) {
+        if (isBoundsAwareMoveable(element)) {
             target.root.index.all()
                 .filter(candidate => isSelectable(candidate) && element.id !== candidate.id && collisionChain.indexOf(candidate) < 0)
                 .forEach(candidate => {
                     if (isMoveable(element) && isMoveable(candidate)) {
-                        if (isResizeable(element) && isResizeable(candidate)) {
+                        if (isBoundsAware(element) && isBoundsAware(candidate)) {
                             const futureBounds: Bounds = {
                                 x: element.position.x + dx,
                                 y: element.position.y + dy,
-                                width: element.size.width,
-                                height: element.size.height
+                                width: element.bounds.width,
+                                height: element.bounds.height
                             };
                             if (isOverlappingBounds(futureBounds, candidate.bounds) && (!isOverlappingBounds(element.bounds, candidate.bounds) || element.type === "Ghost")) {
                                 collisionChain.push(candidate);
-                                if (candidate.selected) {
+                                if (isSelectable(candidate) && candidate.selected) {
                                     // Check what the selected candidate will collide with and add it to the chain
                                     collisionChain.push.apply(collisionChain, this.getCollisionChain(target, candidate, dx, dy, collisionChain));
 
@@ -286,7 +287,7 @@ export class FeedbackMoveMouseListener extends MouseListener {
             target.root.index.all()
                 .filter(element => isSelectable(element) && element.selected)
                 .forEach(element => {
-                    if (isMoveable(element) && isResizeable(element)) {
+                    if (isBoundsAwareMoveable(element)) {
                         // If noElementOverlap Option is set perform collision detection
                         if (this.glspViewerOptions.noElementOverlap) {
                             isValidMove = this.attemptNonCollidingMove(element, mousePoint, target, dx, dy, result);
@@ -372,7 +373,7 @@ export class FeedbackMoveMouseListener extends MouseListener {
 
         if (collisionTargets.length > 0) {
             collisionTargets.forEach(collisionTarget => {
-                if (isResizeable(collisionTarget)) {
+                if (isBoundsAware(collisionTarget)) {
                     // Only snap on first collision to avoid erratic jumps
                     if (!this.hasCollided) {
                         const snappedBounds = this.getSnappedBounds(element, collisionTarget);
