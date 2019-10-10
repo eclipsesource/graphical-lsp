@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { inject, injectable } from "inversify";
+import { inject, injectable, optional } from "inversify";
 import {
     Action,
     BoundsAware,
@@ -25,6 +25,7 @@ import {
     MouseListener,
     Point,
     SetBoundsAction,
+    Side,
     SModelElement,
     SModelRoot,
     SParentElement,
@@ -34,6 +35,7 @@ import {
 import { GLSPViewerOptions } from "../../base/views/viewer-options";
 import { GLSP_TYPES } from "../../types";
 import { forEachElement, isNonRoutableSelectedBoundsAware, isSelected, toElementAndBounds } from "../../utils/smodel-util";
+import { ChangeRoutingPointsAction } from "../change-bounds/edges";
 import { isBoundsAwareMoveable, isResizeable, ResizeHandleLocation, SResizeHandle } from "../change-bounds/model";
 import { IMouseTool } from "../mouse-tool/mouse-tool";
 import { ChangeBoundsOperationAction } from "../operation/operation-actions";
@@ -44,6 +46,7 @@ import {
     ShowChangeBoundsToolResizeFeedbackAction
 } from "../tool-feedback/change-bounds-tool-feedback";
 import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-dispatcher";
+import { RoutingHandler } from "./routing-handler";
 
 /**
  * The change bounds tool has the license to move multiple elements or resize a single element by implementing the ChangeBounds operation.
@@ -58,6 +61,7 @@ import { IFeedbackActionDispatcher } from "../tool-feedback/feedback-action-disp
  * To provide a visual client updates during move we install the `FeedbackMoveMouseListener` and to provide visual client updates during resize
  * and send the server updates we install the `ChangeBoundsListener`.
  */
+
 @injectable()
 export class ChangeBoundsTool implements Tool {
     static ID = "glsp.change-bounds-tool";
@@ -70,7 +74,9 @@ export class ChangeBoundsTool implements Tool {
         @inject(GLSP_TYPES.MouseTool) protected mouseTool: IMouseTool,
         @inject(KeyTool) protected keyTool: KeyTool,
         @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher,
-        @inject(GLSP_TYPES.ViewerOptions) protected opts: GLSPViewerOptions) { }
+        @inject(GLSP_TYPES.ViewerOptions) protected opts: GLSPViewerOptions,
+        @inject(RoutingHandler) @optional() protected routingHandler?: RoutingHandler) { }
+
 
     enable() {
         // install feedback move mouse listener for client-side move updates
@@ -78,7 +84,7 @@ export class ChangeBoundsTool implements Tool {
         this.mouseTool.register(this.feedbackMoveMouseListener);
 
         // instlal change bounds listener for client-side resize updates and server-side updates
-        this.changeBoundsListener = new ChangeBoundsListener(this);
+        this.changeBoundsListener = new ChangeBoundsListener(this, this.routingHandler);
         this.mouseTool.register(this.changeBoundsListener);
         this.selectionService.register(this.changeBoundsListener);
         this.feedbackDispatcher.registerFeedback(this, [new ShowChangeBoundsToolResizeFeedbackAction]);
@@ -105,7 +111,8 @@ class ChangeBoundsListener extends MouseListener implements SelectionListener {
     private activeResizeElementId: string | undefined = undefined;
     private activeResizeHandle: SResizeHandle | undefined = undefined;
 
-    constructor(protected tool: ChangeBoundsTool) {
+    constructor(protected tool: ChangeBoundsTool,
+        protected routingHandler?: RoutingHandler) {
         super();
     }
 
@@ -155,10 +162,23 @@ class ChangeBoundsListener extends MouseListener implements SelectionListener {
         } else {
             // Bounds... Change Bounds.
             const newBounds: ElementAndBounds[] = [];
-            forEachElement(target, isNonRoutableSelectedBoundsAware, element =>
-                createElementAndBounds(element).forEach(bounds => newBounds.push(bounds)));
+            const newRoutingPoints: ElementAndRoutingPoints[] = [];
+
+            // Manhattan routing
+            if (this.routingHandler) {
+                newRoutingPoints.push.apply(newRoutingPoints, this.routingHandler.getNewRoutingPoints(target, newBounds, this.tool));
+            } else {
+                // Other routing
+                forEachElement(target, isNonRoutableSelectedBoundsAware, element =>
+                    createElementAndBounds(element).forEach(bounds => newBounds.push(bounds)));
+            }
+
             if (newBounds.length > 0) {
                 actions.push(new ChangeBoundsOperationAction(newBounds));
+            }
+            // Push new routing points
+            if (newRoutingPoints.length > 0) {
+                actions.push(new ChangeRoutingPointsAction(newRoutingPoints));
             }
         }
         this.resetPosition();
@@ -286,7 +306,7 @@ function createChangeBoundsAction(element: SModelElement & BoundsAware): Action[
     return [];
 }
 
-function createElementAndBounds(element: SModelElement & BoundsAware): ElementAndBounds[] {
+export function createElementAndBounds(element: SModelElement & BoundsAware): ElementAndBounds[] {
     if (isValidBoundChange(element, element.bounds, element.bounds)) {
         return [toElementAndBounds(element)];
     }
@@ -318,4 +338,14 @@ function minHeight(element: SModelElement & BoundsAware): number {
     return 1;
 }
 
+export interface ElementAndRoutingPoints {
+    elementId: string
+    source: Point
+    target: Point
+    routingPoints: Point[]
+}
 
+export interface SideAndDistance {
+    side: Side
+    distance: Number
+}

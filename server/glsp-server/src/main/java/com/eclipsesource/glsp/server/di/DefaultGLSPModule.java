@@ -52,6 +52,7 @@ import com.eclipsesource.glsp.server.actionhandler.SaveModelActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.SelectActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.UndoRedoActionHandler;
 import com.eclipsesource.glsp.server.actionhandler.ValidateLabelEditActionHandler;
+import com.eclipsesource.glsp.server.actionhandler.SaveModelEdgesHandler;
 import com.eclipsesource.glsp.server.diagram.DIDiagramConfigurationProvider;
 import com.eclipsesource.glsp.server.factory.DefaultGraphGsonConfiguratorFactory;
 import com.eclipsesource.glsp.server.jsonrpc.DefaultGLSPClientProvider;
@@ -78,7 +79,7 @@ public abstract class DefaultGLSPModule extends GLSPModule {
 			RequestPopupModelActionHandler.class, SaveModelActionHandler.class, UndoRedoActionHandler.class,
 			SelectActionHandler.class, ExecuteServerCommandActionHandler.class, RequestTypeHintsActionHandler.class,
 			RequestCommandPaletteActionsHandler.class, RequestMarkersHandler.class, LayoutActionHandler.class,
-			ValidateLabelEditActionHandler.class);
+			ValidateLabelEditActionHandler.class, SaveModelEdgesHandler.class);
 
 	@Override
 	protected void configure() {
