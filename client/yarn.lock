@@ -10464,10 +10464,10 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
-sprotty-theia@0.7.0-next.22d2f8a:
-  version "0.7.0-next.22d2f8a"
-  resolved "https://registry.yarnpkg.com/sprotty-theia/-/sprotty-theia-0.7.0-next.22d2f8a.tgz#1e6ab4b0b6f2e8bdb993bd4451c5b11522f9c620"
-  integrity sha512-6k8sGNYWMxXB4BICu3iqrdFNjm2sosTUi/hyOFJ9qj7hn6M75X4ODiQTmVDHUBRliJMkevUL/NmROymGjVuPLw==
+sprotty-theia@0.7.0-next.1c6b386:
+  version "0.7.0-next.1c6b386"
+  resolved "https://registry.yarnpkg.com/sprotty-theia/-/sprotty-theia-0.7.0-next.1c6b386.tgz#d0e458fc9b97bbedccc602db18245f8c04fb93e8"
+  integrity sha512-BG5ZDco7A7WH+aOB2oSPUwZwYpaToQE8avnSPtwrlXowE4EzUZ+aE7/PpYXJTA8BmFtStdV/qUhdeIKzSMj3rw==
   dependencies:
     "@theia/core" next
     "@theia/editor" next
