@@ -33,6 +33,7 @@ import {
     expandModule,
     exportModule,
     fadeModule,
+    GLSP_TYPES,
     glspCommandPaletteModule,
     glspEditLabelValidationModule,
     GLSPGraph,
@@ -47,8 +48,9 @@ import {
     LogLevel,
     modelHintsModule,
     modelSourceModule,
+    NoCollisionMovementRestrictor,
     openModule,
-    overrideGLSPViewerOptions,
+    overrideViewerOptions,
     paletteModule,
     PreRenderedElement,
     PreRenderedView,
@@ -78,6 +80,7 @@ import { ForkOrJoinNodeView, IconView, TaskNodeView, WeightedEdgeView, WorkflowE
 const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
     rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
+    bind(GLSP_TYPES.IMovementRestrictor).to(NoCollisionMovementRestrictor).inSingletonScope();
     const context = { bind, unbind, isBound, rebind };
     configureModelElement(context, 'graph', GLSPGraph, SGraphView);
     configureModelElement(context, 'task:automated', TaskNode, TaskNodeView);
@@ -111,10 +114,9 @@ export default function createContainer(widgetId: string): Container {
         commandPaletteModule, glspCommandPaletteModule, paletteModule, requestResponseModule, routingModule, edgeLayoutModule,
         layoutCommandsModule);
 
-    overrideGLSPViewerOptions(container, {
+    overrideViewerOptions(container, {
         baseDiv: widgetId,
         hiddenDiv: widgetId + "_hidden",
-        noElementOverlap: true,
         needsClientLayout: true
     });
 

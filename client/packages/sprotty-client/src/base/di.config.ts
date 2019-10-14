@@ -23,7 +23,7 @@ import { GLSP_TYPES } from "../types";
 import { GLSPCommandStack } from "./command-stack";
 import { FeedbackAwareUpdateModelCommand, SetModelActionHandler } from "./model/update-model-command";
 import { createToolFactory, GLSPToolManagerActionHandler } from "./tool-manager/tool-manager-action-handler";
-import { defaultGLSPViewerOptions, GLSPViewerOptions } from "./views/viewer-options";
+
 
 const defaultGLSPModule = new ContainerModule((bind, _unbind, isBound, rebind) => {
     const context = { bind, _unbind, isBound, rebind };
@@ -36,13 +36,6 @@ const defaultGLSPModule = new ContainerModule((bind, _unbind, isBound, rebind) =
     configureActionHandler(context, SetModelCommand.KIND, SetModelActionHandler);
 
     rebind(TYPES.ICommandStack).to(GLSPCommandStack);
-
-    bind<GLSPViewerOptions>(GLSP_TYPES.ViewerOptions).toConstantValue(defaultGLSPViewerOptions());
-    if (isBound(TYPES.ViewerOptions)) {
-        rebind(TYPES.ViewerOptions).toService(GLSP_TYPES.ViewerOptions);
-    } else {
-        bind(TYPES.ViewerOptions).toService(GLSP_TYPES.ViewerOptions);
-    }
 });
 
 export default defaultGLSPModule;
