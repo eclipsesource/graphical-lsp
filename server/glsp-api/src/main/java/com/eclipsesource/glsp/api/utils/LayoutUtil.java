@@ -53,9 +53,12 @@ public final class LayoutUtil {
 					"Model element not found! ID: " + b.getElementId());
 			if (element instanceof GBoundsAware) {
 				GBoundsAware bae = (GBoundsAware) element;
-				if (b.getNewPosition() != null)
+				if (b.getNewPosition() != null) {
 					bae.setPosition(GraphUtil.copy(b.getNewPosition()));
-				bae.setSize(GraphUtil.copy(b.getNewSize()));
+				}
+				if (b.getNewSize() != null) {
+					bae.setSize(GraphUtil.copy(b.getNewSize()));
+				}
 			}
 		}
 		for (ElementAndAlignment a : action.getAlignments()) {
