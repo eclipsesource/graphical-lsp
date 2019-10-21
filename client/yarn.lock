@@ -10498,10 +10498,10 @@ sprotty-theia@0.7.0-next.1c6b386:
     "@theia/monaco" next
     sprotty next
 
-sprotty@0.7.0-next.3f7128d, sprotty@next:
-  version "0.7.0-next.3f7128d"
-  resolved "https://registry.yarnpkg.com/sprotty/-/sprotty-0.7.0-next.3f7128d.tgz#802346ea2ae7280c22f3f484374944197d706d22"
-  integrity sha512-ynJSc/F0FoLBYqxSMuN+zw74klZqURmAj/Y1vgUwup1e2VfGXBFeCZ3rwswbxgNc7eHejxFkCs1hXjcuKZgQOA==
+sprotty@0.8.0-next.ff11b36, sprotty@next:
+  version "0.8.0-next.ff11b36"
+  resolved "https://registry.yarnpkg.com/sprotty/-/sprotty-0.8.0-next.ff11b36.tgz#9344213553b451db5e0c9a12198497519d5026f4"
+  integrity sha512-zzwyabew8dSaE0PtDCC+T6SccyK8FkCOAWKNID4t+PBZeI+co/ZrHfzMO+d8fxtya+ZHsR8sKjIWlHfReYEw/w==
   dependencies:
     autocompleter "5.1.0"
     file-saver "2.0.2"
