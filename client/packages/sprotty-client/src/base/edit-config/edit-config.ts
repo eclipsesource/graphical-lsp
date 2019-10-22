@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { SEdge, SModelElement, SModelElementSchema, SNode, SParentElement } from "sprotty/lib";
+import { SEdge, SModelElement, SModelElementSchema, SParentElement, SShapeElement } from "sprotty/lib";
 
 
 export const edgeEditConfig = Symbol.for("edgeEditConfiguration");
@@ -49,8 +49,8 @@ export function isConfigurableElement(element: SModelElement): element is SModel
 export function isConfigurableEdge(element: SModelElement): element is SEdge & EdgeEditConfig {
     return element instanceof SEdge && isConfigurableElement(element) && element.configType === edgeEditConfig;
 }
-export function isConfigurableNode(element: SModelElement): element is SNode & NodeEditConfig {
-    return element instanceof SNode && isConfigurableElement(element) && element.configType === nodeEditConfig;
+export function isConfigurableNode(element: SModelElement): element is SShapeElement & NodeEditConfig {
+    return element instanceof SShapeElement && isConfigurableElement(element) && element.configType === nodeEditConfig;
 }
 
 export function isEdgeEditConfig(editConfig: EditConfig): editConfig is EdgeEditConfig {
@@ -61,7 +61,7 @@ export function isNodeEditConfig(editConfig: EditConfig): editConfig is NodeEdit
     return editConfig.configType === nodeEditConfig;
 }
 
-export function movingAllowed(element: SModelElement): element is SNode & NodeEditConfig {
+export function movingAllowed(element: SModelElement): element is SShapeElement & NodeEditConfig {
     return isConfigurableNode(element) && element.repositionable;
 }
 
