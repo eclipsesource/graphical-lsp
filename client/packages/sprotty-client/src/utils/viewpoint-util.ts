@@ -70,7 +70,7 @@ export function getAbsolutePosition(target: SModelElement, mouseEvent: MouseEven
  *
  * @param target  A bounds-aware element from the diagram
  */
-export function toAbsolutBounds(element: SModelElement & BoundsAware): Bounds {
+export function toAbsoluteBounds(element: SModelElement & BoundsAware): Bounds {
     const location = isAlignable(element) ? element.alignment : ORIGIN_POINT;
     const x = location.x;
     const y = location.y;
@@ -86,7 +86,7 @@ export function toAbsolutBounds(element: SModelElement & BoundsAware): Bounds {
  * @param target  A bounds-aware element from the diagram
  */
 export function toAbsolutePosition(target: SModelElement & BoundsAware): Point {
-    return toAbsolutBounds(target);
+    return toAbsoluteBounds(target);
 }
 
 /**
@@ -96,5 +96,5 @@ export function toAbsolutePosition(target: SModelElement & BoundsAware): Point {
  * @param target  A bounds-aware element from the diagram
  */
 export function toAbsoluteSize(target: SModelElement & BoundsAware): Dimension {
-    return toAbsolutBounds(target);
+    return toAbsoluteBounds(target);
 }
