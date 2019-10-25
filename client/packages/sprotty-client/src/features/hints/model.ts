@@ -25,9 +25,7 @@ export function isContainable(element: SModelElement): element is SModelElement 
 }
 
 export const reparentFeature = Symbol("reparentFeature");
-export interface Reparentable extends SModelExtension {
-
-}
+export interface Reparentable extends SModelExtension { }
 
 export function isReparentable(element: SModelElement): element is SModelElement & Reparentable {
     return element.hasFeature(reparentFeature);

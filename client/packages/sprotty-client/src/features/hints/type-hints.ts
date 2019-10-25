@@ -57,7 +57,6 @@ export abstract class TypeHint {
      * Specifices wheter the element can be deleted
      */
     readonly deletable: boolean;
-
 }
 
 export class ShapeTypeHint extends TypeHint {
@@ -71,7 +70,6 @@ export class ShapeTypeHint extends TypeHint {
      */
     readonly reparentable: boolean;
 
-
     /**
      * The types of elements that can be contained by this element (if any)
      */
@@ -79,7 +77,6 @@ export class ShapeTypeHint extends TypeHint {
 }
 
 export class EdgeTypeHint extends TypeHint {
-
     /**
      * Specifies whether the routing of this element can be changed.
      */
@@ -103,7 +100,6 @@ export class EdgeTypeHint extends TypeHint {
     isAllowedTarget(input: SModelElement | SModelElementSchema | string): boolean {
         const type = getElementTypeId(input);
         return this.targetElementTypeIds.includes(type);
-
     }
 }
 
@@ -115,12 +111,15 @@ export class ApplyTypeHintsAction implements Action {
 
 @injectable()
 export class ApplyTypeHintsCommand extends FeedbackCommand {
+
     static KIND = "applyTypeHints";
     readonly priority = 10;
+
     constructor(@inject(TYPES.Action) protected action: ApplyTypeHintsAction,
         @inject(GLSP_TYPES.ITypeHintProvider) protected typeHintProvider: ITypeHintProvider) {
         super();
     }
+
     execute(context: CommandExecutionContext): CommandReturn {
         context.root.index.all()
             .forEach(element => {
@@ -136,13 +135,11 @@ export class ApplyTypeHintsCommand extends FeedbackCommand {
 
     protected applyEdgeTypeHint(element: SModelElement) {
         const hint = this.typeHintProvider.getEdgeTypeHint(element);
-
         if (hint && isModifiableFetureSet(element.features)) {
             addOrRemove(element.features, deletableFeature, hint.deletable);
             addOrRemove(element.features, editFeature, hint.routable);
             addOrRemove(element.features, reconnectFeature, hint.repositionable);
         }
-
     }
 
     protected applyShapeTypeHint(element: SModelElement) {
@@ -167,22 +164,22 @@ export class ApplyTypeHintsCommand extends FeedbackCommand {
 }
 
 function createConnectable(validSourceEdges: string[], validTargetEdges: string[]): Connectable {
-    return <Connectable>{
-        canConnect: (routable, role) => {
-            return role === "source" ?
+    return {
+        canConnect: (routable, role) =>
+            role === "source" ?
                 validSourceEdges.includes(routable.type) :
-                validTargetEdges.includes(routable.type);
-        }
+                validTargetEdges.includes(routable.type)
     };
 }
 
 function createContainable(hint: ShapeTypeHint): Containable {
-    return <Containable>{
-        isContainableElement: (element) => { return hint.containableElementTypeIds ? hint.containableElementTypeIds.includes(getElementTypeId(element)) : false; }
+    return {
+        isContainableElement: (element) =>
+            hint.containableElementTypeIds ?
+                hint.containableElementTypeIds.includes(getElementTypeId(element)) :
+                false
     };
-
 }
-
 
 function addOrRemove(features: Set<symbol>, feature: symbol, add: boolean) {
     if (add && !features.has(feature)) {
@@ -203,7 +200,9 @@ export interface ITypeHintProvider {
 
 @injectable()
 export class TypeHintProvider implements IActionHandler, ITypeHintProvider {
-    @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackActionDispatcher: IFeedbackActionDispatcher;
+
+    @inject(GLSP_TYPES.IFeedbackActionDispatcher)
+    protected feedbackActionDispatcher: IFeedbackActionDispatcher;
 
     protected shapeHints: Map<string, ShapeTypeHint> = new Map;
     protected edgeHints: Map<string, EdgeTypeHint> = new Map;
@@ -216,20 +215,17 @@ export class TypeHintProvider implements IActionHandler, ITypeHintProvider {
         }
     }
 
-
     getValidEdgeElementTypes(input: SModelElement | SModelElement | string, role: "source" | "target"): string[] {
         const elementTypeId = getElementTypeId(input);
         if (role === "source") {
             return Array.from(
                 Array.from(this.edgeHints.values())
-                    .filter(hint => hint.sourceElementTypeIds
-                        .includes(elementTypeId))
+                    .filter(hint => hint.sourceElementTypeIds.includes(elementTypeId))
                     .map(hint => hint.elementTypeId));
         } else {
             return Array.from(
                 Array.from(this.edgeHints.values())
-                    .filter(hint => hint.targetElementTypeIds
-                        .includes(elementTypeId))
+                    .filter(hint => hint.targetElementTypeIds.includes(elementTypeId))
                     .map(hint => hint.elementTypeId));
         }
     }

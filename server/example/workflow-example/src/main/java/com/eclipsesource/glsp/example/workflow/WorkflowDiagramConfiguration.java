@@ -91,12 +91,12 @@ public class WorkflowDiagramConfiguration implements DiagramConfiguration {
 	@Override
 	public List<ShapeTypeHint> getNodeTypeHints() {
 		List<ShapeTypeHint> nodeHints = new ArrayList<>();
-		nodeHints.add(createDefaultNodeTypeHint(DECISION_NODE));
-		nodeHints.add(createDefaultNodeTypeHint(MERGE_NODE));
+		nodeHints.add(new ShapeTypeHint(MANUAL_TASK, true, true, false, false));
+		nodeHints.add(new ShapeTypeHint(AUTOMATED_TASK, true, true, false, false));
 		nodeHints.add(new ShapeTypeHint(FORK_NODE, true, true, false, false));
 		nodeHints.add(createDefaultNodeTypeHint(JOIN_NODE));
-		nodeHints.add(createDefaultNodeTypeHint(MANUAL_TASK));
-		nodeHints.add(createDefaultNodeTypeHint(AUTOMATED_TASK));
+		nodeHints.add(createDefaultNodeTypeHint(DECISION_NODE));
+		nodeHints.add(createDefaultNodeTypeHint(MERGE_NODE));
 		return nodeHints;
 	}
 

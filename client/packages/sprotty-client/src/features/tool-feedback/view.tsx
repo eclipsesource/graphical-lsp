@@ -20,9 +20,7 @@ import { IView, ORIGIN_POINT, Point, RenderingContext, setAttr, SModelElement } 
 
 import { isResizable, ResizeHandleLocation, SResizeHandle } from "../change-bounds/model";
 
-
 const JSX = { createElement: snabbdom.svg };
-
 
 /**
 * This view is used for the invisible end of the feedback edge.
