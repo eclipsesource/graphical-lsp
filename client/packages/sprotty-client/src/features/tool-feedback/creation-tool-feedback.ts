@@ -38,16 +38,14 @@ import {
     TYPES
 } from "sprotty/lib";
 
+import { isRoutable } from "../../utils/smodel-util";
 import { getAbsolutePosition, toAbsolutePosition } from "../../utils/viewpoint-util";
-import { isRoutable } from "../reconnect/model";
 import { FeedbackCommand } from "./model";
-
 
 export class DrawFeedbackEdgeAction implements Action {
     kind = DrawFeedbackEdgeCommand.KIND;
     constructor(readonly elementTypeId: string, readonly sourceId: string, readonly routerKind?: string) { }
 }
-
 
 @injectable()
 export class DrawFeedbackEdgeCommand extends FeedbackCommand {

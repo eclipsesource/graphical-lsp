@@ -25,7 +25,7 @@ import * as rpc from "vscode-ws-jsonrpc";
 import { NotificationType } from "vscode-ws-jsonrpc";
 import { RequestCommandPaletteActions } from "../features/command-palette/action-definitions";
 import { ExecuteServerCommandAction } from "../features/execute/execute-command";
-import { RequestTypeHintsAction } from "../features/hints/action-definition";
+import { RequestTypeHintsAction } from "../features/hints/request-type-hints-action";
 import { OperationKind, RequestOperationsAction } from "../features/operation/set-operations";
 import { IdentifiableRequestAction } from "../features/request-response/action-definitions";
 import { SaveModelAction } from "../features/save/save";

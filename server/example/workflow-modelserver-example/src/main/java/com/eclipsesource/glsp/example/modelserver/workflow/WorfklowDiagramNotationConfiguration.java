@@ -29,9 +29,9 @@ import java.util.List;
 
 import com.eclipsesource.glsp.api.operations.Group;
 import com.eclipsesource.glsp.api.operations.Operation;
-import com.eclipsesource.glsp.example.workflow.WorfklowDiagramConfiguration;
+import com.eclipsesource.glsp.example.workflow.WorkflowDiagramConfiguration;
 
-public class WorfklowDiagramNotationConfiguration extends WorfklowDiagramConfiguration {
+public class WorfklowDiagramNotationConfiguration extends WorkflowDiagramConfiguration {
 
 	@Override
 	public String getDiagramType() {

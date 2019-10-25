@@ -42,12 +42,12 @@ import com.eclipsesource.glsp.api.diagram.DiagramConfiguration;
 import com.eclipsesource.glsp.api.operations.Group;
 import com.eclipsesource.glsp.api.operations.Operation;
 import com.eclipsesource.glsp.api.types.EdgeTypeHint;
-import com.eclipsesource.glsp.api.types.NodeTypeHint;
+import com.eclipsesource.glsp.api.types.ShapeTypeHint;
 import com.eclipsesource.glsp.example.workflow.wfgraph.WfgraphPackage;
 import com.eclipsesource.glsp.graph.DefaultTypes;
 import com.eclipsesource.glsp.graph.GraphPackage;
 
-public class WorfklowDiagramConfiguration implements DiagramConfiguration {
+public class WorkflowDiagramConfiguration implements DiagramConfiguration {
 
 	@Override
 	public String getDiagramType() {
@@ -89,14 +89,14 @@ public class WorfklowDiagramConfiguration implements DiagramConfiguration {
 	}
 
 	@Override
-	public List<NodeTypeHint> getNodeTypeHints() {
-		List<NodeTypeHint> nodeHints = new ArrayList<>();
+	public List<ShapeTypeHint> getNodeTypeHints() {
+		List<ShapeTypeHint> nodeHints = new ArrayList<>();
+		nodeHints.add(new ShapeTypeHint(MANUAL_TASK, true, true, false, false));
+		nodeHints.add(new ShapeTypeHint(AUTOMATED_TASK, true, true, false, false));
+		nodeHints.add(new ShapeTypeHint(FORK_NODE, true, true, false, false));
+		nodeHints.add(createDefaultNodeTypeHint(JOIN_NODE));
 		nodeHints.add(createDefaultNodeTypeHint(DECISION_NODE));
 		nodeHints.add(createDefaultNodeTypeHint(MERGE_NODE));
-		nodeHints.add(createDefaultNodeTypeHint(FORK_NODE));
-		nodeHints.add(createDefaultNodeTypeHint(JOIN_NODE));
-		nodeHints.add(createDefaultNodeTypeHint(MANUAL_TASK));
-		nodeHints.add(createDefaultNodeTypeHint(AUTOMATED_TASK));
 		return nodeHints;
 	}
 

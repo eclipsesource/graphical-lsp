@@ -17,23 +17,28 @@ package com.eclipsesource.glsp.api.types;
 
 import java.util.List;
 
-public class NodeTypeHint extends ElementTypeHint {
+public class ShapeTypeHint extends ElementTypeHint {
 
 	private boolean resizable;
+	private boolean reparentable;
 	private List<String> containableElementTypeIds;
 
-	public NodeTypeHint() {
+	public ShapeTypeHint() {
 	}
 
-	public NodeTypeHint(String elementTypeId, boolean repositionable, boolean deletable, boolean resizable,
+	public ShapeTypeHint(String elementTypeId, boolean repositionable, boolean deletable, boolean resizable,
+			boolean reparentable,
 			List<String> containableElementTypeIds) {
-		super(elementTypeId, repositionable, deletable);
+		this(elementTypeId, repositionable, deletable, resizable, reparentable);
 		this.resizable = resizable;
+
 		this.containableElementTypeIds = containableElementTypeIds;
 	}
 
-	public NodeTypeHint(String elementTypeId, boolean repositionable, boolean deletable, boolean resizable) {
+	public ShapeTypeHint(String elementTypeId, boolean repositionable, boolean deletable, boolean resizable,
+			boolean reparentable) {
 		super(elementTypeId, repositionable, deletable);
+		this.reparentable = reparentable;
 		this.resizable = resizable;
 	}
 
@@ -51,5 +56,13 @@ public class NodeTypeHint extends ElementTypeHint {
 
 	public void setContainableElementTypeIds(List<String> containableElementTypeIds) {
 		this.containableElementTypeIds = containableElementTypeIds;
+	}
+
+	public boolean isReparentable() {
+		return reparentable;
+	}
+
+	public void setReparentable(boolean reparentable) {
+		this.reparentable = reparentable;
 	}
 }
