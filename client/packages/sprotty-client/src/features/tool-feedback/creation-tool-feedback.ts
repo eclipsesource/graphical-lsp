@@ -37,8 +37,8 @@ import {
     TYPES
 } from "sprotty/lib";
 
+import { isRoutable } from "../../utils/smodel-util";
 import { getAbsolutePosition } from "../../utils/viewpoint-util";
-import { isRoutable } from "../reconnect/model";
 import { FeedbackCommand } from "./model";
 
 

@@ -19,29 +19,29 @@ import java.util.List;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.types.EdgeTypeHint;
-import com.eclipsesource.glsp.api.types.NodeTypeHint;
+import com.eclipsesource.glsp.api.types.ShapeTypeHint;
 
 public class SetTypeHintsAction extends Action {
 
-	private List<NodeTypeHint> nodeHints;
+	private List<ShapeTypeHint> shapeHints;
 	private List<EdgeTypeHint> edgeHints;
 
 	public SetTypeHintsAction() {
 		super(Action.Kind.SET_TYPE_HINTS);
 	}
 
-	public SetTypeHintsAction(List<NodeTypeHint> nodeHints, List<EdgeTypeHint> edgeHints) {
+	public SetTypeHintsAction(List<ShapeTypeHint> nodeHints, List<EdgeTypeHint> edgeHints) {
 		this();
-		this.nodeHints = nodeHints;
+		this.shapeHints = nodeHints;
 		this.edgeHints = edgeHints;
 	}
 
-	public List<NodeTypeHint> getNodeHints() {
-		return nodeHints;
+	public List<ShapeTypeHint> getNodeHints() {
+		return shapeHints;
 	}
 
-	public void setNodeHints(List<NodeTypeHint> nodeHints) {
-		this.nodeHints = nodeHints;
+	public void setNodeHints(List<ShapeTypeHint> nodeHints) {
+		this.shapeHints = nodeHints;
 	}
 
 	public List<EdgeTypeHint> getEdgeHints() {
@@ -57,7 +57,7 @@ public class SetTypeHintsAction extends Action {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((edgeHints == null) ? 0 : edgeHints.hashCode());
-		result = prime * result + ((nodeHints == null) ? 0 : nodeHints.hashCode());
+		result = prime * result + ((shapeHints == null) ? 0 : shapeHints.hashCode());
 		return result;
 	}
 
@@ -75,10 +75,10 @@ public class SetTypeHintsAction extends Action {
 				return false;
 		} else if (!edgeHints.equals(other.edgeHints))
 			return false;
-		if (nodeHints == null) {
-			if (other.nodeHints != null)
+		if (shapeHints == null) {
+			if (other.shapeHints != null)
 				return false;
-		} else if (!nodeHints.equals(other.nodeHints))
+		} else if (!shapeHints.equals(other.shapeHints))
 			return false;
 		return true;
 	}

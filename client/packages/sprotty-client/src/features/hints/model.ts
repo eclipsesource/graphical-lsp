@@ -13,18 +13,22 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { ContainerModule } from "inversify";
-import { configureActionHandler, configureCommand } from "sprotty/lib";
+import { SModelElement, SModelElementSchema, SModelExtension } from "sprotty";
 
-import { GLSP_TYPES } from "../../types";
-import { SetTypeHintsAction } from "./request-type-hints-action";
-import { ApplyTypeHintsCommand, TypeHintProvider } from "./type-hints";
+export const containerFeature = Symbol("containable");
+export interface Containable extends SModelExtension {
+    isContainableElement(input: SModelElement | SModelElementSchema | string): boolean
+}
 
-const modelHintsModule = new ContainerModule((bind, _unbind, isBound) => {
-    bind(TypeHintProvider).toSelf().inSingletonScope();
-    bind(GLSP_TYPES.ITypeHintProvider).toService(TypeHintProvider);
-    configureActionHandler({ bind, isBound }, SetTypeHintsAction.KIND, TypeHintProvider);
-    configureCommand({ bind, isBound }, ApplyTypeHintsCommand);
-});
+export function isContainable(element: SModelElement): element is SModelElement & Containable {
+    return element.hasFeature(containerFeature);
+}
 
-export default modelHintsModule;
+export const reparentFeature = Symbol("reparentFeature");
+export interface Reparentable extends SModelExtension {
+
+}
+
+export function isReparentable(element: SModelElement): element is SModelElement & Reparentable {
+    return element.hasFeature(reparentFeature);
+}

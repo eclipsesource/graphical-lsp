@@ -28,7 +28,6 @@ import paletteModule from "./features/tool-palette/di.config";
 import validationModule from "./features/validation/di.config";
 
 export * from 'sprotty/lib';
-export * from './base/edit-config/edit-config';
 
 export * from './base/model/update-model-command';
 export * from './base/tool-manager/tool-manager-action-handler';
@@ -40,8 +39,9 @@ export * from './features/command-palette/action-provider';
 export * from './features/edit-label-validation/edit-label-validator';
 export * from './features/execute/execute-command';
 export * from './features/execute/model';
-export * from './features/hints/action-definition';
-export * from './features/hints/type-hints-action-initializer';
+export * from './features/hints/request-type-hints-action';
+export * from './features/hints/type-hints';
+export * from './features/hints/model';
 export * from './features/layout/layout-commands';
 export * from './features/mouse-tool/mouse-tool';
 export * from './features/operation/operation-actions';

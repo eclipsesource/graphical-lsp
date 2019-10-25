@@ -68,7 +68,7 @@ public class WorkflowGLSPModule extends DefaultGLSPModule {
 
 	@Override
 	protected Collection<Class<? extends DiagramConfiguration>> bindDiagramConfigurations() {
-		return Arrays.asList(WorfklowDiagramConfiguration.class);
+		return Arrays.asList(WorkflowDiagramConfiguration.class);
 	}
 
 	@Override
