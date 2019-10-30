@@ -20,6 +20,7 @@ import static com.eclipsesource.glsp.graph.util.GraphUtil.point;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -40,8 +41,8 @@ import com.google.common.collect.Sets;
 public class WorkflowCommandPaletteActionProvider implements CommandPaletteActionProvider {
 
 	@Override
-	public Set<LabeledAction> getActions(GraphicalModelState modelState, List<String> selectedIds, String text,
-			Optional<GPoint> lastMousePosition) {
+	public Set<LabeledAction> getActions(GraphicalModelState modelState, List<String> selectedIds,
+			Optional<GPoint> lastMousePosition, Map<String, String> args) {
 		Set<LabeledAction> actions = Sets.newLinkedHashSet();
 
 		GModelIndex index = modelState.getIndex();

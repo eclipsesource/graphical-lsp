@@ -34,6 +34,7 @@ import { DiagramWidget, DiagramWidgetOptions, TheiaSprottyConnector } from "spro
 import { GLSPTheiaDiagramServer, NotifyingModelSource } from "./glsp-theia-diagram-server";
 
 export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
+
     saveable = new SaveableGLSPModelSource(this.actionDispatcher, this.diContainer.get<ModelSource>(TYPES.ModelSource));
 
     constructor(options: DiagramWidgetOptions, readonly widgetId: string, readonly diContainer: Container,
@@ -56,6 +57,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
             modelSource.clientId = this.id;
         if (modelSource instanceof GLSPTheiaDiagramServer && this.connector)
             this.connector.connect(modelSource);
+
         this.disposed.connect(() => {
             if (modelSource instanceof GLSPTheiaDiagramServer && this.connector)
                 this.connector.disconnect(modelSource);

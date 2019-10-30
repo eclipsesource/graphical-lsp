@@ -85,7 +85,6 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
         this.diagramClient.sendThroughLsp(message);
     }
 
-
     getGLSPClient(): Promise<GLSPClient> {
         return this.diagramClient.glspClient;
     }
@@ -99,7 +98,5 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
 }
 
 export function showErrorDialog(title: string, msg: string) {
-    new ConfirmDialog({
-        title, msg
-    }).open();
+    new ConfirmDialog({ title, msg }).open();
 }

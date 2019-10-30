@@ -22,25 +22,25 @@ import java.util.Optional;
 import java.util.Set;
 
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
-import com.eclipsesource.glsp.api.types.LabeledAction;
+import com.eclipsesource.glsp.api.types.MenuItem;
 import com.eclipsesource.glsp.graph.GPoint;
 
 @FunctionalInterface
-public interface CommandPaletteActionProvider {
-	
-	public static String KEY = "command-palette";
+public interface ContextMenuItemProvider {
 
-	Set<LabeledAction> getActions(GraphicalModelState modelState, List<String> selectedElementIds,
+	public static String KEY = "context-menu";
+
+	Set<MenuItem> getItems(GraphicalModelState modelState, List<String> selectedElementIds,
 			Optional<GPoint> lastMousePosition, Map<String, String> args);
 
-	default Set<LabeledAction> getActions(GraphicalModelState modelState, List<String> selectedElementIds,
+	default Set<MenuItem> getItems(GraphicalModelState modelState, List<String> selectedElementIds,
 			GPoint lastMousePosition, Map<String, String> args) {
-		return getActions(modelState, selectedElementIds, Optional.ofNullable(lastMousePosition), args);
+		return getItems(modelState, selectedElementIds, Optional.ofNullable(lastMousePosition), args);
 	}
 
-	public static class NullImpl implements CommandPaletteActionProvider {
+	public static class NullImpl implements ContextMenuItemProvider {
 		@Override
-		public Set<LabeledAction> getActions(GraphicalModelState modelState, List<String> selectedElementIds,
+		public Set<MenuItem> getItems(GraphicalModelState modelState, List<String> selectedElementIds,
 				Optional<GPoint> lastMousePosition, Map<String, String> args) {
 			return Collections.emptySet();
 		}

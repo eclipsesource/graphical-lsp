@@ -14,36 +14,16 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { inject, injectable } from "inversify";
-import {
-    Action,
-    CenterAction,
-    ICommandPaletteActionProvider,
-    ILogger,
-    isNameable,
-    LabeledAction,
-    name,
-    Point,
-    SelectAction,
-    SModelElement,
-    TYPES
-} from "sprotty/lib";
-import { toArray } from "sprotty/lib/utils/iterable";
+import { Action, ICommandPaletteActionProvider, LabeledAction, Point, SModelElement, TYPES } from "sprotty/lib";
 
 import { isSelected } from "../../utils/smodel-util";
+import { ContextActions, isSetContextActionsAction, RequestContextActions } from "../context-actions/action-definitions";
 import { GLSPActionDispatcher } from "../request-response/glsp-action-dispatcher";
-import { isSetCommandPaletteActionsAction, RequestCommandPaletteActions } from "./action-definitions";
 
-@injectable()
-export class NavigationCommandPaletteActionProvider implements ICommandPaletteActionProvider {
-
-    constructor(@inject(TYPES.ILogger) protected logger: ILogger) { }
-
-    getActions(root: Readonly<SModelElement>): Promise<LabeledAction[]> {
-        return Promise.resolve(toArray(root.index.all()
-            .filter(isNameable)
-            .map(nameable => new LabeledAction(`Select ${name(nameable)}`,
-                [new SelectAction([nameable.id]), new CenterAction([nameable.id])], 'fa-object-group'))));
-    }
+export namespace ServerCommandPalette {
+    export const KEY = "command-palette";
+    export const TEXT = "text";
+    export const INDEX = "index";
 }
 
 @injectable()
@@ -53,12 +33,16 @@ export class ServerCommandPaletteActionProvider implements ICommandPaletteAction
 
     getActions(root: Readonly<SModelElement>, text: string, lastMousePosition?: Point): Promise<LabeledAction[]> {
         const selectedElementIds = Array.from(root.index.all().filter(isSelected).map(e => e.id));
-        const requestAction = new RequestCommandPaletteActions(selectedElementIds, text, lastMousePosition);
+        const requestAction = new RequestContextActions(selectedElementIds, lastMousePosition, {
+            [ContextActions.UI_CONTROL_KEY]: ServerCommandPalette.KEY,
+            [ServerCommandPalette.TEXT]: text,
+            [ServerCommandPalette.INDEX]: 0
+        });
         return this.actionDispatcher.requestUntil(requestAction).then(response => this.getPaletteActionsFromResponse(response));
     }
 
     getPaletteActionsFromResponse(action: Action): LabeledAction[] {
-        if (isSetCommandPaletteActionsAction(action)) {
+        if (isSetContextActionsAction(action)) {
             return action.actions;
         }
         return [];

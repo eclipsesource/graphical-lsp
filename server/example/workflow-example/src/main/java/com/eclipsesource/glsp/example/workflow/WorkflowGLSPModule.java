@@ -32,6 +32,7 @@ import com.eclipsesource.glsp.api.model.ModelElementOpenListener;
 import com.eclipsesource.glsp.api.model.ModelExpansionListener;
 import com.eclipsesource.glsp.api.model.ModelSelectionListener;
 import com.eclipsesource.glsp.api.provider.CommandPaletteActionProvider;
+import com.eclipsesource.glsp.api.provider.ContextMenuItemProvider;
 import com.eclipsesource.glsp.example.workflow.handler.CreateAutomatedTaskHandler;
 import com.eclipsesource.glsp.example.workflow.handler.CreateDecisionNodeHandler;
 import com.eclipsesource.glsp.example.workflow.handler.CreateEdgeHandler;
@@ -122,7 +123,12 @@ public class WorkflowGLSPModule extends DefaultGLSPModule {
 	protected Class<? extends CommandPaletteActionProvider> bindCommandPaletteActionProvider() {
 		return WorkflowCommandPaletteActionProvider.class;
 	}
-
+	
+	@Override
+	protected Class<? extends ContextMenuItemProvider> bindContextMenuItemProvider() {
+		return WorkflowContextMenuItemProvider.class;
+	}
+	
 	@Override
 	protected Collection<Class<? extends ServerCommandHandler>> bindServerCommandHandlers() {
 		return Arrays.asList(SimulateCommandHandler.class);

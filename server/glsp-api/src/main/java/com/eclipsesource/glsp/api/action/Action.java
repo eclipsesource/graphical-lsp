@@ -104,8 +104,8 @@ public abstract class Action {
 		public static final String APPLY_LABEL_EDIT_OPERATION = Operation.Kind.APPLY_LABEL_EDIT;
 		public static final String GENERIC_OPERATION = Operation.Kind.GENERIC;
 		public static final String EXECUTE_SERVER_COMMAND = "executeServerCommand";
-		public static final String REQUEST_COMMAND_PALETTE_ACTIONS = "requestCommandPaletteActions";
-		public static final String SET_COMMAND_PALETTE_ACTIONS = "setCommandPaletteActions";
+		public static final String REQUEST_CONTEXT_ACTIONS = "requestContextActions";
+		public static final String SET_CONTEXT_ACTIONS = "setContextActions";
 		public static final String REQUEST_MARKERS = "requestMarkers";
 		public static final String SET_MARKERS = "setMarkers";
 		public static final String LAYOUT = "layout";

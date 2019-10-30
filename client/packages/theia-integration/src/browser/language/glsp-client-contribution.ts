@@ -28,7 +28,6 @@ import { InitializeParameters } from "../../common";
 import { GLSPClientFactory } from "./glsp-client";
 import { GLSPClient, GLSPClientOptions } from "./glsp-client-services";
 
-
 export const GLSPClientContribution = Symbol.for('GLSPClientContribution');
 
 export interface GLSPClientContribution extends LanguageContribution {
@@ -42,6 +41,7 @@ export interface GLSPClientContribution extends LanguageContribution {
 
 @injectable()
 export abstract class BaseGLSPClientContribution implements GLSPClientContribution, Commands {
+
     abstract readonly id: string;
     abstract readonly name: string;
     abstract readonly fileExtensions: string[];
@@ -58,6 +58,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
     @inject(CommandRegistry) protected readonly registry: CommandRegistry;
     @inject(EditorManager) protected readonly editorManager: EditorManager;
     @multiInject(DiagramManagerProvider) protected diagramManagerProviders: DiagramManagerProvider[];
+
     constructor() {
         this.waitForReady();
     }
@@ -105,6 +106,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
             });
         }));
     }
+
     protected readonly toDeactivate = new DisposableCollection();
 
     activate(): Disposable {
@@ -169,9 +171,11 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
     }
 
     protected state: State | undefined;
+
     get running(): boolean {
         return !this.toDeactivate.disposed && this.state === State.Running;
     }
+
     restart(): void {
         this.deactivate();
         this.activate();
@@ -186,6 +190,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         this.resolveReady(this._glspClient);
         this.waitForReady();
     }
+
     protected readonly toRestart = new DisposableCollection();
 
     protected waitForReady(): void {
@@ -198,7 +203,6 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         const clientOptions = this.createOptions();
         return this.languageClientFactory.get(this, clientOptions, connection);
     }
-
 
     protected createOptions(): GLSPClientOptions {
         return {
@@ -216,6 +220,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         });
         return false;
     }
+
     protected deferredConnection = new Deferred<MessageConnection>();
 
     protected get workspaceContains(): string[] {
@@ -233,6 +238,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
             }
         }
     }
+
     protected async waitForItemInWorkspace(): Promise<any> {
         const doesContain = await this.workspaceService.containsSome(this.workspaceContains);
         if (!doesContain) {
@@ -241,11 +247,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         return doesContain;
     }
 
-
-
-
     protected stop = Promise.resolve();
-
 
     registerCommand(id: string, callback: (...args: any[]) => any, thisArg?: any): Disposable {
         const execute = callback.bind(thisArg);
