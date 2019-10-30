@@ -46,7 +46,6 @@ export class GLSPWebsocketDiagramServer extends DiagramServer {
                 this.connection = connection;
             }
         });
-
     }
 
     protected sendMessage(message: ActionMessage): void {

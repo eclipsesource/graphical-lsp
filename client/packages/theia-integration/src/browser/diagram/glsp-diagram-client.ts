@@ -34,27 +34,19 @@ export class GLSPDiagramClient {
 
     constructor(readonly glspClientContribution: GLSPClientContribution,
         readonly editorManager: EditorManager) {
-        this.glspClientContribution.glspClient.then(
-            gc => {
-                gc.onNotification(ActionMessageNotification.type, this.onMessageReceived.bind(this));
-            }
-        ).catch(
-            err => console.error(err)
-        );
+        this.glspClientContribution.glspClient
+            .then(gc => gc.onNotification(ActionMessageNotification.type, this.onMessageReceived.bind(this)))
+            .catch(err => console.error(err));
     }
 
     sendThroughLsp(message: ActionMessage) {
-        this.glspClientContribution.glspClient.then(gc =>
-            gc.onReady().then(() =>
-                gc.sendNotification(ActionMessageNotification.type, message)
-            )
-        );
+        this.glspClientContribution.glspClient
+            .then(gc => gc.onReady()
+                .then(() => gc.sendNotification(ActionMessageNotification.type, message)));
     }
 
     onMessageReceived(message: ActionMessage) {
-        this.actionMessageReceivers.forEach(client => {
-            client.onMessageReceived(message);
-        });
+        this.actionMessageReceivers.forEach(client => client.onMessageReceived(message));
     }
 
     get glspClient(): Promise<GLSPClient> {

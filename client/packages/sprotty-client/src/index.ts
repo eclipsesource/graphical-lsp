@@ -15,6 +15,7 @@
  ********************************************************************************/
 import defaultGLSPModule from "./base/di.config";
 import glspCommandPaletteModule from "./features/command-palette/di.config";
+import glspContextMenuModule from "./features/context-menu/di.config";
 import glspEditLabelValidationModule from "./features/edit-label-validation/di.config";
 import executeModule from "./features/execute/di.config";
 import modelHintsModule from "./features/hints/di.config";
@@ -36,6 +37,9 @@ export * from './features/change-bounds/model';
 export * from './features/change-bounds/movement-restrictor';
 export * from './features/command-palette/action-definitions';
 export * from './features/command-palette/action-provider';
+export * from './features/context-menu/mouse-listener';
+export * from './features/context-menu/context-menu-service';
+export * from './features/context-menu/menu-providers';
 export * from './features/edit-label-validation/edit-label-validator';
 export * from './features/execute/execute-command';
 export * from './features/execute/model';
@@ -81,7 +85,7 @@ export * from './model-source/websocket-diagram-server';
 export * from "./model-source/glsp-server-status";
 export {
     validationModule, saveModule, executeModule, paletteModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule, glspCommandPaletteModule, requestResponseModule, //
-    glspSelectModule, glspMouseToolModule, layoutCommandsModule, glspEditLabelValidationModule
+    glspContextMenuModule, glspSelectModule, glspMouseToolModule, layoutCommandsModule, glspEditLabelValidationModule
 };
 
 

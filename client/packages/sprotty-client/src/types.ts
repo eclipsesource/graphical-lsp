@@ -23,5 +23,9 @@ export const GLSP_TYPES = {
     SelectionService: Symbol.for("SelectionService"),
     SelectionListener: Symbol.for("SelectionListener"),
     SModelRootListener: Symbol.for("SModelRootListener"),
-    MouseTool: Symbol.for("MouseTool")
+    MouseTool: Symbol.for("MouseTool"),
+    IContextMenuService: Symbol.for("IContextMenuService"),
+    IContextMenuServiceProvider: Symbol.for("IContextMenuServiceProvider"),
+    IContextMenuProviderRegistry: Symbol.for("IContextMenuProviderRegistry"),
+    IContextMenuProvider: Symbol.for("IContextMenuProvider")
 };

@@ -56,8 +56,7 @@ export class ServerCommandPaletteActionProvider implements ICommandPaletteAction
         const selectedElementIds = Array.from(root.index.all().filter(isSelected).map(e => e.id));
         const requestAction = new RequestCommandPaletteActions(selectedElementIds, text, lastMousePosition);
         const responseHandler = this.getPaletteActionsFromResponse;
-        const promise = this.requestResponseSupport.dispatchRequest(requestAction, responseHandler);
-        return promise;
+        return this.requestResponseSupport.dispatchRequest(requestAction, responseHandler);
     }
 
     getPaletteActionsFromResponse(action: Action): LabeledAction[] {
