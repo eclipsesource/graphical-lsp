@@ -84,13 +84,13 @@ export class NodeCreationToolMouseListener extends DragAwareMouseListener {
         super();
     }
 
-    protected creationAllowed(target: SModelElement) {
-        return this.container && this.container.isContainableElement(target);
+    protected creationAllowed(elementTypeId: string) {
+        return this.container && this.container.isContainableElement(elementTypeId);
     }
 
     nonDraggingMouseUp(target: SModelElement, event: MouseEvent): Action[] {
         const result: Action[] = [];
-        if (this.creationAllowed(target)) {
+        if (this.creationAllowed(this.elementTypeId)) {
             const containerId = this.container ? this.container.id : undefined;
             const location = getAbsolutePosition(target, event);
             result.push(new CreateNodeOperationAction(this.elementTypeId, location, containerId));
@@ -105,7 +105,7 @@ export class NodeCreationToolMouseListener extends DragAwareMouseListener {
         const currentContainer = findParentByFeature(target, isContainable);
         if (!this.container || currentContainer !== this.container) {
             this.container = currentContainer;
-            const feedback = this.creationAllowed(target)
+            const feedback = this.creationAllowed(this.elementTypeId)
                 ? new ApplyCursorCSSFeedbackAction(CursorCSS.NODE_CREATION) :
                 new ApplyCursorCSSFeedbackAction(CursorCSS.OPERATION_NOT_ALLOWED);
             this.tool.dispatchFeedback([feedback]);
