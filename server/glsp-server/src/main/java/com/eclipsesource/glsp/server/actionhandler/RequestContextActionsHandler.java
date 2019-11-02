@@ -15,35 +15,51 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.server.actionhandler;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import com.eclipsesource.glsp.api.action.Action;
-import com.eclipsesource.glsp.api.action.kind.RequestCommandPaletteActions;
-import com.eclipsesource.glsp.api.action.kind.SetCommandPaletteActions;
+import com.eclipsesource.glsp.api.action.kind.RequestContextActions;
+import com.eclipsesource.glsp.api.action.kind.SetContextActions;
 import com.eclipsesource.glsp.api.model.GraphicalModelState;
 import com.eclipsesource.glsp.api.provider.CommandPaletteActionProvider;
+import com.eclipsesource.glsp.api.provider.ContextMenuItemProvider;
 import com.eclipsesource.glsp.api.types.LabeledAction;
 import com.google.inject.Inject;
 
-public class RequestCommandPaletteActionsHandler extends AbstractActionHandler {
+public class RequestContextActionsHandler extends AbstractActionHandler {
+
 	@Inject
 	protected CommandPaletteActionProvider commandPaletteActionProvider;
 
+	@Inject
+	protected ContextMenuItemProvider contextMenuItemProvider;
+
 	@Override
 	public boolean handles(Action action) {
-		return action instanceof RequestCommandPaletteActions;
+		return action instanceof RequestContextActions;
 	}
 
 	@Override
 	public Optional<Action> execute(Action action, GraphicalModelState modelState) {
-		if (action instanceof RequestCommandPaletteActions) {
-			RequestCommandPaletteActions paletteAction = (RequestCommandPaletteActions) action;
-			List<String> selectedElementIds = paletteAction.getSelectedElementIds();
-			Set<LabeledAction> commandPaletteActions = commandPaletteActionProvider.getActions(modelState,
-					selectedElementIds, paletteAction.getText(), paletteAction.getLastMousePosition());
-			return Optional.of(new SetCommandPaletteActions(commandPaletteActions));
+		if (action instanceof RequestContextActions) {
+			RequestContextActions requestContextAction = (RequestContextActions) action;
+			List<String> selectedElementIds = requestContextAction.getSelectedElementIds();
+			String[] args = requestContextAction.getArgs();
+			Set<LabeledAction> items = new HashSet<>();
+			if (args.length > 0) {
+				if (args[0].equals(CommandPaletteActionProvider.KEY)) {
+					items.addAll(commandPaletteActionProvider.getActions(modelState, selectedElementIds,
+							requestContextAction.getLastMousePosition(), Arrays.copyOfRange(args, 1, args.length)));
+				} else if (args[0].equals(ContextMenuItemProvider.KEY)) {
+					items.addAll(contextMenuItemProvider.getItems(modelState, selectedElementIds,
+							requestContextAction.getLastMousePosition(), Arrays.copyOfRange(args, 1, args.length)));
+				}
+			}
+			return Optional.of(new SetContextActions(items, requestContextAction.getArgs()));
 		}
 		return Optional.empty();
 	}

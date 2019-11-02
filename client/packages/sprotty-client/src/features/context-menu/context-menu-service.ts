@@ -13,21 +13,15 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action } from "sprotty";
+import { LabeledAction } from "sprotty";
 
-export interface MenuItem {
+export interface MenuItem extends LabeledAction {
     /** Technical id of the menu item. */
     readonly id: string;
-    /** Label shown to the user. */
-    readonly label: string;
     /** String indicating the order. */
-    readonly sortString: string;
-    /** Actions to be executed on click of the menu item. Will be ignored if the item has children. */
-    readonly actions?: Action[];
+    readonly sortString?: string;
     /** String indicating the grouping (separators). Items with equal group will be in the same group. */
     readonly group?: string;
-    /** String indicating the icon (usually CSS classes). Multiple classes can be joined with a space. */
-    readonly icon?: string;
     /**
      * The optional parent id can be used to add this element as a child of another element provided by anohter menu provider.
      * The `parentId` must be fully qualified in the form of `a.b.c`, whereas `a`, `b` and `c` are referring to the IDs of other elements.

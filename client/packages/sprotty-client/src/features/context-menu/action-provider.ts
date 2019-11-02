@@ -14,28 +14,26 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { inject, injectable } from "inversify";
-import { Action, ICommandPaletteActionProvider, LabeledAction, Point, SModelElement } from "sprotty/lib";
+import { Action, LabeledAction, Point, SModelElement } from "sprotty/lib";
 
 import { GLSP_TYPES } from "../../types";
 import { isSelected } from "../../utils/smodel-util";
-import {
-    isSetContextActionsAction,
-    RequestContextActions as RequestContextActions
-} from "../context-actions/action-definitions";
+import { isSetContextActionsAction, RequestContextActions } from "../context-actions/action-definitions";
 import { RequestResponseSupport } from "../request-response/support";
+import { IContextMenuItemProvider } from "./menu-providers";
 
-export namespace ServerCommandPalette {
-    export const KEY = "command-palette";
+export namespace ServerContextMenu {
+    export const KEY = "context-menu";
 }
 
 @injectable()
-export class ServerCommandPaletteActionProvider implements ICommandPaletteActionProvider {
+export class ServerContextMenuItemProvider implements IContextMenuItemProvider {
 
     constructor(@inject(GLSP_TYPES.RequestResponseSupport) protected requestResponseSupport: RequestResponseSupport) { }
 
-    getActions(root: Readonly<SModelElement>, text: string, lastMousePosition?: Point): Promise<LabeledAction[]> {
+    getItems(root: Readonly<SModelElement>, lastMousePosition?: Point): Promise<LabeledAction[]> {
         const selectedElementIds = Array.from(root.index.all().filter(isSelected).map(e => e.id));
-        const requestAction = new RequestContextActions(selectedElementIds, lastMousePosition, [ServerCommandPalette.KEY, text]);
+        const requestAction = new RequestContextActions(selectedElementIds, lastMousePosition, [ServerContextMenu.KEY]);
         const responseHandler = this.getPaletteActionsFromResponse;
         return this.requestResponseSupport.dispatchRequest(requestAction, responseHandler);
     }

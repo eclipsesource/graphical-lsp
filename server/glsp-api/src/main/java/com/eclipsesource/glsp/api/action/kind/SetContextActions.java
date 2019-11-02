@@ -15,22 +15,25 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
+import java.util.Arrays;
 import java.util.Set;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.api.types.LabeledAction;
 
-public class SetCommandPaletteActions extends Action {
+public class SetContextActions extends Action {
 
 	private Set<LabeledAction> actions;
+	private String[] args;
 
-	public SetCommandPaletteActions() {
-		super(Action.Kind.SET_COMMAND_PALETTE_ACTIONS);
+	public SetContextActions() {
+		super(Action.Kind.SET_CONTEXT_ACTIONS);
 	}
 
-	public SetCommandPaletteActions(Set<LabeledAction> actions) {
+	public SetContextActions(Set<LabeledAction> actions, String... args) {
 		this();
 		this.actions = actions;
+		this.args = args;
 	}
 
 	public Set<LabeledAction> getActions() {
@@ -41,33 +44,39 @@ public class SetCommandPaletteActions extends Action {
 		this.actions = commandPaletteActions;
 	}
 
+	public String[] getArgs() {
+		return args;
+	}
+
+	public void setArgs(String[] args) {
+		this.args = args;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((actions == null) ? 0 : actions.hashCode());
+		result = prime * result + Arrays.hashCode(args);
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (!super.equals(obj)) {
+		if (!super.equals(obj))
 			return false;
-		}
-		if (!(obj instanceof SetCommandPaletteActions)) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
-		SetCommandPaletteActions other = (SetCommandPaletteActions) obj;
+		SetContextActions other = (SetContextActions) obj;
 		if (actions == null) {
-			if (other.actions != null) {
+			if (other.actions != null)
 				return false;
-			}
-		} else if (!actions.equals(other.actions)) {
+		} else if (!actions.equals(other.actions))
 			return false;
-		}
+		if (!Arrays.equals(args, other.args))
+			return false;
 		return true;
 	}
 

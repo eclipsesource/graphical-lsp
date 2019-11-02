@@ -40,8 +40,8 @@ import com.google.common.collect.Sets;
 public class WorkflowCommandPaletteActionProvider implements CommandPaletteActionProvider {
 
 	@Override
-	public Set<LabeledAction> getActions(GraphicalModelState modelState, List<String> selectedIds, String text,
-			Optional<GPoint> lastMousePosition) {
+	public Set<LabeledAction> getActions(GraphicalModelState modelState, List<String> selectedIds,
+			Optional<GPoint> lastMousePosition, String... args) {
 		Set<LabeledAction> actions = Sets.newLinkedHashSet();
 
 		GModelIndex index = modelState.getIndex();

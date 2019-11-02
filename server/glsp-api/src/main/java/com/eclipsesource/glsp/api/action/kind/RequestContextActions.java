@@ -15,30 +15,31 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.graph.GPoint;
 
-public class RequestCommandPaletteActions extends Action {
+public class RequestContextActions extends Action {
 
 	private List<String> selectedElementIds;
-	private String text;
+	private String[] args;
 	private GPoint lastMousePosition = null;
 
-	public RequestCommandPaletteActions() {
-		super(Action.Kind.REQUEST_COMMAND_PALETTE_ACTIONS);
+	public RequestContextActions() {
+		super(Action.Kind.REQUEST_CONTEXT_ACTIONS);
 	}
 	
-	public RequestCommandPaletteActions(List<String> selectedElementIds, String text) {
-		this(selectedElementIds, text, null);
+	public RequestContextActions(List<String> selectedElementIds, String... args) {
+		this(selectedElementIds, null, args);
 	}
 
-	public RequestCommandPaletteActions(List<String> selectedElementIds, String text, GPoint lastMousePosition) {
+	public RequestContextActions(List<String> selectedElementIds, GPoint lastMousePosition, String... args) {
 		this();
 		this.selectedElementIds = selectedElementIds;
-		this.text = text;
+		this.args = args;
 		this.lastMousePosition = lastMousePosition;
 	}
 
@@ -50,14 +51,14 @@ public class RequestCommandPaletteActions extends Action {
 		this.selectedElementIds = selectedElementsIDs;
 	}
 	
-	public String getText() {
-		return text;
+	public String[] getArgs() {
+		return args;
 	}
-	
-	public void setText(String text) {
-		this.text = text;
+
+	public void setArgs(String[] args) {
+		this.args = args;
 	}
-	
+
 	public Optional<GPoint> getLastMousePosition() {
 		return Optional.ofNullable(lastMousePosition);
 	}
@@ -70,9 +71,9 @@ public class RequestCommandPaletteActions extends Action {
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
+		result = prime * result + Arrays.hashCode(args);
 		result = prime * result + ((lastMousePosition == null) ? 0 : lastMousePosition.hashCode());
 		result = prime * result + ((selectedElementIds == null) ? 0 : selectedElementIds.hashCode());
-		result = prime * result + ((text == null) ? 0 : text.hashCode());
 		return result;
 	}
 
@@ -84,7 +85,9 @@ public class RequestCommandPaletteActions extends Action {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		RequestCommandPaletteActions other = (RequestCommandPaletteActions) obj;
+		RequestContextActions other = (RequestContextActions) obj;
+		if (!Arrays.equals(args, other.args))
+			return false;
 		if (lastMousePosition == null) {
 			if (other.lastMousePosition != null)
 				return false;
@@ -94,11 +97,6 @@ public class RequestCommandPaletteActions extends Action {
 			if (other.selectedElementIds != null)
 				return false;
 		} else if (!selectedElementIds.equals(other.selectedElementIds))
-			return false;
-		if (text == null) {
-			if (other.text != null)
-				return false;
-		} else if (!text.equals(other.text))
 			return false;
 		return true;
 	}

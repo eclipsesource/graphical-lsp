@@ -35,7 +35,7 @@ export * from './base/tool-manager/tool-manager-action-handler';
 export * from './base/command-stack';
 export * from './features/change-bounds/model';
 export * from './features/change-bounds/movement-restrictor';
-export * from './features/command-palette/action-definitions';
+export * from './features/context-actions/action-definitions';
 export * from './features/command-palette/action-provider';
 export * from './features/context-menu/mouse-listener';
 export * from './features/context-menu/context-menu-service';

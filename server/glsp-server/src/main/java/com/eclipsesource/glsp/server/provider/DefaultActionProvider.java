@@ -38,7 +38,7 @@ import com.eclipsesource.glsp.api.action.kind.OpenAction;
 import com.eclipsesource.glsp.api.action.kind.ReconnectConnectionOperationAction;
 import com.eclipsesource.glsp.api.action.kind.RedoAction;
 import com.eclipsesource.glsp.api.action.kind.RequestBoundsAction;
-import com.eclipsesource.glsp.api.action.kind.RequestCommandPaletteActions;
+import com.eclipsesource.glsp.api.action.kind.RequestContextActions;
 import com.eclipsesource.glsp.api.action.kind.RequestExportSvgAction;
 import com.eclipsesource.glsp.api.action.kind.RequestLayersAction;
 import com.eclipsesource.glsp.api.action.kind.RequestMarkersAction;
@@ -108,7 +108,7 @@ public class DefaultActionProvider implements ActionProvider {
 		defaultActions.add(new ToogleLayerAction());
 		defaultActions.add(new UpdateModelAction());
 		defaultActions.add(new ExecuteServerCommandAction());
-		defaultActions.add(new RequestCommandPaletteActions());
+		defaultActions.add(new RequestContextActions());
 		defaultActions.add(new IdentifiableRequestAction());
 		defaultActions.add(new ReconnectConnectionOperationAction());
 		defaultActions.add(new RerouteConnectionOperationAction());

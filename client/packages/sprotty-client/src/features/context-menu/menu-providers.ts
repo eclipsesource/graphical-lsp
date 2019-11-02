@@ -14,23 +14,23 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { injectable, multiInject, optional } from "inversify";
-import { DeleteElementAction, isDeletable, Point, SModelRoot } from "sprotty";
+import { DeleteElementAction, isDeletable, LabeledAction, Point, SModelRoot } from "sprotty";
 
 import { GLSP_TYPES } from "../../types";
 import { isSelected } from "../../utils/smodel-util";
 import { MenuItem } from "./context-menu-service";
 
-export interface IContextMenuProvider {
-    getActions(root: Readonly<SModelRoot>, lastMousePosition?: Point): Promise<MenuItem[]>;
+export interface IContextMenuItemProvider {
+    getItems(root: Readonly<SModelRoot>, lastMousePosition?: Point): Promise<LabeledAction[]>;
 }
 
 @injectable()
-export class ContextMenuProviderRegistry implements IContextMenuProvider {
+export class ContextMenuProviderRegistry implements IContextMenuItemProvider {
 
-    constructor(@multiInject(GLSP_TYPES.IContextMenuProvider) @optional() protected menuProviders: IContextMenuProvider[] = []) { }
+    constructor(@multiInject(GLSP_TYPES.IContextMenuProvider) @optional() protected menuProviders: IContextMenuItemProvider[] = []) { }
 
-    getActions(root: Readonly<SModelRoot>, lastMousePosition?: Point) {
-        const menues = this.menuProviders.map(provider => provider.getActions(root, lastMousePosition));
+    getItems(root: Readonly<SModelRoot>, lastMousePosition?: Point) {
+        const menues = this.menuProviders.map(provider => provider.getItems(root, lastMousePosition));
         return Promise.all(menues).then(this.flattenAndRestructure);
     }
 
@@ -62,117 +62,15 @@ export class ContextMenuProviderRegistry implements IContextMenuProvider {
 }
 
 @injectable()
-export class DeleteContextMenuProviderRegistry implements IContextMenuProvider {
-    getActions(root: Readonly<SModelRoot>, lastMousePosition?: Point): Promise<MenuItem[]> {
+export class DeleteContextMenuProviderRegistry implements IContextMenuItemProvider {
+    getItems(root: Readonly<SModelRoot>, lastMousePosition?: Point): Promise<MenuItem[]> {
         const selectedElements = Array.from(root.index.all().filter(isSelected).filter(isDeletable));
-        return Promise.resolve([
-            {
-                id: "edit",
-                label: "Edit",
-                sortString: "1_edit",
-                group: "a",
-                children: [
-                    {
-                        id: "delete",
-                        label: "Delete",
-                        sortString: "1",
-                        icon: "fa problem-tab-icon",
-                        actions: [new DeleteElementAction(selectedElements.map(e => e.id))],
-                        isEnabled: () => selectedElements.length > 0,
-                        isVisible: () => true,
-                        isToggled: () => false
-                    },
-                    {
-                        id: "delete2",
-                        label: "Delete2",
-                        sortString: "2",
-                        icon: "fa problem-tab-icon",
-                        actions: [new DeleteElementAction(selectedElements.map(e => e.id))],
-                    },
-                    {
-                        id: "delete3",
-                        label: "Delete3",
-                        sortString: "3",
-                        group: "c",
-                        icon: "fa problem-tab-icon",
-                        actions: [new DeleteElementAction(selectedElements.map(e => e.id))],
-                        isEnabled: () => selectedElements.length > 0,
-                        isVisible: () => true,
-                        isToggled: () => false
-                    }
-                ]
-            },
-            {
-                id: "edit2",
-                label: "Edit2",
-                sortString: "1_edit",
-                group: "a",
-                children: [
-                    {
-                        id: "edit_child1",
-                        label: "Edit_Child",
-                        sortString: "1_edit",
-                        group: "a",
-                        children: [
-                            {
-                                id: "delete",
-                                label: "Delete",
-                                sortString: "1",
-                                icon: "fa problem-tab-icon",
-                                actions: [new DeleteElementAction(selectedElements.map(e => e.id))],
-                                isEnabled: () => selectedElements.length > 0,
-                                isVisible: () => true,
-                                isToggled: () => false
-                            }]
-                    },
-                    {
-                        id: "delete2",
-                        label: "Delete2",
-                        sortString: "2",
-                        icon: "fa problem-tab-icon",
-                        actions: [new DeleteElementAction(selectedElements.map(e => e.id))],
-                        isEnabled: () => selectedElements.length > 0,
-                        isVisible: () => true,
-                        isToggled: () => false
-                    },
-                    {
-                        id: "delete3",
-                        label: "Delete3",
-                        sortString: "3",
-                        group: "c",
-                        icon: "fa problem-tab-icon",
-                        actions: [new DeleteElementAction(selectedElements.map(e => e.id))],
-                        isEnabled: () => selectedElements.length > 0,
-                        isVisible: () => true,
-                        isToggled: () => false
-                    }
-                ]
-            },
-            {
-                id: "delete-picked",
-                label: "Delete (picked)",
-                sortString: "1",
-                icon: "fa problem-tab-icon",
-                parentId: "edit2.edit_child1",
-                actions: [new DeleteElementAction(selectedElements.map(e => e.id))],
-                isEnabled: () => selectedElements.length > 0,
-                isVisible: () => true,
-                isToggled: () => false
-            }
-        ]);
-    }
-}
-
-/*
-@injectable()
-export class DeleteContextMenuProviderRegistry implements IContextMenuProvider {
-    getActions(root: Readonly<SModelRoot>, lastMousePosition?: Point): Promise<MenuItem[]> {
-        const selectedElements = Array.from(root.index.all().filter(isSelected).filter(element => isDeletable(element)));
         return Promise.resolve([
             {
                 id: "delete",
                 label: "Delete",
-                sortString: "1",
+                sortString: "t",
+                group: "edit",
                 actions: [new DeleteElementAction(selectedElements.map(e => e.id))],
                 isEnabled: () => selectedElements.length > 0,
                 isVisible: () => true,
@@ -181,4 +79,3 @@ export class DeleteContextMenuProviderRegistry implements IContextMenuProvider {
         ]);
     }
 }
-*/

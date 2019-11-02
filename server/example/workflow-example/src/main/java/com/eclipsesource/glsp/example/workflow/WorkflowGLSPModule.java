@@ -122,7 +122,7 @@ public class WorkflowGLSPModule extends DefaultGLSPModule {
 	protected Class<? extends CommandPaletteActionProvider> bindCommandPaletteActionProvider() {
 		return WorkflowCommandPaletteActionProvider.class;
 	}
-
+	
 	@Override
 	protected Collection<Class<? extends ServerCommandHandler>> bindServerCommandHandlers() {
 		return Arrays.asList(SimulateCommandHandler.class);

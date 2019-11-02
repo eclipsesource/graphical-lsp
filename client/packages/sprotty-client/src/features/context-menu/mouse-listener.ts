@@ -40,7 +40,7 @@ export class ContextMenuMouseListener extends MouseListener {
                 selectableTarget.selected = true;
             }
             const restoreSelection = () => { if (selectableTarget) selectableTarget.selected = isTargetSelected; };
-            Promise.all([this.contextMenuService(), this.menuProvider.getActions(target.root, mousePosition)])
+            Promise.all([this.contextMenuService(), this.menuProvider.getItems(target.root, mousePosition)])
                 .then(([menuService, menuItems]) => menuService.show(menuItems, mousePosition, restoreSelection));
         }
         return [];
