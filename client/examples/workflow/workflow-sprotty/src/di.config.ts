@@ -26,6 +26,7 @@ import {
     decorationModule,
     defaultGLSPModule,
     defaultModule,
+    DeleteContextMenuProviderRegistry,
     DiamondNodeView,
     edgeLayoutModule,
     editLabelFeature,
@@ -56,6 +57,7 @@ import {
     PreRenderedElement,
     PreRenderedView,
     requestResponseModule,
+    RevealNamedElementActionProvider,
     routingModule,
     saveModule,
     SButton,
@@ -83,6 +85,8 @@ const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind
     rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
     rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
     bind(GLSP_TYPES.IMovementRestrictor).to(NoCollisionMovementRestrictor).inSingletonScope();
+    bind(TYPES.ICommandPaletteActionProvider).to(RevealNamedElementActionProvider);
+    bind(GLSP_TYPES.IContextMenuProvider).to(DeleteContextMenuProviderRegistry);
     const context = { bind, unbind, isBound, rebind };
     configureModelElement(context, 'graph', GLSPGraph, SGraphView);
     configureModelElement(context, 'task:automated', TaskNode, TaskNodeView);

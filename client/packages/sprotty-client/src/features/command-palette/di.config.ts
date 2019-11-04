@@ -16,13 +16,11 @@
 import "../../../css/command-palette.css";
 
 import { ContainerModule } from "inversify";
-import { RevealNamedElementActionProvider, TYPES } from "sprotty/lib";
+import { TYPES } from "sprotty/lib";
 
 import { ServerCommandPaletteActionProvider } from "./action-provider";
 
-const glspCommandPaletteModule = new ContainerModule((bind, unbind, isBound, rebind) => {
-    bind(TYPES.ICommandPaletteActionProvider).to(RevealNamedElementActionProvider);
-    bind(ServerCommandPaletteActionProvider).toSelf().inSingletonScope();
+const glspCommandPaletteModule = new ContainerModule((bind) => {
     bind(TYPES.ICommandPaletteActionProvider).to(ServerCommandPaletteActionProvider);
 });
 

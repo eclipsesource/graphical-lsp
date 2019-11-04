@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { inject, injectable } from "inversify";
-import { Action, LabeledAction, Point, SModelElement } from "sprotty/lib";
+import { Action, LabeledAction, Point, SModelElement, subtract } from "sprotty/lib";
 
 import { GLSP_TYPES } from "../../types";
 import { isSelected } from "../../utils/smodel-util";
@@ -33,12 +33,12 @@ export class ServerContextMenuItemProvider implements IContextMenuItemProvider {
 
     getItems(root: Readonly<SModelElement>, lastMousePosition?: Point): Promise<LabeledAction[]> {
         const selectedElementIds = Array.from(root.index.all().filter(isSelected).map(e => e.id));
-        const requestAction = new RequestContextActions(selectedElementIds, lastMousePosition, [ServerContextMenu.KEY]);
-        const responseHandler = this.getPaletteActionsFromResponse;
-        return this.requestResponseSupport.dispatchRequest(requestAction, responseHandler);
+        const localPosition = lastMousePosition ? root.root.parentToLocal(subtract(lastMousePosition, root.root.canvasBounds)) : undefined;
+        const requestAction = new RequestContextActions(selectedElementIds, localPosition, [ServerContextMenu.KEY]);
+        return this.requestResponseSupport.dispatchRequest(requestAction, this.getContextActionsFromResponse);
     }
 
-    getPaletteActionsFromResponse(action: Action): LabeledAction[] {
+    getContextActionsFromResponse(action: Action): LabeledAction[] {
         if (isSetContextActionsAction(action)) {
             return action.actions;
         }

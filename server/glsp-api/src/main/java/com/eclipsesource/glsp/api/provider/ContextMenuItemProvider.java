@@ -32,7 +32,7 @@ public interface ContextMenuItemProvider {
 	Set<MenuItem> getItems(GraphicalModelState modelState, List<String> selectedElementIds,
 			Optional<GPoint> lastMousePosition, String... args);
 
-	default Set<MenuItem> getActions(GraphicalModelState modelState, List<String> selectedElementIds,
+	default Set<MenuItem> getItems(GraphicalModelState modelState, List<String> selectedElementIds,
 			GPoint lastMousePosition, String... args) {
 		return getItems(modelState, selectedElementIds, Optional.ofNullable(lastMousePosition), args);
 	}

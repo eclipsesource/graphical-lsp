@@ -18,8 +18,9 @@ import { TYPES } from "sprotty/lib";
 
 import { GLSP_TYPES } from "../../types";
 import { IContextMenuService } from "./context-menu-service";
-import { ContextMenuProviderRegistry, DeleteContextMenuProviderRegistry } from "./menu-providers";
+import { ContextMenuProviderRegistry } from "./menu-providers";
 import { ContextMenuMouseListener } from "./mouse-listener";
+import { ServerContextMenuItemProvider } from "./server-context-menu-provider";
 
 const glspContextMenuModule = new ContainerModule(bind => {
     bind(GLSP_TYPES.IContextMenuServiceProvider).toProvider<IContextMenuService>(ctx => {
@@ -35,8 +36,7 @@ const glspContextMenuModule = new ContainerModule(bind => {
     });
     bind(TYPES.MouseListener).to(ContextMenuMouseListener);
     bind(GLSP_TYPES.IContextMenuProviderRegistry).to(ContextMenuProviderRegistry);
-    // TODO move this out of this module:
-    bind(GLSP_TYPES.IContextMenuProvider).to(DeleteContextMenuProviderRegistry);
+    bind(GLSP_TYPES.IContextMenuProvider).to(ServerContextMenuItemProvider);
 });
 
 export default glspContextMenuModule;

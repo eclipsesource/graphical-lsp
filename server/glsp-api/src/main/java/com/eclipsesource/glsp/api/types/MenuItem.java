@@ -46,12 +46,12 @@ public class MenuItem extends LabeledAction {
 		this(id, label, children, null);
 	}
 
-	public MenuItem(String id, String label, List<MenuItem> children, String icon) {
-		this(id, label, children, icon, null);
+	public MenuItem(String id, String label, List<MenuItem> children, String group) {
+		this(id, label, children, group, null);
 	}
 
-	public MenuItem(String id, String label, List<MenuItem> children, String icon, String group) {
-		this(id, label, Collections.emptyList(), icon, group, null, null, true, false, children);
+	public MenuItem(String id, String label, List<MenuItem> children, String group, String sortString) {
+		this(id, label, Collections.emptyList(), null, sortString, group, null, true, false, children);
 	}
 
 	public MenuItem(String id, String label, List<Action> actions, String icon, String sortString, String group,

@@ -48,7 +48,7 @@ export class TheiaContextMenuService implements IContextMenuService {
     protected register(menuPath: string[], items: MenuItem[]): DisposableItem[] {
         const disposables: DisposableItem[] = [];
         for (const item of items) {
-            if (item.children) {
+            if (item.children && item.children.length > 0) {
                 const menuPathOfItem = item.group ? [...menuPath, item.group] : menuPath;
                 disposables.push(this.registerSubmenu(menuPathOfItem, item));
                 disposables.push(...this.register([...menuPathOfItem, item.id], item.children));
@@ -93,15 +93,15 @@ class GlspCommandHandler implements CommandHandler {
     }
 
     isEnabled(...args: any[]): boolean {
-        return this.menuItem.isEnabled ? this.menuItem.isEnabled() : true;
+        return getBooleanValue(this.menuItem.isEnabled, true);
     }
 
     isVisible(...args: any[]): boolean {
-        return this.menuItem.isVisible ? this.menuItem.isVisible() : true;
+        return getBooleanValue(this.menuItem.isVisible, true);
     }
 
     isToggled(...args: any[]): boolean {
-        return this.menuItem.isToggled ? this.menuItem.isToggled() : false;
+        return getBooleanValue(this.menuItem.isToggled, false);
     }
 }
 
@@ -127,4 +127,22 @@ class DisposableCommand implements DisposableItem {
 
 function commandId(menuPath: string[], item: any): string {
     return menuPath.join(".") + "." + item.id;
+}
+
+function getBooleanValue(value: any, defaultValue: boolean) {
+    let returnVal = defaultValue;
+    if (isFunction(value)) {
+        returnVal = value();
+    } else if (isBoolean(value)) {
+        returnVal = value;
+    }
+    return returnVal;
+}
+
+function isFunction(value: () => boolean | boolean): value is () => boolean {
+    return !!(value && value.constructor && value.call && value.apply);
+}
+
+function isBoolean(value: () => boolean | boolean): boolean {
+    return typeof value === "boolean";
 }

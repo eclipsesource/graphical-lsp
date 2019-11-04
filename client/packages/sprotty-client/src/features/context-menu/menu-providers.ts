@@ -35,7 +35,7 @@ export class ContextMenuProviderRegistry implements IContextMenuItemProvider {
     }
 
     private flattenAndRestructure(p: MenuItem[][]): MenuItem[] {
-        let menuItems = p.reduce((acc, promise) => promise !== undefined ? acc.concat(promise) : acc);
+        let menuItems = p.reduce((acc, promise) => promise !== undefined ? acc.concat(promise) : acc, []);
         const menuItemsWithParentId = menuItems.filter(menuItem => menuItem.parentId);
         for (const menuItem of menuItemsWithParentId) {
             if (menuItem.parentId) {
