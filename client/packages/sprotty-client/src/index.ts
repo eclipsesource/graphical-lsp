@@ -37,9 +37,7 @@ export * from './features/change-bounds/model';
 export * from './features/change-bounds/movement-restrictor';
 export * from './features/context-actions/action-definitions';
 export * from './features/command-palette/action-provider';
-export * from './features/context-menu/mouse-listener';
-export * from './features/context-menu/context-menu-service';
-export * from './features/context-menu/menu-providers';
+export * from './features/context-menu/server-context-menu-provider';
 export * from './features/edit-label-validation/edit-label-validator';
 export * from './features/execute/execute-command';
 export * from './features/execute/model';
@@ -84,8 +82,8 @@ export * from './utils/viewpoint-util';
 export * from './model-source/websocket-diagram-server';
 export * from "./model-source/glsp-server-status";
 export {
-    validationModule, saveModule, executeModule, paletteModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule, glspCommandPaletteModule, requestResponseModule, //
-    glspContextMenuModule, glspSelectModule, glspMouseToolModule, layoutCommandsModule, glspEditLabelValidationModule
+    validationModule, saveModule, executeModule, paletteModule, toolFeedbackModule, defaultGLSPModule, modelHintsModule, requestResponseModule, //
+    glspCommandPaletteModule, glspContextMenuModule, glspSelectModule, glspMouseToolModule, layoutCommandsModule, glspEditLabelValidationModule
 };
 
 

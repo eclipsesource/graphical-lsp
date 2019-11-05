@@ -14,13 +14,11 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { inject, injectable } from "inversify";
-import { Action, LabeledAction, Point, SModelElement, subtract } from "sprotty/lib";
+import { Action, IContextMenuItemProvider, isSelected, LabeledAction, Point, SModelElement, subtract } from "sprotty/lib";
 
 import { GLSP_TYPES } from "../../types";
-import { isSelected } from "../../utils/smodel-util";
 import { isSetContextActionsAction, RequestContextActions } from "../context-actions/action-definitions";
 import { RequestResponseSupport } from "../request-response/support";
-import { IContextMenuItemProvider } from "./menu-providers";
 
 export namespace ServerContextMenu {
     export const KEY = "context-menu";

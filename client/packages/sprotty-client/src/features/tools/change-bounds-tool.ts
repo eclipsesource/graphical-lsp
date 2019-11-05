@@ -20,6 +20,7 @@ import {
     Dimension,
     ElementAndBounds,
     findParentByFeature,
+    isSelected,
     isViewport,
     KeyTool,
     MouseListener,
@@ -32,7 +33,7 @@ import {
 } from "sprotty/lib";
 
 import { GLSP_TYPES } from "../../types";
-import { forEachElement, isNonRoutableSelectedBoundsAware, isSelected, toElementAndBounds } from "../../utils/smodel-util";
+import { forEachElement, isNonRoutableSelectedBoundsAware, toElementAndBounds } from "../../utils/smodel-util";
 import { isBoundsAwareMoveable, isResizable, ResizeHandleLocation, SResizeHandle } from "../change-bounds/model";
 import { IMovementRestrictor } from "../change-bounds/movement-restrictor";
 import { IMouseTool } from "../mouse-tool/mouse-tool";

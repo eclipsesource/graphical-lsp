@@ -16,7 +16,7 @@
 import {
     BoundsAware,
     isBoundsAware,
-    isSelectable,
+    isSelected,
     Selectable,
     SModelElement,
     SRoutableElement,
@@ -50,10 +50,6 @@ export function getSelectedElementCount(element: SModelElement): number {
         .filter(isSelected)
         .forEach(e => selected = selected + 1);
     return selected;
-}
-
-export function isSelected(element: SModelElement | undefined): element is SModelElement & Selectable {
-    return isNotUndefined(element) && isSelectable(element) && element.selected;
 }
 
 export function isNotUndefined<T>(element: T | undefined): element is T {

@@ -23,6 +23,7 @@ import {
     commandPaletteModule,
     configureModelElement,
     ConsoleLogger,
+    contextMenuModule,
     decorationModule,
     defaultGLSPModule,
     defaultModule,
@@ -114,7 +115,7 @@ export default function createContainer(widgetId: string): Container {
 
     container.load(decorationModule, validationModule, defaultModule, glspMouseToolModule, defaultGLSPModule, glspSelectModule, boundsModule, viewportModule,
         hoverModule, fadeModule, exportModule, expandModule, openModule, buttonModule, modelSourceModule, labelEditModule, labelEditUiModule, glspEditLabelValidationModule,
-        workflowDiagramModule, saveModule, executeCommandModule, toolFeedbackModule, modelHintsModule, glspContextMenuModule,
+        workflowDiagramModule, saveModule, executeCommandModule, toolFeedbackModule, modelHintsModule, contextMenuModule, glspContextMenuModule,
         commandPaletteModule, glspCommandPaletteModule, paletteModule, requestResponseModule, routingModule, edgeLayoutModule,
         layoutCommandsModule, zorderModule);
 
