@@ -18,9 +18,10 @@ package com.eclipsesource.glsp.api.action.kind;
 import java.util.Set;
 
 import com.eclipsesource.glsp.api.action.Action;
+import com.eclipsesource.glsp.api.action.ResponseAction;
 import com.eclipsesource.glsp.api.types.LabeledAction;
 
-public class SetCommandPaletteActions extends Action {
+public class SetCommandPaletteActions extends ResponseAction {
 
 	private Set<LabeledAction> actions;
 

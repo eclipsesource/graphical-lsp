@@ -19,9 +19,10 @@ import java.util.List;
 import java.util.Optional;
 
 import com.eclipsesource.glsp.api.action.Action;
+import com.eclipsesource.glsp.api.action.RequestAction;
 import com.eclipsesource.glsp.graph.GPoint;
 
-public class RequestCommandPaletteActions extends Action {
+public class RequestCommandPaletteActions extends RequestAction<SetCommandPaletteActions> {
 
 	private List<String> selectedElementIds;
 	private String text;
