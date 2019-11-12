@@ -27,10 +27,10 @@ import { RequestCommandPaletteActions } from "../features/command-palette/action
 import { ExecuteServerCommandAction } from "../features/execute/execute-command";
 import { RequestTypeHintsAction } from "../features/hints/request-type-hints-action";
 import { OperationKind, RequestOperationsAction } from "../features/operation/set-operations";
-import { IdentifiableRequestAction } from "../features/request-response/action-definitions";
 import { SaveModelAction } from "../features/save/save";
 import { GlspRedoAction, GlspUndoAction } from "../features/undo-redo/model";
 import { RequestMarkersAction } from "../features/validation/validate";
+import { ValidateLabelEditAction } from "../features/edit-label-validation/edit-label-validator";
 
 @injectable()
 export class GLSPWebsocketDiagramServer extends DiagramServer {
@@ -100,7 +100,7 @@ export function registerDefaultGLSPServerActions(registry: ActionHandlerRegistry
     registry.register(RequestModelAction.KIND, diagramServer);
     registry.register(ExportSvgAction.KIND, diagramServer);
     registry.register(RequestCommandPaletteActions.KIND, diagramServer);
-    registry.register(IdentifiableRequestAction.KIND, diagramServer);
+    registry.register(ValidateLabelEditAction.KIND, diagramServer);
     registry.register(RequestMarkersAction.KIND, diagramServer);
     registry.register(LayoutAction.KIND, diagramServer);
     registry.register(ApplyLabelEditAction.KIND, diagramServer);

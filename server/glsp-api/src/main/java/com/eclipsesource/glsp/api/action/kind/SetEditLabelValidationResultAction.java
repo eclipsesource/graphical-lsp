@@ -16,9 +16,10 @@
 package com.eclipsesource.glsp.api.action.kind;
 
 import com.eclipsesource.glsp.api.action.Action;
+import com.eclipsesource.glsp.api.action.ResponseAction;
 import com.eclipsesource.glsp.api.labeledit.EditLabelValidationResult;
 
-public class SetEditLabelValidationResultAction extends Action {
+public class SetEditLabelValidationResultAction extends ResponseAction {
 
 	private EditLabelValidationResult result;
 

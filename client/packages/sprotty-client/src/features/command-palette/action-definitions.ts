@@ -13,21 +13,24 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action, LabeledAction, Point } from "sprotty/lib";
+import { Action, generateRequestId, LabeledAction, Point, RequestAction, ResponseAction } from "sprotty/lib";
 
-export class RequestCommandPaletteActions implements Action {
+export class RequestCommandPaletteActions implements RequestAction<SetCommandPaletteActions> {
     static readonly KIND = "requestCommandPaletteActions";
     kind = RequestCommandPaletteActions.KIND;
     constructor(
         public readonly selectedElementIds: string[] = [],
         public readonly text: string,
-        public readonly lastMousePosition?: Point) { }
+        public readonly lastMousePosition?: Point,
+        public readonly requestId: string = generateRequestId()) { }
 }
 
-export class SetCommandPaletteActions implements Action {
+export class SetCommandPaletteActions implements ResponseAction {
     static readonly KIND = "setCommandPaletteActions";
     kind = SetCommandPaletteActions.KIND;
-    constructor(public readonly actions: LabeledAction[]) { }
+    constructor(
+        public readonly actions: LabeledAction[],
+        public readonly responseId: string = '') { }
 }
 
 export function isSetCommandPaletteActionsAction(action: Action): action is SetCommandPaletteActions {

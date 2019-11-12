@@ -32,7 +32,6 @@ import com.eclipsesource.glsp.api.action.kind.DeleteOperationAction;
 import com.eclipsesource.glsp.api.action.kind.ExecuteServerCommandAction;
 import com.eclipsesource.glsp.api.action.kind.ExportSVGAction;
 import com.eclipsesource.glsp.api.action.kind.FitToScreenAction;
-import com.eclipsesource.glsp.api.action.kind.IdentifiableRequestAction;
 import com.eclipsesource.glsp.api.action.kind.LayoutAction;
 import com.eclipsesource.glsp.api.action.kind.OpenAction;
 import com.eclipsesource.glsp.api.action.kind.ReconnectConnectionOperationAction;
@@ -109,7 +108,6 @@ public class DefaultActionProvider implements ActionProvider {
 		defaultActions.add(new UpdateModelAction());
 		defaultActions.add(new ExecuteServerCommandAction());
 		defaultActions.add(new RequestCommandPaletteActions());
-		defaultActions.add(new IdentifiableRequestAction());
 		defaultActions.add(new ReconnectConnectionOperationAction());
 		defaultActions.add(new RerouteConnectionOperationAction());
 		defaultActions.add(new LayoutAction());
