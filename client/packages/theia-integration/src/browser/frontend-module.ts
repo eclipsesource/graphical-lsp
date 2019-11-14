@@ -13,22 +13,21 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { CommandContribution } from "@theia/core";
+import { bindContributionProvider, CommandContribution, MenuContribution } from "@theia/core";
+import { FrontendApplicationContribution, KeybindingContribution } from "@theia/core/lib/browser";
 import { ContainerModule } from "inversify";
-import { FrontendApplicationContribution } from "@theia/core/lib/browser";
-import { GLSPClientContribution } from "./language/glsp-client-contribution";
-import { GLSPClientFactory } from "./language/glsp-client";
-import { GLSPClientProvider } from "./language/glsp-client-provider";
-import { GLSPClientProviderImpl } from "./language/glsp-client-provider";
-import { GLSPDiagramCommandContribution } from "./diagram/glsp-diagram-commands";
-import { GLSPDiagramKeybindingContribution } from "./diagram/glsp-diagram-commands";
-import { GLSPDiagramMenuContribution } from "./diagram/glsp-diagram-commands";
-import { GLSPFrontendContribution } from "./language/glsp-frontend-contribution";
-import { GLSPTheiaSprottyConnector } from "./diagram/glsp-theia-sprotty-connector";
-import { KeybindingContribution } from "@theia/core/lib/browser";
-import { MenuContribution } from "@theia/core";
 
-import { bindContributionProvider } from "@theia/core";
+import {
+    GLSPDiagramCommandContribution,
+    GLSPDiagramKeybindingContribution,
+    GLSPDiagramMenuContribution
+} from "./diagram/glsp-diagram-commands";
+import { TheiaContextMenuService } from "./diagram/glsp-theia-context-menu-service";
+import { GLSPTheiaSprottyConnector } from "./diagram/glsp-theia-sprotty-connector";
+import { GLSPClientFactory } from "./language/glsp-client";
+import { GLSPClientContribution } from "./language/glsp-client-contribution";
+import { GLSPClientProvider, GLSPClientProviderImpl } from "./language/glsp-client-provider";
+import { GLSPFrontendContribution } from "./language/glsp-frontend-contribution";
 
 
 export default new ContainerModule(bind => {
@@ -45,4 +44,6 @@ export default new ContainerModule(bind => {
     bind(CommandContribution).to(GLSPDiagramCommandContribution).inSingletonScope();
     bind(MenuContribution).to(GLSPDiagramMenuContribution).inSingletonScope();
     bind(KeybindingContribution).to(GLSPDiagramKeybindingContribution).inSingletonScope();
+
+    bind(TheiaContextMenuService).toSelf().inSingletonScope();
 });

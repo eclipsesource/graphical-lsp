@@ -16,8 +16,9 @@
 import "sprotty-theia/css/theia-sprotty.css";
 
 import { createWorkflowDiagramContainer } from "@glsp-examples/workflow-sprotty/lib";
-import { registerDefaultTools, TYPES } from "@glsp/sprotty-client/lib";
+import { GLSP_TYPES, IActionDispatcher, registerDefaultTools, TYPES } from "@glsp/sprotty-client/lib";
 import { GLSPTheiaDiagramServer } from "@glsp/theia-integration/lib/browser";
+import { TheiaContextMenuService } from "@glsp/theia-integration/lib/browser/diagram/glsp-theia-context-menu-service";
 import { SelectionService } from "@theia/core";
 import { Container, inject, injectable } from "inversify";
 import { DiagramConfiguration, TheiaDiagramServer, TheiaSprottySelectionForwarder } from "sprotty-theia/lib";
@@ -27,6 +28,8 @@ import { WorkflowLanguage } from "../../common/workflow-language";
 @injectable()
 export class WorkflowDiagramConfiguration implements DiagramConfiguration {
     @inject(SelectionService) protected selectionService: SelectionService;
+    @inject(TheiaContextMenuService) protected readonly contextMenuService: TheiaContextMenuService;
+
     diagramType: string = WorkflowLanguage.DiagramType;
 
     createContainer(widgetId: string): Container {
@@ -36,6 +39,10 @@ export class WorkflowDiagramConfiguration implements DiagramConfiguration {
         // container.rebind(KeyTool).to(TheiaKeyTool).inSingletonScope()
         container.bind(TYPES.IActionHandlerInitializer).to(TheiaSprottySelectionForwarder);
         container.bind(SelectionService).toConstantValue(this.selectionService);
+        container.bind(GLSP_TYPES.IContextMenuService).toConstantValue(this.contextMenuService);
+        if (this.contextMenuService instanceof TheiaContextMenuService) {
+            this.contextMenuService.connect(container.get<IActionDispatcher>(TYPES.IActionDispatcher));
+        }
         registerDefaultTools(container);
         return container;
     }

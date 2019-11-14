@@ -52,7 +52,6 @@ export class BaseGLSPClient implements GLSPClient {
         this.onStop = undefined;
         this._onReady = Promise.resolve();
         this.state = ClientState.Initial;
-
     }
 
     start(): Disposable {
@@ -135,6 +134,7 @@ export class BaseGLSPClient implements GLSPClient {
         }
         this.resolvedConnection!.onNotification(type, handler);
     }
+
     sendNotification<P, RO>(type: NotificationType<P, RO>, params?: P): void {
         if (!this.isConnectionActive()) {
             throw new Error('GLSP client is not ready yet');

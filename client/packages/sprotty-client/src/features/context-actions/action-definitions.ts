@@ -15,25 +15,28 @@
  ********************************************************************************/
 import { Action, generateRequestId, LabeledAction, Point, RequestAction, ResponseAction } from "sprotty/lib";
 
-export class RequestCommandPaletteActions implements RequestAction<SetCommandPaletteActions> {
-    static readonly KIND = "requestCommandPaletteActions";
-    kind = RequestCommandPaletteActions.KIND;
+export namespace ContextActions {
+    export const UI_CONTROL_KEY = "ui-control";
+}
+
+export class RequestContextActions implements RequestAction<SetContextActions> {
+    static readonly KIND = "requestContextActions";
+    kind = RequestContextActions.KIND;
     constructor(
         public readonly selectedElementIds: string[] = [],
-        public readonly text: string,
         public readonly lastMousePosition?: Point,
+        public readonly args?: { [key: string]: string | number | boolean },
         public readonly requestId: string = generateRequestId()) { }
 }
 
-export class SetCommandPaletteActions implements ResponseAction {
-    static readonly KIND = "setCommandPaletteActions";
-    kind = SetCommandPaletteActions.KIND;
-    constructor(
-        public readonly actions: LabeledAction[],
+export class SetContextActions implements ResponseAction {
+    static readonly KIND = "setContextActions";
+    kind = SetContextActions.KIND;
+    constructor(public readonly actions: LabeledAction[],
         public readonly responseId: string = '') { }
 }
 
-export function isSetCommandPaletteActionsAction(action: Action): action is SetCommandPaletteActions {
-    return action !== undefined && (action.kind === SetCommandPaletteActions.KIND)
-        && (<SetCommandPaletteActions>action).actions !== undefined;
+export function isSetContextActionsAction(action: Action): action is SetContextActions {
+    return action !== undefined && (action.kind === SetContextActions.KIND)
+        && (<SetContextActions>action).actions !== undefined;
 }
