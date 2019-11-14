@@ -38,7 +38,6 @@ import { GLSP_TYPES } from "../../types";
 *  UpdateModel behaves the same as SetModel if no model is present yet.*/
 @injectable()
 export class SetModelActionHandler implements IActionHandler {
-    handledActionKinds = [SetModelCommand.KIND];
     handle(action: Action): Action | void {
         if (isSetModelAction(action)) {
             return new UpdateModelAction(action.newRoot, false);

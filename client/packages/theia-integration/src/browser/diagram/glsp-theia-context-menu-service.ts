@@ -26,11 +26,16 @@ export namespace TheiaGlspContextMenu {
 @injectable()
 export class TheiaContextMenuService implements IContextMenuService {
 
-    protected actionDispatcher?: IActionDispatcher;
+    @inject(ContextMenuRenderer)
+    protected readonly contextMenuRenderer: ContextMenuRenderer;
 
-    constructor(@inject(ContextMenuRenderer) protected readonly contextMenuRenderer: ContextMenuRenderer,
-        @inject(MenuModelRegistry) protected readonly menuProvider: MenuModelRegistry,
-        @inject(CommandRegistry) protected readonly commandRegistry: CommandRegistry) { }
+    @inject(MenuModelRegistry)
+    protected readonly menuProvider: MenuModelRegistry;
+
+    @inject(CommandRegistry)
+    protected readonly commandRegistry: CommandRegistry;
+
+    protected actionDispatcher?: IActionDispatcher;
 
     connect(actionDispatcher: IActionDispatcher) {
         this.actionDispatcher = actionDispatcher;
