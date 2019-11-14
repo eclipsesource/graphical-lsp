@@ -31,12 +31,12 @@ export class ServerCommandPaletteActionProvider implements ICommandPaletteAction
 
     constructor(@inject(TYPES.IActionDispatcher) protected actionDispatcher: GLSPActionDispatcher) { }
 
-    getActions(root: Readonly<SModelElement>, text: string, lastMousePosition?: Point): Promise<LabeledAction[]> {
+    getActions(root: Readonly<SModelElement>, text: string, lastMousePosition?: Point, index?: number): Promise<LabeledAction[]> {
         const selectedElementIds = Array.from(root.index.all().filter(isSelected).map(e => e.id));
         const requestAction = new RequestContextActions(selectedElementIds, lastMousePosition, {
             [ContextActions.UI_CONTROL_KEY]: ServerCommandPalette.KEY,
             [ServerCommandPalette.TEXT]: text,
-            [ServerCommandPalette.INDEX]: 0
+            [ServerCommandPalette.INDEX]: index ? index : 0
         });
         return this.actionDispatcher.requestUntil(requestAction).then(response => this.getPaletteActionsFromResponse(response));
     }
