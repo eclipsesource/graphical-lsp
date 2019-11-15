@@ -15,6 +15,8 @@
  ******************************************************************************/
 package com.eclipsesource.glsp.api.action.kind;
 
+import java.util.Optional;
+
 import com.eclipsesource.glsp.api.action.Action;
 import com.eclipsesource.glsp.graph.GPoint;
 
@@ -29,9 +31,13 @@ public class CreateNodeOperationAction extends AbstractOperationAction {
 	public CreateNodeOperationAction() {
 		this(null, null, null);
 	}
-
+	
 	public CreateNodeOperationAction(String elementTypeId) {
 		this(elementTypeId, null, null);
+	}
+
+	public CreateNodeOperationAction(String elementTypeId, Optional<GPoint> location) {
+		this(elementTypeId, location.orElse(null), null);
 	}
 
 	public CreateNodeOperationAction(String elementTypeId, GPoint location) {

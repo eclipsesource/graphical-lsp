@@ -27,8 +27,10 @@ import com.eclipsesource.glsp.graph.GPoint;
 
 @FunctionalInterface
 public interface CommandPaletteActionProvider {
-	
-	public static String KEY = "command-palette";
+
+  public static String KEY = "command-palette";
+  public static String TEXT = "text";
+  public static String INDEX = "index";
 
 	Set<LabeledAction> getActions(GraphicalModelState modelState, List<String> selectedElementIds,
 			Optional<GPoint> lastMousePosition, Map<String, String> args);
@@ -36,6 +38,14 @@ public interface CommandPaletteActionProvider {
 	default Set<LabeledAction> getActions(GraphicalModelState modelState, List<String> selectedElementIds,
 			GPoint lastMousePosition, Map<String, String> args) {
 		return getActions(modelState, selectedElementIds, Optional.ofNullable(lastMousePosition), args);
+	}
+
+	default String getText(Map<String, String> args) {
+		return args.getOrDefault(TEXT, "");
+	}
+
+	default int getIndex(Map<String, String> args) {
+		return (int) Double.parseDouble(args.getOrDefault(INDEX, "0.0"));
 	}
 
 	public static class NullImpl implements CommandPaletteActionProvider {
