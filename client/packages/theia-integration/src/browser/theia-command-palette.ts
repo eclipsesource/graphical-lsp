@@ -13,18 +13,8 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import { CommandPalette } from "sprotty";
 
-export * from './theia-command-palette';
-// diagram export
-export * from './diagram/glsp-diagram-client';
-export * from './diagram/glsp-diagram-manager';
-export * from './diagram/glsp-diagram-widget';
-export * from './diagram/glsp-theia-diagram-server';
-export * from './diagram/glsp-theia-sprotty-connector';
-// language export
-export * from './language/glsp-client';
-export * from './language/glsp-client-contribution';
-export * from './language/glsp-client-provider';
-export * from './language/glsp-client-services';
-export * from './language/glsp-frontend-contribution';
-
+export class TheiaCommandPalette extends CommandPalette {
+    protected loadingIndicatorClasses = ['loading', 'fa', 'fa-spinner', 'fa-pulse', 'fa-3x', 'fa-fw'];
+}

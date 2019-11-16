@@ -14,17 +14,22 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
-export * from './theia-command-palette';
-// diagram export
-export * from './diagram/glsp-diagram-client';
-export * from './diagram/glsp-diagram-manager';
-export * from './diagram/glsp-diagram-widget';
-export * from './diagram/glsp-theia-diagram-server';
-export * from './diagram/glsp-theia-sprotty-connector';
-// language export
-export * from './language/glsp-client';
-export * from './language/glsp-client-contribution';
-export * from './language/glsp-client-provider';
-export * from './language/glsp-client-services';
-export * from './language/glsp-frontend-contribution';
+.command-palette {
+    box-shadow: var(--theia-border-width) var(--theia-border-width) var(--theia-border-color0);
+    background-color: var(--theia-layout-color0);
+}
 
+.command-palette-suggestions>div:hover:not(.group) {
+    background: var(--theia-layout-color2);
+}
+
+.command-palette-suggestions>div.selected {
+    background: var(--theia-accent-color4);
+}
+
+.command-palette .loading {
+    position: absolute;
+    font-size: inherit;
+    top: 5px;
+    right: 0;
+}
