@@ -1,4 +1,4 @@
-# **!!! This repository is discontinued. This project has moved to [eclipse/glsp](https://github.com/eclipse-glsp/glsp) and will be maintained there !!!**
+# **!!! This repository is discontinued. This project has moved to [eclipse-glsp](https://github.com/eclipse-glsp/glsp) and will be maintained there !!!**
 
 # Graphical Language Server Protocol Framework [![Build Status](https://travis-ci.org/eclipsesource/graphical-lsp.svg?branch=master)](https://travis-ci.org/eclipsesource/graphical-lsp)
 
