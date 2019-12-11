@@ -1,3 +1,5 @@
+**!!! This repository is discontinued. This project has moved to [eclipse/sprotty](https://github.com/eclipse/sprotty) and will be maintained there !!!**
+
 # Graphical Language Server Protocol Framework [![Build Status](https://travis-ci.org/eclipsesource/graphical-lsp.svg?branch=master)](https://travis-ci.org/eclipsesource/graphical-lsp)
 
 The Graphical Language Server Protocol Framework provides extensible components to enable the development of *diagram editors including edit functionality* in (distributed) web-applications via a client-server protocol.
